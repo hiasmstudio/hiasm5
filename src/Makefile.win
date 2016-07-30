@@ -1,0 +1,16 @@
+CC = g++
+
+CPPFLAGS = -Wall -c -O2 $(shell pkg-config gtkmm-2.4 --cflags)
+LDLIBS = -mwindows $(shell pkg-config gtkmm-2.4 --libs) -lsqlite3
+
+SOURCES = $(wildcard *.cpp) 
+APP = hiasm5.exe
+
+all: $(APP)
+
+clean:
+	del $(APP) *.o
+
+$(APP): $(SOURCES:%.cpp=%.o)
+	$(LINK.o) $^ $(LDLIBS) -o $@
+	strip $@
