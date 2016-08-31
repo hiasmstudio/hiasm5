@@ -1,0 +1,98 @@
+Make(_base)
+ver(5.0.5)
+Add(hcTplDialog,1,511,182)
+{
+ Left=20
+ Top=105
+ Width=450
+ Visible=1
+ Caption="Text editor"
+ Buttons=['StockID'="gtk-open",'StockID'="gtk-save",'StockID'="gtk-clear",'StockID'="gtk-ok"]
+ link(onButtonDown,11:doCompare,[])
+ Point(doVisible)
+}
+Add(hcHiAsmTrasmitter,2,378,175)
+{
+ link(onInit,5:doEvent1,[])
+}
+Add(hcOpenDialog,3,189,84)
+{
+ link(onExecute,6:doLoad,[(258,90)(258,90)])
+}
+Add(hcHub,4,343,175)
+{
+ link(onEvent1,2:doReturn,[])
+ link(onEvent2,9:doData,[(417,188)(417,195)])
+}
+Add(hcHub,5,427,175)
+{
+ link(onEvent1,15:doValue,[(455,181)(455,160)(269,160)(269,125)])
+ link(onEvent2,10:doWork2,[])
+}
+Add(hcTplMemo,6,273,70)
+{
+ Left=15
+ Top=65
+ Width=295
+ Height=240
+}
+Add(hcSaveDialog,7,189,126)
+{
+ link(onExecute,6:doSave,[(247,132)(247,97)])
+}
+Add(hcIndexToChanel,8,84,154)
+{
+ Count=4
+ link(onEvent1,3:doExecute,[(164,160)(164,90)])
+ link(onEvent2,7:doExecute,[(173,167)(173,132)])
+ link(onEvent3,14:doWork2,[(152,174)(152,83)])
+ link(onEvent4,16:doData,[])
+}
+Add(hcDoData,9,462,189)
+{
+ Data=Integer(0)
+ link(onEventData,1:doVisible,[])
+}
+Add(HubEx,10,497,182)
+{
+ link(onEvent,1:doRun,[])
+}
+Add(hcIf_else,11,567,189)
+{
+ Op2=Integer(-4)
+ link(onTrue,17:doData,[(613,195)(613,261)(272,261)(272,223)])
+ link(onFalse,12:doEvent1,[])
+}
+Add(hcHub,12,637,196)
+{
+ link(onEvent1,8:doEvent,[(662,202)(662,279)(70,279)(70,160)])
+ link(onEvent2,13:doCompare,[])
+}
+Add(hcIf_else,13,672,203)
+{
+ Type=1
+ Op2=Integer(3)
+ link(onTrue,10:doWork1,[(718,209)(718,179)(501,179)])
+}
+Add(HubEx,14,245,77)
+{
+ link(onEvent,6:doText,[])
+}
+Add(hcMemory,15,287,119)
+{
+ link(onData,14:doWork1,[(335,125)(335,58)(249,58)])
+}
+Add(hcDoData,16,273,175)
+{
+ link(onEventData,18:doWork2,[])
+ link(Data,6:Text,[])
+}
+Add(hcDoData,17,287,217)
+{
+ link(onEventData,18:doWork3,[(333,223)])
+ link(Data,15:Value,[])
+}
+Add(HubEx,18,329,175)
+{
+ link(onEvent,4:doEvent1,[])
+}

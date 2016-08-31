@@ -1,0 +1,360 @@
+Make(_base)
+ver(5.0.4)
+Add(hcTplDialog,1,154,147)
+{
+ Left=20
+ Top=105
+ Visible=1
+ Caption="New param"
+ Buttons=['StockID'="gtk-ok",'StockID'="gtk-cancel"]
+ link(onButtonDown,47:doEvent1,[(198,160)(198,216)])
+ Point(doVisible)
+}
+Add(hcHiAsmTrasmitter,2,56,140)
+{
+ link(onInit,59:doEvent1,[])
+}
+Add(hcTplChildHBox,5,581,112)
+{
+}
+BEGIN_SDK
+ Add(hcEditMulti,3,14,14)
+ {
+  @Width=300
+  @Height=200
+  VarCount=1
+  link(Var1,8:Text,[(20,137)(188,137)])
+ }
+ Add(hcTplHBox,4,56,56)
+ {
+  Left=55
+  Top=55
+  Height=30
+  Expand=1
+ }
+ Add(hcTplLabel,7,105,28)
+ {
+  Left=105
+  Top=25
+  Width=110
+  Caption="Code name"
+  Expand=1
+ }
+ Add(hcTplEdit,8,182,28)
+ {
+  Left=180
+  Top=25
+  Height=22
+ }
+END_SDK
+Add(hcTplChildHBox,11,434,91)
+{
+}
+BEGIN_SDK
+ Add(hcEditMulti,9,14,14)
+ {
+  @Width=300
+  @Height=200
+  VarCount=1
+  link(Var1,14:Text,[(20,137)(188,137)])
+ }
+ Add(hcTplHBox,10,56,56)
+ {
+  Left=55
+  Top=55
+  Height=30
+  Expand=1
+ }
+ Add(hcTplLabel,13,105,28)
+ {
+  Left=105
+  Top=25
+  Width=110
+  Caption="Title"
+  Expand=1
+ }
+ Add(hcTplEdit,14,182,28)
+ {
+  Left=180
+  Top=25
+  Height=22
+ }
+END_SDK
+Add(hcTplChildHBox,17,602,154)
+{
+}
+BEGIN_SDK
+ Add(hcEditMulti,15,14,14)
+ {
+  @Width=221
+  @Height=125
+  @VOffset=42
+  @HOffset=154
+  WorkCount=1
+  VarCount=2
+  link(doWork1,22:doWork1,[])
+  link(Var1,22:Var1,[])
+  link(Var2,22:Var2,[])
+ }
+ Add(hcTplHBox,16,56,56)
+ {
+  Left=55
+  Top=55
+  Height=30
+  Expand=1
+ }
+ Add(hcTplLabel,19,112,70)
+ {
+  Left=105
+  Top=25
+  Width=110
+  Caption="Type"
+  Expand=1
+ }
+ Add(hcTplChildHBox,22,168,56)
+ {
+ }
+ BEGIN_SDK
+  Add(hcEditMulti,20,14,14)
+  {
+   @Width=284
+   @Height=171
+   @VOffset=49
+   @HOffset=112
+   WorkCount=1
+   VarCount=2
+   link(doWork1,27:doData,[])
+   link(Var1,24:Index,[])
+   link(Var2,26:Text,[(139,151)(237,151)])
+  }
+  Add(hcTplHBox,21,56,56)
+  {
+   Left=55
+   Top=55
+  }
+  Add(hcTplComboBox,24,119,56)
+  {
+   Left=110
+   Top=35
+   Width=145
+   Strings=#6:(none)|7:Integer|6:Double|6:String|5:Color|4:List|
+   Expand=1
+   Point(Index)
+   Point(doSelectByIndex)
+  }
+  Add(hcTplLabel,25,175,56)
+  {
+   Left=175
+   Top=55
+   Caption="List"
+   Expand=1
+   Padding=5
+  }
+  Add(hcTplEdit,26,231,56)
+  {
+   Left=230
+   Top=60
+   Height=22
+  }
+  Add(hcDoData,27,56,63)
+  {
+   link(onEventData,24:doSelectByIndex,[])
+  }
+ END_SDK
+END_SDK
+Add(hcTplChildHBox,30,427,140)
+{
+ link(onEvent1,17:doWork1,[])
+}
+BEGIN_SDK
+ Add(hcEditMulti,28,14,14)
+ {
+  @Width=297
+  @Height=200
+  @VOffset=105
+  @HOffset=231
+  EventCount=1
+  WorkCount=1
+  VarCount=1
+  link(doWork1,36:doEvent1,[])
+  link(Var1,33:EditText,[])
+ }
+ Add(hcTplHBox,29,56,56)
+ {
+  Left=55
+  Top=55
+  Height=30
+  Expand=1
+ }
+ Add(hcTplLabel,32,105,28)
+ {
+  Left=105
+  Top=25
+  Width=110
+  Caption="Group"
+  Expand=1
+ }
+ Add(hcTplComboBox,33,238,70)
+ {
+  Left=150
+  Top=25
+  Point(doClear)
+  Point(doSelectByIndex)
+  Point(EditText)
+ }
+ Add(hcDoData,34,161,126)
+ {
+  Data=String((none))
+  link(onEventData,37:doWork2,[])
+ }
+ Add(hcDSC_Query,35,168,133)
+ {
+  SQL="SELECT name FROM params WHERE type = 0"
+  DSManager="parent.mainds"
+  link(onQuery,37:doWork3,[(207,139)])
+ }
+ Add(hcHub,36,56,119)
+ {
+  OutCount=5
+  link(onEvent1,33:doClear,[(148,125)(148,83)])
+  link(onEvent2,34:doData,[])
+  link(onEvent3,35:doQuery,[])
+  link(onEvent4,38:doData,[])
+  link(onEvent5,28:onEvent1,[(88,153)(88,182)(284,182)(284,125)])
+ }
+ Add(HubEx,37,203,126)
+ {
+  Angle=3
+  link(onEvent,33:doAdd,[(207,76)])
+ }
+ Add(hcDoData,38,98,140)
+ {
+  link(onEventData,33:doSelectByIndex,[(156,146)(156,90)])
+ }
+END_SDK
+Add(hcTplChildHBox,41,448,42)
+{
+}
+BEGIN_SDK
+ Add(hcEditMulti,39,14,14)
+ {
+  @Width=300
+  @Height=200
+  VarCount=1
+  link(Var1,44:Text,[(20,137)(188,137)])
+ }
+ Add(hcTplHBox,40,56,56)
+ {
+  Left=55
+  Top=55
+  Padding=2
+ }
+ Add(hcTplLabel,43,105,28)
+ {
+  Left=105
+  Top=25
+  Width=110
+  Caption="Description"
+  Expand=1
+ }
+ Add(hcTplMemo,44,182,28)
+ {
+  Left=180
+  Top=25
+ }
+END_SDK
+Add(hcDoData,45,245,217)
+{
+ link(onEventData,1:doVisible,[(286,223)(286,257)(140,257)(140,160)])
+}
+Add(hcDS_SQLite,46,280,140)
+{
+ Name="mainds"
+ link(onOpen,30:doWork1,[])
+}
+Add(hcHub,47,210,210)
+{
+ link(onEvent1,60:doCompare,[])
+ link(onEvent2,45:doData,[])
+}
+Add(hcFormatStr,48,434,259)
+{
+ StrCount=1
+ Mask="INSERT INTO info_id_en(info) VALUES('%1')"
+ link(onFString,54:doExec,[])
+ link(Str1,11:Var1,[])
+}
+Add(hcFormatStr,49,448,308)
+{
+ StrCount=1
+ Mask="INSERT INTO info_id_en(info) VALUES('%1')"
+ link(onFString,55:doExec,[])
+ link(Str1,41:Var1,[])
+}
+Add(hcDSC_QueryScalar,50,476,210)
+{
+ DSManager="mainds"
+ link(onQuery,61:doOperation,[])
+}
+Add(hcFormatStr,51,427,210)
+{
+ StrCount=1
+ Mask="SELECT id FROM params WHERE name = '%1'"
+ link(onFString,50:doQuery,[])
+ link(Str1,30:Var1,[])
+}
+Add(hcMemory,52,574,210)
+{
+}
+Add(hcHub,53,364,210)
+{
+ OutCount=4
+ link(onEvent1,51:doString,[])
+ link(onEvent2,48:doString,[(414,223)(414,265)])
+ link(onEvent3,49:doString,[(402,230)(402,314)])
+ link(onEvent4,56:doString,[(392,237)(392,384)])
+}
+Add(hcDSC_Exec,54,588,259)
+{
+ DSManager="mainds"
+}
+Add(hcDSC_Exec,55,595,308)
+{
+ DSManager="mainds"
+}
+Add(hcFormatStr,56,574,378)
+{
+ StrCount=6
+ Mask="INSERT INTO params(pid, name, title_id, info_id, type, list) VALUES(%1, '%2', %3, %4, %5, '%6')"
+ link(onFString,57:doExec,[])
+ link(Str1,52:Value,[])
+ link(Str2,5:Var1,[])
+ link(Str3,54:RowID,[])
+ link(Str4,55:RowID,[])
+ link(Str5,17:Var1,[])
+ link(Str6,17:Var2,[])
+}
+Add(hcDSC_Exec,57,644,378)
+{
+ DSManager="mainds"
+ link(onError,58:doMessage,[])
+}
+Add(hcMessage,58,700,385)
+{
+ Caption="Execute error"
+ Icon="gtk-dialog-error"
+}
+Add(hcHub,59,112,140)
+{
+ link(onEvent1,46:doOpen,[])
+ link(onEvent2,1:doRun,[])
+}
+Add(hcIf_else,60,308,210)
+{
+ link(onTrue,53:doEvent1,[])
+}
+Add(hcMath,61,525,210)
+{
+ ResultType=0
+ link(onResult,52:doValue,[])
+}

@@ -1,0 +1,64 @@
+style "size"
+{
+        xthickness = 2
+        ythickness = 2
+	
+        #bg[NORMAL] = "#f6f6f6"
+        #fg[NORMAL] = "#000000"
+}
+
+# elements palette
+widget_class "*.<GtkToolPalette>*" style "size"
+
+style "default-style"
+{
+        # изменение x/ythickness (толщина), используется для расстояния между объектами
+        xthickness = 0
+        ythickness = 0
+
+        #Определяем так называемые «style-properties»
+        GtkRange::slider-width = 15
+
+        # Фоновая заливка – светло серая
+        #bg[NORMAL] = "#ff0000"
+        # and the forground to black
+        #fg[NORMAL] = "#000000"
+}
+
+# main toolbar
+class "GtkToolbar" style "default-style"
+widget_class "*.GtkToolItemGroup*" style "default-style"
+widget_class "*.<GtkRadioToolButton>*" style "size"
+
+style "tabs_size"
+{
+        # изменение x/ythickness (толщина), используется для расстояния между объектами
+        xthickness = 1
+        ythickness = 1
+
+        #Определяем так называемые «style-properties»
+        GtkRange::slider-width = 15
+
+        # Фоновая заливка – светло серая
+        #bg[NORMAL] = "#ff0000"
+        # and the forground to black
+        #fg[NORMAL] = "#000000"
+}
+
+# main toolbar
+#widget_class "*.<GtkNotebook>*" style "bg"
+
+style "bg"
+{
+        #Определяем так называемые «style-properties»
+        GtkRange::slider-width = 15
+
+        # Фоновая заливка – светло серая
+        bg[NORMAL] = "#ff0000"
+        # and the forground to black
+        fg[NORMAL] = "#000000"
+	base[NORMAL] = "#00ff00"
+}
+
+#class "GtkWidget" style "bg"
+

@@ -1,0 +1,7 @@
+Package: hiasm5-common
+Version: %version%
+Section: devel
+Architecture: all
+Maintainer: Dilma <support@hiasm.com>
+Description: HiAsm Studio 5 common files
+ Contain share data for HiAsm Studio 5

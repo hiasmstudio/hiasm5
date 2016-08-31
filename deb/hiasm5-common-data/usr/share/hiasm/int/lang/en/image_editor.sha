@@ -1,0 +1,99 @@
+Make(_base)
+ver(5.0.5)
+Add(hcTplDialog,1,476,168)
+{
+ Left=20
+ Top=105
+ Width=450
+ Visible=1
+ Caption="Image editor"
+ Buttons=['StockID'="gtk-open",'StockID'="gtk-save",'StockID'="gtk-clear",'StockID'="gtk-ok"]
+ link(onButtonDown,10:doCompare,[])
+ Point(doVisible)
+}
+Add(hcHiAsmTrasmitter,2,336,161)
+{
+ link(onInit,5:doEvent1,[])
+}
+Add(hcOpenDialog,3,147,63)
+{
+ link(onExecute,18:doLoadFromFile,[(250,69)(222,69)])
+}
+Add(hcHub,4,301,161)
+{
+ link(onEvent1,2:doReturn,[])
+ link(onEvent2,8:doData,[(375,174)(375,181)])
+}
+Add(hcHub,5,385,161)
+{
+ link(onEvent1,14:doValue,[(413,167)(413,146)(227,146)(227,111)])
+ link(onEvent2,9:doWork2,[])
+}
+Add(hcSaveDialog,6,147,112)
+{
+}
+Add(hcIndexToChanel,7,42,140)
+{
+ Count=4
+ link(onEvent1,3:doExecute,[(122,146)(122,69)])
+ link(onEvent2,6:doExecute,[(131,153)(131,118)])
+ link(onEvent3,13:doWork2,[(113,160)(113,55)])
+ link(onEvent4,15:doData,[])
+}
+Add(hcDoData,8,420,175)
+{
+ Data=Integer(0)
+ link(onEventData,1:doVisible,[])
+}
+Add(HubEx,9,455,168)
+{
+ link(onEvent,1:doRun,[])
+}
+Add(hcIf_else,10,525,175)
+{
+ Op2=Integer(-4)
+ link(onTrue,16:doData,[(571,181)(571,247)(230,247)(230,209)])
+ link(onFalse,11:doEvent1,[])
+}
+Add(hcHub,11,595,182)
+{
+ link(onEvent1,7:doEvent,[(620,188)(620,265)(28,265)(28,146)])
+ link(onEvent2,12:doCompare,[])
+}
+Add(hcIf_else,12,630,189)
+{
+ Type=1
+ Op2=Integer(3)
+ link(onTrue,9:doWork1,[(676,195)(676,165)(459,165)])
+}
+Add(HubEx,13,203,49)
+{
+ Angle=1
+ link(onEvent,18:doLoadFromImage,[(207,76)])
+}
+Add(hcMemory,14,245,105)
+{
+ link(onData,13:doWork3,[(291,111)(291,55)])
+}
+Add(hcDoData,15,231,161)
+{
+ link(onEventData,17:doWork2,[])
+ link(Data,18:Picture,[])
+}
+Add(hcDoData,16,245,203)
+{
+ link(onEventData,17:doWork3,[(291,209)])
+ link(Data,14:Value,[])
+}
+Add(HubEx,17,287,161)
+{
+ link(onEvent,4:doEvent1,[])
+}
+Add(hcTplImage,18,231,63)
+{
+ Left=10
+ Top=60
+ Width=300
+ Height=270
+ Point(doLoadFromImage)
+}

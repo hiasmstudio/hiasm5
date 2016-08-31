@@ -1,0 +1,18 @@
+
+[Desktop Entry]
+Name=HiAsm Studio 5
+Comment=Create and build applications
+Exec=hiasm5
+Icon=hiasm5
+StartupNotify=true
+Terminal=true
+Type=Application
+X-GNOME-DocPath=grecord/grecord.xml
+Categories=GNOME;GTK;Development;
+X-GNOME-Bugzilla-Bugzilla=GNOME
+X-GNOME-Bugzilla-Product=gnome-media
+X-GNOME-Bugzilla-Component=Gnome-Sound-Recorder
+X-GNOME-Bugzilla-Version=2.28.1
+X-Ubuntu-Gettext-Domain=gnome-media-2.0
+Name[ru]=HiAsm Studio 5
+Name[en_GB]=HiAsm Studio 5
