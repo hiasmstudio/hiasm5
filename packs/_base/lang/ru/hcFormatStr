@@ -1,0 +1,5 @@
+Build string by mask=Формирование строки по маске
+Number of substrings (first index is 1: from %1 to %DataCount)=Кол-во подстрок (в маске подстроки нумеруются с 1: от %1 до %DataCount)
+Mask of formed string=Маска формируемой строки
+Event emit every time after build string and give it in thread=Событие происходит всякий раз после формирования строки и выдаёт её в поток
+Contains the result of a formed string=Результат формирования строки по маске

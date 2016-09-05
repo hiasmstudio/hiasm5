@@ -1,0 +1,8 @@
+Query to data source for obtain value of first cell=Запрос к источнику данных для получения значения одной ячейки таблицы
+Text of query on SQL language=Текст запроса на языке SQL
+Manager of data source=Менеджер источника данных
+Execute SQL string in data source=Выполняет строку запроса на языке SQL
+Event emit every time after execute query in data source and gives value of first cell in thread ARG(Data)=Событие происходит после выполнения запроса к базе данных и выдает в поток значение полученной ячейки ARG(Data)
+Event emit every time after error and give her text in thread=Событие происходит в случае ошибки и выдает её описание в поток
+Contains value of cell=Содержит значение ячейки
+

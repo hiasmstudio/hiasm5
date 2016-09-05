@@ -1,0 +1,9 @@
+Replace text in string=Замена текста в строке
+Defines string by default, which need to replaced=Строка по-умолчанию, которую нужно заменить
+Defines string by default, on which need to replaced=Строка по-умолчанию, на которую нужно заменить
+Replace substring "Source" in string "Str" on string "Dest" (replaced all found strings)=Производит замену подстроки Source в строке Str на строку Dest (заменяются все найденные подстроки)
+Event emit every time after replace string and gives result in thread=Событие происходит всякий раз при завершении замены строк
+Contains result of the operation=Содержит результат операции
+Defines string, in which need replace substrings=Строка, в которой происходит замена
+Defines string, which need to replaced=Подстрока, которую нужно заменить
+Defines string, on which need to replaced=Подстрока, на которую нужно заменить

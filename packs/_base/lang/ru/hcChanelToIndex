@@ -1,0 +1,4 @@
+Returns index of active entry point=Возвращает индекс активированной точки входа 
+Defines number of methods element's=Задает число методов компонента
+Event emit every time after called one of method doWork and returns in thread index of this method (top index equals 0)=Событие происходит после вызова одного из методов doWork и возвращает в поток индекс этого метода (верхний индекс равен 0)
+Data of input thread, who saved before run event onIndex=Данные входного потока, запомненные перед вызовом onIndex

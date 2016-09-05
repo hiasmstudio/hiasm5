@@ -1,0 +1,4 @@
+Button of selects color=Кнопка выбора цвета
+Color by default=Цвет по умолчанию
+Title of dialog color selector=Заголовок диалога выбора цвета
+Event emit every time after select color and gives his in thread ARG(Color)=Событие происходит всякий раз после выбора цвета и выдает его в поток ARG(Color)

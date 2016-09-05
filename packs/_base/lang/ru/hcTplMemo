@@ -1,0 +1,15 @@
+Display and edit text=Поле ввода
+Defines file name for load and save list=Определяет имя файла для загрузки/сохранения списка по-умолчанию
+Initial list of strings=Начальный список строк при загрузке компонента
+Makes text as read only=При установке параметра в True текст будет доступен только для чтения
+Add string in list=Добавляет строку в список
+Initializes list of strings the text from thread=Инициализирует список текстом из потока
+Load list of strings from file=Загружает список строк из файла
+Save list of strings to file=Сохраняет список строк в файле
+Clear list=Очищает список
+Replaces selected text=Заменяет выделенный текст
+Event emit every time after change text in element=Сoбытиe пpoиcxoдит вcякий paз пpи измeнeнии тeкcтa в кoмпoнeнтe
+Contains text from edit field=Хранит текст из поля ввода
+Contains number of lines in edit field=Хранит число строк в текстовом поле
+String for adding to element=Строка для ввода в элемент
+File name for load\save list=Имя файла для загрузки/сохранения списка

@@ -1,0 +1,9 @@
+Show dialog with text=Показывает диалог с текстом
+Defines text of displayed message by default=Содержит текст выводимого сообщения по-умолчанию
+Defines caption of message dialog=Содержит заголовок сообщения
+Defines list of buttons in message=Задаёт набор кнопок в сообщении
+Defines internal image from GTK theme=Встроенная картинка из темы GTK
+Show message on the screen=Выводит сообщение на экран
+Event emit every time after showing message dialog and give in thread code of pressed button=Событие происходит всякий раз после вызова сообщения и выдаёт в поток код нажатой клавиши
+Defines text of displayed message=Определяет текст сообщения
+

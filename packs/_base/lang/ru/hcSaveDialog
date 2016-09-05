@@ -1,0 +1,8 @@
+Save the file dialog=Сохранение файла
+Defines filter of selected file=Задает фильтр выбора файлов
+Defines title of dialog=Заголовок диалога
+Defines initial folder=Каталог первого запуска
+Defines initial file name in dialog=Начальное имя файла в диалоге выбора
+Displays dialog window=Открывает окно диалога
+Event emit every time after user clicked button OK(file is selected)=Событие происходит всякий раз при нажатии кнопки ОК (файл выбран)
+Event emit every time after user clicked button Cancel(file is not selected)=Событие происходит всякий раз при нажатии кнопки Отмена (файл не выбран)

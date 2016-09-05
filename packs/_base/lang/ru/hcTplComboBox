@@ -1,0 +1,13 @@
+Drop list=Выпадающий список
+Defines file name for load and save list=Имя файла для загрузки/сохранения списка
+Initial list of strings=Начальный список строк при загрузке компонента
+Index - put in thread index of selected string, String - put in thread the string=Index - выдать в поток индекс выбранной строки, String - саму строку
+Determines if the user can edit the text in the editable widget or no=при установке параметра в True текст будет доступен только для чтения
+Add string in list=Добавляет строку в список из потока или поля str
+Clear list=Очищает список
+Selects specified item of list by index=Делает указанный пункт списка выбранным
+Event emit every time after select item of list and give it in thread=Событие происходит всякий раз при выборе пункта списка
+Contains index of selected element of list=Хранит индекс текущего выделенного элемента
+Contains text from area of enter=Хранит текст в области ввода компонента
+String for adding to list=Строка для добавления в список
+

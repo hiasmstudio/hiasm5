@@ -1,0 +1,8 @@
+Source of data SQLite=Источник данных SQLite
+Element's name=Имя элемента
+Path to file of database=Путь к файлу базы данных
+Opens database=Открывает базу данных
+Closes database=Закрывает базу данных
+Event emit every time after successful opening of the database=Событие происходит всякий раз после успешного открытия базы данных
+Event emit every time after the error=Событие происходит всякий раз после возникновения ошибки
+

@@ -1,0 +1,14 @@
+Search files on disk=Пoиcк файлов на диске
+Extension on searched files by default=Расширение искомых файлов по умолчанию
+Defines folder for search files=Директория поиска
+Check all subdirs included in current dir=Указывает компоненту на необходимость проверки всех подкаталогов, находящихся в текущем каталоге
+True - receive full path to file including his name, False - receive only name=True - выдавать полный путь к файлу, включая его имя, False - выдавать только имя
+Files - give in thread only file names, Dirs - only folders, All - folders and files=Files - выдавать в поток только имена файлов, Dirs - только папки, All - выдавать и файлы, и папки
+Search file names=Производит поиск файлов
+Forced stop searching files=Принудительная остановка поиска файлов
+Event emit every time after finding next file name and give it in thread=Событие происходит всякий раз при нахождении очередного файла на диске и выдаёт в поток имя этого файла
+Event emit every time after finishing search=Событие происходит всякий раз при завершении поиска
+Event emit every time after finding next file name and does not match his name with a mask and give it in thread=Событие происходит всякий раз при нахождении очередного файла и не совпадении его имени с маской и выдает его в поток
+Contains numbers of found files=Хранит кол-во найденных файлов
+Extension on searched files=Расширение искомых файлов или * для всех типов
+

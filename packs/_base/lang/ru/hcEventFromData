@@ -1,0 +1,5 @@
+Generates event at the time get the data=Генерирует событие при обращении к данным
+Saves data from thread=Запоминает данные из потока
+Event emit every time before accesses to point GetData=Событие происходит всякий раз перед обращением к точке данных GetData
+Contain data, saved to method doData=Содержит данные, сохраненные методом doData
+Defines data to save to memory=Определяет данные для сохранения в памяти

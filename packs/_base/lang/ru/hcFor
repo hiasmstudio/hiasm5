@@ -1,0 +1,13 @@
+Cycle with a defined number of iteration=Цикл с заданным числом итераций
+Define initial value of cycle counter by default=Задает начальное значение счетчика цикла по умолчанию
+Define last value of cycle counter by default=Задает значение по умолчанию, при пересечении которого происходит выход из цикла
+Define increment value counter of cycle after every iteration=Задает величину приращения счетчика после каждой итерации
+False - cycle with range [Start,End), i.e. right border not included, True - cycle with range [Start,End]=False - цикл с диапазоном [Start,End),т.е. правая граница не включена, True - цикл с диапазоном [Start,End]
+True - get data from thread, False - replace data from thread on empty value=True - брать данные из потока, False - перекрывать данные из потока пустыми данными
+Run cycle with counter=Запускает цикл со счетчиком
+Manualy stop the cycle=Преждевременная остановка цикла
+Event emit every time after iteration of cycle and give in thread cycle value=Событие происходит всякий раз при итерации цикла
+Event emit every time after stopping the cycle=Событие происходит по окончании цикла
+Contains current value of cycle=Хранит текущее значение счетчика
+Define initial value of cycle counter=Определяет начальное значение счетчика
+Define last value of cycle counter=Определяет значение, при пересечении которого происходит выход из цикла

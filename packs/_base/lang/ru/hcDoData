@@ -1,0 +1,5 @@
+Enter data into thread=Заносит данные в поток
+Defines data by default=Хранит данные по умолчанию, помещаемые в поток методом doData
+Write data in thread from property 'Data'=Записывает в поток данные из поля Data
+Event emit every time after write data in thread=Событие происходит всякий раз при записи данных в поток
+Data for write to thread=Данные для записи в поток

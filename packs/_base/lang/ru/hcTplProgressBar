@@ -1,0 +1,6 @@
+Progress panel=Панель состояния
+Text of the progress panel=Текст панели прогресса
+Orientation of the progress panel=Ориентация панели прогресса
+Setup value of progress panel=Устанавливает значение панели состояния
+Event emit every time after setup value of progress panel and give his in the thread ARG(Value)=Событие происходит всякий раз после установки текущего значения панели состояния и выдает его в поток ARG(Value)
+Defines value of progress panel=Определяет значение панели прогресса

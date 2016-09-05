@@ -1,0 +1,8 @@
+Generates event through defined time interval=Генерирует событие onTimer через заданный промежуток времени
+Defines interval(in milliseconds) between timer's iterations=Интервал (в миллисекундах) между итерациями таймера
+True - turn on timer, False - turn off timer=True - включение таймера, False - отключение таймера
+Timer will automaticaly shut down through a specified numbers of iterations. If this property contain 0, timer will work continuously. After run timer, counter will reset to initial value=Таймер автоматически отключится через указанное число срабатываний. Если равно 0, то это поле игнорируется и таймер буде работать постоянно. При запуске таймера счетчик устанавливается заново
+Turn on timer=Включение таймера
+Turn off timer=Выключение таймера
+Event emit every time after timer's iteration=Событие происходит всякий раз при очередной итерации таймера
+Event emit every time after timer's stop=Событие происходит один раз сразу после остановки таймера

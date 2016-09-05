@@ -1,0 +1,4 @@
+Button of select file name or path=Кнопка выбора имени файла или папки
+Title of dialog file selector=Заголовок диалога выбора файла
+Mode of select file: Open - file opening, Save - file saving, SelectFolder - selects directory, CreateFolder - created directory=Режим выбора файла: Open - открытие файла, Save - сохранение файла, SelectFolder - выбор папки, CreateFolder - создание новой папки
+Event emit every time after select file and gives his in thread ARG(FileName)=Событие происходит всякий раз после выбора файла и выдает его в поток ARG(FileName)

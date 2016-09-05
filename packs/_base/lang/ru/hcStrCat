@@ -1,0 +1,8 @@
+Merge two strings in one=Соединение двух строк в одну
+Left string=Левая строка по умолчанию
+Right string=Правая строка по умолчанию
+Merges strings Str1 and Str2 and gives the result in thread=Соединяет строки Str1 и Str2 и выдает в поток результат
+Event emit every time after merged strings and gives result in thread=Событие происходит всякий раз при соединении строк и выдает результат в поток
+Containes operation result=Содержит результат операции
+Left string=Левая строка
+Right string=Правая строка

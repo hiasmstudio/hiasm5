@@ -1,0 +1,8 @@
+Search substring in string=Возвращает позицию вхождения одной строки в другую
+Contains a string position which is necessary to find=Содержит строку по умолчанию, позицию вхождения которой необходимо найти
+Contains initial position of the search by default=Содержит начальную позицию поиска по умолчанию
+Finds string "Target" in string "Str" from position "StartPos"=Производит поиск строки Target в строке Str, начиная с позиции StartPos
+Event emit every time after successfully search string "Target" and put her position in thread=Событие происходит всякий раз при нахождении вхождения строки Target
+Event emit every time after failed search string "Target"=Событие происходит всякий раз при ненахождении вхождения строки Target
+Defines string in which necessary to search=Определяет строку, в которой производится поиск
+Contains initial position of the search=Определяет начальную позицию поиска

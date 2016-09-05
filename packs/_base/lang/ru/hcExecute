@@ -1,0 +1,6 @@
+Run application=Запускает приложение
+Defines application name to run=Определяет приложение для запуска
+Defines args of application=Определяет аргументы приложения
+Runs application with specified args=Запускает указанное приложение с заданными параметрами
+Event emit every time after running a application=Событие происходит всякий раз после запуска приложения
+
