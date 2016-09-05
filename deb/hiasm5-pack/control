@@ -1,0 +1,9 @@
+Package: hiasm5-pack-%pack%
+Version: %version%
+Section: devel
+Architecture: %arch%
+Depends: 
+Maintainer: Dilma <support@hiasm.com>
+Homepage: http://hiasm.com
+Description: HiAsm Studio 5
+ Additional pack for hiasm5
