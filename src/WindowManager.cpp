@@ -510,7 +510,9 @@ void WM_SDK_Editor::updateSelectionLabel() {
 }
 
 void WM_SDK_Editor::fillSelectionMenu() {
-//	selInfoMenu.items().clear();
+	std::vector<Widget*> wlist = selInfoMenu.get_children();
+	for(std::vector<Widget*>::iterator item = wlist.begin(); item != wlist.end(); item++)
+		selInfoMenu.remove(**item.base());
 
 	std::list<elementInfo> list;
 	int c;
@@ -739,7 +741,7 @@ WM_Tab *WindowManager::open(const ustring &file_name, bool asNew) {
 	tab->closeBtn->signal_clicked().connect(sigc::mem_fun(*this, &WindowManager::on_close_click));
 
 	box->add(*tab->closeBtn);
-	box->set_spacing(5);
+	box->set_spacing(1);
 	box->show_all();
 
 	tabs.push_back(tab);

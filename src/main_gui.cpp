@@ -596,7 +596,10 @@ void MainGUI::fillProps(SelectManager *selMan) {
 }
 
 void MainGUI::fillCompilers(Pack *pack) {
-	//compilers.items().clear();
+	std::vector<Widget*> wlist = compilers.get_children();
+	for(std::vector<Widget*>::iterator item = wlist.begin(); item != wlist.end(); item++)
+		compilers.remove(**item.base());
+
 	if(pack) {
 		for(Pack::CompilerItems::iterator c = pack->compilers.begin(); c != pack->compilers.end(); c++) {
 			MenuItem *m = new MenuItem(c->compiler->name);

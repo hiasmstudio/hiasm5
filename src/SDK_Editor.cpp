@@ -1280,7 +1280,9 @@ class LH_MenuItem : public MenuItem {
 
 void SDK_Editor::linkHint_UpProc(gdouble x, gdouble y, int button, int state) {
 	if(!mouse.obj.hint->prop) {
-//		hintMenu.items().clear();
+		std::vector<Widget*> wlist = hintMenu.get_children();
+		for(std::vector<Widget*>::iterator item = wlist.begin(); item != wlist.end(); item++)
+			hintMenu.remove(**item.base());
 
 		Element *e = mouse.obj.hint->parent;
 		LH_MenuItem *item;
