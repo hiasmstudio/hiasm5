@@ -289,6 +289,11 @@ Compiler *Pack::getActiveCompiler() {
 	return NULL;
 }
 
+void *Pack::setActiveCompiler(const ustring &name) {
+	for(CompilerItems::iterator ci = compilers.begin(); ci != compilers.end(); ci++)
+		ci->active = ci->compiler->name == name;
+}
+
 //-----------------------------------------------------------------------------------------------------------------------
 
 PackCollection::PackCollection() {

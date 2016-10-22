@@ -595,14 +595,32 @@ void MainGUI::fillProps(SelectManager *selMan) {
 	props.selectPropertyByPath(lastSelect);
 }
 
+class CompilerMenuItem : public RadioMenuItem {
+	private:
+		Compiler *compiler;
+		Pack *pack;
+	public:
+		CompilerMenuItem(RadioButtonGroup group, Pack *pack, Compiler *compiler):RadioMenuItem(group, compiler->name) {
+			this->compiler = compiler;
+			this->pack = pack;
+		}
+		virtual void on_activate() {
+			this->pack->setActiveCompiler(this->compiler->name);
+		}
+};
+
 void MainGUI::fillCompilers(Pack *pack) {
 	std::vector<Widget*> wlist = compilers.get_children();
+
+	RadioButtonGroup group;
 	for(std::vector<Widget*>::iterator item = wlist.begin(); item != wlist.end(); item++)
 		compilers.remove(**item.base());
 
 	if(pack) {
 		for(Pack::CompilerItems::iterator c = pack->compilers.begin(); c != pack->compilers.end(); c++) {
-			MenuItem *m = new MenuItem(c->compiler->name);
+			CompilerMenuItem *m = new CompilerMenuItem(group, pack, c->compiler);
+			group = m->get_group();
+			m->set_active(compilers.get_children().empty());
 			compilers.append(*m);
 		}
 	}

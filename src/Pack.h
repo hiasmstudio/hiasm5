@@ -171,6 +171,12 @@ class Pack {
 		Compiler *getActiveCompiler();
 
 		/**
+		 * Set current active compiler
+		 * @param name compiler name
+		 */
+		void *setActiveCompiler(const ustring &name);
+
+		/**
 		 * Check exists pack on hard disk
 		 */
 		inline bool isExists() { return file_test(pathElementsDb(), FILE_TEST_EXISTS); }
