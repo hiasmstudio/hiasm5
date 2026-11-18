@@ -1,0 +1,73 @@
+*Отображение простой круговой диаграммы на три значения
+Make(cpp)
+Add(MainForm,2953706,21,105)
+{
+ Width=404
+ Height=268
+}
+Add(Img_Diagram,10381908,392,238)
+{
+ Point2AsOffset=0
+ Color=16777215
+ Style=1
+ BgColor=8388608
+ Font=[MS Sans Serif,8,1,65280,1]
+ Items=#6:Item 1|6:Item 2|6:Item 3|
+ Point(Point1)
+ Point(Point2)
+ link(Bitmap,3711804:Bitmap,[(398,191)(174,191)])
+ link(Point1,834122:Point,[])
+ link(Point2,8882345:Point,[(412,222)(454,222)])
+}
+Add(PaintBox,3711804,168,126)
+{
+ Left=45
+ Top=20
+ Width=325
+ Height=165
+ Color=-16777200
+ Layout="vert"
+ HeightScale=100
+ ClearBeforeDraw=0
+ Point(Width)
+ Point(Height)
+ link(onBeforeDraw,15994326:doData,[(219,132)(219,244)])
+}
+Add(ScrollBar,10516139,112,126)
+{
+ Left=45
+ Top=215
+ Width=335
+ Layout="vert"
+ Position=90
+ link(onPosition,3711804:doRefresh,[])
+}
+Add(PointXY,834122,399,182)
+{
+}
+Add(PointXY,8882345,448,182)
+{
+ link(X,3711804:Width,[(454,170)(181,170)])
+ link(Y,3711804:Height,[(461,170)(188,170)])
+}
+Add(DoData,15994326,238,238)
+{
+ link(onEventData,7498334:doAdd,[])
+ link(Data,10516139:Position,[(244,191)(118,191)])
+}
+Add(MT_Add,7498334,287,238)
+{
+ Data=Integer(30)
+ link(onAdd,4560440:doAdd,[])
+}
+Add(MT_Add,4560440,336,238)
+{
+ Data=Integer(60)
+ link(onAdd,10381908:doDraw,[])
+}
+Add(VBoxLayout,15800660,448,238)
+{
+ Name="vert"
+ Space=7
+ Padding=7
+}

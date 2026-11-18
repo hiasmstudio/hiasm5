@@ -1,0 +1,10 @@
+Edit=Поле ввода
+Defines edit text=Зaдaeт нaчaльный тeкcт
+Display text of element as symbols *=Скрывает ввод символов знаком *
+Makes text as read only=При установке параметра в True текст будет доступен только для чтения
+Sets text in edit=Уcтaнaвливaeт текст в поле ввода
+Sets text in edit but not emits onChange event=Уcтaнaвливaeт текст в поле ввода, но не генерирует событие onChange
+Event emit every time after change text in element and give it in thread=Сoбытиe пpoиcxoдит вcякий paз пpи измeнeнии тeкcтa в кoмпoнeнтe
+Event emit every time after click of a key enter and puts in thread of entered text=Сoбытиe пpoиcxoдит вcякий paз пpи нажатии клавиши Enter и выдает в поток введенный текст. Само поле ввода очищается
+Contain text of edit=Хранит текст (данные) в элементе
+String for enter to element=Строка для ввода в элемент

@@ -1,0 +1,8 @@
+Formation of shades of color=Формирование оттенков цвета
+Shade depth=Глубина оттенка
+Original default color=Исходный цвет по-умолчанию
+Shade mode. csLight - lightening, csShade - darkening=Режим получения оттенков. csLight - осветление, csShade - затемнение
+Forms a hue color from a value from a stream or Color field=Формирует оттенок цвет по значению из потока или поля Color
+The event occurs every time after the formation of a color shade and outputs it to the ARG(Color) stream=Событие происходит всякий раз после формирование оттенка цвета и выдаёт его в поток ARG(Color)
+Contains the resulting color shade=Содержит полученный оттенок цвета
+Initial color to obtain shade=Исходный цвет для получения оттенка

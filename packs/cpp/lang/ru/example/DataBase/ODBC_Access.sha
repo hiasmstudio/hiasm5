@@ -1,0 +1,503 @@
+Make(cpp)
+Pos(0,0)
+Add(Edit,7183693,196,98)
+{
+ Left=110
+ Top=30
+ Width=110
+ Text="HiAsmDSN"
+}
+Add(Button,2318781,14,168)
+{
+ Left=10
+ Top=5
+ Width=95
+ Caption="ConnectDrv"
+ link(onClick,5390508:doConnectDrv,[(108,174)(108,244)])
+}
+Add(MainForm,12053419,56,105)
+{
+ Left=20
+ Top=105
+ Width=686
+ Height=626
+ Caption="ODBC Access"
+ BorderStyle=1
+ Icon=[0000010001001818000001001800480700001600000028000000180000003000000001001800000000002007000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000808080C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0808080000000000000000000000000000000000000000000000000000000000000000000808080C0C0C000FF0000FF00C0C0C0C0C0C0808080808080808080808080C0C0C0C0C0C0808080808080000000000000000000000000000000000000000000000000000000000000000000808080808080808080808080808080808080808080808080808080808080808080C0C0C0808080000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000626262808080C0C0C0000000000000000000000000000000000000000000000000000000000000000000808080C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C04A4A4A808080808080000000000000000000000000000000000000000000000000000000000000000000808080C0C0C0966200966200966200966200966200966200FFFFFFC0C0C0808080808080C0C0C0C0C0C0C0C0C0C0C0C0C0C0C06E6E6E000000000000000000000000000000000000808080C0C0C0FFAA25FFAA25FFAA25FFAA25FFAA25DC9200FFFFFFC0C0C08080800000009E9E9EC0C0C0C0C0C00000FE0000B96E6E6E6E6E6E000000000000000000000000000000808080C0C0C0FFAA25FFC66BFFC66BFFB848FFB848DC9200FFFFFFC0C0C08080800000009E9E9ECECECECECECECECECEC0C0C06E6E6E6E6E6E6E6E6E000000000000000000000000808080C0C0C0FFAA25FFFF8EFFC66BFFC66BFFB848DC9200FFFFFFC0C0C08080800000009E9E9ECECECECECECECECECECECECE6E6E6E6E6E6E6E6E6E000000000000000000000000808080C0C0C0FFAA25FFAA25FFAA25FFAA25FFAA25DC9200FFFFFFC0C0C08080800000009E9E9EDADADADADADADADADADADADA6E6E6E6E6E6E6E6E6E000000000000000000000000808080C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C08080800000009E9E9EDADADADADADADADADADADADA6E6E6E6E6E6E6E6E6E000000808080808080808080808080FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF6E6E6E0000009E9E9EC2C2C2C2C2C2C2C2C2C2C2C2808080808080808080000000808080FFFFFFFFFFFFFFFFFFFFFFFFC0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0FFFFFF000000CECECEFFFFFFFFFFFFFFFFFFFFFFFFC0C0C0808080808080000000808080FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF808080000000000000808080C0C0C0C0C0C0CECECECECECECECECECECECECECECE6E6E6EC0C0C0808080000000808080FFFFFF808080808080808080FFFFFF808080808080FFFFFF808080000000000000808080CECECECECECECECECECECECECECECECECECECECECE6E6E6E6E6E6EC0C0C0000000808080FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF808080000000000000808080DADADADADADADADADADADADADADADADADADADADADA6E6E6E6E6E6E6E6E6E000000808080FFFFFFA4A0A0A4A0A0A4A0A0FFFFFFA4A0A0A4A0A0FFFFFF808080000000000000808080FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0C0C06E6E6E6E6E6E000000808080FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF808080000000000000808080808080808080808080808080808080808080808080000000808080808080000000808080FF7348FF5725FF5725DC4900DC4900B93D00963100963100808080000000000000808080DADADADADADADADADADADADADADADADADADADADADA6E6E6E000000808080000000808080C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0808080000000000000808080DADADADADADADADADADADADADADADADADADADADADA6E6E6E6E6E6E000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000DADADADADADADADADADADADADADADADADADADADADADADADA6E6E6E6E6E6E000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000DADADADADADADADADADADADADADADADADADADADADADADADA6E6E6E000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000808080808080808080808080808080808080808080808080000000C000FFFFC0007FFFC0007FFFE0007FFFF0007FFFE00007FFE00003FFE00001FFE00000FFE00000FFE00000FF000000FF000000FF000000FF001000FF001000FF001000FF001000FF001000FF001000FF001000FFFFF800FFFFFC00FFFFFE01FF]
+}
+Add(ODBC,5390508,196,210)
+{
+ DSN_Name="HiAsmDSN"
+ @IsLib=True
+ Point(doConnectDrv)
+ Point(ConnectionDrv)
+ Point(onColumnsInfo)
+ Point(ColumnsCount)
+ Point(UserID)
+ Point(Password)
+ Point(FieldType)
+ link(onStreamString,3175540:doConvert,[(235,216)(235,377)])
+ link(onStreamBinary,11249935:doEvent1,[(240,223)(240,251)])
+ link(onRowCount,481844:doEvent1,[(244,230)(244,216)])
+ link(DSN_Name,7183693:Text,[])
+ link(ConnectionDrv,16426801:Text,[])
+ link(onColumnsInfo,16719132:doAddColumn,[(244,237)(244,468)])
+ link(UserID,13469142:Text,[])
+ link(Password,8537686:Text,[])
+}
+Add(Button,10549661,14,252)
+{
+ Left=10
+ Top=85
+ Width=95
+ Caption="Query"
+ link(onClick,16339148:doEvent1,[])
+}
+Add(Button,9974597,14,301)
+{
+ Left=5
+ Top=460
+ Width=95
+ Caption="Disconnect"
+ link(onClick,5390508:doDisconnect,[(121,307)(121,237)])
+}
+Add(ListBox,1204735,371,378)
+{
+ Left=110
+ Top=360
+ Width=560
+ Height=230
+ link(onChange,15469817:doProcessMessages,[])
+}
+Add(Button,6856182,14,126)
+{
+ Left=5
+ Top=500
+ Width=95
+ Caption="Close"
+ link(onClick,12053419:doClose,[])
+}
+Add(ComboBox,14180683,147,98)
+{
+ Left=180
+ Top=60
+ Width=95
+ Height=21
+ Strings=#11:bigintField|11:binaryField|8:bitField|9:charField|13:datetimeField|12:decimalField|10:floatField|10:imageField|8:intField|10:moneyField|10:ncharField|10:ntextField|12:numericField|13:nvarcharField|9:realField|18:smalldatetimeField|13:smallintField|15:smallmoneyField|16:sql_variantField|9:textField|14:timestampField|12:tinyintField|21:uniqueidentifierField|14:varbinaryField|12:varcharField|
+ link(onClick,5833895:doString,[(183,111)(183,148)(151,148)(151,160)])
+}
+Add(Button,3228882,14,343)
+{
+ Left=10
+ Top=110
+ Width=95
+ Caption="Execute"
+ link(onClick,2909764:doData,[])
+}
+Add(Button,15863341,14,385)
+{
+ Left=10
+ Top=145
+ Width=95
+ Caption="Clear"
+ link(onClick,8477190:doEvent3,[(95,391)(95,440)])
+}
+Add(Hub,8477190,189,420)
+{
+ InCount=3
+ OutCount=3
+ link(onEvent1,3313990:doClear,[(517,426)(517,286)])
+ link(onEvent2,1204735:doClear,[(361,433)(361,391)])
+ link(onEvent3,16719132:doClear,[(408,440)(408,440)])
+}
+Add(If_else,7580079,371,245)
+{
+ @Hint=#34:Если в потоке Image, то отобразить|
+ Op2=Integer(-4)
+ link(onTrue,12757769:doEvent1,[])
+ link(Op1,5390508:FieldType,[(377,237)(350,237)(350,282)(209,282)])
+}
+Add(DoData,2909764,140,343)
+{
+ link(onEventData,5390508:doExec,[(185,349)(185,230)])
+ link(Data,15920520:Text,[])
+}
+Add(Button,4186354,14,210)
+{
+ Left=10
+ Top=30
+ Width=95
+ Caption="ConnectDSN"
+ link(onClick,5390508:doConnectDSN,[(138,216)(138,216)])
+}
+Add(Edit,447399,140,217)
+{
+ Left=110
+ Top=85
+ Width=560
+ Text="SELECT * FROM  ALL_TYPES_FIELD ORDER BY charField"
+ link(onChange,8477190:doEvent1,[(177,223)(177,426)])
+}
+Add(InfoTip,2981795,7,7)
+{
+ Info=#479:Пример использования доступа к данным через ODBC  в HiAsm'e. Для доступа к файлу Базы Данных (ALL_TYPES.mdb) используется ODBC драйвер. Установка драйвера встроена в пример (кнопка "Setup DSN"). Если встроенная в пример установка  не сработает, то можно попытаться установить драйвер вручную с помощью создания нового источника данных с именем "HiAsmDSN", связав этот источник данных через драйвер "Microsoft Access Driver (*.mdb)" с файлом "ALL_TYPES.mdb" прилагаемым к примеру.|
+ Font=[MS Sans Serif,8,0,255,1]
+ Frame=1
+ Transparent=1
+ HAlign=0
+ Width=575
+ Height=74
+}
+Add(ChildForm,10621444,63,476)
+{
+}
+BEGIN_SDK
+  Add(EditMulti,8436703,3,3)
+  {
+   WorkCount=1
+   Width=433
+   link(doWork1,15759370:doWork2,[])
+  }
+  Add(MainForm,6588066,140,7)
+  {
+   Left=35
+   Top=105
+   Width=494
+   Height=433
+   Caption="Setup DSN"
+   Visible=1
+   Point(doVisible)
+  }
+  Add(If_else,4522807,35,42)
+  {
+   Op2=Integer(0)
+   link(onTrue,6588066:doClose,[(73,48)(73,34)])
+   link(onFalse,7642554:doEvent1,[])
+  }
+  Add(ODBC,4289557,189,112)
+  {
+   elink(5390508)
+   Point(doSetup)
+   Point(Driver)
+   Point(doList)
+   link(onStreamString,2132047:doConvert,[])
+   link(onStreamBinary,8014720:doConvert,[(229,125)(229,160)])
+   link(Driver,11448305:Value,[])
+  }
+  Add(Hub,13052100,77,98)
+  {
+   link(onEvent1,10231129:doExecute,[])
+   link(onEvent2,15759370:doWork3,[(116,111)(116,88)(25,88)])
+  }
+  Add(Button,2967000,35,98)
+  {
+   Left=200
+   Top=5
+   Width=80
+   Caption="Create"
+   Data=Integer(0)
+   link(onClick,13052100:doEvent1,[])
+  }
+  Add(ODialog,10231129,140,98)
+  {
+   Filter="*.mdb|*.mdb|*.dbf|*.dbf|*.xls|*.xls|*.db|*.db|All|*.*"
+   Title="Select DataBase file"
+   link(onExecute,4289557:doSetup,[(180,104)(180,146)])
+  }
+  Add(Hub,7642554,77,49)
+  {
+   OutCount=3
+   link(onEvent1,14772620:doClear,[])
+   link(onEvent2,4289557:doList,[(122,62)(122,153)])
+   link(onEvent3,6588066:doVisible,[(131,69)(131,41)])
+  }
+  Add(StringTable,14772620,329,42)
+  {
+   Left=5
+   Top=35
+   Width=475
+   Height=365
+   Columns=#24:Driver / Data Source=250|13:Attribute=180|
+   StrDelimiter="~"
+   Grid=0
+   Redaction=1
+   StaticColumn=0
+   Point(Matrix)
+   Point(Index)
+   link(onClick,456479:doRead,[(371,48)(371,85)(335,85)(335,104)])
+  }
+  Add(Memory,3935874,280,112)
+  {
+  }
+  Add(HubEx,15759370,21,35)
+  {
+   link(onEvent,4522807:doCompare,[(32,48)(32,48)])
+  }
+  Add(FormatStr,15362790,280,154)
+  {
+   Mask="%1~%2"
+   link(onFString,14772620:doAdd,[(320,160)(320,48)])
+   link(Str1,3935874:Value,[])
+  }
+  Add(Convertor,2132047,238,112)
+  {
+   Mode=11
+   link(onResult,3935874:doValue,[])
+  }
+  Add(Convertor,8014720,238,154)
+  {
+   Mode=11
+   link(onResult,15362790:doString,[])
+  }
+  Add(MatrixRW,456479,343,98)
+  {
+   link(onRead,11448305:doValue,[(382,104)(382,39)(186,39)(186,76)])
+   link(Matrix,14772620:Matrix,[])
+   link(X,15140004:Value,[(363,92)(398,92)])
+   link(Y,14772620:Index,[(370,89)(356,89)])
+  }
+  Add(Memory,11448305,196,70)
+  {
+  }
+  Add(Memory,15140004,392,49)
+  {
+   Default=Integer(0)
+  }
+END_SDK
+Add(InfoTip,14819195,7,455)
+{
+ Info=#13:Установка DSN|
+ Font=[MS Sans Serif,8,0,16711680,1]
+ Width=106
+ Height=67
+}
+Add(Button,3441983,21,476)
+{
+ Left=5
+ Top=355
+ Width=100
+ Height=70
+ Font=[MS Sans Serif,9,1,255,1]
+ Caption="Setup DSN"
+ Data=Integer(1)
+ link(onClick,10621444:doWork1,[])
+}
+Add(Image,3313990,525,273)
+{
+ Left=27
+ Top=222
+ Width=51
+ Height=71
+ Point(doRefresh)
+ link(Bitmap,12269043:Bitmap,[])
+}
+Add(Hub,12757769,420,245)
+{
+ OutCount=3
+ link(onEvent1,14946953:doLoadFromStream,[])
+ link(onEvent2,14946953:doBitmap,[])
+ link(onEvent3,3313990:doLoad,[(460,265)(460,279)])
+}
+Add(Bitmap,12269043,525,231)
+{
+}
+Add(Convertor,3175540,252,371)
+{
+ Mode=11
+ link(onResult,13237877:doEvent1,[])
+}
+Add(Application,15469817,420,378)
+{
+ Info="ODBC Access"
+ Wait=1
+}
+Add(Jpeg,14946953,483,231)
+{
+ Point(doLoadFromStream)
+ Point(doBitmap)
+ link(onBitmap,12269043:doLoad,[])
+}
+Add(DoData,4051174,140,259)
+{
+ link(onEventData,5390508:doQuery,[(180,265)(180,223)])
+ link(Data,447399:Text,[])
+}
+Add(InfoTip,14495681,413,217)
+{
+ Info=#28:Отображение Jpeg-файла из БД|
+ Font=[MS Sans Serif,8,0,16711680,1]
+ Width=183
+ Height=95
+}
+Add(FormatStr,5833895,161,154)
+{
+ DataCount=1
+ Mask="Select %1 From ALL_TYPES_FIELD order by charField"
+ link(onFString,447399:doText,[(197,160)(197,201)(130,201)(130,223)])
+ link(Str1,14180683:String,[(167,149)(167,149)])
+}
+Add(Edit,15920520,140,301)
+{
+ Left=110
+ Top=110
+ Width=560
+ Text="UPDATE ALL_TYPES_FIELD SET charField ='zero'  WHERE ( bitField LIKE '0' )"
+}
+Add(Hub,11249935,252,245)
+{
+ link(onEvent1,7580079:doCompare,[])
+ link(onEvent2,2433913:doCopyFromStream,[(296,258)(296,335)])
+}
+Add(Message,6470668,301,210)
+{
+ Caption="Количество изменённых полей БД:"
+}
+Add(FileStream,2433913,308,315)
+{
+ FileName="Stream.bin"
+ Mode=1
+ AutoCopy=0
+ Point(doCopyFromStream)
+}
+Add(InfoTip,11052111,252,287)
+{
+ Info=#46:Сохранение бинарного потока в файл: Stream.bin|
+ Font=[MS Sans Serif,8,0,16711680,1]
+ Width=148
+ Height=67
+}
+Add(Label,14878080,252,98)
+{
+ Left=290
+ Top=30
+ Width=46
+ Height=17
+ Caption="User_ID:"
+}
+Add(Label,5772236,259,105)
+{
+ Left=505
+ Top=30
+ Width=53
+ Height=17
+ Caption="Password:"
+}
+Add(Label,10646760,266,112)
+{
+ Left=115
+ Top=65
+ Width=62
+ Height=17
+ Caption="Select Field:"
+}
+Add(Label,7629482,273,119)
+{
+ Left=25
+ Top=200
+ Width=61
+ Height=17
+ Caption="Image Field:"
+}
+Add(Edit,16426801,203,112)
+{
+ Left=110
+ Top=5
+ Width=560
+ Text="DRIVER={SQL Server};SERVER=MyServer;UID=MyUser;PWD=MyPasword;DATABASE=MyTable;"
+}
+Add(StringTable,16719132,504,427)
+{
+ Left=110
+ Top=145
+ Width=560
+ Height=210
+ ClearAll=0
+ Point(doAddColumn)
+}
+Add(Hub,13237877,308,371)
+{
+ OutCount=3
+ link(onEvent1,11414078:doString,[])
+ link(onEvent2,1204735:doAdd,[])
+ link(onEvent3,13780073:doEvent1,[(348,391)(348,489)])
+}
+Add(InlineCode,11414078,462,371)
+{
+ @Hint=#45:Формирует строку для добавления в StringTable|
+ WorkPoints=#53:doString=Формирование строки для вывода в StringTable|
+ EventPoints=#74:onEvent=Происходит когда все поля строки заполнены и выдаёт строку в поток|
+ DataPoints=#45:Fields=Количество полей для заполнения строки|
+ Code=#15:unit HiAsmUnit;|0:|9:interface|0:|23:uses kol, Share, Debug;|0:|4:type|30: THiAsmClass = class( TDebug )|10:   private|9:   public|26:    _data_Data: THI_Event;|22:    Fields: THI_Event;|23:    onEvent: THI_Event;|16:    Count: Word;|19:    StrOut: String;|53:   procedure doString( var _Data:TData; Index:word );|5: end;|0:|14:implementation|0:|62:procedure THiAsmClass.doString( var _Data:TData; Index:word );|5:  var|17:    Data : TData;|15:    i: Integer;|20:    strTemp: String;|7:  begin|31:    Data.Data_type := data_str;|21:    Data.sdata := '';|51:    strTemp := ReadString( _data, _data_Data, '' );|31:    Data.Data_type := data_int;|20:    Data.idata := 0;|41:    i := ReadInteger( _data, Fields, 0 );|38:    strOut := strOut + strTemp + ';' ;|17:    Inc( Count );|27:    if Count = i then begin|36:     _hi_onEvent( onEvent, strOut );|16:     Count := 0;|18:     strOut := '';|15:    end; { If }|6:  end;|0:|4:end.|
+ link(onEvent,16719132:doAdd,[(499,377)(499,433)])
+ link(Fields,5390508:ColumnsCount,[(468,361)(202,361)])
+}
+Add(FileStream,945941,427,476)
+{
+ FileName="Stream.txt"
+ Mode=1
+}
+Add(DataToFile,14710912,427,518)
+{
+ Type=6
+ link(Stream,945941:Stream,[])
+}
+Add(Hub,13780073,357,483)
+{
+ OutCount=3
+ link(onEvent1,945941:doOpen,[(408,489)(408,482)])
+ link(onEvent2,14710912:doPut,[(408,496)(408,524)])
+ link(onEvent3,945941:doClose,[(416,503)(416,489)])
+}
+Add(InfoTip,13949455,322,441)
+{
+ Info=#47:Сохранение строкового потока в файл: Stream.txt|
+ Font=[MS Sans Serif,8,0,16711680,1]
+ Width=155
+ Height=123
+}
+Add(Hub,16339148,63,252)
+{
+ InCount=2
+ link(onEvent1,8477190:doEvent2,[(102,258)(102,433)])
+ link(onEvent2,4051174:doData,[(117,265)(117,265)])
+}
+Add(Hub,481844,252,210)
+{
+ link(onEvent1,6470668:doMessage,[])
+ link(onEvent2,16339148:doEvent2,[(290,223)(290,297)(53,297)(53,265)])
+}
+Add(InfoTip,10571291,609,21)
+{
+ Info=#93:Для непосредственного подключения к базе данных ODBC API предоставляет следующие три функции:|0:|79:SQLConnect - соединение с источником данных по DSN, имени и паролю пользователя|165:SQLDriverConnect - соединение с источником данных по указанной строке соединения или при помощи отображаемого диалога для интерактивного ввода параметров соединения;|115:SQLBrowseConnect - соединение с источником данных с последовательным предварительным запросом атрибутов соединения.|0:|2236:Компонент ODBC реализует первые две функции, но без диалога для интерактивного ввода параметров соединения. При подключении к источнику данных используются два метода: doConnectDSN и doConnectDrv, которые соответствуют функциям SQLConnect и SQLDriverConnect. Параметры подключения к источнику данных определяются свойствами: DSN_Name, User_ID и Password для метода doConnectDSN и ConnectionDrv для метода doConnectDrv. Для выполнения запросов директивы SELECT вызывается метод doQuery, а для выполнения директив UPDATE, DELETE или INSERT вызывается метод doExec, выполнение которого завершается событием onRowCount, в потоке которого содержится количество строк источника данных, на которые была применена директива. Результаты запроса директивы SELECT получаем в потоках событий onStreamString и onStreamBinary для каждого запрошенного поля. В момент получения данных из потока актуальны нижние точки компонента, определяющие свойства поля данных: FieldName (имя поля данных), FieldType (тип поля данных) и FiledSize (количество байт поля данных в бинарном потоке). Для получения имён полей запроса используется событие onColumnsInfo, а количество возвращённых колонок актуально после события onColumnsInfo на нижней точке ColumnsCount.  Для создания нового источника данных через ODBC драйвер вызывается метод doSetup. Данными для его выполнения служат свойство Driver или верхняя одноименная точка, а также свойства DSN_Name, User_ID и Password с соответствующими верхними точками. Для получения списка, установленных в Вашей системе драйверов или источников данных, вызывается метод doList. После чего событие onStreamString вернёт в потоке список драйверов или источников данных, а событие onStreamBinary вернёт в потоке соответствующие им атрибуты. Для изменения и/или добавления бинарных данных (например изображений, музыки, программ и т.д.) в Базу Данных вызывается метод doBinary, данными для которого является верхняя точка BinaryStream, из названия которой следует, что на нее нужно подавать данные  как у нижней точки Stream элемента MemoryStream. Учтите, что за один запрос, выполненный методом doBinary, Вы может изменить или добавить только одно поле бинарных данных. Для завершения сеанса вызывается метод doDisconnect.|
+ Font=[MS Serif,5,0,16711680,204]
+ Frame=1
+ Transparent=1
+ HAlign=0
+ Width=330
+ Height=522
+}
+Add(Edit,13469142,210,126)
+{
+ Left=335
+ Top=30
+ Width=110
+ Text=""
+}
+Add(Edit,8537686,217,140)
+{
+ Left=560
+ Top=30
+ Width=110
+ Text=""
+ Password=0
+}
+Add(InfoTip,5382215,91,574)
+{
+ Info=#66:Пример строки запрос для добавления бинарных данных в Базу Данных:|0:|53:INSERT INTO ALL_TYPES_FIELD( imageField ) VALUES( ? )|0:|65:Пример строки запрос для изменения бинарных данных в Базе Данных:|0:|78:UPDATE ALL_TYPES_FIELD SET imageField = ? WHERE ( intField LIKE '2147483647' )|
+ Font=[MS Sans Serif,8,0,16711680,1]
+ Frame=1
+ Transparent=1
+ HAlign=0
+ Width=477
+ Height=109
+}

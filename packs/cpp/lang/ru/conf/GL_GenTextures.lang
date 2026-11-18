@@ -1,0 +1,8 @@
+Texture using mipmap levels=Текстура с применением mipmap уровней
+Texture list index=Индекс текстурного списка
+Texture filtering algorithm when approaching=Алгоритм фильтрации текстур, при приближении
+Texture filtering algorithm when deleting=Алгоритм фильтрации текстур, при удалении
+Anisotropic Filtering (AF) is a method for improving the image quality of textures on surfaces that are far away and strongly inclined relative to the camera in 3D graphics=Анизотропная фильтрация (англ. Anisotropic Filtering, AF) — это метод улучшения качества изображения текстур на поверхностях, находящихся далеко и сильно наклоненных относительно камеры в трехмерной графике
+Loads the texture into memory and associates it with the texture list according to the index (Index_n)=Загружает текстуру в память и связывает с текстурным списоком согласно индекса (Index_n)
+Defines the image for loading the texture=Определяет картинку для загрузки текстуры
+Anisotropic Filtering (AF)=Анизотропная фильтрация (AF)

@@ -1,0 +1,5 @@
+func doDelete(_data):any
+  block.delete(Name)
+  event(onDelete)
+end
+

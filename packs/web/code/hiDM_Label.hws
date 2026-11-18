@@ -1,0 +1,46 @@
+section html
+
+func doPrint(_data)
+//  print("")
+  inc_sec("php")
+  switch(ViewMode)
+    case 0:
+      print('htmlspecialchars($f' + _SITE_ + '[' + DataBind + '])')
+    case 1:
+      print('$f' + _SITE_ + '[' + DataBind + ']')
+    case 2:
+      print('strftime(' + Format + ',$f' + _SITE_ + '[' + DataBind + '])')
+    case 3:
+      print(code(Format) + '($f' + _SITE_ + '[' + DataBind + '])')
+    case 4:
+      print(code(Format) + '($f' + _SITE_ + '[' + DataBind + '], ' + DataBind + ')')
+  end
+  dec_sec("html")
+  event(onPrint, _data)
+end
+
+func Data()
+  fvar(d)
+  inc_sec("php")
+  d = '$f' + _SITE_ + '[' + DataBind + ']'
+  dec_sec("html")
+  return(d)
+end
+
+section java
+
+func Data()
+  fvar(d)
+  inc_sec("php")
+  d = '$f' + _SITE_ + '[' + DataBind + ']'
+  dec_sec("java")
+  return(d)
+end
+
+section php
+
+func Data()
+  fvar(d)
+  d = '$f' + _SITE_ + '[' + DataBind + ']'
+  return(d)
+end

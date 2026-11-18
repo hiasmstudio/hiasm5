@@ -1,0 +1,184 @@
+Make(cpp)
+Add(MainForm,5812965,112,371)
+{
+ Left=20
+ Top=105
+ Width=480
+ Height=230
+ Caption="TempFont"
+ BorderStyle=4
+ Position=1
+ link(onCreate,15484491:doEvent1,[(156,391)(156,391)])
+}
+Add(Font,5530815,315,266)
+{
+ link(onFont,15724663:doEvent1,[])
+ link(Size,16572019:Var2,[])
+ link(Name,16377612:Var2,[])
+}
+Add(If_else,6072194,371,161)
+{
+ Type=2
+ Op2=Integer(0)
+ link(onTrue,16716672:doWork3,[(415,167)(415,139)])
+ link(onFalse,12708218:doCompare,[])
+}
+Add(Label,5393139,434,259)
+{
+ Width=474
+ Height=56
+ Align=2
+ Color=15793151
+ Caption=""
+ AutoSize=1
+ Alignment=2
+ Point(doFont)
+ link(Text,16377612:Var3,[(440,247)])
+}
+Add(GetDataEx,16377612,322,238)
+{
+ link(Data,14247622:FontName,[])
+}
+Add(Memory,5214580,315,196)
+{
+ Default=Integer(20)
+}
+Add(Hub,15724663,371,266)
+{
+ InCount=2
+ link(onEvent1,5393139:doFont,[])
+ link(onEvent2,5393139:doText,[(419,279)(419,265)])
+}
+Add(Button,15259803,119,105)
+{
+ Left=155
+ Top=65
+ TabOrder=-1
+ Caption="Install"
+ link(onClick,6607378:doExecute,[])
+}
+Add(Button,2424401,112,273)
+{
+ Left=275
+ Top=65
+ TabOrder=-1
+ Caption="SetFont"
+ link(onClick,12451973:doFont,[])
+}
+Add(Font,12451973,245,273)
+{
+ FontDialog=0
+ link(onFont,15724663:doEvent2,[])
+ link(Size,16572019:Var1,[(251,254)])
+ link(Name,16377612:Var1,[(265,247)])
+}
+Add(ODialog,6607378,175,105)
+{
+ Filter="Font files (*.fon;*.fnt;*.ttf;*ttc;*.fot;*.otf)|*.fon;*.fnt;*.ttf;*ttc;*.fot;*.otf|All files (*.*)|*.*"
+ FileName=""
+ link(onExecute,1744444:doEvent1,[])
+}
+Add(Hub,1744444,231,105)
+{
+ OutCount=3
+ link(onEvent1,2705997:doProcessMessages,[(286,111)(286,76)])
+ link(onEvent2,4804810:doValue,[(286,118)(286,118)])
+ link(onEvent3,16716672:doWork1,[(291,125)])
+}
+Add(Application,2705997,315,70)
+{
+ Wait=1
+}
+Add(Button,6879087,112,196)
+{
+ Left=215
+ Top=65
+ TabOrder=-1
+ Caption="UnInstall"
+ link(onClick,11901499:doEvent1,[])
+}
+Add(Hub,11901499,224,196)
+{
+ link(onEvent1,14247622:doClear,[(293,202)(293,188)])
+ link(onEvent2,15344873:doWork2,[])
+}
+Add(HubEx,15344873,518,196)
+{
+ Angle=1
+ link(onEvent,6950038:doEvent1,[(522,313)(225,313)(225,335)])
+}
+Add(ListBox,3685251,490,378)
+{
+ Left=5
+ Top=90
+ Width=205
+ Height=110
+ SelectAdd=0
+ Sort=0
+}
+Add(Hub,6950038,238,329)
+{
+ OutCount=3
+ link(onEvent1,5530815:doFont,[(303,335)(303,272)])
+ link(onEvent2,9569896:doWork2,[])
+ link(onEvent3,15179549:doEvent1,[(282,349)(282,370)(225,370)(225,391)])
+}
+Add(ArrayEnum,15521414,315,392)
+{
+ link(onItem,5061436:doSplit,[(366,398)(366,377)])
+ link(Array,15143414:FontsArray,[(321,376)(321,376)])
+}
+Add(Hub,15179549,245,385)
+{
+ InCount=2
+ link(onEvent1,3685251:doClear,[(356,391)(356,391)])
+ link(onEvent2,15521414:doEnum,[])
+}
+Add(FontsList,15143414,315,336)
+{
+}
+Add(Hub,15484491,175,385)
+{
+ link(onEvent1,9569896:doWork3,[(298,391)])
+ link(onEvent2,15179549:doEvent2,[])
+}
+Add(HubEx,9569896,294,329)
+{
+ link(onEvent,15143414:doReReadFonts,[])
+}
+Add(StrPart,5061436,385,371)
+{
+ Char=";"
+ link(onPart,8427704:doData,[])
+}
+Add(ChangeMon,8427704,434,378)
+{
+ link(onData,3685251:doAdd,[])
+}
+Add(TempFontProc,14247622,315,161)
+{
+ link(onInstall,6072194:doCompare,[])
+ link(FileName,4804810:Value,[])
+}
+Add(DoData,1859961,476,168)
+{
+ link(onEventData,15344873:doWork1,[(522,174)])
+}
+Add(If_else,12708218,420,168)
+{
+ Type=1
+ Op2=Integer(0)
+ link(onTrue,1859961:doData,[])
+}
+Add(Memory,4804810,315,112)
+{
+}
+Add(HubEx,16716672,287,126)
+{
+ Angle=1
+ link(onEvent,14247622:doInstall,[(291,167)])
+}
+Add(GetDataEx,16572019,308,245)
+{
+ link(Data,5214580:Value,[])
+}

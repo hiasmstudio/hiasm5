@@ -1,0 +1,279 @@
+*Автор: MAV#13#10Зеркало + объект с текстурой
+Make(cpp)
+Add(MainForm,15261923,42,77)
+{
+ Left=20
+ Top=105
+ Width=789
+ Height=541
+ Point(MouseX)
+ Point(MouseY)
+ Point(onResize)
+ Point(Handle)
+ link(onCreate,16299401:doEvent1,[(82,97)(82,118)])
+ link(onResize,3213527:doWork1,[(179,104)])
+}
+Add(Timer,9506849,42,189)
+{
+ Interval=10
+ Enable=1
+ link(onTimer,1049454:doEvent1,[])
+}
+Add(GL_GTools,771925,175,189)
+{
+ Point(doClear)
+ Point(doPushMatrix)
+ Point(doPopMatrix)
+ link(onEvent,3410847:doPerspective,[])
+}
+Add(GL_GluTools,4593655,462,112)
+{
+ Texture=0
+ link(onInit,11539355:doEnabled,[])
+}
+Add(Hub,1049454,91,189)
+{
+ OutCount=5
+ link(onEvent1,771925:doClear,[])
+ link(onEvent2,771925:doPushMatrix,[])
+ link(onEvent3,3276760:doRotate,[(152,209)(152,294)(91,294)(91,321)])
+ link(onEvent4,771925:doPopMatrix,[(160,216)(160,209)])
+ link(onEvent5,12986311:doFlip,[(170,223)(170,132)])
+}
+Add(Hub,16299401,91,112)
+{
+ OutCount=3
+ link(onEvent1,12986311:doInit,[])
+ link(onEvent2,3213527:doWork2,[])
+ link(onEvent3,9506849:doTimer,[(135,132)(135,164)(30,164)(30,195)])
+}
+Add(HubEx,3213527,175,112)
+{
+ link(onEvent,12986311:doViewPort,[])
+}
+Add(GL_Options,16663485,266,112)
+{
+ Flag=2
+ link(onEvent,1571481:doEnabled,[])
+}
+Add(GL_Options,1571481,315,112)
+{
+ link(onEvent,15984634:doEnabled,[])
+}
+Add(GL_Options,15984634,364,112)
+{
+ Flag=1
+ link(onEvent,7386030:doEnabled,[])
+}
+Add(GL_Perspective,3410847,231,189)
+{
+ Fovy=5
+}
+Add(ChildPanel,10677880,217,63)
+{
+}
+BEGIN_SDK
+  Add(EditMulti,9128714,10,10)
+  {
+   VarCount=1
+   link(Var1,246425:Handle,[(16,174)(20,174)])
+  }
+  Add(Panel,246425,14,105)
+  {
+   Width=512
+   Height=512
+   Point(Handle)
+  }
+END_SDK
+Add(GL_Rotate,3276760,98,315)
+{
+ Y=1
+ link(onRotate,8079493:doRotate,[])
+ link(Angle,4326144:Position,[(104,299)(27,299)])
+}
+Add(GL_Rotate,8079493,147,315)
+{
+ X=1
+ link(onRotate,12798500:doRotate,[])
+ link(Angle,95109:Position,[(153,299)(167,299)])
+}
+Add(GL_Rotate,12798500,196,315)
+{
+ Z=1
+ link(onRotate,13133799:doCallList,[])
+}
+Add(Label,11860779,203,252)
+{
+ Left=715
+ Top=70
+ Caption=""
+}
+Add(Label,613228,245,252)
+{
+ Left=530
+ Top=70
+ Width=93
+ Height=17
+ Caption="Поворот по оси X"
+}
+Add(TrackBar,95109,161,252)
+{
+ Left=520
+ Top=95
+ Width=260
+ Max=360
+ link(onPosition,11860779:doText,[])
+}
+Add(Label,5918248,63,252)
+{
+ Left=715
+ Top=10
+ Caption=""
+}
+Add(Label,5443084,105,252)
+{
+ Left=530
+ Top=10
+ Width=93
+ Height=17
+ Caption="Поворот по оси Y"
+}
+Add(TrackBar,4326144,21,252)
+{
+ Left=520
+ Top=35
+ Width=260
+ Max=360
+ link(onPosition,5918248:doText,[])
+}
+Add(GL_Disk,8741455,490,315)
+{
+ OutRadius=0.15
+ Slices=40
+ Stacks=40
+ link(onDraw,6616114:doEnabled,[])
+}
+Add(GL_StencilOp,14661851,343,315)
+{
+ Fail=2
+ zFail=2
+ zPass=2
+ link(onStencilOp,649034:doStencilFunc,[])
+}
+Add(GL_StencilFunc,649034,392,315)
+{
+ Func=6
+ Ref=1
+ link(onStencilFunc,5116921:doDisabled,[(432,321)(432,328)])
+}
+Add(GL_Options,5116921,441,315)
+{
+ link(onEvent,8741455:doDraw,[])
+}
+Add(GL_Options,2230488,294,315)
+{
+ Flag=11
+ link(onEvent,14661851:doStencilOp,[])
+}
+Add(GL_StencilOp,5805993,588,315)
+{
+ link(onStencilOp,2156549:doStencilFunc,[])
+}
+Add(GL_StencilFunc,2156549,637,315)
+{
+ Func=4
+ Ref=1
+ link(onStencilFunc,16000784:doCallList,[(674,321)(674,359)(184,359)(184,384)])
+}
+Add(Gl_Translate,16460065,441,378)
+{
+ Z=0.2
+ link(onTranslate,16487823:doDraw,[])
+}
+Add(GL_GTools,16329553,392,378)
+{
+ Point(doPushMatrix)
+ link(onEvent,16460065:doTranslate,[])
+}
+Add(GL_GTools,16348534,539,378)
+{
+ Point(doPopMatrix)
+}
+Add(GL_Main,12986311,217,112)
+{
+ Color=32896
+ StencilBits=1
+ link(onInit,16663485:doEnabled,[])
+ link(Handle,10677880:Var1,[])
+}
+Add(GL_Options,6616114,539,315)
+{
+ link(onEvent,5805993:doStencilOp,[])
+}
+Add(GL_Options,1130235,343,378)
+{
+ Flag=11
+ link(onEvent,16329553:doPushMatrix,[])
+}
+Add(GL_Light,11539355,511,112)
+{
+ Ambient=5059373
+ Diffuse=11171692
+ Specular=255
+ link(onEnabled,14234746:doCreate,[])
+}
+Add(GL_Options,7386030,413,112)
+{
+ Flag=10
+ link(onEvent,4593655:doInit,[])
+}
+Add(GL_Texture,14234746,560,112)
+{
+ UseList=0
+ Index=1
+ link(onCreate,4234123:doCreate,[])
+ link(Bitmap,14855894:Bitmap,[])
+}
+Add(Bitmap,14855894,560,63)
+{
+ Picture=[ZIPF600000078DA73F2FDC600016640AC01C41C50CCC82001163FC080090E0C710000D84792CD]
+}
+Add(GL_CallList,13133799,245,315)
+{
+ Index=1
+ link(onCallList,2230488:doEnabled,[])
+}
+Add(GL_Texture,4234123,609,112)
+{
+ UseList=0
+ Index=2
+ link(Bitmap,8263248:Bitmap,[])
+}
+Add(Bitmap,8263248,609,63)
+{
+ Picture=[ZIPF600000078DA73F2FDC600016640AC01C41C50CCC82001163FC08009FEFFFF2F79901193C42AF81F0C06957A00F04F7DCD]
+}
+Add(GL_CallList,16000784,196,378)
+{
+ Index=2
+ link(onCallList,7355728:doTranslate,[])
+}
+Add(GL_Sphere,16487823,490,378)
+{
+ Radius=0.1
+ Slices=50
+ Stacks=50
+ link(onDraw,16348534:doPopMatrix,[])
+}
+Add(GL_Sphere,12768047,294,378)
+{
+ Radius=0.1
+ Slices=50
+ Stacks=50
+ link(onDraw,1130235:doDisabled,[(334,384)(334,391)])
+}
+Add(Gl_Translate,7355728,245,378)
+{
+ Z=0.1
+ link(onTranslate,12768047:doDraw,[])
+}

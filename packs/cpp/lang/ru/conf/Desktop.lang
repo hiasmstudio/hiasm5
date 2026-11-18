@@ -1,0 +1,7 @@
+Changing the desktop picture=Смена картинки рабочего стола
+The style of placing pictures on the desktop. Stretch - stretch, Center - in the center, Tile - tile=Стиль размещения картинки на рабочем столе. Stretch - растянуть, Center - по центру, Tile - замостить
+Path to the picture to place it on the desktop=Путь к картинке для помещения её на рабочий стол
+Set image from file=Установить картинку из файла
+Set image from stream=Установить картинку из потока
+Contains the path to the picture placed on the desktop=Содержит путь к картинке, помещенной на рабочий стол
+Contains the image placement style code. 0 - Stretch, 1 - Center, 2 - Tile=Содержит код стиля размещения картинки. 0 - Stretch, 1 - Center, 2 - Tile

@@ -1,0 +1,6 @@
+Redraw Manager=Менеджер перерисовки
+Element Control=Управление элементом
+Background redraw mode. True - erase background, False - do not erase background=Режим перерисовки фона. True - стирать фон, False - не стирать фон
+Redraws the control=Перерисовывает контрол
+Freezes redraw=Замораживает перерисовку
+Allows redrawing=Разрешает перерисовку

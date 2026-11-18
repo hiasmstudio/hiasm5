@@ -1,0 +1,19 @@
+func doStart(_data)
+  println(f + ' = microtime();')
+  event(onStart, _data)
+end
+
+func doStop(_data)
+  event(onStop, '(microtime() - ' f + ')')
+end
+
+section java
+
+func doStart(_data)
+  println(f + ' = (new Date()).getTime();')
+  event(onStart, _data)
+end
+
+func doStop(_data)
+  event(onStop, '((new Date()).getTime() - ' + f + ')')
+end

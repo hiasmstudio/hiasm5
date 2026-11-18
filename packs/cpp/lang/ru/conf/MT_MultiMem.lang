@@ -1,0 +1,7 @@
+Storing MT data in memory=Сохранение MT-данных в памяти
+Remember starting from the Nth=Запоминать, начиная с N-го
+Number of memorized MT data=Количество запоминаемых MT-данных
+Remembers MT data=Запоминает MT-данные
+Clears memory=Очищает память
+The event occurs after the MT data is saved and outputs a copy of it to the stream=Событие происходит после сохранения MT-данных, и выдает их копию в поток
+MT input data for doValue=Входные MT-данные для doValue

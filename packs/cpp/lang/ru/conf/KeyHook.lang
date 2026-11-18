@@ -1,0 +1,6 @@
+Intercepting all keystrokes in Windows=Перехват нажатия всех клавиш в Windows
+Prevents a message from being returned to the system queue=Запрещает возврат сообщения в системную очередь
+The event occurs whenever a key is pressed=Событие происходит всякий раз при нажатии клавиши
+The event occurs whenever a key is released=Событие происходит всякий раз при отпускании клавиши
+Event occurs whenever a key is held down (loop)=Событие происходит всякий раз при удержании клавиши (циклический повтор)
+Stores the identifier of the currently active form=Хранит идентификатор активной, в данный момент, формы

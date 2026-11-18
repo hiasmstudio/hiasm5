@@ -1,0 +1,7 @@
+Iterating over tree elements=Перебор элементов дерева
+Tree for enumerating its elements=Дерево для перебора его элементов
+Iterates through the elements of the specified node (if the ID is not specified, the entire tree is iterated) ARG(ID)=Перебирает элементы указанного узла(при не заданном ID перебирается все дерево) ARG(ID)
+The event occurs every time after receiving the next element of the tree and issues the corresponding map to the stream ARG(Node)=Событие происходит всякий раз после получения очередного элемента дерева и выдает соответствующий ему картеж в поток ARG(Node)
+The event occurs every time after the end of enumerating the elements of the tree=Событие происходит всякий раз после окончания перебора элементов дерева
+Contains a map corresponding to the current tree element=Содержит картеж, соответствующий текущему элементу дерева
+ID of the element from which to start searching=ID элемента, с которого необходимо начать перебор

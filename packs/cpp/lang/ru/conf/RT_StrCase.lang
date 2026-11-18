@@ -1,0 +1,6 @@
+Changes the case of characters in a string=Изменяет регистр символов в строке
+Lower - convert the string to lowercase, Upper - convert the string to uppercase, ProperCase - convert the first letter of each word in the string to uppercase=Lower - привести строку к нижнему регистру, Upper - привести строку к верхнему регистру, ProperCase - преобразовать первые буквы каждого слова в строке в прописные
+Converts the string SrcStr to the case specified by the Type parameter=Приводит строку SrcStr к регистру, определяемому параметром Type
+The event occurs every time a string is processed and outputs the result of the conversion to a stream=Событие происходит всякий раз после обработки строки и выдает результат преобразования в поток
+Contains the result of the transformation=Содержит результат преобразования
+Specifies the string to be converted=Определяет строку, которую необходимо преобразовать

@@ -1,0 +1,10 @@
+Loading type from file or stream=Загрузка типа из файла или stream
+Specifies the name of the loaded type file=Определяет имя загружаемого файла типа
+Output format=Формат выходных данных
+Loads type ARG([FileName][Stream])=Загружает тип ARG([FileName][Stream])
+Completely clears type ARG(<no>)=Полностью очищает тип ARG(<no>)
+The event occurs after an error occurs and outputs its code to the ARG(id [, data]) stream=Событие происходит после возникновения ошибки и выдает ее код в поток ARG(id [, data])
+Event occurs after loading type ARG(FType)=Событие происходит после загрузки типа ARG(FType)
+Specifies the name of the file from which the type will be loaded=Определяет имя файла, из которого будет загружен тип
+Specifies the stream to transform=Определяет stream для преобразовывания
+Contains the loaded type=Содержит загруженный тип

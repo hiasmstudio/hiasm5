@@ -1,0 +1,67 @@
+Make(modules)
+Add(HISEntryPoint,1034015,21,105)
+{
+ link(onStart,8318115:doAdd,[])
+}
+Add(AddPack,8318115,77,105)
+{
+ Name="Modules"
+ Info="Создание различных модулей для HiAsm"
+ Ext="hws"
+ link(onAdd,7013595:doAdd,[])
+ link(CodeName,15909548:Var2,[])
+}
+Add(AddProject,7013595,133,105)
+{
+ Entry="HISEntryPoint"
+ Name="HIS"
+ Info="HiAsm Install Script"
+ Ext="his"
+ Make="make_mod.dll"
+ link(onAdd,9278301:doAdd,[])
+ link(CodeName,13612327:Var2,[])
+}
+Add(VisualText,11394344,77,49)
+{
+ Lines=#7:modules|
+ Width=102
+ Point(Text)
+}
+Add(GetDataEx,15909548,70,77)
+{
+ link(Data,11394344:Text,[])
+}
+Add(InfoTip,15641174,14,154)
+{
+ Info=#54: Пример генерации инсталяционного файла пакета Modules|
+ Transparent=1
+ Width=204
+ Margin=4
+}
+Add(AddProject,9278301,189,105)
+{
+ Entry="MakeEntryPoint"
+ Name="Make"
+ Info="HiAsm Make DLL"
+ Ext="dll"
+ Make="make_mod.dll"
+ link(onAdd,15197478:doAdd,[])
+ link(CodeName,6842565:Var2,[])
+}
+Add(GetDataEx,13612327,126,77)
+{
+ Angle=3
+ link(Data,15909548:Var3,[])
+}
+Add(AddProject,15197478,245,105)
+{
+ Entry="MainForm"
+ Name="Шаблоны"
+ Info="Шаблоны диалогов HiAsm"
+ link(CodeName,6842565:Var3,[(251,86)])
+}
+Add(GetDataEx,6842565,182,77)
+{
+ Angle=3
+ link(Data,13612327:Var3,[])
+}

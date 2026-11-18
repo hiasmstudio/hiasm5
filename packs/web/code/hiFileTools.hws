@@ -1,0 +1,47 @@
+func doMove
+  fvar(s)
+  s = FileName 
+  println('copy(', s, ', ', NewFileName, ');')
+  println('unlink(', s, ');')
+  event(onEnd)
+end
+
+func doCopy
+  println('copy(', FileName, ', ', NewFileName, ');')
+  event(onEnd)
+end
+
+func doDelete
+  println('@unlink(', FileName, ');')
+  event(onEnd)
+end
+
+func doFileExists
+  event(onEnd, 'file_exists(' && FileName && ')')
+end
+
+func doRename
+  println('rename(', FileName, ', ', NewFileName, ');')
+  event(onEnd)
+end
+
+func doChmod
+  println('chmod(', FileName, ', ', Mode, ');')
+  event(onEnd)
+end
+
+func Size
+  return('filesize(' && FileName && ')')
+end
+
+func CreateTime
+  return('filectime(' && FileName && ')')
+end
+
+func ModifyTime
+  return('filemtime(' && FileName && ')')
+end
+
+func ActiveTime
+  return('fileatime(' && FileName && ')')
+end

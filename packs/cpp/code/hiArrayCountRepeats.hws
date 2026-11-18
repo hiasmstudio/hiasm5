@@ -1,0 +1,102 @@
+func ArrayExpr()
+  if(get('ArrayType') == 0)
+    if(linked('Array'))
+      return(d('Array'))
+    else
+      return('std::vector<std::string>()')
+    end
+  else
+    if(get('ArrayType') == 1)
+      if(linked('Array'))
+        return(d('Array'))
+      else
+        return('std::vector<int>()')
+      end
+    else
+      if(linked('Array'))
+        return(d('Array'))
+      else
+        return('std::vector<double>()')
+      end
+    end
+  end
+end
+
+func doCount(_data)
+  if(get('ArrayType') == 0)
+    println('{')
+    block.inclvl()
+    println('std::vector<std::pair<std::string, int>> hiasm_cnt', _id_, ';')
+    println('for(const auto &hiasm_value', _id_, ' : ', ArrayExpr(), ') {')
+    block.inclvl()
+    println('bool hiasm_found', _id_, ' = false;')
+    println('for(auto &hiasm_pair', _id_, ' : hiasm_cnt', _id_, ') if(hiasm_pair', _id_, '.first == hiasm_value', _id_, ') { ++hiasm_pair', _id_, '.second; hiasm_found', _id_, ' = true; break; }')
+    println('if(!hiasm_found', _id_, ') hiasm_cnt', _id_, '.push_back({hiasm_value', _id_, ', 1});')
+    block.declvl()
+    println('}')
+    println('for(const auto &hiasm_pair', _id_, ' : hiasm_cnt', _id_, ') {')
+    block.inclvl()
+    println('hiasm_str_state(', _id_, ') = hiasm_pair', _id_, '.first;')
+    println('hiasm_int_state(', _id_, ', 0) = hiasm_pair', _id_, '.second;')
+    event(onCount, 'hiasm_str_state(' && _id_ && ')', 'hiasm_int_state(' && _id_ && ')')
+    block.declvl()
+    println('}')
+    println('hiasm_int_state(', _id_, ', 0) = static_cast<int>(hiasm_cnt', _id_, '.size());')
+    event(onEndCount)
+    block.declvl()
+    println('}')
+  else
+    if(get('ArrayType') == 1)
+      println('{')
+      block.inclvl()
+      println('std::vector<std::pair<long long, int>> hiasm_cnt', _id_, ';')
+      println('for(const auto &hiasm_value', _id_, ' : ', ArrayExpr(), ') {')
+      block.inclvl()
+      println('bool hiasm_found', _id_, ' = false;')
+      println('for(auto &hiasm_pair', _id_, ' : hiasm_cnt', _id_, ') if(hiasm_pair', _id_, '.first == hiasm_value', _id_, ') { ++hiasm_pair', _id_, '.second; hiasm_found', _id_, ' = true; break; }')
+      println('if(!hiasm_found', _id_, ') hiasm_cnt', _id_, '.push_back({hiasm_value', _id_, ', 1});')
+      block.declvl()
+      println('}')
+      println('for(const auto &hiasm_pair', _id_, ' : hiasm_cnt', _id_, ') {')
+      block.inclvl()
+      println('hiasm_ll_state(', _id_, ') = hiasm_pair', _id_, '.first;')
+      println('hiasm_int_state(', _id_, ', 0) = hiasm_pair', _id_, '.second;')
+      event(onCount, 'hiasm_ll_state(' && _id_ && ')', 'hiasm_int_state(' && _id_ && ')')
+      block.declvl()
+      println('}')
+      println('hiasm_int_state(', _id_, ', 0) = static_cast<int>(hiasm_cnt', _id_, '.size());')
+      event(onEndCount)
+      block.declvl()
+      println('}')
+    else
+      println('{')
+      block.inclvl()
+      println('std::vector<std::pair<double, int>> hiasm_cnt', _id_, ';')
+      println('for(const auto &hiasm_value', _id_, ' : ', ArrayExpr(), ') {')
+      block.inclvl()
+      println('bool hiasm_found', _id_, ' = false;')
+      println('for(auto &hiasm_pair', _id_, ' : hiasm_cnt', _id_, ') if(hiasm_pair', _id_, '.first == hiasm_value', _id_, ') { ++hiasm_pair', _id_, '.second; hiasm_found', _id_, ' = true; break; }')
+      println('if(!hiasm_found', _id_, ') hiasm_cnt', _id_, '.push_back({hiasm_value', _id_, ', 1});')
+      block.declvl()
+      println('}')
+      println('for(const auto &hiasm_pair', _id_, ' : hiasm_cnt', _id_, ') {')
+      block.inclvl()
+      println('hiasm_int_state(', _id_, ', 0) = hiasm_pair', _id_, '.second;')
+      event(onCount, 'hiasm_text(hiasm_pair' && _id_ && '.first)', 'hiasm_int_state(' && _id_ && ')')
+      block.declvl()
+      println('}')
+      println('hiasm_int_state(', _id_, ', 0) = static_cast<int>(hiasm_cnt', _id_, '.size());')
+      event(onEndCount)
+      block.declvl()
+      println('}')
+    end
+  end
+end
+
+func Count()
+  return('hiasm_int_state(' && _id_ && ')')
+end
+
+func Value()
+  return('hiasm_str_state(' && _id_ && ')')
+end

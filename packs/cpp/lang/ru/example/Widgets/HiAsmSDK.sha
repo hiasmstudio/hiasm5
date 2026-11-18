@@ -1,0 +1,39 @@
+Make(cpp)
+Add(MainForm,724030,42,108)
+{
+ Left=20
+ Top=105
+ Width=390
+ Height=367
+ Caption="Micro HiAsm 1.13"
+}
+Add(HiAsmSDK,7094560,119,143)
+{
+ Width=382
+ Height=342
+ Align=5
+}
+Add(InfoTip,3139768,113,189)
+{
+ @Group=14188372
+ Info=#9:Внимание!|
+ Font=[MS Sans Serif,12,1,255,1]
+ Transparent=1
+ Width=232
+ Height=95
+}
+Add(LinkTip,9279260,113,259)
+{
+ @Group=14188372
+ Link="http://www.hiasm.com/down/hiasm_port.rar=load://http://www.hiasm.com/down/hiasm_port.rar"
+ Font=[MS Sans Serif,8,0,16711680,1]
+}
+Add(InfoTip,8392515,120,203)
+{
+ @Group=14188372
+ Info=#128:Для работы компонент необходимо скачать архив и скопировать его в папку HiAsm. Пример так же должен быть запущен из папки HiAsm.|
+ Frame=1
+ HAlign=0
+ Width=218
+ Height=53
+}

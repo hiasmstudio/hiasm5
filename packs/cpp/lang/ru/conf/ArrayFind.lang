@@ -1,0 +1,12 @@
+Finding a value in arrays=Поиск значения в массивах
+Array type=Тип массива
+Search by part of a string=Искать по части строки
+Case sensitivity for String type=Чувствительность к регистру символов для типа String
+Default search starting index=Стартовый индекс поиска по-умолчанию
+Default search value=Значение для поиска по-умолчанию
+Looks up the value of an element in the array ARG(Array,Index,Value)=Ищет значение элемента в массиве ARG(Array,Index,Value)
+The event occurs whenever the desired element value is found, outputting its index to the stream (if not found -1) ARG(Index)=Событие происходит всякий раз при нахождении искомого значения элемента, выдавая его индекс в поток (при ненахождении -1) ARG(Index)
+An array in which to find the element's value=Массив, в котором необходимо найти значение элемента
+Start search index=Стартовый индекс поиска
+Search value=Значение для поиска
+Index of the found element with the required value=Индекс найденного элемента с необходимым значением

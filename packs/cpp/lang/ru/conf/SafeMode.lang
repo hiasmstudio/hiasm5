@@ -1,0 +1,7 @@
+Resource protection=Защита ресурсов
+Name of the security mutex or critical section=Имя защитного мьютекса или критической секции
+Protection mode. Global - mutex protection, Local - critical section protection=Режим защиты. Global - защита мьютексом, Local - защита критической секцией
+Release a mutex when a thread terminates unexpectedly=Освобождать мьютекс при несанкционированном завершении потока
+Standby mode. Wait - Wait for the resource to be released. NoWait - Immediately return control=Режим ожидания. Wait - Ожидать освобождения ресурса. NoWait - Немедленно вернуть управление
+Starts working with the resource and enables protection=Запускает работу с ресурсом и включает защиту
+Event for starting work with a resource=Событие для запуска работы с ресурсом

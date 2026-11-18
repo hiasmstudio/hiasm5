@@ -1,0 +1,47 @@
+func Compare(op1, op2, type)
+  fvar(a, b, op)
+  a = 'hiasm_text(' && op1 && ')'
+  b = 'hiasm_text(' && op2 && ')'
+  switch(type)
+    case 0: op = ' == '
+    case 1: op = ' < '
+    case 2: op = ' > '
+    case 3: op = ' <= '
+    case 4: op = ' >= '
+    default: op = ' != '
+  end
+  return('hiasm_data_cmp(' && a && ', ' && b && ')' && op && '0')
+end
+
+func Condition(_data)
+  fvar(op1, op2)
+  if(linked('Op1'))
+    op1 = d('Op1')
+  else
+    op1 = cstr(get('Op1'))
+  end
+  if(linked('Op2'))
+    op2 = d('Op2')
+  else
+    op2 = cstr(get('Op2'))
+  end
+  return(Compare(op1, op2, get('Type')))
+end
+
+func doRepeat(_data)
+  println('for(;;) {')
+  block.inclvl()
+  if(get('Check') == 0)
+    println('if(!(', Condition(_data), ')) break;')
+  end
+  event(onRepeat, _data)
+  if(get('Check') == 1)
+    println('if(!(', Condition(_data), ')) break;')
+  end
+  block.declvl()
+  println('}')
+end
+
+func doStop(_data)
+  println('break;')
+end

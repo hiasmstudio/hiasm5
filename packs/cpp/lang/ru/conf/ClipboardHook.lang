@@ -1,0 +1,10 @@
+Windows Clipboard Hook=Ловушка для буфера обмена Windows
+none - the onChange event does not output any data to the stream, Text - the onChange event outputs text from the clipboard to the stream=none - событие onChange не выдает каких-либо данных в поток, Text - событие onChange выдаёт в поток текст из буфера обмена
+True - pass control to the next hook, False - do not transfer (setting this value will prevent other programs from catching changes in the Clipboard)=True - передать управление следующей ловушке, False - не передавать (установка этого значения не позволит другим программам отлавливать изменения в Clipboard)
+Writes text to the clipboard without generating onChange events (see Text)=Заносит текст в буфер обмена, не генерируя при этом события onChange (см. Text)
+Pastes text from the clipboard into a Windows window with a given identifier, or into the active window with an identifier of 0 (imitation Ctrl+V)=Вставляет текст из буфера обмена в окно Windows с заданным идентификатором, или в активное окно при идентификаторе равном 0(имитация Ctrl+V)
+The event occurs whenever text is placed on the clipboard and outputs it to the ARG(Text) stream=Событие происходит всякий раз при помещении текста в буфере обмена и выдает его в поток ARG(Text)
+The event occurs every time an image is placed on the clipboard and outputs this image to the stream ARG(Bitmap)=Событие происходит всякий раз при помещении картинки в буфер обмена и выдает в поток эту картинку ARG(Bitmap)
+Determines the text to be placed on the clipboard using the doSetText method=Определяет текст для помещения в буфер обмена методом doSetText
+ID of the Windows window into which you want to paste the text=Идентификатор окна Windows, в которое нужно вставить текст
+Overrides the work of the NextHook saint: if the received data is different from 0, it prohibits the transfer of data to the next hook, otherwise it unconditionally transmits=Перекрывает работу св-ва NextHook: если приятые данные отличны от 0 - запрещает передачу данных следующей ловушке, иначе - безусловно передает

@@ -1,0 +1,117 @@
+Make(cpp)
+Add(MainForm,10690639,315,112)
+{
+ Caption="HDD benchmark"
+ BorderStyle=3
+}
+Add(Button,12689665,266,210)
+{
+ Left=5
+ Top=20
+ Caption="Start"
+ link(onClick,14553000:doData,[])
+}
+Add(ListBox,12557048,518,154)
+{
+ Left=75
+ Top=50
+ Width=300
+ Height=210
+}
+Add(Button,13716277,455,378)
+{
+ Left=5
+ Top=60
+ Caption="Copy"
+ link(onClick,4101020:doString,[])
+}
+Add(Clipboard,9415504,574,378)
+{
+ Point(PutText)
+}
+Add(FormatStr,4101020,518,378)
+{
+ DataCount=1
+ Mask="[scode]\r\n%1\r\n[/code]"
+ link(onFString,9415504:doPutText,[])
+ link(Str1,12557048:Text,[])
+}
+Add(StrCat,9330820,455,210)
+{
+ Str1="Read Mb\s: "
+ link(onStrCat,16181375:doWork2,[])
+}
+Add(StrCat,3636559,455,252)
+{
+ Str1="Write Mb\s: "
+ link(onStrCat,5379015:doWork2,[])
+}
+Add(HubEx,16181375,497,210)
+{
+ Angle=3
+ link(onEvent,12557048:doAdd,[(501,160)])
+}
+Add(DriveBox,538609,315,161)
+{
+ Left=75
+ Top=20
+ Width=300
+ Height=21
+}
+Add(BenchmarkHDD,5296998,406,252)
+{
+ HDD=""
+ Mode=1
+ link(onBenchmark,3636559:doStrCat,[])
+}
+Add(Hub,4389228,364,210)
+{
+ OutCount=4
+ link(onEvent1,9346145:doStartBenchmark,[])
+ link(onEvent2,5296998:doStartBenchmark,[(392,223)(392,258)])
+ link(onEvent3,12007454:doStartBenchmark,[(392,230)(392,300)])
+ link(onEvent4,13576826:doStartBenchmark,[(392,237)(392,342)])
+}
+Add(DoData,14553000,315,210)
+{
+ link(onEventData,4389228:doEvent1,[])
+ link(Data,538609:Disk,[])
+}
+Add(BenchmarkHDD,9346145,406,210)
+{
+ HDD=""
+ link(onBenchmark,9330820:doStrCat,[])
+}
+Add(StrCat,3781051,455,294)
+{
+ Str1="Cache Read Mb\s: "
+ link(onStrCat,7152473:doWork2,[])
+}
+Add(StrCat,10789613,455,336)
+{
+ Str1="Cache Write Mb\s: "
+ link(onStrCat,7152473:doWork3,[(501,342)])
+}
+Add(BenchmarkHDD,13576826,406,336)
+{
+ HDD=""
+ Mode=1
+ Cache=0
+ link(onBenchmark,10789613:doStrCat,[])
+}
+Add(BenchmarkHDD,12007454,406,294)
+{
+ HDD=""
+ Cache=0
+ link(onBenchmark,3781051:doStrCat,[])
+}
+Add(HubEx,5379015,497,252)
+{
+ Angle=3
+ link(onEvent,16181375:doWork3,[])
+}
+Add(HubEx,7152473,497,294)
+{
+ Angle=3
+ link(onEvent,5379015:doWork3,[])
+}

@@ -1,0 +1,10 @@
+Jabber client=Jabber клиент
+Client name=Имя клиента
+IP address for connecting to the jabber server=IP адрес для соединения с jabber сервером
+Port for connecting to the jabber server=Порт для соединения с jabber сервером
+Jabber server user ID in the format <Name>@<Host>[/<Place>]=Идентификатор пользователя jabber сервера в формате <Имя>@<Хост>[/<Место>]
+User password=Пароль пользователя
+Establishes a connection to the jabber server=Устанавливает соединение с jabber сервером
+The event occurs every time after a successful connection to the server=Событие происходит всякий раз после успешного соединения с сервером
+The event occurs every time there is an error connecting to the server=Событие происходит всякий раз после возникновения ошибки соединения с сервером
+Hostname on jabber server=Имя хоста на jabber сервере

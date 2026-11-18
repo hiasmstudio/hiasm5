@@ -1,0 +1,11 @@
+include('tag_maker')
+
+section html
+
+func doPrint
+  include('tag_header')
+  if(isset(Name))
+    s &= " name=\"" & Name & "\""
+  end
+  include('tag_footer')
+end

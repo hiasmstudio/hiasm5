@@ -1,0 +1,13 @@
+Actions on columns in MTStrTbl=Действия над столбцами в MTStrTbl
+AddCols - adds columns, InsertCol - inserts a column, ReplaceCol - replaces a column, DeleteCol - removes a column from the table, ClearCol - deletes the contents of a column, NameCol - sets the column name, WidthCol - sets the column width, AlignTxtCol - assigns text alignment in the column, IdxIconCol - assigns an icon from the list of icons to the column, AutoColWidth - automatically aligns the column width to the length of the row, GetColParam - gets the column parameters, StretchCol - aligns the width of the column to the width of the table (-1 - everything is uniform, -2 - everything is proportional)=AddCols - добавляет столбцы, InsertCol - вставляет столбец, ReplaceCol - заменяет столбец, DeleteCol - удаляет столбец из таблицы, ClearCol - удаляет содержимое столбца, NameCol - устанавливает имя столбца, WidthCol - устанавливает ширину столбца, AlignTxtCol - назначает выравнивание текста в столбце, IdxIconCol - назначает столбцу иконку из списка иконок, AutoColWidth - автоматически выравнивает ширину столбца по длине строки, GetColParam - получает параметры столбца, StretchCol - выравнивает ширину колонки по ширине таблицы (-1 - все равномерно, -2 - все пропорционально)
+Minimum column width for AutoColWidth method=Минимальная ширина столбца для метода AutoColWidth
+Maximum column width for the AutoColWidth method (width limitation occurs for values greater than 0)=Максимальная ширина столбца для метода AutoColWidth (ограничение ширины происходит при значениях больше 0)
+Default column index for ClearCol, AutoColWidth, GetColParam modes=Индекс столбца по-умолчанию для режимов ClearCol, AutoColWidth, GetColParam
+Managing the MTStrTbl element=Управление элементом MTStrTbl
+Performs various actions on table columns according to the Action parameter=Выполняет различные действия над столбцами таблицы согласно параметра Action
+The event occurs whenever the list of table rows is changed=Событие происходит всякий раз при изменении списка строк таблицы
+The event occurs whenever the list of table columns changes=Событие происходит всякий раз при изменении списка столбцов таблицы
+Outputs the results of various operations on columns to a stream. (GetColParam)=Выдаёт результат различных операций над столбцами в поток. (GetColParam)
+Contains the number of columns=Содержит количество столбцов
+Contains the index of the last column in the table=Содержит индекс последнего столбца в таблице
+Column index for ClearCol, AutoColWidth, GetColParam modes=Индекс столбца для режимов ClearCol, AutoColWidth, GetColParam

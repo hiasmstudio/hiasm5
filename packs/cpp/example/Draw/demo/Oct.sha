@@ -1,0 +1,153 @@
+*Отрисовка восьмиугольника
+Make(cpp)
+Add(MainForm,6575,105,56)
+{
+ Left=96
+ Top=125
+ Width=251
+ Height=260
+ Font=[Arial,8,0,0,1]
+ Caption="Example"
+ BorderStyle=3
+}
+Add(GetDataEx,13404495,343,413)
+{
+ link(Data,10881857:Item,[])
+}
+Add(PaintBox,8646250,175,105)
+{
+ Left=20
+ Top=15
+ Width=205
+ Height=205
+ Color=128
+ ClearBeforeDraw=0
+ link(onBeforeDraw,18366:doEvent1,[(217,111)(217,149)(165,149)(165,167)])
+}
+Add(PointXY,72010,434,105)
+{
+ link(X,61194:Result,[(440,93)(391,93)])
+ link(Y,58977:Result,[])
+}
+Add(IntegerArray,7629,504,196)
+{
+ IntArray=[]
+}
+Add(ArrayRW,10881857,350,266)
+{
+ link(Array,9412376:Var1,[(356,240)])
+}
+Add(Hub,66314,280,266)
+{
+ OutCount=4
+ link(onEvent1,10881857:doRead,[])
+ link(onEvent2,24595:doOperation,[(343,279)(343,321)])
+ link(onEvent3,24650:doOperation,[(338,286)(338,370)])
+ link(onEvent4,16502:doDraw,[(327,293)(327,447)])
+}
+Add(MathParse,58977,441,49)
+{
+ DataCount=1
+ MathStr="100*cos(%1/180*pi)+100"
+ ResultType=0
+ link(onResult,15349490:doAdd,[(491,55)(491,197)(410,197)(410,174)])
+ link(X1,14939:Result,[(447,34)(357,34)(357,207)(300,207)])
+}
+Add(Math,24595,371,315)
+{
+ Op2=1
+ ResultType=0
+ link(onResult,12047516:doRead,[])
+}
+Add(MathParse,61194,385,49)
+{
+ DataCount=1
+ MathStr="100*sin(%1/180*pi)+100"
+ ResultType=0
+ link(onResult,58977:doCalc,[])
+}
+Add(Timer,53364,105,105)
+{
+ Interval=10
+ link(onTimer,8646250:doRefresh,[])
+}
+Add(Math,14939,294,168)
+{
+ ResultType=0
+ link(onResult,61194:doCalc,[(344,174)(344,55)])
+ link(Op1,88360:Count,[])
+}
+Add(Math,24650,476,364)
+{
+ Op2=4
+ ResultType=0
+ link(onResult,6195441:doRead,[])
+}
+Add(Img_Line,16502,343,441)
+{
+ Color=65535
+ Point(Point1)
+ Point(Point2)
+ link(onDraw,14783:doDraw,[])
+ link(Bitmap,3819273:Var2,[])
+ link(Point1,13404495:Var2,[])
+ link(Point2,12047516:Item,[(363,393)(426,393)])
+}
+Add(For,16761,231,266)
+{
+ End=8
+ link(onEvent,66314:doEvent1,[])
+}
+Add(Img_Line,14783,385,441)
+{
+ Color=16777215
+ Point(Point1)
+ Point(Point2)
+ link(Bitmap,3819273:Var3,[(391,429)])
+ link(Point1,13404495:Var3,[(398,422)])
+ link(Point2,6195441:Item,[(405,419)(531,419)])
+}
+Add(Counter,88360,294,126)
+{
+ Max=44
+}
+Add(ArrayRW,15349490,420,154)
+{
+ link(Array,9412376:Var3,[(426,142)(391,142)])
+ link(Value,72010:Point,[])
+}
+Add(For,25617,238,168)
+{
+ End=720
+ Step=45
+ link(onEvent,14939:doOperation,[])
+ link(onStop,88360:doNext,[(282,181)(282,132)])
+}
+Add(Hub,18366,175,161)
+{
+ OutCount=3
+ link(onEvent1,7629:doClear,[(232,167)(232,216)])
+ link(onEvent2,25617:doFor,[])
+ link(onEvent3,16761:doFor,[(219,181)(219,272)])
+}
+Add(GetDataEx,9412376,378,231)
+{
+ Angle=1
+ link(Data,7629:Array,[(510,240)])
+}
+Add(ArrayRW,12047516,420,315)
+{
+ link(Array,867036:Var2,[])
+}
+Add(ArrayRW,6195441,525,364)
+{
+ link(Array,867036:Var3,[(531,303)])
+}
+Add(GetDataEx,3819273,336,420)
+{
+ link(Data,8646250:Bitmap,[(349,388)(181,388)])
+}
+Add(GetDataEx,867036,413,294)
+{
+ link(Data,9412376:Var2,[(426,264)(391,264)])
+}

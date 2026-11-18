@@ -1,0 +1,15 @@
+include('tag_maker')
+
+section html
+
+func doPrint
+  include('tag_header')
+  if(isset(Rows))
+    s &= " rows=\"" & Rows & "\""
+  end 
+  if(isset(Cols))
+    s &= " cols=\"" & Cols & "\""
+  end
+
+  include('tag_footer')
+end

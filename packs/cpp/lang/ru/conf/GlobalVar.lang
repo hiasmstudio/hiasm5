@@ -1,0 +1,6 @@
+Global variable=Глобальная переменная
+Global variable name=Имя глобальной переменной
+Default data=Данные по-умолчанию
+Sets the value of a variable=Устанавливает значение переменной
+The event occurs whenever a global variable is set and outputs its value to the stream=Событие происходит всякий раз после установки глобальной переменной и выдает ее значение в поток
+Contains the current value of a global variable=Содержит текущее значение глобальной переменной

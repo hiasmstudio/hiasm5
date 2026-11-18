@@ -1,0 +1,24 @@
+func Value(name)
+  if(linked(name))
+    return(d(name))
+  else
+    return(get(name))
+  end
+end
+
+func Expr()
+  return('((' && Value('B') && ' << 16) | (' && Value('G') && ' << 8) | ' && Value('R') && ')')
+end
+
+func doRGB(_data)
+  println('auto hiasm_rgb', _id_, ' = ', Expr(), ';')
+  event(onRGB, 'hiasm_rgb' && _id_)
+end
+
+func Color()
+  if(linked('doRGB'))
+    return('hiasm_rgb' && _id_)
+  else
+    return(Expr())
+  end
+end

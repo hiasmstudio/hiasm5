@@ -1,0 +1,34 @@
+include('tag_maker')
+
+section java
+
+func doPrint()
+  fvar(ctrl)
+  println(memo, ' = document.createElement("textarea")')
+  ctrl = memo
+  include('tag_header_java')
+  if(isset(Cols))
+    println(ctrl, '.cols = ', Cols)
+  end  
+  if(isset(Rows))
+    println(ctrl, '.rows = ', Rows)
+  end  
+
+  event(onPrint, ctrl)
+end 
+
+section html
+
+func doPrint
+  include('tag_header')
+  if(isset(Name))
+    s &= " name=\"" & Name & "\""
+  end
+  if(isndef(Cols))
+    s &= " cols=\"" & Cols & "\""
+  end 
+  if(isndef(Rows))
+    s &= " rows=\"" & Rows & "\""
+  end 
+  include('tag_footer')
+end

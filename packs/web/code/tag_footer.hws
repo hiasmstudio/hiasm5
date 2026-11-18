@@ -1,0 +1,90 @@
+  if(linked(onAfterUpdate))
+   s &= makeevent("onafterupdate")
+  end
+  if(linked(onBeforeUpdate))
+   s &= makeevent("onbeforeupdate")
+  end
+  if(linked(onBlur))
+   s &= makeevent("onblur")
+  end
+  if(linked(onClick))
+   s &= makeevent("onclick")
+  end
+  if(linked(onDblClick))
+   s &= makeevent("ondblclick")
+  end
+  if(linked(onDragStart))
+   s &= makeevent("ondragstart")
+  end
+  if(linked(onErrorUpdate))
+   s &= makeevent("onerrorupdate")
+  end
+  if(linked(onFilterChange))
+   s &= makeevent("onfilterchange")
+  end
+  if(linked(onFocus))
+   s &= makeevent("onfocus")
+  end
+  if(linked(onHelp))
+   s &= makeevent("onhelp")
+  end
+  if(linked(onKeyDown))
+   s &= makeevent("onkeydown")
+  end
+  if(linked(onKeyPress))
+   s &= makeevent("onkeypress")
+  end
+  if(linked(onKeyUp))
+   s &= makeevent("onkeyup")
+  end
+  if(linked(onMouseDown))
+   s &= makeevent("onmousedown")
+  end
+  if(linked(onMouseMove))
+   s &= makeevent("onmousemove")
+  end
+  if(linked(onMouseOut))
+   s &= makeevent("onmouseout")
+  end
+  if(linked(onMouseOver))
+   s &= makeevent("onmouseover")
+  end
+  if(linked(onMouseUp))
+   s &= makeevent("onmouseup")
+  end
+  if(linked(onLoad))
+   s &= makeevent("onload")
+  end
+  if(linked(onResize))
+   s &= makeevent("onresize")
+  end
+  if(linked(onRowEnter))
+   s &= makeevent("onrowenter")
+  end
+  if(linked(onRowExit))
+   s &= makeevent("onrowexit")
+  end
+  if(linked(onScroll))
+   s &= makeevent("onscroll")
+  end
+  if(linked(onSelectStart))
+   s &= makeevent("onselectstart")
+  end
+  
+  if(isprop(PrintSlashes) and isndef(PrintSlashes))
+    s &= "/"
+  end
+  s &= ">"
+  
+  if(not isprop(PrintMode) or PrintMode != 2)
+    println(s)
+    if(isprop(PrintMode))
+      block.inclvl()
+    end
+  end
+  event(onPrint)
+  
+  if(isprop(PrintMode) and PrintMode != 1)
+    block.declvl()
+    println("</", tag, ">")    
+  end   

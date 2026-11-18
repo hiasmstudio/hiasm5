@@ -1,0 +1,43 @@
+func Source(value)
+  if(linked('Str'))
+    return(d('Str'))
+  end
+  if(len(value) > 0)
+    return(value)
+  end
+  return('""')
+end
+
+func Pair(value)
+  return('[](const std::string &s, const std::string &ch) { std::size_t p = ch.empty() ? std::string::npos : s.find(ch); return std::make_pair(p == std::string::npos ? s : s.substr(0, p), p == std::string::npos ? std::string() : s.substr(p + ch.size())); }(' && Source(value) && ', ' && cstr(get('Char')) && ')')
+end
+
+func doSplit(_data)
+  println('{')
+  block.inclvl()
+  println('const std::pair<std::string, std::string> hiasm_part', _id_, ' = ', Pair(_data), ';')
+  println('hiasm_str_state(', _id_, ' * 10 + 1) = hiasm_part', _id_, '.first;')
+  println('hiasm_str_state(', _id_, ' * 10 + 2) = hiasm_part', _id_, '.second;')
+  if(get('DirectEvent') == "True")
+    event(onSplit, 'hiasm_str_state(' && _id_ && ' * 10 + 2)')
+    event(onPart, 'hiasm_str_state(' && _id_ && ' * 10 + 1)')
+  else
+    event(onPart, 'hiasm_str_state(' && _id_ && ' * 10 + 1)')
+    event(onSplit, 'hiasm_str_state(' && _id_ && ' * 10 + 2)')
+  end
+  println('if(std::string(', Source(_data), ').find(std::string(', cstr(get('Char')), ')) == std::string::npos) {')
+  block.inclvl()
+  event(onNotFound)
+  block.declvl()
+  println('}')
+  block.declvl()
+  println('}')
+end
+
+func Left()
+  return('hiasm_str_state(' && _id_ && ' * 10 + 1)')
+end
+
+func Right()
+  return('hiasm_str_state(' && _id_ && ' * 10 + 2)')
+end

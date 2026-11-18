@@ -1,0 +1,21 @@
+func create(_data):any
+  return(Object && '.' && code(Name))
+end
+
+func doRead(_data):java
+  if(linked(Value))
+    println(fld, ' = ', create(_data))
+    event(onRead, fld)
+  else
+    event(onRead, create(_data))
+  end
+end
+
+func Value():java
+  if(linked(doRead))
+    return(fld)
+  else
+    return(create(_data))
+  end
+end
+

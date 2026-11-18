@@ -1,0 +1,21 @@
+func create(_data)
+  return((isdef(Mode) ? '' : '!') && 'feof(' && FileID && ')')
+end
+
+func dofeof(_data)
+  if(linked(Result))
+    println(feof, ' = ', create(_data), ';')
+    event(onfeof, feof)
+  else
+    event(onfeof, create(_data))
+  end
+end
+
+func Result()
+  if(linked(dofeof))
+    return(feof)
+  else
+    return(create(_data))
+  end
+end
+

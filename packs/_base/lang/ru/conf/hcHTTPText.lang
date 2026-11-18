@@ -1,0 +1,5 @@
+Loads text by HTTP protocol=Загрузка текста по HTTP протоколу
+Defines address of page in internet for loading=Адрес страницы в интернете для загрузки данных
+Load text by specified address=Загружает текст по указанному адресу
+Event emit every time after load the text and give it in thread ARG(Text)=Событие происходит всякий раз после загрузки текста и выдает его в поток ARG(Text)
+

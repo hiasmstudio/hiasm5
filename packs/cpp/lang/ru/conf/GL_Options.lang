@@ -1,0 +1,6 @@
+Output settings=Настройки вывода
+Parameter to be enabled or disabled=Параметр, который необходимо разрешить либо запретить
+Sets a flag=Устанавливает флаг
+Resets the flag=Сбрасывает флаг
+The event occurs after the flag is set/reset=Событие происходит после установки/сброса флага
+Contains 1 if the flag is set, or 0 otherwise=Содержит 1, если флаг установлен, или 0 - в противном случае

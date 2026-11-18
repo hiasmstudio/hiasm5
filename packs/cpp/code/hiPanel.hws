@@ -1,0 +1,44 @@
+func Arg(value)
+  if(len(value) > 0)
+    return(value)
+  else
+    return('""')
+  end
+end
+
+func doStart
+  fvar(container)
+  // The Panel of a ChildPanel holds the elements of the container's scheme, as in HiAsm 4.
+  container = sys.inner_parent()
+  println('{')
+  println('GtkWidget *panel = gtk_frame_new(', Caption, ');')
+  println('hiasm_set_background(panel, ', cstr(d('Color')), ');')
+  println('hiasm_set_font(panel, ', cstr(d('Font')), ');')
+  if(container)
+    println('GtkWidget *panel_client = gtk_fixed_new();')
+    println('gtk_frame_set_child(GTK_FRAME(panel), panel_client);')
+    println('gtk_widget_set_size_request(panel, ', Width, ', ', Height, ');')
+  end
+  println('hiasm_place("Panel', _id_, '", panel, ', Left, ', ', Top, ');')
+  if(linked(onClick))
+    println('GtkGesture *gesture = gtk_gesture_click_new();')
+    println('g_signal_connect(gesture, "pressed", G_CALLBACK(+[](GtkGestureClick *, int, double, double, gpointer) {')
+  println('if(!hiasm_form_ready) return;')
+    block.inclvl()
+    event(onClick)
+    block.declvl()
+    println('}), NULL);')
+    println('gtk_widget_add_controller(panel, GTK_EVENT_CONTROLLER(gesture));')
+  end
+  if(container)
+    println('hiasm_parents.push_back(panel_client);')
+    sys.run_all('dostart')
+    println('hiasm_parents.pop_back();')
+  end
+  println('}')
+end
+
+func doCaption(_data)
+  println('gtk_frame_set_label(GTK_FRAME(hiasm_widget("Panel', _id_, '").get()), hiasm_text(', Arg(_data), ').c_str());')
+end
+

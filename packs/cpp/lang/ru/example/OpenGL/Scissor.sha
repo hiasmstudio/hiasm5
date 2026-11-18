@@ -1,0 +1,244 @@
+*Пример использования элемента GL_Scissor#13#10- - - - - - -#13#10автор: sla8a
+Make(cpp)
+Add(MainForm,15340401,28,98)
+{
+ Height=400
+ Caption="Куб и сфера рисуются в пределах прямоугольника"
+ Position=1
+ Point(Handle)
+ link(onCreate,5558289:doEvent1,[])
+}
+Add(GL_Perspective,2,259,161)
+{
+ Fovy=35
+ zFar=100
+}
+Add(GL_Main,3,203,112)
+{
+ Color=15780518
+ link(onInit,4:doInit,[])
+ link(onViewPort,2:doPerspective,[(243,125)(243,167)])
+ link(Handle,15340401:Handle,[(209,96)(67,96)(67,142)(34,142)])
+}
+Add(Timer,5,105,161)
+{
+ Interval=33
+ Enable=1
+ link(onTimer,7:doEvent1,[])
+}
+Add(GL_GTools,6,203,161)
+{
+ Point(doClear)
+ Point(doPushMatrix)
+ Point(doPopMatrix)
+}
+Add(Hub,7,147,161)
+{
+ OutCount=5
+ link(onEvent1,6:doClear,[])
+ link(onEvent2,6:doPushMatrix,[])
+ link(onEvent3,4480603:doEnabled,[(172,181)(172,286)])
+ link(onEvent4,3:doFlip,[(182,188)(182,132)])
+ link(onEvent5,6:doPopMatrix,[(192,195)(192,181)])
+}
+Add(Hub,5558289,70,112)
+{
+ OutCount=3
+ link(onEvent1,3:doInit,[])
+ link(onEvent2,3:doViewPort,[])
+ link(onEvent3,5:doTimer,[(94,132)(94,167)])
+}
+Add(GL_GluTools,4,252,112)
+{
+ Texture=0
+ link(onInit,26:doEnabled,[])
+}
+Add(GL_Light,26,301,112)
+{
+ Ambient=16777215
+ link(onEnabled,26:doMove,[(340,118)(340,153)(296,153)(296,125)])
+ link(onMove,14322260:doEnabled,[])
+ link(Point,9644193:Point3D,[])
+}
+Add(GL_Options,14322260,350,119)
+{
+ link(onEvent,14251063:doEnabled,[])
+}
+Add(GL_Options,14251063,392,119)
+{
+ Flag=1
+ link(onEvent,614504:doEnabled,[])
+}
+Add(GL_Options,614504,434,119)
+{
+ Flag=2
+}
+Add(GL_Point3D,9644193,301,63)
+{
+ X=1
+ Y=1
+}
+Add(GL_Options,4480603,217,280)
+{
+ Flag=12
+ link(onEvent,8272190:doScissor,[])
+}
+Add(GL_Scissor,8272190,259,280)
+{
+ X=110
+ Y=110
+ Width=180
+ Height=180
+ Point(X)
+ Point(Y)
+ Point(Width)
+ Point(Height)
+ link(onScissor,6273886:doPushMatrix,[])
+}
+Add(GL_Sphere,3278875,518,280)
+{
+ Radius=0.4
+ link(onDraw,9494571:doPopMatrix,[])
+}
+Add(GL_Color,7496322,476,280)
+{
+ Color=8421376
+ link(onColor,3278875:doDraw,[])
+}
+Add(Gl_Translate,5310185,434,280)
+{
+ Y=0.1
+ Z=0.1
+ link(onTranslate,7496322:doColor,[])
+ link(Y,7249256:Var2,[])
+}
+Add(Counter,108098,343,280)
+{
+ Min=-250
+ Max=250
+ Step=5
+ link(onNext,3441725:doCalc,[])
+}
+Add(MathParse,3441725,385,280)
+{
+ MathStr="abs(%1)/100-1.25"
+ link(onResult,5310185:doTranslate,[])
+}
+Add(GL_Color,13347956,770,280)
+{
+ Color=8388608
+ link(onColor,3144640:doDraw,[])
+}
+Add(Gl_Translate,1721296,686,280)
+{
+ Y=0.1
+ Z=0.8
+ link(onTranslate,13089158:doRotate,[])
+ link(Y,12495002:Var3,[(699,268)])
+}
+Add(GL_GTools,6273886,301,280)
+{
+ Point(doPushMatrix)
+ link(onEvent,108098:doNext,[])
+}
+Add(GL_GTools,9494571,560,280)
+{
+ Point(doPopMatrix)
+ link(onEvent,3838306:doPushMatrix,[])
+}
+Add(Math,5210184,644,280)
+{
+ OpType=2
+ Op2=-1
+ link(onResult,1721296:doTranslate,[])
+ link(Op1,12495002:Var2,[])
+}
+Add(GetDataEx,7249256,441,263)
+{
+ Angle=3
+ link(Data,3441725:Result,[(422,268)(422,324)(391,324)])
+}
+Add(GetDataEx,12495002,644,263)
+{
+ Angle=3
+ link(Data,7249256:Var3,[])
+}
+Add(GL_Cube,3144640,812,280)
+{
+ Size=0.8
+ link(onDraw,13143582:doDisabled,[(852,286)(852,293)])
+}
+Add(GL_Rotate,13089158,728,280)
+{
+ Angle=15
+ X=1
+ Y=1
+ link(onRotate,13347956:doColor,[])
+}
+Add(InfoTip,15913466,182,231)
+{
+ Info=#65:Фигуры рисуются в приделах прямоугольника указанного в GL_Scissor|
+ Font=[MS Sans Serif,10,1,0,1]
+ Frame=2
+ Width=771
+ Height=109
+}
+Add(GL_Options,13143582,861,280)
+{
+ Flag=12
+ link(onEvent,5455680:doPopMatrix,[])
+}
+Add(GL_GTools,3838306,602,280)
+{
+ Point(doPushMatrix)
+ link(onEvent,5210184:doOperation,[])
+}
+Add(GL_GTools,5455680,903,280)
+{
+ Point(doPopMatrix)
+ link(onEvent,765545:doNext,[(941,286)(941,357)(289,357)(289,405)])
+}
+Add(Counter,765545,301,399)
+{
+ Min=-300
+ Max=300
+ Step=5
+ link(onNext,8936283:doCalc,[])
+}
+Add(MathParse,8936283,343,399)
+{
+ MathStr="abs(%1)/100-1.5"
+ link(onResult,1793082:doTranslate,[])
+}
+Add(GL_Torus,7822957,469,399)
+{
+ inRadius=0.1
+ outRadius=0.4
+ link(onDraw,2431299:doColor,[])
+}
+Add(Gl_Translate,1793082,385,399)
+{
+ Y=1.2
+ Z=1.5
+ link(onTranslate,6150687:doColor,[])
+}
+Add(GL_Color,6150687,427,399)
+{
+ Color=8388736
+ link(onColor,7822957:doDraw,[])
+}
+Add(Gl_Translate,11045903,553,399)
+{
+ Y=-2
+ link(onTranslate,14746624:doDraw,[])
+}
+Add(GL_Torus,14746624,595,399)
+{
+ inRadius=0.1
+ outRadius=0.4
+}
+Add(GL_Color,2431299,511,399)
+{
+ Color=32768
+ link(onColor,11045903:doTranslate,[])
+}

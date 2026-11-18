@@ -1,0 +1,241 @@
+Make(web)
+Add(HtmlEntryPoint,6508469,21,105)
+{
+ DocType="<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">"
+ link(onStart,6513700:doPrint,[])
+}
+Add(HTM_Html,6513700,77,105)
+{
+ link(onPrint,7465234:doEvent,[])
+}
+Add(Hub,7465234,133,105)
+{
+ link(onEvent1,12529672:doPrint,[])
+ link(onEvent2,15491478:doPrint,[(191,118)(191,216)])
+}
+Add(HTM_Head,12529672,217,105)
+{
+ link(onPrint,15187304:doEvent,[])
+}
+Add(HTM_Title,142091,329,105)
+{
+ link(onPrint,14521885:doEcho,[])
+}
+Add(Echo,14521885,385,105)
+{
+ Message="Dynamic image"
+}
+Add(HTM_Style,1898430,329,161)
+{
+ link(onPrint,3595574:doPrint,[])
+}
+Add(HTM_Body,15491478,217,210)
+{
+ link(onPrint,1638899:doEvent,[])
+}
+Add(HTM_Table,2726193,329,210)
+{
+ Class="main_table"
+ link(onPrint,16292614:doPrint,[])
+}
+Add(CSS,12910666,441,161)
+{
+ Name="main_td"
+ TextAlign=2
+ BorderColor="gray"
+ BorderWidth="1px"
+ BorderStyle=3
+ BgColor="silver"
+ Width="70px"
+ Height="30px"
+ Cursor=2
+ link(onPrint,10570212:doPrint,[])
+}
+Add(HTM_Tr,16292614,385,210)
+{
+ link(onPrint,14347698:doEvent,[])
+}
+Add(HTM_Td,13740620,721,210)
+{
+ Class="main_td"
+ Point(onMouseOver)
+ link(onPrint,13994227:doEcho,[])
+ link(onMouseOver,4182214:doData,[])
+}
+Add(HTM_Td,8670172,497,266)
+{
+ link(onPrint,3762758:doPrint,[])
+}
+Add(Echo,13994227,777,210)
+{
+ Message="Image 1"
+}
+Add(Hub,14347698,441,210)
+{
+ link(onEvent1,14032929:doPrint,[])
+ link(onEvent2,8670172:doPrint,[(485,223)(485,272)])
+}
+Add(Hub,12329057,609,210)
+{
+ OutCount=3
+ link(onEvent1,4532502:doPrint,[])
+ link(onEvent2,6307052:doPrint,[(656,223)(656,272)])
+ link(onEvent3,1831328:doPrint,[(652,230)(652,328)])
+}
+Add(HTM_Tr,6307052,665,266)
+{
+ link(onPrint,5179184:doPrint,[])
+}
+Add(HTM_Td,5179184,721,266)
+{
+ Class="main_td"
+ Point(onMouseOver)
+ link(onPrint,834904:doEcho,[])
+ link(onMouseOver,8421846:doData,[])
+}
+Add(Echo,834904,777,266)
+{
+ Message="Image 2"
+}
+Add(HTM_Img,3762758,560,266)
+{
+ Class="image"
+ Id="main_img"
+ Src="1.jpg"
+ Point(doSrc)
+ Point(onClick)
+ Point(curSrc)
+ link(onClick,12970951:doWork1,[(604,279)(604,258)(534,258)(534,328)])
+}
+Add(HTM_Tr,1831328,665,322)
+{
+ link(onPrint,2959336:doPrint,[])
+}
+Add(HTM_Td,2959336,721,322)
+{
+ Class="main_td"
+ Point(onMouseOver)
+ link(onPrint,14819040:doEcho,[])
+ link(onMouseOver,2913602:doData,[])
+}
+Add(Echo,14819040,777,322)
+{
+ Message="Image 3"
+}
+Add(DoData,4182214,833,217)
+{
+ Data=String(1.jpg)
+ link(onEventData,2134634:doWork2,[(889,223)(889,314)])
+}
+Add(DoData,8421846,833,273)
+{
+ Data=String(2.jpg)
+ link(onEventData,2134634:doWork1,[(879,279)])
+}
+Add(HTM_Tr,4532502,665,210)
+{
+ link(onPrint,13740620:doPrint,[])
+}
+Add(DoData,2913602,833,329)
+{
+ Data=String(3.jpg)
+ link(onEventData,2134634:doWork3,[(879,335)])
+}
+Add(HubEx,2134634,875,301)
+{
+ Angle=2
+ link(onEvent,3762758:doSrc,[(541,314)(541,279)])
+}
+Add(CSS,3595574,385,161)
+{
+ Name="main_table"
+ BorderColor="gray"
+ BorderWidth="1px"
+ BorderStyle=3
+ BgColor="white"
+ link(onPrint,12910666:doPrint,[])
+}
+Add(HTM_Table,16118184,553,210)
+{
+ link(onPrint,12329057:doEvent,[])
+}
+Add(HTM_Td,14032929,497,210)
+{
+ link(onPrint,16118184:doPrint,[])
+}
+Add(CSS,10570212,497,161)
+{
+ Name="image"
+ BorderWidth="0"
+ Width="128"
+ Height="128"
+ Cursor=3
+ link(onPrint,13940448:doPrint,[])
+}
+Add(Hub,1638899,273,210)
+{
+ link(onEvent1,2726193:doPrint,[])
+ link(onEvent2,5941954:doPrint,[(317,223)(317,265)])
+}
+Add(CSS,13940448,553,161)
+{
+ Tag="div"
+ Name="paste_div"
+ BorderColor="black"
+ BorderWidth="1px"
+ BorderStyle=3
+ BgColor="silver"
+ Width="32px"
+ Height="32px"
+ Float=1
+}
+Add(Hub,15187304,273,105)
+{
+ link(onEvent1,142091:doPrint,[])
+ link(onEvent2,1898430:doPrint,[(317,118)(317,167)])
+}
+Add(MultiElement,12970951,560,322)
+{
+ link(Data1,3762758:curSrc,[])
+}
+BEGIN_SDK
+  Add(EditMulti,6842874,6,6)
+  {
+   WorkCount=1
+   DataCount=1
+   Height=116
+   link(doWork1,7212879:doPrint,[(49,12)(49,76)])
+  }
+  Add(HTML_Collector,7212879,92,70)
+  {
+   link(onPrint,3220149:doStrCat,[])
+   link(Src,6842874:Data1,[(98,38)(12,38)])
+  }
+  BEGIN_SDK
+    Add(HCEditor,12014862,6,6)
+    {
+     VarCount=#28:Body=Содержит тело документа|47:Head=Содержит заголовок документа(если он есть)|
+     DataCount=#3:Src|
+     Width=104
+     Height=88
+     link(doPrint,5866296:doPrint,[(27,12)(27,48)])
+    }
+    Add(HTM_Img,5866296,35,42)
+    {
+     link(Src,12014862:Src,[(48,34)(12,34)])
+    }
+  END_SDK
+  Add(StrCat,3220149,147,70)
+  {
+   link(onStrCat,16119938:doInnerHTML,[])
+   link(Str1,16119938:InnerHTML,[(153,59)(191,59)(191,114)(209,114)])
+  }
+  Add(TAG_InnerHTML,16119938,203,70)
+  {
+   Id="line"
+  }
+END_SDK
+Add(HTM_Div,5941954,329,259)
+{
+ Id="line"
+}

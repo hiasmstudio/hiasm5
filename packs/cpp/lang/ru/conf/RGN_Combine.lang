@@ -1,0 +1,8 @@
+Combines two regions=Комбинирует два региона
+Mode for combining two regions into one: AND - intersection, OR - union, XOR - union, excluding any intersecting sections, DIFF - those parts of Region1 that are not parts of Region2 are combined, COPY - A copy of Region1 is created (Region2 is not used)=Режим объединения двух регионов в один: AND - пересечение, OR - объединение, XOR - объединение, за исключением любых пересекающихся участков, DIFF - объединяются те части области Region1, которые не являются частями области Region2, COPY - Создается копия области Region1 (Region2 не используется)
+Removes the region result of the combination (zeroes the Result)=Удаляет регион результат комбинирования (обнуляет Result)
+The event occurs whenever regions are combined and outputs the result to the ARG(Region) stream=Событие происходит всякий раз после комбинирования регионов и выдает результат в поток ARG(Region)
+Contains the result of the combination=Содержит результат комбинирования
+Contains the index of the combination result (0 - error, 1 - empty region, 2 - simple (rectangular) region, 3 - complex (multiple rectangle) region)=Содержит индекс результата комбинирования (0 - ошибка, 1 - регион пуст, 2 - простой (прямоугольный) регион, 3 - сложный (из нескольких прямоугольников) регион)
+Specifies the first region to combine=Определяет первый регион для комбинирования
+Defines a second region to combine=Определяет второй регион для комбинирования

@@ -1,0 +1,60 @@
+Make(cpp)
+Add(Entry,1,28,28)
+{
+ link(onStart,2:doEvent1,[])
+}
+Add(Hub,2,126,28)
+{
+ OutCount=3
+ link(onEvent1,3:doData,[])
+ link(onEvent2,5:doOperation,[])
+ link(onEvent3,7:doCompare,[])
+}
+Add(Data,3,224,28)
+{
+ Data=String(Hello 世界)
+ link(onEventData,4:doWrite,[])
+}
+Add(Write,4,322,28)
+{
+}
+Add(Math,5,224,98)
+{
+ Op1=6
+ Op2=7
+ OpType=2
+ link(onResult,6:doWrite,[])
+}
+Add(Write,6,322,98)
+{
+}
+Add(If,7,224,168)
+{
+ Left=1
+ Right=1
+ link(onTrue,8:doFor,[])
+ link(onFalse,10:doPrint,[])
+}
+Add(For,8,322,168)
+{
+ End=3
+ IncludeEnd=1
+ link(onEvent,9:doWrite,[])
+ link(onStop,11:doStrCat,[])
+}
+Add(Write,9,420,168)
+{
+}
+Add(Print,10,322,266)
+{
+ Text=incorrect branch
+}
+Add(StrCat,11,420,238)
+{
+ Str1=GTK
+ Str2=4
+ link(onStrCat,12:doWrite,[])
+}
+Add(Write,12,518,238)
+{
+}

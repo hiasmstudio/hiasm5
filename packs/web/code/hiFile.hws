@@ -1,0 +1,24 @@
+func doOpen
+  fvar(f)
+  f = FileName
+  println(fid, ' = fopen(', f, ', ', Mode, ');')
+  if(linked(Size))
+    println(fsize, ' = filesize(', f, ');')
+  end
+  event(onOpen, fid)
+  if(AutoClose)
+    println('fclose(', fid, ');')
+  end
+end
+
+func doClose
+  println('fclose(', fid, ');')
+end
+
+func FileID
+  return(fid)
+end
+
+func Size
+  return(fsize)
+end

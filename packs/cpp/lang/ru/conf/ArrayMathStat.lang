@@ -1,0 +1,6 @@
+Calculation of mathematical statistics functions=Вычисление функций матстатистики
+Mean - Expectation, Variance - Dispersion, Skewness - Skew, Kurtosis - Kurtosis, StdDev - Standard Deviation, ADev - Average Deviation, Median - Median, Percentil - Percentile=Mean - Mатематическое ожидание, Variance - Дисперсия, Skewness - Скос, Kurtosis - Эксцесс, StdDev - Стандартное отклонение, ADev - Среднее отклонение, Median - Медиана, Percentil - Перцентиль
+Computes functions of mathematical statistics ARG(Array)=Вычисляет функции математической статистики ARG(Array)
+The event occurs every time a calculation is completed, producing the result in the ARG(Result) stream=Событие происходит всякий раз по окончанию вычисления, выдавая результат в поток ARG(Result)
+Array for calculating functions of mathematical statistics=Массив для расчета функций математичсекой статистики
+Contains the result of a calculation=Содержит результ вычисления

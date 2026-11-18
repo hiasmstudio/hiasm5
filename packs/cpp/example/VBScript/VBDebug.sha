@@ -1,0 +1,74 @@
+*В этом примере показано каким образом выводить отладочную информацию из скрипта, а так же как задавать текст скрипта во время выполнения.
+Pos(0,0)
+Add(MainForm,14705082,21,105)
+{
+ Left=20
+ Top=105
+ Font=[Arial,8,0,0]
+ Caption="Script debug"
+}
+Add(Memo,13553798,294,63)
+{
+ Left=10
+ Top=30
+ Width=370
+ Font=[Arial,8,0,0]
+ Strings='function doWork(Data,Index)','  Message "Hello world"','end'
+ ScrollBars=3
+}
+Add(Memo,4225313,434,231)
+{
+ Left=10
+ Top=160
+ Width=370
+ Height=95
+ Color=-16777194
+ Font=[Arial,8,0,0]
+ ScrollBars=2
+ ReadOnly=0
+}
+Add(Button,11466410,175,154)
+{
+ Left=315
+ Top=125
+ Font=[Arial,8,0,0]
+ Caption="Run"
+ link(onClick,32968:doEvent1,[])
+}
+Add(Label,15486997,98,28)
+{
+ Left=5
+ Top=10
+ Font=[Arial,8,0,0]
+ Caption="Script"
+}
+Add(Label,9970351,98,133)
+{
+ Left=5
+ Top=140
+ Font=[Arial,8,0,0]
+ Caption="Errors"
+}
+Add(Hub,32968,231,154)
+{
+ OutCount=3
+ link(onEvent1,6202034:doData,[])
+ link(onEvent2,4486825:doData,[(281,167)(281,258)])
+ link(onEvent3,4711161:doRun,[(310,174)(310,167)])
+}
+Add(VBScript,4711161,357,154)
+{
+ WorkPoints='##SetScript','doRun'
+ VarPoints='##Errors'
+ Script=''
+}
+Add(DoData,6202034,294,154)
+{
+ link(onEventData,4711161:##SetScript,[])
+ link(Data,13553798:Text,[])
+}
+Add(DoData,4486825,357,252)
+{
+ link(onEventData,4225313:doText,[])
+ link(Data,4711161:##Errors,[])
+}

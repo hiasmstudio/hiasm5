@@ -1,0 +1,8 @@
+Drawing text=Рисование текста
+The font in which the text will be drawn=Шрифт, которым будет нарисован текст
+Text orientation (in degrees)=Ориентация текста (в градусах)
+Output text=Выводимый текст
+Contains the length of the text in pixels=Содержит длину текста в пикселях
+Contains the height of the text in pixels=Содержит высоту текста в пикселях
+Text displayed on the image=Текст, выводимый на картинку
+Transformation=Трансформация

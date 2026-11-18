@@ -1,0 +1,184 @@
+*Кривая Миллера.#13#10(По мотивам статьи  А.Колесникова "Сложность и красота". andr61@mail.ru )#13#10-----------------------------#13#10Автор MAV#13#10andreimav@yandex.ru
+Make(cpp)
+Add(MathParse,1320664,583,280)
+{
+ DataCount=1
+ MathStr="sin(0.99 * %1) - 0.7 * cos(3.01 * %1)"
+ Point(doMathStr)
+ link(onResult,11018812:doCalc,[])
+ link(X1,13170476:Var2,[(589,269)(561,269)])
+}
+Add(Math,7127396,541,280)
+{
+ Op2=0.03141593
+ link(onResult,1320664:doCalc,[])
+ link(Op1,13170476:Var1,[(547,254)])
+}
+Add(For,735409,478,280)
+{
+ End=20000
+ link(onEvent,7127396:doOperation,[])
+ link(onStop,11663766:doEndList,[(522,293)(522,321)(473,321)(473,342)])
+}
+Add(GetDataEx,13170476,548,245)
+{
+ link(Data,7127396:Result,[(561,240)(532,240)(532,320)(547,320)])
+}
+Add(MathParse,11018812,625,280)
+{
+ DataCount=1
+ MathStr="cos(1.01 * %1) + 0.1 * sin(15.03 * %1)"
+ Point(doMathStr)
+ link(onResult,6285378:doCalc,[])
+ link(X1,7336555:Var2,[])
+}
+Add(MathParse,6285378,681,280)
+{
+ DataCount=1
+ MathStr="sin(1.01 * %1) + 0.1 * sin(15.03 * %1)"
+ Point(doMathStr)
+ link(onResult,7664355:doBegin,[(725,286)(725,321)(557,321)(557,342)])
+ link(X1,7336555:Var3,[(687,268)])
+}
+Add(GetDataEx,7336555,618,259)
+{
+ link(Data,13170476:Var3,[(631,254)])
+}
+Add(MainForm,15261923,261,84)
+{
+ Left=20
+ Top=105
+ Width=600
+ Height=600
+ Position=1
+ Point(MouseX)
+ Point(MouseY)
+ Point(onResize)
+ Point(Handle)
+ link(onCreate,16299401:doEvent1,[(300,104)(300,170)(270,170)(270,188)])
+ link(onResize,16131419:doWork1,[(342,111)])
+}
+Add(GL_Main,12986311,366,182)
+{
+ Color=0
+ link(onInit,12198675:doInit,[])
+ link(onViewPort,3410847:doPerspective,[(421,195)(421,237)])
+ link(Handle,15261923:Handle,[(372,149)(281,149)])
+}
+Add(Timer,9506849,254,266)
+{
+ Interval=10
+ Enable=1
+ link(onTimer,1049454:doEvent1,[])
+}
+Add(GL_GTools,771925,366,266)
+{
+ Point(doClear)
+ Point(doPushMatrix)
+ Point(doPopMatrix)
+}
+Add(Hub,1049454,303,266)
+{
+ OutCount=5
+ link(onEvent1,771925:doClear,[])
+ link(onEvent2,771925:doPushMatrix,[])
+ link(onEvent3,10714674:doWork1,[(412,286)(412,139)])
+ link(onEvent4,771925:doPopMatrix,[(354,293)(354,286)])
+ link(onEvent5,12986311:doFlip,[(350,300)(350,202)])
+}
+Add(Hub,16299401,282,182)
+{
+ OutCount=3
+ link(onEvent1,12986311:doInit,[])
+ link(onEvent2,16131419:doWork2,[])
+ link(onEvent3,9506849:doTimer,[(324,202)(324,240)(244,240)(244,272)])
+}
+Add(GL_GluTools,12198675,429,182)
+{
+ link(onInit,5851269:doEnabled,[])
+}
+Add(MultiElement,10714674,429,133)
+{
+ link(onEvent1,12910947:doColor,[])
+ link(Data1,15261923:MouseX,[(435,125)(267,125)])
+ link(Data2,15261923:MouseY,[(442,125)(274,125)])
+}
+BEGIN_SDK
+  Add(EditMulti,4359962,3,3)
+  {
+   EventCount=1
+   WorkCount=1
+   DataCount=2
+   Width=223
+   Height=109
+   link(doWork1,3276760:doRotate,[(19,9)(19,55)])
+  }
+  Add(GL_Rotate,3276760,35,49)
+  {
+   Y=1
+   link(onRotate,8079493:doRotate,[])
+   link(Angle,4359962:Data1,[(62,15)(9,15)])
+  }
+  Add(GL_Rotate,8079493,112,49)
+  {
+   X=1
+   link(onRotate,4359962:onEvent1,[(189,55)(189,9)])
+   link(Angle,4359962:Data2,[(139,8)(16,8)])
+  }
+END_SDK
+Add(GL_Perspective,3410847,429,231)
+{
+ Fovy=30
+}
+Add(HubEx,16131419,338,182)
+{
+ link(onEvent,12986311:doViewPort,[])
+}
+Add(GL_Options,1101264,478,182)
+{
+}
+Add(GL_Options,5851269,527,182)
+{
+ Flag=1
+ link(onEvent,5809249:doEnabled,[])
+}
+Add(GL_Options,5809249,576,182)
+{
+ Flag=2
+ link(onEvent,14989894:doEnabled,[])
+}
+Add(GL_Light,14989894,625,182)
+{
+ link(onEnabled,1241102:doBeginList,[(669,188)(669,248)(417,248)(417,286)])
+}
+Add(GL_Vertex3D,9410730,618,336)
+{
+ link(onVertex,13233351:doEnd,[])
+ link(X,1320664:Result,[(624,327)(589,327)])
+ link(Y,11018812:Result,[])
+ link(Z,6285378:Result,[(638,327)(687,327)])
+}
+Add(Gl_Begin,7664355,569,336)
+{
+ link(onBegin,9410730:doVertex,[])
+}
+Add(Gl_End,13233351,674,336)
+{
+}
+Add(Gl_BeginList,1241102,429,280)
+{
+ Index=1
+ link(onBiginList,735409:doFor,[])
+}
+Add(Gl_EndList,11663766,485,336)
+{
+}
+Add(GL_CallList,6133489,527,133)
+{
+ Index=1
+}
+Add(GL_Color,12910947,478,133)
+{
+ Color=16711680
+ link(onColor,6133489:doCallList,[])
+}

@@ -1,0 +1,77 @@
+Make(cpp)
+Add(MainForm,1,56,56)
+{
+ Caption="Команды и счётчик"
+}
+Add(Counter,2,56,150)
+{
+ Min=0
+ Max=5
+ Step=1
+ Default=0
+ link(onNext,9:doExecute,[])
+}
+Add(Button,3,56,240)
+{
+ Left=20
+ Top=20
+ Width=110
+ Height=26
+ Caption="Вперёд"
+ link(onClick,2:doNext,[])
+}
+Add(Button,4,56,330)
+{
+ Left=140
+ Top=20
+ Width=110
+ Height=26
+ Caption="Назад"
+ link(onClick,2:doPrev,[])
+}
+Add(Button,5,56,420)
+{
+ Left=260
+ Top=20
+ Width=110
+ Height=26
+ Caption="Сброс"
+ link(onClick,2:doReset,[])
+}
+Add(CheckBox,10,56,510)
+{
+ Left=390
+ Top=20
+ Width=220
+ Height=20
+ Caption="Показать журнал"
+ Checked=0
+ link(onCheck,11:doExecute,[])
+}
+Add(Code,9,56,600)
+{
+ Code=#65:const std::string counter_line = "Счётчик: " + hiasm_text(input);|
+ Expression=counter_line
+ link(onResult,7:doAdd,[])
+}
+Add(Memo,7,56,690)
+{
+ Left=20
+ Top=60
+ Width=600
+ Height=340
+ ScrollBars=2
+ ReadOnly=0
+}
+Add(Code,11,56,780)
+{
+ Code=#64:gtk_widget_set_visible(hiasm_widget("Memo7").get(), input != 0);|
+}
+Add(Label,12,56,870)
+{
+ Left=20
+ Top=412
+ Width=600
+ Height=20
+ Caption="Границы счётчика 0–5. «Сброс» возвращает значение по умолчанию без записи в журнал."
+}

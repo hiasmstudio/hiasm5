@@ -1,0 +1,3 @@
+A node that merges and clones streams, firing sequentially the events onEvent1, onEvent2, etc. (i.e. top to bottom).=Узел, который объединяет и клонирует потоки, вызывая последовательно события onEvent1, onEvent2 и т.д. (т.е. сверху вниз).
+Number of incoming streams=Кол-во входящих потоков
+Number of outgoing streams=Кол-во исходящих потоков

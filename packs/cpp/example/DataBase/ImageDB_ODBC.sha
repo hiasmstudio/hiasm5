@@ -1,0 +1,495 @@
+Make(cpp)
+Pos(0,0)
+Add(InfoTip,5089478,714,259)
+{
+ Info=#26:Контрольный вывод картинки|
+ Font=[MS Sans Serif,8,0,16711680,1]
+ VAlign=2
+ Width=169
+ Height=158
+}
+Add(MainForm,10850303,21,14)
+{
+ Left=20
+ Top=105
+ Width=478
+ Height=268
+ Caption="Image and DB"
+}
+Add(ODBC,13700821,133,91)
+{
+ DSN_Name="HiAsmDSN"
+ link(onStreamBinary,12757769:doEvent1,[(173,104)(173,104)])
+}
+Add(Button,5801463,28,91)
+{
+ Left=155
+ Top=60
+ Width=145
+ Caption="Change picture cycle"
+ Data=String(Select imageField From ALL_TYPES_FIELD WHERE intField LIKE'2147483647')
+ link(onClick,3220067:doEvent1,[])
+}
+Add(Message,7140478,658,350)
+{
+ Caption="Number of changed fields "
+}
+Add(Image,3313990,441,147)
+{
+ Left=17
+ Top=37
+ Width=51
+ Height=71
+ Point(doRefresh)
+ link(Bitmap,12269043:Bitmap,[])
+}
+Add(Hub,12757769,182,98)
+{
+ OutCount=4
+ link(onEvent1,8245003:doWork1,[(522,104)])
+ link(onEvent2,14946953:doLoadFromStream,[(306,111)(306,125)])
+ link(onEvent3,14946953:doBitmap,[(302,118)(302,132)])
+ link(onEvent4,8424746:doEvent1,[(233,125)(233,209)])
+}
+Add(Bitmap,12269043,441,105)
+{
+}
+Add(InfoTip,16701188,63,259)
+{
+ Info=#13:Установка DSN|
+ Font=[MS Sans Serif,8,0,16711680,1]
+ Width=106
+ Height=67
+}
+Add(GetDataEx,13713177,574,182)
+{
+ link(Data,955157:Var3,[(587,184)])
+}
+Add(Hub,8952983,553,357)
+{
+ OutCount=3
+ link(onEvent1,11375497:doConnectDSN,[(593,363)(593,342)])
+ link(onEvent2,11375497:doBinary,[])
+ link(onEvent3,11375497:doDisconnect,[(599,377)(599,363)])
+}
+Add(DoData,7437418,539,210)
+{
+ link(onEventData,12751317:doLoadFromBitmap,[])
+ link(Data,13782262:Var3,[(545,191)])
+}
+Add(Jpeg,14946953,371,105)
+{
+ Point(doLoadFromStream)
+ Point(doBitmap)
+ link(onBitmap,5026737:doWork2,[(411,111)(411,111)])
+}
+Add(HubEx,8245003,518,140)
+{
+ link(onEvent,460947:doClear,[(533,153)(526,153)])
+}
+Add(GetDataEx,13782262,434,182)
+{
+ link(Data,3313990:ImageBitmap,[])
+}
+Add(BitmapStream,13604694,399,196)
+{
+ link(Stream,955157:Var1,[(405,184)])
+ link(Bitmap,13782262:Var1,[(412,191)])
+}
+Add(Edit,2416260,308,315)
+{
+ Left=15
+ Top=10
+ Width=445
+ Visible=1
+ Text="UPDATE ALL_TYPES_FIELD SET imageField = ? WHERE ( intField LIKE '2147483647' )"
+}
+Add(ODBC,11375497,609,336)
+{
+ DSN_Name="HiAsmDSN"
+ Point(doBinary)
+ Point(BinaryStream)
+ link(onRowCount,7140478:doMessage,[])
+ link(BinaryStream,955157:Var2,[(622,327)(538,327)])
+}
+Add(Hub,10931547,350,217)
+{
+ OutCount=4
+ link(onEvent1,13604694:doWrite,[(390,223)(390,209)])
+ link(onEvent2,7437418:doData,[(457,230)(457,216)])
+ link(onEvent3,8245003:doWork3,[(522,237)])
+ link(onEvent4,12751317:doSaveToStream,[(580,244)(580,223)])
+}
+Add(Button,6678815,245,357)
+{
+ Left=155
+ Top=120
+ Width=145
+ Caption="Save to DB"
+ Data=String(SELECT imageField FROM ALL_TYPES_FIELD WHERE charField LIKE 'a')
+ link(onClick,16743303:doData,[])
+}
+Add(Convertor,4876021,630,280)
+{
+ Mode=12
+ link(onResult,15284145:doEvent1,[])
+}
+Add(MemoryStream,460947,532,140)
+{
+}
+Add(GetDataEx,955157,525,175)
+{
+ link(Data,460947:Stream,[])
+}
+Add(Jpeg,12751317,595,196)
+{
+ Quality=85
+ Point(Stream)
+ Point(doLoadFromBitmap)
+ Point(doSaveToStream)
+ link(Stream,13713177:Var3,[(601,191)])
+}
+Add(InfoTip,2981795,238,7)
+{
+ Info=#537:Пример использования Базы Данных для хранения изображений в Jpeg формате и работы с ним в HiAsm'e как с BMP картинкой. Для доступа к файлу Базы Данных (ALL_TYPES.mdb) используется ODBC драйвер. Установка драйвера встроена в пример (кнопка "Setup DSN"). Если встроенная в пример установка  не сработает, то можно попытаться установить драйвер вручную с помощью создания нового источника данных с именем "HiAsmDSN", связав этот источник данных через драйвер "Microsoft Access Driver (*.mdb)" с файлом "ALL_TYPES.mdb" прилагаемым к примеру.|
+ Font=[MS Sans Serif,8,0,255,1]
+ Frame=1
+ Transparent=1
+ HAlign=0
+ Width=575
+ Height=81
+}
+Add(Hub,5420547,392,287)
+{
+ OutCount=4
+ link(onEvent1,5817044:doRandom,[])
+ link(onEvent2,7755064:doRandom,[(442,300)(442,328)])
+ link(onEvent3,4295552:doDraw,[(432,307)(432,377)])
+ link(onEvent4,3313990:doRefresh,[(436,314)(436,167)])
+}
+Add(Image,14242522,819,308)
+{
+ Left=402
+ Top=37
+ Width=51
+ Height=71
+ link(Bitmap,6915925:Bitmap,[])
+}
+Add(Bitmap,6915925,819,266)
+{
+}
+Add(Jpeg,11176577,770,266)
+{
+ Point(doLoadFromStream)
+ Point(doBitmap)
+ link(onBitmap,6915925:doLoad,[])
+}
+Add(Hub,15284145,721,280)
+{
+ OutCount=3
+ link(onEvent1,11176577:doLoadFromStream,[])
+ link(onEvent2,11176577:doBitmap,[])
+ link(onEvent3,14242522:doLoad,[(762,300)(762,314)])
+}
+Add(Convertor,9475043,581,280)
+{
+ Mode=11
+ link(onResult,4876021:doConvert,[])
+ link(Data,13713177:Var2,[])
+}
+Add(Button,3441983,77,280)
+{
+ Left=155
+ Top=215
+ Width=145
+ Font=[MS Sans Serif,9,1,255,1]
+ Caption="Setup DSN"
+ link(onClick,1090106:doWork1,[])
+}
+Add(DoData,16743303,308,357)
+{
+ link(onEventData,8952983:doEvent1,[])
+ link(Data,2416260:Text,[])
+}
+Add(Img_Point,4295552,441,371)
+{
+ Color=16776960
+ link(Bitmap,13782262:Var2,[])
+ link(X,5817044:Random,[])
+ link(Y,7755064:Random,[])
+}
+Add(Random,5817044,448,287)
+{
+ Min=1
+ Max=50
+}
+Add(Random,7755064,455,322)
+{
+ Min=1
+ Max=70
+}
+Add(InfoTip,8549564,364,280)
+{
+ Info=#28:Нарисовать на картинке точку|
+ Font=[MS Sans Serif,8,0,16711680,1]
+ VAlign=2
+ Width=169
+ Height=137
+}
+Add(InfoTip,3385821,546,322)
+{
+ Info=#24:Сохранение картинки в DB|
+ Font=[MS Sans Serif,8,0,16711680,1]
+ VAlign=2
+ Width=162
+ Height=95
+}
+Add(InfoTip,14495681,364,91)
+{
+ Info=#19:Ковертер Jpeg в BMP|
+ Font=[MS Sans Serif,8,0,16711680,1]
+ Width=134
+ Height=95
+}
+Add(ChildForm,1090106,119,280)
+{
+}
+BEGIN_SDK
+  Add(EditMulti,8436703,3,3)
+  {
+   WorkCount=1
+   Width=433
+   link(doWork1,15759370:doWork2,[])
+  }
+  Add(MainForm,6588066,140,7)
+  {
+   Left=35
+   Top=105
+   Width=494
+   Height=433
+   Caption="Setup DSN"
+   Visible=1
+   Point(doVisible)
+  }
+  Add(If_else,4522807,35,42)
+  {
+   Op2=Integer(0)
+   link(onTrue,6588066:doClose,[(73,48)(73,34)])
+   link(onFalse,7642554:doEvent1,[])
+  }
+  Add(ODBC,4289557,189,112)
+  {
+   Point(doSetup)
+   Point(Driver)
+   Point(doList)
+   link(onStreamString,2132047:doConvert,[])
+   link(onStreamBinary,8014720:doConvert,[(229,125)(229,160)])
+   link(Driver,11448305:Value,[])
+  }
+  Add(Hub,13052100,77,98)
+  {
+   link(onEvent1,10231129:doExecute,[])
+   link(onEvent2,15759370:doWork3,[(116,111)(116,88)(25,88)])
+  }
+  Add(Button,2967000,35,98)
+  {
+   Left=200
+   Top=5
+   Width=80
+   Caption="Create"
+   Data=Integer(0)
+   link(onClick,13052100:doEvent1,[])
+  }
+  Add(ODialog,10231129,140,98)
+  {
+   Filter="*.mdb|*.mdb|*.dbf|*.dbf|*.xls|*.xls|*.db|*.db|All|*.*"
+   Title="Select DataBase file"
+   link(onExecute,4289557:doSetup,[(180,104)(180,146)])
+  }
+  Add(Hub,7642554,77,49)
+  {
+   OutCount=3
+   link(onEvent1,14772620:doClear,[])
+   link(onEvent2,4289557:doList,[(122,62)(122,153)])
+   link(onEvent3,6588066:doVisible,[(131,69)(131,41)])
+  }
+  Add(StringTable,14772620,329,42)
+  {
+   Left=5
+   Top=35
+   Width=475
+   Height=365
+   Columns=#24:Driver / Data Source=250|13:Attribute=180|
+   StrDelimiter="~"
+   Grid=0
+   Redaction=1
+   StaticColumn=0
+   Point(Matrix)
+   Point(Index)
+   link(onClick,456479:doRead,[(371,48)(371,85)(335,85)(335,104)])
+  }
+  Add(Memory,3935874,280,112)
+  {
+  }
+  Add(HubEx,15759370,21,35)
+  {
+   link(onEvent,4522807:doCompare,[(32,48)(32,48)])
+  }
+  Add(FormatStr,15362790,280,154)
+  {
+   Mask="%1~%2"
+   link(onFString,14772620:doAdd,[(320,160)(320,48)])
+   link(Str1,3935874:Value,[])
+  }
+  Add(Convertor,2132047,238,112)
+  {
+   Mode=11
+   link(onResult,3935874:doValue,[])
+  }
+  Add(Convertor,8014720,238,154)
+  {
+   Mode=11
+   link(onResult,15362790:doString,[])
+  }
+  Add(MatrixRW,456479,343,98)
+  {
+   link(onRead,11448305:doValue,[(382,104)(382,39)(186,39)(186,76)])
+   link(Matrix,14772620:Matrix,[])
+   link(X,15140004:Value,[(363,92)(398,92)])
+   link(Y,14772620:Index,[(370,89)(356,89)])
+  }
+  Add(Memory,11448305,196,70)
+  {
+  }
+  Add(Memory,15140004,392,49)
+  {
+   Default=Integer(0)
+  }
+END_SDK
+Add(InfoTip,1079666,21,77)
+{
+ Info=#23:Загрузка картинки из DB|
+ Font=[MS Sans Serif,8,0,16711680,1]
+ VAlign=2
+ Width=211
+ Height=81
+}
+Add(InfoTip,6022121,511,126)
+{
+ Info=#20:Конвертер BMP в Jpeg|
+ Font=[MS Sans Serif,8,0,16711680,1]
+ Width=127
+ Height=123
+}
+Add(InfoTip,14406513,322,189)
+{
+ Info=#22:Конвертер BMP в Stream|
+ Font=[MS Sans Serif,8,0,16711680,1]
+ VAlign=2
+ Width=141
+ Height=81
+}
+Add(Label,2398493,70,14)
+{
+ Left=20
+ Top=120
+ Width=45
+ Height=17
+ Caption="From DB"
+}
+Add(Label,16776586,77,21)
+{
+ Left=410
+ Top=120
+ Width=35
+ Height=17
+ Caption="To DB"
+}
+Add(Label,4254735,77,21)
+{
+ Left=140
+ Top=40
+ Width=170
+ Height=17
+ Caption="Push to Bottom and look on picture"
+}
+Add(InfoTip,2429288,21,168)
+{
+ Info=#26:Загрузка картинки из файла|
+ Font=[MS Sans Serif,8,0,16711680,1]
+ VAlign=2
+ Width=211
+ Height=67
+}
+Add(Button,10239260,28,175)
+{
+ Left=155
+ Top=175
+ Width=145
+ Caption="Load from jpeg file to DB"
+ link(onClick,12840568:doExecute,[])
+}
+Add(ODialog,12840568,77,175)
+{
+ Title="Select Jpeg file"
+ link(onExecute,13071151:doEvent1,[])
+}
+Add(Hub,8424746,252,203)
+{
+ InCount=2
+ OutCount=4
+ link(onEvent1,3313990:doLoad,[(355,209)(355,153)])
+ link(onEvent2,5420547:doEvent1,[(331,216)(331,293)])
+ link(onEvent3,10931547:doEvent1,[(310,223)(310,223)])
+ link(onEvent4,9475043:doConvert,[(298,230)(298,286)])
+}
+Add(Hub,13071151,133,175)
+{
+ OutCount=3
+ link(onEvent1,2543961:doLoad,[])
+ link(onEvent2,2543961:doBitmap,[(173,188)(173,202)])
+ link(onEvent3,8424746:doEvent2,[(169,195)(169,216)])
+}
+Add(HubEx,5026737,420,98)
+{
+ link(onEvent,12269043:doLoad,[(435,111)(435,111)])
+}
+Add(Jpeg,2543961,182,175)
+{
+ Point(doLoadFromStream)
+ Point(doBitmap)
+ link(onBitmap,5026737:doWork3,[(424,181)])
+}
+Add(InfoTip,5382215,217,448)
+{
+ Info=#66:Пример строки запрос для добавления бинарных данных в Базу Данных:|0:|53:INSERT INTO ALL_TYPES_FIELD( imageField ) VALUES( ? )|0:|65:Пример строки запрос для изменения бинарных данных в Базе Данных:|0:|78:UPDATE ALL_TYPES_FIELD SET imageField = ? WHERE ( intField LIKE '2147483647' )|
+ Font=[MS Sans Serif,8,0,16711680,1]
+ Frame=1
+ Transparent=1
+ HAlign=0
+ Width=477
+ Height=109
+}
+Add(Hub,3220067,77,91)
+{
+ OutCount=3
+ link(onEvent1,13700821:doConnectDSN,[])
+ link(onEvent2,13700821:doQuery,[])
+ link(onEvent3,13700821:doDisconnect,[(121,111)(121,118)])
+}
+Add(Label,9466809,84,28)
+{
+ Left=120
+ Top=100
+ Width=210
+ Height=17
+ Caption="Push to Bottom for store the picture into DB"
+}
+Add(Label,14795949,91,35)
+{
+ Left=120
+ Top=155
+ Width=206
+ Height=17
+ Caption="Push to Bottom for load the picture from file"
+}

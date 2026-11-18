@@ -1,0 +1,6 @@
+Changing a tree element=Изменение элемента дерева
+Tree of elements=Дерево элементов
+Modifies an element in the tree=Изменяет элемент в дереве
+The event occurs every time a tree element is changed=Событие происходит всякий раз после изменения элемента дерева
+The event occurs whenever a tree element is changed unsuccessfully and outputs a copy of the map to the stream=Событие происходит всякий раз после неудачного изменения элемента дерева и выдает копию картежа в поток
+Cartridge for changing a tree node=Картеж для изменения узла дерева

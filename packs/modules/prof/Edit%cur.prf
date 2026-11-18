@@ -1,0 +1,11 @@
+ Left=105
+ Top=85
+ Width=55
+ Height=20
+ Align=0
+ Color=-16777211
+ Font=[MS Sans Serif,8,0,0,1]
+ Hint=""
+ TabOrder=0
+ Text="Edit"
+ Password=1

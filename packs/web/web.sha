@@ -1,0 +1,112 @@
+Make(modules)
+Add(HISEntryPoint,12982621,21,105)
+{
+ link(onStart,12717831:doAdd,[])
+}
+Add(AddPack,12717831,77,105)
+{
+ Name="WEB"
+ Info="Проекты для создания WEB приложений"
+ Ext="hws"
+ link(onAdd,13175394:doAdd,[])
+ link(CodeName,11054847:Var2,[])
+}
+Add(VisualText,5178539,77,56)
+{
+ Lines=#3:web|
+ Point(Text)
+}
+Add(AddCompiler,2420614,413,105)
+{
+ Command="/k copy \"%fname%\" \"%oname%\""
+ Ext="hws"
+ link(onAdd,16515468:doSet,[])
+ link(Name,5338060:Var2,[])
+}
+Add(GetDataEx,11054847,70,77)
+{
+ link(Data,5178539:Text,[])
+}
+Add(AddProject,13175394,133,105)
+{
+ Entry="EntryPoint"
+ Name="PHP скрипт"
+ Info="Создание PHP скриптов"
+ Ext="php"
+ Make="make_web.dll"
+ link(onAdd,13171045:doAdd,[])
+ link(CodeName,14791381:Var2,[])
+}
+Add(AddProject,13171045,189,105)
+{
+ Entry="HtmlEntryPoint"
+ Name="HTML страница"
+ Info="Создание HTML страниц с поддержкой CSS"
+ Ext="html"
+ Make="make_html.dll"
+ link(onAdd,6695419:doAdd,[])
+ link(CodeName,2262396:Var2,[])
+}
+Add(GetDataEx,14791381,126,77)
+{
+ Angle=3
+ link(Data,11054847:Var3,[])
+}
+Add(AddProject,6695419,245,105)
+{
+ Entry="CSSEntryPoint"
+ Name="Стили CSS"
+ Info="Создание стилей CSS"
+ Ext="css"
+ Make="make_web.dll"
+ link(onAdd,11503061:doAdd,[])
+ link(CodeName,11659704:Var2,[])
+}
+Add(GetDataEx,2262396,182,77)
+{
+ Angle=3
+ link(Data,14791381:Var3,[])
+}
+Add(AddProject,11503061,301,105)
+{
+ Entry="JavaEntryPoint"
+ Name="JavaScript"
+ Info="Создание внешних JavaScript файлов"
+ Ext="js"
+ Make="make_web.dll"
+ link(onAdd,3185833:doStrCat,[])
+ link(CodeName,16239470:Var2,[])
+}
+Add(GetDataEx,11659704,238,77)
+{
+ Angle=3
+ link(Data,2262396:Var3,[])
+}
+Add(Environment,15643664,357,42)
+{
+}
+Add(StrCat,3185833,357,105)
+{
+ Str2="cmd.exe"
+ link(onStrCat,2420614:doAdd,[])
+ link(Str1,15643664:SysDir,[(363,93)(370,93)])
+}
+Add(SetCompiler,16515468,469,105)
+{
+ link(Pack,16239470:Var3,[(475,86)])
+ link(Compiler,5338060:Var3,[(482,93)])
+}
+Add(GetDataEx,16239470,294,77)
+{
+ Angle=3
+ link(Data,11659704:Var3,[])
+}
+Add(VisualText,9479194,413,56)
+{
+ Lines=#4:Copy|
+ Point(Text)
+}
+Add(GetDataEx,5338060,406,84)
+{
+ link(Data,9479194:Text,[])
+}

@@ -1,0 +1,17 @@
+Form=Форма
+Defines the title of the form=Определяет заголовок формы
+Appearance of the form=Внешний вид формы
+Contains a form icon=Содержит иконку формы
+Hides/shows the form on the taskbar=Скрывает/показывает форму на панели задач
+Dragging a form anywhere=Перетаскивание формы за любое место
+Capture the mouse by a component when you left-click on it=Захват мыши компонентом при нажатии на нем левой кнопки
+Closes the form=Закрывает форму
+Restores shape from a collapsed state=Восстанавливает форму из свёрнутого состояния
+Collapses the form=Сворачивает форму
+Makes an application button on the Windows Explorer taskbar blink=Заставляет мигать кнопку приложения на панели задач Windows Explorer
+Shows the form as modal=Показывает форму как модальную
+Places the form icon in the TaskBar=Помещает иконку формы в TaskBar
+The event occurs once when the form is created=Событие происходит один раз при создании формы
+The event occurs only on the main form when the program is closed=Событие происходит только на главной форме при закрытии программы
+If, when closing a form, this point contains 0, then the form will be closed - otherwise the operation will be canceled=Если при закрытии формы эта точка содержит 0, то форма будет закрыта - иначе операция будет отменена
+Contains the size of the form title=Содержит размер заголовка формы

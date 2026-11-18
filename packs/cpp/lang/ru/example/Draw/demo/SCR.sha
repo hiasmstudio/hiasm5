@@ -1,0 +1,470 @@
+*Небольшая математическая заставка на рабочий стол.#13#10_____________#13#10Автор: svsoft#13#10E-mail: AleksandrVasilev@yandex.ru
+Make(cpp)
+Pos(94,0)
+Add(Version,13379,-38,224)
+{
+ Version="003"
+ InternalName="scr"
+ E-mail="AleksandrVasilev@yandex.ru"
+}
+Add(Counter,65656,690,686)
+{
+ Min=1
+ Step=3
+ Point(doMax)
+}
+Add(Img_Ellipse,9794,837,966)
+{
+ Point(Point1)
+ Point(Point2)
+ link(Bitmap,16569571:Var3,[(843,947)])
+ link(Color,1693032:Var2,[])
+ link(Point1,81717:Point,[(857,936)(822,936)])
+ link(Point2,91352:Point,[(864,936)(1004,936)])
+}
+Add(DoData,75934,725,616)
+{
+ link(onEventData,4801:doEvent1,[(777,622)(777,622)])
+ link(Data,58814:Height,[(731,587)(731,587)])
+}
+Add(DoData,99819,543,686)
+{
+ link(onEventData,38358:doEvent1,[(592,692)(592,657)])
+ link(Data,58814:Width,[(549,586)(724,586)])
+}
+Add(PointXY,91352,998,875)
+{
+ link(X,63346:Count,[(1004,852)(976,852)])
+ link(Y,72021:Count,[(1011,851)(1032,851)])
+}
+Add(PointXY,64914,690,875)
+{
+ link(X,65656:Count,[])
+ link(Y,60426:Count,[(703,800)(745,800)])
+}
+Add(GetDataEx,16569571,704,938)
+{
+ link(Data,13675168:Var3,[(717,492)])
+}
+Add(Hub,4801,788,616)
+{
+ OutCount=4
+ link(onEvent1,60426:doMax,[(846,622)(846,685)(735,685)(735,720)])
+ link(onEvent2,44098:doMax,[(835,629)(835,721)(810,721)(810,818)])
+ link(onEvent3,27808:doMax,[(872,636)(872,783)])
+ link(onEvent4,72021:doMax,[(924,643)(924,818)])
+}
+Add(PointXY,423,732,868)
+{
+ link(X,17465:Count,[(738,852)(766,852)])
+ link(Y,44098:Count,[(745,846)(829,846)])
+}
+Add(Hub,54047,795,112)
+{
+ InCount=4
+ OutCount=1
+ link(onEvent1,19203:doValue,[])
+}
+Add(Screen,58814,718,532)
+{
+}
+Add(Hub,38358,599,651)
+{
+ OutCount=4
+ link(onEvent1,17465:doMax,[(654,657)(654,832)])
+ link(onEvent2,6166:doMax,[(753,664)(753,783)])
+ link(onEvent3,63346:doMax,[(957,671)(957,818)])
+ link(onEvent4,65656:doMax,[(662,678)(662,713)])
+}
+Add(Counter,17465,760,805)
+{
+ Min=1
+ Step=3
+ Type=1
+ Point(doMax)
+}
+Add(Counter,60426,739,693)
+{
+ Min=1
+ Step=2
+ Point(doMax)
+}
+Add(Counter,87768,382,364)
+{
+ Min=1
+ Step=2
+ Type=1
+ Point(doMax)
+ link(onNext,22456:doNext,[])
+}
+Add(Counter,6166,865,756)
+{
+ Min=1
+ Step=5
+ Type=1
+ Point(doMax)
+}
+Add(GetDataEx,13675168,361,483)
+{
+ Angle=3
+ link(Data,840925:Var3,[])
+}
+Add(Counter,27808,914,756)
+{
+ Min=1
+ Step=4
+ Type=1
+ Point(doMax)
+}
+Add(GetDataEx,1693032,837,490)
+{
+ link(Data,19203:Value,[])
+}
+Add(Counter,22456,438,364)
+{
+ Min=1
+ Step=5
+ Type=1
+ Point(doMax)
+ link(onNext,14526:doNext,[])
+}
+Add(Counter,72021,1026,791)
+{
+ Min=1
+ Step=4
+ Point(doMax)
+}
+Add(Switch,88726,459,84)
+{
+ DataOn=Integer(1)
+ DataOff=Integer(0)
+ link(onSwitch,14724:doCase,[])
+}
+Add(Hub,71641,480,686)
+{
+ OutCount=15
+ link(onEvent1,99819:doData,[(536,692)(536,692)])
+ link(onEvent2,75934:doData,[(545,699)(545,622)])
+ link(onEvent3,65656:doNext,[(646,706)(646,692)])
+ link(onEvent5,60426:doNext,[(679,720)(679,699)])
+ link(onEvent6,72021:doNext,[(770,727)(770,797)])
+ link(onEvent7,63346:doNext,[(746,734)(746,797)])
+ link(onEvent8,27808:doNext,[(718,741)(718,762)])
+ link(onEvent9,6166:doNext,[(693,748)(693,762)])
+ link(onEvent10,44098:doNext,[(685,755)(685,797)])
+ link(onEvent11,17465:doNext,[(641,762)(641,811)])
+ link(onEvent15,45188:doDraw,[(631,790)(631,972)])
+}
+Add(Counter,44098,823,791)
+{
+ Min=1
+ Step=2
+ Type=1
+ Point(doMax)
+}
+Add(PaintBox,16255954,144,224)
+{
+ Left=300
+ Top=25
+ Align=5
+ Color=0
+ Point(onResize)
+ Point(onClick)
+ link(onResize,16255954:doClear,[(186,237)(186,214)(131,214)(131,237)])
+ link(onClick,55395:doClose,[])
+}
+Add(Img_Ellipse,4939,144,511)
+{
+ Point(Point1)
+ Point(Point2)
+ link(onDraw,88680:doDraw,[])
+ link(Bitmap,840925:Var2,[])
+ link(Point1,16757:Point,[])
+ link(Point2,38521:Point,[(171,485)(276,485)])
+}
+Add(DoData,13722,39,273)
+{
+ link(onEventData,21715:doEvent1,[])
+ link(Data,84783:Height,[])
+}
+Add(DoData,38046,32,315)
+{
+ link(onEventData,94787:doEvent1,[])
+ link(Data,84783:Width,[])
+}
+Add(DoData,15454,718,28)
+{
+ Data=Integer(0)
+ link(onEventData,54047:doEvent1,[(779,34)(779,118)])
+}
+Add(PointXY,16757,158,427)
+{
+ link(X,88595:Count,[])
+ link(Y,73788:Count,[(171,411)(220,411)])
+}
+Add(Counter,88595,158,364)
+{
+ Min=1
+ Step=7
+ Point(doMax)
+ link(onNext,73788:doNext,[])
+}
+Add(Counter,73788,214,364)
+{
+ Min=1
+ Step=5
+ Point(doMax)
+ link(onNext,44090:doNext,[])
+}
+Add(GetDataEx,840925,137,483)
+{
+ link(Data,16255954:Bitmap,[])
+}
+Add(Timer,40195,88,224)
+{
+ Interval=1
+ link(onTimer,16255954:doRefresh,[])
+}
+Add(Screen,84783,32,224)
+{
+}
+Add(Counter,96251,326,364)
+{
+ Min=1
+ Step=5
+ Type=1
+ Point(doMax)
+ link(onNext,87768:doNext,[])
+}
+Add(Timer,18578,410,84)
+{
+ Enable=1
+ Point(doInterval)
+ link(onTimer,88726:doSwitch,[])
+}
+Add(Counter,79741,550,364)
+{
+ Min=1
+ Step=5
+ Point(doMax)
+}
+Add(DoData,15110,718,91)
+{
+ Data=Integer(16711680)
+ link(onEventData,54047:doEvent2,[(762,97)(762,125)])
+}
+Add(Hub,80215,-38,273)
+{
+ OutCount=4
+ link(onEvent1,13722:doData,[])
+ link(onEvent2,38046:doData,[(22,286)(22,321)])
+ link(onEvent3,88595:doNext,[(13,293)(13,370)])
+ link(onEvent4,4939:doDraw,[(5,300)(5,517)])
+}
+Add(Counter,63346,970,791)
+{
+ Min=1
+ Step=5
+ Point(doMax)
+}
+Add(Counter,14526,494,364)
+{
+ Min=1
+ Step=2
+ Point(doMax)
+ link(onNext,79741:doNext,[])
+}
+Add(Counter,44090,270,364)
+{
+ Min=1
+ Step=7
+ Type=1
+ Point(doMax)
+ link(onNext,96251:doNext,[])
+}
+Add(PointXY,65119,494,427)
+{
+ link(X,14526:Count,[])
+ link(Y,79741:Count,[(507,411)(556,411)])
+}
+Add(Hub,21715,88,273)
+{
+ OutCount=4
+ link(onEvent1,79741:doMax,[(536,279)(536,391)])
+ link(onEvent2,22456:doMax,[(425,286)(425,391)])
+ link(onEvent3,96251:doMax,[(311,293)(311,391)])
+ link(onEvent4,73788:doMax,[(200,300)(200,391)])
+}
+Add(Hub,94787,88,315)
+{
+ OutCount=4
+ link(onEvent1,14526:doMax,[(480,321)(480,391)])
+ link(onEvent2,87768:doMax,[(369,328)(369,391)])
+ link(onEvent3,44090:doMax,[(255,335)(255,391)])
+ link(onEvent4,88595:doMax,[(140,342)(140,391)])
+}
+Add(Timer,5680,424,686)
+{
+ Interval=1
+ Point(doInterval)
+ link(onTimer,71641:doEvent1,[])
+}
+Add(Switch,91048,466,203)
+{
+ DataOn=Integer(1)
+ DataOff=Integer(0)
+ link(onSwitch,10200:doCase,[(506,209)(492,209)])
+}
+Add(PointXY,87937,382,427)
+{
+ link(X,87768:Count,[])
+ link(Y,22456:Count,[(395,411)(444,411)])
+}
+Add(PointXY,38521,270,427)
+{
+ link(X,44090:Count,[])
+ link(Y,96251:Count,[(283,411)(332,411)])
+}
+Add(DoData,24549,718,147)
+{
+ Data=Integer(0)
+ link(onEventData,54047:doEvent3,[(762,153)(762,132)])
+}
+Add(Img_Rectangle,88680,368,511)
+{
+ Color=255
+ BgColor=0
+ Point(Point1)
+ Point(Point2)
+ link(Bitmap,13675168:Var2,[])
+ link(Color,1693032:Var1,[(381,499)])
+ link(Point1,87937:Point,[])
+ link(Point2,65119:Point,[(395,485)(500,485)])
+}
+Add(Hub,28245,333,91)
+{
+ link(onEvent1,18578:doStop,[])
+ link(onEvent2,24801:doTimer,[(389,104)(389,209)])
+}
+Add(Hub,56124,333,203)
+{
+ link(onEvent1,18578:doTimer,[(380,209)(380,90)])
+ link(onEvent2,24801:doStop,[])
+}
+Add(Case,65821,256,147)
+{
+ Value=Integer(1)
+ link(onNextCase,28245:doEvent1,[(313,153)(313,97)])
+ link(onTrue,56124:doEvent1,[(313,160)(313,209)])
+}
+Add(Timer,48107,655,147)
+{
+ Interval=1
+ Enable=1
+ Point(doInterval)
+ link(onTimer,24549:doData,[])
+}
+Add(Switch,85914,207,147)
+{
+ DataOn=Integer(1)
+ DataOff=Integer(0)
+ link(onSwitch,65821:doCase,[])
+}
+Add(PointXY,81717,816,875)
+{
+ link(X,6166:Count,[(822,833)(871,833)])
+ link(Y,27808:Count,[(829,841)(920,841)])
+}
+Add(Timer,35946,655,91)
+{
+ Interval=1
+ Point(doInterval)
+ link(onTimer,15110:doData,[])
+}
+Add(Hub,14791,564,35)
+{
+ link(onEvent1,21204:doStop,[])
+ link(onEvent2,35946:doTimer,[(627,48)(627,97)])
+}
+Add(Hub,64492,564,91)
+{
+ link(onEvent1,21204:doTimer,[(608,97)(608,34)])
+ link(onEvent2,35946:doStop,[])
+}
+Add(Case,14724,508,84)
+{
+ Value=Integer(1)
+ link(onNextCase,14791:doEvent1,[(551,90)(551,41)])
+ link(onTrue,64492:doEvent1,[])
+}
+Add(Timer,21204,655,28)
+{
+ Interval=1
+ Enable=1
+ Point(doInterval)
+ link(onTimer,15454:doData,[])
+}
+Add(Img_Rectangle,45188,711,966)
+{
+ BgColor=255
+ Point(Point1)
+ Point(Point2)
+ link(onDraw,9794:doDraw,[])
+ link(Bitmap,16569571:Var2,[(717,958)(717,958)])
+ link(Point1,64914:Point,[(731,933)(696,933)])
+ link(Point2,423:Point,[])
+}
+Add(Timer,52847,655,210)
+{
+ Interval=1
+ Point(doInterval)
+ link(onTimer,89212:doData,[(703,216)(703,216)])
+}
+Add(Timer,24801,410,203)
+{
+ Point(doInterval)
+ link(onTimer,91048:doSwitch,[])
+}
+Add(Hub,4954,564,154)
+{
+ link(onEvent1,48107:doStop,[(627,160)(627,160)])
+ link(onEvent2,52847:doTimer,[(634,167)(634,216)])
+}
+Add(Hub,69168,564,210)
+{
+ link(onEvent1,48107:doTimer,[(615,216)(615,153)])
+ link(onEvent2,52847:doStop,[])
+}
+Add(Case,10200,515,203)
+{
+ Value=Integer(1)
+ link(onNextCase,4954:doEvent1,[(555,209)(555,160)])
+ link(onTrue,69168:doEvent1,[])
+}
+Add(Timer,95608,158,147)
+{
+ Interval=2000
+ link(onTimer,85914:doSwitch,[])
+}
+Add(DoData,89212,718,210)
+{
+ Data=Integer(255)
+ link(onEventData,54047:doEvent4,[(779,216)(779,139)])
+}
+Add(Memory,19203,844,112)
+{
+}
+Add(Timer,50681,-87,273)
+{
+ Interval=10
+ Point(doInterval)
+ link(onTimer,80215:doEvent1,[])
+}
+Add(MainForm,55395,207,217)
+{
+ Left=21
+ Top=105
+ Caption="Кубус"
+ BorderStyle=0
+ WindowsState=2
+}

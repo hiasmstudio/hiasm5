@@ -1,0 +1,311 @@
+*Пример работы с таблицей Excel через источник данных OLEDB#13#10______________________#13#10Автор: nesco
+Make(cpp)
+Add(MainForm,3171043,77,231)
+{
+ Left=20
+ Top=105
+ Width=467
+ Height=490
+ Caption="tabText_with_OLEDBDataSource"
+ Position=1
+ link(onCreate,11484576:doEvent1,[])
+}
+Add(Button,941652,448,336)
+{
+ Left=380
+ Top=5
+ Width=75
+ TabOrder=-1
+ Caption="Connect"
+ link(onClick,5366140:doOpen,[])
+ AddHint(-76,-16,55,13,Caption)
+}
+Add(StringTable,6078793,728,350)
+{
+ Left=5
+ Top=240
+ Width=450
+ Height=210
+ ClearAll=0
+ Point(doAddColumn)
+ Point(doEnsureVisible)
+}
+Add(MT_Enum,5673081,658,385)
+{
+ link(onItem,6078793:doAddColumn,[])
+}
+Add(MT_String,16321824,658,343)
+{
+ link(onResult,6078793:doAdd,[(705,349)(705,356)])
+}
+Add(Edit,11108326,385,238)
+{
+ Left=5
+ Top=5
+ Width=345
+ Text=""
+ link(onChange,6971676:doPart,[])
+ link(Str,12927216:Var3,[(391,226)(271,226)(271,303)])
+}
+Add(Dir,5145339,168,56)
+{
+}
+Add(StrCat,11947023,168,252)
+{
+ Str2="test.csv"
+ link(onStrCat,13359086:doFileExists,[])
+ link(Str1,12932182:Var2,[])
+}
+Add(FormatStr,5564056,504,238)
+{
+ DataCount=1
+ Mask="DRIVER={Microsoft Text Driver (*.txt; *.csv)};\r\nDriverId=27;\r\nPageTimeout=5;\r\nExtensions=txt,csv,tab,asc;\r\nDefaultDir=%1;\r\n\r\n"
+ Point(FString)
+ link(onFString,14216946:doText,[])
+ AddHint(18,-136,194,104,Mask)
+}
+Add(FormatStr,10216816,553,280)
+{
+ Mask="SELECT * FROM %1;"
+ Point(FString)
+ link(onFString,13181424:doText,[])
+ AddHint(-181,7,117,13,Mask)
+}
+Add(Memo,14216946,602,217)
+{
+ Left=5
+ Top=55
+ Width=450
+ Height=105
+}
+Add(DS_OLEDB,5366140,504,336)
+{
+ Name="ole_driver_1"
+ Point(onError)
+ link(onCreate,15560458:doOn,[])
+ link(Driver,5564056:FString,[])
+}
+Add(DSC_Query,13233332,602,378)
+{
+ DSManager="ole_driver_1"
+ link(onQuery,16321824:doStr,[(646,384)(646,349)])
+ link(onColumns,5673081:doEnum,[])
+ link(SQL,13181424:Text,[])
+}
+Add(FilePart,6971676,448,238)
+{
+ NameWOExt=1
+ link(onPath,5564056:doString,[])
+ link(onName,10216816:doString,[(494,251)(494,286)])
+}
+Add(MemoryStream,8873750,385,140)
+{
+ @Hint=#8:test.csv|
+ Stream=[ZIP6201000078DA458F4B4EC3301445E791B21226B69FEDE7E82D07750A0356483283AA15850544492DB9F918E72375189C80C2F8E8DE73EF79EA9B91BECACEB56EA18B6DEDEC7B2A7CF0D734E1749EBE1BD793E002A4D274F443539569222877E3420F9809034C0983486FCE566902746A37A095016956700AB64D131981ADB788521A33C671AF5374719D9FED6DC54C0047C90176ACA3AD197DA0989320E8352CFDD0A409525EB6B61FE3C08C1986EC6F83A17CB9DBA12DAB5F9DE60852AABD2FA377EB7B775D290044A5C1FF6F9C51115CED83BB91892863749C42576E4ACEA9B03ED46E9BAA3420A256923EE73529E8E9F0F2F84C52719549FAF07797263F0979B0D0]
+ AddHint(65,-19,52,13,@Hint)
+}
+Add(FileStream,7287210,434,175)
+{
+ Mode=1
+ AutoCopy=0
+ Point(doCopyFromStream)
+ link(FileName,12927216:Var1,[(440,41)(66,41)(66,303)])
+}
+Add(FileTools,13359086,231,231)
+{
+ link(onEnd,6019363:doEvent,[])
+}
+Add(IndexToChanel,6019363,280,231)
+{
+ link(onEvent1,1529848:doEvent1,[(324,237)(324,195)])
+ link(onEvent2,1629790:doWork2,[])
+}
+Add(DoData,15940094,385,189)
+{
+ link(onEventData,7287210:doCopyFromStream,[])
+ link(Data,8873750:Stream,[])
+}
+Add(Hub,1529848,336,189)
+{
+ link(onEvent1,15940094:doData,[])
+ link(onEvent2,1629790:doWork1,[(361,202)])
+}
+Add(HubEx,1629790,357,231)
+{
+ link(onEvent,11108326:doText,[])
+}
+Add(GetDataEx,12927216,161,294)
+{
+ link(Data,11947023:Result,[])
+}
+Add(Edit,13181424,602,280)
+{
+ Left=5
+ Top=30
+ Width=370
+ Text=""
+}
+Add(MemoryStream,12262252,336,56)
+{
+ @Hint=#10:schema.ini|
+ Stream=[ZIPAC00000078DA8B2E492D2ED14B2E2E8BE5E572CECFF14BCC4DF5484D4C492DB20D292A4DE5E572CB2FCA4D2CB17549CDC9CCCD2C494DD1B0D6E4E5F24DAC084E4ECC0BCA2F2FB63500EACB482C4A4C2E492D0A4E2DB175F40BF6041B65687BFEF3DB579F143CF34A52D3538BC06246B6571EBC79F1FAC57F059FFCBC74903EB0B0B1EDA5A7AF9F7E79F71655D8C4F6F0BB0FEF9EC005019C044573]
+ AddHint(114,-16,65,13,@Hint)
+}
+Add(Hub,11484576,126,245)
+{
+ link(onEvent1,453323:doStrCat,[(145,251)(145,132)])
+ link(onEvent2,11947023:doStrCat,[])
+}
+Add(StrCat,453323,182,126)
+{
+ Str2="schema.ini"
+ link(onStrCat,2614784:doFileExists,[])
+ link(Str1,12932182:Var3,[(188,114)])
+}
+Add(GetDataEx,12932182,161,105)
+{
+ link(Data,5145339:CurrentDir,[])
+}
+Add(FileTools,2614784,231,105)
+{
+ link(onEnd,727064:doEvent,[])
+}
+Add(IndexToChanel,727064,280,105)
+{
+ link(onEvent1,6897655:doData,[])
+}
+Add(FileStream,11789154,385,91)
+{
+ Mode=1
+ AutoCopy=0
+ Point(doCopyFromStream)
+ link(FileName,453323:Result,[(391,49)(271,49)(271,168)(188,168)])
+}
+Add(DoData,6897655,336,105)
+{
+ link(onEventData,11789154:doCopyFromStream,[])
+ link(Data,12262252:Stream,[])
+}
+Add(Edit,3010447,413,441)
+{
+ Left=5
+ Top=165
+ Width=370
+ Text=""
+}
+Add(Button,13514627,364,490)
+{
+ Left=380
+ Top=165
+ Width=75
+ TabOrder=-1
+ Caption="Exec"
+ link(onClick,8230664:doData,[])
+ AddHint(-109,-2,39,13,Caption)
+}
+Add(Button,499359,364,581)
+{
+ Left=380
+ Top=190
+ Width=75
+ TabOrder=-1
+ Caption="QueryScalar"
+ link(onClick,13874103:doData,[])
+ AddHint(-108,-13,73,13,Caption)
+}
+Add(Edit,2485756,413,532)
+{
+ Left=5
+ Top=190
+ Width=370
+ Text="SELECT * FROM "test.csv" WHERE "Пункт" = (SELECT MAX("Пункт") FROM "test.csv"); "
+ AddHint(-307,-23,194,39,Text)
+}
+Add(Button,9987792,504,378)
+{
+ Left=380
+ Top=30
+ Width=75
+ TabOrder=-1
+ Caption="Query"
+ link(onClick,2559672:doEvent1,[])
+ AddHint(-132,-4,43,13,Caption)
+}
+Add(LED,15560458,553,322)
+{
+ Left=355
+ Top=5
+ Width=20
+ Height=20
+ Shape=1
+ ColorOn=65280
+ ColorOff=32768
+ ColorBlick=65280
+}
+Add(DoData,8230664,413,490)
+{
+ link(onEventData,16529310:doExec,[])
+ link(Data,3010447:Text,[])
+}
+Add(DSC_Exec,16529310,462,490)
+{
+ DSManager="ole_driver_1"
+ link(onExec,10114272:doEvent1,[])
+}
+Add(Hub,10114272,518,490)
+{
+ OutCount=3
+ link(onEvent1,6078793:doClear,[(705,496)(705,363)])
+ link(onEvent2,2559672:doEvent2,[(548,503)(548,391)])
+ link(onEvent3,11591076:doOperation,[])
+}
+Add(FormatStr,8948385,364,441)
+{
+ DataCount=1
+ Mask="INSERT INTO "test.csv" VALUES(%1,'Вася','989898','Киров');"
+ link(onFString,3010447:doText,[])
+ AddHint(-258,-25,178,26,Mask)
+}
+Add(Math,16278732,315,441)
+{
+ Op2=1
+ ResultType=0
+ link(onResult,8948385:doString,[])
+ link(Op1,16608006:Var1,[(321,422)])
+}
+Add(Hub,2559672,560,378)
+{
+ InCount=2
+ link(onEvent1,13233332:doQuery,[])
+ link(onEvent2,16278732:doOperation,[(581,391)(581,414)(302,414)(302,447)])
+}
+Add(DoData,13874103,413,581)
+{
+ link(onEventData,2301348:doQuery,[])
+ link(Data,2485756:Text,[])
+}
+Add(DSC_QueryScalar,2301348,462,581)
+{
+ DSManager="ole_driver_1"
+ link(onQuery,4125705:doText,[])
+}
+Add(Edit,4125705,511,581)
+{
+ Left=5
+ Top=215
+ Width=450
+ Text=""
+}
+Add(Math,11591076,602,504)
+{
+ OpType=1
+ Op2=1
+ ResultType=0
+ link(onResult,6078793:doEnsureVisible,[(713,510)(713,398)])
+ link(Op1,16608006:Var2,[])
+}
+Add(GetDataEx,16608006,595,413)
+{
+ Angle=1
+ link(Data,6078793:Count,[(734,422)])
+}

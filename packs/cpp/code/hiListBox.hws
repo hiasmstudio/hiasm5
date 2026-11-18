@@ -1,0 +1,164 @@
+func Arg(value)
+  if(len(value) > 0)
+    return(value)
+  else
+    return('""')
+  end
+end
+
+func doStart
+  println('{')
+  fvar(first, select, parts, i)
+  first = 0
+  switch(d('AddType'))
+    case 1: first = 1
+  end
+  select = 0
+  switch(d('SelectAdd'))
+    case "True": select = 1
+  end
+  println('GtkWidget *list = gtk_list_box_new();')
+  println('hiasm_set_background(list, ', cstr(d('Color')), ');')
+  switch(get('Transparent'))
+    case "True": println('hiasm_set_background(list, "transparent");')
+  end
+  switch(get('Ctl3D'))
+    case 0: println('hiasm_set_border(list);')
+  end
+  switch(d('MultiSelect'))
+    case "True": println('gtk_list_box_set_selection_mode(GTK_LIST_BOX(list), GTK_SELECTION_MULTIPLE);')
+  end
+  parts = split(Strings, "\n")
+  i = 0
+  while(i < parts.size())
+    println('hiasm_list_add(GTK_LIST_BOX(list), ', cstr(parts.get(i)), ', ', first, ', ', select, ');')
+    i = i + 1
+  end
+  switch(get('Sort'))
+    case "True": println('hiasm_list_sort(GTK_LIST_BOX(list));')
+  end
+  if(get('ItemHeight') > 0)
+    println('hiasm_list_set_item_height(GTK_LIST_BOX(list), ', get('ItemHeight'), ');')
+  end
+  println('hiasm_place("ListBox', _id_, '", list, ', Left, ', ', Top, ');')
+  if(linked(onClick))
+    println('g_signal_connect(list, "row-selected", G_CALLBACK(+[](GtkListBox *, GtkListBoxRow *row, gpointer) {')
+  println('if(!hiasm_form_ready) return;')
+    block.inclvl()
+    println('if(row) {')
+    block.inclvl()
+    println('int index = gtk_list_box_row_get_index(row);')
+    switch(d('DataType'))
+      case 1: event(onClick, 'hiasm_list_row_text(row)')
+      default: event(onClick, 'index')
+    end
+    block.declvl()
+    println('}')
+    block.declvl()
+    println('}), NULL);')
+  end
+  println('}')
+end
+
+func First()
+  fvar(first)
+  first = 0
+  switch(get('AddType'))
+    case 1: first = 1
+  end
+  return(first)
+end
+
+func Select()
+  fvar(select)
+  select = 0
+  switch(get('SelectAdd'))
+    case "True": select = 1
+  end
+  return(select)
+end
+
+func doAdd(_data)
+  println('hiasm_list_add(GTK_LIST_BOX(hiasm_widget("ListBox', _id_, '").get()), hiasm_text(', Arg(_data), ').c_str(), ', First(), ', ', Select(), ');')
+  event(onChange)
+end
+
+func doText(_data)
+  println('hiasm_list_from_text(GTK_LIST_BOX(hiasm_widget("ListBox', _id_, '").get()), hiasm_text(', Arg(_data), ').c_str(), ', First(), ', ', Select(), ');')
+  event(onChange)
+end
+
+func doClear(_data)
+  println('hiasm_list_clear(GTK_LIST_BOX(hiasm_widget("ListBox', _id_, '").get()));')
+  event(onChange)
+end
+
+func doDelete(_data)
+  println('hiasm_list_remove(GTK_LIST_BOX(hiasm_widget("ListBox', _id_, '").get()), static_cast<int>(', _data, '));')
+  event(onChange)
+end
+
+func doSelect(_data)
+  println('hiasm_list_select(GTK_LIST_BOX(hiasm_widget("ListBox', _id_, '").get()), static_cast<int>(', _data, '));')
+  event(onSelect, _data)
+end
+
+func doSelectAll(_data)
+  println('hiasm_list_select_all(GTK_LIST_BOX(hiasm_widget("ListBox', _id_, '").get()));')
+end
+
+func Text()
+  return('hiasm_join_lines(hiasm_list_lines(hiasm_list_box("ListBox' && _id_ && '")))')
+end
+
+func Count()
+  return('static_cast<int>(hiasm_list_lines(hiasm_list_box("ListBox' && _id_ && '")).size())')
+end
+
+func Array()
+  return('hiasm_list_lines(hiasm_list_box("ListBox' && _id_ && '"))')
+end
+
+func Index()
+  return('hiasm_list_index(hiasm_list_box("ListBox' && _id_ && '"))')
+end
+
+func String()
+  return('hiasm_list_row_text(gtk_list_box_get_selected_row(hiasm_list_box("ListBox' && _id_ && '")))')
+end
+
+func EndIdx()
+  return('(static_cast<int>(hiasm_list_lines(hiasm_list_box("ListBox' && _id_ && '")).size()) - 1)')
+end
+
+func SelectArray()
+  return('hiasm_list_selection(hiasm_list_box("ListBox' && _id_ && '"))')
+end
+
+func ValueArray()
+  return('hiasm_list_values(hiasm_list_box("ListBox' && _id_ && '"))')
+end
+
+func doUp(_data)
+  println('hiasm_list_move(GTK_LIST_BOX(hiasm_widget("ListBox', _id_, '").get()), -1);')
+  event(onChange)
+end
+
+func doDown(_data)
+  println('hiasm_list_move(GTK_LIST_BOX(hiasm_widget("ListBox', _id_, '").get()), 1);')
+  event(onChange)
+end
+
+func doReplace(_data)
+  println('hiasm_list_replace(GTK_LIST_BOX(hiasm_widget("ListBox', _id_, '").get()), hiasm_text(', Arg(_data), ').c_str());')
+  event(onChange)
+end
+
+func doAddDir(_data)
+  println('hiasm_list_add_dir(GTK_LIST_BOX(hiasm_widget("ListBox', _id_, '").get()), hiasm_text(', Arg(_data), ').c_str());')
+  event(onChange)
+end
+
+func doEnsureVisible(_data)
+end
+

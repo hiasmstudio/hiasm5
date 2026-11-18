@@ -1,0 +1,8 @@
+Mail.ru agent contacts=Контакты Mail.ru агента
+Defines Mail.ru agent for authorization on the server=Определяет Mail.ru agent для авторизации на сервере
+Authorization text=Текст авторизации
+Authorizes the contact on the Mail.ru server=Авторизует контакт на сервере Mail.ru
+Sends an authorization request to the specified e-mail=Посылает запрос авторизации на указанный e-mail
+The event occurs every time after receiving the next contact upon successful authorization on the Mail.ru server and outputs it to the ARG(Mail, Nick, GroupID, Status, InvisState) stream=Событие происходит всякий раз после получения очередного контакта при успешной авторизации на сервере Mail.ru и выдает его в поток ARG(Mail, Nick, GroupID, Status, InvisState)
+The event occurs every time the contact status changes and outputs it to the ARG(Mail, Status) stream=Событие происходит всякий раз после изменения статуса контакта и выдает его в поток ARG(Mail, Status)
+Email address for sending an authorization request=E-mail адрес для посылки запроса на авторизацию

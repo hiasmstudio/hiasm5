@@ -1,0 +1,45 @@
+func Data(value)
+  if(linked('Data'))
+    return(d('Data'))
+  end
+  if(len(value) > 0)
+    return(value)
+  end
+  return('""')
+end
+
+func Guard()
+  if(get('HashType') > 1)
+    println('#error "Hashsum: SHA256/SHA384/SHA512 modes are not implemented in this package yet"')
+  end
+end
+
+func AlgoGuard(text)
+  return('hiasm_hashsum(std::string(' && text && '), ' && get('HashType') && ')')
+end
+
+func doHashsum(_data)
+  Guard()
+  println('hiasm_str_state(', _id_, ') = ', AlgoGuard(Data(_data)), ';')
+  event(onResult, 'hiasm_str_state(' && _id_ && ')')
+end
+
+func doFileHashsum(_data)
+  Guard()
+  println('{')
+  block.inclvl()
+  println('std::ifstream hiasm_hfile', _id_, '(std::string(', Data(_data), '), std::ios::binary);')
+  println('std::string hiasm_hdata', _id_, '((std::istreambuf_iterator<char>(hiasm_hfile)), std::istreambuf_iterator<char>());')
+  println('hiasm_str_state(', _id_, ') = hiasm_hashsum(hiasm_hdata', _id_, ', ', get('HashType'), ');')
+  event(onResult, 'hiasm_str_state(' && _id_ && ')')
+  block.declvl()
+  println('}')
+end
+
+func Result()
+  return('hiasm_str_state(' && _id_ && ')')
+end
+
+func Hash()
+  return('hiasm_str_state(' && _id_ && ')')
+end

@@ -1,0 +1,21 @@
+section cpp
+
+func doShellExecute(_data)
+  fvar(app, cmd, dir)
+  lng.decl_loc_var(si, 'SHELLEXECUTEINFO')
+  println('ZeroMemory(&', si, ', sizeof(SHELLEXECUTEINFO));')
+  println(si, '.cbSize = sizeof(SHELLEXECUTEINFO);')
+  println(si, '.fMask = SEE_MASK_NOCLOSEPROCESS;')
+  println(si, '.nShow = SW_SHOWDEFAULT;')
+  println(si, '.lpVerb = ("',Verb,'");')
+//si.hProcess=0;
+  fvar(p_fn)
+  p_fn=replace(FileName,'string','PChar')
+  println(si, '.lpFile = ',p_fn,';')
+  println('ShellExecuteEx(&',si,');')
+  event(onShellExecute, si && '.hProcess')
+end
+
+func Process()
+  return(si && '.hProcess')
+end

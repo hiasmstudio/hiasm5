@@ -1,0 +1,143 @@
+*Тестирование формы - диалога
+Make(cpp)
+Add(MainForm,16179,56,105)
+{
+ Left=312
+ Top=284
+ Width=349
+ Height=216
+ Caption="Test dialog form"
+}
+Add(ListBox,47479,462,91)
+{
+ Top=40
+ Width=341
+ Height=151
+ Font=[Arial,8,0,0,1]
+ Layout="body"
+ HeightScale=100
+ AddType=1
+}
+Add(ChildForm,31869,406,98)
+{
+ FirstUsage=0
+ link(onEvent1,47479:doClear,[])
+}
+BEGIN_SDK
+  Add(EditMulti,27292,14,14)
+  {
+   EventCount=1
+   WorkCount=1
+   Width=214
+   Height=147
+   VOffset=35
+   link(doWork1,67165:doVisible,[(38,55)(38,118)])
+  }
+  Add(Hub,95734,119,49)
+  {
+   link(onEvent1,27292:onEvent1,[])
+   link(onEvent2,10969573:doWork1,[(151,62)])
+  }
+  Add(Button,5972,63,105)
+  {
+   Left=30
+   Top=35
+   Width=75
+   Font=[Arial,8,0,0,1]
+   Caption="No"
+   link(onClick,10969573:doWork2,[])
+  }
+  Add(Button,84085,63,49)
+  {
+   Left=115
+   Top=35
+   Width=75
+   Font=[Arial,8,0,0,1]
+   Caption="Yes"
+   link(onClick,95734:doEvent1,[])
+  }
+  Add(MainForm,67165,168,84)
+  {
+   Left=312
+   Top=284
+   Width=227
+   Height=93
+   Caption="Confirm"
+   BorderStyle=3
+   TaskBar=1
+   Point(doVisible)
+  }
+  Add(HubEx,10969573,147,98)
+  {
+   link(onEvent,67165:doClose,[])
+  }
+  Add(Label,2832733,168,21)
+  {
+   Left=76
+   Top=10
+   Width=69
+   Height=17
+   Caption="Are you sure?"
+  }
+END_SDK
+Add(InfoTip,2846,140,49)
+{
+ Info=#24:Создание диалоговых форм|
+ Font=[Arial,11,0,0,1]
+ Width=372
+ Height=130
+}
+Add(Button,37223,161,91)
+{
+ Left=10
+ Top=10
+ Font=[Arial,8,0,0,1]
+ Layout="topPanel"
+ Caption="Add"
+ link(onClick,8201:doExecute,[])
+}
+Add(ODialog,8201,217,91)
+{
+ Filter="All|*.*"
+ FileName=""
+ Select=1
+ link(onExecute,1700:doEvent1,[])
+}
+Add(Edit,42567,301,98)
+{
+ Left=70
+ Top=10
+ Width=165
+ Font=[Arial,8,0,0,1]
+ Layout="topPanel"
+ WidthScale=100
+ Text=""
+}
+Add(Button,7056,350,98)
+{
+ Left=255
+ Top=10
+ Width=86
+ Font=[Arial,8,0,0,1]
+ Layout="topPanel"
+ Caption="Clear list"
+ link(onClick,31869:doWork1,[])
+}
+Add(Hub,1700,266,91)
+{
+ link(onEvent1,47479:doAdd,[])
+ link(onEvent2,42567:doText,[])
+}
+Add(HBoxLayout,4357335,217,140)
+{
+ Name="topPanel"
+ Space=3
+ Padding=3
+ Layout="body"
+}
+Add(VBoxLayout,16104510,406,140)
+{
+ Name="body"
+ Space=3
+ Padding=3
+}

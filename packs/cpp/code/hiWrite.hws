@@ -1,0 +1,8 @@
+func doWrite(_data)
+  // A linked Data input is read first, as ReadData does in the Delphi element; otherwise the incoming data is written.
+  if(linked('Data') or isnull(_data))
+    println('std::cout << ', d('Data'), ' << std::endl;')
+  else
+    println('std::cout << ', _data, ' << std::endl;')
+  end
+end

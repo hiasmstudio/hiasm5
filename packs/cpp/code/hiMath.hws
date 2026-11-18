@@ -1,0 +1,152 @@
+// Math: the 44 Delphi operations. The result is kept between calls (as the Delphi
+// element does), an error sets the result to Default and emits onError, and
+// AngleMode converts trigonometric arguments and results (0 radians, 1 degrees).
+func MathX()
+  return('hiasm_x' && _id_)
+end
+
+func MathY()
+  return('hiasm_y' && _id_)
+end
+
+func MathA()
+  return('hiasm_a' && _id_)
+end
+
+// Round-half-to-even, the rounding Delphi's Round uses.
+func MathRN(v)
+  return('static_cast<long long>(std::nearbyint(' && v && '))')
+end
+
+// Condition under which the operation reports an error (Delphi _Err).
+func MathErr()
+  fvar(x, y, a)
+  x = MathX()
+  y = MathY()
+  a = MathA()
+  switch(get('OpType'))
+    case 3: return(y && ' == 0')
+    case 7: return('std::nearbyint(' && y && ') == 0')
+    case 8: return('std::nearbyint(' && y && ') == 0')
+    case 11: return('(' && x && ' < 0 && ' && y && ' != std::floor(' && y && ')) || (' && x && ' == 0 && ' && y && ' < 0)')
+    case 14: return('std::cos(' && x && ' * ' && a && ') == 0')
+    case 15: return('std::sin(' && x && ' * ' && a && ') == 0')
+    case 16: return('(' && x && ' > 1 || ' && x && ' < -1)')
+    case 17: return('(' && x && ' > 1 || ' && x && ' < -1)')
+    case 22: return(x && ' == 0')
+    case 23: return(x && ' < 1')
+    case 25: return('(' && x && ' >= 1 || ' && x && ' <= -1)')
+    case 26: return('(' && x && ' <= 1 && ' && x && ' >= -1)')
+    case 27: return('(' && x && ' <= 0 || ' && y && ' <= 0)')
+    case 28: return(x && ' <= 0')
+    case 29: return(x && ' <= 0')
+    case 32: return(x && ' < 0')
+    case 35: return(y && ' == 0')
+    case 36: return(y && ' == 0')
+    case 37: return(y && ' == 0')
+    default: return('false')
+  end
+end
+
+// Value of the operation when it does not fail.
+func MathVal()
+  fvar(x, y, a)
+  x = MathX()
+  y = MathY()
+  a = MathA()
+  switch(get('OpType'))
+    case 0: return('(' && x && ' + ' && y && ')')
+    case 1: return('(' && x && ' - ' && y && ')')
+    case 2: return('(' && x && ' * ' && y && ')')
+    case 3: return('(' && x && ' / ' && y && ')')
+    case 4: return('static_cast<double>(' && MathRN(x) && ' & ' && MathRN(y) && ')')
+    case 5: return('static_cast<double>(' && MathRN(x) && ' | ' && MathRN(y) && ')')
+    case 6: return('static_cast<double>(' && MathRN(x) && ' ^ ' && MathRN(y) && ')')
+    case 7: return('static_cast<double>(' && MathRN(x) && ' / ' && MathRN(y) && ')')
+    case 8: return('static_cast<double>(' && MathRN(x) && ' % ' && MathRN(y) && ')')
+    case 9: return('static_cast<double>(static_cast<long long>(static_cast<unsigned long long>(' && MathRN(x) && ') << ' && MathRN(y) && '))')
+    case 10: return('static_cast<double>(' && MathRN(x) && ' >> ' && MathRN(y) && ')')
+    case 11: return('std::pow(' && x && ', ' && y && ')')
+    case 12: return('std::cos(' && x && ' * ' && a && ')')
+    case 13: return('std::sin(' && x && ' * ' && a && ')')
+    case 14: return('(std::sin(' && x && ' * ' && a && ') / std::cos(' && x && ' * ' && a && '))')
+    case 15: return('(std::cos(' && x && ' * ' && a && ') / std::sin(' && x && ' * ' && a && '))')
+    case 16: return('(std::atan2(std::sqrt(1 - ' && x && ' * ' && x && '), ' && x && ') / ' && a && ')')
+    case 17: return('(std::atan2(' && x && ', std::sqrt(1 - ' && x && ' * ' && x && ')) / ' && a && ')')
+    case 18: return('(std::atan2(' && x && ', ' && y && ') / ' && a && ')')
+    case 19: return('((std::exp(' && x && ') + 1 / std::exp(' && x && ')) / 2)')
+    case 20: return('((std::exp(' && x && ') - 1 / std::exp(' && x && ')) / 2)')
+    case 21: return('((std::exp(2 * ' && x && ') - 1) / (std::exp(2 * ' && x && ') + 1))')
+    case 22: return('((std::exp(2 * ' && x && ') + 1) / (std::exp(2 * ' && x && ') - 1))')
+    case 23: return('std::log(' && x && ' + std::sqrt(' && x && ' * ' && x && ' - 1))')
+    case 24: return('std::log(' && x && ' + std::sqrt(' && x && ' * ' && x && ' + 1))')
+    case 25: return('(std::log((1 + ' && x && ') / (1 - ' && x && ')) / 2)')
+    case 26: return('(std::log((' && x && ' + 1) / (' && x && ' - 1)) / 2)')
+    case 27: return('(std::log(' && y && ') / std::log(' && x && '))')
+    case 28: return('std::log10(' && x && ')')
+    case 29: return('std::log(' && x && ')')
+    case 30: return('std::exp(' && x && ')')
+    case 31: return('(' && x && ' * ' && x && ')')
+    case 32: return('std::sqrt(' && x && ')')
+    case 33: return('std::fabs(' && x && ')')
+    case 34: return('(' && x && ' < 0 ? -1.0 : (' && x && ' > 0 ? 1.0 : 0.0))')
+    case 35: return('(std::nearbyint(' && x && ' / ' && y && ') * ' && y && ')')
+    case 36: return('((' && x && ' / ' && y && ' - std::trunc(' && x && ' / ' && y && ')) * ' && y && ')')
+    case 37: return('(std::trunc(' && x && ' / ' && y && ') * ' && y && ')')
+    case 38: return('(' && x && ' < ' && y && ' ? ' && x && ' : ' && y && ')')
+    case 39: return('(' && x && ' > ' && y && ' ? ' && x && ' : ' && y && ')')
+    case 40: return('(' && MathRN(x) && ' % 2 != 0 ? 1.0 : 0.0)')
+    case 41: return('(' && MathRN(x) && ' % 2 != 0 ? 0.0 : 1.0)')
+    case 42: return('(' && x && ' - std::trunc(' && x && ') < 0 ? std::trunc(' && x && ') - 1 : std::trunc(' && x && '))')
+    case 43: return('(' && x && ' - std::trunc(' && x && ') > 0 ? std::trunc(' && x && ') + 1 : std::trunc(' && x && '))')
+    default: return('(' && x && ' + ' && y && ')')
+  end
+end
+
+func doOperation(_data)
+  println('{')
+  block.inclvl()
+  println('const double hiasm_x', _id_, ' = static_cast<double>(', d('Op1'), ');')
+  println('const double hiasm_y', _id_, ' = static_cast<double>(', d('Op2'), ');')
+  if(get('AngleMode') == 1)
+    println('const double hiasm_a', _id_, ' = 3.14159265358979323846 / 180.0;')
+  else
+    println('const double hiasm_a', _id_, ' = 1.0;')
+  end
+  println('HiasmMathState &hiasm_m', _id_, ' = hiasm_math_state(', _id_, ', static_cast<double>(', get('Default'), '));')
+  println('const bool hiasm_e', _id_, ' = ', MathErr(), ';')
+  println('if(hiasm_e', _id_, ') {')
+  block.inclvl()
+  println('hiasm_m', _id_, '.value = static_cast<double>(', get('Default'), ');')
+  println('hiasm_m', _id_, '.error = true;')
+  event(onError)
+  block.declvl()
+  println('} else {')
+  block.inclvl()
+  println('const double hiasm_v', _id_, ' = ', MathVal(), ';')
+  println('hiasm_m', _id_, '.value = hiasm_v', _id_, ';')
+  println('hiasm_m', _id_, '.error = false;')
+  if(get('ResultType') == 0)
+    event(onResult, 'static_cast<long long>(std::nearbyint(hiasm_v' && _id_ && '))')
+  else
+    event(onResult, 'hiasm_v' && _id_)
+  end
+  block.declvl()
+  println('}')
+  block.declvl()
+  println('}')
+end
+
+func doClear(_data)
+  println('{')
+  block.inclvl()
+  println('HiasmMathState &hiasm_m', _id_, ' = hiasm_math_state(', _id_, ', static_cast<double>(', get('Default'), '));')
+  println('hiasm_m', _id_, '.value = static_cast<double>(', get('Default'), ');')
+  println('hiasm_m', _id_, '.error = false;')
+  block.declvl()
+  println('}')
+end
+
+func Result()
+  return('hiasm_math_state(' && _id_ && ', static_cast<double>(' && get('Default') && ')).value')
+end

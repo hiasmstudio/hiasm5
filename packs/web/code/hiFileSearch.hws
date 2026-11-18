@@ -1,0 +1,54 @@
+func doSearch(_data)
+  fvar(fdir)
+  var(fname)
+  
+  if(linked(Count))
+    print(cnt, ' = 0;')
+  end
+  fdir = Dir 
+  println(id, ' = opendir(', fdir, ');')
+  println('while (', file, ' = readdir(', id, ')) {')
+  block.inclvl()
+    fname = fdir & "/" & file 
+    if(Include = 2)
+    
+    elseif(Include = 0)
+      println('if(!is_dir(', fname, ')) {')
+      block.inclvl()
+    else
+      println('if(is_dir(', fname, ')) {')
+      block.inclvl()
+    end
+    if(FullName)
+      event(onSearch, fname)
+    else
+      event(onSearch, file)
+    end
+    if(linked(Count))
+      print(cnt, '++;')      
+    end
+    if(Include < 2)
+      block.declvl()
+      println('}')
+    end
+  block.declvl()
+  println('}')
+  println('closedir(', id, ');')
+  event(onEndSearch)
+end
+
+func doStop()
+  println('break;')
+end
+
+func Count()
+  return(cnt)
+end
+
+func Size()
+  return('filesize(' && fname && ')')
+end
+
+func ItemName()
+  return(file)
+end

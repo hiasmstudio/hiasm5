@@ -1,0 +1,93 @@
+*Сравнительная диаграмма количества элементов в пакетах HiAsm
+Make(cpp)
+Add(MainForm,2953706,147,154)
+{
+ link(onCreate,15442729:doEnum,[])
+}
+Add(SQLite_DB,3597991,329,168)
+{
+ link(onOpen,1946192:doQuery,[])
+}
+Add(StrList,13028172,196,105)
+{
+ Strings=#6:Delphi|3:WEB|7:Modules|
+}
+Add(ArrayEnum,15442729,210,168)
+{
+ link(onItem,4410799:doString,[])
+ link(onEndEnum,10221090:doEvent1,[(258,181)(258,244)])
+ link(Array,13028172:Array,[])
+}
+Add(FormatStr,4410799,273,168)
+{
+ DataCount=1
+ Mask="C:\Program Files\HiAsm\Elements\%1\Elements.db"
+ link(onFString,3597991:doOpen,[])
+}
+Add(SQLite_Query,1946192,385,168)
+{
+ SQL="select count(*) from elements"
+ link(onQuery,12707520:doAdd,[])
+}
+Add(Img_Diagram,10381908,343,371)
+{
+ Point2AsOffset=0
+ Color=16777215
+ Style=1
+ BgColor=65535
+ BgColors=[]
+ Point(Point1)
+ Point(Point2)
+ Point(doItems)
+ link(Bitmap,3711804:Bitmap,[])
+ link(Point1,834122:Point,[])
+ link(Point2,8882345:Point,[(363,348)(405,348)])
+ link(Data,10263991:Value,[(370,355)(496,355)])
+}
+Add(PaintBox,3711804,343,252)
+{
+ Left=45
+ Top=20
+ Width=300
+ Height=195
+ Align=5
+ Color=-16777200
+ Layout="vert"
+ HeightScale=100
+ ClearBeforeDraw=0
+ Point(Width)
+ Point(Height)
+ link(onBeforeDraw,10381908:doDraw,[(438,258)(438,410)(331,410)(331,377)])
+}
+Add(PointXY,834122,350,308)
+{
+}
+Add(PointXY,8882345,399,308)
+{
+ link(X,3711804:Width,[(405,296)(356,296)])
+ link(Y,3711804:Height,[(412,296)(363,296)])
+}
+Add(StrList,12707520,441,168)
+{
+}
+Add(MT_String,7347160,441,231)
+{
+ Delimeter="\n\r"
+ link(onResult,10263991:doValue,[])
+ link(Str1,12707520:Text,[])
+}
+Add(Hub,10221090,273,238)
+{
+ OutCount=3
+ link(onEvent1,7347160:doMT,[])
+ link(onEvent2,8627717:doData,[(317,251)(317,317)(275,317)(275,384)])
+ link(onEvent3,3711804:doRefresh,[])
+}
+Add(MT_Memory,10263991,490,231)
+{
+}
+Add(DoData,8627717,287,378)
+{
+ link(onEventData,10381908:doItems,[])
+ link(Data,13028172:Text,[(293,354)(202,354)])
+}

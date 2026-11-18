@@ -1,0 +1,10 @@
+Controller for element dimensions in document space=Контроллер габаритов элемента в пространстве документа
+Defines the name of the element=Определяет имя элемента
+Defines a document template=Определяет шаблон документа
+Element length=Длинна элемента
+Element height=Высота элемента
+Sets the dimensions of the element named name ARG(Width, Height)=Устанавливает габариты элемента с именем name ARG(Width, Height)
+The event occurs every time after setting the dimensions of an element=Событие происходит всякий раз после установки габаритов элемента
+Contains the current length of the element=Содержит текущую длинну элемента
+Contains the current height of the element=Содержит текущую высоту элемента
+Defines an object to change its position=Определяет объект для изменения его позиции

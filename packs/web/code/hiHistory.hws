@@ -1,0 +1,17 @@
+section java
+
+func doBack(_data)
+  println('history.back();')
+  event(onAction)
+end
+
+func doForward(_data)
+  println('history.forward();')
+  event(onAction)
+end
+
+func doGo(_data)
+  println('history.go(', URL, ');')
+  event(onAction)
+end
+

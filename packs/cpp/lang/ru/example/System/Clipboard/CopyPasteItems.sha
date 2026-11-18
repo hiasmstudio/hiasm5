@@ -1,0 +1,117 @@
+Make(cpp)
+ver(4.04 build 185)
+Add(MainForm,2953706,322,70)
+{
+ Width=525
+ Height=369
+ MouseCapture=0
+ Position=1
+ link(onCreate,2223614:doData,[])
+}
+Add(DropFile,6907332,217,77)
+{
+ Point(onStartDrop)
+ link(onDropFile,2561894:doAdd,[])
+ link(onStartDrop,2561894:doClear,[(261,97)(261,90)])
+}
+Add(ListBox,2561894,273,77)
+{
+ Left=5
+ Top=30
+ Width=505
+ Height=130
+ MultiSelect=0
+ Point(onMouseMove)
+}
+Add(Button,9723944,217,161)
+{
+ Left=5
+ Top=5
+ Caption="Put"
+ link(onClick,7658636:doPutItems,[])
+}
+Add(Button,1093469,217,210)
+{
+ Left=5
+ Top=165
+ Caption="Get"
+ link(onClick,7658636:doGetItems,[(268,216)(268,174)])
+}
+Add(ListBox,4245728,448,147)
+{
+ Left=5
+ Top=190
+ Width=505
+ Height=145
+ MultiSelect=0
+ Point(onMouseMove)
+}
+Add(IndexToChanel,1321445,336,147)
+{
+ Point(Index)
+ link(onEvent1,7578136:doString,[])
+ link(onEvent2,1407410:doString,[(376,160)(376,195)])
+ link(Index,7658636:DropType,[(342,142)(328,142)(328,188)(307,188)])
+}
+Add(FormatStr,1407410,385,189)
+{
+ DataCount=1
+ Mask="MOVED: %1 "
+ link(onFString,3668747:doWork3,[(431,195)])
+}
+Add(FormatStr,7578136,385,147)
+{
+ DataCount=1
+ Mask="COPIED: %1"
+ link(onFString,3668747:doWork2,[])
+}
+Add(HubEx,3668747,427,147)
+{
+ link(onEvent,4245728:doAdd,[])
+}
+Add(Label,1921108,217,35)
+{
+ Left=145
+ Top=10
+ Width=365
+ Caption="Drag and Drop items to Control below, then choice operation and push Put  "
+ AutoSize=1
+ Alignment=2
+}
+Add(Label,2887597,273,35)
+{
+ Left=65
+ Top=170
+ Width=445
+ Caption="After perform command Copy or Cut push command Paste"
+ AutoSize=1
+ Alignment=2
+}
+Add(ComboBox,7952067,420,42)
+{
+ Left=65
+ Top=5
+ Width=75
+ Height=21
+ Strings=#4:Copy|3:Cut|
+ Text=""
+ Point(Index)
+ Point(doSelect)
+}
+Add(DoData,2223614,371,84)
+{
+ Data=Integer(0)
+ link(onEventData,7952067:doSelect,[])
+}
+Add(Clipboard,7658636,287,147)
+{
+ Point(doPutItems)
+ Point(doGetItems)
+ Point(onGetItems)
+ Point(DropType)
+ Point(List)
+ Point(PutType)
+ link(onGetItems,1321445:doEvent,[])
+ link(List,2561894:Array,[])
+ link(PutType,7952067:Index,[(300,133)(440,133)])
+}

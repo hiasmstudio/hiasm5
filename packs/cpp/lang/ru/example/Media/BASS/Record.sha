@@ -1,0 +1,80 @@
+Make(cpp)
+Add(BASS_Version,10183901,189,238)
+{
+ link(onCheckOk,12302345:doInit,[])
+ link(onCheckFailed,109118:doMessage,[(233,251)(233,293)])
+}
+Add(Message,11232751,189,287)
+{
+ Message="Error BASS initialization"
+ Caption="Error"
+ Icon=1
+}
+Add(Message,109118,245,287)
+{
+ Message="Incorrect version of BASS library "
+ Caption="Error"
+ Icon=1
+}
+Add(MainForm,16358250,56,224)
+{
+ Width=404
+ Height=100
+ Caption="BASS record demo"
+ Point(Handle)
+ link(onCreate,4252681:doInit,[])
+}
+Add(BASS_Init,4252681,133,238)
+{
+ link(onInit,10183901:doCheck,[])
+ link(onError,11232751:doMessage,[(177,251)(177,293)])
+ link(Handle,16358250:Handle,[(153,226)(107,226)(107,268)(62,268)])
+}
+Add(Edit,12373576,287,77)
+{
+ Left=15
+ Top=15
+ Width=350
+ Text=""
+}
+Add(Button,13089460,189,77)
+{
+ Left=365
+ Top=15
+ Width=20
+ Caption="..."
+ link(onClick,12854261:doExecute,[])
+}
+Add(Button,13708268,189,126)
+{
+ Left=15
+ Top=45
+ Caption="Record"
+ link(onClick,5066922:doStart,[])
+}
+Add(Button,14140950,189,175)
+{
+ Left=80
+ Top=45
+ Caption="Stop"
+ link(onClick,5066922:doStop,[(254,181)(254,139)])
+}
+Add(BASS_RecordCenter,12302345,245,238)
+{
+ link(onError,11713735:doMessage,[(289,251)(289,293)])
+}
+Add(BASS_RecordStart,5066922,287,126)
+{
+ Freq=44100
+ link(FileName,12373576:Text,[])
+}
+Add(Message,11713735,301,287)
+{
+ Message="InitRecord failed!"
+ Caption="Error"
+ Icon=1
+}
+Add(SDialog,12854261,238,77)
+{
+ link(onExecute,12373576:doText,[])
+}

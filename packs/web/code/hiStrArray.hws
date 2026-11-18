@@ -1,0 +1,31 @@
+func Init:java
+  if(isndef(Strings))
+    fvar(s, old)
+
+    s = Strings
+    if(_arr.count(s))
+      s = _arr.join(s, ',') 
+    else
+      s = ''
+    end
+    old = block.select(BLK_HEAD)
+    println(arr, issec("php") ? ' = array(' : ' = new Array(', s, ');')
+    block.select(old)
+    
+    if(isset(BLK_FUNC) and issec("php"))
+      old = block.select(BLK_FUNC)    
+      println('global ' + arr, ';')
+      block.select(old)
+    end
+  end
+end
+
+func Array():java
+  return(arr)
+end
+
+section html
+
+func Array()
+  return(Strings)
+end

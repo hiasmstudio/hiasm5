@@ -1,0 +1,140 @@
+func prepareState(id, state)
+  fvar(r,s,i,j,t,fname,p)
+  s = state
+  i = pos("%", s)
+  j = pos("@", s)
+  r = ""
+  while(i > 0 or j > 0)
+    t = (j == 0 or (i < j and i > 0)) ? i : j
+    p = copy(s,1,t-1) 
+    if(p)
+      r &= p
+    end 
+    delete(s,1,t)
+    
+    if(j == 0 or (i < j and i > 0))
+        t = pos("%",s)
+        if(t = 1)
+          delete(s,1,1)
+          t = pos("%",s)
+          fname = copy(s,1,t-1)
+          if(fname = KeyField)
+            r &= '$f' + _SITE_ + '["id"]'
+          else
+            r &= '$f' + _SITE_ + '[' + fname + ']'
+          end
+          fvar(old)
+          if(isset(BLK_FUNC))
+            old = block.select(BLK_FUNC)    
+            println('global $f' + _SITE_ + ';')
+            block.select(old)
+          end
+        else  
+          fname = copy(s,1,t-1)
+          if(fname = KeyField)
+            r &= '$_POST["id"]'
+          elseif(fname = "_last_")
+            r &= 'mssql_insert_id()'
+          elseif(fname = "_user_")
+            r &= '$_SESSION["log_user"]'
+          else
+            r &= '$_POST[' + (fname + id) + ']'
+          end
+        end
+    else
+        t = pos("@",s)
+        fname = copy(s,1,t-1)
+        if(!cgt.get_point_id(fname))
+          error("Точка "  + fname + " не найдена")
+        end
+        r &= point(fname)
+    end
+    delete(s,1,t)
+    i = pos("%", s)
+    j = pos("@", s)
+  end
+  r &= s
+  return(r)
+end
+
+func execQuery(id, qwr)
+  fvar(s, i)
+  s = qwr 
+  i = pos(";", s)
+  while(i)
+    println('mssql_query(' + prepareState(id, copy(s, 1, i-1)) + ');')
+    delete(s,1,i)
+    i = pos(";", s)
+  end  
+  println('mssql_query(' + prepareState(id, s) + ');')
+end
+
+func ds_select(id, args)
+  if(linked(SelectAccess))
+    println('if(', SelectAccess, ') {')
+    block.inclvl()
+  end
+  fvar(s, l)
+  s = prepareState(id, SelectState)
+  l = (_arr.mt_count(args) == 2) ? (" LIMIT " & _arr.mt_pop(args) & ", " & args) : ""  
+  println('$r' + code(id) + ' = mssql_query(', s & l, ');')
+  if(linked(SelectAccess))
+    block.declvl()
+    println('}')
+  end
+end
+
+func ds_insert(id)
+  if(linked(InsertAccess))
+    println('if(', InsertAccess, ') {')
+    block.inclvl()
+  end
+  execQuery(id, InsertState)
+  if(linked(InsertAccess))
+    block.declvl()
+    println('}')
+  end
+end
+
+func ds_update(id)
+  if(linked(UpdateAccess))
+    println('if(', UpdateAccess, ') {')
+    block.inclvl()
+  end
+  execQuery(id, UpdateState)
+  if(linked(UpdateAccess))
+    block.declvl()
+    println('}')
+  end
+end
+
+func ds_delete(id)
+  if(linked(DeleteAccess))
+    println('if(', DeleteAccess, ') {')
+    block.inclvl()
+  end
+  execQuery(id, DeleteState)
+  if(linked(DeleteAccess))
+    block.declvl()
+    println('}')
+  end
+end
+
+func ds_fetch(id)
+  println('$f' + code(id) + ' = mssql_fetch_array($r' + code(id) + ');')
+  if(isndef(KeyField) and KeyField != "id")
+    println('$f' + code(id) + '["id"] = $f' + code(id) + '[' + KeyField + '];')
+  end
+end
+
+func ds_allcount(id)
+  return('mssql_result(mssql_query(' + prepareState(id, CountState) + '), 0)')
+end
+
+func ds_count(id)
+  return('mssql_num_rows($r' + code(id) + ')')
+end
+
+func ds_use(state)
+  return((isndef(SelectState) & isndef(InsertState) & isndef(UpdateState) & isndef(DeleteState))[state])
+end

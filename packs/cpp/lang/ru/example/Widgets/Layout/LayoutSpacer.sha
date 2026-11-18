@@ -1,0 +1,36 @@
+Make(cpp)
+Add(MainForm,2953706,21,105)
+{
+}
+Add(LayoutSpacer,664305,126,119)
+{
+ Top=5
+ Width=185
+ Height=265
+ Layout="main"
+}
+Add(Memo,2035367,210,112)
+{
+ Left=190
+ Top=5
+ Width=200
+ Height=265
+ Layout="main"
+ WidthScale=100
+}
+Add(HBoxLayout,4784505,161,63)
+{
+ Name="main"
+}
+Add(Edit,14549304,329,63)
+{
+ Left=10
+ Top=15
+ Width=165
+}
+Add(Edit,13933801,329,98)
+{
+ Left=10
+ Top=40
+ Width=165
+}

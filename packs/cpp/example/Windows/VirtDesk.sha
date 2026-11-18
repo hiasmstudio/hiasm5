@@ -1,0 +1,254 @@
+﻿*Создает в Windows 3 виртуальных рабочих стола, переключение между которыми осуществляется нажатием клавиш Ctrl+<Номер стола от 1 до 3>
+Pos(0,0)
+Add(MainForm,602,329,105)
+{
+ Left=21
+ Top=105
+ Font=[Arial,8,0,0,1]
+ Visible=1
+ link(onCreate,30614:doHide,[])
+}
+Add(KeyHook,16485,7,308)
+{
+ link(onKeyDown,13624:doCheckMask,[])
+}
+Add(MultiElement,11621,203,175)
+{
+ @Hint='Хранение окон рабочих столов'
+ link(Data1,9269999:Var1,[(209,128)])
+ link(Data2,89554:Handle,[(216,167)(242,167)(242,227)(90,227)])
+}
+BEGIN_SDK
+Pos(0,0)
+  Add(EditMulti,32370,3,3)
+  {
+   WorkCount=3
+   DataCount=2
+   VarCount=1
+   Width=342
+   Height=410
+   link(doWork1,34351:doEvent,[(25,32)(62,32)(62,111)])
+   link(doWork2,72838:doData,[(51,74)(51,237)])
+   link(doWork3,13499944:doWork1,[(25,57)(25,207)(228,207)])
+   link(Var1,1778030:Var1,[(9,310)])
+  }
+  Add(HubEx,13499944,224,224)
+  {
+   link(onEvent,13414:doIndex,[])
+  }
+  Add(GetIndexData,13414,259,231)
+  {
+   Count=3
+   link(Data1,35735:Array,[])
+   link(Data2,1892:Array,[])
+   link(Data3,13478:Array,[])
+  }
+  Add(GetDataEx,14699444,91,70)
+  {
+   link(Data,32370:Data1,[(104,22)(29,22)])
+  }
+  Add(IntegerArray,35735,259,91)
+  {
+   IntArray=[]
+  }
+  Add(IntegerArray,1892,266,133)
+  {
+   IntArray=[]
+  }
+  Add(IntegerArray,13478,273,175)
+  {
+   IntArray=[]
+  }
+  Add(IndexToChanel,34351,91,105)
+  {
+   Count=3
+   Point(Index)
+   link(onEvent1,35735:doClear,[])
+   link(onEvent2,1892:doClear,[(237,118)(237,153)])
+   link(onEvent3,13478:doClear,[(216,125)(216,195)])
+   link(Index,14699444:Var1,[(97,79)])
+  }
+  Add(DoData,72838,98,231)
+  {
+   link(onEventData,96569:doEvent1,[])
+   link(Data,14699444:Var2,[])
+  }
+  Add(ArrayRW,40590,294,336)
+  {
+   link(Array,1778030:Var2,[(300,325)(265,325)])
+   link(Value,32370:Data2,[(314,16)(31,16)])
+  }
+  Add(Hub,96569,147,231)
+  {
+   link(onEvent1,13499944:doWork2,[])
+   link(onEvent2,40590:doAdd,[(199,244)(199,356)])
+  }
+  Add(GetDataEx,1778030,252,301)
+  {
+   link(Data,13414:Var,[(265,268)(265,268)])
+  }
+END_SDK
+Add(LineBreak,11893696,182,56)
+{
+ Caption="active"
+ link(Out,13045:doValue,[])
+ Primary=[100,182,343]
+}
+Add(WinEnum,89554,84,182)
+{
+ Point(ClassName)
+ link(onFindWindow,78048:doWork1,[])
+}
+Add(KeyMask,13624,56,308)
+{
+ Ctrl=1
+ Key=51
+ link(onFalse,51205:doCheckMask,[])
+ link(onTrue,55826:doWork3,[(94,321)(94,356)])
+}
+Add(Message,31025,588,126)
+{
+ Message="This program created by HiAsm"
+ Caption="Virtual desktop"
+}
+Add(IndexToChanel,82858,518,126)
+{
+ Count=3
+ link(onEvent1,31025:doMessage,[])
+ link(onEvent3,602:doClose,[(560,146)(560,174)(308,174)(308,132)])
+}
+Add(Hub,97717,28,175)
+{
+ InCount=2
+ link(onEvent1,11621:doWork1,[])
+ link(onEvent2,89554:doEnum,[])
+}
+Add(KeyMask,9811,147,308)
+{
+ Ctrl=1
+ Key=49
+ link(onTrue,55826:doWork1,[(184,321)(184,342)])
+}
+Add(MultiElement,78048,133,182)
+{
+ @Hint='Не скрываем системные окна'
+ link(onEvent1,11621:doWork2,[])
+ link(Data1,89554:ClassName,[(139,172)(125,172)(125,219)(97,219)])
+}
+BEGIN_SDK
+Pos(0,0)
+  Add(EditMulti,61800,3,3)
+  {
+   EventCount=1
+   WorkCount=1
+   DataCount=1
+   Height=137
+   link(doWork1,38935:doCompare,[(18,24)(18,93)])
+  }
+  Add(If_else,38935,56,87)
+  {
+   Type=5
+   Op2=String(Shell_TrayWnd)
+   link(onTrue,74699:doCompare,[])
+   link(Op1,4510836:Var1,[(62,58)])
+  }
+  Add(If_else,74699,119,87)
+  {
+   Type=5
+   Op2=String(SysShadow)
+   link(onTrue,7826:doCompare,[])
+   link(Op1,4510836:Var3,[(125,58)])
+  }
+  Add(If_else,7826,189,87)
+  {
+   Type=5
+   Op2=String(Program Manager)
+   link(onTrue,61800:onEvent1,[(255,93)(255,9)])
+  }
+  Add(GetDataEx,4510836,56,49)
+  {
+   link(Data,61800:Data1,[(69,14)(21,14)])
+  }
+END_SDK
+Add(TrayIcon,30614,385,133)
+{
+ Hint="Virtual desktop"
+ FormHook=0
+ link(onClick,88918:doPopupHere,[])
+}
+Add(GetDataEx,9269999,245,119)
+{
+ link(Data,13045:Value,[])
+}
+Add(ChanelToIndex,55826,196,336)
+{
+ Count=3
+ link(onIndex,90547:doCompare,[])
+}
+Add(KeyMask,51205,98,308)
+{
+ Ctrl=1
+ Key=50
+ link(onFalse,9811:doCheckMask,[])
+ link(onTrue,55826:doWork2,[(136,321)(136,349)])
+}
+Add(ArrayEnum,39216,504,350)
+{
+ link(onItem,58097:doData,[])
+ link(onEndEnum,65676:doSwitch,[(551,363)(551,300)])
+ link(Array,11621:Var1,[(510,258)(209,258)])
+}
+Add(Hub,15587,441,343)
+{
+ InCount=2
+ link(onEvent1,11621:doWork3,[(483,349)(483,267)(191,267)(191,195)])
+ link(onEvent2,39216:doEnum,[])
+}
+Add(Hub,5601,301,336)
+{
+ OutCount=4
+ link(onEvent1,97717:doEvent2,[(350,342)(350,298)(22,298)(22,188)])
+ link(onEvent2,32234:doData,[])
+ link(onEvent3,15587:doEvent2,[])
+ link(onEvent4,100:In,[(348,363)(348,405)])
+}
+Add(WinTools,77855,630,350)
+{
+ link(Handle,39216:Item,[(636,340)(613,340)(613,392)(510,392)])
+}
+Add(DoData,32234,371,343)
+{
+ link(onEventData,15587:doEvent1,[])
+ link(Data,15024060:Var3,[(377,317)])
+}
+Add(PopupMenu,88918,462,126)
+{
+ Menu='About','-','Exit'
+ link(onClick,82858:doEvent,[])
+}
+Add(Memory,13045,252,56)
+{
+ Default=Integer(0)
+}
+Add(DoData,58097,567,350)
+{
+ Data=Integer(0)
+ link(onEventData,77855:doVisible,[])
+ link(Data,65676:State,[])
+}
+Add(Switch,65676,567,294)
+{
+ DataOn=Integer(1)
+ DataOff=Integer(0)
+ Point(State)
+}
+Add(If_else,90547,245,336)
+{
+ Type=5
+ link(onTrue,5601:doEvent1,[])
+ link(Op2,15024060:Var2,[])
+}
+Add(GetDataEx,15024060,245,308)
+{
+ link(Data,9269999:Var2,[])
+}

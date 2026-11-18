@@ -1,0 +1,116 @@
+Make(web)
+ver(4.01 build 176)
+Add(EntryPoint,2953706,21,105)
+{
+ link(onStart,13418573:doEvent,[(125,111)(125,244)])
+}
+Add(cURL,6824261,315,238)
+{
+ URL="http://hiasm.com/_index.html"
+ link(onInit,6750383:doSetOptions,[(366,244)(366,237)])
+}
+Add(Hub,13418573,196,238)
+{
+ link(onEvent1,6824261:doInit,[])
+ link(onEvent2,1181643:doExec,[(262,251)(262,398)])
+}
+Add(cURL_Option,6750383,385,231)
+{
+ CURLOPT_HEADER=1
+ ReturnTransfer=1
+}
+Add(cURL_exec,1181643,315,392)
+{
+ Point(ErrorNo)
+ Point(Error)
+ link(onExec,1905789:doEvent,[])
+ link(onError,2416759:doPrint,[(380,405)(380,552)])
+ link(cURLID,8276333:Var2,[])
+}
+Add(Echo,13019176,602,497)
+{
+}
+Add(HubEx,12467358,560,490)
+{
+ link(onEvent,13019176:doEcho,[])
+}
+Add(HTML_Collector,2416759,406,546)
+{
+ link(onPrint,12467358:doWork3,[(564,552)])
+ link(ErrNo,1181643:ErrorNo,[(412,447)(321,447)])
+ link(Error,1181643:Error,[(419,447)(328,447)])
+}
+BEGIN_SDK
+  Add(HCEditor,5585738,21,21)
+  {
+   VarCount=#28:Body=Содержит тело документа|47:Head=Содержит заголовок документа(если он есть)|
+   DataCount=#5:ErrNo|5:Error|
+   Width=587
+   Height=305
+   link(doPrint,4300486:doBuild,[(98,27)(98,223)])
+  }
+  Add(StringBuilder,4300486,175,217)
+  {
+   Mask="<b>Error</b> # %a%: %b%"
+   Args=#17:Mask=Маска строки|1:a|1:b|
+   link(onBuild,5585738:onPrint,[(407,223)(407,27)])
+   link(a,5585738:ErrNo,[(188,119)(27,119)])
+   link(b,5585738:Error,[(195,119)(34,119)])
+  }
+END_SDK
+Add(HTML_Collector,40486,497,497)
+{
+ link(onPrint,12467358:doWork2,[])
+ link(a,524242:Value,[(503,429)(741,429)])
+}
+BEGIN_SDK
+  Add(HCEditor,5585738,21,21)
+  {
+   VarCount=#28:Body=Содержит тело документа|47:Head=Содержит заголовок документа(если он есть)|
+   DataCount=#1:a|
+   Width=587
+   Height=305
+   link(doPrint,4300486:doBuild,[(98,27)(98,223)])
+  }
+  Add(StringBuilder,4300486,175,217)
+  {
+   Mask="Result: <pre>%a%</pre>"
+   Args=#17:Mask=Маска строки|1:a|
+   link(onBuild,5585738:onPrint,[(407,223)(407,27)])
+   link(a,5585738:a,[(188,119)(27,119)])
+  }
+END_SDK
+Add(HtmlSpecialChars,11415594,616,329)
+{
+ link(onHtmlSpecialChars,524242:doValue,[])
+}
+Add(Memory,524242,735,329)
+{
+}
+Add(cURL_getinfo,11698674,539,350)
+{
+ link(cURLID,8276333:Var3,[(545,289)])
+}
+Add(Hub,1905789,385,392)
+{
+ OutCount=3
+ link(onEvent1,11415594:doHtmlSpecialChars,[(507,398)(507,335)])
+ link(onEvent2,10880207:doBuild,[(465,405)(465,454)])
+ link(onEvent3,40486:doPrint,[(452,412)(452,503)])
+}
+Add(GetDataEx,8276333,308,280)
+{
+ link(Data,6824261:CurlID,[])
+}
+Add(Echo,2621824,693,448)
+{
+}
+Add(StringBuilder,10880207,532,448)
+{
+ Mask="Download complete: size %Len%, type %type%. Return code: %Code%.<br/>\r\n<br/>\r\nData:<br/>\r\n<br/>\r\n\r\n"
+ Args=#17:Mask=Маска строки|4:Code|3:Len|4:Type|
+ link(onBuild,2621824:doEcho,[])
+ link(Code,11698674:CURLINFO_HTTP_CODE,[])
+ link(Len,11698674:CURLINFO_CONTENT_LENGTH_DOWNLOAD,[])
+ link(Type,11698674:CURLINFO_CONTENT_TYPE,[])
+}

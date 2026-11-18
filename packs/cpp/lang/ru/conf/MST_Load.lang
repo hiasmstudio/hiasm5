@@ -1,0 +1,12 @@
+Loading table MTStrTbl from file=Загрузка таблицы MTStrTbl из файла
+Default download file name=Имя файла для загрузки по-умолчанию
+Column separator in a row=Разделитель столбцов в строке
+The first line contains the column names=Первая строка содержит имена столбцов
+Load checkbox states=Загружать состояния флажков
+Managing the MTStrTbl element=Управление элементом MTStrTbl
+Loads a table from a file=Загружает таблицу из файла
+Loads a table from a file stream=Загружает таблицу из файлового потока
+The event occurs every time after loading a table from a file=Событие происходит всякий раз после загрузки таблицы из файла
+The event occurs every time a table is loaded from a file stream=Событие происходит всякий раз после загрузки таблицы из файлового потока
+File name to download=Имя файла для загрузки
+File stream ID=Идентификатор файлового потока

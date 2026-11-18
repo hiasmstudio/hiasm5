@@ -1,0 +1,16 @@
+Pos(0,0)
+Add(DLL,6283838,91,112)
+{
+ WorkPoints='doWork1'
+ EventPoints='123'
+ link(123,4569907:doMessage,[])
+}
+Add(Message,4569907,147,112)
+{
+ link(onMessage,6656957:doData,[])
+}
+Add(DoData,6656957,210,112)
+{
+ Data=String(Hello from DLL!)
+ link(onEventData,6283838:doWork1,[(252,118)(252,102)(81,102)(81,118)])
+}

@@ -1,0 +1,7 @@
+Writing a value to a USB device line=Запись значения в линию USB устройства
+Line number from 1 to 24=Номер линии от 1 до 24
+USB device=Устройство USB
+Sets the voltage level on a given device line: 0 - low level, 1 - high level=Устанавливает уровень напряжения на заданной линии устройства: 0 - низкий уровень, 1 - высокий уровень
+The event occurs every time after a set value is successfully written to the line=Событие происходит всякий раз после успешной записи в линию заданного значения
+The event occurs whenever a write to the line fails (occurs when the line is configured as an input)=Событие происходит всякий раз после неудачной записи в линию (возникает тогда, когда линия сконфигурирована на вход)
+Value to write to line (0 or 1)=Значение для записи в линию (0 или 1)

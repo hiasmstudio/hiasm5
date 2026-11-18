@@ -1,0 +1,4 @@
+Notification of mail arrival=Нотификация о приходе почты
+Defines Mail.ru agent=Определяет Mail.ru agent
+The event occurs every time after receiving a new mail message on the Mail.ru server (with one new letter) ARG(Sender, Subject, TimeStamp)=Событие происходит всякий раз после получения нового почтового сообщения на сервере Mail.ru (при одном новом письме) ARG(Sender, Subject, TimeStamp)
+The event occurs whenever the number of mail messages on the Mail.ru server changes ARG(Count)=Событие происходит всякий раз при изменении количества почтовых сообщений на сервере Mail.ru ARG(Count)

@@ -1,0 +1,6 @@
+func doEvent(data):any
+  fvar(i)
+  for(i = 1; i <= _event_count_; i++) 
+    event("onEvent" + i, data)
+  end
+end

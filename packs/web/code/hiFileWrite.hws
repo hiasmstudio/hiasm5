@@ -1,0 +1,14 @@
+func doWrite
+  fvar(fid)
+  fid = FileID 
+  println('fwrite(', fid, ', ', Text, ');')
+  event(onWrite, fid)
+end
+
+func doWriteString
+  fvar(fid)
+  fid = FileID 
+  println('fputs(', fid, ', ', Text & "\\r\\n", ');')
+  event(onWrite, fid)
+end
+

@@ -1,0 +1,6 @@
+RAM test=Тест RAM
+Block size in MB=Размер блока в MB
+Memory test mode=Режим тестирования памяти
+Begins the testing procedure=Начинает процедуру тестирования
+The event occurs every time after the end of the testing procedure and displays the number of megabytes processed per second ARG(MemSpeed)=Событие происходит всякий раз после окончания процедуры тестирования и выдает количество обработанных мегабайт в секунду ARG(MemSpeed)
+Contains 1 if the testing process is in progress, and 0 otherwise=Содержит 1 если идет процесс тестирования, и 0 в противном случае

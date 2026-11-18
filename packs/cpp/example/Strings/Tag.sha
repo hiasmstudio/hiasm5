@@ -1,0 +1,128 @@
+*”даление комментариев из HTML страницы #13#10<!--   -->
+Make(cpp)
+Pos(0,0)
+Add(MainForm,96649,102,165)
+{
+ Left=312
+ Top=284
+ Width=351
+ Height=199
+ Caption=""
+ TaskBar=1
+}
+Add(ListBox,14918,222,109)
+{
+ Left=145
+ Top=33
+ Width=343
+ Height=141
+ Align=4
+ Font=[Arial,8,0,0,1]
+ AddType=1
+}
+Add(DropFile,16179,162,193)
+{
+ link(onDropFile,37223:doLoad,[])
+}
+Add(StrList,37223,220,165)
+{
+}
+Add(Hub,97903,162,109)
+{
+ link(onEvent1,14918:doAdd,[])
+ link(onEvent2,37223:doText,[(207,122)(207,192)])
+}
+Add(Repeat,71798,161,249)
+{
+ Op2=Integer(0)
+ Check=1
+ link(onRepeat,16262:doWork1,[])
+ link(Op1,16262:Var1,[(167,239)(206,239)(206,291)(226,291)])
+}
+Add(Button,69767,101,108)
+{
+ Left=5
+ Top=5
+ Width=75
+ Font=[Arial,8,0,0,1]
+ Caption="Delete"
+ link(onClick,71798:doRepeat,[(147,114)(147,255)])
+}
+Add(MultiElement,16262,220,249)
+{
+ link(onEvent1,97903:doEvent1,[(267,255)(267,99)(152,99)(152,115)])
+ link(Data1,37223:Text,[])
+}
+BEGIN_SDK
+*Ѕлок, вырезающий из текста все теги <!-- -->.яƒ–ќ всей программы.
+  Add(EditMulti,30664,3,3)
+  {
+   EventCount=1
+   WorkCount=1
+   DataCount=1
+   VarCount=1
+   Width=291
+   Height=219
+   link(doWork1,44293:doEvent1,[])
+   link(Var1,24665:Position,[(9,174)(76,174)])
+  }
+  Add(GetData,88793,70,14)
+  {
+   Count=3
+   link(Data,30664:Data1,[])
+  }
+  Add(Position,46602,84,70)
+  {
+   Target="<!--"
+   StartPos=0
+   link(onSearch,2029:doValue,[])
+   link(Str,88793:Data2,[(90,58)(83,58)])
+  }
+  Add(Delete,48176,217,175)
+  {
+   Position=0
+   link(onDelete,30664:onEvent1,[(284,181)(284,9)])
+   link(Str,88793:Data3,[(223,53)(90,53)])
+   link(Position,10866070:Var3,[(230,114)])
+   link(Count,87433:Value,[])
+  }
+  Add(Position,24665,70,126)
+  {
+   Target="-->"
+   StartPos=0
+   ShortSearch=1
+   link(onSearch,27902:doOperation,[])
+   link(Str,88793:Data1,[])
+   link(StartPos,46602:Position,[])
+  }
+  Add(Hub,44293,14,70)
+  {
+   OutCount=3
+   link(onEvent1,46602:doSearch,[])
+   link(onEvent2,24665:doSearch,[(58,83)(58,132)])
+   link(onEvent3,48176:doDelete,[(52,90)(52,181)])
+  }
+  Add(Memory,87433,231,126)
+  {
+  }
+  Add(GetDataEx,10866070,119,105)
+  {
+   link(Data,2029:Value,[])
+  }
+  Add(Memory,2029,126,70)
+  {
+  }
+  Add(Math,14918,168,126)
+  {
+   Op2=3
+   ResultType=0
+   link(onResult,87433:doValue,[])
+  }
+  Add(Math,27902,119,126)
+  {
+   OpType=1
+   ResultType=0
+   link(onResult,14918:doOperation,[])
+   link(Op2,10866070:Var2,[])
+  }
+END_SDK

@@ -1,0 +1,97 @@
+*Закачка файлов из Internet
+Make(cpp)
+Add(MainForm,91136,278,243)
+{
+ Left=312
+ Top=284
+ Width=358
+ Height=108
+ Caption=""
+ TaskBar=1
+}
+Add(Label,64310,336,243)
+{
+ Left=100
+ Top=35
+ Width=35
+ Font=[Arial,8,0,0,1]
+ Caption="Status"
+}
+Add(Label,21437,397,195)
+{
+ Left=140
+ Top=35
+ Width=100
+ Font=[Arial,8,0,0,1]
+ Caption="0Kb/0Kb"
+}
+Add(Hub,59971,147,195)
+{
+ link(onEvent1,27891:GetURLSize,[(198,201)(198,215)])
+ link(onEvent2,27891:doDownload,[])
+}
+Add(Math,98541,277,140)
+{
+ OpType=3
+ Op2=1024
+ ResultType=0
+ link(onResult,78676:doValue,[])
+}
+Add(FormatStr,19075,337,195)
+{
+ Mask="%2Kb/%1Kb"
+ link(onFString,21437:doText,[])
+ link(Str1,78676:Value,[])
+}
+Add(Label,5398,97,85)
+{
+ Left=5
+ Top=10
+ Width=35
+ Font=[Arial,8,0,0,1]
+ Caption="URL"
+}
+Add(Button,53054,97,195)
+{
+ Left=5
+ Top=35
+ Width=75
+ Font=[Arial,8,0,0,1]
+ Caption="Download"
+ link(onClick,59971:doEvent1,[])
+}
+Add(Memory,78676,337,140)
+{
+}
+Add(Math,45476,277,195)
+{
+ OpType=3
+ Op2=1024
+ ResultType=0
+ link(onResult,19075:doString,[])
+}
+Add(Edit,70643,217,85)
+{
+ Left=45
+ Top=5
+ Width=300
+ Height=21
+ Font=[Arial,8,0,0,1]
+ Text="http://localhost/soft/prog/particle.rar"
+}
+Add(Button,17110,97,235)
+{
+ Left=5
+ Top=60
+ Width=75
+ Font=[Arial,8,0,0,1]
+ Caption="Stop"
+ link(onClick,27891:doStop,[(203,241)(203,208)])
+}
+Add(HTTP_Get,27891,217,195)
+{
+ FileName="d:\\temp.rar"
+ link(onStatus,45476:doOperation,[])
+ link(onURLSize,98541:doOperation,[(263,215)(263,146)])
+ link(URL,70643:Text,[])
+}

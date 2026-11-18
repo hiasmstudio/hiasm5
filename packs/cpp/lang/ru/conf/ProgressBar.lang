@@ -1,0 +1,7 @@
+Progress bar=Отображает значение параметра
+Sets the maximum value of the quantity=Задает максимальное значение величины
+Element orientation on the form=Ориентация элемента на форме
+True - solid strip, False - divided into segments=True - сплошная полоска, False - разделенная на сегменты
+Stripe color=Цвет полосы
+Sets the progress position=Устанавливает позицию прогресса
+Contains the current progress position=Содержит текущую позицию прогресса

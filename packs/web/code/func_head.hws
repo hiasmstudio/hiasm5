@@ -1,0 +1,9 @@
+  fvar(func_old_blk_body, func_old_blk_func)
+  func_old_blk_body = block.cur()
+  block.select(block.reggen())
+  if(isset(BLK_FUNC))
+    func_old_blk_func = BLK_FUNC
+  else
+    gvar(BLK_FUNC)
+  end
+  BLK_FUNC = block.reggen()

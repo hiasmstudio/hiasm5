@@ -1,0 +1,242 @@
+Make(cpp)
+Add(MainForm,14017285,70,133)
+{
+ Left=20
+ Top=105
+ Width=424
+ Height=79
+ Caption=""
+ link(onCreate,7461548:doEvent1,[])
+}
+Add(InfoTip,16646216,329,91)
+{
+ Info=#15:Защищаем ресурс|0:|0:|0:|0:|0:|0:|0:|42:По окончанию работы освобождаем для других|
+ Width=141
+ Height=137
+}
+Add(For,9010111,532,168)
+{
+ End=100000
+ IncludeEnd=1
+ link(onEvent,3731085:doEvent1,[])
+ link(onStop,6614406:doOff,[(578,181)(578,114)(520,114)(520,132)])
+}
+Add(Edit,13816107,679,168)
+{
+ Left=10
+ Top=13
+ Width=95
+ Text=""
+}
+Add(Hub,3731085,588,168)
+{
+ link(onEvent1,13816107:doText,[])
+ link(onEvent2,15914761:doWork2,[])
+}
+Add(Application,1559756,637,175)
+{
+ Wait=1
+}
+Add(Thread,4910251,175,147)
+{
+ Delay=300
+ FastStop=0
+ link(onExec,6962201:doEvent1,[])
+}
+Add(Hub,10901672,497,154)
+{
+ OutCount=3
+ link(onEvent1,6614406:doOn,[(521,160)(521,139)])
+ link(onEvent2,15914761:doWork1,[(620,167)])
+ link(onEvent3,9010111:doFor,[])
+}
+Add(LED,6614406,532,119)
+{
+ Left=260
+ Top=10
+ ColorOn=65280
+ ColorOff=32768
+ ColorBlick=65280
+}
+Add(HubEx,15914761,616,168)
+{
+ link(onEvent,1559756:doProcessMessages,[])
+}
+Add(Hub,3835869,119,315)
+{
+ OutCount=3
+ link(onEvent1,14120473:doChangeValue,[(147,321)(147,244)])
+ link(onEvent2,15271927:doEvent1,[])
+ link(onEvent3,5233333:doChangeValue,[(147,335)(147,440)])
+}
+Add(LED,5233333,217,434)
+{
+ Left=340
+ Top=10
+ ColorOn=16776960
+ ColorOff=8421376
+ ColorBlick=16776960
+}
+Add(InfoTip,8429069,154,98)
+{
+ Info=#50:Запускаем работу с ресурсом в параллельном потоке |
+ Width=155
+ Height=102
+}
+Add(InfoTip,1151692,154,399)
+{
+ Info=#31:Делаем чего-то, никому не мешая|
+ Width=155
+ Height=81
+}
+Add(InfoTip,10690651,154,287)
+{
+ Info=#52:Пытаемся запустить работу с ресурсом в другом потоке|0:|0:|0:|0:|48:Доступ откроется тогда, когда освободится ресурс|
+ Width=155
+ Height=109
+}
+Add(LED,14120473,217,238)
+{
+ Left=380
+ Top=10
+ ColorOn=65535
+ ColorOff=32896
+ ColorBlick=65535
+ Value=0
+}
+Add(InfoTip,9292949,154,203)
+{
+ Info=#31:Делаем чего-то, никому не мешая|
+ Width=155
+ Height=81
+}
+Add(InfoTip,11626540,483,91)
+{
+ Info=#23:Тут работаем с ресурсом|
+ Width=239
+ Height=137
+}
+Add(SafeMode,14966444,385,154)
+{
+ WaitMode=1
+ link(onSafeMode,10901672:doEvent1,[])
+}
+Add(Hub,15271927,231,322)
+{
+ OutCount=3
+ link(onEvent1,10327193:doData,[])
+ link(onEvent2,882968:doOn,[(318,335)(318,251)])
+ link(onEvent3,1357669:doSafeMode,[])
+}
+Add(Switch,882968,595,231)
+{
+ DataOn=Integer(1)
+ DataOff=Integer(0)
+ Point(doOn)
+ Point(State)
+}
+Add(DoData,10327193,679,322)
+{
+ Data=String(Попытка доступа к ресурсу)
+ link(onEventData,6231889:doWork3,[(732,328)])
+}
+Add(IndexToChanel,11574106,595,273)
+{
+ Point(Index)
+ link(onEvent2,8910723:doData,[])
+ link(Index,882968:State,[])
+}
+Add(LED,8001298,679,357)
+{
+ Left=300
+ Top=10
+ ColorBlick=255
+}
+Add(DoData,8910723,679,280)
+{
+ Data=String(Ресурс открыт для другого потока)
+ link(onEventData,6231889:doWork2,[])
+}
+Add(HubEx,6231889,728,273)
+{
+ Angle=3
+ link(onEvent,13823805:doWork2,[(732,69)])
+}
+Add(DoData,7263705,266,126)
+{
+ Data=String(Работает параллельный поток)
+ link(onEventData,13823805:doWork3,[(319,132)])
+}
+Add(Hub,6962201,224,147)
+{
+ link(onEvent1,7263705:doData,[(252,153)(252,132)])
+ link(onEvent2,14966444:doSafeMode,[])
+}
+Add(HubEx,13823805,315,56)
+{
+ Angle=2
+ link(onEvent,14017285:doCaption,[(58,69)(58,139)])
+}
+Add(Hub,3917072,560,371)
+{
+ link(onEvent1,8001298:doOn,[])
+ link(onEvent2,8922034:doTimer,[])
+}
+Add(Timer,8922034,595,378)
+{
+ Interval=500
+ Enable=1
+ AutoStop=1
+ link(onTimer,8001298:doOff,[(653,384)(653,370)])
+}
+Add(Edit,3456976,595,420)
+{
+ Left=110
+ Top=13
+ Width=95
+ Text=""
+}
+Add(DoData,7394771,532,420)
+{
+ link(onEventData,3456976:doText,[])
+ link(Data,9010111:Position,[])
+}
+Add(SafeMode,1357669,385,336)
+{
+ WaitMode=1
+ link(onSafeMode,13329192:doEvent1,[])
+}
+Add(Hub,13329192,490,336)
+{
+ OutCount=3
+ link(onEvent1,11574106:doEvent,[(521,342)(521,279)])
+ link(onEvent2,7394771:doData,[(521,349)(521,426)])
+ link(onEvent3,16319066:doNext,[(514,356)(514,475)])
+}
+Add(Hub,7461548,119,147)
+{
+ link(onEvent1,4910251:doStart,[])
+ link(onEvent2,16126828:doStart,[(143,160)(143,191)(58,191)(58,321)])
+}
+Add(Thread,16126828,70,315)
+{
+ link(onExec,3835869:doEvent1,[])
+ link(onSyncExec,3917072:doEvent1,[(113,328)(113,377)])
+}
+Add(Edit,5685232,595,469)
+{
+ Left=210
+ Top=13
+ Width=45
+ Text="0"
+}
+Add(Counter,16319066,532,469)
+{
+ link(onNext,5685232:doText,[])
+}
+Add(InfoTip,16687612,336,280)
+{
+ Info=#31:Дожидаемся освобождения ресурса|
+ Width=141
+ Height=137
+}

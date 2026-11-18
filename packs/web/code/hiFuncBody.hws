@@ -1,0 +1,17 @@
+section java
+
+func doWork(_data, index)
+  sys.selectElement(cgt.el_get_parent_id())
+  event(cgt.pt_get_name_byid(cgt.pt_arr_event(index)), _data)
+end
+
+func GetVar(_data, index)
+  fvar(ptname)  
+  sys.selectElement(cgt.el_get_parent_id())
+  ptname = cgt.pt_get_name_byid(cgt.pt_arr_data(index)) 
+  if(cgt.pt_get_link_point(cgt.pt_arr_data(index)))
+    return(point(ptname))
+  else
+    return(code(ptname))
+  end
+end

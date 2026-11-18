@@ -1,0 +1,5 @@
+Case=Изменяет регистр символов в строке
+Lower - convert the string to lowercase, Upper - convert the string to uppercase, ProperCase - convert the first letter of each word in the string to capital, FirstChar - convert the first letter of the first word of the sentence to capital, Inversion - invert the case of the characters in the string=Lower - привести строку к нижнему регистру, Upper - привести строку к верхнему регистру, ProperCase - преобразовать первые буквы каждого слова строки в заглавные, FirstChar - преобразовать первую букву первого слова предложения в заглавную, Inversion - инвертировать регистр символов строки
+Converts the string Str to the case specified by the Type parameter=Приводит строку Str к регистру, определяемому параметром Type
+The event occurs every time a string is processed=Событие происходит всякий раз после обработки строки
+Defines a string=Определяет строку

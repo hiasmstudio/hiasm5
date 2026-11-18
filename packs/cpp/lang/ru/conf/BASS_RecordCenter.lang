@@ -1,0 +1,7 @@
+Recording Center=Центр звукозаписи
+Audio recording device (-1 default device)=Устройство записи звука (-1 устройство по-умолчанию )
+Initializes the audio recording device ARG(Device)=Инициализирует устройство для звукозаписи ARG(Device)
+Releases the audio recording device=Освобождает устройство звукозаписи
+The event occurs every time after initialization=Событие происходит всякий раз после инициализации
+The event occurs every time an error occurs and outputs its number to the stream ARG(Error)=Событие происходит всякий раз после возникновения ошибки и выдает ее номер в поток ARG(Error)
+Contains the number of the current audio recording device=Содержит номер текущего устройства звукозаписи

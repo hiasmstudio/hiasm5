@@ -1,0 +1,43 @@
+Pos(0,0)
+Add(MainForm,5406750,21,105)
+{
+ Left=20
+ Top=105
+ Width=310
+ Font=[MS Sans Serif,8,0,0]
+}
+Add(UseHiDLL,1842514,175,182)
+{
+ DLLName="testdll"
+ link(doWork1,16771818:doAdd,[])
+}
+Add(Button,7136373,56,182)
+{
+ Left=5
+ Top=40
+ Height=45
+ Font=[MS Sans Serif,8,0,0]
+ Caption="Test"
+ Data=String(123456)
+ link(onClick,10546876:doData,[])
+}
+Add(ListBox,16771818,245,182)
+{
+ Left=70
+ Top=35
+ Width=205
+ Height=225
+ Font=[MS Sans Serif,8,0,0]
+}
+Add(Edit,7171616,119,112)
+{
+ Left=70
+ Top=5
+ Width=205
+ Font=[MS Sans Serif,8,0,0]
+}
+Add(DoData,10546876,119,182)
+{
+ link(onEventData,1842514:123,[])
+ link(Data,7171616:Text,[])
+}

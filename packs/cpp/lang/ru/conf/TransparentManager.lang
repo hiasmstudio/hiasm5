@@ -1,0 +1,10 @@
+Form Transparency Manager=Менеджер прозрачности формы
+Element name=Имя элемента
+Transparency mode. SingleLayer - simple transparency based on regional clipping of contours by transparency color. MultiLayer - multi-layer transparency based on the Alpha channel. In MultiLayer mode, nothing can be drawn on the form=Режим прозрачности. SingleLayer - простая прозрачность, основанная на региональном отсечении контуров по цвету прозрачности. MultiLayer - мультислойная прозрачность, основанная на Alpha-канале. В режиме MultiLayer на форме нельзя ничего отрисовать
+The type of transparency of the form. ColorTransparent - transparency based on color subtraction. AlphaTransparent - pixel Alpha transparency=Тип прозрачности формы. ColorTransparent - прозрачность на основе вычитания цвета. AlphaTransparent - пиксельная Alpha-прозрачность
+Pattern transparency color=Цвет прозрачности рисунка
+Shape transparency color=Цвет прозрачности формы
+Determines the degree of transparency of the form (from 0 to 255)=Определяет степень прозрачности формы (от 0 до 255 )
+Defines the type of form=Определяет вид формы
+Aero mode properties=Свойства режима Aero
+Aero mode=Режим Aero

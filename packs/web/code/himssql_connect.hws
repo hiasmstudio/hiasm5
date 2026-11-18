@@ -1,0 +1,27 @@
+func doConnect
+  if (linked(onError))
+    print('if(!@')    
+  end
+  if(!isset(Login) and !isset(Password))
+    print('mssql_connect(', Host, ')')
+  else 
+    print('mssql_connect(', Host, ',', Login, ',', Password,')')
+  end
+  if (linked(onError))
+    println(') {')
+    block.inclvl()
+    event(onError, 'mssql_error()')
+    block.declvl()
+    println('}')    
+  else
+    println(';')
+  end
+  if (isdef(AutoSelectDB))
+    println('mssql_select_db(', DBName, ');')
+  end 
+  event(onConnect)
+end
+
+func doSelectDB(data)
+  println('mssql_select_db(', DBName, ');') 
+end

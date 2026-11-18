@@ -1,0 +1,12 @@
+Read/Write FTP=Чтение/запись FTP
+File operation mode=Режим файловой операции
+Default file name on FTP server for reading/writing=Имя файла на FTP-сервере для чтения/записи по умолчанию
+Issuing error events: Global - to the onGlobalError output of the FTP_Client component, Local - to the onError output of the current component, Global+Local - to the onGlobalError and onError outputs=Выдача событий ошибки: Global - на выход onGlobalError компонента FTP_Client, Local - на выход onError текущего компонента, Global+Local - на выходы onGlobalError и onError
+Managing the FTP_Client Element=Управление элементом FTP_Client
+Reads/writes a file according to the Mode ARG(LocalName, RemoteName) method=Читает/записывает файл согласно метода Mode ARG(LocalName, RemoteName)
+The event occurs every time a file operation is completed ARG(RemoteName)=Событие происходит всякий раз по окончанию файловой операции ARG(RemoteName)
+Abort transmission=Прервать передачу
+The event occurs every time the next block of data is read/written and displays the number of bytes read/written ARG(Byte)=Событие происходит всякий раз при считывании/записи очередного блока данных и выдает кол-во прочитанных/записанных байт ARG(Byte)
+The event occurs every time after a component operation error and outputs its number to the stream ARG(Error)=Событие происходит всякий раз после ошибки работы компонента и выдает её номер в поток ARG(Error)
+File name or stream identifier (Stream)=Имя файла или идентификатор потока данных (Stream)
+File name on the FTP server for reading/writing=Имя файла на FTP-сервере для чтения/записи

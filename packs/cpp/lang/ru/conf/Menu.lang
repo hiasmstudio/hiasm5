@@ -1,0 +1,7 @@
+Main application menu=Основное меню приложения
+Defines menu items (the - sign is used to skip an item)=Определяет пункты меню (для пропуска пункта используется знак -)
+Creates a menu=Создает меню
+The event occurs when a menu item is clicked and outputs the line of this item to the stream=Событие происходит при клике на пункте меню и выдает в поток строку этого пункта
+The event occurs when a menu item is clicked and outputs the ordinal index of this item to the stream (starts at 0)=Событие происходит при клике на пункте меню и выдает в поток порядковый индекс этого пункта (начинается с 0)
+Returns the ID of the menu to be manipulated from other elements=Возвращает идентификатор меню для управления им из других элементов
+An array of strings whose elements you want to insert into the menu=Массив строк, элементы которого требуется вставить в меню

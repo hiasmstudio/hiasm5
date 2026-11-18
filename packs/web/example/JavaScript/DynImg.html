@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<script language="javascript">
+  function multi_call34(arg1) {
+    document.getElementById("line").innerHTML = document.getElementById("line").innerHTML + "<img src=\"" + arg1 + "\">";
+  }
+</script>
+
+<html>
+  <head>
+    <title>
+      Dynamic image</title>
+    <style>
+      .main_table {  border-color: gray; border-width: 1px; border-style: solid; background-color: white; }
+      .main_td {  text-align: center; border-color: gray; border-width: 1px; border-style: solid; background-color: silver; width: 70px; height: 30px; cursor: default; }
+      .image {  border-width: 0; width: 128; height: 128; cursor: hand; }
+      div.paste_div {  border-color: black; border-width: 1px; border-style: solid; background-color: silver; width: 32px; height: 32px; float: left; }
+    </style>
+  </head>
+  <body>
+    <table class="main_table">
+      <tr>
+        <td>
+          <table>
+            <tr>
+              <td class="main_td" onmouseover='document.getElementById("main_img").src = "1.jpg";'>
+                Image 1</td>
+            </tr>
+            <tr>
+              <td class="main_td" onmouseover='document.getElementById("main_img").src = "2.jpg";'>
+                Image 2</td>
+            </tr>
+            <tr>
+              <td class="main_td" onmouseover='document.getElementById("main_img").src = "3.jpg";'>
+                Image 3</td>
+            </tr>
+          </table>
+        </td>
+        <td>
+          <img id="main_img" class="image" src="1.jpg" onclick='multi_call34(document.all.main_img.src);'>
+        </td>
+      </tr>
+    </table>
+    <div id="line">
+    </div>
+  </body>
+</html>
+
+<!-- made by HiAsm 5.0 build 12 -->

@@ -1,0 +1,234 @@
+*Пример записи и считывания разных данных из файла
+Pos(0,0)
+Add(MainForm,5852141,553,154)
+{
+ Left=20
+ Top=105
+ Width=295
+ Height=292
+ Font=[MS Sans Serif,8,0,0]
+}
+Add(Label,4797409,28,21)
+{
+ Left=15
+ Top=15
+ Width=54
+ Height=17
+ Font=[MS Sans Serif,8,0,0]
+ Caption="Описание"
+}
+Add(Edit,3978538,490,210)
+{
+ Left=75
+ Top=10
+ Width=205
+ Font=[MS Sans Serif,8,0,0]
+}
+Add(Label,1714988,28,63)
+{
+ Left=15
+ Top=45
+ Width=55
+ Font=[MS Sans Serif,8,0,0]
+ Caption="Оценка"
+}
+Add(RadioButton,2193180,350,7)
+{
+ Left=75
+ Top=45
+ Width=30
+ Font=[MS Sans Serif,8,0,0]
+ Caption="1"
+}
+Add(RadioButton,13858879,357,49)
+{
+ Left=110
+ Top=45
+ Width=30
+ Font=[MS Sans Serif,8,0,0]
+ Caption="2"
+}
+Add(RadioButton,8448304,364,91)
+{
+ Left=145
+ Top=45
+ Width=30
+ Font=[MS Sans Serif,8,0,0]
+ Caption="3"
+}
+Add(RadioButton,5523004,371,133)
+{
+ Left=180
+ Top=45
+ Width=30
+ Font=[MS Sans Serif,8,0,0]
+ Caption="4"
+}
+Add(RadioButton,1126680,378,175)
+{
+ Left=210
+ Top=45
+ Width=30
+ Font=[MS Sans Serif,8,0,0]
+ Caption="5"
+}
+Add(Image,2545562,616,217)
+{
+ Left=75
+ Top=70
+ Width=200
+ Height=150
+ link(onClick,5000769:doCapture,[(651,223)(651,207)(543,207)(543,223)])
+}
+Add(Button,8861993,266,273)
+{
+ Left=215
+ Top=235
+ Width=60
+ Font=[MS Sans Serif,8,0,0]
+ Caption="Сохранить"
+ link(onClick,11308248:doExecute,[])
+}
+Add(Button,5494278,28,406)
+{
+ Left=140
+ Top=235
+ Width=60
+ Font=[MS Sans Serif,8,0,0]
+ Caption="Открыть"
+ link(onClick,11896306:doExecute,[])
+}
+Add(BitmapStream,13039316,609,455)
+{
+ link(Stream,7802045:Var3,[(615,324)])
+ link(Bitmap,2545562:ImageBitmap,[])
+}
+Add(FileStream,14688063,560,273)
+{
+ Mode=1
+}
+Add(Hub,10147728,378,273)
+{
+ OutCount=5
+ link(onEvent1,14688063:doOpen,[])
+ link(onEvent2,13201701:doData,[(463,286)(463,342)])
+ link(onEvent3,13813025:doData,[(450,293)(450,405)])
+ link(onEvent4,13039316:doWrite,[(436,300)(436,468)])
+ link(onEvent5,14688063:doClose,[(545,307)(545,286)])
+}
+Add(DataToFile,7915256,553,336)
+{
+ Type=5
+ link(Stream,7802045:Var1,[(559,324)])
+}
+Add(DoData,13201701,490,336)
+{
+ link(onEventData,7915256:doPut,[])
+ link(Data,3978538:Text,[])
+}
+Add(DataToFile,15353273,560,399)
+{
+ link(Stream,7802045:Var2,[])
+}
+Add(DoData,13813025,511,399)
+{
+ link(onEventData,15353273:doPut,[])
+ link(Data,4306861:Number,[(517,266)(356,266)])
+}
+Add(GetDataEx,7802045,553,315)
+{
+ link(Data,14688063:Stream,[])
+}
+Add(BitsToInt,4306861,350,217)
+{
+ Count=5
+ link(Bit1,2193180:Selected,[])
+ link(Bit2,13858879:Selected,[])
+ link(Bit3,8448304:Selected,[])
+ link(Bit4,5523004:Selected,[])
+ link(Bit5,1126680:Selected,[])
+}
+Add(SDialog,11308248,329,273)
+{
+ link(onExecute,10147728:doEvent1,[])
+}
+Add(ScreenShort,5000769,553,217)
+{
+ link(Handle,5852141:Handle,[])
+ link(onCapture,1579684:doWork2,[])
+}
+Add(ODialog,11896306,84,406)
+{
+ link(onExecute,9519089:doEvent1,[])
+}
+Add(FileStream,7102364,217,406)
+{
+}
+Add(Hub,9519089,140,406)
+{
+ OutCount=5
+ link(onEvent1,7102364:doOpen,[])
+ link(onEvent2,12905167:doGet,[(197,419)(197,503)])
+ link(onEvent3,8665693:doGet,[(190,426)(190,566)])
+ link(onEvent4,13160880:doRead,[(183,433)(183,601)])
+ link(onEvent5,7102364:doClose,[(204,440)(204,419)])
+}
+Add(BitmapStream,13160880,252,595)
+{
+ link(onRead,1579684:doWork3,[(599,601)])
+ link(Stream,4239849:Var3,[(258,464)])
+}
+Add(DataToFile,12905167,210,490)
+{
+ Type=5
+ link(onGet,3978538:doText,[(395,496)(395,216)])
+ link(Stream,4239849:Var1,[(216,464)])
+}
+Add(DataToFile,8665693,217,553)
+{
+ link(onGet,2288992:doBits,[(288,559)(288,347)(192,347)(192,13)])
+ link(Stream,4239849:Var2,[])
+}
+Add(GetDataEx,4239849,210,455)
+{
+ link(Data,7102364:Stream,[])
+}
+Add(IntToBits,2288992,210,7)
+{
+ Count=5
+ Data_0=Integer(0)
+ Data_1=Integer(1)
+ link(onBit1,2193180:doSelect,[])
+ link(onBit2,13858879:doSelect,[(299,20)(299,55)])
+ link(onBit3,8448304:doSelect,[(293,27)(293,97)])
+ link(onBit4,5523004:doSelect,[(286,34)(286,139)])
+ link(onBit5,1126680:doSelect,[(277,41)(277,181)])
+}
+Add(HubEx,1579684,595,210)
+{
+ link(onEvent,2545562:doLoad,[])
+}
+Add(InfoTip,6222971,21,371)
+{
+ Info='Загрузка'
+ Font=[MS Sans Serif,8,0,0]
+ Width=295
+ Height=270
+}
+Add(InfoTip,15866689,322,259)
+{
+ Info='Сохранение'
+ Font=[MS Sans Serif,8,0,0]
+ VAlign=2
+ Width=330
+ Height=270
+}
+Add(InfoTip,13019394,420,105)
+{
+ Info=' Для загрузки картинки просто нажмите на неё. Этот способ выбран исключительно в демонстрационных целях.'
+ Font=[MS Sans Serif,8,0,0]
+ Transparent=1
+ HAlign=0
+ Width=239
+ Height=46
+}

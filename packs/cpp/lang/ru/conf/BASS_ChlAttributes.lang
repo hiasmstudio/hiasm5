@@ -1,0 +1,10 @@
+Setting and reading channel attributes=Установка и считывание атрибутов канала
+Sets channel attributes=Устанавливает атрибуты канала
+The event occurs in case of an error and outputs its number to the stream=Событие происходит в случае ошибки и выдаёт её номер в поток
+Sampling frequency=Частота дискретизации
+Channel volume=Громкость звучания канала
+Channel balance=Баланс каналов
+Defines the channel ID=Определяет идентификатор канала
+Defines the sampling rate=Определяет частоту дискретизации
+Determines the channel audio volume=Определяет громкость звучания канала
+Determines channel balance=Определяет баланс каналов

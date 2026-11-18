@@ -1,0 +1,9 @@
+Opening a file=Открытие файла
+Specifies the file selection filter. Format: <Filter Name>|<extension>|<Filter Name>|<extension>...=Задает фильтр выбора файлов. Формат: <Имя Фильтра>|<расширение>|<Имя Фильтра>|<расширение>...
+Dialogue title=Заголовок диалога
+First launch directory=Каталог первого запуска
+Initial file name in the selection dialog=Начальное имя файла в диалоге выбора
+Simple - select only one file in the dialog window, Multi - multiple selection of files=Simple - выбор только одного файла в окне диалога, Multi - множественный выбор файлов
+Opens a dialog window=Открывает окно диалога
+The event occurs whenever the OK button is clicked (the file is selected)=Событие происходит всякий раз при нажатии кнопки ОК (файл выбран)
+The event occurs whenever the Cancel button is clicked (no file is selected)=Событие происходит всякий раз при нажатии кнопки Отмена (файл не выбран)

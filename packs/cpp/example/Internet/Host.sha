@@ -1,0 +1,109 @@
+*Пример работы компонента Host
+Make(cpp)
+Add(MainForm,5276837,70,252)
+{
+ Left=20
+ Top=105
+ Width=315
+ Height=195
+ Caption="Host_IP"
+ Position=1
+ link(onCreate,12402964:doEvent1,[])
+}
+Add(Memory,6320004,147,56)
+{
+ Default=String(87.250.251.11)
+}
+Add(Button,3606861,70,203)
+{
+ Left=10
+ Top=105
+ TabOrder=-1
+ Caption="Найти"
+ link(onClick,14922019:doEvent1,[])
+}
+Add(Host,9007392,203,203)
+{
+ link(onHostByIP,9783563:doWork2,[])
+ link(onIPByHost,9783563:doWork3,[(270,216)])
+ link(IP,6320004:Value,[(209,145)(153,145)])
+ link(HostName,13595080:Value,[])
+}
+Add(Memory,13595080,210,56)
+{
+ Default=String(yandex.ru)
+}
+Add(InfoTip,6914608,196,21)
+{
+ Info=#24:Задайте хостовое имя для|25:которого нужно узнать IP.|
+ Font=[MS Sans Serif,8,0,32768,1]
+ Width=155
+ Height=74
+}
+Add(InfoTip,12688977,14,21)
+{
+ Info=#29:Задайте IP адрес для которого|26:нужно узнать Хостовое имя.|
+ Font=[MS Sans Serif,8,0,8388608,1]
+ Width=176
+ Height=74
+}
+Add(Label,4705794,126,161)
+{
+ Left=115
+ Top=55
+ Width=139
+ Height=18
+ Font=[Georgia,8,1,32768,204]
+ Caption="Найденные данные"
+}
+Add(HubEx,9783563,266,196)
+{
+ link(onEvent,10209306:doAdd,[])
+}
+Add(Memo,10209306,301,203)
+{
+ Left=75
+ Top=75
+ Width=225
+ Font=[MS Sans Serif,10,1,0,1]
+}
+Add(Edit,6410538,301,266)
+{
+ Left=70
+ Top=5
+ Width=230
+ Font=[MS Sans Serif,8,1,0,1]
+ Text=""
+ Alignment=2
+}
+Add(StrCat,7246929,196,266)
+{
+ Str1="My HostName:  "
+ link(onStrCat,6410538:doText,[(264,272)(264,272)])
+ link(Str2,9007392:LoacalHostName,[])
+}
+Add(Hub,14922019,133,203)
+{
+ link(onEvent1,9007392:doHostByIP,[])
+ link(onEvent2,9007392:doIPByHost,[])
+}
+Add(Edit,16660608,301,308)
+{
+ Left=70
+ Top=30
+ Width=230
+ Font=[MS Sans Serif,8,1,0,1]
+ Text=""
+ Alignment=2
+}
+Add(Hub,12402964,140,266)
+{
+ link(onEvent1,7246929:doStrCat,[])
+ link(onEvent2,2977484:doStrCat,[(188,279)(188,314)])
+}
+Add(StrCat,2977484,203,308)
+{
+ Str1="My IP:  "
+ link(onStrCat,16660608:doText,[])
+ link(Str2,9007392:LoacalIP,[])
+}

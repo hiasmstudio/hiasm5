@@ -1,0 +1,14 @@
+func doInit
+  fvar(u)
+  u = URL
+  println(curl_id, ' = curl_init(', u, ');')
+  event(onInit, curl_id)
+end
+
+func doClose
+  println('curl_close(', curl_id, ');')
+end
+
+func CurlID
+  return(curl_id)
+end

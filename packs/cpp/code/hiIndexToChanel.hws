@@ -1,0 +1,10 @@
+func doEvent(_data)
+  fvar(i)
+  i = 0
+  while(i < d('Count'))
+    if(_data == i)
+      event('onEvent' && (i + 1), Data)
+    end
+    i = i + 1
+  end
+end

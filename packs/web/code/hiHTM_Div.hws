@@ -1,0 +1,29 @@
+include('tag_maker')
+
+section java
+
+func doPrint()
+  fvar(ctrl)
+  println(div, ' = document.createElement("div")')
+  ctrl = div
+  include('tag_header_java')
+  if(isndef(Contenteditable))
+    println(ctrl, '.setAttribute("contenteditable", "true");')
+  end  
+
+  event(onPrint, ctrl)
+end 
+
+func Object()
+  return(div)
+end
+
+section html
+
+func doPrint
+  include('tag_header')
+  if(isndef(Contenteditable))
+    s &= " contenteditable=\"" & Contenteditable & "\""
+  end
+  include('tag_footer')
+end

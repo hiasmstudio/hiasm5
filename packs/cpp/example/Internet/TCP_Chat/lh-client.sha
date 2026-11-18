@@ -1,0 +1,921 @@
+Make(cpp)
+Add(MainForm,2953706,21,105)
+{
+ Width=423
+ Height=292
+ Caption="Local chat"
+ Point(onClose)
+ link(onCreate,12458043:doLoad,[])
+ link(onClose,12458043:doSave,[])
+}
+Add(TCP_Client,11603059,266,210)
+{
+ DataType=3
+ Point(onProgress)
+ link(onRead,3064159:doEvent1,[])
+ link(onConnect,5074702:doEvent1,[(310,223)(310,275)(219,275)(219,328)])
+ link(onDisconnect,11523344:doWork1,[(320,230)(320,195)(599,195)])
+ link(IP,1282796:Var,[])
+ link(Port,11831286:Var,[])
+}
+Add(MultiElementEx,14145238,273,322)
+{
+ @Hint=#4:auth|
+ link(onData,2966025:doWork2,[])
+ link(Name,1579001:Var,[])
+}
+BEGIN_SDK
+  Add(EditMultiEx,2826088,21,21)
+  {
+   WorkCount=#6:doAuth|
+   EventCount=#6:onData|
+   DataCount=#4:Name|
+   Width=265
+   Height=270
+   link(doAuth,1498339:doEvent1,[(42,27)(42,97)])
+  }
+  Add(MemoryStream,10092057,168,84)
+  {
+  }
+  Add(Hub,1498339,63,91)
+  {
+   OutCount=5
+   link(onEvent1,10092057:doClear,[])
+   link(onEvent2,2805201:doData,[(98,104)(98,146)])
+   link(onEvent3,924221:doData,[(91,111)(91,195)])
+   link(onEvent4,12642041:doData,[(86,118)(86,237)])
+  }
+  Add(DataToFile,14579944,168,140)
+  {
+   Type=5
+   link(Stream,4061183:Var2,[])
+  }
+  Add(DoData,2805201,119,140)
+  {
+   Data=String(auth)
+   link(onEventData,14579944:doPut,[])
+  }
+  Add(DataToFile,13279869,154,189)
+  {
+   Type=5
+   link(Stream,4061183:Var1,[(160,128)])
+  }
+  Add(GetDataEx,4061183,161,119)
+  {
+   link(Data,10092057:Stream,[])
+  }
+  Add(DoData,924221,105,189)
+  {
+   link(onEventData,13279869:doPut,[])
+   link(Data,2826088:Name,[(111,53)(27,53)])
+  }
+  Add(DoData,12642041,203,231)
+  {
+   link(onEventData,2826088:onData,[(267,237)(267,27)])
+   link(Data,4061183:Var3,[(209,128)])
+  }
+END_SDK
+Add(MultiElementEx,1197695,273,364)
+{
+ @Hint=#4:list|
+ link(onData,9779199:doWork3,[(319,370)])
+}
+BEGIN_SDK
+  Add(EditMultiEx,2826088,21,21)
+  {
+   WorkCount=#6:doAuth|
+   EventCount=#6:onData|
+   Width=265
+   link(doAuth,1498339:doEvent1,[(42,27)(42,97)])
+  }
+  Add(MemoryStream,10092057,168,84)
+  {
+  }
+  Add(Hub,1498339,63,91)
+  {
+   OutCount=3
+   link(onEvent1,10092057:doClear,[])
+   link(onEvent2,2805201:doData,[(98,104)(98,146)])
+   link(onEvent3,12642041:doData,[(92,111)(92,181)])
+  }
+  Add(DataToFile,14579944,168,140)
+  {
+   Type=5
+   link(Stream,4061183:Var2,[])
+  }
+  Add(DoData,2805201,119,140)
+  {
+   Data=String(list)
+   link(onEventData,14579944:doPut,[])
+  }
+  Add(GetDataEx,4061183,161,119)
+  {
+   link(Data,10092057:Stream,[])
+  }
+  Add(DoData,12642041,203,175)
+  {
+   link(onEventData,2826088:onData,[(267,181)(267,27)])
+   link(Data,4061183:Var3,[(209,128)])
+  }
+END_SDK
+Add(HubEx,2966025,315,315)
+{
+ Angle=3
+ link(onEvent,11603059:doSend,[(319,255)(255,255)(255,230)])
+}
+Add(MemoryStream,12951795,392,210)
+{
+ Point(doPosition)
+}
+Add(Hub,3064159,350,210)
+{
+ OutCount=3
+ link(onEvent1,12951795:doCopy,[])
+ link(onEvent2,12951795:doPosition,[(381,223)(381,230)])
+ link(onEvent3,6385282:doGet,[(378,230)(378,279)])
+}
+Add(DataToFile,6385282,392,266)
+{
+ Type=5
+ link(onGet,6821501:doRead,[])
+ link(Stream,5049677:Var2,[])
+}
+Add(IntegerArray,15079238,448,210)
+{
+ IntArray=['list'=0,'text'=1,'state'=2,'nick'=3]
+ UseName=0
+}
+Add(ArrayRW,6821501,448,266)
+{
+ link(onRead,937606:doEvent,[])
+ link(Array,15079238:Array,[])
+}
+Add(IndexToChanel,937606,504,266)
+{
+ Count=4
+ link(onEvent1,13448828:doLoadList,[])
+ link(onEvent2,2554133:doReadText,[(548,279)(548,328)])
+ link(onEvent3,16478027:doLoadList,[(548,286)(548,384)])
+ link(onEvent4,5652726:doLoadList,[(548,293)(548,433)])
+}
+Add(TreeViewTrain,8952025,616,266)
+{
+ Left=270
+ Width=145
+ Height=268
+ Align=3
+ Name="maintree"
+ ModeSp=3
+ SizeSp=2
+ IconsManager="icons"
+ CaptionIndex=2
+ ParentIDIndex=4
+ IDIndex=1
+}
+Add(MultiElementEx,13448828,560,266)
+{
+ @Hint=#4:list|
+ link(onClear,11523344:doWork2,[])
+ link(Stream,9175330:Var3,[(566,254)])
+}
+BEGIN_SDK
+  Add(EditMultiEx,1952020,21,21)
+  {
+   WorkCount=#10:doLoadList|
+   EventCount=#7:onClear|
+   DataCount=#6:Stream|
+   link(doLoadList,6385282:doGet,[(39,27)(39,111)])
+  }
+  Add(StrList,13909960,161,84)
+  {
+  }
+  Add(DataToFile,6385282,63,98)
+  {
+   Type=5
+   link(onGet,1320059:doEvent1,[])
+   link(Stream,1952020:Stream,[(69,60)(27,60)])
+  }
+  Add(Hub,1320059,112,98)
+  {
+   OutCount=3
+   link(onEvent1,1952020:onClear,[(150,104)(150,27)])
+   link(onEvent2,13909960:doText,[])
+   link(onEvent3,11971582:doEnum,[(144,118)(144,153)])
+  }
+  Add(ArrayEnum,11971582,161,147)
+  {
+   link(onItem,8622178:doMT,[(201,153)(201,160)])
+   link(Array,13909960:Array,[(167,138)(181,138)])
+  }
+  Add(MT_String,8622178,210,147)
+  {
+   link(onResult,11178103:doAddNode,[])
+  }
+  Add(TVT_AddNode,11178103,259,147)
+  {
+   TreeView="parent.maintree"
+  }
+END_SDK
+Add(GetDataEx,5049677,385,245)
+{
+ link(Data,12951795:Stream,[])
+}
+Add(IconsManager,12525499,616,224)
+{
+ Name="icons"
+ Icons=['group'=[ZIP7E05000078DAED90310E824010453F71C1856DA88CA5A5DCC233587202134B2F60614969E915388417B0B43476949496E3EC0C6437315CC0F0C923BCCF4F3600247C9525F86E71488115802DC31536D0DE679720647C3E59D8A6C4BAAD50770DAAF689FDA39757F58B70EC08979E70FD106E44A0999999BF21FB8D89E3DD59C992A35E1479AE85F16BF6B16077E243115C8BC8A588F79CC11DDB783E9B71ACBAF6A7BB94FB54D7E2D15A0AD6E873649D4D85FF01BD11384FB108DC49F1F902076123BB],'user'=[ZIPF609000078DAED55416AC240147DB1634D2B49E6067555BA14440A52B0204528DD4991DEC05BB44BE9A20B29DEC09D3B9782F4020ADDBBE8CAB53798FE3F1D93498C315916FCCC23F933F98F99C7E43FC0410952829E2E0665E01A30790D03017CD0DC0DCF116AF8FB4E8783289C286F366FD16ADDA1D37940B7FB885EEF19FDFE0B86C3778C469F984C26984EA798CD6698CFE7582C16582E9758AFD7D86C3638C5294EF1FF42299536ED0A8EF330179EC723CA7D9F479407018F302F5D723831B688513099C794C2B01199CF94262732BF7A513D338C42CA0A15973D29423E2E77846B6DC8DA8EDE5010CBA59422714037D400F869EFE32D48C7F6358E789FAD69CE7B914B7E2EABF3E716EA663E33A8478F092A8946A3F96D388ED52BEAE11AC977B38FA3F5D4FF3592EF79EBC93B3492EF39F62FC9AB14F9D11EC8C7B8FEE9908E8774CBABE34E2B5B331BF67A9A0E3BAD6CCD6CD8EB87EA6DCD56AB95224F56E4CFFA49FE9DA923CF935F6B90B7C7CE4C9EAFC8DBF59AA93FAA5FF2ECACBF591B17B94345EE4EDA1D2A707752B5C83A73817F30F3CCDB2BEA2B097C55A8A7A481FB4CDB02F5995FF86C750A],'online'=[ZIPF609000078DAED95BF4AC44010C6BFCD6DBCF3EFE5CE536C848072280141C4C646052BC517F009925E0541D0422C0F4148270822086269778536B6363EC03D80856F307EC929B968D444114FC8C06C982133ECCE26DF0F50306059E0B304D704EAC04B6CC3D54083B9A92047B7D17E2F3485C854148FAD01B5E52AAC7507DB2B1A9EE7E1724763FEA882397F1CB3270E66CE17E05CAD62FA7A03F5A68BC9DB4D4CDCEDA27958C0FDB181D6A9C2E305B0752638B811341E04B9E5965BF79A48E23F6A76ACA10D57B5D5832C71258ACD377D51568303FD7DBDAA8894F15081AB512A465D46476AB1CEED186963B3A33818416BF1BDEF9793FD692FEE719DB5C39E4BFAD7AFCE0FB69EE07EDAABA7560B355BA8F7420D17EAFD6B8F7F554FF664A9FF686E69E728649E909742060A592864A2908D4246867932F3B37D74453DD92D647DECCCE4BF90F55FD5C7E647C60B592F64FE77BEC3A4FA4CF2F5C7F57E9633FF54679E0169A50F21],'away'=[ZIPF609000078DAED553148C340147DA929B6566D5AAB56452828A55210445C9C149C143727A70E1DDA5D9D041D9C8B2064115110C1C5D1CDC12EAE22B8B8153A09A20E0A82E0F7E772314D4D9A16073BF48597CBFFB97FB9DC1DEF010A02D034701B422108A40119A750508112E732468E9982D94F40810DC58E932B4062310E6D358BAD251591CC1A72B91CF2F93C8AC522E6F66398D5C7317394C5F4D93CB217CB98BA5C47FAAA80C9F206266EB6717B1040E544C1D339B0794AD8BB2694EE09E58747DC555F507D7EC7DBC7273AE8A083F60011598FDDB20D492269422413032A464CFCC4A3F2B2E23113328E1B639318DF949EA0FD9D9812EDEFEB8D286199F28DB52EBE077AC2F60C878706AD790A98319A8D4335C55FCC8A0B770D467FF375C749A7CEA6C4980B6ACB5B71686C4703EA75FDF5FA3EACB39E947D1C5BCF3A4DACD7C47A2FDEB3467BB2997AD6F786AD5F3D7B83271BD5B3EF907994BD5153AFBBAD2FFB1DF9ACFFB1F55DF63A62BF24F63E620F24F642624F24F6469167AF749B2FDAA99E3D9BD8EB1DFFC8FE4FECF17EF58EF5637F27F67962BFF73BAFAE7371A96F49BEFEB95E6FE59FFFAA33DF9AC598F8]]
+}
+Add(ChildPanelEx,2554133,560,322)
+{
+ link(onSend,2416804:doWork2,[(604,328)(604,349)])
+ link(Stream,16067546:Var3,[(566,303)])
+ link(onConnect,3998240:In,[])
+ link(onAuth,6415664:doWork1,[(604,342)(604,311)(256,311)])
+}
+BEGIN_SDK
+  Add(EditMultiEx,14089529,21,21)
+  {
+   WorkCount=#10:doReadText|
+   EventCount=#6:onSend|9:onConnect|6:onAuth|
+   DataCount=#6:Stream|
+   Width=517
+   Height=340
+   link(doReadText,6385282:doGet,[(56,27)(56,174)])
+  }
+  Add(Panel,13142397,35,224)
+  {
+   Left=5
+   Top=105
+   Width=242
+   Height=281
+   Align=5
+   BevelInner=0
+  }
+  Add(MultiElementEx,9209890,371,287)
+  {
+   link(onSend,14089529:onSend,[(429,293)(429,27)])
+   link(cmd,16726280:Value,[(377,279)(314,279)])
+   link(Data,7342763:Text,[])
+  }
+  BEGIN_SDK
+    Add(EditMultiEx,2468589,21,21)
+    {
+     WorkCount=#6:doSend|
+     EventCount=#6:onSend|
+     DataCount=#3:cmd|4:Data|
+     Width=237
+     Height=207
+     link(doSend,1386699:doEvent1,[(39,27)(39,104)])
+    }
+    Add(MemoryStream,10092057,161,49)
+    {
+    }
+    Add(DataToFile,14579944,161,105)
+    {
+     Type=5
+     link(Stream,4061183:Var2,[])
+    }
+    Add(DoData,2805201,112,105)
+    {
+     link(onEventData,14579944:doPut,[])
+     link(Data,2468589:cmd,[(118,63)(27,63)])
+    }
+    Add(DataToFile,13279869,147,154)
+    {
+     Type=5
+     link(Stream,4061183:Var1,[(153,93)])
+    }
+    Add(GetDataEx,4061183,154,84)
+    {
+     link(Data,10092057:Stream,[])
+    }
+    Add(DoData,924221,98,154)
+    {
+     link(onEventData,13279869:doPut,[])
+     link(Data,2468589:Data,[(104,88)(34,88)])
+    }
+    Add(Hub,1386699,56,98)
+    {
+     OutCount=4
+     link(onEvent1,10092057:doClear,[(83,104)(83,62)])
+     link(onEvent2,2805201:doData,[])
+     link(onEvent3,924221:doData,[(84,118)(84,160)])
+     link(onEvent4,12642041:doData,[(79,125)(79,195)])
+    }
+    Add(DoData,12642041,203,189)
+    {
+     link(onEventData,2468589:onSend,[(247,195)(247,27)])
+     link(Data,4061183:Var3,[(209,93)])
+    }
+  END_SDK
+  Add(DataToFile,6385282,91,161)
+  {
+   Type=5
+   link(onGet,9442079:doSplit,[])
+   link(Stream,14089529:Stream,[(97,56)(27,56)])
+  }
+  Add(Memory,16726280,308,238)
+  {
+   Default=String(text)
+  }
+  Add(ToolBar,3814332,147,35)
+  {
+   Left=1
+   Top=1
+   Width=240
+   Height=24
+   Align=2
+   Caption=0
+   Buttons=['=Connect'=[ZIP3604000078DA73F235636100033320D600620128666450804840E591C1FFFFFF0725662E6347C1E4E8975862C020B5D9986CFDB22BAD1814763A90AD5F719D3383DA7E5FA2F4A3FB178435770633E81D8FC52A874DBFEFD306068F87D50C0E378B19ACAFE481B1D1E91406DDFD910C8A6B9DC0FE115BA48D537FE8DB0E0C3340FA416E00F9437E872DCEF0E4A910427563011BD80C8B8BD960363A26181E4035EE0FAAC06610A31E9B7E905F5CEF5590AD3FE8752BD80C72F593E2DF81C20055995676],'=Disconnect'=[ZIP3604000078DA73F235636100033320D600620128666450804840E591C1FFFFFF47F120C0CC65EC24616CFA7D9F3630783CAC6670B859CC607D250F8C8D4EA730E8EE8F64505CEBC420BBD28A416C91364EFDA16F3B30CC00E9D73B1ECBA0B6DF97417E872D83D46663ACFA792A8450DD58C086CA46C3A3713E3830002D03989E],'-'=[],'=Change nick'=[ZIP3604000078DA73F235636100033320D600620128666450804840E591C1FFFFFF071C930AB0E927C52E5C62C8E6E3B2971CFB1B1A1A48B61F59EEC0810344D98F4D2D8C0FA361720D40BA018B99D8F420D33036BA7E74804B2F0C23EBC7154FB8F412A31FD90C748CEE7E52D3267AF80D650C00505D18B4]]
+   link(onClick,69143:doEvent,[])
+  }
+  Add(IndexToChanel,69143,196,35)
+  {
+   Count=4
+   link(onEvent1,11135052:doWork1,[])
+   link(onEvent2,11135052:doWork2,[])
+   link(onEvent4,6942792:doWork1,[])
+  }
+  Add(Memo,7342763,378,217)
+  {
+   Left=1
+   Top=200
+   Width=240
+   Align=4
+   ModeSp=3
+   SizeSp=2
+   ScrollBars=2
+   Point(onKeyUp)
+   link(onKeyUp,14870242:doCompare,[])
+  }
+  Add(WebBrowser,16184720,364,133)
+  {
+   Left=1
+   Top=25
+   Width=240
+   Height=175
+   Align=5
+   Point(doFromText)
+  }
+  Add(FormatStr,2999225,315,161)
+  {
+   DataCount=1
+   Mask="<html>\r\n<head>\r\n<style>\r\n  body {\r\n    font-size: 12px;\r\n    padding: 1px;\r\n    margin: 2px;\r\n  }\r\n  .splitter {\r\n    border-top: 1px solid #dddddd;\r\n    height: 3px;\r\n    overflow: hidden;\r\n  }\r\n  .nick {\r\n    color: red;\r\n    font-weight: bold;\r\n  }\r\n  .time {\r\n    color: gray;\r\n    font-size: 10px;\r\n  }\r\n</style>\r\n</head>\r\n<body onload='window.scrollTo(0, 100000);'>\r\n%1\r\n</body>\r\n</html>"
+   link(onFString,16184720:doFromText,[])
+  }
+  Add(If_else,14870242,441,224)
+  {
+   Op2=Integer(13)
+   link(onTrue,6756103:doEvent1,[(485,230)(485,334)(306,334)(306,293)])
+  }
+  Add(FormatStr,10533047,238,161)
+  {
+   DataCount=4
+   Mask="%1\r\n<span class="nick">%3</span> <span class="time">%4</span><br>\r\n%2\r\n<div class="splitter">&nbsp;</div>"
+   link(onFString,10588771:doEvent1,[])
+   link(Str1,9827219:Value,[])
+   link(Str3,9442079:Left,[(258,149)(132,149)(132,201)(146,201)])
+   link(Str4,362510:FormatTime,[(265,153)(286,153)])
+  }
+  Add(Memory,9827219,238,112)
+  {
+  }
+  Add(Hub,10588771,287,161)
+  {
+   link(onEvent1,2999225:doString,[])
+   link(onEvent2,9827219:doValue,[(311,174)(311,207)(226,207)(226,118)])
+  }
+  Add(Hub,6756103,315,287)
+  {
+   link(onEvent1,9209890:doSend,[])
+   link(onEvent2,7342763:doClear,[(353,300)(353,230)])
+  }
+  Add(StrPart,9442079,140,161)
+  {
+   Char=":"
+   Point(Left)
+   link(onSplit,3468986:doReplace,[])
+  }
+  Add(Time,362510,280,112)
+  {
+   Format="h:m:s"
+  }
+  Add(MultiElementEx,3468986,189,161)
+  {
+   link(onReplace,10533047:doString,[])
+  }
+  BEGIN_SDK
+    Add(EditMultiEx,4788467,21,21)
+    {
+     WorkCount=#9:doReplace|
+     EventCount=#9:onReplace|
+     Width=328
+     Height=263
+     link(doReplace,9347159:doEvent1,[(35,27)(35,55)])
+    }
+    Add(Replace,9915130,91,49)
+    {
+     SubStr="<"
+     DestStr="&lt;"
+     link(onReplace,16485611:doReplace,[])
+    }
+    Add(Replace,16485611,140,49)
+    {
+     SubStr="\r\n"
+     DestStr="<br>"
+     link(onReplace,9728779:doWork2,[])
+    }
+    Add(Memory,2794497,245,49)
+    {
+    }
+    Add(Hub,9347159,49,49)
+    {
+     OutCount=3
+     link(onEvent1,9915130:doReplace,[])
+     link(onEvent2,5255678:doEnum,[(77,62)(77,174)])
+     link(onEvent3,8816628:doData,[(77,69)(77,230)])
+    }
+    Add(StrList,14260171,91,98)
+    {
+     Strings=#2::)|2:;)|2::(|
+    }
+    Add(StrList,2928097,140,98)
+    {
+     Strings=#5:smile|4:wink|3:sad|
+    }
+    Add(Replace,2535538,245,168)
+    {
+     link(onReplace,9728779:doWork3,[(282,174)(282,117)(214,117)])
+     link(Str,3873782:Var2,[])
+     link(Sub_str,5255678:Item,[(258,155)(183,155)(183,220)(97,220)])
+    }
+    Add(ArrayEnum,5255678,91,168)
+    {
+     link(onItem,5361981:doRead,[])
+     link(Array,14260171:Array,[(97,156)(111,156)])
+    }
+    Add(ArrayRW,5361981,140,168)
+    {
+     link(onRead,11315525:doString,[])
+     link(Array,2928097:Array,[(146,156)(160,156)])
+     link(Index,5255678:Index,[(153,154)(128,154)(128,212)(104,212)])
+    }
+    Add(HubEx,9728779,210,42)
+    {
+     link(onEvent,2794497:doValue,[])
+    }
+    Add(DoData,8816628,287,224)
+    {
+     link(onEventData,4788467:onReplace,[(334,230)(334,27)])
+     link(Data,3873782:Var3,[(293,100)])
+    }
+    Add(GetDataEx,3873782,238,91)
+    {
+     link(Data,2794497:Value,[])
+    }
+    Add(FormatStr,11315525,189,168)
+    {
+     Mask="<img src="file:///%1\img\icon_%2.gif">"
+     link(onFString,2535538:doReplace,[])
+     link(Str1,14731812:CurrentDir,[])
+    }
+    Add(Dir,14731812,189,112)
+    {
+    }
+  END_SDK
+  Add(ChanelToIndex,11135052,329,35)
+  {
+   link(onIndex,14089529:onConnect,[(449,41)(449,34)])
+  }
+  Add(ChildForm,6942792,252,56)
+  {
+   FirstUsage=0
+   link(onEvent1,14089529:onAuth,[(458,62)(458,41)])
+  }
+  BEGIN_SDK
+    Add(EditMulti,16011992,21,21)
+    {
+     EventCount=1
+     WorkCount=1
+     Width=335
+     Height=193
+     link(doWork1,13999795:doEvent1,[(31,27)(31,76)])
+    }
+    Add(MainForm,14507594,84,105)
+    {
+     Left=35
+     Top=105
+     Width=220
+     Height=92
+     Visible=1
+     Caption="Change you nick"
+     Point(doShowModal)
+    }
+    Add(Edit,693780,238,70)
+    {
+     Left=5
+     Top=15
+     Width=185
+     Layout="vert"
+     Text=""
+     link(Str,7822477:Var,[])
+    }
+    Add(Button,5250610,154,119)
+    {
+     Left=35
+     Top=45
+     Layout="horz"
+     Caption="OK"
+     link(onClick,9861649:doEvent1,[])
+    }
+    Add(Button,3526270,154,161)
+    {
+     Left=100
+     Top=45
+     Layout="horz"
+     Caption="Cancel"
+     link(onClick,4379268:doWork3,[(228,167)])
+    }
+    Add(LayoutSpacer,16594555,301,161)
+    {
+     Left=160
+     Top=45
+     Width=35
+     Height=20
+     Layout="horz"
+     WidthScale=50
+    }
+    Add(LayoutSpacer,9772803,98,161)
+    {
+     Left=5
+     Top=45
+     Width=25
+     Height=20
+     Layout="horz"
+     WidthScale=50
+    }
+    Add(GlobalVar,7822477,238,35)
+    {
+     Name="name"
+    }
+    Add(Hub,13999795,42,70)
+    {
+     link(onEvent1,693780:doText,[])
+     link(onEvent2,14507594:doShowModal,[(70,83)(70,139)])
+    }
+    Add(DoData,8389045,238,119)
+    {
+     link(onEventData,3741173:doEvent1,[])
+     link(Data,693780:Text,[])
+    }
+    Add(Hub,9861649,203,119)
+    {
+     link(onEvent1,8389045:doData,[])
+     link(onEvent2,4379268:doWork1,[(228,132)])
+    }
+    Add(HubEx,4379268,224,140)
+    {
+     Angle=2
+     link(onEvent,14507594:doClose,[(72,153)(72,132)])
+    }
+    Add(Hub,3741173,287,119)
+    {
+     link(onEvent1,7822477:doValue,[(315,125)(315,61)(226,61)(226,41)])
+     link(onEvent2,16011992:onEvent1,[(329,132)(329,27)])
+    }
+    Add(HBoxLayout,5595114,392,77)
+    {
+     Name="horz"
+     Space=3
+     Padding=5
+     Layout="vert"
+    }
+    Add(VBoxLayout,5184324,392,140)
+    {
+     Name="vert"
+     Space=3
+     Padding=5
+    }
+  END_SDK
+END_SDK
+Add(MultiElementEx,3922963,525,147)
+{
+ @Hint=#14:Command sender|
+ @IsLib=True
+}
+BEGIN_SDK
+  Add(EditMultiEx,2468589,21,21)
+  {
+   WorkCount=#6:doSend|
+   EventCount=#6:onSend|
+   DataCount=#3:cmd|4:Data|
+   Width=237
+   Height=207
+   link(doSend,1386699:doEvent1,[(39,27)(39,104)])
+  }
+  Add(MemoryStream,10092057,161,49)
+  {
+  }
+  Add(DataToFile,14579944,161,105)
+  {
+   Type=5
+   link(Stream,4061183:Var2,[])
+  }
+  Add(DoData,2805201,112,105)
+  {
+   link(onEventData,14579944:doPut,[])
+   link(Data,2468589:cmd,[(118,63)(27,63)])
+  }
+  Add(DataToFile,13279869,147,154)
+  {
+   Type=5
+   link(Stream,4061183:Var1,[(153,93)])
+  }
+  Add(GetDataEx,4061183,154,84)
+  {
+   link(Data,10092057:Stream,[])
+  }
+  Add(DoData,924221,98,154)
+  {
+   link(onEventData,13279869:doPut,[])
+   link(Data,2468589:Data,[(104,88)(34,88)])
+  }
+  Add(Hub,1386699,56,98)
+  {
+   OutCount=4
+   link(onEvent1,10092057:doClear,[(83,104)(83,62)])
+   link(onEvent2,2805201:doData,[])
+   link(onEvent3,924221:doData,[(84,118)(84,160)])
+   link(onEvent4,12642041:doData,[(79,125)(79,195)])
+  }
+  Add(DoData,12642041,203,189)
+  {
+   link(onEventData,2468589:onSend,[(247,195)(247,27)])
+   link(Data,4061183:Var3,[(209,93)])
+  }
+END_SDK
+Add(GetDataEx,9175330,539,245)
+{
+ Angle=3
+ link(Data,5049677:Var3,[])
+}
+Add(HubEx,11523344,595,259)
+{
+ link(onEvent,8952025:doClear,[])
+}
+Add(MultiElementEx,16478027,560,378)
+{
+ @Hint=#5:state|
+ link(Stream,1239326:Var3,[(566,366)])
+}
+BEGIN_SDK
+  Add(EditMultiEx,1952020,21,21)
+  {
+   WorkCount=#10:doLoadList|
+   DataCount=#6:Stream|
+   Width=335
+   Height=137
+   link(doLoadList,6385282:doGet,[(42,27)(42,111)])
+  }
+  Add(DataToFile,6385282,63,98)
+  {
+   Type=5
+   link(onGet,8622178:doMT,[(111,104)(111,111)])
+   link(Stream,1952020:Stream,[(69,60)(27,60)])
+  }
+  Add(MT_String,8622178,126,98)
+  {
+   link(onResult,1630415:doValue,[])
+  }
+  Add(TVT_ChangeNode,14910170,280,98)
+  {
+   TreeView="parent.maintree"
+  }
+  Add(MT_AddData,213176,224,98)
+  {
+   Count=5
+   Data=String()
+   link(onAdd,14910170:doChangeNode,[])
+   link(Data1,1630415:Value2,[(230,86)(214,86)(214,142)(188,142)])
+   link(Data2,1630415:Value1,[(237,81)(169,81)(169,142)(181,142)])
+   link(Data5,13314246:Value,[(258,86)(286,86)])
+  }
+  Add(MT_MultiMem,1630415,175,98)
+  {
+   link(onData,213176:doAdd,[])
+  }
+  Add(Memory,13314246,280,42)
+  {
+   Default=Integer(-1)
+  }
+END_SDK
+Add(GetDataEx,16067546,539,294)
+{
+ link(Data,9175330:Var2,[])
+}
+Add(HubEx,9779199,315,336)
+{
+ Angle=3
+ link(onEvent,2966025:doWork3,[])
+}
+Add(GVarContainer,12458043,77,119)
+{
+ Section="server"
+ FilleName="lh-client.ini"
+ VarList=#2:ip|4:port|4:name|
+ link(onLoad,258002:doCompare,[])
+}
+Add(GlobalVar,1282796,266,161)
+{
+ Name="ip"
+}
+Add(GlobalVar,11831286,280,175)
+{
+ Name="port"
+}
+Add(Hub,5074702,231,322)
+{
+ link(onEvent1,6415664:doWork2,[])
+ link(onEvent2,1197695:doAuth,[(259,335)(259,370)])
+}
+Add(GlobalVar,1579001,273,287)
+{
+ Name="name"
+}
+Add(If_else,258002,133,119)
+{
+ Op2=String()
+ link(onTrue,3271860:doData,[])
+ link(Op1,6221670:Var,[])
+}
+Add(GlobalVar,6221670,133,84)
+{
+ Name="name"
+}
+Add(ComputerInfo,13641450,189,70)
+{
+}
+Add(DoData,3271860,189,119)
+{
+ link(onEventData,6221670:doValue,[(234,125)(234,110)(121,110)(121,90)])
+ link(Data,13641450:UserName,[])
+}
+Add(IndexToChanel,69143,203,210)
+{
+ link(onEvent1,11603059:doOpen,[])
+ link(onEvent2,11603059:doClose,[])
+}
+Add(LineBreak,3608152,140,210)
+{
+ Caption="online"
+ link(Out,69143:doEvent,[])
+ Primary=[3998240,476,119]
+}
+Add(HubEx,6415664,252,315)
+{
+ link(onEvent,14145238:doAuth,[])
+}
+Add(MultiElementEx,5652726,560,427)
+{
+ @Hint=#4:nick|
+ link(Stream,1239326:Var2,[(566,416)(552,416)])
+}
+BEGIN_SDK
+  Add(EditMultiEx,1952020,21,21)
+  {
+   WorkCount=#10:doLoadList|
+   DataCount=#6:Stream|
+   Width=314
+   Height=130
+   link(doLoadList,6385282:doGet,[(39,27)(39,111)])
+  }
+  Add(DataToFile,6385282,63,98)
+  {
+   Type=5
+   link(onGet,8622178:doMT,[(111,104)(111,111)])
+   link(Stream,1952020:Stream,[(69,60)(27,60)])
+  }
+  Add(MT_String,8622178,126,98)
+  {
+   link(onResult,1630415:doValue,[])
+  }
+  Add(TVT_ChangeNode,14910170,280,98)
+  {
+   TreeView="parent.maintree"
+  }
+  Add(MT_AddData,213176,224,98)
+  {
+   Count=5
+   Data=Integer(-1)
+   link(onAdd,14910170:doChangeNode,[])
+   link(Data2,1630415:Value1,[(237,81)(169,81)(169,142)(181,142)])
+   link(Data3,1630415:Value2,[(244,86)(216,86)(216,142)(188,142)])
+   link(Data4,13314246:Value,[])
+  }
+  Add(MT_MultiMem,1630415,175,98)
+  {
+   link(onData,213176:doAdd,[])
+  }
+  Add(Memory,13314246,245,42)
+  {
+   Default=String()
+  }
+END_SDK
+Add(GetDataEx,1239326,539,357)
+{
+ link(Data,16067546:Var2,[])
+}
+Add(Timer,5204523,14,399)
+{
+ link(onTimer,5157583:doEvent1,[])
+}
+Add(If_else,13590831,98,406)
+{
+ Op2=Integer(1)
+ link(onTrue,7509950:doData,[])
+ link(Op1,11603059:Active,[(104,265)(272,265)])
+}
+Add(MouseEvent,7591446,154,357)
+{
+}
+Add(ChangeMon,7509950,154,406)
+{
+ link(onData,544804:doData,[])
+ link(Data,7591446:MouseX,[])
+}
+Add(Memory,15551929,252,406)
+{
+ Default=Integer(0)
+}
+Add(DoData,544804,203,406)
+{
+ Data=Integer(1)
+ link(onEventData,15551929:doValue,[])
+}
+Add(Hub,5157583,63,399)
+{
+ OutCount=3
+ link(onEvent1,15551929:doClear,[(242,405)(242,419)])
+ link(onEvent2,13590831:doCompare,[])
+ link(onEvent3,4898312:doCompare,[(87,419)(87,482)])
+}
+Add(Counter,14400768,196,476)
+{
+ link(onNext,8794068:doCompare,[])
+}
+Add(If_else,4898312,98,476)
+{
+ Op2=Integer(0)
+ link(onTrue,14400768:doNext,[])
+ link(onFalse,10278645:doEvent1,[])
+ link(Op1,15551929:Value,[(104,453)(258,453)])
+}
+Add(If_else,8794068,245,476)
+{
+ Op2=Integer(10)
+ link(onTrue,2610150:doData,[])
+}
+Add(MultiElementEx,9297149,343,588)
+{
+ @Hint=#14:Command sender|
+ elink(3922963)
+ link(onSend,2416804:doWork3,[(389,594)])
+ link(cmd,10970741:Value,[])
+ link(Data,13177487:Value,[(356,576)(335,576)(335,632)(300,632)])
+}
+Add(Hub,10278645,154,483)
+{
+ link(onEvent1,2189209:doData,[(182,489)(182,594)])
+ link(onEvent2,14400768:doReset,[])
+}
+Add(ChangeMon,11357722,245,588)
+{
+ link(onData,13177487:doValue,[])
+}
+Add(DoData,2189209,196,588)
+{
+ Data=Integer(2)
+ link(onEventData,13558154:doWork2,[])
+}
+Add(DoData,2610150,301,476)
+{
+ Data=Integer(3)
+ link(onEventData,13558154:doWork1,[(344,482)(344,516)(235,516)])
+}
+Add(HubEx,13558154,231,581)
+{
+ link(onEvent,11357722:doData,[])
+}
+Add(Memory,10970741,343,539)
+{
+ Default=String(state)
+}
+Add(Memory,13177487,294,588)
+{
+ link(onData,9297149:doSend,[])
+}
+Add(HubEx,2416804,385,336)
+{
+ Angle=2
+ link(onEvent,9779199:doWork1,[])
+}

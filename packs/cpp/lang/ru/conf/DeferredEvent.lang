@@ -1,0 +1,5 @@
+Deferred event=Отложенное событие
+Event Delay=Задержка наступления события
+True - take data from a stream or Data point, False - overlap data from a stream or Data point with empty data=True - брать данные из потока или точки Data, False - перекрывать данные из потока или точки Data пустыми данными
+Creates a deferred event in another system message queue=Создаёт отложенное событие в другой очереди системных сообщений
+Occurs whenever a deferred event occurs on another system message queue=Происходит всякий раз после возникновения отложенного события в другой очереди системных сообщений

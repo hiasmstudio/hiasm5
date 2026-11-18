@@ -1,0 +1,60 @@
+func Arg(name, fallback)
+  if(linked(name))
+    return(d(name))
+  else
+    return(fallback)
+  end
+end
+
+func ArrayExpr()
+  if(linked('Array'))
+    return(d('Array'))
+  else
+    return('std::vector<int>()')
+  end
+end
+
+func IndexValue()
+  return(Arg('Index', get('Index')))
+end
+
+func ItemValue(value)
+  return(Arg('Value', value))
+end
+
+func doRead(_data)
+  println('{')
+  block.inclvl()
+  println('auto &hiasm_arr', _id_, ' = ', ArrayExpr(), ';')
+  println('const int hiasm_idx', _id_, ' = static_cast<int>(', IndexValue(), ');')
+  println('if(hiasm_idx', _id_, ' >= 0 && hiasm_idx', _id_, ' < static_cast<int>(hiasm_arr', _id_, '.size())) {')
+  block.inclvl()
+  event(onRead, 'hiasm_arr' && _id_ && '[hiasm_idx' && _id_ && ']')
+  block.declvl()
+  println('}')
+  block.declvl()
+  println('}')
+end
+
+func doWrite(_data)
+  println('{')
+  block.inclvl()
+  println('auto &hiasm_arr', _id_, ' = ', ArrayExpr(), ';')
+  println('const int hiasm_idx', _id_, ' = static_cast<int>(', IndexValue(), ');')
+  println('if(hiasm_idx', _id_, ' >= 0 && hiasm_idx', _id_, ' < static_cast<int>(hiasm_arr', _id_, '.size())) hiasm_arr', _id_, '[hiasm_idx', _id_, '] = ', ItemValue(_data), ';')
+  block.declvl()
+  println('}')
+end
+
+func doAdd(_data)
+  println('{')
+  block.inclvl()
+  println('auto &hiasm_arr', _id_, ' = ', ArrayExpr(), ';')
+  println('hiasm_arr', _id_, '.push_back(', ItemValue(_data), ');')
+  block.declvl()
+  println('}')
+end
+
+func Count()
+  return('static_cast<int>(' && ArrayExpr() && '.size())')
+end

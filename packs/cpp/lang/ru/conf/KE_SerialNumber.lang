@@ -1,0 +1,4 @@
+Obtaining the serial number of a USB device=Получение серийного номера устройства USB
+USB device=Устройство USB
+Gets the serial number of a USB device=Получает серийный номер устройства USB
+The event occurs every time a serial number is received and outputs it to the ARG(Serial) stream=Событие происходит всякий раз после получения серийного номера и выдает его в поток ARG(Serial)

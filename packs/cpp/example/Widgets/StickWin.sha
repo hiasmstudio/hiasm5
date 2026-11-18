@@ -1,0 +1,278 @@
+*Программа демонстрирует возможность организации липкости окна к краю экрана.#13#10=======#13#10Автор: Сорокин Дмитрий#13#10e-mail: ds@bashnet.ru#13#10
+Pos(0,0)
+Add(MainForm,73664,154,77)
+{
+ Left=141
+ Top=172
+ Width=389
+ Height=226
+ Font=[MS Sans Serif,8,0,0]
+ Caption="Пример липкости окна"
+ Point(onMove)
+ link(onMove,5283:doWork1,[(219,125)(219,258)])
+}
+Add(MoveWindow,90317,154,252)
+{
+ link(Handle,42696:Data1,[(160,205)(160,205)])
+}
+Add(Label,19437,105,252)
+{
+ Left=105
+ Top=252
+ Width=381
+ Height=199
+ Align=5
+ Font=[Arial,12,1,16711680]
+ Transparent=0
+ Caption="Переместите окно поближе к любой границе экрана для демонстрации эффекта липкости"
+ Alignment=2
+ link(onClick,90317:doMove,[])
+}
+Add(GetData,42696,154,161)
+{
+ link(Data,73664:Handle,[(160,152)(160,152)])
+}
+Add(InfoTip,25546,153,11)
+{
+ Info='Пример липкости окна'
+ Font=[Arial,12,1,8421376]
+ Frame=1
+ Width=217
+ Height=21
+}
+Add(InfoTip,65694,79,211)
+{
+ Info='Будем таскать окно за всю поверхность'
+ Font=[Arial,8,0,0]
+ Width=136
+ Height=96
+}
+Add(InfoTip,73802,244,209)
+{
+ Info='Блок контроля выхода окна за границы экрана'
+ Font=[Arial,8,0,0]
+ Width=112
+ Height=97
+}
+Add(MultiElement,5283,252,252)
+{
+ @Hint='Блок контроля границ'
+ link(Data1,42696:Data2,[(258,204)(167,204)])
+}
+BEGIN_SDK
+Pos(0,0)
+  Add(EditMulti,37589,3,3)
+  {
+   WorkCount=1
+   DataCount=1
+   Width=243
+   Height=364
+   link(doWork1,30975:doEvent1,[(21,9)(21,195)])
+  }
+  Add(MultiElement,53111,133,189)
+  {
+   @Hint='Контроль за верхне-левым углом'
+   link(Data1,32324:Data3,[(139,153)(118,153)])
+   link(Data2,3643:Data1,[])
+  }
+  BEGIN_SDK
+Pos(0,0)
+    Add(EditMulti,44262,3,3)
+    {
+     WorkCount=1
+     DataCount=2
+     Width=278
+     Height=195
+     link(doWork1,72204:doEvent1,[(7,9)(7,104)])
+    }
+    Add(PosWindow,69848,231,28)
+    {
+     link(Handle,44262:Data1,[(237,22)(14,22)])
+    }
+    Add(GetDataEx,2885544,126,70)
+    {
+     link(Data,44262:Data2,[(139,15)(22,15)])
+    }
+    Add(If_else,31767,126,105)
+    {
+     Type=1
+     Op2=Integer(20)
+     @Hint='контроль левой стороны'
+     link(onTrue,69848:doLeft,[(213,111)(213,34)])
+     link(Op1,69848:CurrentLeft,[(132,73)(237,73)])
+     link(Op2,2885544:Var2,[])
+    }
+    Add(Hub,72204,28,98)
+    {
+     link(onEvent1,54266:doCompare,[(116,104)(116,160)])
+     link(onEvent2,31767:doCompare,[])
+    }
+    Add(If_else,54266,161,154)
+    {
+     Type=1
+     Op2=Integer(20)
+     @Hint='контроль верхней стороны'
+     link(onTrue,69848:doTop,[(219,160)(219,41)])
+     link(Op1,69848:CurrentTop,[(167,130)(244,130)])
+     link(Op2,2885544:Var3,[(174,79)])
+    }
+  END_SDK
+  Add(Memory,34679,140,42)
+  {
+   Default=Integer(30)
+   @Hint='Допуск=размер допуска липкости от края экрана'
+  }
+  Add(GetData,32324,98,42)
+  {
+   Count=3
+   link(Data,37589:Data1,[(104,23)(9,23)])
+  }
+  Add(MultiElement,2435,140,252)
+  {
+   @Hint='Контроль за правой стороной'
+   link(Data1,32324:Data2,[(146,249)(111,249)])
+   link(Data2,3643:Data2,[])
+   link(Data3,6151201:Width,[(160,242)(195,242)])
+  }
+  BEGIN_SDK
+Pos(0,0)
+    Add(EditMulti,44262,3,3)
+    {
+     WorkCount=1
+     DataCount=3
+     Width=372
+     Height=233
+     link(doWork1,41270:doOperation,[(20,9)(20,167)])
+    }
+    Add(Math,51510,308,161)
+    {
+     OpType=1
+     ResultType=0
+     link(onResult,69848:doLeft,[(354,167)(354,206)(43,206)(43,90)])
+     link(Op1,6564484:Var3,[(314,142)])
+     link(Op2,7340301:Var3,[(321,135)])
+    }
+    Add(GetDataEx,2215942,49,56)
+    {
+     link(Data,44262:Data1,[(62,35)(9,35)])
+    }
+    Add(GetDataEx,7340301,105,126)
+    {
+     link(Data,99262:CurrentWidth,[])
+    }
+    Add(Math,29589,175,161)
+    {
+     OpType=1
+     ResultType=0
+     link(onResult,54266:doCompare,[])
+     link(Op1,6564484:Var2,[])
+    }
+    Add(SizeWindow,99262,112,84)
+    {
+     link(Handle,2215942:Var3,[(118,65)])
+    }
+    Add(If_else,54266,238,161)
+    {
+     Type=1
+     @Hint='контроль верхней стороны'
+     link(onTrue,51510:doOperation,[])
+     link(Op2,44262:Data2,[(251,12)(16,12)])
+    }
+    Add(PosWindow,69848,56,84)
+    {
+     link(Handle,2215942:Var2,[])
+    }
+    Add(Math,41270,105,161)
+    {
+     ResultType=0
+     link(onResult,29589:doOperation,[])
+     link(Op1,69848:CurrentLeft,[(111,139)(62,139)])
+     link(Op2,7340301:Var2,[])
+    }
+    Add(GetDataEx,6564484,168,133)
+    {
+     link(Data,44262:Data3,[(181,23)(23,23)])
+    }
+  END_SDK
+  Add(Screen,6151201,189,133)
+  {
+  }
+  Add(Hub,30975,35,189)
+  {
+   OutCount=4
+   link(onEvent1,53111:doWork1,[])
+   link(onEvent2,2435:doWork1,[(90,202)(90,258)])
+   link(onEvent3,39387:doWork1,[(80,209)(80,314)])
+  }
+  Add(MultiElement,39387,154,308)
+  {
+   @Hint='Контроль за нижней стороной'
+   link(Data1,32324:Data1,[(160,293)(104,293)])
+   link(Data2,3643:Data3,[(167,140)(160,140)])
+   link(Data3,6151201:Height,[(174,295)(202,295)])
+  }
+  BEGIN_SDK
+Pos(0,0)
+    Add(EditMulti,44262,3,3)
+    {
+     WorkCount=1
+     DataCount=3
+     Width=347
+     Height=189
+     link(doWork1,41270:doOperation,[(20,9)(20,139)])
+    }
+    Add(GetDataEx,8128374,49,35)
+    {
+     link(Data,44262:Data1,[(62,32)(9,32)])
+    }
+    Add(Math,51510,287,133)
+    {
+     OpType=1
+     ResultType=0
+     link(onResult,69848:doTop,[(329,139)(329,175)(41,175)(41,69)])
+     link(Op1,14357714:Var3,[(293,121)])
+     link(Op2,10036194:Var3,[(300,107)])
+    }
+    Add(Math,29589,168,133)
+    {
+     OpType=1
+     ResultType=0
+     link(onResult,29425:doCompare,[])
+     link(Op1,14357714:Var2,[])
+    }
+    Add(GetDataEx,14357714,161,112)
+    {
+     link(Data,44262:Data3,[(174,9)(23,9)])
+    }
+    Add(Math,41270,112,133)
+    {
+     ResultType=0
+     link(onResult,29589:doOperation,[])
+     link(Op1,69848:CurrentTop,[(118,127)(69,127)])
+     link(Op2,10036194:Var2,[])
+    }
+    Add(SizeWindow,99262,112,56)
+    {
+     link(Handle,8128374:Var3,[(118,44)])
+    }
+    Add(PosWindow,69848,56,56)
+    {
+     link(Handle,8128374:Var2,[])
+    }
+    Add(If_else,29425,224,133)
+    {
+     Type=1
+     link(onTrue,51510:doOperation,[])
+     link(Op2,44262:Data2,[(237,22)(16,22)])
+    }
+    Add(GetDataEx,10036194,112,98)
+    {
+     link(Data,99262:CurrentHeight,[])
+    }
+  END_SDK
+  Add(GetData,3643,140,98)
+  {
+   Count=3
+   link(Data,34679:Value,[])
+  }
+END_SDK

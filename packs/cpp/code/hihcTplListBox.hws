@@ -1,0 +1,96 @@
+func Arg(value)
+  if(len(value) > 0)
+    return(value)
+  else
+    return('""')
+  end
+end
+
+func doStart
+  println('{')
+  fvar(parts, i)
+  println('GtkWidget *widget = gtk_list_box_new();')
+  parts = split(Strings, "\n")
+  i = 0
+  while(i < parts.size())
+    println('hiasm_list_add(GTK_LIST_BOX(widget), ', cstr(parts.get(i)), ', 0, 0);')
+    i = i + 1
+  end
+  println('hiasm_place("hcTplListBox', _id_, '", widget, ', Left, ', ', Top, ');')
+  if(linked(onClick))
+    println('g_signal_connect(widget, "row-selected", G_CALLBACK(+[](GtkListBox *, GtkListBoxRow *row, gpointer) {')
+    println('if(!hiasm_form_ready) return;')
+    block.inclvl()
+    println('if(row) {')
+    block.inclvl()
+    println('int index = gtk_list_box_row_get_index(row);')
+    switch(d('DataType'))
+      case 1: event(onClick, 'hiasm_list_row_text(row)')
+      default: event(onClick, 'index')
+    end
+    block.declvl()
+    println('}')
+    block.declvl()
+    println('}), NULL);')
+  end
+  println('}')
+end
+
+func Changed()
+  event(onChange)
+end
+
+func doAdd(_data)
+  println('hiasm_list_add(GTK_LIST_BOX(hiasm_widget("hcTplListBox', _id_, '").get()), hiasm_text(', Arg(_data), ').c_str(), 0, 0);')
+  Changed()
+end
+
+func doText(_data)
+  println('hiasm_list_from_text(GTK_LIST_BOX(hiasm_widget("hcTplListBox', _id_, '").get()), hiasm_text(', Arg(_data), ').c_str(), 0, 0);')
+  Changed()
+end
+
+func doClear(_data)
+  println('hiasm_list_clear(GTK_LIST_BOX(hiasm_widget("hcTplListBox', _id_, '").get()));')
+  Changed()
+end
+
+func doDelete(_data)
+  println('hiasm_list_remove(GTK_LIST_BOX(hiasm_widget("hcTplListBox', _id_, '").get()), static_cast<int>(', Arg(_data), '));')
+  Changed()
+end
+
+func doInsert(_data)
+  println('hiasm_list_insert(GTK_LIST_BOX(hiasm_widget("hcTplListBox', _id_, '").get()), hiasm_list_index(hiasm_list_box("hcTplListBox', _id_, '")), hiasm_text(', Arg(_data), ').c_str());')
+  Changed()
+end
+
+func doSelectByIndex(_data)
+  println('hiasm_list_select(GTK_LIST_BOX(hiasm_widget("hcTplListBox', _id_, '").get()), static_cast<int>(', Arg(_data), '));')
+end
+
+func doLoad(_data)
+  println('hiasm_list_from_text(GTK_LIST_BOX(hiasm_widget("hcTplListBox', _id_, '").get()), hiasm_read_file(', cstr(get('FileName')), ').c_str(), 0, 0);')
+  Changed()
+end
+
+func doSave(_data)
+  println('hiasm_write_file(', cstr(get('FileName')), ', hiasm_join_lines(hiasm_list_lines(hiasm_list_box("hcTplListBox', _id_, '"))));')
+end
+
+func Text()
+  return('hiasm_join_lines(hiasm_list_lines(hiasm_list_box("hcTplListBox' && _id_ && '")))')
+end
+
+func Count()
+  return('static_cast<int>(hiasm_list_lines(hiasm_list_box("hcTplListBox' && _id_ && '")).size())')
+end
+
+func Array()
+  return('hiasm_list_lines(hiasm_list_box("hcTplListBox' && _id_ && '"))')
+end
+
+func Index()
+  return('hiasm_list_index(hiasm_list_box("hcTplListBox' && _id_ && '"))')
+end
+

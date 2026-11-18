@@ -1,0 +1,221 @@
+Make(cpp)
+Add(MainForm,4560334,259,210)
+{
+ Width=808
+ Height=502
+ Position=1
+}
+Add(PaintBox,15950500,266,273)
+{
+ Top=175
+ Width=882
+ Height=359
+ Color=32768
+ Layout="ver_02"
+ HeightScale=100
+ ClearBeforeDraw=0
+ link(onBeforeDraw,13865183:doDraw,[(366,279)(366,384)])
+}
+Add(HBoxLayout,5838153,602,77)
+{
+ Name="gor_10"
+ Space=2
+ Padding=5
+ Layout="ver_02"
+}
+Add(HBoxLayout,13328277,602,119)
+{
+ Name="gor_11"
+ Space=2
+ Padding=5
+ Layout="ver_02"
+}
+Add(VBoxLayout,16736310,602,161)
+{
+ Name="ver_02"
+}
+Add(Img_Text,13865183,434,378)
+{
+ X=200
+ Y=200
+ Font=[Microsoft Sans Serif,14,0,0,204]
+ Text="HiAsm"
+ Point(Transform)
+ link(onDraw,28344:doDraw,[])
+ link(Bitmap,16519916:Var2,[])
+ link(Transform,11748784:Var2,[])
+}
+Add(Img_Rectangle,28344,483,378)
+{
+ Point1=13107400
+ Point2AsOffset=0
+ Color=12639424
+ BgColor=8388736
+ Point(Point2)
+ Point(Transform)
+ link(Bitmap,16519916:Var3,[(489,334)])
+ link(Point2,4278363:Point,[(503,366)(531,366)(531,466)(440,466)])
+ link(Transform,11748784:Var3,[(510,362)])
+}
+Add(GetDataEx,16519916,434,329)
+{
+ Angle=3
+ link(Data,15950500:Bitmap,[(272,334)])
+}
+Add(GetDataEx,11748784,448,357)
+{
+ link(Data,5729708:Transform,[])
+}
+Add(PointXY,4278363,434,427)
+{
+ link(X,13865183:TextWidth,[])
+ link(Y,13865183:TextHeight,[])
+}
+Add(Img_UseTransform,5729708,448,266)
+{
+ Point(eM11)
+ Point(eM12)
+ Point(eM21)
+ Point(eM22)
+ Point(eDx)
+ Point(eDy)
+ link(eM11,12096297:Text,[])
+ link(eM12,7505023:Text,[])
+ link(eM21,4543056:Text,[])
+ link(eM22,16525048:Text,[])
+ link(eDx,13693076:Text,[])
+ link(eDy,2268617:Text,[])
+}
+Add(Edit,12096297,448,28)
+{
+ Left=495
+ Top=55
+ Layout="gor_10"
+ Text="1"
+ DataType=4
+ link(onChange,2747357:doWork2,[])
+}
+Add(Edit,4543056,462,63)
+{
+ Left=585
+ Top=55
+ Layout="gor_10"
+ Text="0"
+ DataType=4
+ link(onChange,16039393:doWork2,[])
+}
+Add(Edit,13693076,476,98)
+{
+ Left=670
+ Top=55
+ Layout="gor_10"
+ Text="0"
+ DataType=4
+ link(onChange,14793404:doWork2,[])
+}
+Add(Edit,7505023,455,147)
+{
+ Left=495
+ Top=90
+ Layout="gor_11"
+ Text="0"
+ DataType=4
+ link(onChange,6432982:doWork2,[])
+}
+Add(Edit,16525048,469,182)
+{
+ Left=585
+ Top=90
+ Layout="gor_11"
+ Text="1"
+ DataType=4
+ link(onChange,12784765:doWork2,[])
+}
+Add(Edit,2268617,483,217)
+{
+ Left=670
+ Top=90
+ Layout="gor_11"
+ Text="0"
+ DataType=4
+ link(onChange,12784765:doWork3,[(526,223)])
+}
+Add(Label,3552289,392,28)
+{
+ Left=455
+ Top=55
+ Width=30
+ Layout="gor_10"
+ Caption="eM11"
+ AutoSize=1
+}
+Add(Label,9144625,392,154)
+{
+ Left=455
+ Top=90
+ Width=30
+ Layout="gor_11"
+ Caption="eM12"
+ AutoSize=1
+}
+Add(Label,14056739,392,63)
+{
+ Left=550
+ Top=60
+ Width=30
+ Layout="gor_10"
+ Caption="eM21"
+ AutoSize=1
+}
+Add(Label,738831,392,189)
+{
+ Left=550
+ Top=90
+ Width=30
+ Layout="gor_11"
+ Caption="eM22"
+ AutoSize=1
+}
+Add(Label,1580209,392,98)
+{
+ Left=635
+ Top=60
+ Width=30
+ Layout="gor_10"
+ Caption="eDx"
+ AutoSize=1
+}
+Add(Label,3862510,392,224)
+{
+ Left=635
+ Top=95
+ Width=30
+ Layout="gor_11"
+ Caption="eDy"
+ AutoSize=1
+}
+Add(HubEx,2747357,522,28)
+{
+ Angle=3
+ link(onEvent,15950500:doRefresh,[(526,18)(249,18)(249,279)])
+}
+Add(HubEx,16039393,522,63)
+{
+ Angle=3
+ link(onEvent,2747357:doWork3,[])
+}
+Add(HubEx,14793404,522,98)
+{
+ Angle=3
+ link(onEvent,16039393:doWork3,[])
+}
+Add(HubEx,6432982,522,147)
+{
+ Angle=3
+ link(onEvent,14793404:doWork3,[])
+}
+Add(HubEx,12784765,522,182)
+{
+ Angle=3
+ link(onEvent,6432982:doWork3,[])
+}

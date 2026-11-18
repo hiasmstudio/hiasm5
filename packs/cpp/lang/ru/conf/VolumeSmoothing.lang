@@ -1,0 +1,5 @@
+Audio Smoothing=Сглаживание звукового потока
+Signal smoothing level (at least 2)=Уровень сглаживания сигнала (не менее 2)
+Smoothes the audio stream ARG(Stream)=Сглаживает звуковой поток ARG(Stream)
+The event occurs every time after smoothing the audio stream and returns the result of the operation ARG(Stream)=Событие происходит всякий раз после сглаживания звукового потока и возвращает результат операции ARG(Stream)
+Sound stream=Звуковой поток

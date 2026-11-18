@@ -1,0 +1,24 @@
+<script language="javascript">
+  var res15 = 0;
+  function timer14(_data_){
+    res15 = (res15+1);
+    document.getElementById("main").innerHTML = res15;
+  }
+</script>
+
+<html>
+  <head>
+    <title>
+      Drag box</title>
+  </head>
+  <style>
+    .main {  text-align: center; background-color: gold; width: 50; height: 50; position: absolute; vertical-align: center; }
+    body {  height: 100%; }
+  </style>
+  <body onmousemove='document.getElementById("main").style.left = (event.clientX).toString() + "px";document.getElementById("main").style.top = (event.clientY).toString() + "px";' onload='setInterval("timer14()",1000);'>
+    <div id="main" class="main">
+      HiAsm</div>
+  </body>
+</html>
+
+<!-- made by HiAsm 5.0 build 12 -->

@@ -1,0 +1,6 @@
+Command center=Коммандный центр
+Element name=Имя элемента
+List of commands=Список команд
+Initiates a status update cycle for all commands=Инициирует цикл обновления статусов всех команд
+The event occurs whenever it is necessary to update the state of commands=Событие происходит всякий раз при необходимости обновить состояние команд
+The event occurs every time after one of the commands is executed and outputs its name to the ARG(Name) stream=Событие происходит всякий раз после выполнения одной из команд и выдает ее имя в поток ARG(Name)

@@ -1,0 +1,5 @@
+Shows the difference between the current signal value and the previous one=Выдает разницу между текущим значением сигнала и предыдущим
+Initial value of the stored signal=Начальное значание сохраненого сигнала
+Calculates the difference between the stored signal and the received one=Вычисляет разницу между сохраненным сигналом и поступившим
+The event occurs every time after calculating the signal difference and outputs it to the stream=Событие происходит всякий раз после вычисления разницы сигнала и выдает её в поток
+Defines the data for calculating the difference=Определяет данные для вычисления разницы

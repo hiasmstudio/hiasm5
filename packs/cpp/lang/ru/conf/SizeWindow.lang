@@ -1,0 +1,10 @@
+Resizing a Window=Изменение размера окна
+Default window width=Ширина окна по умолчанию
+Default window height=Высота окна по умолчанию
+Sets the window width ARG(Width)=Устанавливает ширину окна ARG(Width)
+Sets the height of the window ARG(Height)=Устанавливает высоту окна ARG(Height)
+Specifies the ID of the window whose size needs to be changed=Определяет идентификатор окна, чьи размеры нужно изменить
+Defines the width of the window=Определяет ширину окна
+Defines the height of the window=Определяет высоту окна
+Contains the width of the window=Содержит ширину окна
+Contains the height of the window=Содержит высоту окна

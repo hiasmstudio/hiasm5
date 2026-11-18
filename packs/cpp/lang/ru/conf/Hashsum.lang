@@ -1,0 +1,6 @@
+Getting hash sum=Получение хэш суммы
+Type of algorithm used=Тип используемого алгоритма
+Gets the hash sum from the data ARG(Data)=Получает хэш сумму из данных ARG(Data)
+Gets the hash sum of the file contents=Получает хэш сумму по содержимому файла
+The event occurs every time after receiving the hash sum and outputs it to the stream ARG(Hash)=Событие происходит всякий раз после получения хэш суммы и выдаёт её в поток ARG(Hash)
+Data for obtaining the hash amount=Данные для получения хэш суммы

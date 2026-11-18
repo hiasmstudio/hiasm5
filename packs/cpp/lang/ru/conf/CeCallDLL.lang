@@ -1,0 +1,7 @@
+Calling functions from a DLL library located on the device=Вызов функций из DLL библиотеки, расположенной на устройстве
+Path to the DLL library=Путь к DLL библиотеке
+Called function name=Имя вызываемой функции
+Calls a function, passing it a parameter defined in Param=Вызывает функцию, передавая ей параметр, определенный в Param
+The event occurs when the function completes, outputting the execution result to the stream.=Событие происходит по завершении работы функции, выдавая в поток результат выполнения
+Contains the data passed by the function=Содержит данные, переданные функцией
+These passed functions=Данные передаваемые функции

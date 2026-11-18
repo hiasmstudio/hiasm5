@@ -1,0 +1,12 @@
+Encoding conversion=Преобразование кодировок
+Text encoding conversion direction=Направление преобразования кодировки текста
+Defines the input code page for the CP1_CP2 method=Определяет входную кодовую страницу для метода CP1_CP2
+Defines the output code page for the CP1_CP2 method=Определяет выходную кодовую страницу для метода CP1_CP2
+Defines the Unicode byte direction for the ANSI_UNICODE method=Определяет направление байт в юникоде для метода ANSI_UNICODE
+Defines the Unicode byte direction for the default UNICODE_ANSI method. If there is a BOM at the beginning of the line, then the byte direction is set automatically=Определяет направление байт в юникоде для метода UNICODE_ANSI по-умолчанию. Если, в начале строки есть BOM, то направление байт устанавливается автоматически
+Defines the encoding mode for the ANSI_URL method. The selected mode does not affect the URL_ANSI method=Определет режим кодировки для метода ANSI_URL. Выбранный режим не влияет на метод URL_ANSI
+Converts encoding=Преобразует кодировку
+The event occurs after the encoding conversion and emits a new string to the stream=Событие происходит после преобразования кодировки и выдаёт новую строку в поток
+Specifies the text to be converted to encoding=Определяет текст для преобразования кодировки
+Input code page for method CP1_CP2=Входная кодовоя страница для метода CP1_CP2
+Output code page for method CP1_CP2=Выходная кодовоя страница для метода CP1_CP2

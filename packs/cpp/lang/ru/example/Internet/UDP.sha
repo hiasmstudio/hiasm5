@@ -1,0 +1,45 @@
+Make(cpp)
+Add(MainForm,7696190,21,105)
+{
+ Left=20
+ Top=105
+ link(onCreate,14361709:doEvent1,[])
+}
+Add(Button,13254290,77,91)
+{
+ Left=10
+ Top=10
+ link(onClick,16740130:doSend,[])
+}
+Add(Edit,9719349,182,35)
+{
+ Left=75
+ Top=10
+ Width=280
+}
+Add(UDP,16740130,182,84)
+{
+ LocalPort=1001
+ RemotePort=1002
+ RemoteIP="127.0.0.1"
+ AutoConnect=0
+ ReceiveMode=1
+ link(Data,9719349:Text,[])
+}
+Add(UDP,12839073,182,147)
+{
+ LocalPort=1002
+ link(onReceive,13733955:doAdd,[])
+}
+Add(Hub,14361709,77,140)
+{
+ link(onEvent1,16740130:doOpen,[(128,146)(128,90)])
+ link(onEvent2,12839073:doOpen,[])
+}
+Add(Memo,13733955,252,147)
+{
+ Left=75
+ Top=45
+ Width=280
+ Height=200
+}

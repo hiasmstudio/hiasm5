@@ -1,0 +1,8 @@
+Split string by part=Разбиение строки на части, разделенные заданным символом
+Symbol delimiter=Символ-разделитель
+Event emit every time after split string and gives her right side in thread=Событие происходит после отделения левой части строки и выдает в поток её правую часть
+Event emit every time after split string and gives her left side in thread=Событие происходит сразу после разбиения строки и выдает в поток левую её часть
+Event emit every time after failed search the delimiter in string=Событие происходит в случае отсутствия искомого символа в строке
+Contains left part of string=Содержит левую часть выражения
+Contains right part of string=Содержит правую часть выражения
+Defines string for split parts=Определяет строку для разбиения на части

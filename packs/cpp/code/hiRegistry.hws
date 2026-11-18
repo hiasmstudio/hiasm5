@@ -1,0 +1,154 @@
+func Arg(name, fallback)
+  if(linked(name))
+    return(d(name))
+  else
+    return(cstr(fallback))
+  end
+end
+
+func Root()
+  switch(get('HKey'))
+    case 0: return('HKEY_CLASSES_ROOT')
+    case 2: return('HKEY_LOCAL_MACHINE')
+    case 3: return('HKEY_USERS')
+    case 4: return('HKEY_CURRENT_CONFIG')
+    default: return('HKEY_CURRENT_USER')
+  end
+end
+
+func NotEmpty()
+  if(get('NotEmpty') == "True")
+    return(1)
+  else
+    return(0)
+  end
+end
+
+func KeyPath()
+  return('std::string(' && Arg('Key', get('Key')) && ')')
+end
+
+func ValueName()
+  return('std::string(' && Arg('Value', get('Value')) && ')')
+end
+
+func doRead(_data)
+  println('#if !defined(_WIN32)')
+  println('#error "Registry is a Windows-only element"')
+  println('#endif')
+  println('{')
+  block.inclvl()
+  println('HKEY hiasm_key', _id_, ' = NULL;')
+  println('const LONG hiasm_open', _id_, ' = RegOpenKeyExA(', Root(), ', ', KeyPath(), '.c_str(), 0, KEY_READ, &hiasm_key', _id_, ');')
+  println('if(hiasm_open', _id_, ' == ERROR_SUCCESS) {')
+  block.inclvl()
+  if(get('DataType') == 0)
+    println('DWORD hiasm_data', _id_, ' = 0, hiasm_size', _id_, ' = sizeof(DWORD), hiasm_type', _id_, ' = 0;')
+    println('const LONG hiasm_res', _id_, ' = RegQueryValueExA(hiasm_key', _id_, ', ', ValueName(), '.c_str(), NULL, &hiasm_type', _id_, ', reinterpret_cast<LPBYTE>(&hiasm_data', _id_, '), &hiasm_size', _id_, ');')
+    println('if(hiasm_res', _id_, ' == ERROR_SUCCESS) {')
+    block.inclvl()
+    event(onRead, 'static_cast<int>(hiasm_data' && _id_ && ')')
+    block.declvl()
+    println('} else {')
+    block.inclvl()
+    if(NotEmpty() == 0)
+      event(onRead, '0')
+    end
+    block.declvl()
+    println('}')
+  else
+    println('char hiasm_buf', _id_, '[4096] = {0};')
+    println('DWORD hiasm_size', _id_, ' = sizeof(hiasm_buf', _id_, '), hiasm_type', _id_, ' = 0;')
+    println('const LONG hiasm_res', _id_, ' = RegQueryValueExA(hiasm_key', _id_, ', ', ValueName(), '.c_str(), NULL, &hiasm_type', _id_, ', reinterpret_cast<LPBYTE>(hiasm_buf', _id_, '), &hiasm_size', _id_, ');')
+    println('if(hiasm_res', _id_, ' == ERROR_SUCCESS) {')
+    block.inclvl()
+    if(get('DataType') == 2)
+      event(onRead, 'std::atof(hiasm_buf' && _id_ && ')')
+    else
+      event(onRead, 'std::string(hiasm_buf' && _id_ && ')')
+    end
+    block.declvl()
+    println('} else {')
+    block.inclvl()
+    if(NotEmpty() == 0)
+      event(onRead, 'std::string()')
+    end
+    block.declvl()
+    println('}')
+  end
+  println('RegCloseKey(hiasm_key', _id_, ');')
+  block.declvl()
+  println('}')
+  block.declvl()
+  println('}')
+end
+
+func doWrite(_data)
+  println('#if !defined(_WIN32)')
+  println('#error "Registry is a Windows-only element"')
+  println('#endif')
+  println('{')
+  block.inclvl()
+  println('HKEY hiasm_key', _id_, ' = NULL;')
+  println('if(RegCreateKeyExA(', Root(), ', ', KeyPath(), '.c_str(), 0, NULL, KEY_WRITE, NULL, &hiasm_key', _id_, ', NULL) == ERROR_SUCCESS) {')
+  block.inclvl()
+  if(get('DataType') == 0)
+    println('const DWORD hiasm_data', _id_, ' = static_cast<DWORD>(std::atoll(hiasm_text(', Arg('Data', get('Data')), ').c_str()));')
+    println('RegSetValueExA(hiasm_key', _id_, ', ', ValueName(), '.c_str(), 0, REG_DWORD, reinterpret_cast<const BYTE*>(&hiasm_data', _id_, '), sizeof(DWORD));')
+  else
+    println('const std::string hiasm_data', _id_, ' = hiasm_text(', Arg('Data', get('Data')), ');')
+    println('RegSetValueExA(hiasm_key', _id_, ', ', ValueName(), '.c_str(), 0, REG_SZ, reinterpret_cast<const BYTE*>(hiasm_data', _id_, '.c_str()), static_cast<DWORD>(hiasm_data', _id_, '.size() + 1));')
+  end
+  println('RegCloseKey(hiasm_key', _id_, ');')
+  block.declvl()
+  println('}')
+  block.declvl()
+  println('}')
+end
+
+func doDeleteValue(_data)
+  println('#if !defined(_WIN32)')
+  println('#error "Registry is a Windows-only element"')
+  println('#endif')
+  println('{')
+  block.inclvl()
+  println('HKEY hiasm_key', _id_, ' = NULL;')
+  println('if(RegOpenKeyExA(', Root(), ', ', KeyPath(), '.c_str(), 0, KEY_SET_VALUE, &hiasm_key', _id_, ') == ERROR_SUCCESS) {')
+  block.inclvl()
+  println('RegDeleteValueA(hiasm_key', _id_, ', ', ValueName(), '.c_str());')
+  println('RegCloseKey(hiasm_key', _id_, ');')
+  block.declvl()
+  println('}')
+  block.declvl()
+  println('}')
+end
+
+func doDeleteKey(_data)
+  println('#if !defined(_WIN32)')
+  println('#error "Registry is a Windows-only element"')
+  println('#endif')
+  println('RegDeleteKeyA(', Root(), ', ', KeyPath(), '.c_str());')
+end
+
+func doExistsValue(_data)
+  println('#if !defined(_WIN32)')
+  println('#error "Registry is a Windows-only element"')
+  println('#endif')
+  println('{')
+  block.inclvl()
+  println('HKEY hiasm_key', _id_, ' = NULL;')
+  println('int hiasm_exists', _id_, ' = 0;')
+  println('if(RegOpenKeyExA(', Root(), ', ', KeyPath(), '.c_str(), 0, KEY_READ, &hiasm_key', _id_, ') == ERROR_SUCCESS) {')
+  block.inclvl()
+  println('hiasm_exists', _id_, ' = RegQueryValueExA(hiasm_key', _id_, ', ', ValueName(), '.c_str(), NULL, NULL, NULL, NULL) == ERROR_SUCCESS ? 1 : 0;')
+  println('RegCloseKey(hiasm_key', _id_, ');')
+  block.declvl()
+  println('}')
+  event(onExistsValue, 'hiasm_exists' && _id_)
+  block.declvl()
+  println('}')
+end
+
+func RData()
+  return('hiasm_int_state(' && _id_ && ', 0)')
+end

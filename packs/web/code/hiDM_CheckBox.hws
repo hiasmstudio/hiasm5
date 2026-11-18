@@ -1,0 +1,16 @@
+section html
+
+func doPrint(_data)
+  print('<input type="checkbox" value="1" name="' + DataBind + _SCOPE_ + '" ')
+  if(Mode = 2)
+    print(' disabled ')
+  end
+  include('dmtag_html')
+  if(Mode != 1)
+    inc_sec("php")
+    print('($f' + _SITE_ + '[' + DataBind + '] ? " checked " : "")')
+    dec_sec("html")
+  end
+  println('>')
+  event(onPrint, _data)
+end

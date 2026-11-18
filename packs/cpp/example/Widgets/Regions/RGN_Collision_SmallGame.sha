@@ -1,0 +1,477 @@
+Make(cpp)
+Add(MainForm,2953706,56,126)
+{
+ Width=1018
+ Height=347
+ Caption=" лавишами: AWSD управл€йте кватратом"
+ Position=1
+ Point(onKeyDown)
+ link(onCreate,972490:doEnum,[(95,146)(95,132)])
+}
+Add(PaintBox,9370610,224,266)
+{
+ Left=5
+ Top=10
+ Width=1000
+ Height=300
+ Color=12639424
+ ClearBeforeDraw=0
+ link(onBeforeDraw,6872389:doDraw,[])
+}
+Add(RGN_Rect,2772713,175,203)
+{
+ Point2=1310740
+ Point2AsOffset=0
+ link(onCreateRect,14255811:doEnum,[(214,209)(214,244)(165,244)(165,272)])
+ link(Point1,1764592:Var2,[])
+}
+Add(RGN_Collision,14255811,175,259)
+{
+ link(onTrue,12877360:doSetOldXY,[(211,265)(211,301)(102,301)(102,209)])
+ link(onFalse,9370610:doRefresh,[])
+ link(Region1,2772713:Result,[])
+ link(Array,14046706:Array,[(195,250)(223,250)])
+}
+Add(Img_Rectangle,6872389,266,266)
+{
+ Point2=1310740
+ Point2AsOffset=0
+ Style=1
+ BgColor=65280
+ Point(Point1)
+ link(onDraw,15331202:doEnum,[])
+ link(Bitmap,8277870:getVar,[(272,257)(244,257)])
+ link(Point1,1764592:Var3,[(286,190)])
+}
+Add(Img_Rectangle,4289173,455,273)
+{
+ Style=1
+ Color=32896
+ BgColor=32896
+ Point(Point1)
+ Point(Point2)
+ link(Bitmap,11007492:getVar,[(461,265)(433,265)])
+ link(Point1,1446422:Point,[])
+ link(Point2,12696920:Point,[(482,264)(510,264)])
+}
+Add(MultiElementEx,12877360,119,203)
+{
+ link(OnStep,12782984:doWork2,[])
+}
+BEGIN_SDK
+  Add(EditMultiEx,2247844,21,21)
+  {
+   WorkCount=#10:doSetOldXY|
+   EventCount=#6:OnStep|
+   VarCount=#7:PointXY|
+   Width=881
+   Height=473
+   link(doSetOldXY,5080113:doEvent1,[(37,27)(37,363)])
+   link(PointXY,127285:Point,[(27,484)(41,484)])
+  }
+  Add(Keyboard,4570916,168,287)
+  {
+   Key=87
+   link(onReadKey,2796555:doEvent,[])
+  }
+  Add(IndexToChanel,2796555,217,287)
+  {
+   link(onEvent1,6892988:doReadKey,[(261,293)(261,240)(156,240)(156,209)])
+   link(onEvent2,5372669:doEvent1,[])
+  }
+  Add(Keyboard,6892988,168,203)
+  {
+   Key=83
+   link(onReadKey,3220677:doEvent,[])
+  }
+  Add(IndexToChanel,3220677,217,203)
+  {
+   link(onEvent2,13847458:doEvent1,[])
+  }
+  Add(Keyboard,9072854,168,126)
+  {
+   Key=65
+   link(onReadKey,16112034:doEvent,[])
+  }
+  Add(IndexToChanel,16112034,217,126)
+  {
+   link(onEvent1,16471007:doReadKey,[(261,132)(261,94)(156,94)(156,55)])
+   link(onEvent2,16491514:doEvent1,[])
+  }
+  Add(Keyboard,16471007,168,49)
+  {
+   Key=68
+   link(onReadKey,11529829:doEvent,[])
+  }
+  Add(IndexToChanel,11529829,217,49)
+  {
+   link(onEvent2,14062657:doEvent1,[])
+  }
+  Add(Hub,6051751,119,126)
+  {
+   link(onEvent1,9072854:doReadKey,[])
+   link(onEvent2,4570916:doReadKey,[(140,139)(140,293)])
+  }
+  Add(Memory,10709584,483,84)
+  {
+   @Hint=#1:X|
+   Default=Integer(20)
+   AddHint(42,14,27,13,Default)
+   AddHint(41,-1,22,13,@Hint)
+  }
+  Add(Memory,10837220,623,84)
+  {
+   @Hint=#1:Y|
+   Default=Integer(20)
+   AddHint(44,-4,22,13,@Hint)
+   AddHint(43,14,27,13,Default)
+  }
+  Add(LineBreakEx,15046536,483,133)
+  {
+   Caption="x"
+   Type=3
+   link(_Data,10709584:Value,[])
+  }
+  Add(LineBreakEx,3162515,623,133)
+  {
+   Caption="y"
+   Type=3
+   link(_Data,10837220:Value,[])
+  }
+  Add(LineBreakEx,15891438,441,84)
+  {
+   Caption="x"
+   Type=1
+   link(OnEvent,10709584:doValue,[])
+  }
+  Add(LineBreakEx,1095782,581,84)
+  {
+   Caption="y"
+   Type=1
+   link(OnEvent,10837220:doValue,[])
+  }
+  Add(Math,10760774,294,63)
+  {
+   Op2=1
+   ResultType=0
+   link(onResult,2905306:doWork,[])
+   link(Op1,7171457:getVar,[])
+   AddHint(37,15,30,13,Op2)
+  }
+  Add(Math,8592697,287,217)
+  {
+   Op2=1
+   ResultType=0
+   link(onResult,4188597:doWork,[])
+   link(Op1,13910359:getVar,[])
+  }
+  Add(Math,6403035,294,140)
+  {
+   OpType=1
+   Op2=1
+   ResultType=0
+   link(onResult,8526094:doWork,[])
+   link(Op1,9522239:getVar,[])
+  }
+  Add(Math,6304890,287,301)
+  {
+   OpType=1
+   Op2=1
+   ResultType=0
+   link(onResult,2783020:doWork,[])
+   link(Op1,3187654:getVar,[])
+  }
+  Add(LineBreakEx,2905306,336,63)
+  {
+   Caption="x"
+  }
+  Add(LineBreakEx,8526094,336,140)
+  {
+   Caption="x"
+  }
+  Add(LineBreakEx,4188597,329,217)
+  {
+   Caption="y"
+  }
+  Add(LineBreakEx,2783020,329,301)
+  {
+   Caption="y"
+  }
+  Add(LineBreakEx,7171457,294,35)
+  {
+   Caption="x"
+   Type=2
+  }
+  Add(LineBreakEx,9522239,294,112)
+  {
+   Caption="x"
+   Type=2
+  }
+  Add(LineBreakEx,13910359,287,189)
+  {
+   Caption="y"
+   Type=2
+  }
+  Add(LineBreakEx,3187654,287,273)
+  {
+   Caption="y"
+   Type=2
+  }
+  Add(LineBreakEx,12606646,490,280)
+  {
+   Caption="x"
+   Type=2
+  }
+  Add(LineBreakEx,854326,567,280)
+  {
+   Caption="y"
+   Type=2
+  }
+  Add(Memory,13371102,490,308)
+  {
+   Point(Data)
+   link(onData,15967958:doValue,[])
+   link(Data,12606646:getVar,[])
+  }
+  Add(Memory,15967958,567,308)
+  {
+   Point(Data)
+   link(Data,854326:getVar,[])
+  }
+  Add(PointXY,127285,35,441)
+  {
+   link(X,12470689:getVar,[])
+   link(Y,3197604:getVar,[(48,434)(83,434)])
+  }
+  Add(LineBreakEx,12470689,35,413)
+  {
+   Caption="x"
+   Type=2
+  }
+  Add(LineBreakEx,3197604,77,413)
+  {
+   Caption="y"
+   Type=2
+  }
+  Add(Hub,16491514,266,133)
+  {
+   OutCount=3
+   link(onEvent1,179527:doWork,[])
+   link(onEvent2,6403035:doOperation,[])
+   link(onEvent3,2259005:doWork,[(287,153)(287,174)])
+  }
+  Add(LineBreakEx,179527,378,133)
+  {
+   Caption="old"
+  }
+  Add(LineBreakEx,2054341,441,308)
+  {
+   Caption="old"
+   Type=1
+   link(OnEvent,13371102:doValue,[])
+  }
+  Add(Hub,14062657,266,56)
+  {
+   OutCount=3
+   link(onEvent1,1951681:doWork,[])
+   link(onEvent2,10760774:doOperation,[])
+   link(onEvent3,1478056:doWork,[(287,76)(287,97)])
+  }
+  Add(LineBreakEx,1951681,378,56)
+  {
+   Caption="old"
+  }
+  Add(Hub,13847458,259,210)
+  {
+   OutCount=3
+   link(onEvent1,9749383:doWork,[])
+   link(onEvent2,8592697:doOperation,[])
+   link(onEvent3,10929533:doWork,[(280,230)(280,251)])
+  }
+  Add(Hub,5372669,259,294)
+  {
+   OutCount=3
+   link(onEvent1,4360462:doWork,[])
+   link(onEvent2,6304890:doOperation,[])
+   link(onEvent3,5452125:doWork,[(279,314)(279,335)])
+  }
+  Add(LineBreakEx,9749383,371,210)
+  {
+   Caption="old"
+  }
+  Add(LineBreakEx,4360462,371,294)
+  {
+   Caption="old"
+  }
+  Add(LineBreakEx,16513746,532,357)
+  {
+   Caption="x"
+  }
+  Add(LineBreakEx,13415002,616,392)
+  {
+   Caption="y"
+  }
+  Add(DoData,13406599,490,357)
+  {
+   link(onEventData,16513746:doWork,[])
+   link(Data,13371102:Value,[])
+  }
+  Add(DoData,7433469,567,392)
+  {
+   link(onEventData,13415002:doWork,[])
+   link(Data,15967958:Value,[])
+  }
+  Add(Hub,5080113,462,357)
+  {
+   link(onEvent1,13406599:doData,[])
+   link(onEvent2,7433469:doData,[(483,370)(483,398)])
+  }
+  Add(LineBreakEx,1478056,378,91)
+  {
+   Caption="step"
+  }
+  Add(LineBreakEx,2259005,378,168)
+  {
+   Caption="step"
+  }
+  Add(LineBreakEx,10929533,371,245)
+  {
+   Caption="step"
+  }
+  Add(LineBreakEx,5452125,371,329)
+  {
+   Caption="step"
+  }
+  Add(LineBreakEx,12348659,833,21)
+  {
+   Caption="step"
+   Type=1
+   link(OnEvent,2247844:OnStep,[])
+  }
+  Add(Timer,6443959,63,126)
+  {
+   Interval=10
+   link(onTimer,6051751:doEvent1,[])
+  }
+END_SDK
+Add(HubEx,12782984,161,203)
+{
+ link(onEvent,2772713:doCreateRect,[])
+}
+Add(StrList,11170841,98,56)
+{
+ Strings=#30:rect(0,0,1000,10)верхн€€ стена|32:rect(0,290,1000,300)нижн€€ стена|27:rect(0,0,10,290)лева€ стена|32:rect(990,0,1000,290)права€ стена|24:ellipse(100,100,120,120)|24:ellipse(150,150,260,160)|23:ellipse(250,50,300,100)|
+}
+Add(ArrayEnum,972490,112,126)
+{
+ link(onItem,9730622:doCreateRgn,[])
+ link(onEndEnum,12782984:doWork1,[(165,139)])
+ link(Array,8511997:Var2,[])
+}
+Add(RGN_Array,14046706,217,126)
+{
+}
+Add(RGN_Script,9730622,175,126)
+{
+ link(onCreateRgn,14046706:doAdd,[])
+}
+Add(ArrayEnum,15331202,308,266)
+{
+ link(onItem,7908674:doSearch,[])
+ link(Array,8511997:Var3,[(314,117)])
+}
+Add(GetDataEx,8511997,112,112)
+{
+ link(Data,11170841:Array,[])
+}
+Add(BlockFind,7908674,350,266)
+{
+ IncludeBlock=1
+ StartBlock="rect("
+ EndBlock=")"
+ link(onSearch,5149473:doEvent1,[])
+ link(onEndSearch,9954551:doSearch,[(389,279)(389,314)(340,314)(340,328)])
+}
+Add(BlockFind,9954551,350,322)
+{
+ IncludeBlock=1
+ StartBlock="ellipse("
+ EndBlock=")"
+ link(onSearch,3951773:doEvent1,[])
+}
+Add(LineBreakEx,16699061,224,315)
+{
+ Caption="bmp"
+ Type=3
+ link(_Data,9370610:Bitmap,[])
+}
+Add(LineBreakEx,8277870,238,238)
+{
+ Caption="bmp"
+ Type=2
+}
+Add(Hub,5149473,399,266)
+{
+ link(onEvent1,6473318:doSplit,[(424,272)(424,181)])
+ link(onEvent2,4289173:doDraw,[])
+}
+Add(LineBreakEx,11007492,427,238)
+{
+ Caption="bmp"
+ Type=2
+}
+Add(MultiStrPart,6473318,469,175)
+{
+ Char=","
+ Count=4
+}
+Add(PointXY,1446422,469,224)
+{
+ link(X,6473318:Part1,[])
+ link(Y,6473318:Part2,[])
+}
+Add(PointXY,12696920,504,224)
+{
+ link(X,6473318:Part3,[(510,219)(489,219)])
+ link(Y,6473318:Part4,[(517,213)(496,213)])
+}
+Add(Hub,3951773,399,322)
+{
+ link(onEvent1,8840338:doSplit,[])
+ link(onEvent2,5688368:doDraw,[(425,335)(425,426)])
+}
+Add(LineBreakEx,10506840,441,385)
+{
+ Caption="bmp"
+ Type=2
+}
+Add(MultiStrPart,8840338,483,322)
+{
+ Char=","
+ Count=4
+}
+Add(PointXY,285591,483,371)
+{
+ link(X,8840338:Part1,[])
+ link(Y,8840338:Part2,[])
+}
+Add(PointXY,15223333,518,371)
+{
+ link(X,8840338:Part3,[(524,366)(503,366)])
+ link(Y,8840338:Part4,[(531,360)(510,360)])
+}
+Add(Img_Ellipse,5688368,469,420)
+{
+ Style=1
+ BgColor=16711680
+ Point(Point1)
+ Point(Point2)
+ link(Bitmap,10506840:getVar,[(475,410)(447,410)])
+ link(Point1,285591:Point,[])
+ link(Point2,15223333:Point,[(496,412)(524,412)])
+}
+Add(GetDataEx,1764592,175,185)
+{
+ Angle=3
+ link(Data,12877360:PointXY,[(158,190)(158,244)(125,244)])
+}

@@ -1,0 +1,114 @@
+*Пример, демонстрирующий возможность собственного оформления заголовка формы.
+Pos(0,0)
+Add(MainForm,98016,20,105)
+{
+ Left=312
+ Top=234
+ Width=400
+ Height=300
+ Align=0
+ Color=-16777201
+ AlphaBlendValue=255
+ Caption=Form
+ BorderStyle=6
+ WindowsState=0
+ Icon=[]
+ ShowType=0
+ TaskBar=0
+ DragForm=1
+ Visible=0
+ Picture=[]
+ link(onActivate,53563:doWork1,[])
+ link(onDeactivate,53563:doWork2,[])
+}
+Add(MoveWindow,38151,175,105)
+{
+ link(Handle,98016:Handle,[(181,95)(167,95)(167,163)(26,163)])
+}
+Add(ChildPanel,53563,112,105)
+{
+ link(onEvent1,38151:doMove,[])
+ link(onEvent2,98016:doClose,[(154,118)(154,95)(8,95)(8,132)])
+}
+BEGIN_SDK
+Pos(0,0)
+  Add(EditMulti,3496,3,3)
+  {
+   EventCount=2
+   WorkCount=2
+   DataCount=0
+   VarCount=0
+   Width=300
+   Height=200
+   link(doWork1,18401:doData,[(50,9)(50,41)])
+   link(doWork2,77830:doData,[(30,16)(30,104)])
+  }
+  Add(Panel,16693,219,65)
+  {
+   Left=0
+   Top=0
+   Width=392
+   Height=15
+   Align=2
+   Color=-16777200
+   Hint=
+   Font=[Arial,8,1,16777215]
+   Caption=  Panel
+   BorderStyle=0
+   BorderWidth=1
+   BevelInner=0
+   BevelOuter=0
+   BevelWidth=1
+   Alignment=0
+   link(onClick,3496:onEvent1,[(277,71)(277,9)])
+  }
+  Add(Hub,37080,161,63)
+  {
+   InCount=2
+   OutCount=1
+   link(onEvent1,16693:doColor,[(206,69)(206,85)])
+  }
+  Add(DoData,77830,98,98)
+  {
+   Data=Integer(-16777200)
+   link(onEventData,37080:doEvent2,[(145,104)(145,76)])
+  }
+  Add(DoData,18401,98,35)
+  {
+   Data=Integer(-16777189)
+   link(onEventData,37080:doEvent1,[(145,41)(145,69)])
+  }
+  Add(BitBtn,30534,224,119)
+  {
+   Left=378
+   Top=1
+   Width=15
+   Height=13
+   Align=0
+   TabOrder=0
+   Color=-16777201
+   Hint=Close
+   Font=[Arial,10,0,0]
+   Frame=0
+   FrameColor=8421504
+   Caption=X
+   Data=Null()
+   Bitmap=[]
+   Flat=0
+   link(onClick,3496:onEvent2,[(290,125)(290,16)])
+  }
+END_SDK
+Add(Label,5050,196,182)
+{
+ Left=85
+ Top=45
+ Width=230
+ Height=150
+ Align=0
+ Color=-16777201
+ Font=[Arial,8,0,0]
+ Transparent=1
+ Caption=Имитация заголовка формы. Окно можно двигать, закрывать и кроме того оно реагирует на потерю фокуса.\n\r-=HiAsm=-
+ AutoSize=1
+ Alignment=2
+}

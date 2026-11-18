@@ -1,0 +1,227 @@
+*Пример отсылки АТ команд в порт.#13#10________#13#10Автор: Stenton
+Make(cpp)
+Pos(0,62)
+Add(MainForm,68149,63,43)
+{
+ Left=21
+ Top=105
+ Width=317
+ Height=290
+ Font=[Arial,8,0,0,1]
+ Caption="MS-Test"
+ link(onCreate,91402:doFor,[])
+}
+Add(StyleXP,99225,63,-6)
+{
+}
+Add(Button,84825,175,414)
+{
+ Left=110
+ Top=185
+ Width=75
+ Caption="Read next"
+ link(onClick,63129:doData,[])
+}
+Add(StrCat,68100,315,78)
+{
+ Str1="Port "
+ link(onStrCat,94010:doAdd,[])
+ link(Str2,17498:Data2,[(328,66)(279,66)])
+}
+Add(Label,3743,420,-13)
+{
+ Left=45
+ Top=45
+ Caption="Free Port"
+}
+Add(Message,13123090,518,260)
+{
+}
+Add(DoData,36895,203,141)
+{
+ Data=String(atz0)
+ link(onEventData,56156:doWrite,[(250,147)(250,105)])
+}
+Add(ListBox,56893,371,225)
+{
+ Left=110
+ Top=60
+ Width=75
+ Height=65
+ Strings=#4:9600|5:14400|5:19200|6:115200|
+ Point(String)
+ Point(doSelect)
+}
+Add(ListBox,94010,364,78)
+{
+ Left=45
+ Top=60
+ Height=65
+ DataType=1
+ link(onClick,13811875:doDelete,[])
+}
+Add(FormatStr,12648551,77,302)
+{
+ DataCount=1
+ Mask="%1\r"
+ link(onFString,96560:doEvent1,[])
+ link(Str1,93647:Text,[])
+}
+Add(Menu,15822,14,64)
+{
+ Menu=#5:Выход|
+ link(onSelectStr,68149:doClose,[])
+}
+Add(Button,68561,21,302)
+{
+ Left=45
+ Top=135
+ Font=[Arial,8,0,0,1]
+ Caption="Send"
+ link(onClick,12648551:doString,[])
+}
+Add(Edit,93647,77,246)
+{
+ Left=110
+ Top=135
+ Width=75
+ Height=21
+ Text="atz0"
+}
+Add(Label,39106,448,302)
+{
+ Left=155
+ Top=160
+ Width=30
+ Transparent=0
+ Caption="0"
+}
+Add(Length,2124829,448,260)
+{
+ link(onLength,13123090:doMessage,[])
+}
+Add(Hub,96560,133,302)
+{
+ OutCount=4
+ link(onEvent1,4901:doOpen,[])
+ link(onEvent2,90708:doEvent1,[(215,315)(215,217)])
+ link(onEvent3,4901:doWrite,[(371,322)(371,329)])
+ link(onEvent4,5688535:doSleepMks,[])
+}
+Add(DoData,63129,224,414)
+{
+ Data=String(8)
+ link(onEventData,390754:doWork3,[(347,420)])
+ link(Data,21542:Text,[])
+}
+Add(DoData,10850025,224,323)
+{
+ Data=Integer(255)
+ link(onEventData,390754:doWork2,[(299,329)(299,336)])
+}
+Add(COM,4901,385,302)
+{
+ BaudRate=0
+ link(onWrite,39106:doText,[])
+ link(onRead,90708:doEvent2,[(450,315)(450,224)])
+ link(Port,15717028:Value,[(391,169)(475,169)])
+ link(BaudRate,56893:String,[])
+}
+Add(For,91402,119,78)
+{
+ End=254
+ link(onEvent,3324:doEvent1,[])
+}
+Add(COM,56156,266,78)
+{
+ link(onWrite,68100:doStrCat,[])
+ link(Port,17498:Data1,[])
+}
+Add(Label,42085,420,29)
+{
+ Left=185
+ Top=160
+ Caption="bytes"
+}
+Add(Label,78288,504,29)
+{
+ Left=195
+ Top=45
+ Caption="Result"
+}
+Add(Hub,3324,175,78)
+{
+ OutCount=3
+ link(onEvent1,56156:doOpen,[])
+ link(onEvent2,36895:doData,[(217,91)(217,125)(193,125)(193,147)])
+ link(onEvent3,56156:doClose,[(236,98)(236,91)])
+}
+Add(GetData,17498,266,22)
+{
+ link(Data,91402:Position,[(272,12)(163,12)(163,120)(125,120)])
+}
+Add(Label,95232,462,29)
+{
+ Left=235
+ Top=190
+ Caption="bytes"
+}
+Add(Button,83996,133,246)
+{
+ Left=45
+ Top=185
+ Caption="Stop"
+ link(onClick,4901:doClose,[(271,252)(271,315)])
+}
+Add(Label,25757,462,-13)
+{
+ Left=110
+ Top=45
+ Caption="Speed"
+}
+Add(Sleep,5688535,182,323)
+{
+ Delay=800000
+ link(onSleep,10850025:doData,[])
+}
+Add(Edit,21542,224,365)
+{
+ Left=195
+ Top=185
+ Width=35
+ Height=21
+ Text="8"
+ DataType=1
+}
+Add(Memo,37557,532,211)
+{
+ Left=195
+ Top=60
+ Width=75
+ Height=95
+ ScrollBars=2
+}
+Add(Label,11132,504,-13)
+{
+ Left=110
+ Top=160
+ Transparent=0
+ Caption="Sended:"
+}
+Add(Memory,15717028,469,85)
+{
+}
+Add(Delete,13811875,426,85)
+{
+ Count=5
+ link(onDelete,15717028:doValue,[])
+}
+Add(Hub,90708,483,211)
+{
+ InCount=2
+ link(onEvent1,37557:doAdd,[])
+}
+Add(HubEx,390754,343,323)
+{
+ link(onEvent,4901:doRead,[])
+}

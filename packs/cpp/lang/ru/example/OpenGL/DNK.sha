@@ -1,0 +1,432 @@
+*Спираль ДНК
+Make(cpp)
+Pos(2,0)
+Add(MainForm,15261923,19,49)
+{
+ Left=20
+ Top=105
+ Width=440
+ Height=421
+ Point(MouseX)
+ Point(MouseY)
+ Point(onResize)
+ Point(Handle)
+ link(onCreate,16299401:doEvent1,[(78,69)(78,174)])
+ link(onResize,14551396:doWork1,[(149,76)])
+}
+Add(GL_Main,12986311,159,168)
+{
+ Color=0
+ link(onInit,12198675:doInit,[])
+ link(onViewPort,3410847:doPerspective,[(215,181)(215,223)])
+ link(Handle,15261923:Handle,[(165,146)(39,146)])
+}
+Add(Timer,9506849,47,252)
+{
+ Interval=33
+ Enable=1
+ link(onTimer,1049454:doEvent1,[])
+}
+Add(GL_GTools,771925,159,252)
+{
+ ClearColor=1
+ Point(doClear)
+ Point(doPushMatrix)
+ Point(doPopMatrix)
+}
+Add(Hub,1049454,96,252)
+{
+ OutCount=5
+ link(onEvent1,771925:doClear,[])
+ link(onEvent2,771925:doPushMatrix,[])
+ link(onEvent3,3468357:doColor,[(160,272)(160,69)])
+ link(onEvent4,771925:doPopMatrix,[(148,279)(148,272)])
+ link(onEvent5,12986311:doFlip,[(144,286)(144,188)])
+}
+Add(Hub,16299401,89,168)
+{
+ OutCount=3
+ link(onEvent1,12986311:doInit,[])
+ link(onEvent2,14551396:doWork2,[])
+ link(onEvent3,9506849:doTimer,[(132,188)(132,233)(38,233)(38,258)])
+}
+Add(HubEx,14551396,145,168)
+{
+ link(onEvent,12986311:doViewPort,[])
+}
+Add(MultiElement,10714674,222,119)
+{
+ link(onEvent1,10036663:doDraw,[])
+ link(Data1,15261923:MouseX,[(228,111)(25,111)])
+ link(Data2,15261923:MouseY,[(235,105)(32,105)])
+}
+BEGIN_SDK
+  Add(EditMulti,4359962,3,3)
+  {
+   EventCount=1
+   WorkCount=1
+   DataCount=2
+   Width=223
+   Height=109
+   link(doWork1,3276760:doRotate,[(19,9)(19,55)])
+  }
+  Add(GL_Rotate,3276760,35,49)
+  {
+   Y=1
+   link(onRotate,8079493:doRotate,[])
+   link(Angle,4359962:Data1,[(62,15)(9,15)])
+  }
+  Add(GL_Rotate,8079493,112,49)
+  {
+   X=1
+   link(onRotate,4359962:onEvent1,[(189,55)(189,9)])
+   link(Angle,4359962:Data2,[(139,8)(16,8)])
+  }
+END_SDK
+Add(GL_Perspective,3410847,222,217)
+{
+ Fovy=20
+}
+Add(Gl_Axis,10036663,271,119)
+{
+ TitleScale=0.5
+ link(onDraw,575588:doTrans,[])
+}
+Add(GL_GluTools,12198675,222,168)
+{
+ Texture=0
+ link(onInit,1101264:doEnabled,[])
+}
+Add(GL_Options,1101264,271,168)
+{
+ link(onEvent,5851269:doEnabled,[])
+}
+Add(GL_Options,10513853,516,168)
+{
+ Flag=1
+ link(onEvent,11036229:doBeginList,[])
+}
+Add(GL_Options,4378486,418,168)
+{
+ Flag=3
+ link(onEvent,14989894:doEnabled,[])
+}
+Add(GL_Options,5809249,369,168)
+{
+ Flag=2
+ link(onEvent,4378486:doEnabled,[])
+}
+Add(GL_Light,14989894,467,168)
+{
+ link(onEnabled,10513853:doEnabled,[])
+}
+Add(GL_Options,5851269,320,168)
+{
+ Flag=10
+ link(onEvent,5809249:doEnabled,[])
+}
+Add(GL_Sphere,6651534,1328,168)
+{
+ Radius=0.05
+ Slices=10
+ Stacks=10
+ link(onDraw,9656755:doTranslate,[])
+}
+Add(For,5786334,635,168)
+{
+ End=48
+ IncludeEnd=1
+ link(onEvent,5467469:doOperation,[])
+ link(onStop,3633824:doEndList,[(686,181)(686,230)])
+}
+Add(GL_Rotate,3785375,880,168)
+{
+ Y=1
+ link(onRotate,13379841:doTranslate,[])
+ link(Angle,5467469:Result,[(886,158)(756,158)(756,211)(711,211)])
+}
+Add(Gl_BeginList,11036229,572,168)
+{
+ Index=1050
+ link(onBiginList,5786334:doFor,[])
+}
+Add(Gl_EndList,3633824,705,224)
+{
+ link(onEndList,14257444:doEnabled,[])
+}
+Add(Gl_Translate,6268410,1230,168)
+{
+ X=0.2
+ link(onTranslate,10808679:doColor,[])
+}
+Add(GL_CallList,4805539,516,119)
+{
+ Index=1050
+}
+Add(GL_GTools,7744947,1629,168)
+{
+ Point(doPopMatrix)
+}
+Add(Math,5467469,705,168)
+{
+ OpType=2
+ Op2=10
+ link(onResult,3897635:doOperation,[])
+}
+Add(GL_GTools,16695709,824,168)
+{
+ Point(doPushMatrix)
+ link(onEvent,3785375:doRotate,[])
+}
+Add(Math,3897635,768,168)
+{
+ OpType=3
+ Op2=20
+ link(onResult,16695709:doPushMatrix,[])
+ link(Op1,5786334:Position,[(774,147)(694,147)(694,212)(641,212)])
+}
+Add(GL_Color,10808679,1279,168)
+{
+ Color=8388608
+ link(onColor,6651534:doDraw,[])
+}
+Add(MultiElementEx,575588,320,119)
+{
+ @Hint=#20:Движение по стрелкам|
+ link(onTrans,6293116:doTranslate,[])
+}
+BEGIN_SDK
+  Add(EditMultiEx,3877728,3,3)
+  {
+   WorkCount=#7:doTrans|
+   EventCount=#7:onTrans|
+   Width=363
+   Height=242
+   link(doTrans,5112558:doEvent1,[(15,9)(15,48)])
+  }
+  Add(Gl_Translate,2535417,294,203)
+  {
+   link(onTranslate,3877728:onTrans,[(345,209)(345,9)])
+   link(X,7575323:Result,[])
+   link(Y,8626852:Result,[])
+  }
+  Add(Keyboard,16348793,119,42)
+  {
+   Key=39
+   link(onReadKey,14326073:doCase,[])
+  }
+  Add(Case,14326073,175,42)
+  {
+   Value=Integer(0)
+   link(onNextCase,16121427:doNext,[])
+  }
+  Add(Counter,16121427,238,42)
+  {
+   Min=-200
+   Max=200
+   link(onNext,7575323:doOperation,[])
+  }
+  Add(Keyboard,1433895,119,91)
+  {
+   Key=37
+   link(onReadKey,9907698:doCase,[])
+  }
+  Add(Case,9907698,175,91)
+  {
+   Value=Integer(0)
+   link(onNextCase,16121427:doPrev,[(222,97)(222,55)])
+  }
+  Add(Math,7575323,294,42)
+  {
+   OpType=3
+   Op2=20
+  }
+  Add(Hub,5112558,28,42)
+  {
+   OutCount=5
+   link(onEvent1,16348793:doReadKey,[])
+   link(onEvent2,1433895:doReadKey,[(108,55)(108,97)])
+   link(onEvent3,15336481:doReadKey,[(100,62)(100,153)])
+   link(onEvent4,4395848:doReadKey,[(89,69)(89,202)])
+   link(onEvent5,2535417:doTranslate,[(72,76)(72,209)])
+  }
+  Add(Keyboard,15336481,119,147)
+  {
+   Key=38
+   link(onReadKey,15718529:doCase,[])
+  }
+  Add(Case,15718529,175,147)
+  {
+   Value=Integer(0)
+   link(onNextCase,7968343:doNext,[])
+  }
+  Add(Counter,7968343,238,147)
+  {
+   Min=-200
+   Max=200
+   link(onNext,8626852:doOperation,[])
+  }
+  Add(Keyboard,4395848,119,196)
+  {
+   Key=40
+   link(onReadKey,13597393:doCase,[])
+  }
+  Add(Case,13597393,175,196)
+  {
+   Value=Integer(0)
+   link(onNextCase,7968343:doPrev,[(222,202)(222,160)])
+  }
+  Add(Math,8626852,301,147)
+  {
+   OpType=3
+   Op2=20
+  }
+END_SDK
+Add(GL_Sphere,6127297,1580,168)
+{
+ Radius=0.05
+ Slices=10
+ Stacks=10
+ link(onDraw,7744947:doPopMatrix,[])
+}
+Add(GL_Color,6287003,1531,168)
+{
+ Color=255
+ link(onColor,6127297:doDraw,[])
+}
+Add(Gl_Translate,9656755,1384,168)
+{
+ X=-0.2
+ link(onTranslate,13757517:doRotate,[])
+}
+Add(GL_Rotate,13757517,1433,168)
+{
+ Angle=180
+ Y=1
+ link(onRotate,14467333:doTranslate,[])
+}
+Add(Gl_Translate,14467333,1482,168)
+{
+ X=0.2
+ link(onTranslate,6287003:doColor,[])
+}
+Add(Gl_Begin,8163325,1027,168)
+{
+ BlockType=1
+ link(onBegin,399441:doVertex,[])
+}
+Add(Gl_End,14958170,1174,168)
+{
+ link(onEnd,6268410:doTranslate,[])
+}
+Add(GL_Vertex3D,399441,1076,168)
+{
+ X=0.2
+ link(onVertex,3351769:doVertex,[])
+}
+Add(GL_Vertex3D,3351769,1125,168)
+{
+ X=-0.2
+ link(onVertex,14958170:doEnd,[])
+}
+Add(Gl_Translate,13379841,929,168)
+{
+ link(onTranslate,5777758:doColor,[])
+ link(Y,3897635:Result,[(942,158)(919,158)(919,209)(774,209)])
+}
+Add(GL_Color,5777758,978,168)
+{
+ Color=65535
+ link(onColor,8163325:doBegin,[])
+}
+Add(GL_Rotate,7716861,467,119)
+{
+ Y=1
+ link(onRotate,4805539:doCallList,[])
+}
+Add(Counter,15762577,418,119)
+{
+ Max=360
+ Step=3
+ link(onNext,7716861:doRotate,[])
+}
+Add(Gl_Translate,6293116,369,119)
+{
+ Y=-1.2
+ link(onTranslate,15762577:doNext,[])
+}
+Add(InfoTip,7166267,194,21)
+{
+ Info=#22:Построение спирали ДНК|
+ Font=[MS Sans Serif,18,1,0,1]
+ Frame=1
+ Transparent=1
+ Width=288
+ Height=25
+}
+Add(GL_Vertex3D,3652044,903,224)
+{
+ X=-2
+ Y=-2
+ Z=-0.4
+ link(onVertex,13810871:doVertex,[])
+}
+Add(Gl_BeginList,10286315,805,224)
+{
+ Index=2
+ link(onBiginList,7222455:doBegin,[])
+}
+Add(Gl_Begin,7222455,854,224)
+{
+ BlockType=7
+ link(onBegin,3652044:doVertex,[])
+}
+Add(GL_Vertex3D,13810871,952,224)
+{
+ X=2
+ Y=-2
+ Z=-0.4
+ link(onVertex,1499599:doVertex,[])
+}
+Add(GL_Vertex3D,1499599,1001,224)
+{
+ X=2
+ Y=2
+ Z=-0.4
+ link(onVertex,875687:doVertex,[])
+}
+Add(GL_Vertex3D,875687,1050,224)
+{
+ X=-2
+ Y=2
+ Z=-0.4
+ link(onVertex,6901366:doEnd,[])
+}
+Add(Gl_End,6901366,1099,224)
+{
+ link(onEnd,258936:doEndList,[])
+}
+Add(Gl_EndList,258936,1148,224)
+{
+ link(onEndList,16037297:doEnabled,[])
+}
+Add(GL_Color,3468357,193,63)
+{
+ Color=0
+ Alpha=0.06
+ link(onColor,7836071:doCallList,[])
+}
+Add(GL_CallList,7836071,242,63)
+{
+ Index=2
+ link(onCallList,10714674:doWork1,[(286,69)(286,97)(210,97)(210,125)])
+}
+Add(GL_Options,16037297,1195,224)
+{
+ Flag=8
+}
+Add(GL_Options,14257444,755,224)
+{
+ Flag=6
+ link(onEvent,10286315:doBeginList,[])
+}

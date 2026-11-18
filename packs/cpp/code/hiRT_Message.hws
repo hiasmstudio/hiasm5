@@ -1,0 +1,4 @@
+func doMessage(_data)
+  println('std::puts(std::string(', Message, ').c_str());')
+  event(onMessage)
+end

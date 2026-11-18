@@ -1,0 +1,1525 @@
+Make(cpp)
+Add(MTStrTbl,3395867,189,280)
+{
+ Left=5
+ Top=75
+ Width=445
+ Height=300
+ Font=[MS Sans Serif,8,1,0,1]
+ Name="ftbl"
+ Columns=#12:FileName=200|20:FileSize     =100==1|22:FileDate       =120==1|
+ FlatScroll=1
+ SmallIconsManager="icons"
+ DrawManager="drawtbl"
+ Point(onDblClick)
+ Point(onKeyDown)
+ link(onClick,416196:doEvent1,[(228,286)(228,272)(179,272)(179,363)])
+ link(onDblClick,4997403:doWork2,[])
+ link(onKeyDown,7633537:doCase,[])
+}
+Add(MainForm,2953706,322,28)
+{
+ Width=465
+ Height=430
+ Font=[MS Sans Serif,8,1,0,1]
+ Caption="FTP-Commander"
+ BorderStyle=1
+ Icon=[ZIP361B000078DAED98795C8D691BC77F4728CB8C7398612CF3F2791B64192263194664C9BE47F608D9152A159D12DAA34DDA73DAB5498C9A2C89C892658661440B5A8852225B3DEF75DFCF29D93EE39DD7FCF17E3E739D7ECFB5DDCF7D9E9E733CD75780048D21954AC14C43022C23CF5209D4B0BC11E046B56FBE11FBC5143F6BCC72B19F49718E1AD0A993B2DF008868C172B11F453DB796B42FDB934465AA37E46BD3F031B3E13FB0B1111D7B51909696469E5504FE0341101D7BB1121D1C1C1C6C54B4B4B4ECCDCD6D54525393ECCD2D6D5B91E775F26A0E0E5049DDA0E5565A4AEB34C13C7B47B71AF25248592E91C9646C3DCBEB2E494A972DADE765E46552654E374526652F486837898D780AF3762CB727D1F5496E8B35E6D9F5E6E48ABA78867C36704AF7DDFBA4C6F7192679FF0EB1DFF5D7D7022EBDA8C1F96735C87C52832092FFE31AEC2EA981509A89A38555385A50058FA26A080F8F635701F992A370BD43FEC161084571A4580885FB20144442B8A780703784148417795110EE0442C8F346F6E5CB7891ED0D21C70556E7CB6079AE0CC2AD1DB0385B4A7129AE9C3C8987593B517CC6967F2E893E3ED8EFED8D042F2FC47B7820CEDD1DB1BB7621DAC505D1CECE08DBB10361DBB72374DB3604595B2370CB16049060994C4AC19E4D9BD0C0F4007CCCCDE16D66066F5353A8AC8F838A490CDCD7AF47C37591D8656C8C466BC2E0B66E1D5CD7AE45E3557BE1BC7A351C57AD82C3CA95B05BB60C6A4B7D60BB74299A187AC1DAD010D68B17A3E92277345BE80A2B0303582E5C8866F39DB169FE7C349F6B8F317D43F08FFD63FF0FA6F5E308DD315326C8E5F2B193A64D9B26EFADCE6C9C5C3EBCC9BFC866F4684FD645474FEF2715D5662DFE3DA3BB46CF5E9AFD06C9E5031B3456FDA2E364F9E061A3274EA7D37F904854549A8EEFFB5DEBD6DF769E2A97F76FD46888F64879EFAFBEFCB24D27DA4FDEBF3F1DE4DFB7546BFE75A75114E97175FB46266BD7612885A275EBDAA3579F7E03EAFAEF9B9EF2A0F7B15C79A29E9EDEBB7D31A47AADE472C9890F3C67E9F123B9F4E9CF591A61D0AC378F6C249F7F1ED1BCA189033692346926D154C2603A6ED84987485B99766A6A2A8FCD6B633AA9CA063C569ECB633ED828A676925A69696931303835494B5319B3510665CCAD3666E349AD8CC7128AA5CABA8C99727F5EAF3FE63E6A6C1949F6B198CD43894C2AD665F5D6BC1BCB64F42365EB6D86D2FB75A8F71E14DB0CA17BBB997909F53BC2465B2059516CC17BCC0B8215BFBF4C4545DA4AA922BF488BBCA83C5BD5773E67719E863478FF57BBF0B21AE79ED31CADAA46E6B3D7C8785A838CCAD748AFA8C1C98A6A4455D62082E6EBB1B26A1C27BD2ACF4658F96B04965723F4F14BF896D2FC7D44F9A357482D79C567B0F7831AF896BCC4CB4797E153FC0A7BEEBF826771352A0A0B514E7A51721EE50505D879AF1A8FEFDEE5F3B92C3F1FCFEF67C0E3EE0BB8DF7D89E7C5E970C9AF865B5E151EDEBE8DAA82543CBD978EAA7BC9A414946467C329BB0A4EB72AF1EC4E120AAF5FC78EEB95A40A3CCD8B43E4B5877896178FA7B931789A138DF2ECFD28FBE3000A2F5D82FCE20352090AB2B2907DE102F2CE9D83C5E9025C3D750A05178290979E8E1CD29A943C5C4D4EE6DFF1AC030770213111E7E2E270362606A74967A2A3713A2A0AA72323712A2C0C2743437152A1C021F2E97BF7E2444808D248E9A4D4E060A40505E17860208E0504E0889F1F5289175276EF462231430AE93071C361E28643C40C31A42437371C70754522F143022996BEB5B1F6F608218EB0334B46B8AD2D424961246F92F5BA14CE11B04846A0A525DC4912F383F023AEF025A668609A0853A3383434D9072FE209C70D1BE0A9E40AE38587E04E4CB18BB48DD4687528DCD6ACE17CB1665E125C88319C893156EAEF87EAF200A81AF9619B911196CF8CC336620E3BE28DA57A91583A2D014BA692A6C570FE309C1207C3A971B02106593C390E4D0D76C260AA3F3613832C181F8B66F31CB160DC3ECE218C47E68C8EC2ECD161983D2A12FA2323316BA40233752248E1D01B1E8EE9A35C316548086796315ABEFCDFC13FF6D74D58696C69E7E41E14EA27300B08517013168F993467D1B235E6DBE51E5476EDAF2B9A427FF8E851CCC6ACDFE91918BBA3E9771A9AFD7ED2D1554CE935449BD9583D9B0D6B376F69DCB66DBB765D87EA2A26D338EED4A95BDF61234C681FAB862DA5D2761DB57415C28471E3264E9D31DF70397B5BD3062DBE6CDDBA736FAA0BABD79959DBDBDBF3CBD92891481A356AD6AABF42301ADCB367CF3E0347F2C6C6264D9AC86C1DDC7C046149F72E5DBA74EF33C8493C61E3C64D3C101676F9B6CDB75D7AFEB04D78DBE6A9B769DE46FDFB0116629AC00E71A4D9CAF526BC1C1DC58FD18230B3470F75F5EE7D7E5CC50ADED1B526CC9D3E7DFAAC05064B57F0F52ED17CBD97F0AE45B243B0F0572C3EBE9EAF4D3EBD1EFF2617A3BAF5CAC67BFBFC699D6D145FCF5191E69840B34B1CFF4C14D3AC12688E919750BFA340738C6445B105EF314FDF85BA0BA719A694AA40738CBC289A638286F2FF84C3EAF34A83CFCF2B7F6A1C1A1C188132A40138D410D5A81C6658037098219A69F58A638B9847BE93B3F5B5B920124F6D5EBB7F6DCEC087918F0A5B97447D76FA26CA5353B56AA187938E96561DF8D45110CBCB3E92F33F70B0BCA6968EB8D4CA849A3A4292BDD9AF2E77A8A3A67AD8F466BF3F357E523DE6FAE45C26137399485812A9B8E2CDFA8FE49CB438717DCA735069792A8F55D324792A6974A7B9584C62AFC7AADCD3F131AD1394AA2ACB53292AA2552AA28A8AE8732DABDDEF458D453D6DD27EFE2F8B608AB99E4BD5B46BD7BDFD3D1779CDA6E1FBD79945BC769E78EDAC92D74E2B79EDE41391D74E94D7D4315B2DAF31560B27663BF25064B654F28CDB8295DC964C7CE65B52CDB98DF11B63B727C5C59CDF18B73186AB50729B676135CAEFDDE3CCE659F04A64B83B77EAF8AD96DB4A7373E1945B0DC79CD770C9798967C46E0F6FDDE21CE792F3020EB75FD7B1DCF69BAFE1482CC738AEF8C60DECB8F19454F51EC7D95DADE42CB7F5B77254DE0A45D1E5CB905FAE4021F95CE2BACA6C052A6F06C3FA521967BBB26BFBF0E40F7F3CB9B187E44779309E5CF741FED9B3B89199898ADF3D495EA8B8E60EF3D3F7619E51C4D9EF163D2FD61FBB831BBFFCC219303FC315D9C4813749D70E1FE6CF902B070FE222535212B2F6EFC779527A4202AEC4C7E31CE9227162666C2C32891333F7EDE39C984ECA8888C0A9F0706430315E543223E3C523CC132BA6904E102FA6D463C6E3C48CC7FCFD71D4D717BF306E64BCC858D1DD1D078815193346900E2A99713FF1621C89B1E3016767C429D93182D831CACE0E91A408E6B76E45103D1B15D6D650F0BF4589FCC8B831C0C202FEC48E8C1F03485E4A86743133C36E6247C691DECC133F7A9A98707E745BBB96B323E3467BE247C68DABE647C089D891F1236347C7952BE144DA4EF9F259FBB16256221C56ACE04C69A41F0A23BD04EC20B634D25770B6B4263559E28D257A21D8BA6489922BE339535A2F5A842D06063098140583893168BAD08DB8320ACDE73970A69C33260C6673E7C274CE1C62CA68E88F0A1799724418316518316504F4741498A61D88A9DAFE983CC48FE48B0943B763FC007F8C1FE48DF1037D30AEBF1F67CEB1033C3076F056922D74FBB963641F0F8C1E688D515A6E18A9E981117D9C30A2AF23747AB94347D3013ABDDD30BCB73386F670FA2CAC2AFCEFE6E4E91F16997024232BEB945838775E693CDBBA7C83ED76E75DDEC1314793D258E1D890794AE30BB6CC5EB840B4957B4FB2C27E599FFE83868F9D3547EC9B8CD2176D91BE7DFCCDFCFC82E866EAEAEADDBAFD3053ECAFEE3E629C68538D02E392938F87366EDDBA43876E7D478AFD35ECEF389D3B77EF3D70F434C69E4248C3AF5AB6ECF05D0F6DB12FAC30345CB6DA7893B5ED36179EFB36907ED1B66DA7EF7F54F6859D5E3E418AA89F7FFE594CF77088546BF1F510B1EF38D760F1D255EBCCADAC12C47ED3A64D5B85EF3B7C22535CBF63FC60329D09D3E7272A37D8B3C7AFDEFDDB3A800860C0509D497AB11FBCBF369A1A1A1A9A03868D9911F1C1FE668D8EED3B6A680DD69D1220161E8AEE9EB26FDAB57DF3F65D89AA27EEE6F9EF2562FDEE23D19BD49DEFCED2F4CBB7EFDF2FCCCBFB23A7A894F7D7F7EAD5B52B7BFFC96E2C3D74E6DAF5EBD7AF5C38FD5BF603DE37333636DE6829B7B57370E5F9C1B3E2BE29BF7EE40B7355749784CF65B9B96F476FF2BFAB9FFBD692DCBAC29B63FD051FDAFFBFEBF3FD7373EB07C267B53A4E798755FE6E4EF90FCCC20BC6]
+ Position=1
+}
+Add(FTP_Client,4379778,371,105)
+{
+ @Color=11788021
+ Name="ftpc_001"
+ Port=0
+ Point(Host)
+ Point(Port)
+ Point(UserName)
+ Point(Password)
+ link(onConnect,14537885:doEvent1,[(410,111)(410,188)])
+ link(onDisconnect,13246343:doEvent1,[])
+ link(onGlobalError,2549417:doEvent1,[(417,125)(417,97)])
+ link(Host,12011467:Text,[])
+ link(Port,11451754:Text,[(384,68)(419,68)])
+ link(UserName,14409903:Text,[(391,75)(461,75)])
+ link(Password,2731123:Text,[(398,82)(503,82)])
+}
+Add(Edit,12011467,371,28)
+{
+ Left=75
+ Top=10
+ Width=165
+ Font=[MS Sans Serif,8,1,0,1]
+ Text="127.0.0.1"
+}
+Add(Edit,14409903,455,28)
+{
+ Left=75
+ Top=30
+ Width=105
+ Font=[MS Sans Serif,8,1,0,1]
+ Text=""
+}
+Add(Edit,2731123,497,28)
+{
+ Left=225
+ Top=30
+ Width=105
+ Font=[MS Sans Serif,8,1,0,1]
+ Text=""
+ Password=0
+}
+Add(LED,12343517,707,105)
+{
+ Left=430
+ Top=10
+ Width=20
+ Height=20
+ Shape=1
+ ColorOn=65280
+ ColorOff=32768
+ ColorBlick=65280
+}
+Add(MultiElementEx,2183670,756,91)
+{
+ @Hint=#12:MessageError|
+ AddHint(-121,-27,80,13,@Hint)
+}
+BEGIN_SDK
+  Add(EditMultiEx,4470868,21,21)
+  {
+   WorkCount=#10:MassageErr|
+   Width=181
+   Height=144
+   link(MassageErr,9579324:doRead,[(31,27)(31,111)])
+  }
+  Add(StrList,6494328,42,35)
+  {
+   Strings=#0:|23:Нет доступа к Интернету|101:Ошибка создания FTP-сессии%13%10Проверьте правильность ввода параметров%13%10Host, UserName, Password|22:Ошибка доступа к папке|33:Ошибка дисковой файловой операции|37:Ошибка доступа к файлу на FTP-сервере|33:Ошибка чтения файла с FTP-сервера|34:Ошибка записи файла на FTP-сервер |24:Невозможно создать папку|55:Невозможно удалить папку%13%10Возможно, папка не пустая|37:Невозможно получить имя текущей папки|39:Невозможно переименовать файл или папку|23:Невозможно удалить файл|0:|1: |
+  }
+  Add(ArrayRW,9579324,56,105)
+  {
+   link(onRead,1614930:doReplace,[])
+   link(Array,6494328:Array,[])
+  }
+  Add(Message,7730470,154,105)
+  {
+   Caption="Внимание!"
+   Icon=1
+  }
+  Add(Replace,1614930,105,105)
+  {
+   SubStr="%13%10"
+   DestStr="\r\n"
+   link(onReplace,7730470:doMessage,[])
+  }
+END_SDK
+Add(Button,12335799,273,105)
+{
+ @Hint=#4:Open|
+ Left=335
+ Top=10
+ Width=90
+ Font=[MS Sans Serif,8,1,0,1]
+ TabOrder=-1
+ Hint="Соединиться с FTP-сервером"
+ Caption="Соединиться"
+ link(onClick,4379778:doOpen,[])
+ AddHint(37,-26,41,13,@Hint)
+}
+Add(Button,8001101,273,140)
+{
+ @Hint=#5:Close|
+ Left=335
+ Top=30
+ Width=115
+ Font=[MS Sans Serif,8,1,0,1]
+ TabOrder=-1
+ Hint="Отсоединиться от FTP-сервера"
+ Caption="Отсоединиться"
+ link(onClick,4379778:doClose,[(312,146)(312,118)])
+ AddHint(36,53,41,13,@Hint)
+}
+Add(Hub,14537885,427,182)
+{
+ OutCount=6
+ link(onEvent1,12343517:doOn,[(480,188)(480,125)])
+ link(onEvent2,11954440:doWork1,[(571,195)(571,188)(837,188)])
+ link(onEvent3,982405:doEvent1,[])
+ link(onEvent4,2568559:doWork1,[(466,209)(466,244)(60,244)])
+ link(onEvent5,4834828:doWork2,[(459,216)(459,237)])
+ link(onEvent6,4126076:doWork2,[(452,223)(452,230)(18,230)(18,916)])
+}
+Add(MST_Clear,11312939,707,196)
+{
+ MSTControl="ftbl"
+ link(onChange,12118838:doClearIcons,[])
+}
+Add(MultiElementEx,15262315,707,238)
+{
+ @Hint=#9:EnumFiles|
+ link(AddTable,16521218:doRowAction,[])
+ AddHint(-103,37,63,13,@Hint)
+}
+BEGIN_SDK
+  Add(EditMultiEx,10714895,21,21)
+  {
+   WorkCount=#5:UpDir|0:|
+   EventCount=#8:AddTable|0:|
+   Width=573
+   Height=305
+   VOffset=70
+   link(UpDir,15761894:doEvent1,[])
+  }
+  Add(Hub,5623200,231,91)
+  {
+   link(onEvent1,10293794:doWork2,[])
+   link(onEvent2,16768299:doAdd,[])
+  }
+  Add(Icon,12659176,196,28)
+  {
+   Icon=[ZIP7E03000078DA63606004420101062029C190C1CCC020C6C0C0A001C440210605068838083830330C59A073345C737F10EF3229F7090104557A3DAE0DFFD0E57AB79C78C54092A062887AA0B1C4980C014037DB5E2B002222D503CD373D9D0644DAEB22F12803CA024D062A46437874196C8A95DF618B8C8022041D2FB2561382806C62DCAFBACB1318474092F898753F503D80E9EAFF7F24CCCFC0F0479E81E1873D10D723F001A0D803A0D807101FA8EE2F921E00C10A5B68]
+  }
+  Add(MT_AddData,2832232,189,91)
+  {
+   link(onAdd,5623200:doEvent1,[])
+   link(Data1,7359735:Var1,[(195,79)])
+   link(Data2,12659176:Icon,[])
+  }
+  Add(WorkIconsManager,13718056,385,28)
+  {
+   IconsManager="parent.icons"
+   Point(doMT_InsertIcon)
+   Point(EndIdxIcons)
+  }
+  Add(FTPC_DirAction,4427989,84,91)
+  {
+   @Color=11788021
+   Action=1
+   FTP_Client="parent.ftpc_001"
+   link(onDirAction,3078510:doCase,[])
+   AddHint(-2,-50,79,13,Action)
+  }
+  Add(FTPC_FileSearch,13479172,238,189)
+  {
+   @Hint=#9:EnumFiles|
+   @Color=11788021
+   Include=1
+   FTP_Client="parent.ftpc_001"
+   Point(FileName)
+   Point(doInclude)
+   Point(FileSize)
+   Point(DateModify)
+   Point(FileIcon)
+   Point(IsDirectory)
+   link(onSearch,819482:doCase,[(284,195)(284,272)])
+   AddHint(61,-32,63,13,@Hint)
+  }
+  Add(MT_AddData,3706574,392,266)
+  {
+   link(onAdd,1255254:doEvent1,[])
+   link(Data1,7359735:Var2,[])
+   link(Data2,13479172:FileIcon,[(405,243)(265,243)])
+  }
+  Add(Hub,1255254,441,266)
+  {
+   link(onEvent1,10293794:doWork3,[(466,272)(466,307)(179,307)(179,167)(263,167)])
+   link(onEvent2,6281972:doAdd,[])
+  }
+  Add(MT_AddData,6281972,483,273)
+  {
+   Count=6
+   link(onAdd,10066487:doWork3,[(557,279)])
+   link(Data1,13479172:FileName,[(489,257)(244,257)])
+   link(Data2,440774:Var,[(496,243)(461,243)])
+   link(Data3,13479172:DateModify,[(503,250)(258,250)])
+   link(Data4,16608657:Var3,[(510,86)])
+   link(Data5,10182034:Var,[])
+   link(Data6,13479172:IsDirectory,[(524,236)(272,236)])
+  }
+  Add(VisualStrings,9625245,413,133)
+  {
+   Lines=#9:<DIR>    |
+   Width=39
+  }
+  Add(MT_AddData,16768299,322,98)
+  {
+   Count=6
+   Data=String()
+   link(onAdd,10066487:doWork2,[])
+   link(Data1,11507749:Text,[])
+   link(Data4,16608657:Var1,[(349,86)])
+   link(Data6,95649:Text,[])
+  }
+  Add(Hub,15761894,35,91)
+  {
+   link(onEvent1,4427989:doDirAction,[])
+   link(onEvent2,15854180:doEvent1,[(74,104)(74,181)])
+  }
+  Add(MultiElementEx,40849,462,133)
+  {
+   link(FileSize,15114083:Var2,[])
+  }
+  BEGIN_SDK
+    Add(EditMultiEx,2619439,21,21)
+    {
+     VarCount=#9:_FileSize|
+     DataCount=#8:FileSize|
+     Width=349
+     Height=221
+     HOffset=21
+     link(_FileSize,12822416:GetData,[])
+    }
+    Add(EventFromData,12822416,42,49)
+    {
+     link(onEvent,81556:doCompare,[])
+    }
+    Add(Math,7335662,147,98)
+    {
+     OpType=3
+     Op2=1024
+     link(onResult,7241910:doOperation,[])
+     link(Op1,4802854:Var2,[])
+    }
+    Add(Math,7241910,196,98)
+    {
+     OpType=35
+     Op2=0.1
+     link(onResult,214945:doCompare,[])
+    }
+    Add(If_else,81556,91,49)
+    {
+     Type=1
+     Op2=Integer(1024)
+     link(onTrue,3051250:doStrCat,[])
+     link(onFalse,7335662:doOperation,[(137,62)(137,104)])
+     link(Op1,2060264:Var2,[])
+    }
+    Add(StrCat,3051250,301,49)
+    {
+     Str2=" byte"
+     link(onStrCat,3892428:doWork2,[])
+     link(Str1,4802854:Var3,[(307,33)])
+    }
+    Add(StrCat,5196190,301,98)
+    {
+     Str2=" Kb"
+     link(onStrCat,14004771:doWork2,[])
+    }
+    Add(If_else,214945,245,98)
+    {
+     Type=1
+     Op2=Integer(1024)
+     link(onTrue,5196190:doStrCat,[])
+     link(onFalse,9770233:doOperation,[(284,111)(284,139)(137,139)(137,153)])
+    }
+    Add(Math,9770233,147,147)
+    {
+     OpType=3
+     Op2=1024
+     link(onResult,13086274:doOperation,[])
+    }
+    Add(Math,13086274,196,147)
+    {
+     OpType=35
+     Op2=0.1
+     link(onResult,8921000:doCompare,[])
+    }
+    Add(If_else,8921000,245,147)
+    {
+     Type=1
+     Op2=Integer(1024)
+     link(onTrue,6248476:doStrCat,[])
+     link(onFalse,7455515:doOperation,[(284,160)(284,188)(137,188)(137,202)])
+    }
+    Add(StrCat,6248476,301,147)
+    {
+     Str2=" Mb"
+     link(onStrCat,7744343:doWork2,[])
+    }
+    Add(HubEx,14004771,347,98)
+    {
+     Angle=3
+     link(onEvent,3892428:doWork3,[])
+    }
+    Add(Math,7455515,147,196)
+    {
+     OpType=3
+     Op2=1024
+     link(onResult,4256276:doOperation,[])
+    }
+    Add(Math,4256276,196,196)
+    {
+     OpType=35
+     Op2=0.1
+     link(onResult,11906981:doCompare,[])
+    }
+    Add(If_else,11906981,245,196)
+    {
+     Type=1
+     Op2=Integer(1024)
+     link(onTrue,5132543:doStrCat,[])
+    }
+    Add(StrCat,5132543,301,196)
+    {
+     Str2=" Gb"
+     link(onStrCat,7744343:doWork3,[(351,202)])
+    }
+    Add(HubEx,7744343,347,147)
+    {
+     Angle=3
+     link(onEvent,14004771:doWork3,[])
+    }
+    Add(HubEx,3892428,347,49)
+    {
+     Angle=3
+     link(onEvent,12822416:doData,[(351,41)(32,41)(32,55)])
+    }
+    Add(GetDataEx,2060264,91,28)
+    {
+     Angle=3
+     link(Data,2619439:FileSize,[(48,33)])
+    }
+    Add(GetDataEx,4802854,147,28)
+    {
+     Angle=3
+     link(Data,2060264:Var3,[])
+    }
+  END_SDK
+  Add(HubEx,10066487,553,98)
+  {
+   Angle=3
+   link(onEvent,10714895:AddTable,[(557,97)])
+  }
+  Add(ChanelToIndex,3728211,133,175)
+  {
+   link(onIndex,15080782:doEvent1,[])
+  }
+  Add(Hub,15854180,98,175)
+  {
+   link(onEvent1,3728211:doWork1,[])
+   link(onEvent2,3728211:doWork2,[])
+  }
+  Add(Hub,15080782,189,175)
+  {
+   OutCount=3
+   link(onEvent1,13479172:doInclude,[(214,181)(214,202)])
+   link(onEvent2,440774:doIndex,[])
+   link(onEvent3,13479172:doSearch,[])
+  }
+  Add(GetIndexData,440774,455,182)
+  {
+   link(onIndex,10182034:doIndex,[])
+   link(Data1,912439:Var2,[])
+   link(Data2,40849:_FileSize,[])
+  }
+  Add(GetDataEx,7359735,392,74)
+  {
+   link(Data,13718056:CountIcons,[])
+  }
+  Add(GetDataEx,16608657,399,81)
+  {
+   link(Data,13718056:EndIdxIcons,[])
+  }
+  Add(HubEx,10293794,259,91)
+  {
+   Angle=3
+   link(onEvent,13718056:doMT_InsertIcon,[(263,41)])
+  }
+  Add(VisualStrings,11507749,322,49)
+  {
+   Lines=#2:..|
+   Width=25
+  }
+  Add(GetIndexData,10182034,511,182)
+  {
+   link(Data1,912439:Var3,[(517,173)])
+   link(Data2,15114083:Var3,[(524,124)])
+  }
+  Add(GetDataEx,912439,455,168)
+  {
+   Angle=3
+   link(Data,9625245:Text,[(419,173)])
+  }
+  Add(GetDataEx,15114083,462,119)
+  {
+   Angle=3
+   link(Data,13479172:FileSize,[(391,124)(391,229)(251,229)])
+  }
+  Add(Case,819482,294,266)
+  {
+   Value=String(.)
+   link(onNextCase,10289776:doCase,[])
+  }
+  Add(Case,10289776,343,266)
+  {
+   Value=String(..)
+   link(onNextCase,3706574:doAdd,[])
+  }
+  Add(Case,3078510,133,91)
+  {
+   Value=String(/)
+   link(onNextCase,2832232:doAdd,[])
+  }
+  Add(VisualStrings,95649,357,49)
+  {
+   Lines=#1:1|
+   Width=25
+  }
+END_SDK
+Add(IconsManager,14488009,217,105)
+{
+ Name="icons"
+ Icons=[]
+}
+Add(MST_RowAction,16521218,756,238)
+{
+ MSTControl="ftbl"
+}
+Add(StyleXP,3424591,273,28)
+{
+}
+Add(Hub,982405,595,196)
+{
+ InCount=2
+ OutCount=5
+ link(onEvent1,10032978:doWork2,[])
+ link(onEvent2,15262315:UpDir,[(697,209)(697,244)])
+ link(onEvent3,12784236:doSelect,[(690,216)(690,286)])
+ link(onEvent4,9156192:doWork1,[(669,223)])
+ link(onEvent5,1642387:doWork2,[(620,230)(620,258)])
+}
+Add(FTPC_DirAction,4933461,434,315)
+{
+ @Color=11788021
+ Directory=""
+ FTP_Client="ftpc_001"
+ PColor(Directory,21930)
+ link(onDirAction,6035391:doWork2,[])
+ link(Directory,16012346:Var3,[(440,289)])
+ AddHint(39,-40,78,13,Action)
+}
+Add(FTPC_ReadWrite,1946292,511,518)
+{
+ @Hint=#4:Куфв|
+ @Color=11788021
+ FTP_Client="ftpc_001"
+ Point(onProgress)
+ link(onFileOperation,11612496:doEvent1,[(550,524)(550,496)])
+ link(RemoteName,4062059:Var2,[])
+ link(onProgress,10005645:doEvent1,[])
+ AddHint(-134,-30,80,13,Mode)
+}
+Add(StatusBarEx,15653931,798,476)
+{
+ EnablePBar=0
+ PanelPBar=1
+ PanelHintPBar=0
+ ColorPBar=8388608
+ Panels=#5: =240|5: =200|
+ Point(doMax)
+ Point(doVisiblePBar)
+ Point(doPosPBar)
+ link(Panel,479461:Text,[])
+}
+Add(ChanelToIndex,14977054,679,497)
+{
+ link(onIndex,15653931:doVisiblePBar,[])
+}
+Add(Hub,10005645,763,525)
+{
+ InCount=2
+ link(onEvent1,15653931:doPosPBar,[(788,531)(788,510)])
+ link(onEvent2,11954440:doWork2,[])
+}
+Add(Application,11596973,854,532)
+{
+ Wait=1
+}
+Add(DoData,12874183,364,441)
+{
+ PColor(Data,4227327)
+ link(onEventData,10131686:doWork1,[(725,447)])
+ link(Data,15282876:Value5,[])
+}
+Add(Hub,416196,196,357)
+{
+ OutCount=4
+ link(onEvent1,2653606:doWork2,[])
+ link(onEvent2,15282876:doValue,[(326,370)(326,384)])
+ link(onEvent3,1642387:doWork3,[(242,377)])
+ link(onEvent4,4834828:doWork3,[(249,384)])
+}
+Add(MST_SelectRow,12784236,707,280)
+{
+ MSTControl="ftbl"
+ Point(doSetFocus)
+}
+Add(Button,743597,203,497)
+{
+ @Hint=#4:Read|
+ Left=5
+ Top=380
+ Width=75
+ Font=[MS Sans Serif,8,1,0,1]
+ Enabled=1
+ TabOrder=-1
+ Hint="Считать файл с FTP-сервера"
+ Caption="Считать"
+ Point(doEnabled)
+ link(onClick,2544973:doExecute,[])
+ AddHint(50,-41,41,13,@Hint)
+}
+Add(MT_MultiMem,15282876,336,378)
+{
+ Count=5
+ Point(Data)
+ PColor(Data,21930)
+ link(onData,1795086:doValue,[])
+ link(Data,8988805:Var2,[])
+}
+Add(SDialog,2544973,252,497)
+{
+ Title="Сохранение файла"
+ Point(doFileName)
+ Point(FileName)
+ link(onExecute,11277680:doEvent1,[])
+ link(FileName,4062059:Var1,[(258,481)])
+}
+Add(Hub,11277680,301,497)
+{
+ OutCount=4
+ link(onEvent1,12874183:doData,[(333,503)(333,447)])
+ link(onEvent2,5419846:doWork2,[])
+ link(onEvent3,6305576:doWork3,[(326,517)(326,489)])
+ link(onEvent4,1946292:doFileOperation,[])
+}
+Add(Memory,1795086,518,378)
+{
+ Point(Data)
+ link(onData,16087225:doWork1,[(732,384)])
+ link(Data,15282876:Value1,[(524,369)(510,369)(510,418)(342,418)])
+}
+Add(GetDataEx,4062059,518,476)
+{
+ link(Data,1795086:Value,[])
+}
+Add(GetDataEx,8988805,336,343)
+{
+ Angle=3
+ PColor(Data,21930)
+ link(Data,14852317:Var3,[])
+}
+Add(Button,7983163,112,560)
+{
+ @Hint=#5:Write|
+ Left=80
+ Top=380
+ Width=75
+ Font=[MS Sans Serif,8,1,0,1]
+ Enabled=1
+ TabOrder=-1
+ Hint="Записать файл на FTP-сервер"
+ Caption="Записать"
+ Point(doEnabled)
+ link(onClick,2512415:doEvent1,[])
+ AddHint(-63,39,40,13,@Hint)
+}
+Add(ODialog,2071520,182,567)
+{
+ Title="Открытие файла"
+ FileName=""
+ Select=1
+ link(onExecute,6856050:doWork2,[])
+}
+Add(DoData,15935896,420,560)
+{
+ link(onEventData,10131686:doWork3,[(725,566)])
+ link(Data,16142884:FileSize,[(426,551)(412,551)(412,600)(391,600)])
+}
+Add(FileAttributes,16142884,364,560)
+{
+ Point(FileSize)
+ link(onRead,15935896:doData,[])
+}
+Add(Hub,10782544,308,602)
+{
+ link(onEvent1,16142884:doRead,[(333,608)(333,566)])
+ link(onEvent2,2904391:doValue,[])
+}
+Add(Hub,2549417,427,91)
+{
+ link(onEvent1,2183670:MassageErr,[])
+ link(onEvent2,2653606:doWork1,[(655,104)])
+}
+Add(HubEx,2653606,651,357)
+{
+ Angle=1
+ link(onEvent,3816085:doWork1,[])
+}
+Add(ChanelToIndex,9725918,154,497)
+{
+ link(onIndex,743597:doEnabled,[])
+}
+Add(Hub,13246343,427,112)
+{
+ OutCount=7
+ link(onEvent1,12343517:doOff,[])
+ link(onEvent2,15576329:doWork2,[(473,125)(473,251)])
+ link(onEvent3,10032978:doWork1,[(648,132)])
+ link(onEvent4,14127784:doEvent1,[(564,139)(564,482)])
+ link(onEvent5,6132277:doWork1,[(466,146)(466,181)(53,181)])
+ link(onEvent6,4126076:doWork1,[(459,153)(459,174)(25,174)(25,909)])
+ link(onEvent7,8269125:doWork1,[(452,160)(452,167)(417,167)(417,195)(39,195)(39,741)(88,741)])
+}
+Add(Hub,14127784,609,476)
+{
+ InCount=3
+ link(onEvent1,3816085:doWork2,[])
+ link(onEvent2,8929609:doWork2,[])
+}
+Add(HubEx,3816085,651,476)
+{
+ Angle=1
+ link(onEvent,14977054:doWork1,[(655,503)])
+}
+Add(HubEx,10032978,644,196)
+{
+ link(onEvent,11312939:doClear,[])
+}
+Add(Edit,11451754,413,28)
+{
+ Left=285
+ Top=10
+ Width=45
+ Font=[MS Sans Serif,8,1,0,1]
+ Text="21"
+}
+Add(GetDataEx,14852317,189,343)
+{
+ PColor(Data,21930)
+ link(Data,3395867:Select,[])
+}
+Add(ChanelToIndex,223302,70,560)
+{
+ link(onIndex,7983163:doEnabled,[])
+}
+Add(Button,6658175,91,259)
+{
+ @Hint=#7:RootDir|
+ Left=410
+ Top=55
+ Width=20
+ Font=[MS Sans Serif,8,1,0,1]
+ TabOrder=-1
+ Hint="В начало"
+ Caption="/"
+ Data=String(/)
+ link(onClick,15774754:doWork2,[])
+ AddHint(56,-47,51,13,@Hint)
+}
+Add(Button,12161103,91,301)
+{
+ @Hint=#5:UpDir|
+ Left=430
+ Top=55
+ Width=20
+ Font=[MS Sans Serif,8,1,0,1]
+ TabOrder=-1
+ Hint="Наверх"
+ Caption=".."
+ Data=String(..)
+ link(onClick,15774754:doWork3,[(151,307)])
+ AddHint(-63,33,42,13,@Hint)
+}
+Add(HubEx,14160782,413,315)
+{
+ link(onEvent,4933461:doDirAction,[])
+}
+Add(HubEx,15774754,147,259)
+{
+ link(onEvent,14160782:doWork1,[(417,265)])
+}
+Add(HubEx,10131686,721,490)
+{
+ link(onEvent,15653931:doMax,[])
+}
+Add(FTPC_ReadWrite,8959583,371,665)
+{
+ @Color=11788021
+ Mode=1
+ FTP_Client="ftpc_001"
+ Point(onProgress)
+ link(LocalName,2904391:Value,[(377,649)(342,649)])
+ link(RemoteName,5341931:Var2,[])
+ link(onProgress,10005645:doEvent2,[(410,678)(410,727)(746,727)(746,538)])
+ AddHint(-109,20,69,13,Mode)
+}
+Add(FilePartElm,6514190,378,609)
+{
+ Point(Part)
+ link(onPart,16760047:doSearch,[])
+}
+Add(HubEx,5419846,651,504)
+{
+ link(onEvent,14977054:doWork2,[])
+}
+Add(Hub,10195791,441,651)
+{
+ OutCount=5
+ link(onEvent1,14127784:doEvent2,[(473,657)(473,489)])
+ link(onEvent2,11329613:doWork2,[])
+ link(onEvent3,10472563:doWork3,[(466,671)(466,538)(74,538)])
+ link(onEvent4,1602882:doData,[])
+ link(onEvent5,2568559:doWork3,[(466,685)(466,706)(60,706)])
+}
+Add(HubEx,6035391,483,315)
+{
+ link(onEvent,982405:doEvent2,[(578,321)(578,209)])
+}
+Add(HubEx,6132277,49,560)
+{
+ link(onEvent,223302:doWork1,[])
+}
+Add(HubEx,2568559,56,567)
+{
+ link(onEvent,223302:doWork2,[])
+}
+Add(HubEx,10472563,70,378)
+{
+ link(onEvent,10518272:doWork,[])
+}
+Add(FTPC_FileSearch,16760047,420,609)
+{
+ @Hint=#8:FindFile|
+ @Color=11788021
+ Mask=""
+ FTP_Client="ftpc_001"
+ Point(IsDirectory)
+ Point(onNotFound)
+ link(onSearch,331640:doString,[])
+ link(onNotFound,12219011:doEvent2,[(515,629)(515,650)(613,650)(613,636)])
+ AddHint(73,-29,51,13,@Hint)
+}
+Add(Message,5063331,574,609)
+{
+ Caption="FTP-Commander"
+ Type=2
+ Icon=3
+ Point(onNO)
+ Point(onYES)
+ link(onNO,8929609:doWork3,[(669,622)])
+ link(onYES,12219011:doEvent1,[])
+}
+Add(FormatStr,331640,525,609)
+{
+ DataCount=1
+ Mask="%1 уже существует.\r\nЗаменить?"
+ link(onFString,5063331:doMessage,[])
+}
+Add(Memory,2904391,336,609)
+{
+ link(onData,6514190:doPart,[])
+}
+Add(Hub,12219011,630,623)
+{
+ InCount=2
+ OutCount=4
+ link(onEvent1,5419846:doWork3,[(655,629)])
+ link(onEvent2,16494707:doData,[])
+ link(onEvent3,6132277:doWork3,[(662,643)(662,713)(53,713)])
+ link(onEvent4,8959583:doFileOperation,[(655,650)(655,720)(361,720)(361,671)])
+}
+Add(FTPC_Rename,11905965,287,756)
+{
+ @Hint=#6:Rename|
+ @Color=11788021
+ FTP_Client="ftpc_001"
+ PColor(RemoteName,21930)
+ link(onRename,5874001:doEvent1,[])
+ link(RemoteName,1435856:Var2,[])
+ link(NewRemoteName,14437100:Var1,[(300,747)(328,747)(328,796)(244,796)])
+ AddHint(68,-20,55,13,@Hint)
+}
+Add(Button,2387605,189,756)
+{
+ @Hint=#6:Rename|
+ Left=230
+ Top=380
+ Width=115
+ Font=[MS Sans Serif,8,1,0,1]
+ Enabled=1
+ TabOrder=-1
+ Hint="Переименовать файл или папку на FTP-сервере"
+ Caption="Переименовать"
+ Point(doEnabled)
+ link(onClick,14437100:doWork1,[])
+ AddHint(-78,-23,55,13,@Hint)
+}
+Add(ChanelToIndex,429693,105,756)
+{
+ link(onIndex,7578558:doEvent1,[])
+}
+Add(If_else,11082951,42,756)
+{
+ Op2=String(..)
+ PColor(Op1,21930)
+ link(onTrue,8269125:doWork2,[])
+ link(onFalse,429693:doWork2,[])
+ link(Op1,13088714:Var2,[])
+}
+Add(GetDataEx,16374061,91,343)
+{
+ Angle=1
+ PColor(Data,21930)
+ link(Data,14852317:Var1,[])
+}
+Add(GetDataEx,13088714,42,728)
+{
+ PColor(Data,21930)
+ link(Data,16374061:Var1,[(48,348)])
+}
+Add(HubEx,11329613,483,658)
+{
+ Angle=3
+ link(onEvent,6035391:doWork3,[])
+}
+Add(ChildForm,14437100,238,756)
+{
+ PColor(Data1,21930)
+ link(onEvent1,11905965:doRename,[])
+ link(Data1,701403:Var2,[])
+}
+BEGIN_SDK
+  Add(EditMulti,4763951,21,21)
+  {
+   EventCount=1
+   WorkCount=1
+   DataCount=1
+   VarCount=1
+   Width=475
+   Height=214
+   link(doWork1,14542160:doEvent1,[(53,27)(53,76)])
+   link(Var1,4324992:Var1,[(27,145)])
+  }
+  Add(MainForm,8506574,238,91)
+  {
+   Left=35
+   Top=105
+   Width=245
+   Height=85
+   Visible=1
+   Caption="Новое имя файла"
+   BorderStyle=5
+   Position=1
+   Point(doShowModal)
+  }
+  Add(Edit,12817816,126,63)
+  {
+   Left=5
+   Top=5
+   Width=219
+   Font=[MS Sans Serif,8,1,0,1]
+   Text=""
+   Point(doSelectAll)
+   link(Str,4763951:Data1,[(132,47)(27,47)])
+  }
+  Add(Button,15761240,154,161)
+  {
+   Left=40
+   Top=30
+   Width=75
+   Font=[MS Sans Serif,8,1,0,1]
+   TabOrder=-1
+   Caption="Применить"
+   link(onClick,12623727:doStrCat,[])
+  }
+  Add(Button,4122124,154,112)
+  {
+   Left=115
+   Top=30
+   Width=75
+   Font=[MS Sans Serif,8,1,0,1]
+   TabOrder=-1
+   Caption="Отмена"
+   link(onClick,4281462:doWork2,[])
+  }
+  Add(Hub,14542160,63,70)
+  {
+   OutCount=3
+   link(onEvent1,12817816:doText2,[])
+   link(onEvent2,12817816:doSelectAll,[])
+   link(onEvent3,8506574:doShowModal,[(116,90)(116,104)(214,104)(214,125)])
+  }
+  Add(HubEx,4281462,203,112)
+  {
+   link(onEvent,8506574:doClose,[])
+  }
+  Add(StrCat,12623727,245,161)
+  {
+   Str1="*"
+   link(onStrCat,12817815:doSearch,[])
+   link(Str2,12176403:Var2,[])
+  }
+  Add(FTPC_FileSearch,12817815,294,161)
+  {
+   @Hint=#8:FindFile|
+   @Color=11788021
+   Mask=""
+   FTP_Client="parent.ftpc_001"
+   Point(IsDirectory)
+   Point(onNotFound)
+   link(onSearch,16082827:doString,[])
+   link(onNotFound,6645947:doEvent1,[(347,181)(347,209)])
+   AddHint(-70,42,51,13,@Hint)
+  }
+  Add(GetDataEx,4324992,126,140)
+  {
+   link(Data,12817816:Text,[])
+  }
+  Add(Message,8560065,413,161)
+  {
+   Caption="FTP-Commander"
+   Icon=1
+   Point(onOK)
+  }
+  Add(FormatStr,16082827,357,161)
+  {
+   DataCount=1
+   Mask="Файл или папка %1 уже существует.\r\nПрисвойте другое имя"
+   link(onFString,8560065:doMessage,[])
+   link(Str1,12176403:Var3,[(363,145)])
+  }
+  Add(GetDataEx,12176403,252,140)
+  {
+   Angle=3
+   link(Data,4324992:Var3,[])
+  }
+  Add(Hub,6645947,434,203)
+  {
+   link(onEvent1,4281462:doWork3,[(459,209)(459,139)(207,139)])
+   link(onEvent2,4763951:onEvent1,[(466,216)(466,27)])
+  }
+END_SDK
+Add(Button,13299925,189,819)
+{
+ @Hint=#6:Delete|
+ Left=155
+ Top=380
+ Width=75
+ Font=[MS Sans Serif,8,1,0,1]
+ Enabled=1
+ TabOrder=-1
+ Hint="Удалить файл или папку с FTP-сервера"
+ Caption="Удалить"
+ Point(doEnabled)
+ link(onClick,6851312:doWork,[])
+ AddHint(-76,-25,46,13,@Hint)
+}
+Add(Message,14853001,441,819)
+{
+ Caption="FTP-Commander"
+ Type=2
+ Icon=3
+ Point(onYES)
+ Point(onNO)
+ link(onYES,13300060:doDeleteFile,[])
+}
+Add(FormatStr,9304882,385,819)
+{
+ DataCount=1
+ Mask="Удалить файл %1?"
+ PColor(Str1,21930)
+ link(onFString,14853001:doMessage,[])
+ link(Str1,1390002:Var2,[])
+}
+Add(FTPC_DeleteFile,13300060,504,826)
+{
+ @Hint=#10:DeleteFile|
+ @Color=11788021
+ FTP_Client="ftpc_001"
+ PColor(RemoteName,21930)
+ link(onDeleteFile,5874001:doEvent2,[(543,832)(543,769)])
+ link(RemoteName,7457469:Var2,[])
+ AddHint(-87,-44,62,13,@Hint)
+}
+Add(Hub,7578558,154,756)
+{
+ link(onEvent1,2387605:doEnabled,[])
+ link(onEvent2,13299925:doEnabled,[(179,769)(179,825)])
+}
+Add(Message,13926996,413,861)
+{
+ Caption="FTP-Commander"
+ Type=2
+ Icon=3
+ Point(onYES)
+ Point(onNO)
+ link(onYES,16040508:doDirAction,[])
+}
+Add(FormatStr,16216164,357,861)
+{
+ DataCount=1
+ Mask="Удалить папку %1?"
+ PColor(Str1,21930)
+ link(onFString,13926996:doMessage,[])
+ link(Str1,10514743:Var2,[])
+}
+Add(FTPC_DirAction,16040508,483,868)
+{
+ @Color=11788021
+ Action=3
+ Directory=""
+ FTP_Client="ftpc_001"
+ PColor(Directory,21930)
+ link(onDirAction,5874001:doEvent3,[(550,874)(550,776)])
+ link(Directory,11815160:Var2,[])
+ AddHint(-87,47,68,13,Action)
+}
+Add(Button,2344856,189,903)
+{
+ @Hint=#12:CreateFolder|
+ Left=345
+ Top=380
+ Width=105
+ Font=[MS Sans Serif,8,1,0,1]
+ Enabled=1
+ TabOrder=-1
+ Hint="Создать папку на FTP-сервере"
+ Caption="Создать папку"
+ Point(doEnabled)
+ link(onClick,13216880:doWork1,[])
+ AddHint(-110,-27,75,13,@Hint)
+}
+Add(ChildForm,13216880,238,903)
+{
+ PColor(Data1,21930)
+ link(onEvent1,8330231:doDirAction,[])
+ link(Data1,1783365:Var1,[(244,803)])
+}
+BEGIN_SDK
+  Add(EditMulti,4916074,21,21)
+  {
+   EventCount=1
+   WorkCount=1
+   DataCount=1
+   Width=580
+   Height=228
+   link(doWork1,11445644:doEvent1,[(53,27)(53,76)])
+  }
+  Add(MainForm,5251767,287,91)
+  {
+   Left=35
+   Top=105
+   Width=245
+   Height=85
+   Visible=1
+   Caption="Создать папку"
+   BorderStyle=5
+   Position=1
+   Point(doShowModal)
+  }
+  Add(Edit,2010701,175,63)
+  {
+   Left=5
+   Top=5
+   Width=219
+   Font=[MS Sans Serif,8,1,0,1]
+   Text=""
+   Point(doSelectAll)
+  }
+  Add(Button,9855901,203,161)
+  {
+   Left=40
+   Top=30
+   Width=75
+   Font=[MS Sans Serif,8,1,0,1]
+   TabOrder=-1
+   Caption="Применить"
+   link(onClick,14717892:doStrCat,[])
+  }
+  Add(Button,14116644,203,112)
+  {
+   Left=115
+   Top=30
+   Width=75
+   Font=[MS Sans Serif,8,1,0,1]
+   TabOrder=-1
+   Caption="Отмена"
+   link(onClick,15912292:doWork2,[])
+  }
+  Add(Hub,11445644,63,70)
+  {
+   OutCount=3
+   link(onEvent1,2261685:doPart,[])
+   link(onEvent2,2010701:doSelectAll,[])
+   link(onEvent3,5251767:doShowModal,[(116,90)(116,153)(263,153)(263,125)])
+  }
+  Add(HubEx,15912292,252,112)
+  {
+   link(onEvent,5251767:doClose,[])
+  }
+  Add(StrCat,14717892,294,161)
+  {
+   Str1="*"
+   link(onStrCat,3211092:doSearch,[])
+   link(Str2,1846725:Var2,[])
+  }
+  Add(FTPC_FileSearch,3211092,343,161)
+  {
+   @Color=11788021
+   Mask=""
+   FTP_Client="parent.ftpc_001"
+   Point(IsDirectory)
+   Point(onNotFound)
+   link(onSearch,12429354:doString,[])
+   link(onNotFound,3683856:doEvent1,[(396,181)(396,209)])
+  }
+  Add(Message,4562415,462,161)
+  {
+   Caption="FTP-Commander"
+   Icon=1
+   Point(onOK)
+  }
+  Add(FormatStr,12429354,406,161)
+  {
+   DataCount=1
+   Mask="Папка %1 уже существует.\r\nПрисвойте другое имя"
+   link(onFString,4562415:doMessage,[])
+   link(Str1,5076355:Var2,[])
+  }
+  Add(GetDataEx,1846725,301,140)
+  {
+   Angle=3
+   link(Data,2010701:Text,[(181,145)])
+  }
+  Add(Hub,3683856,483,203)
+  {
+   link(onEvent1,15912292:doWork3,[(508,209)(508,139)(256,139)])
+   link(onEvent2,7237997:doData,[])
+  }
+  Add(DoData,7237997,532,210)
+  {
+   link(onEventData,4916074:onEvent1,[(578,216)(578,27)])
+   link(Data,5076355:Var3,[(538,145)])
+  }
+  Add(GetDataEx,5076355,406,140)
+  {
+   Angle=3
+   link(Data,1846725:Var3,[])
+  }
+  Add(FilePartElm,2261685,126,70)
+  {
+   Mode=2
+   link(onPart,2010701:doText2,[])
+   link(FileName,4916074:Data1,[(132,61)(27,61)])
+  }
+END_SDK
+Add(FTPC_DirAction,8330231,287,903)
+{
+ @Color=11788021
+ Action=2
+ Directory=""
+ FTP_Client="ftpc_001"
+ link(onDirAction,5874001:doEvent4,[(557,909)(557,783)])
+ AddHint(-90,-27,59,13,Action)
+}
+Add(Label,4914280,189,28)
+{
+ Left=245
+ Top=12
+ Width=31
+ Height=17
+ Font=[MS Sans Serif,8,1,0,1]
+ Caption="Port:"
+ Alignment=1
+}
+Add(Label,16680667,196,35)
+{
+ Left=5
+ Top=12
+ Width=65
+ Height=17
+ Font=[MS Sans Serif,8,1,0,1]
+ Caption="Host:"
+ AutoSize=1
+ Alignment=1
+}
+Add(Label,128733,203,42)
+{
+ Left=5
+ Top=32
+ Width=65
+ Height=17
+ Font=[MS Sans Serif,8,1,0,1]
+ Caption="UserName:"
+ AutoSize=1
+ Alignment=1
+}
+Add(Label,9232828,210,49)
+{
+ Left=185
+ Top=32
+ Width=35
+ Height=17
+ Font=[MS Sans Serif,8,1,0,1]
+ Caption="Pass:"
+ AutoSize=1
+ Alignment=1
+}
+Add(MultiElementEx,2934204,364,308)
+{
+ @Hint=#8:IsFolder|
+ @IsLib=True
+ PColor(Name,21930)
+ link(IsDirectory,14160782:doWork2,[])
+ link(Name,16012346:Var2,[])
+ AddHint(-94,-33,52,13,@Hint)
+}
+BEGIN_SDK
+  Add(EditMultiEx,12148892,21,21)
+  {
+   WorkCount=#6:doWork|
+   EventCount=#6:IsFile|11:IsDirectory|
+   DataCount=#4:Name|
+   Width=146
+   Height=74
+   VOffset=21
+   HOffset=28
+   link(doWork,99341:doSeparateMT,[])
+  }
+  Add(IndexToChanel,2709856,105,42)
+  {
+   Point(Index)
+   link(onEvent1,12148892:IsFile,[])
+   link(onEvent2,12148892:IsDirectory,[])
+  }
+  Add(MT_MultiData,99341,49,42)
+  {
+   From=5
+   Count=1
+   Point(Data)
+   link(onData1,2709856:doEvent,[])
+   link(Data,12148892:Name,[])
+  }
+END_SDK
+Add(MultiElementEx,10518272,91,378)
+{
+ @Hint=#8:IsFolder|
+ elink(2934204)
+ PColor(Name,21930)
+ link(IsFile,3780925:doWork1,[(137,384)])
+ link(IsDirectory,15576329:doWork3,[(165,391)])
+ link(Name,16374061:Var2,[])
+ AddHint(69,34,52,13,@Hint)
+}
+Add(MultiElementEx,6851312,273,819)
+{
+ @Hint=#8:IsFolder|
+ elink(2934204)
+ PColor(Name,21930)
+ link(IsFile,9304882:doString,[])
+ link(IsDirectory,16216164:doString,[(347,832)(347,867)])
+ link(Name,1783365:Var2,[])
+ AddHint(-83,36,52,13,@Hint)
+}
+Add(HubEx,4834828,245,231)
+{
+ Angle=2
+ link(onEvent,11082951:doCompare,[(32,237)(32,762)])
+}
+Add(HubEx,1642387,238,252)
+{
+ Angle=2
+ link(onEvent,10472563:doWork1,[(74,258)])
+}
+Add(HubEx,15576329,161,245)
+{
+ Angle=2
+ link(onEvent,6305576:doWork1,[(67,251)])
+}
+Add(ChanelToIndex,4126076,91,903)
+{
+ link(onIndex,2344856:doEnabled,[])
+}
+Add(GetDataEx,16012346,364,284)
+{
+ Angle=3
+ PColor(Data,21930)
+ link(Data,8988805:Var1,[(342,289)])
+}
+Add(MST_FindText,11332579,672,749)
+{
+ MSTControl="ftbl"
+ Point(doEnsureVisible)
+}
+Add(Hub,5874001,581,756)
+{
+ InCount=4
+ link(onEvent1,11329613:doWork1,[(606,762)(606,664)])
+ link(onEvent2,7482466:doEvent2,[])
+}
+Add(Hub,7482466,630,756)
+{
+ InCount=2
+ link(onEvent1,11332579:doFindText,[(655,762)(655,755)])
+ link(onEvent2,11332579:doEnsureVisible,[])
+}
+Add(HubEx,6305576,63,483)
+{
+ Angle=1
+ link(onEvent,9725918:doWork1,[(67,503)])
+}
+Add(Hub,11612496,567,490)
+{
+ link(onEvent1,14127784:doEvent3,[])
+ link(onEvent2,3780925:doWork3,[(592,503)(592,433)])
+}
+Add(HubEx,3780925,133,427)
+{
+ Angle=1
+ link(onEvent,9725918:doWork2,[(137,510)])
+}
+Add(MST_DrawManager,15107170,707,147)
+{
+ Name="drawtbl"
+ SingleString=0
+ Gradient=0
+}
+Add(GetDataEx,7457469,504,798)
+{
+ PColor(Data,21930)
+ link(Data,1435856:Var3,[(510,733)])
+}
+Add(GetDataEx,11815160,483,798)
+{
+ Angle=1
+ PColor(Data,21930)
+ link(Data,7457469:Var1,[])
+}
+Add(GetDataEx,1390002,385,798)
+{
+ Angle=1
+ PColor(Data,21930)
+ link(Data,11815160:Var1,[])
+}
+Add(GetDataEx,10514743,357,798)
+{
+ Angle=1
+ PColor(Data,21930)
+ link(Data,1390002:Var1,[])
+}
+Add(GetDataEx,1783365,273,798)
+{
+ Angle=1
+ PColor(Data,21930)
+ link(Data,10514743:Var1,[])
+}
+Add(GetDataEx,1435856,287,728)
+{
+ Angle=3
+ PColor(Data,21930)
+ link(Data,701403:Var3,[])
+}
+Add(GetDataEx,701403,238,728)
+{
+ Angle=3
+ PColor(Data,21930)
+ link(Data,13088714:Var3,[])
+}
+Add(StrList,6100091,245,567)
+{
+}
+Add(Hub,2512415,154,560)
+{
+ OutCount=3
+ link(onEvent1,4856084:doWork2,[(228,566)(228,580)])
+ link(onEvent2,2071520:doExecute,[])
+ link(onEvent3,16685846:doWork1,[(179,580)])
+}
+Add(ArrayEnum,14374331,259,644)
+{
+ link(onItem,10782544:doEvent1,[(298,650)(298,608)])
+ link(onEndEnum,10195791:doEvent1,[])
+ link(Array,6100091:Array,[])
+}
+Add(HubEx,16087225,728,476)
+{
+ link(onEvent,15653931:doText,[])
+}
+Add(DoData,16494707,686,630)
+{
+ link(onEventData,16087225:doWork3,[(732,636)])
+ link(Data,15199872:Var1,[(692,600)(503,600)])
+}
+Add(GetDataEx,5341931,378,644)
+{
+ link(Data,6514190:Part,[])
+}
+Add(DropFile,15467792,112,623)
+{
+ Point(onStartDrop)
+ link(onDropFile,6856050:doWork3,[(221,629)])
+ link(onEndDrop,16685846:doWork2,[])
+ link(onStartDrop,4856084:doWork3,[(228,643)])
+}
+Add(DoData,1602882,497,672)
+{
+ link(onEventData,7482466:doEvent1,[(613,678)(613,762)])
+ link(Data,15199872:Var2,[])
+}
+Add(GetDataEx,15199872,497,644)
+{
+ Angle=3
+ link(Data,5341931:Var3,[])
+}
+Add(HubEx,4856084,224,574)
+{
+ link(onEvent,6100091:doClear,[])
+}
+Add(HubEx,6856050,217,567)
+{
+ link(onEvent,6100091:doAdd,[])
+}
+Add(HubEx,16685846,175,630)
+{
+ Angle=1
+ link(onEvent,14374331:doEnum,[(179,650)])
+}
+Add(HubEx,9156192,665,287)
+{
+ link(onEvent,12784236:doSetFocus,[])
+}
+Add(HubEx,8929609,665,483)
+{
+ Angle=3
+ link(onEvent,9156192:doWork3,[])
+}
+Add(VisualStrings,479461,805,441)
+{
+ Lines=#1:0|
+ Width=25
+}
+Add(HubEx,11954440,833,532)
+{
+ link(onEvent,11596973:doProcessMessages,[])
+}
+Add(WorkIconsManager,12118838,756,196)
+{
+ IconsManager="icons"
+ Point(doMT_InsertIcon)
+ Point(EndIdxIcons)
+}
+Add(HubEx,8269125,84,756)
+{
+ link(onEvent,429693:doWork1,[])
+}
+Add(Case,7633537,259,315)
+{
+ Value=Integer(13)
+ link(onTrue,4997403:doWork3,[(312,328)])
+}
+Add(HubEx,4997403,308,308)
+{
+ link(onEvent,2934204:doWork,[])
+}

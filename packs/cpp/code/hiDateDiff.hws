@@ -1,0 +1,47 @@
+func Calc()
+  return('(' && d('DateTime2') && ' - ' && d('DateTime1') && ')')
+end
+
+func doCalc(_data)
+  println('{')
+  block.inclvl()
+  println('const double hiasm_ddays', _id_, ' = static_cast<double>(', Calc(), ');')
+  println('const double hiasm_dhours', _id_, ' = hiasm_ddays', _id_, ' * 24.0;')
+  println('const double hiasm_dminuts', _id_, ' = hiasm_ddays', _id_, ' * 1440.0;')
+  println('const double hiasm_dseconds', _id_, ' = hiasm_ddays', _id_, ' * 86400.0;')
+  event(onCalc, 'static_cast<int>(hiasm_dseconds' && _id_ && ')')
+  block.declvl()
+  println('}')
+end
+
+func Days()
+  if(linked('doCalc'))
+    return('static_cast<int>(hiasm_ddays' && _id_ && ')')
+  else
+    return('0')
+  end
+end
+
+func Hours()
+  if(linked('doCalc'))
+    return('static_cast<int>(hiasm_dhours' && _id_ && ')')
+  else
+    return('0')
+  end
+end
+
+func Minuts()
+  if(linked('doCalc'))
+    return('static_cast<int>(hiasm_dminuts' && _id_ && ')')
+  else
+    return('0')
+  end
+end
+
+func Seconds()
+  if(linked('doCalc'))
+    return('static_cast<int>(hiasm_dseconds' && _id_ && ')')
+  else
+    return('0')
+  end
+end

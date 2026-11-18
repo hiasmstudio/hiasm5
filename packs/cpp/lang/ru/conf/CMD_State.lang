@@ -1,0 +1,7 @@
+Command status management=Управление статусом команды
+Command center name=Имя центра комманд
+Command name=Имя команды
+Determines command availability=Определяет доступность команды
+Defines the state of the command=Определяет состояние команды
+Sets a new command status=Устанавливает новый статус команды
+The event occurs every time the command status is set=Событие происходит всякий раз после установки статуса команды

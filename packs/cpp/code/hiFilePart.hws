@@ -1,0 +1,37 @@
+func Source(value)
+  if(linked('FileName'))
+    return(d('FileName'))
+  end
+  if(len(value) > 0)
+    return(value)
+  end
+  return('""')
+end
+
+func doPart(_data)
+  println('{')
+  block.inclvl()
+  println('const std::string hiasm_file', _id_, ' = std::string(', Source(_data), ');')
+  println('const std::size_t hiasm_slash1', _id_, ' = hiasm_file', _id_, '.find_last_of(static_cast<char>(47));')
+  println('const std::size_t hiasm_slash2', _id_, ' = hiasm_file', _id_, '.find_last_of(static_cast<char>(92));')
+  println('const std::size_t hiasm_slash', _id_, ' = hiasm_slash2', _id_, ' == std::string::npos ? hiasm_slash1', _id_, ' : hiasm_slash2', _id_, ';')
+  println('const std::string hiasm_path', _id_, ' = hiasm_slash', _id_, ' == std::string::npos ? std::string() : hiasm_file', _id_, '.substr(0, hiasm_slash', _id_, ');')
+  println('const std::string hiasm_name', _id_, ' = hiasm_slash', _id_, ' == std::string::npos ? hiasm_file', _id_, ' : hiasm_file', _id_, '.substr(hiasm_slash', _id_, ' + 1);')
+  println('const std::size_t hiasm_dot', _id_, ' = hiasm_name', _id_, '.find_last_of(static_cast<char>(46));')
+  println('const std::string hiasm_base', _id_, ' = hiasm_dot', _id_, ' == std::string::npos ? hiasm_name', _id_, ' : hiasm_name', _id_, '.substr(0, hiasm_dot', _id_, ');')
+  println('const std::string hiasm_ext', _id_, ' = hiasm_dot', _id_, ' == std::string::npos ? std::string() : hiasm_name', _id_, '.substr(hiasm_dot', _id_, ');')
+  event(onPath, 'hiasm_path' && _id_)
+  if(get('NameWOExt') == 1)
+    event(onName, 'hiasm_name' && _id_)
+  else
+    event(onName, 'hiasm_base' && _id_)
+  end
+  if(get('ExtPoint') == 0)
+    println('const std::string hiasm_extwo', _id_, ' = hiasm_ext', _id_, '.empty() ? hiasm_ext', _id_, ' : hiasm_ext', _id_, '.substr(1);')
+    event(onExt, 'hiasm_extwo' && _id_)
+  else
+    event(onExt, 'hiasm_ext' && _id_)
+  end
+  block.declvl()
+  println('}')
+end

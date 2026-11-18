@@ -1,0 +1,26 @@
+func doMD5(_data)
+  if(linked(Result))
+    println(_md5_, ' = md5(', Value, ');')
+    event(onMD5,_md5_)
+  else
+    event(onMD5,'md5(' && Value && ')')
+  end
+end
+
+func doMD5File(_data)
+  if(linked(Result))
+    println(_md5_, ' = md5_file(', Value, ');')
+    event(onMD5,_md5_)
+  else
+    event(onMD5,'md5_file(' && Value && ')')
+  end
+end
+
+func Result()
+  if(linked(doMD5) or linked(doMD5File))
+    return(_md5_)
+  else
+    return('md5(' && Value && ')')
+  end
+end
+

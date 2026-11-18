@@ -1,0 +1,12 @@
+Working with type values as an array=Работа со значениями типа как с массивом
+Element access type: True - by variable name, False - by index=Тип доступа к элементу: True - по имени переменной, False - по индексу
+Loads a type into the component's memory=Загружает тип в память компонента
+Clears the internal memory of a component=Очищает внутреннюю память компонента
+Clears the value of variables in a type=Очищает значение переменных в типе
+Defines the type=Определяет тип
+The event occurs after the type is loaded into memory=Событие происходит после загрузки типа в память
+The event occurs when an error occurs and outputs its code to the streamARG(err_code,info)=Событие происходит при возникновении ошибки и выдает ее код в потокARG(err_code,info)
+Accessing a Type as an Array=Доступ к типу как к массиву
+Contains the number of variables in the type=Содержит количество переменных в типе
+Contains an array of type variable names=Содержит массив имен переменных типа
+Contains the type name=Содержит имя типа

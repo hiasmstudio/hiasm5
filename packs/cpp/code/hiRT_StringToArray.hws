@@ -1,0 +1,11 @@
+func doLoad(_data)
+  event(onLoad, '[](const std::string &value) { std::vector<std::string> result; for(char c : value) result.emplace_back(1, c); return result; }(' && Data && ')')
+end
+
+func Array()
+  return('[](const std::string &value) { std::vector<std::string> result; for(char c : value) result.emplace_back(1, c); return result; }(' && Data && ')')
+end
+
+func Str()
+  return(Data)
+end

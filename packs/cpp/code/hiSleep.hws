@@ -1,0 +1,17 @@
+func Value(value)
+  if(len(value) > 0)
+    return(value)
+  else
+    return(get('Delay'))
+  end
+end
+
+func doSleep(_data)
+  println('std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<int>(', Value(_data), ')));')
+  event(onSleep)
+end
+
+func doSleepMks(_data)
+  println('std::this_thread::sleep_for(std::chrono::microseconds(static_cast<int>(', Value(_data), ')));')
+  event(onSleep)
+end

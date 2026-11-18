@@ -1,0 +1,10 @@
+Drag text=Перетаскивание текста
+Use default cursor when dragging=Использовать при перетаскивании курсор по-умолчанию
+Allowed Drag Modes=Разрешенные режимы перетаскивания
+Allow copy mode=Разрешить режим копирования
+Allow Move Mode=Разрешить режим перемещения
+Allow link creation mode=Разрешить режим создания ссылки
+Occurs after the drag has completed and contains the result of the operation in the stream.=Происходит после завершения перетаскивания и содержит в потоке результат операции
+Occurs after a reset and contains the final operation type in the stream=Происходит после сброса и содержит в потоке конечный тип операции
+Occurs continuously when dragging and contains the current operation type in the stream=Происходит постоянно при перетаскивании и содержит в потоке текущий тип операции
+Text to drag=Текст для перетаскивания

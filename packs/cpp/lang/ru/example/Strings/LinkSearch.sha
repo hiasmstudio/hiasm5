@@ -1,0 +1,100 @@
+************************************************************************************************#13#10** Использование компонента BlockFind для поиска ссылок на странице**#13#10** Бросте файл с расширением html на форму и нажмите кнопку Search   **#13#10***********************************************************************************************
+Pos(0,0)
+Add(InfoTip,84090,168,195)
+{
+ Info="Ядро программы"
+ Font=[Times New Roman,9,0,0]
+ VAlign=2
+ Width=127
+ Height=67
+}
+Add(Hub,89538,142,77)
+{
+ link(onEvent1,86104:doClear,[])
+ link(onEvent2,37223:doSearch,[(195,90)(195,211)])
+}
+Add(DropFile,27292,87,156)
+{
+ link(onDropFile,77748:doEvent1,[])
+}
+Add(StrList,42567,217,135)
+{
+}
+Add(ListBox,86104,217,70)
+{
+ Top=30
+ Width=390
+ Height=143
+ Align=5
+ Font=[Arial,8,0,0]
+ AddType=1
+}
+Add(InfoTip,22680,315,42)
+{
+ Info="Небольшая демонстрация возможностей компонента BlockFind(поиск блоков). Как Вы сможете убедиться он очень удобен и прост при удаление или замене одинаковых частей в тексте - блоков."
+ Font=[Times New Roman,10,0,0]
+ Width=232
+ Height=102
+}
+Add(Hub,77748,142,156)
+{
+ link(onEvent1,16179:doWork1,[(184,162)(184,133)(85,133)(85,83)])
+ link(onEvent2,42567:doLoad,[])
+}
+Add(ChildPanel,16179,95,77)
+{
+ link(onEvent1,89538:doEvent1,[])
+}
+BEGIN_SDK
+Pos(0,0)
+  Add(EditMulti,67165,3,3)
+  {
+   EventCount=1
+   WorkCount=1
+   Width=110
+   Height=115
+   link(doWork1,70656:doText,[])
+  }
+  Add(Panel,31869,30,70)
+  {
+   Width=390
+   Height=30
+   Align=2
+   Font=[Arial,8,0,0]
+   Caption=""
+  }
+  Add(Button,47479,60,15)
+  {
+   Left=5
+   Top=5
+   Width=75
+   Font=[Arial,8,0,0]
+   Caption="Search"
+   link(onClick,67165:onEvent1,[])
+  }
+  Add(Label,70656,15,15)
+  {
+   Left=90
+   Top=10
+   Width=65
+   Font=[Arial,8,0,0]
+   Caption=""
+  }
+END_SDK
+Add(BlockFind,37223,217,205)
+{
+ IncludeBlock=1
+ StartBlock="href=""
+ EndBlock="""
+ link(onSearch,86104:doAdd,[(261,211)(261,63)(207,63)(207,76)])
+ link(Text,42567:Text,[])
+}
+Add(MainForm,3137,28,237)
+{
+ Left=312
+ Top=286
+ Width=398
+ Height=198
+ Caption="Поиск всех ссылок на странице."
+ TaskBar=1
+}

@@ -1,0 +1,6 @@
+Component for creating a quick type needed at a given moment=Компонент для создания быстрого типа, нужного в даный момент
+Defining the variables included in a type=Определение переменных, входящих в тип
+Type name=Имя типа
+Determines whether the type being created will be a storage type. (Details in help)=Определяет, будет ли создаваемый тип типом-хранилищем. (Подробности в справке)
+Completely clears the type, removing all variables ARG(Vars)=Полностью очищает тип с удалением всех переменных ARG(Vars)
+Creates a type from variables and outputs it to the stream=Создает тип по переменным и выдает его в поток

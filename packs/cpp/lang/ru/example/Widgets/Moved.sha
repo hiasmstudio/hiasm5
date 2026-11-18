@@ -1,0 +1,125 @@
+*"ѕрилипание" дочерней формы к главной
+Make(cpp)
+Add(MainForm,47299,56,56)
+{
+ Left=21
+ Top=105
+ Font=[Arial,8,0,0,1]
+ Point(onMove)
+ Point(Handle)
+ link(onMove,19792:doOperation,[(97,83)(97,195)])
+}
+Add(Memory,32085,287,189)
+{
+ link(onData,51485:doData,[])
+}
+Add(Math,94203,168,189)
+{
+ OpType=1
+ ResultType=0
+ link(onResult,21031:doData,[])
+ link(Op1,52212:CurrentTop,[(174,174)(125,174)])
+ link(Op2,271:Value,[(181,179)(329,179)(329,231)(405,231)])
+}
+Add(Memory,271,399,189)
+{
+ link(onData,91338:doWork1,[(441,195)(441,309)(90,309)(90,272)])
+}
+Add(PosWindow,46150,231,126)
+{
+ link(Handle,9084688:Var3,[(237,100)])
+}
+Add(DoData,51485,343,189)
+{
+ link(onEventData,271:doValue,[])
+ link(Data,46150:CurrentTop,[(349,172)(244,172)])
+}
+Add(DoData,21031,231,189)
+{
+ link(onEventData,32085:doValue,[])
+ link(Data,46150:CurrentLeft,[])
+}
+Add(PosWindow,52212,112,126)
+{
+ link(Handle,9084688:Var2,[])
+}
+Add(Math,19792,112,189)
+{
+ OpType=1
+ ResultType=0
+ link(onResult,94203:doOperation,[])
+ link(Op1,52212:CurrentLeft,[])
+ link(Op2,32085:Value,[(125,179)(158,179)(158,231)(293,231)])
+}
+Add(ChildForm,91338,112,266)
+{
+ link(Data1,19792:Result,[])
+ link(Data2,94203:Result,[(125,244)(174,244)])
+}
+BEGIN_SDK
+ver(4.0 build 172)
+  Add(EditMulti,67662,3,3)
+  {
+   WorkCount=1
+   DataCount=2
+   Width=209
+   Height=221
+   link(doWork1,64064:doEvent1,[(12,9)(12,111)])
+  }
+  Add(MainForm,5636,147,14)
+  {
+   Left=30
+   Top=100
+   Font=[Arial,8,0,0,1]
+   Point(Handle)
+  }
+  Add(Hub,64064,21,105)
+  {
+   link(onEvent1,19792:doOperation,[])
+   link(onEvent2,94203:doOperation,[(68,118)(68,174)])
+  }
+  Add(PosWindow,1959,147,105)
+  {
+   link(Handle,5636:Handle,[])
+  }
+  Add(Math,19792,84,105)
+  {
+   ResultType=0
+   link(onResult,1959:doLeft,[])
+   link(Op1,67662:Data1,[(90,54)(9,54)])
+   link(Op2,1959:CurrentLeft,[(97,95)(125,95)(125,149)(153,149)])
+  }
+  Add(Math,94203,77,168)
+  {
+   ResultType=0
+   link(onResult,1959:doTop,[(128,174)(128,118)])
+   link(Op1,67662:Data2,[(83,39)(16,39)])
+   link(Op2,1959:CurrentTop,[(90,153)(160,153)])
+  }
+END_SDK
+Add(Label,16414084,175,14)
+{
+ Left=84
+ Top=14
+ Width=245
+ Height=14
+ Font=[Arial,8,0,0,1]
+ Caption="√лавна€ форма"
+ AutoSize=1
+ Alignment=2
+}
+Add(InfoTip,14933400,273,21)
+{
+ Info=#201:ƒанный пример показывает, как можно осуществить "прилипание" дорерних форм к главной, т.е. когда вы двигаете основную форму, то двигаетс€ и дочерн€€. ≈сли же перемещать дочернюю то ничего не происходит|
+ Font=[Arial,8,0,0,1]
+ Frame=1
+ Transparent=1
+ HAlign=0
+ Width=183
+ Height=109
+}
+Add(GetDataEx,9084688,105,91)
+{
+ Angle=3
+ link(Data,47299:Handle,[(62,100)])
+}

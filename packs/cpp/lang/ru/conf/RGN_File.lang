@@ -1,0 +1,8 @@
+Saving and loading a region=Сохранение и загрузка региона
+File name to load/save region=Имя файла для загрузки/сохранения региона
+Loads region data from file ARG(FileName)=Загружает данные региона из файла ARG(FileName)
+Saves region data to file ARG(FileName,Region)=Сохраняет данные региона в файле ARG(FileName,Region)
+The event occurs after loading region data from the file ARG(Region)=Событие происходит после загрузки данных о регионе из файла ARG(Region)
+The event occurs after the region data is saved to a file=Событие происходит после сохранения данных о регионе в файле
+Region=Регион
+Contains the region after loading doLoad=Содержит регион после загрузки doLoad

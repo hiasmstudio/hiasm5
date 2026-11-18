@@ -1,0 +1,6 @@
+Copying data from one stream to another=Копирование данных из одного потока в другой
+Number of bytes to copy=Число байт, для которых нужно произвести копирование
+Copies bytes from the Source data array to the Dest data array=Копирует из массива данных Source в массив данных Dest Count байт
+The event occurs every time data is copied and returns the number of bytes actually copied=Событие происходит всякий раз после копирования данных и возвращает количество реально скопированных байт
+ID of the stream to which the data is copied=Идентификатор потока, в который копируются данные
+ID of the stream from which data is copied=Идентификатор потока, из которого копируются данные

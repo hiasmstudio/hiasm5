@@ -1,0 +1,6 @@
+Taking screenshots from windows and screens=Снятие скриншотов с окон и с экрана
+Take a screenshot by region area=Снимать скриншот по области региона
+Takes a screenshot=Снимает скриншот
+The event occurs after taking a screenshot and returns the resulting image to the stream ARG(Bitmap)=Событие происходит после снятия скриншота и возвращает в поток полученную картинку ARG(Bitmap)
+Window ID (if 0 or not specified, the screenshot is taken from the entire screen)=Идентификатор окна (если 0 или не задано, то скриншот снимается со всего экрана)
+Defines the region for taking a screenshot=Определяет регион для снятия скриншота

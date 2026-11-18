@@ -1,0 +1,73 @@
+Make(cpp)
+Pos(0,0)
+Add(MainForm,11894,21,105)
+{
+ Left=312
+ Top=234
+ Width=325
+ Height=138
+ Align=0
+ Color=-16777201
+ AlphaBlendValue=255
+ Caption=Form
+ BorderStyle=2
+ WindowsState=0
+ Icon=[]
+ ShowType=0
+ TaskBar=0
+ DragForm=1
+ Visible=0
+}
+Add(Timer,83526,119,84)
+{
+ Interval=10
+ Enable=0
+ AutoStop=0
+ link(onTimer,91363:doReadKey,[])
+}
+Add(Keyboard,91363,175,84)
+{
+ Key=32
+ link(onReadKey,78797:doData,[])
+}
+Add(ChangeMon,78797,238,84)
+{
+ Data=Integer(0)
+ link(onData,1790:doEvent,[])
+}
+Add(IndexToChanel,1790,301,84)
+{
+ Count=2
+ Data=Null()
+ link(onEvent1,75739:doData,[(348,90)(348,69)])
+ link(onEvent2,53202:doData,[(348,97)(348,111)])
+}
+Add(Hub,60268,427,84)
+{
+ InCount=2
+ OutCount=1
+ link(onEvent1,98540:doText,[])
+}
+Add(DoData,53202,364,105)
+{
+ Data=String(Space - Down)
+ link(onEventData,60268:doEvent2,[(411,111)(411,97)])
+}
+Add(DoData,75739,364,63)
+{
+ Data=String(Space - Up)
+ link(onEventData,60268:doEvent1,[(411,69)(411,90)])
+}
+Add(Label,98540,483,84)
+{
+ Left=105
+ Top=45
+ Width=120
+ Height=15
+ Align=0
+ Color=-16777201
+ Font=[Arial,8,0,0]
+ Caption=Label
+ AutoSize=0
+ Alignment=0
+}

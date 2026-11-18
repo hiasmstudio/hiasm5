@@ -1,0 +1,68 @@
+func isTplAnd(pid)
+  fvar(id, res)
+  
+  res = 0
+  id = cgt.pt_get_parent(cgt.pt_get_link_point(pid))
+  if(cgt.el_get_class_name(id) = "If_else")
+    if(cgt.pt_get_rlink_point(cgt.get_point_id(onFalse)) = cgt.pt_get_rlink_point(cgt.el_get_point_name(id, "onFalse")))
+      res = 1
+    end
+  end
+  return(res)
+end
+
+func doCompare(data):java
+  fvar(id, op, od, pid, ok)
+  
+  op = Op1
+  if(isdef(Type) and isnset(Op2) and isdef(Op2))
+    od = op
+  else
+    od = op && ' ' && Type && ' ' && Op2
+  end
+  
+  if(linked(onTrue))     
+    if(isTplAnd(cgt.get_point_id(onTrue)))
+      if(isTplAnd(cgt.pt_arr_work(0)))
+        print('(', od, ') && ')
+      else
+        print('if((', od, ') && ')
+      end
+      event(onTrue, isndef(OutData) ? "" : _data_)
+      ok = 1
+    end
+  end
+
+  if(ok != 1)
+    if(isTplAnd(cgt.pt_arr_work(0)))
+      println('(', od, ')) {')
+      ok = 1
+    end
+    
+    if(ok != 1)
+      println('if(', od, ') {')
+    end
+
+    block.inclvl()
+    od = isndef(OutData) ? "" : _data_ 
+    event(onTrue, od)    
+    block.declvl()
+    println('}')
+    if(linked(onFalse))
+      id = cgt.pt_get_parent(cgt.pt_get_link_point(cgt.get_point_id(onFalse)))
+      if(cgt.el_get_class_name(id) = "If_else")
+        print('else ')
+        event(onFalse, od)
+      else
+        println('else {')
+        block.inclvl()
+        event(onFalse, od)
+        block.declvl()
+        println('}')
+      end 
+    end
+end
+
+func Result:java
+  return('(' && Op1 && ' ' && Type && ' ' && Op2 && ')')
+end

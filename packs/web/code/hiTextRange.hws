@@ -1,0 +1,15 @@
+section java
+
+func doCreate(_data)
+  println(range, ' = ', Object, '.createRange();')
+  event(onCreate, range && '.text')
+end
+
+func doText(_data)
+  println(range, '.text = ', Value, ';')
+end
+
+func Text()
+  return(range && '.text')
+end
+

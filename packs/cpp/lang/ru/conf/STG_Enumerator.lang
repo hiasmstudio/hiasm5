@@ -1,0 +1,11 @@
+Enumeration of elements=Перечисление элементов
+Structured Storage Management=Управление структуированным хранилищем
+True - after doStop the onBreak event is called, but onEndXXXX is not called=True - после doStop вызывается событие onBreak, а onEndXXXX - не вызывается
+Starts enumerating all storage items=Начинает перечисление всех элементов хранилища
+Begins enumerating the elements of the specified path without expanding nesting ARG(InPath)=Начинает перечисление элементов указанного пути без разворачивания вложенностей ARG(InPath)
+Stops iterating through storage items=Останавливает перебор элементов хранилища
+The event occurs every time the next element ARG(ParentID, ID, Type, Name, Size, FullPath) is found=Событие происходит всякий раз при нахождении очередного элемента ARG(ParentID, ID, Type, Name, Size, FullPath)
+The event occurs every time the next element of the specified path is found ARG(Type, Name, Size, ParentPath)=Событие происходит всякий раз при нахождении очередного элемента указанного пути ARG(Type, Name, Size, ParentPath)
+The event occurs every time after the end of enumeration of all storage elements=Событие происходит всякий раз по окончанию перебора всех элементов хранилища
+The event occurs every time after all elements of the specified path have been iterated=Событие происходит всякий раз по окончанию перебора всех элементов указанного пути
+Path to storage element=Путь к элементу хранилища

@@ -1,0 +1,17 @@
+func init()
+  if(isdef(Name))
+    var(conn)
+    conn = '$pg_conn'
+  else
+    lang(conn)
+  end
+end
+
+func doConnect(_data)
+  println(conn, ' = pg_connect(', ConnectString, ');')
+  event(onConnect)
+end
+
+func get_id()
+  return(conn)
+end

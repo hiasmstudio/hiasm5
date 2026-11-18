@@ -1,0 +1,7 @@
+Drawing a point=Рисование точки
+Defines the default color of a point (pixel)=Определяет цвет точки (пикселя) по-умолчанию
+Point size (thickness) from 1 or more=Размер точки (толщина) от 1 и более
+Accessing canvas pixels as a matrix=Доступ к пикселям канвы как к матрице
+Dot color=Цвет точки
+Point size=Размер точки
+Transformation=Трансформация

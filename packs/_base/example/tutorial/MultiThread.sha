@@ -1,0 +1,18 @@
+Make(cpp)
+Add(InfoTip,900,24,18)
+{
+ @Width=680
+ @Height=145
+ Info=#33:Поток из нескольких значений (MT)|0:|131:В HiAsm 4 MT означает пакет данных, а не потоки ОС. Здесь пакет содержит разные типы; добавление и извлечение идут последовательно.|
+ HAlign=0
+ Margin=12
+}
+Add(Entry,1,42,196)
+{
+ link(onStart,2:doExecute,[])
+}
+Add(Code,2,196,196)
+{
+ Code=#60:std::vector<std::string> bundle = {"first", hiasm_text(42)};|25:bundle.push_back("last");|62:for(const auto& item : bundle) std::cout << item << std::endl;|
+ Expression=input
+}

@@ -1,0 +1,6 @@
+Time counter=Счётчик времени
+Measurement accuracy and output unit=Точность измерения и единица вывода
+Remembers the current time value=Запоминает текущее значение времени
+Calculates the difference between the current and saved time=Вычисляет разницу между текущим и сохранённым временем
+The event occurs every time the current time is saved=Событие происходит всякий раз после сохранения текущего времени
+The event occurs every time after receiving a time difference and outputs it to the stream=Событие происходит всякий раз после получения разницы времени и выдаёт её в поток

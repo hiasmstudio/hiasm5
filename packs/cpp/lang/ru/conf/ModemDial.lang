@@ -1,0 +1,12 @@
+Modem control via RAS API=Управление модемом через RAS API
+Automatically close an open connection when the component ends (when exiting the program)=Автоматически закрывать открытое соединение при завершении работы компонента(при выходе из программы)
+Lists all Internet connections in Windows=Перечисляет все Internet соединения в Windows
+Calls the provider=Осуществляет дозвон к провайдеру
+Breaks the connection=Обрывает связь
+The event occurs every time the next connection is found and outputs the name of this connection to the stream=Событие происходит всякий раз при нахождении очередного соединения и выдает в поток имя этого соединения
+Status of dialing to the provider=Статус дозвона до провайдера
+Contains an array of parameters of the found connection=Содержит массив параметров найденного соединения
+The name of the connection being used (one of the names obtained by the doEnum method or an empty string)=Имя используемого подключения (одно из имен, полученных методом doEnum либо пустая строка)
+Username=Имя пользователя
+Password=Пароль
+Phone number=Номер телефона

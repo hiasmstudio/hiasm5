@@ -1,0 +1,6 @@
+Mail.ru agent messages=Сообщения Mail.ru agent
+Defines Mail.ru agent for authorization on the server=Определяет Mail.ru agent для авторизации на сервере
+Sends a message to the specified e-mail address ARG(Mail, Text)=Отсылает сообщение на указанный e-mail адрес ARG(Mail, Text)
+The event occurs every time a message is sent to the server and reports the delivery status to the ARG(Mail, Reason, MsgID) stream=Событие происходит всякий раз после отправки сообщения на сервер и выдает статус доставки в поток ARG(Mail, Reason, MsgID)
+Email address for sending messages=e-mail адрес для отправки сообщения
+Message text=Текст сообщения

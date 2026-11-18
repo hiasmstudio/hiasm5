@@ -1,0 +1,6 @@
+Renaming=Переименование
+Structured Storage Management=Управление структуированным хранилищем
+Renames an item in the ARG(InPath, NewName) store=Переименовывает элемент в хранилище ARG(InPath, NewName)
+The event occurs whenever an element in the store is successfully renamed=Событие происходит всякий раз после успешного переименования элемента в хранилище
+Path to storage element=Путь к элементу хранилища
+New storage item name, without specifying the entire path=Новое имя элемента хранилища, без указания всего пути

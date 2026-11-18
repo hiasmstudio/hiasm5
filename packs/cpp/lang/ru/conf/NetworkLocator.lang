@@ -1,0 +1,5 @@
+Network locator=Локатор сети
+Defines the domain name from which to obtain a list of workstations=Определяет имя домена, из которого необходимо получить список рабочих станций
+Starts searching for domains and workstations on the network=Начинает поиск доменов и рабочих станций в сети
+The event occurs every time after finding the next domain and outputs its name to the ARG(Name) stream=Событие происходит всякий раз после нахождения очередного домена и выдает его имя в поток ARG(Name)
+The event occurs every time after finding the next computer and outputs its name to the stream ARG(Name)=Событие происходит всякий раз после нахождения очередного компьютера и выдает его имя в поток ARG(Name)

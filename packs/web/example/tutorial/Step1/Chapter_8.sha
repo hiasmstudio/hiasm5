@@ -1,0 +1,154 @@
+*Chapter 8: Использование логических элементов
+Make(web)
+Add(InfoTip,9564197,7,322)
+{
+ Info=#6:Важно!|
+ Font=[MS Sans Serif,12,1,255,1]
+ Transparent=1
+ Width=365
+ Height=137
+}
+Add(HtmlEntryPoint,16563582,21,105)
+{
+ link(onStart,8284333:doPrint,[])
+}
+Add(HTM_Html,8284333,77,105)
+{
+ link(onPrint,6847978:doEvent,[])
+}
+Add(Hub,6847978,133,105)
+{
+ link(onEvent1,2288322:doPrint,[])
+ link(onEvent2,763948:doPrint,[(177,118)(177,209)])
+}
+Add(HTM_Head,2288322,189,105)
+{
+ link(onPrint,13151932:doEvent,[])
+}
+Add(HTM_Body,763948,189,203)
+{
+ link(onPrint,13714669:doPrint,[])
+}
+Add(HTM_Title,10304836,301,105)
+{
+ link(onPrint,3973328:doPrint,[])
+}
+Add(VisualText,3973328,357,105)
+{
+ Lines=#45:Chapter 8: Использование логических элементов|
+ Width=291
+ Point(doPrint)
+}
+Add(VisualText,13714669,245,203)
+{
+ Lines=#106:Этот пример демонстрирует способ формирования однотипных элементов HTML документа с использованием циклов.|
+ Width=403
+ Height=32
+ Point(doPrint)
+ Point(onPrint)
+ link(onPrint,2786676:doPrint,[(658,209)(658,250)(179,250)(179,272)])
+}
+Add(HTM_Table,2786676,189,266)
+{
+ CellSpacing="1"
+ CellPadding="1"
+ link(onPrint,11261773:doFor,[])
+}
+Add(CSS,208528,357,154)
+{
+ Tag="table"
+ BorderColor="gray"
+ BorderWidth="1px"
+ BorderStyle=3
+ BgColor="silver"
+ link(onPrint,6191608:doPrint,[])
+}
+Add(HTM_Tr,16623277,301,266)
+{
+ link(onPrint,7237345:doEvent,[])
+}
+Add(Hub,7237345,357,266)
+{
+ link(onEvent1,6478890:doPrint,[])
+ link(onEvent2,16051756:doPrint,[(401,279)(401,328)])
+}
+Add(HTM_Td,6478890,413,266)
+{
+ link(onPrint,8097816:doPrint,[])
+}
+Add(HTM_Td,16051756,413,322)
+{
+ link(onPrint,263051:doPrint,[])
+}
+Add(HTM_Style,8768063,301,154)
+{
+ link(onPrint,208528:doPrint,[])
+}
+Add(Hub,13151932,245,105)
+{
+ link(onEvent1,10304836:doPrint,[])
+ link(onEvent2,8768063:doPrint,[(289,118)(289,160)])
+}
+Add(InfoTip,5292217,14,343)
+{
+ Info=#447:  HTML язык это язык разметки и поэтому не содержит никаких переменных, условий, циклов и прочих конструкций, используемых обычно в каждой программе. Однако пакет WEB предоставляет пользователю возможность использовать эти механизмы с одним единственным ограничением: все подобные элементы работают исключительно на этапе кодогенерации приложения и в конечный документ не попадают, в чем вы можете убедиться сами, открыв Chapter_8.html в блокноте.|
+ Frame=1
+ HAlign=0
+ Width=351
+ Height=109
+}
+Add(VisualText,8097816,469,266)
+{
+ Lines=#8:Колонка |
+ Width=70
+ Point(doPrint)
+ Point(onPrint)
+ link(onPrint,5159590:doEcho,[])
+}
+Add(VisualText,10392915,616,266)
+{
+ Lines=#2:.1|
+ Width=35
+ Height=17
+ Point(doPrint)
+}
+Add(CSS,6191608,413,154)
+{
+ Tag="tr"
+ BgColor="#dddddd"
+}
+Add(For,11261773,245,266)
+{
+ End=10
+ link(onEvent,16623277:doPrint,[])
+}
+Add(Echo,5159590,560,266)
+{
+ link(onEcho,10392915:doPrint,[])
+ link(Message,13120381:Var1,[(566,255)(286,255)])
+}
+Add(VisualText,263051,469,322)
+{
+ Lines=#8:Колонка |
+ Width=70
+ Point(doPrint)
+ Point(onPrint)
+ link(onPrint,16692133:doEcho,[])
+}
+Add(VisualText,14370503,616,322)
+{
+ Lines=#2:.2|
+ Width=35
+ Height=17
+ Point(doPrint)
+}
+Add(Echo,16692133,560,322)
+{
+ link(onEcho,14370503:doPrint,[])
+ link(Message,13120381:Var3,[(566,310)])
+}
+Add(GetDataEx,13120381,273,301)
+{
+ Angle=3
+ link(Data,11261773:Position,[(251,310)])
+}

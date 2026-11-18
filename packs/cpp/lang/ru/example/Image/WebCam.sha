@@ -1,0 +1,244 @@
+Make(cpp)
+Add(Button,8536420,231,434)
+{
+ Left=395
+ Top=205
+ Width=105
+ Height=25
+ Font=[MS Sans Serif,8,1,0,1]
+ Enabled=1
+ TabOrder=-1
+ Caption="SaveDIB"
+ Point(doEnabled)
+ link(onClick,10066069:doSaveDIB,[(345,440)(345,202)])
+}
+Add(MainForm,2309237,105,133)
+{
+ Left=20
+ Top=105
+ Width=551
+ Height=423
+ Ctl3D=0
+ Caption="WebCam"
+ Position=1
+ Point(onShow)
+}
+Add(Hub,15819427,364,259)
+{
+ link(onEvent1,10066069:doEditCopy,[(412,265)(412,216)])
+ link(onEvent2,15085337:doLoad,[])
+}
+Add(Image,15085337,476,266)
+{
+ Left=360
+ Top=5
+ Width=176
+ Height=144
+ TabOrder=-1
+ Ctl3D=0
+ ViewStyle=1
+ link(Bitmap,13095079:Bitmap,[])
+}
+Add(Image,16220859,434,126)
+{
+ Left=5
+ Top=5
+ Width=352
+ Height=288
+ TabOrder=-1
+ Ctl3D=0
+ Point(Handle)
+}
+Add(Button,10475795,231,329)
+{
+ Left=175
+ Top=360
+ Width=135
+ Height=25
+ Font=[MS Sans Serif,8,1,0,1]
+ Enabled=1
+ TabOrder=-1
+ Caption="VideoCompression"
+ Point(doEnabled)
+ link(onClick,10066069:doVideoCompression,[(345,335)(345,230)])
+}
+Add(Button,3623346,230,91)
+{
+ Left=35
+ Top=310
+ Width=135
+ Height=25
+ Font=[MS Sans Serif,8,1,0,1]
+ TabOrder=-1
+ Caption="Connect WebCam"
+ link(onClick,9402563:doEvent1,[])
+}
+Add(Clipboard,13095079,469,217)
+{
+}
+Add(Button,10644975,231,399)
+{
+ Left=395
+ Top=270
+ Width=105
+ Height=25
+ Font=[MS Sans Serif,8,1,0,1]
+ Enabled=1
+ TabOrder=-1
+ Caption="StopSequence"
+ Point(doEnabled)
+ link(onClick,10066069:doStopSequence,[(345,405)(345,244)])
+}
+Add(Button,1232437,231,364)
+{
+ Left=395
+ Top=245
+ Width=105
+ Height=25
+ Font=[MS Sans Serif,8,1,0,1]
+ Enabled=1
+ TabOrder=-1
+ Caption="StartSequence"
+ Point(doEnabled)
+ link(onClick,10066069:doStartSequence,[(345,370)(345,237)])
+}
+Add(Button,4687446,231,294)
+{
+ Left=175
+ Top=335
+ Width=135
+ Height=25
+ Font=[MS Sans Serif,8,1,0,1]
+ Enabled=1
+ TabOrder=-1
+ Caption="VideoFormat"
+ Point(doEnabled)
+ link(onClick,10066069:doVideoFormat,[(345,300)(345,223)])
+}
+Add(Button,1594443,231,259)
+{
+ Left=395
+ Top=180
+ Width=105
+ Height=25
+ Font=[MS Sans Serif,8,1,0,1]
+ Enabled=1
+ TabOrder=-1
+ Caption="GrabFrame"
+ Point(doEnabled)
+ link(onClick,15819427:doEvent1,[])
+}
+Add(Button,10245292,231,224)
+{
+ Left=175
+ Top=310
+ Width=135
+ Height=25
+ Font=[MS Sans Serif,8,1,0,1]
+ Enabled=1
+ TabOrder=-1
+ Caption="VideoSource"
+ Point(doEnabled)
+ link(onClick,10066069:doVideoSource,[(345,230)(345,209)])
+}
+Add(WebCam,10066069,427,182)
+{
+ RefreshRate=67
+ FileDIB="WebCam.bmp"
+ FileVideo="WebCam.avi"
+ Point(doSaveDIB)
+ Point(doVideoSource)
+ Point(doEditCopy)
+ Point(doVideoFormat)
+ Point(doVideoCompression)
+ Point(doStartSequence)
+ Point(doStopSequence)
+ link(onConnect,2285686:doWork1,[(471,188)(471,139)(373,139)(373,90)])
+ link(onProgress,9976547:doWork2,[])
+ link(WinHandle,16220859:Handle,[])
+}
+Add(Button,10919198,230,189)
+{
+ Left=35
+ Top=335
+ Width=135
+ Height=25
+ Font=[MS Sans Serif,8,1,0,1]
+ TabOrder=-1
+ Caption="DisConnect WebCam"
+ link(onClick,696481:doEvent1,[])
+}
+Add(Hub,9209247,154,224)
+{
+ OutCount=7
+ link(onEvent1,10245292:doEnabled,[])
+ link(onEvent2,1594443:doEnabled,[(208,237)(208,265)])
+ link(onEvent3,4687446:doEnabled,[(208,244)(208,300)])
+ link(onEvent4,10475795:doEnabled,[(208,251)(208,335)])
+ link(onEvent5,1232437:doEnabled,[(208,258)(208,370)])
+ link(onEvent6,10644975:doEnabled,[(208,265)(208,405)])
+ link(onEvent7,8536420:doEnabled,[(208,272)(208,440)])
+}
+Add(Hub,9402563,280,91)
+{
+ OutCount=4
+ link(onEvent1,2285686:doWork2,[])
+ link(onEvent2,9976547:doWork1,[(508,104)])
+ link(onEvent3,10066069:doConnect,[(362,111)(362,188)])
+ link(onEvent4,1922480:doWork2,[(324,118)(324,178)(93,178)(93,237)])
+}
+Add(ChanelToIndex,1922480,105,224)
+{
+ link(onIndex,9209247:doEvent1,[])
+}
+Add(Application,5619086,546,189)
+{
+}
+Add(Hub,696481,280,189)
+{
+ link(onEvent1,10066069:doDisConnect,[])
+ link(onEvent2,1922480:doWork1,[(324,202)(324,216)(93,216)(93,230)])
+}
+Add(ChildFormEx,1190300,434,84)
+{
+}
+BEGIN_SDK
+  Add(EditMultiEx,11424832,21,21)
+  {
+   WorkCount=#7:Visible|
+   Width=139
+   Height=158
+   link(Visible,1892644:doVisible,[(56,27)(56,111)])
+  }
+  Add(MainForm,1892644,91,77)
+  {
+   Left=35
+   Top=105
+   Width=269
+   Height=35
+   Color=-16777192
+   Visible=1
+   Ctl3D=0
+   BorderStyle=0
+   Position=1
+   Point(doVisible)
+  }
+  Add(Label,1920005,91,119)
+  {
+   Left=10
+   Top=7
+   Width=250
+   Height=24
+   Color=-16777192
+   Font=[MS Sans Serif,12,1,0,1]
+   Caption="Warning! Wait several seconds"
+  }
+END_SDK
+Add(ChanelToIndex,2285686,385,84)
+{
+ link(onIndex,1190300:Visible,[])
+}
+Add(HubEx,9976547,504,182)
+{
+ link(onEvent,5619086:doProcessMessages,[])
+}

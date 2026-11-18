@@ -1,0 +1,675 @@
+*Проекция 4х мерного куба в 3D#13#10_____________#13#10Автор: Леонид#13#10E-mail:
+Make(cpp)
+Add(MainForm,15261923,266,161)
+{
+ Left=20
+ Top=105
+ Width=434
+ Height=449
+ Caption="3-х мерная проекция 4-х мерного куба"
+ Point(MouseX)
+ Point(MouseY)
+ link(onCreate,16299401:doEvent1,[])
+}
+Add(GL_Main,12986311,469,175)
+{
+ Color=0
+ link(onInit,12198675:doInit,[])
+ link(onViewPort,3410847:doPerspective,[(518,188)(518,230)])
+ link(Handle,13300081:Var1,[(475,125)(272,125)])
+}
+Add(Timer,9506849,357,259)
+{
+ Interval=33
+ Enable=1
+ link(onTimer,1049454:doEvent1,[])
+}
+Add(GL_GTools,771925,469,259)
+{
+ Point(doClear)
+ Point(doPushMatrix)
+ Point(doPopMatrix)
+}
+Add(Hub,1049454,406,259)
+{
+ OutCount=7
+ link(onEvent1,771925:doClear,[])
+ link(onEvent2,771925:doPushMatrix,[])
+ link(onEvent3,4163106:doRotate,[(450,279)(450,132)])
+ link(onEvent4,771925:doPopMatrix,[(459,286)(459,279)])
+ link(onEvent5,12986311:doFlip,[(455,293)(455,195)])
+ link(onEvent6,16172552:doNext,[(448,300)(448,323)(333,323)(333,41)])
+}
+Add(Hub,16299401,399,175)
+{
+ OutCount=3
+ link(onEvent1,12986311:doInit,[])
+ link(onEvent2,12986311:doViewPort,[])
+ link(onEvent3,12958070:doEvent1,[(443,195)(443,229)(256,229)(256,265)])
+}
+Add(GL_GluTools,12198675,532,175)
+{
+ link(onInit,9947352:doEnabled,[])
+}
+Add(ChildPanel,13300081,266,42)
+{
+}
+BEGIN_SDK
+  Add(EditMulti,529911,3,3)
+  {
+   VarCount=3
+   Width=136
+   Height=74
+   link(Var1,14291304:Handle,[(9,52)(41,52)])
+   link(Var2,14291304:MouseY,[(16,58)(48,58)])
+   link(Var3,14291304:MouseX,[(23,65)(55,65)])
+  }
+  Add(Panel,14291304,35,7)
+  {
+   Left=30
+   Top=25
+   Width=360
+   Height=360
+   Color=10789024
+   Point(doColor)
+   Point(MouseY)
+   Point(MouseX)
+   Point(Handle)
+  }
+END_SDK
+Add(GL_Rotate,8079493,581,126)
+{
+ Angle=20
+ Z=1
+ link(onRotate,10036663:doDraw,[])
+ link(Angle,16172552:Count,[(587,91)(349,91)])
+}
+Add(Gl_Axis,10036663,630,126)
+{
+ XColor=32768
+ TitleScale=0.5
+ link(onDraw,10576194:doEvent1,[])
+}
+Add(GL_Vertex3D,166491,1029,462)
+{
+ X=0.5
+ Y=-0.5
+ Z=0.5
+ link(onVertex,4097803:doVertex,[(1069,468)(1055,468)])
+}
+Add(GL_Light,14989894,728,175)
+{
+ Ambient=255
+ Diffuse=16711935
+ Specular=32896
+}
+Add(GL_Options,1101264,679,175)
+{
+ link(onEvent,14989894:doEnabled,[])
+}
+Add(GL_Perspective,3410847,532,224)
+{
+ Fovy=20
+}
+Add(GL_Options,9947352,581,175)
+{
+ Flag=2
+ link(onEvent,1990674:doEnabled,[])
+}
+Add(GL_Rotate,3276760,532,126)
+{
+ Angle=-30
+ Y=1
+ link(onRotate,8079493:doRotate,[])
+ link(Angle,819545:Result,[(538,97)(461,97)])
+}
+Add(GL_Vertex3D,8043088,1526,462)
+{
+ X=0.5
+ Y=0.5
+ Z=0.5
+ link(onVertex,1940102:doEnd,[])
+}
+Add(GL_Vertex3D,1868000,1323,371)
+{
+ X=0.5
+ Y=-0.5
+ Z=-0.5
+ link(onVertex,136718:doVertex,[(1359,377)(1359,410)(799,410)(799,377)])
+ link(X,11732625:Data7,[(1329,335)(993,335)])
+ link(Y,12964187:Data7,[(1336,335)(1252,335)])
+ link(Z,1828381:Data8,[(1343,335)(1434,335)])
+}
+Add(GL_Vertex3D,1756498,819,462)
+{
+ X=0.5
+ Y=0.5
+ Z=0.5
+ link(onVertex,8924870:doVertex,[])
+}
+Add(Gl_Begin,12096318,770,462)
+{
+ BlockType=2
+ link(onBegin,1756498:doVertex,[])
+}
+Add(GL_Vertex3D,8924870,861,462)
+{
+ X=0.5
+ Y=0.5
+ Z=-0.5
+ link(onVertex,3701032:doVertex,[])
+}
+Add(GL_Vertex3D,9921008,945,462)
+{
+ X=-0.5
+ Y=0.5
+ Z=0.5
+ link(onVertex,16578062:doVertex,[])
+}
+Add(Gl_End,1940102,1575,462)
+{
+}
+Add(GL_PrimSizes,15429184,728,462)
+{
+ Size=2
+ link(onSize,12096318:doBegin,[])
+}
+Add(GL_Vertex3D,5274561,1274,371)
+{
+ X=0.5
+ Y=0.5
+ Z=-0.5
+ link(onVertex,1868000:doVertex,[])
+ link(X,11732625:Data6,[(1280,335)(986,335)])
+ link(Y,7692498:Data6,[(1287,335)(1161,335)])
+ link(Z,1828381:Data7,[(1294,335)(1427,335)])
+}
+Add(Math,7198465,1057,119)
+{
+ OpType=12
+ AngleMode=1
+ link(onResult,6308496:doOperation,[(1306,125)(1306,167)])
+}
+Add(GL_Rotate,4163106,490,126)
+{
+ Angle=45
+ X=1
+ link(onRotate,3276760:doRotate,[])
+ link(Angle,2133811:Result,[(496,104)(412,104)])
+}
+Add(Counter,16172552,343,35)
+{
+ Max=359
+ link(onNext,2133811:doOperation,[])
+}
+Add(Math,819545,455,35)
+{
+ OpType=1
+ Op2=360
+ ResultType=0
+ link(Op2,13300081:Var3,[(468,16)(313,16)(313,81)(286,81)])
+}
+Add(Math,2133811,406,35)
+{
+ Op2=45
+ ResultType=0
+ link(onResult,819545:doOperation,[])
+ link(Op2,13300081:Var2,[(419,25)(321,25)(321,92)(279,92)])
+}
+Add(GL_Vertex3D,13255282,1330,462)
+{
+ X=0.5
+ Y=-0.5
+ Z=-0.5
+ link(onVertex,1243107:doVertex,[])
+}
+Add(GL_Vertex3D,1243107,1372,462)
+{
+ X=0.5
+ Y=0.5
+ Z=-0.5
+ link(onVertex,5274561:doVertex,[(1407,468)(1407,415)(1264,415)(1264,377)])
+}
+Add(GL_Vertex3D,4881420,1148,371)
+{
+ X=0.5
+ Y=-0.5
+ Z=-0.5
+ link(onVertex,13255282:doVertex,[(1251,377)(1251,468)])
+ link(X,11732625:Data5,[(1154,335)(979,335)])
+ link(Y,12964187:Data6,[(1161,335)(1245,335)])
+ link(Z,1828381:Data5,[(1168,335)(1413,335)])
+}
+Add(GL_Vertex3D,6342191,1106,371)
+{
+ X=0.5
+ Y=-0.5
+ Z=0.5
+ link(onVertex,4881420:doVertex,[])
+ link(X,11732625:Data4,[(1112,335)(972,335)])
+ link(Y,12964187:Data5,[(1119,335)(1238,335)])
+ link(Z,11587981:Data4,[(1126,335)(1322,335)])
+}
+Add(GL_Vertex3D,11196275,1113,462)
+{
+ X=-0.5
+ Y=-0.5
+ Z=-0.5
+ link(onVertex,1312981:doVertex,[])
+}
+Add(GL_Vertex3D,1312981,1155,462)
+{
+ X=-0.5
+ Y=-0.5
+ Z=0.5
+ link(onVertex,16490367:doVertex,[])
+}
+Add(Hub,13002298,1001,126)
+{
+ link(onEvent1,7198465:doOperation,[(1045,132)(1045,125)])
+ link(onEvent2,15243223:doOperation,[(1045,139)(1045,167)])
+}
+Add(GL_Vertex3D,16490367,1197,462)
+{
+ X=0.5
+ Y=-0.5
+ Z=0.5
+ link(onVertex,6342191:doVertex,[(1232,468)(1232,414)(1060,414)(1060,377)])
+}
+Add(GetData,11587981,1295,266)
+{
+ Count=8
+ link(Data,130374:Result,[(1301,254)(1329,254)])
+}
+Add(GL_Options,1990674,630,175)
+{
+ Flag=1
+ link(onEvent,1101264:doEnabled,[])
+}
+Add(GetData,1828381,1379,266)
+{
+ Count=8
+ link(Data,16131122:Result,[(1385,254)(1392,254)])
+}
+Add(Math,15202494,1190,161)
+{
+ OpType=2
+ Op1=-1
+ link(onResult,14708684:doEvent1,[])
+}
+Add(Hub,10576194,679,126)
+{
+ link(onEvent1,7682420:doNext,[])
+ link(onEvent2,15429184:doLineSize,[(776,139)(776,286)(703,286)(703,468)])
+}
+Add(Math,15243223,1057,161)
+{
+ OpType=13
+ Op2=1
+ AngleMode=1
+ link(onResult,2624203:doOperation,[])
+}
+Add(Counter,7682420,959,126)
+{
+ Max=359
+ Step=2
+ link(onNext,13002298:doEvent1,[])
+}
+Add(GL_Vertex3D,16578062,987,462)
+{
+ X=0.5
+ Y=0.5
+ Z=0.5
+ link(onVertex,166491:doVertex,[(1048,468)(1020,468)])
+}
+Add(GL_Vertex3D,3701032,903,462)
+{
+ X=-0.5
+ Y=0.5
+ Z=-0.5
+ link(onVertex,9921008:doVertex,[])
+}
+Add(GL_Vertex3D,4097803,1071,462)
+{
+ X=0.5
+ Y=-0.5
+ Z=-0.5
+ link(onVertex,11196275:doVertex,[])
+}
+Add(GL_Vertex3D,1618866,1022,371)
+{
+ X=-0.5
+ Y=0.5
+ Z=-0.5
+ link(onVertex,11833932:doVertex,[(1059,377)(1059,377)])
+ link(X,12394817:Data3,[(1028,335)(1056,335)])
+ link(Y,7692498:Data3,[(1035,335)(1140,335)])
+ link(Z,1828381:Data3,[(1042,335)(1399,335)])
+}
+Add(GL_Vertex3D,497510,1456,371)
+{
+ X=0.5
+ Y=0.5
+ Z=0.5
+ link(onVertex,8043088:doVertex,[(1512,377)(1512,468)])
+ link(X,11732625:Data8,[(1462,335)(1000,335)])
+ link(Y,7692498:Data8,[(1469,335)(1175,335)])
+ link(Z,11587981:Data8,[(1476,335)(1350,335)])
+}
+Add(GL_Vertex3D,136718,812,371)
+{
+ X=-0.5
+ Y=-0.5
+ Z=-0.5
+ link(onVertex,14244872:doVertex,[])
+ link(X,12394817:Data1,[(818,335)(1042,335)])
+ link(Y,12964187:Data1,[(825,335)(1210,335)])
+ link(Z,1828381:Data1,[(832,335)(1385,335)])
+}
+Add(GL_Vertex3D,14244872,854,371)
+{
+ X=-0.5
+ Y=-0.5
+ Z=0.5
+ link(onVertex,6321164:doVertex,[])
+ link(X,12394817:Data2,[(860,335)(1049,335)])
+ link(Y,12964187:Data2,[(867,335)(1217,335)])
+ link(Z,11587981:Data1,[(874,335)(1301,335)])
+}
+Add(GL_Vertex3D,16288108,938,371)
+{
+ X=0.5
+ Y=0.5
+ Z=0.5
+ link(onVertex,16511126:doVertex,[])
+ link(X,11732625:Data2,[(944,335)(958,335)])
+ link(Y,7692498:Data1,[(951,335)(1126,335)])
+ link(Z,11587981:Data3,[(958,335)(1315,335)])
+}
+Add(GL_Vertex3D,4884984,1407,371)
+{
+ X=-0.5
+ Y=0.5
+ Z=0.5
+ link(onVertex,497510:doVertex,[])
+ link(X,12394817:Data8,[(1413,335)(1091,335)])
+ link(Y,7692498:Data7,[(1420,335)(1168,335)])
+ link(Z,11587981:Data7,[(1427,335)(1343,335)])
+}
+Add(GL_Vertex3D,5468312,1463,462)
+{
+ X=-0.5
+ Y=-0.5
+ Z=0.5
+ link(onVertex,4977960:doVertex,[(1498,468)(1498,418)(1361,418)(1361,377)])
+}
+Add(GL_Vertex3D,4977960,1365,371)
+{
+ X=-0.5
+ Y=-0.5
+ Z=0.5
+ link(onVertex,4884984:doVertex,[])
+ link(X,12394817:Data7,[(1371,335)(1084,335)])
+ link(Y,12964187:Data8,[(1378,335)(1259,335)])
+ link(Z,11587981:Data6,[(1385,335)(1336,335)])
+}
+Add(GL_Vertex3D,9071933,1414,462)
+{
+ X=-0.5
+ Y=0.5
+ Z=0.5
+ link(onVertex,5468312:doVertex,[])
+}
+Add(GL_Vertex3D,16595961,1232,371)
+{
+ X=-0.5
+ Y=0.5
+ Z=0.5
+ link(onVertex,9071933:doVertex,[(1335,377)(1335,468)])
+ link(X,12394817:Data6,[(1238,335)(1077,335)])
+ link(Y,7692498:Data5,[(1245,335)(1154,335)])
+ link(Z,11587981:Data5,[(1252,335)(1329,335)])
+}
+Add(GL_Vertex3D,189773,1239,462)
+{
+ X=-0.5
+ Y=-0.5
+ Z=-0.5
+ link(onVertex,7725605:doVertex,[])
+}
+Add(GL_Vertex3D,7725605,1281,462)
+{
+ X=-0.5
+ Y=0.5
+ Z=-0.5
+ link(onVertex,14223711:doVertex,[(1316,468)(1316,419)(1180,419)(1180,377)])
+}
+Add(GL_Vertex3D,14223711,1190,371)
+{
+ X=-0.5
+ Y=0.5
+ Z=-0.5
+ link(onVertex,16595961:doVertex,[])
+ link(X,12394817:Data5,[(1196,335)(1070,335)])
+ link(Y,7692498:Data4,[(1203,335)(1147,335)])
+ link(Z,1828381:Data6,[(1210,335)(1420,335)])
+}
+Add(GL_Vertex3D,16511126,980,371)
+{
+ X=0.5
+ Y=0.5
+ Z=-0.5
+ link(onVertex,1618866:doVertex,[])
+ link(X,11732625:Data3,[(986,335)(965,335)])
+ link(Y,7692498:Data2,[(993,335)(1133,335)])
+ link(Z,1828381:Data2,[(1000,335)(1392,335)])
+}
+Add(GL_Vertex3D,6321164,896,371)
+{
+ X=0.5
+ Y=-0.5
+ Z=0.5
+ link(onVertex,16288108:doVertex,[])
+ link(X,11732625:Data1,[(902,335)(951,335)])
+ link(Y,12964187:Data3,[(909,335)(1224,335)])
+ link(Z,11587981:Data2,[(916,335)(1308,335)])
+}
+Add(GL_Vertex3D,11833932,1064,371)
+{
+ X=-0.5
+ Y=-0.5
+ Z=-0.5
+ link(onVertex,189773:doVertex,[(1164,377)(1164,468)])
+ link(X,12394817:Data4,[(1070,335)(1063,335)])
+ link(Y,12964187:Data4,[(1077,335)(1231,335)])
+ link(Z,1828381:Data4,[(1084,335)(1406,335)])
+}
+Add(Math,2624203,1099,161)
+{
+ OpType=2
+ Op2=0.5
+ link(onResult,897924:doEvent1,[])
+}
+Add(Math,6308496,1323,161)
+{
+ OpType=2
+ Op2=0.5
+ link(onResult,16301703:doEvent1,[])
+}
+Add(Math,3146832,1071,210)
+{
+ Op2=0.5
+}
+Add(Hub,897924,1141,161)
+{
+ OutCount=3
+ link(onEvent1,15202494:doOperation,[])
+ link(onEvent2,14655855:doOperation,[(1184,174)(1184,202)(1124,202)(1124,216)])
+ link(onEvent3,3146832:doOperation,[(1180,181)(1180,199)(1061,199)(1061,216)])
+}
+Add(Hub,14708684,1239,161)
+{
+ link(onEvent1,365128:doOperation,[(1285,167)(1285,203)(1250,203)(1250,216)])
+ link(onEvent2,5850256:doOperation,[(1281,174)(1281,199)(1189,199)(1189,216)])
+}
+Add(Hub,16301703,1365,161)
+{
+ link(onEvent1,16131122:doOperation,[(1409,167)(1409,203)(1376,203)(1376,216)])
+ link(onEvent2,130374:doOperation,[(1403,174)(1403,197)(1313,197)(1313,216)])
+}
+Add(Math,14655855,1134,210)
+{
+ OpType=1
+ Op2=0.5
+}
+Add(Math,5850256,1197,210)
+{
+ Op2=0.5
+}
+Add(Math,365128,1260,210)
+{
+ OpType=1
+ Op2=0.5
+}
+Add(Math,130374,1323,210)
+{
+ Op2=0.5
+}
+Add(Math,16131122,1386,210)
+{
+ OpType=1
+ Op2=0.5
+}
+Add(GetData,11732625,945,266)
+{
+ Count=8
+ link(Data,3146832:Result,[(951,249)(1077,249)])
+}
+Add(GetData,12394817,1036,266)
+{
+ Count=8
+ link(Data,14655855:Result,[(1042,254)(1140,254)])
+}
+Add(GetData,7692498,1120,266)
+{
+ Count=8
+ link(Data,5850256:Result,[(1126,258)(1203,258)])
+}
+Add(GetData,12964187,1204,266)
+{
+ Count=8
+ link(Data,365128:Result,[(1210,254)(1266,254)])
+}
+Add(Label,1048269,371,455)
+{
+ Left=30
+ Top=5
+ Width=371
+ Height=17
+ Caption=""
+ Alignment=2
+}
+Add(Hub,12958070,266,259)
+{
+ InCount=2
+ link(onEvent1,9506849:doTimer,[])
+ link(onEvent2,8257153:doClear,[(308,272)(308,306)(109,306)(109,342)])
+}
+Add(Button,12576601,224,357)
+{
+ Left=180
+ Top=395
+ Caption="Стоп"
+ Point(doCaption)
+ link(onClick,5023488:doNext,[])
+}
+Add(If_else,11281772,315,357)
+{
+ Op2=Integer(1)
+ link(onTrue,15103720:doEvent1,[])
+ link(onFalse,12958070:doEvent2,[(355,370)(355,316)(256,316)(256,272)])
+}
+Add(Counter,5023488,266,357)
+{
+ Max=1
+ link(onNext,11281772:doCompare,[])
+}
+Add(Hub,15103720,364,357)
+{
+ link(onEvent1,9506849:doStop,[(405,363)(405,311)(349,311)(349,272)])
+ link(onEvent2,15617250:doClear,[(405,370)(405,425)(109,425)(109,391)])
+}
+Add(Memory,8257153,119,329)
+{
+ Default=String(Стоп)
+ link(onData,7909050:doEvent1,[(159,335)(159,363)])
+}
+Add(Memory,15617250,119,378)
+{
+ Default=String(Пуск)
+ link(onData,7909050:doEvent2,[(159,384)(159,370)])
+}
+Add(Hub,7909050,168,357)
+{
+ InCount=2
+ link(onEvent1,12576601:doCaption,[])
+ link(onEvent2,10424959:doNext,[(208,370)(208,468)])
+}
+Add(Counter,10424959,217,462)
+{
+ Max=8
+ link(onNext,13697879:doCompare,[])
+}
+Add(If_else,13697879,266,462)
+{
+ Type=2
+ Op2=Integer(7)
+ link(onTrue,8440691:doClear,[])
+}
+Add(Memory,8440691,322,455)
+{
+ Default=String(Программа выполнена с помощью конструктора HiAsm (hiasm.spb.ru))
+ link(onData,1048269:doText,[])
+}
+Add(InfoTip,573159,812,441)
+{
+ Info=#25:Не смещаемые вершины куба|
+ Frame=3
+ Width=708
+ Height=67
+}
+Add(InfoTip,13202240,798,343)
+{
+ Info=#22:Смещаемые вершины куба|
+ Frame=3
+ Width=701
+ Height=74
+}
+Add(InfoTip,3990642,896,77)
+{
+ Info=#65:Плавное (по sin, -sin, cos) расчёт смещения вершин по осям  X,Y,Z|
+ Frame=3
+ Width=554
+ Height=235
+}
+Add(InfoTip,16090033,77,329)
+{
+ Info=#9:Пуск Стоп|
+ Frame=3
+ Width=358
+ Height=88
+}
+Add(InfoTip,5029440,182,441)
+{
+ Info=#19:Отображение рекламы|
+ Frame=3
+ Width=246
+ Height=67
+}
+Add(InfoTip,15780526,336,7)
+{
+ Info=#13:Вращение осей|
+ Frame=3
+ Width=288
+ Height=158
+}

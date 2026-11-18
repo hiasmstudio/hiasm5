@@ -1,0 +1,17 @@
+Make(cpp)
+Add(InfoTip,900,24,18)
+{
+ @Width=680
+ @Height=145
+ Info=#16:Общая библиотека|0:|144:Библиотека экспортирует hiasm_run, вызываемый хостом. На Windows создаётся DLL, на Linux и macOS используется формат общей библиотеки платформы.|
+ HAlign=0
+ Margin=12
+}
+Add(Library,1,42,196)
+{
+ link(onStart,2:doPrint,[])
+}
+Add(Print,2,196,196)
+{
+ Text=library entry
+}

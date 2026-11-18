@@ -1,0 +1,10 @@
+Managing MTStrTbl Status Flags=Управление флажками состояния MTStrTbl
+Defines the default line number to set the checkbox (-1 all lines)=Определяет номер строки по-умолчанию для установки флажка (-1 все строки)
+Managing the MTStrTbl element=Управление элементом MTStrTbl
+Unchecks/checks a checkbox=Снимает/устанавливает флажок
+The event occurs every time after an action on the checkbox=Событие происходит всякий раз после действия над флажком
+Array of checkbox values (0 - unchecked, 1 - checked, -1 - disabled)=Массив значений флажков (0 - снят, 1 - установлен, -1 - выключен)
+Contains indexes of checkboxed items, like MT items=Содержит индексы пунктов с установленными флажками, как элементы MT
+Contains the number of checked checkboxes=Содержит кол-во установленных флажков
+Specifies the line number to set the checkbox to (-1 all lines)=Определяет номер строки для установки флажка (-1 все строки)
+Defines the state of the checkbox (0 - unchecked, 1 - checked)=Определяет состояние флажка (0 - снят, 1 - установлен)

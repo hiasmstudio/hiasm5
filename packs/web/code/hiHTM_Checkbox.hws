@@ -1,0 +1,27 @@
+include('tag_maker')
+
+section html
+
+func doPrint
+  include('tag_header')
+  s[1] = "input"
+  s &= " type=\"checkbox\""
+  if(isset(Name))
+    s &= " name=\"" & Name & "\""
+  end
+  if(isset(Value))
+    s &= " value=\"" & Value & "\""
+  end
+  if(isndef(Checked))
+    s &= " checked"
+  elseif(isset(Checked))
+    s &= " " & Checked
+  end
+  include('tag_footer')
+end
+
+section java
+
+func IsChecked()
+  return('document.getElementById(' && Id && ').checked')
+end

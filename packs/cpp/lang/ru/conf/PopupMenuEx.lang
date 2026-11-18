@@ -1,0 +1,9 @@
+Extended pop-up context menu in XP style=Расширенное вcплывaющee кoнтeкcтнoe мeню в стиле XP
+The vertical offset of the left image in pixels from the top of the menu=Смещение левой картинки  в пикселях по вертикали от верха меню
+Automatic assignment of the background color of the left image according to its top gradient=Автоматическое назначение цвета заднего плана левой картинки согласно ее верхнего градиента
+Picture from the left edge of the menu=Картинка с левого края меню
+Expands the menu at the point whose coordinates are contained in the stream in the format Y*65536 + X=Разворачивает меню в точке, координаты которой содержатся в потоке в формате Y*65536 + X
+Expands the menu at the point where the cursor is located=Разворачивает меню в точке, в которой находится курсор
+Removes all menu items=Удаляет все пункты меню
+Initializes the menu list (list of items - in a stream)=Инициализирует список меню (список пунктов - в потоке)
+The event occurs whenever the dropdown menu is closed, but before the MenuItemIdx and MenuItemName=Событие происходит всякий раз после закрытия выпадающего меню, но перед MenuItemIdx и MenuItemName

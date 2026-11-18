@@ -1,0 +1,10 @@
+Apply region to window=Применить регион к окну
+Redraw the window after applying the doSetRegion region=Перерисовывать окно после применения региона doSetRegion
+Get window region=Получить регион окна
+Remove a previously changed region from a window=Снять ранее премененный регион с окна
+The event occurs every time a region is applied to a window=Событие происходит всякий раз после применения региона к окну
+The event occurs whenever a window region is received=Событие происходит всякий раз после получения региона окна
+The event occurs every time after removing a region from a window=Событие происходит всякий раз после снятия региона с окна
+Contains the window region obtained by doGetRegion=Содержит полученный doGetRegion регион окна
+Defines the window ID=Определяет идентификатор окна
+Specifies the region to apply to the window=Определяет регион для применения к окну

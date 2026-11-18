@@ -1,0 +1,74 @@
+func Arg(name)
+  if(linked(name))
+    return(d(name))
+  else
+    return(get(name))
+  end
+end
+
+func File()
+  return(cstr(Arg('FileName')))
+end
+
+func Section()
+  return(cstr(Arg('Section')))
+end
+
+func Key()
+  return(cstr(Arg('Key')))
+end
+
+func doRead(_data)
+  println('hiasm_str_state(', _id_, ') = hiasm_ini_get(', File(), ', ', Section(), ', ', Key(), ');')
+  if(get('Type') == 0)
+    event(onResult, 'std::atoi(hiasm_str_state(' && _id_ && ').c_str())')
+  else
+    event(onResult, 'hiasm_str_state(' && _id_ && ')')
+  end
+end
+
+func doWrite(_data)
+  println('hiasm_ini_set(', File(), ', ', Section(), ', ', Key(), ', hiasm_text(', Arg('Value'), '));')
+end
+
+func doSectionNames(_data)
+  println('{')
+  block.inclvl()
+  println('const std::vector<std::string> hiasm_ini_names', _id_, ' = hiasm_ini_sections(', File(), ');')
+  println('for(std::size_t hiasm_ini_i', _id_, ' = 0; hiasm_ini_i', _id_, ' < hiasm_ini_names', _id_, '.size(); ++hiasm_ini_i', _id_, ') {')
+  block.inclvl()
+  event(onSectionNames, 'hiasm_ini_names' && _id_ && '[hiasm_ini_i' && _id_ && ']')
+  block.declvl()
+  println('}')
+  block.declvl()
+  println('}')
+end
+
+func doSectionData(_data)
+  println('{')
+  block.inclvl()
+  println('const std::vector<std::pair<std::string, std::string>> hiasm_ini_items', _id_, ' = hiasm_ini_data(', File(), ', ', Section(), ');')
+  println('for(std::size_t hiasm_ini_i', _id_, ' = 0; hiasm_ini_i', _id_, ' < hiasm_ini_items', _id_, '.size(); ++hiasm_ini_i', _id_, ') {')
+  block.inclvl()
+  event(onSectionData, 'hiasm_ini_items' && _id_ && '[hiasm_ini_i' && _id_ && '].first + "=" + hiasm_ini_items' && _id_ && '[hiasm_ini_i' && _id_ && '].second')
+  block.declvl()
+  println('}')
+  block.declvl()
+  println('}')
+end
+
+func doDeleteKey(_data)
+  println('hiasm_ini_delete_key(', File(), ', ', Section(), ', ', Key(), ');')
+end
+
+func doEraseSection(_data)
+  println('hiasm_ini_erase_section(', File(), ', ', Section(), ');')
+end
+
+func doClearAll(_data)
+  println('hiasm_ini_clear(', File(), ');')
+end
+
+func Result()
+  return('hiasm_str_state(' && _id_ && ')')
+end

@@ -1,0 +1,16 @@
+func doRead(_data):any
+  event(onRead, sys.hi_version(Mask))
+end
+
+func Major():any
+  return(sys.hi_version("%mj"))
+end
+
+func Minor():any
+  return(sys.hi_version("%mn"))
+end
+
+func Build():any
+  return(sys.hi_version("%bl"))
+end
+

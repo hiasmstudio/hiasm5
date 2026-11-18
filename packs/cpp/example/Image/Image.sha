@@ -1,0 +1,46 @@
+*Снятие скриншота и сохранение его в указанном файле
+Make(cpp)
+Add(MainForm,6482,70,147)
+{
+ Left=312
+ Top=284
+ Height=67
+ Caption="Capture screen"
+ TaskBar=1
+ SavePosName="MyProject"
+}
+Add(Label,38377,70,91)
+{
+ Left=5
+ Top=10
+ Width=40
+ Font=[Arial,8,0,0,1]
+ Caption="File name"
+}
+Add(PictureStream,4236,217,147)
+{
+ link(FileName,2276:Text,[])
+}
+Add(Edit,2276,217,91)
+{
+ Left=55
+ Top=10
+ Width=330
+ Height=21
+ Font=[Arial,8,0,0,1]
+ Text=""
+}
+Add(DropFile,44049,119,91)
+{
+ link(onDropFile,23830:doStrCat,[])
+}
+Add(ClipboardHook,49511,119,147)
+{
+ DataStream=0
+ link(onBitmap,4236:doSave,[])
+}
+Add(StrCat,23830,168,91)
+{
+ Str2="\scr.bmp"
+ link(onStrCat,2276:doText,[])
+}

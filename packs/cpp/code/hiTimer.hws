@@ -1,0 +1,22 @@
+func doStart
+  fvar(enabled)
+  enabled = '"' && code(d('Enable')) && '"'
+  println('hiasm_timer("hcTimer', _id_, '", ', d('Interval'), ', ', enabled, ', +[](gpointer) -> gboolean {')
+  block.inclvl()
+  println('static int hiasm_ticks', _id_, ' = 0;')
+  event(onTimer)
+  println('++hiasm_ticks', _id_, ';')
+  println('if(', d('AutoStop'), ' > 0 && hiasm_ticks', _id_, ' >= ', d('AutoStop'), ') {')
+  block.inclvl()
+  event(onStop)
+  println('return G_SOURCE_REMOVE;')
+  block.declvl()
+  println('}')
+  println('return G_SOURCE_CONTINUE;')
+  block.declvl()
+  println('});')
+end
+
+func doStop(_data)
+  println('hiasm_timer_stop("hcTimer', _id_, '");')
+end

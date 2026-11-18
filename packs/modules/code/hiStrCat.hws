@@ -1,0 +1,39 @@
+func declare():any
+  fvar(old)
+  old = block.select((isset(BLK_FUNC) and isndef(Extern)) ? BLK_FUNC : BLK_HEAD)
+  println('string ', s, ' = ', Default, ';')
+  block.select(old)
+end
+
+func doStrCat:any
+  fvar(s1,s2)
+  s1 = e_str(Str1)
+  s2 = Str2
+  if(linked(Result))
+    if(not isset(_str_cat_))
+      var(_str_cat_)
+      declare()
+    end
+    if(cgt.pt_get_rlink_point(cgt.pt_arr_data(0)) = cgt.pt_arr_var(0))
+      println(s, ' += ', s2, ';')
+    else
+      println(s, ' = ', s1 & s2, ';')
+    end
+    event(onStrCat, s)
+  else
+    event(onStrCat, s1 & s2)
+  end
+end
+
+func Result:any
+  if(linked(doStrCat))
+    if(not isset(_str_cat_))
+      var(_str_cat_)
+      declare()
+    end
+    return(s)
+  else
+    return(e_str(Str1) & Str2)
+  end
+end
+

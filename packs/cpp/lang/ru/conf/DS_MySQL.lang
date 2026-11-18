@@ -1,0 +1,11 @@
+MySQL data source=Источник данных MySQL
+Element name=Имя элемента
+Server name to connect to the database=Имя сервера для подключения к базе данных
+Username=Имя пользователя
+User password=Пароль пользователя
+Specifies the database name=Определяет имя базы данных
+Opens the database=Открывает базу данных
+Closes the database=Закрывает базу данных
+Selects a database for further work with it=Выбирает базу данных для дальнейшей работы с ней
+The event occurs every time the database is successfully opened=Событие происходит всякий раз после успешного открытия базы данных
+The event occurs every time an error occurs and outputs its code to the ARG(Code) stream=Событие происходит всякий раз после возникновения ошибки и выдает ее код в поток ARG(Code)

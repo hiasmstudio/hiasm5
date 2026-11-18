@@ -1,0 +1,187 @@
+Make(cpp)
+Add(MainForm,9053019,63,112)
+{
+ Left=20
+ Top=105
+ Width=747
+ Height=521
+ Caption="GIF-Browser"
+ Icon=[ZIP5E07000078DACD942188DC4014865FD5C575A150E2DA738D6BA88A3A185522236323234746D4ECB981723072EC404DE4888AB1234746C646065A91160E5E5F66BB65BB4B33CB55B47FBEF7F8F7F1E66722B200CFE84953583BBCBF017809006FA868046FE1305FF5FA06AED0E72367934BBFA14F8153B3E137A402BF8CFA7D78E637F410F8D3F0E1842B734E97EF03977E5BF79BCB3CF0349D9DE57F97F6AF24BCF8C9A0E4A803BD1C8D18ED01397935D8684E218A5CE4D40BC90E3055559A3766DF0D46E2B4328DD19CA44AA004A07E8426095B7B653A8DA810E53CC55F8C42185DEB481E2625A4EDAEF3623F193EF5DCEB680CED276DB8D22124875D9B669A95AEE543274D69FACCE8227E1D5D12499DAC399456432E323AAEFAA257B78348160193D845736ADB34AE49F80E2A8006921ABA065C0BBE81B10D70F05D1ACDC9FB2233F9AD482B55305548C946518CDDADABC130B025B80A6C1BCF11B6DC5BA66D3D0D7B0267452CBE1B15733CB33CEF4B502C89E6209D1D3AF40DBA0A5D1DA8D69F9340B4CB68BDE27DCBA2398B173808340CFB0C6D89B65E3DF5512FB323103DF568CEECF532E8C54B0A5CCDD01F51B35F213339754D4ED8A7AE69FF92D949FAC8FEF37F89477E07DFDF51BDA0FAF22AF8C70F77805F3F0222C23778FEE45ACFFF004DA049A8]
+ Position=1
+ Point(doColor)
+}
+Add(Gif,8472551,315,175)
+{
+ DrawSource=1
+ Point(doStop)
+ Point(doPlay)
+ Point(CurFrame)
+ Point(FrameCount)
+ Point(doNextFrame)
+ Point(GIFWidth)
+ Point(GIFHeight)
+ Point(X)
+ Point(Y)
+ link(onLoad,6317199:doOperation,[])
+ link(onDraw,5861157:doStrCat,[(361,188)(361,239)(302,239)(302,265)])
+ link(FileName,6502079:String,[(321,159)(237,159)])
+ link(Bitmap,308865:Handle,[])
+ link(X,1015803:Result,[(335,163)(364,163)(364,219)(426,219)])
+ link(Y,8763349:Result,[(342,163)(433,163)(433,219)(524,219)])
+}
+Add(Button,7463829,63,70)
+{
+ Left=325
+ Top=460
+ TabOrder=-1
+ Caption="Îבחמנ"
+ link(onClick,10328017:doBrowse,[])
+}
+Add(ListBox,6502079,210,70)
+{
+ Width=260
+ Height=515
+ Point(String)
+ link(onClick,6726609:doEvent1,[])
+}
+Add(FileSearch,16142951,161,70)
+{
+ Ext="*.gif"
+ SubDir=1
+ link(onSearch,6502079:doAdd,[])
+}
+Add(Browse,10328017,112,70)
+{
+ link(onBrowse,16142951:doSearch,[])
+}
+Add(Button,15978016,196,231)
+{
+ Left=390
+ Top=460
+ TabOrder=-1
+ Caption="Next"
+ link(onClick,8472551:doNextFrame,[(291,237)(291,209)])
+}
+Add(CheckBox,1883201,196,189)
+{
+ Left=450
+ Top=460
+ Width=80
+ TabOrder=-1
+ Caption="Animation"
+ link(onCheck,2818618:doEvent,[])
+}
+Add(Hub,6726609,259,77)
+{
+ OutCount=4
+ link(onEvent1,308865:doRefresh,[])
+ link(onEvent2,6843230:doProcessMessages,[(313,90)(313,125)])
+ link(onEvent3,8472551:doLoadFromFile,[(306,97)(306,181)])
+ link(onEvent4,7559152:doData,[(299,104)(299,148)(133,148)(133,195)])
+}
+Add(Label,2640489,406,259)
+{
+ Left=535
+ Top=460
+ Width=70
+ Height=20
+ Caption=""
+ AutoSize=1
+ Alignment=2
+}
+Add(StrCat,5861157,315,259)
+{
+ Str2="/"
+ link(onStrCat,1817325:doStrCat,[])
+ link(Str1,8472551:CurFrame,[])
+}
+Add(StrCat,1817325,357,259)
+{
+ link(onStrCat,2640489:doText,[])
+ link(Str2,8472551:FrameCount,[(370,243)(328,243)])
+}
+Add(IndexToChanel,2818618,245,189)
+{
+ link(onEvent1,8472551:doStop,[])
+ link(onEvent2,8472551:doPlay,[])
+}
+Add(Image,308865,315,63)
+{
+ Left=265
+ Top=5
+ Width=470
+ Height=445
+ Point(Handle)
+ Point(doRefresh)
+ Point(Width)
+ Point(Height)
+}
+Add(Application,6843230,336,119)
+{
+ Wait=1
+}
+Add(Label,753101,420,308)
+{
+ Left=610
+ Top=460
+ Width=70
+ Height=20
+ Caption=""
+ AutoSize=1
+ Alignment=2
+}
+Add(StrCat,8631749,329,308)
+{
+ Str2="x"
+ link(onStrCat,10680626:doStrCat,[])
+ link(Str1,3328330:Var2,[])
+}
+Add(StrCat,10680626,371,308)
+{
+ link(onStrCat,753101:doText,[])
+ link(Str2,3048938:Var2,[])
+}
+Add(Math,6317199,371,175)
+{
+ OpType=1
+ ResultType=0
+ link(onResult,1015803:doOperation,[])
+ link(Op1,308865:Width,[(377,119)(335,119)])
+ link(Op2,3328330:Var3,[(384,163)(411,163)(411,233)])
+}
+Add(Math,1015803,420,175)
+{
+ OpType=7
+ Op2=2
+ ResultType=0
+ link(onResult,6551113:doOperation,[])
+}
+Add(Math,6551113,469,175)
+{
+ OpType=1
+ ResultType=0
+ link(onResult,8763349:doOperation,[])
+ link(Op1,308865:Height,[(475,112)(342,112)])
+ link(Op2,3048938:Var3,[(482,163)(460,163)(460,226)])
+}
+Add(Math,8763349,518,175)
+{
+ OpType=7
+ Op2=2
+ ResultType=0
+ link(onResult,8631749:doStrCat,[(562,181)(562,352)(317,352)(317,314)])
+}
+Add(GetDataEx,3048938,371,217)
+{
+ Angle=3
+ link(Data,8472551:GIFHeight,[(342,226)])
+}
+Add(GetDataEx,3328330,322,224)
+{
+ link(Data,8472551:GIFWidth,[])
+}
+Add(DoData,7559152,147,189)
+{
+ Data=Integer(1)
+ link(onEventData,1883201:doCheck,[])
+}

@@ -1,0 +1,4 @@
+Reading data from a multidimensional stream=Чтение данных из многомерного потока
+Reads one element of a multidimensional stream=Читает один элемент многомерного потока
+The event occurs after onGet and outputs the remaining data to the stream=Событие происходит после onGet и выдает в поток оставшиеся данные
+The event occurs after the element is read and emits it to the stream=Событие происходит после чтения элемента и выдает его в поток

@@ -1,0 +1,810 @@
+*Построение 24 сфер вокруг одной сферы в 4х мерном пространстве и его проекция в 3D#13#10_____________#13#10Автор: Леонид#13#10E-mail:
+Make(cpp)
+Add(MainForm,15261923,35,189)
+{
+ Left=150
+ Top=10
+ Width=508
+ Height=576
+ Caption="3-х мерная проекция 4-х мерных плотно упакованных шариков (икра)"
+ Point(MouseX)
+ Point(MouseY)
+ link(onCreate,16299401:doEvent1,[])
+}
+Add(GL_Main,12986311,168,210)
+{
+ Color=0
+ TwoSide=0
+ link(onInit,12198675:doInit,[])
+ link(onViewPort,3410847:doPerspective,[(217,223)(217,265)])
+ link(Handle,13300081:Var1,[])
+}
+Add(Timer,9506849,56,294)
+{
+ Interval=33
+ Enable=1
+ link(onTimer,1049454:doEvent1,[])
+}
+Add(GL_GTools,771925,168,294)
+{
+ Point(doClear)
+ Point(doPushMatrix)
+ Point(doPopMatrix)
+}
+Add(Hub,1049454,105,294)
+{
+ OutCount=5
+ link(onEvent1,771925:doClear,[])
+ link(onEvent2,771925:doPushMatrix,[])
+ link(onEvent3,3276760:doRotate,[(152,314)(152,160)])
+ link(onEvent4,771925:doPopMatrix,[(157,321)(157,314)])
+ link(onEvent5,12986311:doFlip,[(162,328)(162,230)])
+}
+Add(Hub,16299401,98,203)
+{
+ OutCount=4
+ link(onEvent1,283700:doEvent1,[(146,209)(146,6)])
+ link(onEvent2,12986311:doInit,[])
+ link(onEvent3,12986311:doViewPort,[])
+ link(onEvent4,9506849:doTimer,[(142,230)(142,274)(48,274)(48,300)])
+}
+Add(GL_GluTools,12198675,231,210)
+{
+ link(onInit,1101264:doEnabled,[])
+}
+Add(ChildPanel,13300081,168,49)
+{
+}
+BEGIN_SDK
+  Add(EditMulti,529911,3,3)
+  {
+   VarCount=3
+   Width=136
+   link(Var1,14291304:Handle,[(9,170)(55,170)])
+   link(Var2,14291304:MouseY,[(16,177)(62,177)])
+   link(Var3,14291304:MouseX,[(23,184)(69,184)])
+  }
+  Add(Panel,14291304,49,70)
+  {
+   Top=50
+   Width=500
+   Height=500
+   Point(doColor)
+   Point(MouseY)
+   Point(MouseX)
+   Point(Handle)
+  }
+END_SDK
+Add(GL_Rotate,8079493,280,154)
+{
+ X=1
+ Z=0.5
+ link(onRotate,10036663:doDraw,[])
+ link(Angle,13300081:Var3,[(286,115)(188,115)])
+}
+Add(Gl_Axis,10036663,329,154)
+{
+ TitleScale=0.5
+ link(onDraw,2511478:doSet,[])
+}
+Add(Gl_Translate,4311387,1428,623)
+{
+ X=-0.2
+ Y=-0.2
+ Z=-0.2
+ link(X,11980341:Result,[(1434,571)(1273,571)])
+ link(Y,8156863:Result,[(1441,572)(1511,572)])
+ link(Z,4738790:Result,[(1448,598)(1658,598)])
+}
+Add(GL_Light,14989894,378,210)
+{
+ Ambient=16777215
+ Specular=0
+ link(onEnabled,14989894:doMove,[(420,216)(420,250)(373,250)(373,223)])
+ link(Point,4837815:Point3D,[(384,204)(384,211)])
+}
+Add(GL_Options,1101264,280,210)
+{
+ link(onEvent,9947352:doEnabled,[])
+}
+Add(GL_Perspective,3410847,231,259)
+{
+ Fovy=20
+}
+Add(GL_Options,9947352,329,210)
+{
+ Flag=2
+ link(onEvent,14989894:doEnabled,[])
+}
+Add(GL_Rotate,3276760,231,154)
+{
+ Y=1
+ Z=-0.5
+ link(onRotate,8079493:doRotate,[])
+ link(Angle,13300081:Var2,[(237,127)(181,127)])
+}
+Add(GL_Sphere,13229690,476,154)
+{
+ Radius=0.3
+ Slices=40
+ Stacks=40
+ link(onDraw,10479725:doFor,[])
+}
+Add(Gl_Translate,11348326,1330,623)
+{
+ X=0.2
+ Y=0.2
+ Z=0.2
+ link(onTranslate,14718867:doDraw,[])
+ link(X,8827039:Var3,[(1336,576)])
+ link(Y,2010714:Var2,[])
+ link(Z,13461486:Var1,[(1350,583)])
+}
+Add(GL_Point3D,4837815,378,168)
+{
+ X=5
+ Z=5
+}
+Add(GL_Material,5992651,616,595)
+{
+ Ambient=16711680
+}
+Add(If_else,1892984,672,84)
+{
+ Op2=Integer(1)
+ link(onTrue,7222320:doClear,[(715,90)(715,32)(515,32)(515,55)])
+ link(onFalse,11125554:doClear,[(720,97)(720,22)(504,22)(504,97)])
+}
+Add(GL_Sphere,14718867,1379,623)
+{
+ Radius=0.3
+ Slices=40
+ Stacks=40
+ link(onDraw,4311387:doTranslate,[])
+}
+Add(GL_Material,2511478,427,154)
+{
+ link(onSet,13229690:doDraw,[])
+}
+Add(Math,4738790,1652,511)
+{
+ OpType=2
+ Op2=-1
+}
+Add(RealArray,8949307,854,182)
+{
+ RealArray=['0.2'=0.3,'0.2'=0.3,'0.2'=0.3,'0.2'=0.3,'0.2'=0.3,'0.2'=0.3,'0.2'=0.3,'0.2'=0.3,'-0.2'=-0.3,'-0.2'=-0.3,'-0.2'=-0.3,'-0.2'=-0.3,'-0.2'=-0.3,'-0.2'=-0.3,'-0.2'=-0.3,'-0.2'=-0.3,'0.4'=0.6,'-0.4'=-0.6,'0'=0,'0'=0,'0'=0,'0'=0,'0'=0,'0'=0]
+}
+Add(ArrayRW,12953183,854,259)
+{
+ link(onRead,13728515:doEvent1,[])
+ link(Array,8949307:Array,[])
+ link(Value,8827039:Var1,[(874,249)(897,249)(897,576)])
+}
+Add(Edit,13767293,1624,28)
+{
+ Left=380
+ Top=25
+ Width=40
+ Text="W"
+ link(onChange,13880323:doEvent1,[])
+}
+Add(Edit,14980788,854,28)
+{
+ Left=230
+ Top=25
+ Width=40
+ Text="X"
+ link(onChange,10398278:doEvent1,[])
+}
+Add(Memory,7222320,525,42)
+{
+ Default=String(Пуск)
+ link(onData,11125554:doValue,[(567,48)(567,79)(515,79)(515,90)])
+}
+Add(RealArray,9600804,1099,182)
+{
+ RealArray=['0.2'=0.3,'0.2'=0.3,'0.2'=0.3,'0.2'=0.3,'-0.2'=-0.3,'-0.2'=-0.3,'-0.2'=-0.3,'-0.2'=-0.3,'0.2'=0.3,'0.2'=0.3,'0.2'=0.3,'0.2'=0.3,'-0.2'=-0.3,'-0.2'=-0.3,'-0.2'=-0.3,'-0.2'=-0.3,'0'=0,'0'=0,'0.4'=0.6,'-0.4'=-0.6,'0'=0,'0'=0,'0'=0,'0'=0]
+}
+Add(ArrayRW,12709009,1099,252)
+{
+ link(onRead,11389529:doEvent1,[])
+ link(Array,9600804:Array,[])
+ link(Value,2010714:Var3,[(1119,241)(1343,241)])
+}
+Add(RealArray,7232424,1358,182)
+{
+ RealArray=['0.2'=0.3,'0.2'=0.3,'-0.2'=-0.3,'-0.2'=-0.3,'0.2'=0.3,'0.2'=0.3,'-0.2'=-0.3,'-0.2'=-0.3,'0.2'=0.3,'0.2'=0.3,'-0.2'=-0.3,'-0.2'=-0.3,'0.2'=0.3,'0.2'=0.3,'-0.2'=-0.3,'-0.2'=-0.3,'0'=0,'0'=0,'0'=0,'0'=0,'0.4'=0.6,'-0.4'=-0.6,'0'=0,'0'=0]
+}
+Add(ArrayRW,5427934,1358,252)
+{
+ link(onRead,14556333:doEvent1,[])
+ link(Array,7232424:Array,[])
+ link(Value,13461486:Var3,[(1378,244)(1588,244)])
+}
+Add(RealArray,10072513,1624,182)
+{
+ RealArray=['0.2'=0.3,'-0.2'=-0.3,'0.2'=0.3,'-0.2'=-0.3,'0.2'=0.3,'-0.2'=-0.3,'0.2'=0.3,'-0.2'=-0.3,'0.2'=0.3,'-0.2'=-0.3,'0.2'=0.3,'-0.2'=-0.3,'0.2'=0.3,'-0.2'=-0.3,'0.2'=0.3,'-0.2'=-0.3,'0'=0,'0'=0,'0'=0,'0'=0,'0'=0,'0'=0,'0.4'=0.6,'-0.4'=-0.6]
+}
+Add(ArrayRW,4461137,1624,252)
+{
+ link(onRead,4596866:doEvent1,[])
+ link(Array,10072513:Array,[])
+ link(Value,10146881:Result,[(1644,242)(1709,242)(1709,516)(1763,516)])
+}
+Add(Hub,4891605,742,217)
+{
+ OutCount=7
+ link(onEvent1,4461137:doRead,[(1614,223)(1614,258)])
+ link(onEvent2,5427934:doRead,[(1351,230)(1351,258)])
+ link(onEvent3,12709009:doRead,[(1088,237)(1088,258)])
+ link(onEvent4,12953183:doRead,[(843,244)(843,265)])
+ link(onEvent5,8187456:doCompare,[(784,251)(784,191)(732,191)(732,139)])
+ link(onEvent6,15851241:doEvent,[(794,258)(794,291)(389,291)(389,384)])
+ link(onEvent7,11348326:doTranslate,[(787,265)(787,629)])
+}
+Add(Edit,15012160,1358,28)
+{
+ Left=330
+ Top=25
+ Width=40
+ Text="Z"
+ link(onChange,3263497:doEvent1,[])
+}
+Add(Edit,4197107,1099,28)
+{
+ Left=280
+ Top=25
+ Width=40
+ Text="Y"
+ link(onChange,12731394:doEvent1,[])
+}
+Add(For,10479725,525,154)
+{
+ End=23
+ link(onEvent,4891605:doEvent1,[(702,160)(702,223)])
+}
+Add(Math,10146881,1757,462)
+{
+ @Hint=#39:W=X*Sin_y + ( Z*Sin_x + W*Cos_x )*Cos_y|
+ link(Op2,6180858:Result,[(1770,363)(1595,363)])
+}
+Add(InfoTip,10569325,1609,497)
+{
+ Info=#2:Z1|
+ Width=92
+ Height=95
+}
+Add(Math,2826107,952,35)
+{
+ OpType=13
+ AngleMode=1
+}
+Add(Math,6047458,1001,28)
+{
+ OpType=12
+ AngleMode=1
+}
+Add(Hub,10398278,910,28)
+{
+ link(onEvent1,6047458:doOperation,[])
+ link(onEvent2,2826107:doOperation,[])
+}
+Add(Math,3490608,1197,35)
+{
+ OpType=13
+ AngleMode=1
+}
+Add(Math,13981573,1246,28)
+{
+ OpType=12
+ AngleMode=1
+}
+Add(Hub,12731394,1148,28)
+{
+ link(onEvent1,13981573:doOperation,[])
+ link(onEvent2,3490608:doOperation,[])
+}
+Add(Math,8836249,1456,35)
+{
+ OpType=13
+ AngleMode=1
+}
+Add(Math,782913,1505,28)
+{
+ OpType=12
+ AngleMode=1
+}
+Add(Hub,3263497,1407,28)
+{
+ link(onEvent1,782913:doOperation,[])
+ link(onEvent2,8836249:doOperation,[])
+}
+Add(Math,10778758,1729,35)
+{
+ OpType=13
+ AngleMode=1
+}
+Add(Math,8732893,1778,28)
+{
+ OpType=12
+ AngleMode=1
+}
+Add(Hub,13880323,1673,28)
+{
+ link(onEvent1,8732893:doOperation,[])
+ link(onEvent2,10778758:doOperation,[])
+}
+Add(Hub,13728515,903,259)
+{
+ link(onEvent1,13979304:doOperation,[])
+ link(onEvent2,604336:doOperation,[])
+}
+Add(Hub,11389529,1148,252)
+{
+ link(onEvent1,3075338:doOperation,[])
+ link(onEvent2,11502053:doOperation,[])
+}
+Add(Hub,14556333,1407,252)
+{
+ link(onEvent1,11892189:doOperation,[])
+ link(onEvent2,10480522:doOperation,[])
+}
+Add(Hub,4596866,1673,252)
+{
+ link(onEvent1,13631528:doOperation,[])
+ link(onEvent2,5591713:doOperation,[])
+}
+Add(Math,604336,952,266)
+{
+ OpType=2
+ link(onResult,10146881:doOperation,[(995,272)(995,468)])
+ link(Op2,15665231:Data1,[(965,166)(1203,166)])
+}
+Add(Math,13979304,1001,259)
+{
+ OpType=2
+ link(onResult,8392504:doOperation,[(1041,265)(1041,391)])
+ link(Op2,16078142:Data1,[(1014,170)(1252,170)])
+}
+Add(Math,11502053,1197,259)
+{
+ OpType=2
+ link(Op2,896423:Data1,[(1210,174)(1462,174)])
+}
+Add(Math,3075338,1246,252)
+{
+ OpType=2
+ link(Op2,15814139:Data1,[(1259,179)(1511,179)])
+}
+Add(Math,10480522,1456,259)
+{
+ OpType=2
+ link(onResult,12931565:doOperation,[(1498,265)(1498,299)(1453,299)(1453,321)])
+ link(Op2,15763092:Data1,[(1469,161)(958,161)])
+}
+Add(Math,11892189,1505,252)
+{
+ OpType=2
+ link(onResult,1195963:doOperation,[(1547,258)(1547,295)(1448,295)(1448,426)])
+ link(Op2,16499144:Data1,[(1518,157)(1007,157)])
+}
+Add(Math,5591713,1715,259)
+{
+ OpType=2
+ link(Op2,15763092:Data2,[(1728,152)(965,152)])
+}
+Add(Math,13631528,1764,252)
+{
+ OpType=2
+ link(Op2,16499144:Data2,[(1777,145)(1014,145)])
+}
+Add(GetData,15665231,1197,77)
+{
+ link(Data,3490608:Result,[])
+}
+Add(GetData,16078142,1246,77)
+{
+ link(Data,13981573:Result,[])
+}
+Add(GetData,896423,1456,77)
+{
+ link(Data,8836249:Result,[])
+}
+Add(GetData,15814139,1505,77)
+{
+ link(Data,782913:Result,[])
+}
+Add(GetDataEx,1746118,1547,364)
+{
+ Angle=1
+ link(Data,10778758:Result,[(1735,373)])
+}
+Add(GetDataEx,8575814,1589,371)
+{
+ Angle=1
+ link(Data,8732893:Result,[(1784,380)])
+}
+Add(GetData,15763092,952,77)
+{
+ link(Data,2826107:Result,[])
+}
+Add(GetData,16499144,1001,77)
+{
+ link(Data,6047458:Result,[])
+}
+Add(Math,12931565,1463,315)
+{
+ @Hint=#17:Z*Sin_x + W*Cos_x|
+ link(onResult,1438637:doEvent1,[])
+ link(Op2,13631528:Result,[(1476,302)(1770,302)])
+}
+Add(Hub,1438637,1505,315)
+{
+ link(onEvent1,6180858:doOperation,[])
+ link(onEvent2,8178980:doOperation,[])
+}
+Add(Math,8178980,1547,322)
+{
+ @Hint=#27:( Z*Sin_x + W*Cos_x )*Sin_y|
+ OpType=2
+ link(Op2,15665231:Data2,[(1560,140)(1210,140)])
+}
+Add(Math,6180858,1589,315)
+{
+ @Hint=#27:( Z*Sin_x + W*Cos_x )*Cos_y|
+ OpType=2
+ link(Op2,16078142:Data2,[(1602,134)(1259,134)])
+}
+Add(Math,1195963,1463,420)
+{
+ @Hint=#17:Z*Cos_x - W*Sin_x|
+ OpType=1
+ link(onResult,16366013:doEvent1,[])
+ link(Op2,5591713:Result,[(1476,402)(1721,402)])
+}
+Add(GetDataEx,13461486,1575,574)
+{
+ Angle=1
+ link(Data,540045:Result,[(1616,583)])
+}
+Add(Math,14044960,1547,427)
+{
+ @Hint=#27:( Z*Cos_x - W*Sin_x )*Sin_w|
+ OpType=2
+ link(Op2,1746118:Var2,[])
+}
+Add(InfoTip,5503753,1735,448)
+{
+ Info=#2:W1|
+ Width=92
+ Height=60
+}
+Add(Math,8392504,1050,385)
+{
+ @Hint=#37:X*Cos_y - ( Z*Sin_x + W*Cos_x )*Sin_y|
+ OpType=1
+ link(onResult,13466937:doEvent1,[])
+ link(Op2,8178980:Result,[(1063,370)(1553,370)])
+}
+Add(Math,7282309,1141,392)
+{
+ @Hint=#47:( X*Cos_y - ( Z*Sin_x + W*Cos_x )*Sin_y )*Cos_z|
+ OpType=2
+ link(onResult,12746640:doOperation,[(1182,398)(1182,517)])
+ link(Op2,15814139:Data2,[(1154,130)(1518,130)])
+}
+Add(Hub,13466937,1092,385)
+{
+ link(onEvent1,2589124:doOperation,[])
+ link(onEvent2,7282309:doOperation,[])
+}
+Add(Math,2589124,1190,385)
+{
+ @Hint=#47:( X*Cos_y - ( Z*Sin_x + W*Cos_x )*Sin_y )*Sin_z|
+ OpType=2
+ link(onResult,10848776:doOperation,[])
+ link(Op2,896423:Data2,[(1203,364)(1287,364)(1287,124)(1469,124)])
+}
+Add(Math,12746640,1225,511)
+{
+ @Hint=#59:X=( X*Cos_y - ( Z*Sin_x + W*Cos_x )*Sin_y )*Cos_z - Y*Sin_z|
+ OpType=1
+ link(onResult,11980341:doOperation,[])
+ link(Op2,11502053:Result,[(1238,357)(1203,357)])
+}
+Add(Memory,13387759,1575,28)
+{
+ Default=Real(2.8)
+ link(onData,13767293:doText,[])
+}
+Add(Memory,2810556,1316,28)
+{
+ Default=Real(2.2)
+ link(onData,15012160:doText,[])
+}
+Add(Memory,12987777,1057,28)
+{
+ Default=Real(1.8)
+ link(onData,4197107:doText,[])
+}
+Add(Memory,3083056,805,28)
+{
+ Default=Real(1.5)
+ link(onData,14980788:doText,[])
+}
+Add(Hub,283700,735,0)
+{
+ OutCount=4
+ link(onEvent1,13387759:doClear,[(1563,6)(1563,41)])
+ link(onEvent2,2810556:doClear,[(1305,13)(1305,41)])
+ link(onEvent3,12987777:doClear,[(1046,20)(1046,41)])
+ link(onEvent4,3083056:doClear,[(786,27)(786,41)])
+}
+Add(Math,10848776,1260,385)
+{
+ @Hint=#57:( X*Cos_y - ( Z*Sin_x + W*Cos_x )*Sin_y )*Sin_z + Y*Cos_z|
+ link(onResult,5854147:doEvent1,[])
+ link(Op2,3075338:Result,[(1273,335)(1252,335)])
+}
+Add(Hub,5854147,1302,385)
+{
+ link(onEvent1,14908269:doOperation,[])
+ link(onEvent2,8209228:doOperation,[])
+}
+Add(Math,8209228,1351,392)
+{
+ @Hint=#66:(( X*Cos_y - ( Z*Sin_x + W*Cos_x )*Sin_y )*Sin_z + Y*Cos_z )*Sin_w|
+ OpType=2
+ link(onResult,540045:doOperation,[(1388,398)(1388,476)(1563,476)(1563,517)])
+ link(Op2,1746118:Var1,[(1364,373)])
+}
+Add(Math,14908269,1393,385)
+{
+ @Hint=#66:(( X*Cos_y - ( Z*Sin_x + W*Cos_x )*Sin_y )*Sin_z + Y*Cos_z )*Cos_w|
+ OpType=2
+ link(onResult,6934615:doOperation,[(1438,391)(1438,517)])
+ link(Op2,8575814:Var1,[(1406,380)])
+}
+Add(GetDataEx,8827039,1218,567)
+{
+ link(Data,12746640:Result,[])
+}
+Add(Math,11980341,1267,511)
+{
+ OpType=2
+ Op2=-1
+}
+Add(InfoTip,6612535,1218,497)
+{
+ Info=#2:X1|
+ Width=92
+ Height=95
+}
+Add(InfoTip,10593139,847,161)
+{
+ Info=#2:X0|
+ Width=43
+ Height=60
+}
+Add(InfoTip,5210021,1092,161)
+{
+ Info=#2:Y0|
+ Width=43
+ Height=60
+}
+Add(InfoTip,16101042,1351,161)
+{
+ Info=#2:Z0|
+ Width=43
+ Height=60
+}
+Add(InfoTip,11228250,1617,161)
+{
+ Info=#2:W0|
+ Width=43
+ Height=60
+}
+Add(Math,6934615,1463,511)
+{
+ @Hint=#98:Y=(( X*Cos_y - ( Z*Sin_x + W*Cos_x )*Sin_y )*Sin_z + Y*Cos_z )*Cos_w - ( Z*Cos_x - W*Sin_x )*Sin_w|
+ OpType=1
+ link(onResult,8156863:doOperation,[])
+ link(Op2,14044960:Result,[(1476,485)(1553,485)])
+}
+Add(GetDataEx,2010714,1330,546)
+{
+ Angle=1
+ link(Data,6934615:Result,[(1469,555)])
+}
+Add(Math,8156863,1505,511)
+{
+ OpType=2
+ Op2=-1
+}
+Add(InfoTip,9992953,1462,497)
+{
+ Info=#2:Y1|
+ Width=92
+ Height=95
+}
+Add(Math,540045,1610,511)
+{
+ @Hint=#98:Z=(( X*Cos_y - ( Z*Sin_x + W*Cos_x )*Sin_y )*Sin_z + Y*Cos_z )*Sin_w + ( Z*Sin_x - W*Cos_x )*Cos_w|
+ link(onResult,4738790:doOperation,[])
+ link(Op2,12064264:Result,[(1623,482)(1595,482)])
+}
+Add(Hub,16366013,1505,420)
+{
+ link(onEvent1,12064264:doOperation,[])
+ link(onEvent2,14044960:doOperation,[])
+}
+Add(Math,12064264,1589,420)
+{
+ @Hint=#27:( Z*Cos_x - W*Sin_x )*Cos_w|
+ OpType=2
+ link(Op2,8575814:Var2,[])
+}
+Add(IndexToChanel,15851241,399,378)
+{
+ Count=24
+ link(onEvent1,15326314:doSet,[(451,384)(451,314)])
+ link(onEvent2,14920623:doSet,[(457,391)(457,321)])
+ link(onEvent3,7516497:doSet,[(462,398)(462,328)])
+ link(onEvent4,7453839:doSet,[(468,405)(468,335)])
+ link(onEvent5,13426214:doSet,[(472,412)(472,370)])
+ link(onEvent6,9692235:doSet,[(477,419)(477,377)])
+ link(onEvent7,3413824:doSet,[(481,426)(481,384)])
+ link(onEvent8,14999682:doSet,[(486,433)(486,391)])
+ link(onEvent9,10644220:doSet,[(491,440)(491,426)])
+ link(onEvent10,8464723:doSet,[(496,447)(496,433)])
+ link(onEvent11,5738770:doSet,[(500,454)(500,440)])
+ link(onEvent12,10914:doSet,[(506,461)(506,447)])
+ link(onEvent13,12410643:doSet,[(506,468)(506,482)])
+ link(onEvent14,6257267:doSet,[(500,475)(500,489)])
+ link(onEvent15,10416967:doSet,[(495,482)(495,496)])
+ link(onEvent16,12290773:doSet,[(489,489)(489,503)])
+ link(onEvent17,8239838:doSet,[(484,496)(484,538)])
+ link(onEvent18,15070558:doSet,[(480,503)(480,545)])
+ link(onEvent19,11146233:doSet,[(476,510)(476,552)])
+ link(onEvent20,2107913:doSet,[(471,517)(471,559)])
+ link(onEvent21,3522095:doSet,[(467,524)(467,594)])
+ link(onEvent22,5992651:doSet,[(462,531)(462,601)])
+ link(onEvent23,9449003:doSet,[(456,538)(456,608)])
+ link(onEvent24,7241455:doSet,[(450,545)(450,615)])
+}
+Add(GL_Material,7453839,511,329)
+{
+ Ambient=8388608
+}
+Add(GL_Material,7516497,567,322)
+{
+ Ambient=32896
+}
+Add(GL_Material,14920623,616,315)
+{
+ Ambient=32768
+}
+Add(GL_Material,15326314,665,308)
+{
+ Ambient=128
+}
+Add(GL_Material,14999682,511,385)
+{
+ Ambient=65280
+}
+Add(GL_Material,3413824,567,378)
+{
+ Ambient=255
+}
+Add(GL_Material,9692235,616,371)
+{
+ Ambient=8421376
+}
+Add(GL_Material,13426214,665,364)
+{
+ Ambient=8388736
+}
+Add(GL_Material,10914,511,441)
+{
+ Ambient=16776960
+}
+Add(GL_Material,5738770,567,434)
+{
+ Ambient=16711935
+}
+Add(GL_Material,8464723,616,427)
+{
+ Ambient=16711680
+}
+Add(GL_Material,10644220,665,420)
+{
+ Ambient=65535
+}
+Add(Memory,11125554,525,84)
+{
+ Default=String(Стоп)
+ link(onData,13892305:doCaption,[])
+}
+Add(If_else,8187456,742,133)
+{
+ Op2=Integer(0)
+ link(onTrue,14444582:doEvent1,[])
+ link(Op1,15024986:Count,[(748,125)(629,125)])
+}
+Add(Counter,15024986,623,84)
+{
+ Max=1
+ link(onNext,1892984:doCompare,[])
+}
+Add(Hub,14444582,791,133)
+{
+ OutCount=5
+ link(onEvent1,4461137:doWrite,[(1594,139)(1594,265)])
+ link(onEvent2,5427934:doWrite,[(1346,146)(1346,265)])
+ link(onEvent3,12709009:doWrite,[(1079,153)(1079,265)])
+ link(onEvent4,12953183:doWrite,[(839,160)(839,272)])
+}
+Add(Button,13892305,574,84)
+{
+ Left=430
+ Top=15
+ Width=65
+ Height=25
+ Font=[Times New Roman,12,1,0,1]
+ Caption="Стоп"
+ Point(doCaption)
+ link(onClick,15024986:doNext,[])
+}
+Add(GL_Material,3522095,665,588)
+{
+ Ambient=65535
+}
+Add(Label,14811544,287,28)
+{
+ Top=5
+ Width=414
+ Height=19
+ Font=[Times New Roman,10,1,0,1]
+ Caption="Скорость вращения по оси град/кадр             X             Y             Z              W"
+}
+Add(GL_Material,12290773,511,497)
+{
+ Ambient=8388608
+}
+Add(GL_Material,10416967,567,490)
+{
+ Ambient=32896
+}
+Add(GL_Material,6257267,616,483)
+{
+ Ambient=32768
+}
+Add(GL_Material,12410643,665,476)
+{
+ Ambient=128
+}
+Add(GL_Material,2107913,511,553)
+{
+ Ambient=65280
+}
+Add(GL_Material,11146233,567,546)
+{
+ Ambient=255
+}
+Add(GL_Material,15070558,616,539)
+{
+ Ambient=8421376
+}
+Add(GL_Material,8239838,665,532)
+{
+ Ambient=8388736
+}
+Add(GL_Material,7241455,511,609)
+{
+ Ambient=16776960
+}
+Add(GL_Material,9449003,567,602)
+{
+ Ambient=16711935
+}

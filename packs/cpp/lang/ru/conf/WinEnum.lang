@@ -1,0 +1,14 @@
+Window enumeration=Перечисление окон в Windows
+True - list only visible windows, False - list all windows=True - перечислять только видимые окна, False - перечислять все окна
+Begins the procedure of listing (searching) windows=Начинает процедуру перечисления (поиска) окон
+Searches for one window by given title=Ищет одно окно по заданному заголовку
+Stops window searching=Останавливает перебор окон
+Begins a procedure listing child windows by ID from the stream or ParentHandle field ARG(ParentHandle)=Начинает процедуру перечисление дочерних окон по идентификатору из потока или поля ParentHandle ARG(ParentHandle)
+The event occurs every time a new Windows window is found and outputs the title of this window ARG(Caption) to the stream.=Событие происходит всякий раз при нахождении очередного окна Windows и выдает в поток заголовок этого окна ARG(Caption)
+The event occurs whenever the search is completed=Событие происходит всякий раз при завершении поиска
+The event occurs every time a new child window is found ARG(ClassName, Handle, Caption)=Событие происходит всякий раз при нахождении очередного дочернего окна ARG(ClassName, Handle, Caption)
+The searched window title for the doFind method=Искомый заголовок окна для метода doFind
+Parent window ID (for the doEnumChildWindows method)=Идентификатор родительского окна (для метода doEnumChildWindows)
+Contains the ID of the found window=Содержит идентификатор найденного окна
+Contains the name of the class to which the window belongs=Содержит имя класса, которому принадлежит окно
+Contains the ID of the active Windows window=Содержит идентификатор активного окна Windows

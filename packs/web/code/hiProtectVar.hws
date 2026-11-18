@@ -1,0 +1,27 @@
+func init()
+//  var(old)
+//  if(isset(BLK_FUNC))
+//    old = block.select(BLK_FUNC)    
+//    println('global ' + pvar, ';')
+//    block.select(old)
+//  end
+
+  var(proc)
+  switch(Type)
+    case 0:
+      proc = '(int)'
+    case 1:
+      proc = ''
+    case 2:
+      proc = 'addslashes'
+  end
+
+//  old = block.select(BLK_HEAD)
+  println(pvar, ' = isset($_' + Method + '[', Name, ']) ? ' + proc + '($_' + Method + '[', Name, ']) : ', Default, ';')
+//  block.select(old)
+end
+
+func Value()
+  return(pvar)
+end
+

@@ -1,0 +1,8 @@
+Returns information about the device's battery status=Возвращает информацию о состоянии батареи устройства
+True - request data from the device driver, False - take data from the cache=True - запрашивать данные из драйвера устройства, False - брать данные из кэша
+Updates battery status information=Обновляет информацию о состоянии батареи
+The event occurs every time the battery status information is updated=Событие происходит всякий раз после обновления информации о состоянии батареи
+Contains the percentage of battery charge (0-100), or 255 if it is impossible to determine the charge level=Содержит процент заряда батареи (0-100), либо 255 при невозможности определения уровня заряда
+Remaining operating time (in seconds), or -1 if it cannot be determined=Оставшееся время работы (в секундах), либо -1 при невозможнсти определения
+Operating time when fully charged (in sec.), or -1 if it is impossible to determine=Время работы при полном заряде (в сек.), либо -1 при невозможнсти определения
+Contains a battery status flag: 1 - high charge level, 2 - low charge level, 4 - critical charge level, 8 - battery in the process of charging, 128 - no battery, 255 - unknown status=Содержит флаг состояния батареи: 1 - высокий уровень заряда, 2 - низкий уровень заряда, 4 - уровень заряда критический, 8 - батарея в процессе зарядки, 128 - при отсутствии батареи, 255 - неизвестный статус

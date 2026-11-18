@@ -1,0 +1,33 @@
+func doMkDir(_data)
+  fvar(s)
+  s = 'mkdir(' && DirName && ',' && code(Mode) && ')'
+  if(isdef(IgnoreResult))
+    println(s, ';')
+    event(onEnd)
+  else
+    event(onEnd, '@' && s)
+  end
+end
+
+func doRmDir(_data)
+  fvar(s)
+  s = 'rmdir(' && DirName && ')' 
+  if(isdef(IgnoreResult))
+    println(s, ';')
+    event(onEnd)
+  else
+    event(onEnd, s)
+  end
+end
+
+func doChDir(_data)
+  fvar(s)
+  s = 'chdir(' && DirName && ')' 
+  if(isdef(IgnoreResult))
+    println(s, ';')
+    event(onEnd)
+  else
+    event(onEnd, s)
+  end
+end
+

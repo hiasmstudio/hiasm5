@@ -1,0 +1,91 @@
+Make(cpp)
+Add(MainForm,10952570,56,77)
+{
+ Left=20
+ Top=105
+ Width=323
+ Height=210
+ Caption="DDE_Server"
+ link(onCreate,14007143:doStart,[])
+}
+Add(DDEServer,14007143,133,91)
+{
+ ServiceName="DDE_Server"
+ TopicList=#5:Form1|
+ Point(doSetError)
+ Point(onConnect)
+ Point(onExecute)
+ link(onGetItem,8634435:doEvent1,[])
+ link(onPutItem,1330340:doEvent1,[(187,104)(187,146)])
+ link(ReturnItem,2907638:Var,[(153,79)(193,79)(193,327)(398,327)])
+ link(onExecute,2584967:doMessage,[(180,118)(180,154)(72,154)(72,174)])
+}
+Add(Message,2584967,84,168)
+{
+ Type=1
+ Point(onCANCEL)
+ link(Caption,14007143:TopicName,[(97,145)(139,145)])
+ link(onCANCEL,14007143:doSetError,[(124,181)(124,125)])
+}
+Add(GetIndexData,2907638,392,280)
+{
+ link(Data1,5519043:Text,[])
+ link(Data2,12515059:Text,[])
+}
+Add(IndexToChanel,9620357,343,182)
+{
+ Point(Index)
+ link(onEvent1,5519043:doText,[])
+ link(onEvent2,12515059:doText,[(384,195)(384,230)])
+ link(Index,10155259:Index,[])
+}
+Add(Hub,1330340,203,140)
+{
+ link(onEvent1,14132275:doWork2,[])
+ link(onEvent2,9620357:doEvent,[(270,153)(270,188)])
+}
+Add(Edit,5519043,392,182)
+{
+ Left=95
+ Top=50
+ Width=135
+ Height=25
+ Text="Text1"
+ link(onChange,14969987:doWork1,[])
+}
+Add(Edit,12515059,399,224)
+{
+ Left=95
+ Top=95
+ Width=135
+ Height=25
+ Text="Text2"
+ link(onChange,14969987:doWork2,[(443,230)(443,195)])
+}
+Add(StrList,10155259,322,98)
+{
+ @Hint=#10:Item Names|
+ Strings=#5:Text1|5:Text2|
+ Point(onGetString)
+ Point(StrToFind)
+ Point(Index)
+ Point(onGetIndex)
+ Point(doGetIndex)
+ Point(doGetString)
+ link(onGetString,14007143:doSendChanges,[(365,111)(365,63)(110,63)(110,118)])
+ link(StrToFind,14007143:ItemName,[(342,79)(300,79)(300,180)(153,180)])
+ link(onGetIndex,2907638:doIndex,[(365,118)(365,286)])
+}
+Add(ChanelToIndex,14969987,455,182)
+{
+ link(onIndex,10155259:doGetString,[(499,188)(499,170)(310,170)(310,153)])
+}
+Add(Hub,8634435,203,91)
+{
+ link(onEvent1,14132275:doWork1,[(270,97)])
+ link(onEvent2,14007143:doReturnItem,[(246,104)(246,73)(121,73)(121,111)])
+}
+Add(HubEx,14132275,266,133)
+{
+ link(onEvent,10155259:doGetIndex,[])
+}

@@ -1,0 +1,39 @@
+func Scale()
+  switch(get('Scale'))
+    case 1: return(1024)
+    case 2: return(1048576)
+    default: return(1)
+  end
+end
+
+func Refresh(_data)
+  println('/* memory status is read on demand */')
+end
+
+func Value(index)
+  return('(hiasm_memory_bytes(' && index && ') / ' && Scale() && ')')
+end
+
+func RAM()
+  return(Value(0))
+end
+
+func RAM_free()
+  return(Value(1))
+end
+
+func PageFile()
+  return(Value(2))
+end
+
+func PageFile_free()
+  return(Value(3))
+end
+
+func Virtual()
+  return(Value(4))
+end
+
+func Virtual_free()
+  return(Value(5))
+end

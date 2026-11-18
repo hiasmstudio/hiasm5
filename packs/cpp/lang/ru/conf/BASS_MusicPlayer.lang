@@ -1,0 +1,10 @@
+Music player=Проигрыватель музыки
+Starts playing music from the beginning=Начинает проигрывание музыки с начала
+Sets the audio gain (0-100)=Устанавливает коэффициент усиления звука (0-100)
+Sets the level separation (0-100)=Устанавливает разделение уровней (0-100)
+The event occurs every time after the end of playing a music file=Событие происходит всякий раз после окончания проигрывания музыкального файла
+The event occurs in case of an error and outputs its number to the stream=Событие происходит в случае ошибки и выдаёт её номер в поток
+Contains the length of the music in seconds=Содержит длину музыки в секундах
+Contains the internal name of the music file=Содержит внутреннее имя музыкального файла
+Sets the volume of an individual channel of a music file=Устанавливает громкость отдельного канала музыкального файла
+Defines the music ID=Определяет идентификатор музыки

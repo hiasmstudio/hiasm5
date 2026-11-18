@@ -1,0 +1,5 @@
+C++17 inline action; source code executes as part of the compiled program=Вставка кода C++17 в цепочку событий
+C++17 statements; input holds the incoming value (std::string when none)=Инструкции C++17. input содержит входное значение (std::string, если его нет).
+Result expression evaluated after Code=Выражение результата после выполнения кода
+Execute statements in a local scope=Выполнить код в локальной области видимости
+Expression result after execution=Результат выражения

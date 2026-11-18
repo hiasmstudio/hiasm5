@@ -1,0 +1,68 @@
+func ArrayExpr()
+  if(get('ArrayType') == 0)
+    if(linked('Array'))
+      return(d('Array'))
+    else
+      return('std::vector<std::string>()')
+    end
+  else
+    if(get('ArrayType') == 1)
+      if(linked('Array'))
+        return(d('Array'))
+      else
+        return('std::vector<int>()')
+      end
+    else
+      if(linked('Array'))
+        return(d('Array'))
+      else
+        return('std::vector<double>()')
+      end
+    end
+  end
+end
+
+func Arg(name, fallback)
+  if(linked(name))
+    return(d(name))
+  else
+    return(fallback)
+  end
+end
+
+func Partial()
+  if(get('Partial') == "True")
+    return(1)
+  else
+    return(0)
+  end
+end
+
+func Sensitive()
+  if(get('CaseSensitive') == "True")
+    return(1)
+  else
+    return(0)
+  end
+end
+
+func FindExpr()
+  if(get('ArrayType') == 0)
+    return('[](const std::vector<std::string> &a, int start, const std::string &value, int partial, int cs) { std::string needle = value; if(!cs) for(char &c : needle) c = static_cast<char>(std::tolower(static_cast<unsigned char>(c))); for(std::size_t i = start < 0 ? 0 : static_cast<std::size_t>(start); i < a.size(); ++i) { std::string item = a[i]; if(!cs) for(char &c : item) c = static_cast<char>(std::tolower(static_cast<unsigned char>(c))); bool hit = partial ? item.find(needle) != std::string::npos : item == needle; if(hit) return static_cast<int>(i); } return -1; }(' && ArrayExpr() && ', static_cast<int>(' && Arg('Index', get('Index')) && '), std::string(' && Arg('Value', cstr(get('Value'))) && '), ' && Partial() && ', ' && Sensitive() && ')')
+  else
+    if(get('ArrayType') == 1)
+      return('[](const std::vector<int> &a, int start, int value) { for(std::size_t i = start < 0 ? 0 : static_cast<std::size_t>(start); i < a.size(); ++i) if(a[i] == value) return static_cast<int>(i); return -1; }(' && ArrayExpr() && ', static_cast<int>(' && Arg('Index', get('Index')) && '), static_cast<int>(' && Arg('Value', get('Value')) && '))')
+    else
+      return('[](const std::vector<double> &a, int start, double value) { for(std::size_t i = start < 0 ? 0 : static_cast<std::size_t>(start); i < a.size(); ++i) if(a[i] == value) return static_cast<int>(i); return -1; }(' && ArrayExpr() && ', static_cast<int>(' && Arg('Index', get('Index')) && '), static_cast<double>(' && Arg('Value', get('Value')) && '))')
+    end
+  end
+end
+
+func doFind(_data)
+  println('hiasm_int_state(', _id_, ', -1) = ', FindExpr(), ';')
+  event(onFind, 'hiasm_int_state(' && _id_ && ', -1)')
+end
+
+func ItemIdx()
+  return('hiasm_int_state(' && _id_ && ', -1)')
+end

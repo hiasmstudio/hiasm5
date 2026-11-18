@@ -1,0 +1,8 @@
+Inserting one row into another=Вставка одной строки в другую
+The string into which you want to insert the substring=Строка, в которую необходимо вставить подстроку
+Substring to insert=Подстрока для вставки
+Contains the default position from which characters are copied=Содержит позицию по умолчанию, с которой копируются символы
+Inserts the string SubStr into the string SrcStr at Position=Вставляет строку SubStr в строку SrcStr в позицию Position
+The event occurs every time after an insertion is performed and outputs the result to the stream=Событие происходит всякий раз, после выполнения вставки и выдаёт результат в поток
+Specifies the string into which characters should be inserted=Определяет строку, в которую необходимо вставить символы
+Defines the position at which characters are inserted (starting at 1)=Определяет позицию, в которую вставляются символы (начиная с 1)

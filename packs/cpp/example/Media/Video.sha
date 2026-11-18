@@ -1,0 +1,68 @@
+*ѕросмотр видео файлов на рабочем столе #13#10(работает в XP, в Win2000 не работает, в 9х не известно)
+Make(cpp)
+Pos(0,0)
+Add(MainForm,89500,21,105)
+{
+ Left=312
+ Top=234
+ Width=392
+ Height=112
+}
+Add(MediaPlayer,98238,406,112)
+{
+ VideoScale=1
+ link(Handle,53158:Handle,[(419,93)(300,93)])
+}
+Add(Hub,58639,154,42)
+{
+ OutCount=3
+ link(onEvent1,61204:doData,[])
+ link(onEvent2,98238:doPlay,[(212,55)(212,118)])
+ link(onEvent3,28615:doData,[(196,62)(196,181)])
+}
+Add(ODialog,20862,98,42)
+{
+ link(onExecute,58639:doEvent1,[])
+}
+Add(WinEnum,53158,294,42)
+{
+}
+Add(DoData,61204,238,42)
+{
+ Data=String(Program Manager)
+ link(onEventData,53158:doFind,[(282,48)(282,55)])
+}
+Add(DoData,94938,252,133)
+{
+ link(onEventData,75508:doPosition,[])
+ link(Data,98238:Position,[(258,125)(381,125)(381,154)(412,154)])
+}
+Add(Button,18742,49,42)
+{
+ Left=165
+ Top=15
+ Font=[Arial,8,0,0,1]
+ Caption="Open"
+ link(onClick,20862:doExecute,[])
+}
+Add(Timer,56813,210,133)
+{
+ link(onTimer,94938:doData,[])
+}
+Add(DoData,28615,245,175)
+{
+ link(onEventData,75508:doMax,[(306,181)(306,146)])
+ link(Data,98238:Length,[(251,169)(419,169)])
+}
+Add(ScrollBar,75508,336,133)
+{
+ Left=20
+ Top=50
+ Width=340
+ Height=20
+ Color=-16777200
+ Max=60000
+ ScrollMode=1
+ Point(doMax)
+ link(onPosition,98238:doPosition,[])
+}

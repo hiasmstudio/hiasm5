@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<PhoneList>
+	<!-- корневой тэг, список людей -->
+	<Person>
+		<LastName>Потапов</LastName>
+		<Name>Сергей</Name>
+		<Phone>55-55-55</Phone>
+		<Street>Моховая</Street>
+		<House>3</House>
+		<App>10</App>
+		<Note>Без примечаний</Note>
+	</Person>
+	<Person>
+		<LastName>Попов</LastName>
+		<Name>Андрей</Name>
+		<Phone>56-56-56</Phone>
+		<Street>Ленина</Street>
+		<House>3</House>
+		<App>5</App>
+		<Note>Без примечаний</Note>
+	</Person>
+	<Person>
+		<LastName>Иванов</LastName>
+		<Name>Иван</Name>
+		<Phone>17-17-17</Phone>
+		<Street>Садовая</Street>
+		<House>4</House>
+		<App>6</App>
+		<Note>Очень хороший человек</Note>
+	</Person>
+	<Person>
+		<LastName>Казаков</LastName>
+		<Name>Сергей</Name>
+		<Phone>24-19-68</Phone>
+		<Street>Полежаева</Street>
+		<House>101</House>
+		<App>22</App>
+		<Note>Тоже очень хороший человек</Note>
+	</Person>
+</PhoneList>

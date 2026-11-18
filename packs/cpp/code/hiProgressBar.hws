@@ -1,0 +1,27 @@
+func doStart
+  println('{')
+  println('GtkWidget *progress = gtk_progress_bar_new();')
+  println('hiasm_set_progress_color(progress, ', cstr(d('ProgressColor')), ');')
+  switch(get('Smooth'))
+    case 1: println('hiasm_progress_smooth(progress, FALSE);')
+    default: println('hiasm_progress_smooth(progress, TRUE);')
+  end
+  switch(d('Kind'))
+    case 1: println('gtk_orientable_set_orientation(GTK_ORIENTABLE(progress), GTK_ORIENTATION_VERTICAL);')
+  end
+  println('gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progress), hiasm_progress_fraction_of(GTK_PROGRESS_BAR(progress)));')
+  println('hiasm_place("ProgressBar', _id_, '", progress, ', Left, ', ', Top, ');')
+  println('}')
+end
+
+func doPosition(_data)
+  println('gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(hiasm_widget("ProgressBar', _id_, '").get()), static_cast<double>(', _data, ') / static_cast<double>(', get('Max'), '));')
+end
+
+func doValue(_data)
+  doPosition(_data)
+end
+
+func Position()
+  return('static_cast<int>(hiasm_progress_fraction_of(GTK_PROGRESS_BAR(hiasm_widget("ProgressBar' && _id_ && '").get())) * ' && get('Max') && ')')
+end

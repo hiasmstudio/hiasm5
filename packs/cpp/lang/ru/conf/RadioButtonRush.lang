@@ -1,0 +1,11 @@
+Radio button=Переключатель
+Element transparency=Прозрачность элемента
+Sets the initial value of the radio button=Задаёт начальное значение переключателя
+Sets the text of the caption near the radio button=Задаёт текст надписи возле переключателя
+Radio button area size=Размер области переключателя
+Radio button color=Цвет переключателя
+Selects the current radio button=Выбирает текущий переключатель
+Sets the color scheme. The MT stream with parameters is taken from the stream=Устанавливает цвтовую схему. МТ-поток с параметрами берется из потока
+Redraws the control=Перерисовывает контрол
+The event occurs whenever the component is clicked=Событие происходит всякий раз при клике на компоненте
+Contains 1 if the radio button is selected and 0 otherwise=Содержит 1, если переключатель выбран и 0 - в противном случае

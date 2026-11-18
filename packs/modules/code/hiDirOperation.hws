@@ -1,0 +1,9 @@
+section cpp
+
+func doOperation(_data)
+  switch( Operation )
+    case 0: println('SetCurrentDirectory(', PChar(Source), ');')
+  end
+  event(onOperation)
+end
+

@@ -1,0 +1,813 @@
+Make(cpp)
+Pos(0,2)
+Add(Label,14040014,777,390)
+{
+ Left=245
+ Top=40
+ Width=310
+ Height=20
+ Font=[MS Sans Serif,10,1,128,1]
+ Caption=""
+ AutoSize=1
+ Alignment=2
+ link(Text,4443739:Var3,[(783,287)])
+}
+Add(Label,4442894,147,138)
+{
+ Left=40
+ Top=40
+ Width=200
+ Height=20
+ Font=[MS Sans Serif,10,1,8388608,1]
+ Caption="Идентификатор CPU:"
+ AutoSize=1
+}
+Add(CheckBox,10072271,315,495)
+{
+ Left=20
+ Top=65
+ Width=220
+ Font=[MS Sans Serif,10,1,8388608,1]
+ TabOrder=-1
+ Caption="Название CPU:"
+ link(onCheck,10395257:doEvent,[])
+}
+Add(CheckBox,6920624,322,502)
+{
+ Left=20
+ Top=90
+ Width=220
+ Font=[MS Sans Serif,10,1,8388608,1]
+ TabOrder=-1
+ Caption="Описание CPU:"
+ link(onCheck,3437190:doEvent,[])
+}
+Add(MainForm,12231298,98,138)
+{
+ Left=20
+ Top=105
+ Width=595
+ Height=475
+ Caption="ProcInfo"
+ Icon=[ZIPFE02000078DAB592310E823014867FC1C446079D9C19F51470048FE2C668C71EC0DDD16BF4085E82E8C84A427CBED7D78224ACBCB6BC7E5F434B4B811597A23840E2930147CE276E05B78ADB0AEB3066330C71C07FD85061AD2629DCF1DE731643A18248931451F258248C95FA87CCA3303670128281550474705144441403AA903D0B6E64E34E59F01AD67786932254C0245401A3B849C2444CC208D6839029186BC457EC54840F1B84621423A68E1B0FC84D51C04D4FD42DF4A7682EBA37517326BA6F6FDF4BF6E82A3C1BE07C07762F20F77C25ED4C13DFF2780FECF96695E479FA3627EAF73C6939BBD40F5A4A8BEC]
+ Position=1
+}
+Add(ProcInfo,12524174,294,243)
+{
+ Point(Manufacturer)
+ Point(SocketDesignation)
+ Point(ProcessorId)
+ Point(MaxClockSpeed)
+ Point(ExtClock)
+ Point(Version)
+ Point(Architecture)
+ Point(Availability)
+ Point(CurrentVoltage)
+ Point(Status)
+ Point(L2CacheSize)
+ Point(L2CacheSpeed)
+ Point(Computer)
+ Point(Query)
+ Point(LoadPercentage)
+ Point(onErr)
+ link(onInfo,10708507:doEvent,[])
+ link(Computer,631757:Var2,[])
+ link(Query,16238760:Value,[(307,196)(340,196)])
+ link(onErr,6379849:doString,[(448,256)(448,291)])
+}
+Add(ArrayEnum,121070,203,243)
+{
+ link(onItem,10583997:doWork2,[])
+ link(onEndEnum,8174383:doWork2,[(285,256)(285,200)])
+ link(Array,12582439:Var1,[(209,231)(263,231)(263,371)])
+}
+Add(ComboBox,6494590,644,243)
+{
+ Left=5
+ Top=5
+ Width=355
+ Height=21
+ Font=[Courier New,10,0,0,204]
+ Text=""
+ link(onClick,317701:In,[])
+}
+Add(Hub,14810477,154,215)
+{
+ OutCount=7
+ link(onEvent1,16238760:doClear,[(260,221)(260,130)])
+ link(onEvent2,12263196:In,[])
+ link(onEvent3,8174383:doWork1,[(264,235)(264,193)])
+ link(onEvent4,12524174:doArrayId,[(240,242)(240,256)])
+ link(onEvent5,121070:doEnum,[])
+ link(onEvent6,10073731:doString,[(250,256)(250,452)])
+ link(onEvent7,14353584:doData,[(198,263)(198,501)])
+}
+Add(InfoTip,10664306,217,61)
+{
+ Info=#28:Пример применения компонента|13: WMI ProcInfo|
+ Font=[MS Sans Serif,8,1,0,1]
+ Width=218
+ Height=39
+}
+Add(LineBreak,14556735,28,138)
+{
+ Caption="Caption"
+ link(Out,12231298:doCaption,[])
+ Primary=[3675219,336,308]
+}
+Add(FormatStr,10073731,315,446)
+{
+ Mask="ProcInfo   Найдено процессоров - %2"
+ link(onFString,3675219:In,[])
+ link(Str2,4968581:Count,[])
+}
+Add(LineBreak,10316760,588,250)
+{
+ Caption="Clear"
+ link(Out,6494590:doClear,[])
+ Primary=[12263196,-378,-28]
+}
+Add(IndexToChanel,10708507,448,243)
+{
+ Point(Index)
+ link(onEvent1,8936651:doString,[])
+ link(onEvent2,14983151:doEvent1,[(488,256)(488,396)])
+ link(Index,7093031:Value,[])
+}
+Add(Memory,7093031,448,187)
+{
+ Default=Integer(0)
+}
+Add(ChanelToIndex,8174383,343,187)
+{
+ link(onIndex,7093031:doValue,[])
+}
+Add(Label,9305742,784,397)
+{
+ Left=245
+ Top=65
+ Width=310
+ Height=20
+ Font=[MS Sans Serif,10,1,128,1]
+ Caption=""
+ AutoSize=1
+ Alignment=2
+ link(Text,16599487:Var3,[(790,301)])
+}
+Add(CheckBox,12477738,329,509)
+{
+ Left=20
+ Top=115
+ Width=220
+ Font=[MS Sans Serif,10,1,8388608,1]
+ TabOrder=-1
+ Caption="Производитель CPU:"
+ link(onCheck,8841657:doEvent,[])
+}
+Add(CheckBox,15133166,336,516)
+{
+ Left=20
+ Top=140
+ Width=220
+ Font=[MS Sans Serif,10,1,8388608,1]
+ TabOrder=-1
+ Caption="Сокет CPU:"
+ link(onCheck,13958678:doEvent,[])
+}
+Add(ArrayRW,4968581,315,397)
+{
+ Point(Count)
+ link(onRead,10583997:doWork3,[(359,403)(359,329)(263,329)])
+ link(Array,12582439:Var2,[])
+}
+Add(GetDataEx,12582439,308,362)
+{
+ link(Data,12524174:IdArray,[])
+}
+Add(LineBreak,903881,245,397)
+{
+ Caption="Read"
+ link(Out,4968581:doRead,[])
+ Primary=[317701,448,-147]
+}
+Add(HubEx,10583997,259,236)
+{
+ link(onEvent,12524174:doInfo,[])
+}
+Add(Hub,14983151,700,390)
+{
+ OutCount=16
+ link(onEvent1,14040014:doText,[])
+ link(onEvent2,9305742:doText,[])
+ link(onEvent3,3075365:doText,[])
+ link(onEvent4,6481346:doText,[])
+ link(onEvent5,6735970:doText,[])
+ link(onEvent6,9301907:doText,[])
+ link(onEvent7,15304430:doText,[])
+ link(onEvent8,4447297:doText,[])
+ link(onEvent9,16250058:doText,[])
+ link(onEvent10,8830919:doText,[])
+ link(onEvent11,742618:doText,[])
+ link(onEvent12,6175214:doText,[])
+ link(onEvent13,10188953:doText,[])
+ link(onEvent14,4688492:doText,[])
+ link(onEvent15,6066382:doText,[])
+ link(onEvent16,3272745:doText,[])
+}
+Add(Label,3075365,791,404)
+{
+ Left=245
+ Top=90
+ Width=310
+ Height=20
+ Font=[MS Sans Serif,10,1,128,1]
+ Caption=""
+ AutoSize=1
+ Alignment=2
+ link(Text,12524174:Description,[(797,340)(314,340)])
+}
+Add(GetDataEx,4443739,287,278)
+{
+ link(Data,12524174:DeviceID,[])
+}
+Add(GetDataEx,16599487,294,292)
+{
+ link(Data,12524174:Name,[])
+}
+Add(Label,6481346,798,411)
+{
+ Left=245
+ Top=115
+ Width=310
+ Height=20
+ Font=[MS Sans Serif,10,1,128,1]
+ Caption=""
+ AutoSize=1
+ Alignment=2
+ link(Text,12524174:Manufacturer,[(804,343)(328,343)])
+}
+Add(Label,6735970,805,418)
+{
+ Left=245
+ Top=140
+ Width=310
+ Height=20
+ Font=[MS Sans Serif,10,1,128,1]
+ Caption=""
+ AutoSize=1
+ Alignment=2
+ link(Text,12524174:SocketDesignation,[(811,346)(335,346)])
+}
+Add(Label,9301907,812,425)
+{
+ Left=245
+ Top=165
+ Width=310
+ Height=20
+ Font=[MS Sans Serif,10,1,128,1]
+ Caption=""
+ AutoSize=1
+ Alignment=2
+ link(Text,12524174:ProcessorId,[(818,350)(342,350)])
+}
+Add(Label,15304430,819,432)
+{
+ Left=245
+ Top=190
+ Width=310
+ Height=20
+ Font=[MS Sans Serif,10,1,128,1]
+ Caption=""
+ AutoSize=1
+ Alignment=2
+ link(Text,12524174:MaxClockSpeed,[(825,354)(349,354)])
+}
+Add(Label,4447297,826,439)
+{
+ Left=245
+ Top=215
+ Width=310
+ Height=20
+ Font=[MS Sans Serif,10,1,128,1]
+ Caption=""
+ AutoSize=1
+ Alignment=2
+ link(Text,12524174:ExtClock,[(832,357)(356,357)])
+}
+Add(Label,16250058,833,446)
+{
+ Left=245
+ Top=240
+ Width=310
+ Height=20
+ Font=[MS Sans Serif,10,1,128,1]
+ Caption=""
+ AutoSize=1
+ Alignment=2
+ link(Text,12524174:Version,[(839,360)(363,360)])
+}
+Add(Label,8830919,840,453)
+{
+ Left=245
+ Top=265
+ Width=310
+ Height=20
+ Font=[MS Sans Serif,10,1,128,1]
+ Caption=""
+ AutoSize=1
+ Alignment=2
+ link(Text,12524174:Architecture,[(846,364)(370,364)])
+}
+Add(FormatStr,8936651,525,243)
+{
+ Mask="%1   %2"
+ link(onFString,6494590:doAdd,[])
+ link(Str1,4443739:Var2,[(531,231)(405,231)(405,303)(300,303)])
+ link(Str2,16599487:Var2,[(538,231)(412,231)(412,317)(307,317)])
+}
+Add(Label,742618,847,460)
+{
+ Left=245
+ Top=290
+ Width=310
+ Height=20
+ Font=[MS Sans Serif,10,1,128,1]
+ Caption=""
+ AutoSize=1
+ Alignment=2
+ link(Text,12524174:Availability,[(853,368)(377,368)])
+}
+Add(Label,6175214,854,467)
+{
+ Left=245
+ Top=315
+ Width=310
+ Height=20
+ Font=[MS Sans Serif,10,1,128,1]
+ Caption=""
+ AutoSize=1
+ Alignment=2
+ link(Text,12524174:CurrentVoltage,[(860,371)(384,371)])
+}
+Add(Label,10188953,861,474)
+{
+ Left=245
+ Top=340
+ Width=310
+ Height=20
+ Font=[MS Sans Serif,10,1,128,1]
+ Caption=""
+ AutoSize=1
+ Alignment=2
+ link(Text,12524174:Status,[(867,374)(391,374)])
+}
+Add(Label,4688492,868,481)
+{
+ Left=245
+ Top=365
+ Width=310
+ Height=20
+ Font=[MS Sans Serif,10,1,128,1]
+ Caption=""
+ AutoSize=1
+ Alignment=2
+ link(Text,12524174:L2CacheSize,[(874,378)(398,378)])
+}
+Add(Label,6066382,875,488)
+{
+ Left=245
+ Top=390
+ Width=310
+ Height=20
+ Font=[MS Sans Serif,10,1,128,1]
+ Caption=""
+ AutoSize=1
+ Alignment=2
+ link(Text,12524174:L2CacheSpeed,[(881,382)(405,382)])
+}
+Add(Button,15348209,98,215)
+{
+ Left=505
+ Top=5
+ Width=75
+ Font=[MS Sans Serif,8,1,0,1]
+ TabOrder=-1
+ Caption="StartScan"
+ link(onClick,14810477:doEvent1,[])
+}
+Add(Edit,5537120,294,131)
+{
+ Left=365
+ Top=5
+ Width=135
+ Hint="Сетевое имя компьютера"
+ Text=""
+}
+Add(Memory,16238760,334,117)
+{
+ Default=String(Name)
+}
+Add(LineBreak,4766789,271,117)
+{
+ Caption="Query"
+ link(Out,16238760:doValue,[])
+ Primary=[13417864,322,553]
+}
+Add(FormatStr,6379849,502,285)
+{
+ Mask="Компьютер %1 недоступен"
+ link(onFString,294324:doMessage,[])
+ link(Str1,631757:Var3,[(508,224)])
+}
+Add(Message,294324,558,285)
+{
+ Caption="Внимание!"
+ Icon=3
+}
+Add(GetDataEx,631757,287,215)
+{
+ link(Data,5537120:Text,[])
+}
+Add(Label,3272745,882,495)
+{
+ Left=245
+ Top=415
+ Width=310
+ Height=20
+ Font=[MS Sans Serif,10,1,128,1]
+ Caption=""
+ AutoSize=1
+ Alignment=2
+ link(Text,12524174:LoadPercentage,[(888,385)(412,385)])
+}
+Add(CheckBox,3394233,343,523)
+{
+ Left=20
+ Top=165
+ Width=220
+ Font=[MS Sans Serif,10,1,8388608,1]
+ TabOrder=-1
+ Caption="CPUID:"
+ link(onCheck,8484392:doEvent,[])
+}
+Add(CheckBox,8219509,350,530)
+{
+ Left=20
+ Top=190
+ Width=220
+ Font=[MS Sans Serif,10,1,8388608,1]
+ TabOrder=-1
+ Caption="Частота CPU:"
+ link(onCheck,7778652:doEvent,[])
+}
+Add(CheckBox,5295857,357,537)
+{
+ Left=20
+ Top=215
+ Width=220
+ Font=[MS Sans Serif,10,1,8388608,1]
+ TabOrder=-1
+ Caption="Опорная частота CPU:"
+ link(onCheck,11836772:doEvent,[])
+}
+Add(CheckBox,15421317,364,544)
+{
+ Left=20
+ Top=240
+ Width=220
+ Font=[MS Sans Serif,10,1,8388608,1]
+ TabOrder=-1
+ Caption="Версия CPU:"
+ link(onCheck,6597781:doEvent,[])
+}
+Add(CheckBox,4075033,371,551)
+{
+ Left=20
+ Top=265
+ Width=220
+ Font=[MS Sans Serif,10,1,8388608,1]
+ TabOrder=-1
+ Caption="Архитектура CPU:"
+ link(onCheck,2876744:doEvent,[])
+}
+Add(CheckBox,5054852,378,558)
+{
+ Left=20
+ Top=290
+ Width=220
+ Font=[MS Sans Serif,10,1,8388608,1]
+ TabOrder=-1
+ Caption="Состояние CPU:"
+ link(onCheck,7692860:doEvent,[])
+}
+Add(CheckBox,4184667,385,565)
+{
+ Left=20
+ Top=315
+ Width=220
+ Font=[MS Sans Serif,10,1,8388608,1]
+ TabOrder=-1
+ Caption="Напряжение питания CPU:"
+ link(onCheck,11000817:doEvent,[])
+}
+Add(CheckBox,9893676,392,572)
+{
+ Left=20
+ Top=340
+ Width=220
+ Font=[MS Sans Serif,10,1,8388608,1]
+ TabOrder=-1
+ Caption="Статус CPU:"
+ link(onCheck,11997965:doEvent,[])
+}
+Add(CheckBox,1076410,399,579)
+{
+ Left=20
+ Top=365
+ Width=220
+ Font=[MS Sans Serif,10,1,8388608,1]
+ TabOrder=-1
+ Caption="Размер кэша L2 CPU:"
+ link(onCheck,14037945:doEvent,[])
+}
+Add(CheckBox,1819865,406,586)
+{
+ Left=20
+ Top=390
+ Width=220
+ Font=[MS Sans Serif,10,1,8388608,1]
+ TabOrder=-1
+ Caption="Частота кэша L2 CPU:"
+ link(onCheck,4884996:doEvent,[])
+}
+Add(CheckBox,6421190,413,593)
+{
+ Left=20
+ Top=415
+ Width=220
+ Font=[MS Sans Serif,10,1,8388608,1]
+ TabOrder=-1
+ Caption="Процент загрузки:"
+ link(onCheck,925502:doEvent,[])
+}
+Add(Hub,12007848,259,495)
+{
+ OutCount=15
+ link(onEvent1,10072271:doCheck,[])
+ link(onEvent2,6920624:doCheck,[])
+ link(onEvent3,12477738:doCheck,[])
+ link(onEvent4,15133166:doCheck,[])
+ link(onEvent5,3394233:doCheck,[])
+ link(onEvent6,8219509:doCheck,[])
+ link(onEvent7,5295857:doCheck,[])
+ link(onEvent8,15421317:doCheck,[])
+ link(onEvent9,4075033:doCheck,[])
+ link(onEvent10,5054852:doCheck,[])
+ link(onEvent11,4184667:doCheck,[])
+ link(onEvent12,9893676:doCheck,[])
+ link(onEvent13,1076410:doCheck,[])
+ link(onEvent14,1819865:doCheck,[])
+ link(onEvent15,6421190:doCheck,[])
+}
+Add(DoData,14353584,210,495)
+{
+ Data=Integer(1)
+ link(onEventData,12007848:doEvent1,[])
+}
+Add(FormatStr,9604632,462,670)
+{
+ DataCount=15
+ Mask="%1%2%3%4%5%6%7%8%9%10%11%12%13%14%15"
+ link(onFString,13417864:In,[])
+ link(Str1,10827244:Value,[])
+ link(Str2,12154160:Value,[])
+ link(Str3,9728009:Value,[])
+ link(Str4,15366365:Value,[])
+ link(Str5,870344:Value,[])
+ link(Str6,9806715:Value,[])
+ link(Str7,12050200:Value,[])
+ link(Str8,9381142:Value,[])
+ link(Str9,9094946:Value,[])
+ link(Str10,16124667:Value,[])
+ link(Str11,10366036:Value,[])
+ link(Str12,11766709:Value,[])
+ link(Str13,8012377:Value,[])
+ link(Str14,234256:Value,[])
+ link(Str15,5042205:Value,[])
+}
+Add(Memory,10827244,462,495)
+{
+ Default=String(Name,)
+ link(onData,16105686:doWork,[(555,501)(555,452)])
+}
+Add(Memory,12154160,469,502)
+{
+ Default=String(Description,)
+ link(onData,12699256:doWork,[(559,508)(559,466)])
+}
+Add(Memory,9728009,476,509)
+{
+ Default=String(Manufacturer,)
+ link(onData,4785615:doWork,[(562,515)(562,480)])
+}
+Add(Memory,15366365,483,516)
+{
+ Default=String(SocketDesignation,)
+ link(onData,4403100:doWork,[(565,522)(565,494)])
+}
+Add(Memory,870344,490,523)
+{
+ Default=String(ProcessorId,)
+ link(onData,6316558:doWork,[(569,529)(569,508)])
+}
+Add(Memory,9806715,497,530)
+{
+ Default=String(MaxClockSpeed,)
+ link(onData,15527259:doWork,[(573,536)(573,522)])
+}
+Add(Memory,12050200,504,537)
+{
+ Default=String(ExtClock,)
+ link(onData,16545561:doWork,[(576,543)(576,536)])
+}
+Add(Memory,9381142,511,544)
+{
+ Default=String(Version,)
+ link(onData,3090909:doWork,[])
+}
+Add(Memory,9094946,518,551)
+{
+ Default=String(Architecture,)
+ link(onData,12132768:doWork,[(583,557)(583,564)])
+}
+Add(Memory,16124667,525,558)
+{
+ Default=String(Availability,)
+ link(onData,13291925:doWork,[(587,564)(587,578)])
+}
+Add(Memory,10366036,532,565)
+{
+ Default=String(CurrentVoltage,)
+ link(onData,16709331:doWork,[(590,571)(590,592)])
+}
+Add(Memory,11766709,539,572)
+{
+ Default=String(Status,)
+ link(onData,11713484:doWork,[(593,578)(593,606)])
+}
+Add(Memory,8012377,546,579)
+{
+ Default=String(L2CacheSize,)
+ link(onData,7267628:doWork,[(597,585)(597,620)])
+}
+Add(Memory,234256,553,586)
+{
+ Default=String(L2CacheSpeed,)
+ link(onData,2627677:doWork,[(601,592)(601,634)])
+}
+Add(Memory,5042205,560,593)
+{
+ Default=String(LoadPercentage,)
+ link(onData,16648039:doWork,[(604,599)(604,648)])
+}
+Add(IndexToChanel,10395257,413,495)
+{
+ link(onEvent1,10827244:doValue,[])
+ link(onEvent2,10827244:doClear,[])
+}
+Add(IndexToChanel,3437190,420,502)
+{
+ link(onEvent1,12154160:doValue,[])
+ link(onEvent2,12154160:doClear,[])
+}
+Add(IndexToChanel,8841657,427,509)
+{
+ link(onEvent1,9728009:doValue,[])
+ link(onEvent2,9728009:doClear,[])
+}
+Add(IndexToChanel,13958678,434,516)
+{
+ link(onEvent1,15366365:doValue,[])
+ link(onEvent2,15366365:doClear,[])
+}
+Add(IndexToChanel,8484392,441,523)
+{
+ link(onEvent1,870344:doValue,[])
+ link(onEvent2,870344:doClear,[])
+}
+Add(IndexToChanel,7778652,448,530)
+{
+ link(onEvent1,9806715:doValue,[])
+ link(onEvent2,9806715:doClear,[])
+}
+Add(IndexToChanel,11836772,455,537)
+{
+ link(onEvent1,12050200:doValue,[])
+ link(onEvent2,12050200:doClear,[])
+}
+Add(IndexToChanel,6597781,462,544)
+{
+ link(onEvent1,9381142:doValue,[])
+ link(onEvent2,9381142:doClear,[])
+}
+Add(IndexToChanel,2876744,469,551)
+{
+ link(onEvent1,9094946:doValue,[])
+ link(onEvent2,9094946:doClear,[])
+}
+Add(IndexToChanel,7692860,476,558)
+{
+ link(onEvent1,16124667:doValue,[])
+ link(onEvent2,16124667:doClear,[])
+}
+Add(IndexToChanel,11000817,483,565)
+{
+ link(onEvent1,10366036:doValue,[])
+ link(onEvent2,10366036:doClear,[])
+}
+Add(IndexToChanel,11997965,490,572)
+{
+ link(onEvent1,11766709:doValue,[])
+ link(onEvent2,11766709:doClear,[])
+}
+Add(IndexToChanel,14037945,497,579)
+{
+ link(onEvent1,8012377:doValue,[])
+ link(onEvent2,8012377:doClear,[])
+}
+Add(IndexToChanel,4884996,504,586)
+{
+ link(onEvent1,234256:doValue,[])
+ link(onEvent2,234256:doClear,[])
+}
+Add(IndexToChanel,925502,511,593)
+{
+ link(onEvent1,5042205:doValue,[])
+ link(onEvent2,5042205:doClear,[])
+}
+Add(LineBreakEx,2627677,616,628)
+{
+ Caption="FString"
+}
+Add(LineBreakEx,11713484,616,600)
+{
+ Caption="FString"
+}
+Add(LineBreakEx,15527259,616,516)
+{
+ Caption="FString"
+}
+Add(LineBreakEx,16545561,616,530)
+{
+ Caption="FString"
+}
+Add(LineBreakEx,13291925,616,572)
+{
+ Caption="FString"
+}
+Add(LineBreakEx,16709331,616,586)
+{
+ Caption="FString"
+}
+Add(LineBreakEx,7267628,616,614)
+{
+ Caption="FString"
+}
+Add(LineBreakEx,12132768,616,558)
+{
+ Caption="FString"
+}
+Add(LineBreakEx,16648039,616,642)
+{
+ Caption="FString"
+}
+Add(LineBreakEx,3090909,616,544)
+{
+ Caption="FString"
+}
+Add(LineBreakEx,6316558,616,502)
+{
+ Caption="FString"
+}
+Add(LineBreakEx,12699256,616,460)
+{
+ Caption="FString"
+}
+Add(LineBreakEx,4785615,616,474)
+{
+ Caption="FString"
+}
+Add(LineBreakEx,16105686,616,446)
+{
+ Caption="FString"
+}
+Add(LineBreakEx,4403100,616,488)
+{
+ Caption="FString"
+}
+Add(LineBreakEx,8114094,378,670)
+{
+ Caption="FString"
+ Type=1
+ link(OnEvent,9604632:doString,[])
+}

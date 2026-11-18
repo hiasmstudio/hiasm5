@@ -1,0 +1,12 @@
+Loading and storing binary data in memory=Загрузка и хранение двоичных данных в памяти
+Defines default memory data=Определяет данные в памяти по-умолчанию
+Copies binary data into memory=Копирует двоичные данные в память
+Sets the byte number to the value from the stream from which data reading/writing begins=Устанавливает номер байта значением из потока, с которого начинается считывание/запись данных
+Clears data from memory=Удаляет данные из памяти
+Changes the allocated memory size to the value from the stream. When zero is equivalent to doClear=Изменяет размер выделенной памяти на значение из потока. При нуле эквивалентно doClear
+The event occurs every time the data is copied and outputs it back to the ARG(Stream) stream=Событие происходит всякий раз после копирования данных и выдает их обратно в поток ARG(Stream)
+Contains the data identifier for working with it=Содержит идентификатор данных для работы с ними
+Contains the size of the data in bytes=Содержит размер данных в байтах
+Contains a pointer to the memory area (to the first byte of memory)=Содержит указатель области памяти (на первый байт памяти)
+Contains the position of the current byte in memory=Содержит позицию текущего байта в памяти
+Specifies data to be copied into memory=Определяет данные для копирования в память

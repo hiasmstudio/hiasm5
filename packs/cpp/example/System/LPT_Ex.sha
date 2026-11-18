@@ -1,0 +1,115 @@
+*ћониторинг LPT порта
+Make(cpp)
+Pos(0,0)
+Add(MainForm,47852,21,105)
+{
+ Left=312
+ Top=234
+ Height=164
+}
+Add(Label,99342,343,217)
+{
+ Left=20
+ Top=95
+ Width=105
+ Font=[Arial,8,0,0,1]
+ Caption="смещение +0:"
+}
+Add(Timer,8222,56,224)
+{
+ Interval=100
+ link(onTimer,889201:doEvent1,[])
+}
+Add(CheckBox,10050,56,273)
+{
+ Left=20
+ Top=60
+ Width=250
+ Font=[Arial,8,0,0,1]
+ Caption="ƒвунаправленность линии по смещению +0"
+ link(onCheck,55730:doOperation,[])
+}
+Add(Convertor,98855,287,252)
+{
+ Mode=8
+ link(onResult,84155:doText,[])
+}
+Add(Label,58293,238,77)
+{
+ Left=325
+ Top=10
+ Font=[Arial,8,0,0,1]
+ Caption="0"
+}
+Add(ScrollBar,5243,119,77)
+{
+ Left=85
+ Top=10
+ Width=235
+ Height=15
+ Max=255
+ link(onPosition,9995:doConvert,[])
+}
+Add(Convertor,9995,182,77)
+{
+ Mode=8
+ link(onResult,58293:doText,[])
+}
+Add(DoData,48657,119,182)
+{
+ link(onEventData,55456:doData,[])
+ link(Data,5243:Position,[])
+}
+Add(Convertor,72467,287,203)
+{
+ Mode=8
+ link(onResult,81081:doText,[])
+}
+Add(Button,80652,56,182)
+{
+ Left=15
+ Top=10
+ Font=[Arial,8,0,0,1]
+ Caption="Set"
+ link(onClick,48657:doData,[])
+}
+Add(Label,81081,392,203)
+{
+ Left=125
+ Top=95
+ Font=[Arial,8,0,0,1]
+}
+Add(Math,55730,119,273)
+{
+ OpType=2
+ Op2=32
+ ResultType=0
+ link(onResult,55456:doControl,[(173,279)(173,209)])
+}
+Add(Label,84155,392,252)
+{
+ Left=125
+ Top=115
+ Font=[Arial,8,0,0,1]
+}
+Add(Label,71516,343,266)
+{
+ Left=20
+ Top=115
+ Width=105
+ Font=[Arial,8,0,0,1]
+ Caption="смещение +1:"
+}
+Add(LPT,55456,189,182)
+{
+ Point(onDataIn)
+ Point(doDataIn)
+ Point(doControl)
+ link(onStatus,72467:doConvert,[(254,188)(254,209)])
+ link(onDataIn,98855:doConvert,[(248,195)(248,258)])
+}
+Add(Hub,889201,119,224)
+{
+ link(onEvent1,55456:doCheck,[(163,230)(163,195)])
+ link(onEvent2,55456:doDataIn,[(168,237)(168,202)])
+}

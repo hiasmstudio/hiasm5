@@ -1,0 +1,17 @@
+Dropdown list of colors=Выпадающий список цветов
+Color list type. Full - full list of colors, Short - shortened list, Custom - custom list=Тип списка цветов. Full - полный список цветов, Short - сокращенный список, Custom - пользовательский список
+Default color to select=Цвет для выбора по-умолчанию
+Index - output the index of the selected color to the stream, FormatColor - format color=Index - выдать в поток индекс выбранного цвета, FormatColor - форматный цвет
+Color field height=Высота поля цвета
+Color output format=Формат вывода цвета
+Height of each list item=Высота каждого пункта списка
+Rendering Manager=Менеджер отрисовки
+Adds a color to the list=Добавляет цвет в список
+Looks up the color in the list by value from the stream and makes it active=Ищет цвет в списке по значению из потока и делает его активным
+Looks up a color in the list by name and makes it active=Ищет цвет в списке по имени и делает его активным
+The event occurs whenever a color is selected and outputs data to the stream depending on the DataType property ARG(Text|Index)=Событие происходит всякий раз при выборе цвета и выдает в поток данные в зависимости от св-ва DataType ARG(Text|Index)
+Name of the color to add to the list=Имя цвета для добавления в список
+Color value to add to list=Значение цвета для добавления в список
+Stores the formatted selected color=Хранит форматный выделенный цвет
+Stores the index of the selected color=Хранит индекс выделенного цвета
+Stores color values=Хранит значения цветов

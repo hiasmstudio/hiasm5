@@ -1,0 +1,93 @@
+*определние IP адресов сетевых компьютеров по их имени
+Make(cpp)
+{
+ Left=312
+ Top=284
+ Width=264
+ Height=200
+ Caption="Ping"
+ TaskBar=1
+}
+Add(ListBox,9370,135,55)
+{
+ Top=30
+ Width=256
+ Height=145
+ Align=5
+ Font=[Arial,8,0,0,1]
+ AddType=1
+}
+Add(ChildPanel,6949,55,55)
+{
+ link(onEvent1,9370:doAdd,[])
+}
+BEGIN_SDK
+  Add(EditMulti,75067,3,3)
+  {
+   EventCount=1
+   Width=266
+   Height=180
+  }
+  Add(Panel,24929,21,133)
+  {
+   Width=256
+   Height=30
+   Align=2
+   Font=[Arial,8,0,0,1]
+   BevelInner=0
+   Point(doColor)
+  }
+  Add(Label,2678,21,7)
+  {
+   Left=8
+   Top=7
+   Width=35
+   Font=[Arial,8,0,0,1]
+   Caption="Name:"
+  }
+  Add(Edit,31284,77,7)
+  {
+   Left=45
+   Top=5
+   Width=145
+   Height=21
+   Font=[Arial,8,0,0,1]
+   Text="localhost"
+  }
+  Add(Ping,19647,77,77)
+  {
+   Name=""
+   Point(Time)
+   Point(ByteCount)
+   link(onFind,30574:doString,[(123,83)(123,126)(64,126)(64,146)])
+   link(onFailed,11761:doData,[])
+   link(Name,31284:Text,[])
+  }
+  Add(DoData,11761,140,84)
+  {
+   Data=String(Computer not found!)
+   link(onEventData,87322:doEvent2,[])
+  }
+  Add(Button,13442,21,77)
+  {
+   Left=195
+   Top=5
+   Font=[Arial,8,0,0,1]
+   Caption="Find"
+   link(onClick,19647:doPing,[])
+  }
+  Add(FormatStr,30574,70,140)
+  {
+   DataCount=3
+   Mask="%1: time %2, bytes %3"
+   link(onFString,87322:doEvent1,[(192,146)(192,83)])
+   link(Str2,19647:Time,[])
+   link(Str3,19647:ByteCount,[])
+  }
+  Add(Hub,87322,203,77)
+  {
+   InCount=2
+   OutCount=1
+   link(onEvent1,75067:onEvent1,[(252,83)(252,9)])
+  }
+END_SDK

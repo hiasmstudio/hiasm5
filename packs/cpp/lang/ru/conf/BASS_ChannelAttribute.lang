@@ -1,0 +1,7 @@
+Channel attributes=Аттрибуты канала
+Sound stream=Звуковой поток
+Audio stream attribute type=Тип атрибута звукового потока
+Sets the value of the specified audio stream attribute ARG(Value)=Устанавливает значение указанного атрибута звукового потока ARG(Value)
+The event occurs whenever an audio stream attribute is set=Событие происходит всякий раз после установки атрибута звукового потока
+Contains the current value of the audio stream attribute=Содержит текущее значение атрибута звукового потока
+Defines the value of an audio stream attribute=Определяет значение атрибута звукового потока

@@ -1,0 +1,72 @@
+*Отрисовка ф-ции
+Make(cpp)
+Add(PaintBox,5501852,161,91)
+{
+ Width=394
+ Height=386
+ Align=5
+ Point(Width)
+ Point(onResize)
+}
+Add(MainForm,8186,77,217)
+{
+ Left=312
+ Top=234
+ Height=409
+ Font=[Arial,8,0,0,1]
+ Caption="DrawSIN"
+ BorderStyle=3
+ link(onCreate,52352:doFor,[])
+}
+Add(MathParse,35343,420,112)
+{
+ MathStr="%1-1 + 65536*%2"
+ ResultType=0
+ link(X1,5893632:Var3,[(426,86)])
+ link(X2,22630:Result,[(433,86)(469,86)(469,275)(216,275)])
+}
+Add(MathParse,8413,357,189)
+{
+ MathStr="65536*%2 + %1"
+ ResultType=0
+ link(onResult,43560:doDraw,[])
+ link(X1,5893632:Var2,[])
+}
+Add(For,52352,161,231)
+{
+ Start=1
+ link(onEvent,22630:doCalc,[])
+ link(End,5501852:Width,[])
+}
+Add(Img_Line,43560,413,189)
+{
+ Color=8388608
+ Size=2
+ Point(Point1)
+ link(Bitmap,5501852:Bitmap,[(419,130)(167,130)])
+ link(Point1,35343:Result,[])
+}
+Add(InfoTip,3379,259,133)
+{
+ Info=#65:Если в св-ве MathStr поменять местами %1 и %2, то получится ваза!|
+ Font=[Arial,8,0,0,1]
+ Width=141
+ Height=95
+}
+Add(MathParse,22630,210,231)
+{
+ DataCount=1
+ MathStr="40*sin( %1*pi/180 )+50"
+ ResultType=0
+ link(onResult,90318:doEvent1,[])
+}
+Add(Hub,90318,266,231)
+{
+ link(onEvent1,35343:doCalc,[(313,237)(313,118)])
+ link(onEvent2,8413:doCalc,[(328,244)(328,195)])
+}
+Add(GetDataEx,5893632,350,77)
+{
+ Angle=3
+ link(Data,52352:Position,[(125,86)(125,275)(167,275)])
+}

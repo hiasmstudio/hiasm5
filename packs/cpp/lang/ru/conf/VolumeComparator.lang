@@ -1,0 +1,8 @@
+Comparison of audio streams=Сравнение звуковых потоков
+Folder into which audio streams are saved (loaded)=Папка в которую сохраняются (загружаются) звуковые потоки
+Searches for a similar audio stream ARG(Stream)=Производит поиск схожего звукового потока ARG(Stream)
+Adds a new audio stream to the search list ARG(Stream, Name)=Добавляет новый звуковой поток в список поиска ARG(Stream, Name)
+The event occurs every time after a successful search for an audio stream and produces its name as a result=Событие происходит всякий раз после успешного поиска звукового потока и выдает его имя в качестве результата
+The event occurs whenever there is no match between the specified audio stream and the list=Событие происходит всякий раз после отсутствия совпадений указанного звукового потока со списком
+Sound stream=Звуковой поток
+Audio stream name=Имя звукового потока

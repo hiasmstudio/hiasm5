@@ -1,0 +1,214 @@
+Make(cpp)
+Add(MainForm,7136857,182,175)
+{
+ Left=20
+ Top=105
+ Width=240
+ Height=354
+ Caption="Img_Tween"
+ Position=1
+ link(onCreate,13151844:doEvent1,[])
+}
+Add(Bitmap,1955627,504,133)
+{
+}
+Add(Bitmap,157995,567,133)
+{
+}
+Add(Image,4419819,504,231)
+{
+ Left=5
+ Top=10
+ Width=220
+ Height=220
+ link(Bitmap,7304220:Result,[])
+}
+Add(TrackBar,16371846,182,140)
+{
+ Left=5
+ Top=260
+ Width=220
+ Max=255
+ Point(doHint)
+ link(onPosition,14947565:doEvent1,[])
+}
+Add(HubEx,10665958,287,189)
+{
+ link(onEvent,2955406:doWork2,[])
+}
+Add(Label,10000263,231,91)
+{
+ Left=5
+ Top=240
+ Caption="1"
+ AutoSize=1
+}
+Add(Label,8338705,182,91)
+{
+ Left=175
+ Top=240
+ Caption="255"
+ AutoSize=1
+ Alignment=1
+}
+Add(Hub,14947565,231,140)
+{
+ link(onEvent1,10665958:doWork1,[(291,146)])
+ link(onEvent2,16371846:doHint,[(275,153)(275,130)(170,130)(170,160)])
+}
+Add(Img_Tween,7304220,504,189)
+{
+ BackColor=-16777201
+ Point(Result)
+ link(BitmapA,1955627:Bitmap,[])
+ link(BitmapB,157995:Bitmap,[(517,177)(573,177)])
+}
+Add(Hub,13151844,238,189)
+{
+ link(onEvent1,9681004:doWork2,[])
+ link(onEvent2,10665958:doWork2,[])
+}
+Add(Button,8331334,126,245)
+{
+ Left=15
+ Top=295
+ Width=65
+ TabOrder=-1
+ Caption="Load A"
+ link(onClick,6607378:doExecute,[])
+}
+Add(Button,10223046,126,294)
+{
+ Left=85
+ Top=295
+ Width=65
+ TabOrder=-1
+ Caption="Load B"
+ link(onClick,12705006:doExecute,[])
+}
+Add(ImageLoader,9005914,238,245)
+{
+ DrawSource=2
+ link(onLoad,9005914:doDraw,[(281,251)(281,237)(226,237)(226,258)])
+ link(onDraw,13398332:doEvent1,[])
+}
+Add(ODialog,6607378,182,245)
+{
+ Filter="BMP, GIF, JPG, JPEG, ICO, WMF, EMF, PNG, XBM, TIFF files (*.bmp;*.gif;*.ico;*wmf;*.emf;*.xbm;*.tiff;*.png;*.jpg;*.jpeg)|*.bmp;*.gif;*.ico;*wmf;*.emf;*.xbm;*.tiff;*.png;*.jpg;*.jpeg|All files (*.*)|*.*"
+ FileName=""
+ Select=1
+ link(onExecute,9005914:doLoad,[])
+}
+Add(ImageLoader,1073567,238,294)
+{
+ DrawSource=2
+ link(onLoad,1073567:doDraw,[(281,300)(281,286)(226,286)(226,307)])
+ link(onDraw,9585047:doEvent1,[])
+}
+Add(ODialog,12705006,182,294)
+{
+ Filter="BMP, GIF, JPG, JPEG, ICO, WMF, EMF, PNG, XBM, TIFF files (*.bmp;*.gif;*.ico;*wmf;*.emf;*.xbm;*.tiff;*.png;*.jpg;*.jpeg)|*.bmp;*.gif;*.ico;*wmf;*.emf;*.xbm;*.tiff;*.png;*.jpg;*.jpeg|All files (*.*)|*.*"
+ FileName=""
+ Select=1
+ link(onExecute,1073567:doLoad,[])
+}
+Add(Hub,13398332,287,252)
+{
+ OutCount=3
+ link(onEvent1,1955627:doLoad,[(341,258)(341,139)])
+ link(onEvent2,7872443:doWork2,[])
+ link(onEvent3,14444409:doWork2,[])
+}
+Add(Hub,9585047,287,301)
+{
+ OutCount=3
+ link(onEvent1,157995:doLoad,[(552,307)(552,139)])
+ link(onEvent2,7872443:doWork3,[(445,314)])
+ link(onEvent3,14444409:doWork3,[(333,321)])
+}
+Add(HubEx,7872443,441,252)
+{
+ Angle=3
+ link(onEvent,9681004:doWork3,[])
+}
+Add(HubEx,9681004,441,182)
+{
+ link(onEvent,7304220:doLoad,[])
+}
+Add(DoData,9126774,343,266)
+{
+ Data=Integer(0)
+ link(onEventData,1374314:doEvent1,[])
+}
+Add(HubEx,2955406,427,189)
+{
+ link(onEvent,4710951:doEvent1,[])
+}
+Add(HubEx,14444409,329,259)
+{
+ link(onEvent,9126774:doData,[])
+}
+Add(Hub,1374314,385,266)
+{
+ OutCount=3
+ link(onEvent1,6313955:doWork2,[])
+ link(onEvent2,9438260:doWork,[])
+ link(onEvent3,8967026:doWork,[(436,286)(436,293)])
+}
+Add(LineBreakEx,9438260,455,273)
+{
+ Caption="PosTo0"
+}
+Add(LineBreakEx,6586411,105,140)
+{
+ Caption="PosTo0"
+ Type=1
+ link(OnEvent,16371846:doPosition,[])
+}
+Add(Button,5456144,126,343)
+{
+ Left=155
+ Top=295
+ Width=65
+ TabOrder=-1
+ Caption="Tween"
+ link(onClick,6618862:doTimer,[])
+}
+Add(Timer,6618862,231,343)
+{
+ Interval=10
+ Enable=1
+ link(onTimer,8201017:doNext,[])
+}
+Add(Counter,8201017,287,343)
+{
+ Max=256
+ Step=4
+ link(onNext,9198135:doCase,[])
+}
+Add(LineBreakEx,8967026,455,287)
+{
+ Caption="_PosTo0"
+}
+Add(LineBreakEx,997986,203,378)
+{
+ Caption="_PosTo0"
+ Type=1
+ link(OnEvent,8201017:doReset,[(273,384)(273,363)])
+}
+Add(Case,9198135,343,343)
+{
+ Value=Integer(0)
+ link(onNextCase,6313955:doWork3,[(431,349)])
+ link(onTrue,6618862:doStop,[(388,356)(388,403)(198,403)(198,356)])
+}
+Add(HubEx,6313955,427,259)
+{
+ Angle=3
+ link(onEvent,2955406:doWork3,[])
+}
+Add(Hub,4710951,455,196)
+{
+ link(onEvent1,7304220:doTween,[])
+ link(onEvent2,4419819:doLoad,[(495,209)(495,237)])
+}

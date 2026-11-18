@@ -1,0 +1,4 @@
+Contact list=Список контактов
+Jabber client=Клиент Jabber
+The event occurs whenever a contact is received from the roster list and outputs it to the ARG(name, JID, subscribe) stream=Событие происходит всякий раз при получении контакта из ростер листа и выдает его в поток ARG(name, JID, subscribe)
+The event occurs whenever the status of a contact from the roster list changes and outputs it to the ARG(JID, State) stream=Событие происходит всякий раз при изменении статуса контакта из ростер листа и выдает его в поток ARG(JID, State)

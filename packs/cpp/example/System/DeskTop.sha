@@ -1,0 +1,252 @@
+Make(cpp)
+Add(MainForm,2953706,77,217)
+{
+ Width=386
+ Height=274
+ Caption="DeskTop"
+ Position=1
+ link(onCreate,15255520:doEvent1,[])
+}
+Add(Desktop,361659,469,126)
+{
+ Style=1
+ Point(doStyle)
+ Point(FileName)
+ Point(Style)
+}
+Add(Button,3120290,77,70)
+{
+ Left=315
+ Top=210
+ TabOrder=-1
+ Caption="Load"
+ link(onClick,6607378:doExecute,[])
+}
+Add(Button,13497464,175,329)
+{
+ Left=315
+ Top=5
+ TabOrder=-1
+ Caption="Stretch"
+ Data=Integer(0)
+ link(onClick,10339187:doEvent1,[])
+}
+Add(Button,12024844,175,364)
+{
+ Left=315
+ Top=30
+ TabOrder=-1
+ Caption="Center"
+ Data=Integer(1)
+ link(onClick,10749465:doEvent1,[])
+}
+Add(Button,5558579,175,399)
+{
+ Left=315
+ Top=55
+ TabOrder=-1
+ Caption="Tile"
+ Data=Integer(2)
+ link(onClick,1548090:doEvent1,[])
+}
+Add(HubEx,3679155,308,322)
+{
+ Angle=3
+ link(onEvent,4509534:doEvent1,[(312,181)])
+}
+Add(HubEx,14989991,308,357)
+{
+ Angle=3
+ link(onEvent,3679155:doWork3,[])
+}
+Add(ODialog,6607378,126,70)
+{
+ Filter="BMP, GIF, JPG, JPEG, ICO, WMF, EMF, PNG, XBM, TIFF files (*.bmp;*.gif;*.ico;*wmf;*.emf;*.xbm;*.tiff;*.png;*.jpg;*.jpeg)|*.bmp;*.gif;*.ico;*wmf;*.emf;*.xbm;*.tiff;*.png;*.jpg;*.jpeg|All files (*.*)|*.*"
+ FileName=""
+ Select=1
+ link(onExecute,10990138:doEvent1,[])
+}
+Add(ImageLoader,4369947,266,147)
+{
+ DrawSource=2
+ link(onLoad,4369947:doDraw,[(307,153)(307,187)(254,187)(254,160)])
+ link(onDraw,12490556:doEvent1,[])
+ link(FileName,5403368:Value,[])
+}
+Add(Image,2126616,518,287)
+{
+ Left=5
+ Top=5
+ Width=300
+ Height=225
+ Color=8388608
+ ViewStyle=0
+ Point(doViewStyle)
+ Point(Width)
+ Point(Height)
+}
+Add(Hub,12490556,336,154)
+{
+ link(onEvent1,4879595:doEvent,[(387,160)(387,139)])
+ link(onEvent2,8341512:doResize,[(386,167)(386,293)])
+}
+Add(Hub,10339187,252,329)
+{
+ OutCount=3
+ link(onEvent1,3679155:doWork2,[])
+ link(onEvent2,469673:doWork2,[])
+ link(onEvent3,9554990:doWork2,[])
+}
+Add(Hub,10749465,252,364)
+{
+ OutCount=3
+ link(onEvent1,14989991:doWork2,[])
+ link(onEvent2,9417969:doWork2,[])
+ link(onEvent3,13080003:doWork2,[])
+}
+Add(Hub,1548090,252,399)
+{
+ OutCount=3
+ link(onEvent1,14989991:doWork3,[(312,405)])
+ link(onEvent2,10050429:doWork2,[])
+ link(onEvent3,13080003:doWork3,[(305,419)])
+}
+Add(DoData,4237396,357,371)
+{
+ Data=Integer(0)
+ link(onEventData,16745822:doWork2,[])
+}
+Add(Resize,8341512,448,287)
+{
+ link(onResult,2126616:doLoad,[])
+ link(Width,7046204:reCalc,[])
+ link(Height,6498617:reCalc,[(468,271)(531,271)])
+}
+Add(DoData,10484170,357,336)
+{
+ Data=Integer(1)
+ link(onEventData,11563942:doWork2,[])
+}
+Add(DoData,20886,357,406)
+{
+ Data=Integer(3)
+ link(onEventData,16745822:doWork3,[(410,412)])
+}
+Add(HubEx,11563942,406,329)
+{
+ link(onEvent,2126616:doViewStyle,[(492,342)(492,307)])
+}
+Add(HubEx,16745822,406,364)
+{
+ Angle=3
+ link(onEvent,11563942:doWork3,[])
+}
+Add(Memory,5403368,266,91)
+{
+ link(onData,3757912:doWork1,[(310,97)(310,135)(249,135)])
+}
+Add(Hub,4509534,406,175)
+{
+ link(onEvent1,361659:doStyle,[(449,181)(449,146)])
+ link(onEvent2,3757912:doWork3,[(449,188)(449,216)(249,216)])
+}
+Add(HubEx,3757912,245,140)
+{
+ link(onEvent,4369947:doLoad,[])
+}
+Add(MathParse,7046204,448,231)
+{
+ DataCount=3
+ MathStr="(%1) * (%3 / %2)"
+ Point(reCalc)
+ link(X1,4369947:ImageWidth,[(454,208)(279,208)])
+ link(X2,3011065:Width,[(461,208)(524,208)])
+ link(X3,2126616:Width,[(468,219)(510,219)(510,332)(531,332)])
+}
+Add(MathParse,6498617,518,231)
+{
+ DataCount=3
+ MathStr="(%1) * (%3 / %2)"
+ Point(reCalc)
+ link(X1,4369947:ImageHeight,[(524,214)(286,214)])
+ link(X2,3011065:Height,[])
+ link(X3,2126616:Height,[(538,219)(560,219)(560,332)(538,332)])
+}
+Add(Screen,3011065,518,126)
+{
+}
+Add(IndexToChanel,7994911,259,238)
+{
+ Count=3
+ Point(Index)
+ link(onEvent1,469673:doWork1,[(333,244)])
+ link(onEvent2,9417969:doWork1,[(326,251)])
+ link(onEvent3,10050429:doWork1,[(319,258)])
+ link(Index,361659:Style,[(265,222)(482,222)])
+}
+Add(HubEx,10050429,315,399)
+{
+ link(onEvent,20886:doData,[])
+}
+Add(HubEx,9417969,322,364)
+{
+ link(onEvent,4237396:doData,[])
+}
+Add(HubEx,469673,329,329)
+{
+ link(onEvent,10484170:doData,[])
+}
+Add(Hub,15255520,126,231)
+{
+ OutCount=3
+ link(onEvent1,6681452:doWork2,[(240,237)(240,83)])
+ link(onEvent2,7994911:doEvent,[])
+ link(onEvent3,127528:doData,[])
+}
+Add(IndexToChanel,4879595,406,133)
+{
+ Point(Index)
+ link(onEvent1,361659:doFromStream,[])
+ link(Index,10406814:Value,[])
+}
+Add(Memory,10406814,406,70)
+{
+ Default=Integer(0)
+}
+Add(ChanelToIndex,6681452,350,70)
+{
+ link(onIndex,10406814:doValue,[])
+}
+Add(DoData,127528,175,245)
+{
+ link(onEventData,141304:doWork3,[(228,251)])
+ link(Data,361659:FileName,[(181,202)(475,202)])
+}
+Add(HubEx,141304,224,84)
+{
+ link(onEvent,5403368:doValue,[])
+}
+Add(Hub,10990138,175,70)
+{
+ link(onEvent1,665792:doWork2,[])
+ link(onEvent2,141304:doWork1,[(228,83)])
+}
+Add(HubEx,9554990,301,336)
+{
+ Angle=3
+ link(onEvent,5796258:doEvent1,[(305,314)(67,314)(67,146)])
+}
+Add(HubEx,13080003,301,371)
+{
+ Angle=3
+ link(onEvent,9554990:doWork3,[])
+}
+Add(Hub,5796258,175,140)
+{
+ link(onEvent1,665792:doWork3,[(221,146)])
+ link(onEvent2,3757912:doWork2,[])
+}
+Add(HubEx,665792,217,63)
+{
+ link(onEvent,6681452:doWork1,[])
+}

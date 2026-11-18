@@ -1,0 +1,10 @@
+Icon manager=Менеджер иконок
+Element name=Имя элемента
+Size of icons in the Icons list=Размер иконок в списке иконок Icons
+Icon transparency replacement color=Цвет замещения прозрачности иконок
+List of icons=Список иконок
+Clears the list of icons=Очищает список иконок
+Icon array=Массив иконок
+Contains the number of icons in the icon list=Содержит количество иконок в списке иконок
+Contains the index of the last icon in the icon list=Содержит индекс последней иконки в списке иконок
+Contains the size of icons in the Icons list=Содержит размер иконок в списке иконок Icons

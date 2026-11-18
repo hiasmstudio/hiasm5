@@ -1,0 +1,10 @@
+Toolbar=Панель инструментов
+Text position on buttons=Положение текста на кнопках
+Type of buttons=Вид кнопок
+Move buttons to next lines when component width exceeds=Переносить кнопки на следующие строки при превышении ширины компонента
+Button array=Массив кнопок
+Makes the button with the index from the stream available=Делает кнопку с индексом из потока доступной
+Makes the button with the index from the stream unavailable=Делает кнопку с индексом из потока недоступной
+Controls pressing the ARG(Index, State) buttons=Управляет нажатием кнопок ARG(Index, State)
+The event occurs every time the button is clicked and outputs its index ARG(Index) to the stream.=Событие происходит всякий раз при нажатии на кнопку и выдаёт в поток её индекс ARG(Index)
+The event occurs whenever the dropdown button ARG(Index, Position) is clicked=Событие происходит всякий раз при нажатии кнопки выпадающего списка ARG(Index, Position)

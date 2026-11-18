@@ -1,0 +1,8 @@
+USB connection to a KernelChip device=Соединение по USB с устройством от KernelChip
+USB device virtual COM port number=Номер виртуального COM порта USB устройства
+Element name=Имя элемента
+Opens the specified COM port and establishes a connection with the device=Открывает заданный COM порт и устанавливает соединение с устройством
+Disconnects the connection with the device and closes the COM port=Разрывает соединение с устройством и закрывает COM порт
+Sending an arbitrary command to a device=Посылка произвольной команды на устройство
+The event occurs every time the port is successfully opened=Событие происходит всякий раз после успешного открытия порта
+The event occurs every time an error occurs when opening a port and outputs its number to the ARG(Error) stream=Событие происходит всякий раз после возникновения ошибки при открытии порта и выдает ее номер в поток ARG(Error)

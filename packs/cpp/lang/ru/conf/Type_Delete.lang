@@ -1,0 +1,6 @@
+Removes selected variables from type=Удаляет выбранные переменные из типа
+List of variables to be deleted=Список удаляемых переменных
+Defines the name of the type=Определяет имя типа
+Defines a type to remove variables from it=Определяет тип, для удаления из него переменных
+Event occurs after variables are removed from the type=Событие происходит после удаления переменных из типа
+The event occurs when an error occurs and outputs its code to the streamARG(err_code,info)=Событие происходит при возникновении ошибки и выдает ее код в потокARG(err_code,info)

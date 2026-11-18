@@ -1,0 +1,17 @@
+include('tag_maker')
+
+section html
+
+func doPrint
+  include('tag_header')
+  if(isndef(Align))
+    s &= " align=\"" & Align & "\""
+  end 
+  if(isndef(CellSpacing))
+    s &= " cellspacing=\"" & CellSpacing & "\""
+  end 
+  if(isndef(CellPadding))
+    s &= " cellpadding=\"" & CellPadding & "\""
+  end 
+  include('tag_footer')
+end

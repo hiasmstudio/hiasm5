@@ -1,0 +1,22 @@
+func doEnum(_data)
+  println('int hiasm_index', _id_, ' = 0;')
+  println('for(const auto &hiasm_item', _id_, ' : ', Array, ') {')
+  block.inclvl()
+  event(onItem, 'hiasm_item' && _id_)
+  println('++hiasm_index', _id_, ';')
+  block.declvl()
+  println('}')
+  event(onEndEnum)
+end
+
+func Item()
+  return('hiasm_item' && _id_)
+end
+
+func Index()
+  return('hiasm_index' && _id_)
+end
+
+func doStop(_data)
+  println('break;')
+end

@@ -1,0 +1,85 @@
+*Инерциальная мышка
+Make(cpp)
+Pos(0,0)
+Add(MainForm,9542849,21,105)
+{
+ Left=20
+ Top=105
+ Width=92
+ Height=129
+ Font=[MS Sans Serif,8,0,0,1]
+ BorderStyle=4
+}
+Add(MouseEvent,5362390,301,266)
+{
+ Point(doPosition)
+ link(X,5917847:Var2,[(314,248)(279,248)])
+ link(Y,9231231:Var2,[(321,248)(419,248)])
+}
+Add(MathParse,2508291,203,175)
+{
+ MathStr="(%0 + (%2 - %1)/4)*0.9"
+ @IsLib=True
+ link(onResult,4432814:doOperation,[])
+ link(X1,5917847:Var1,[(209,153)(250,153)(250,226)])
+ link(X2,5362390:MouseX,[(216,158)(243,158)(243,308)(307,308)])
+}
+Add(Timer,12750266,147,175)
+{
+ Interval=10
+ Enable=1
+ link(onTimer,2508291:doCalc,[])
+}
+Add(MathParse,13069167,350,175)
+{
+ elink(2508291)
+ link(onResult,11337578:doOperation,[])
+ link(X1,9231231:Var1,[(356,165)(390,165)(390,226)])
+ link(X2,5362390:MouseY,[(363,157)(342,157)(342,308)(314,308)])
+}
+Add(Math,4432814,273,175)
+{
+ link(onResult,13069167:doCalc,[])
+ link(Op1,5917847:Var3,[(279,165)(323,165)(323,226)])
+}
+Add(Math,11337578,413,175)
+{
+ link(onResult,5362390:doPosition,[(475,181)(475,322)(291,322)(291,286)])
+ link(Op1,9231231:Var3,[(419,165)(457,165)(457,226)])
+}
+Add(GetDataEx,9231231,406,217)
+{
+ link(Data,11337578:Result,[])
+}
+Add(GetDataEx,5917847,266,217)
+{
+ link(Data,4432814:Result,[])
+}
+Add(Button,9286855,70,175)
+{
+ Left=15
+ Top=15
+ Font=[MS Sans Serif,8,0,0,1]
+ Caption="Start"
+ link(onClick,12750266:doTimer,[])
+}
+Add(Button,10633308,70,224)
+{
+ Left=15
+ Top=40
+ Font=[MS Sans Serif,8,0,0,1]
+ Caption="Stop"
+ link(onClick,12750266:doStop,[(124,230)(124,188)])
+}
+Add(Button,7573037,70,91)
+{
+ Left=15
+ Top=70
+ Font=[MS Sans Serif,8,0,0,1]
+ Caption="Tray"
+ link(onClick,10297717:doHide,[])
+}
+Add(TrayIcon,10297717,133,84)
+{
+ link(onClick,10297717:doShow,[(175,90)(175,74)(123,74)(123,90)])
+}

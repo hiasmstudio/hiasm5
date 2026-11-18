@@ -1,0 +1,8 @@
+Resize=Изменение размера картинки
+Image width=Ширина картинки
+Picture height=Высота картинки
+True - Better (and slower) image scaling=True - Более качественное (и более медленное) масштабирование изображения
+Changes the image size=Изменяет размер картинки
+The event occurs after the image size is changed and outputs the result to the ARG(Bitmap) stream=Событие происходит после изменения размера картинки и выдаёт результат в поток ARG(Bitmap)
+Picture to resize=Картинка для изменения размера
+Contains a modified picture=Содержит измененную картинку

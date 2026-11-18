@@ -1,0 +1,9 @@
+Copy part of string=Копирует часть строки
+Defines position, with which the characters are copied=Содержит позицию по-умолчанию, с которой копируются символы
+Defines number of copied characters=Содержит кол-во копируемых символов по-умолчанию
+Copy "Count" characters from string "Str", starting from position "Position"=Копирует из строки Str символы, начиная с позиции Position в количестве Count штук
+Event emit every time after copied part of string and give it in thread=Событие происходит всякий раз при копировании части строки
+Contain the result of operation=Содержит результат операции
+Defines string, from which need to characters copied=Определяет строку, из которой необходимо скопировать символы
+Defines position, with which need to characters copied=Определяет позицию, с которой копируются символы
+Defines the number of characters copied=Определяет кол-во копируемых символов

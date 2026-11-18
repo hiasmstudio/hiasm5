@@ -1,0 +1,6 @@
+Checkbox=Флажок
+Defines initial value of checkbox=Задаёт начальное значение переключателя
+Defines text label around checkbox=Задаёт текст надписи возле переключателя
+Set/unset the chechbox=Устанавливает/снимает флажок
+Event emit every time after change the status of checkbox, and gives to thread 1 if checkbox is set else 0 ARG(Status)=Событие происходит всякий раз при изменении статуса флажка и выдает в поток 1, если флажок установлен и 0 в противном случае ARG(Status)
+Contain 1 if checkbox is set alse 0=Содержит 1, если флажок установлен, или 0 - в противном случае

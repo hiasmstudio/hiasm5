@@ -1,0 +1,6 @@
+Loading WAV/MP3/MP2/MP1/OGG files=Загрузка файлов WAV/MP3/MP2/MP1/OGG
+Loads a file into memory and decodes it=Загружает файл в память и декодирует его
+Stops the process and frees the resources occupied by the file=Останавливает процесс и освобождает ресурсы, занимаемые файлом
+The event occurs in case of an error and outputs its number to the stream=Событие происходит в случае ошибки и выдаёт её номер в поток
+Sample ID=Идентификатор сэмпла
+File name to load into memory=Имя файла для загрузки в память

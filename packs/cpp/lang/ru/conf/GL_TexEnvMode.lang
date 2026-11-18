@@ -1,0 +1,4 @@
+Texture blending mode=Режим наложения текстур
+Mode=Режим
+Sets the texture blending mode=Устанавливает режим наложения текстур
+The event occurs every time after setting the texture blending mode=Событие происходит всякий раз после установки режима наложения текстур

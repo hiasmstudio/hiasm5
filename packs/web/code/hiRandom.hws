@@ -1,0 +1,19 @@
+section java
+
+func doRandom(_data)
+  if(linked(Result))
+    println(rnd, ' = Math.random();')
+    event(onRandom, rnd)    
+  else
+    event(onRandom, 'Math.random()')
+  end
+end
+
+func Result()
+  if(linked(doRandom))
+    return(rnd)
+  else
+    return('Math.random()')
+  end
+end
+

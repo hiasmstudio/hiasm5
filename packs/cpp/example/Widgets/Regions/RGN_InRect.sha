@@ -1,0 +1,205 @@
+Make(cpp)
+Add(MainForm,2953706,175,280)
+{
+ Width=665
+ Height=382
+ Position=1
+ link(onCreate,13837834:doCreateRegion,[])
+}
+Add(RGN_InRect,13984882,224,427)
+{
+ link(onTrue,5220806:doInvert,[])
+ link(Region,12803230:Var2,[])
+ link(Point1,12170268:Var1,[(237,348)])
+ link(Point2,9678436:Var1,[(244,355)])
+}
+Add(PaintBox,11043184,343,70)
+{
+ Width=657
+ Height=355
+ Align=5
+ Color=12639424
+ ClearBeforeDraw=0
+ Point(onMouseDown)
+ Point(MouseX)
+ Point(MouseY)
+ Point(onMouseMove)
+ Point(onMouseUp)
+ link(onBeforeDraw,2188103:doDraw,[(387,76)(387,56)(317,56)(317,419)])
+ link(onMouseDown,11151212:doValue,[(521,83)(521,146)])
+ link(onMouseMove,12103340:doEvent,[(390,90)(390,188)])
+}
+Add(Img_Rectangle,3598441,651,413)
+{
+ LineStyle=2
+ Point(Point1)
+ Point(Point2)
+ link(onDraw,11786656:doOperation,[])
+ link(Bitmap,5229346:Var3,[(657,376)])
+ link(Point1,12170268:Var3,[(671,348)])
+ link(Point2,9678436:Var2,[])
+}
+Add(RGN_Draw,2188103,343,413)
+{
+ Color=8421376
+ LineColor=128
+ link(onDraw,3598441:doDraw,[])
+ link(Bitmap,5229346:Var2,[])
+ link(Region,197501:Var2,[])
+}
+Add(GetDataEx,12803230,224,336)
+{
+ link(Data,13837834:Result,[])
+}
+Add(Memory,11151212,539,140)
+{
+ Point(Data)
+ link(onData,13952837:doValue,[])
+ link(Data,35617:Var2,[])
+}
+Add(Memory,13952837,581,140)
+{
+ Point(Data)
+ link(Data,3943073:Var2,[])
+}
+Add(PointXY,11003815,539,287)
+{
+ link(X,11255359:Var2,[])
+ link(Y,16165699:Var2,[])
+}
+Add(Memory,7323460,672,182)
+{
+ Default=Integer(0)
+ Point(Data)
+ link(onData,7598553:doValue,[])
+ link(Data,35617:Var3,[(678,123)])
+}
+Add(Memory,7598553,714,182)
+{
+ Default=Integer(0)
+ Point(Data)
+ link(Data,3943073:Var3,[(720,114)])
+}
+Add(PointXY,7204182,672,287)
+{
+ link(X,1912392:Var2,[])
+ link(Y,8292882:Var2,[])
+}
+Add(IndexToChanel,12103340,406,182)
+{
+ Count=1
+ link(onEvent1,12677790:doEvent1,[])
+}
+Add(GetDataEx,35617,539,118)
+{
+ Angle=3
+ link(Data,11043184:MouseX,[(356,123)])
+}
+Add(GetDataEx,3943073,581,109)
+{
+ Angle=3
+ link(Data,11043184:MouseY,[(363,114)])
+}
+Add(GetDataEx,5229346,343,371)
+{
+ link(Data,11043184:Bitmap,[])
+}
+Add(Hub,12677790,448,182)
+{
+ link(onEvent1,7323460:doValue,[])
+ link(onEvent2,11043184:doRefresh,[(487,195)(487,225)(487,225)(331,225)(331,76)])
+}
+Add(GetDataEx,1912392,672,238)
+{
+ link(Data,7323460:Value,[])
+}
+Add(GetDataEx,8292882,679,231)
+{
+ link(Data,7598553:Value,[(685,223)(720,223)])
+}
+Add(FormatStr,5150758,791,413)
+{
+ DataCount=4
+ Mask="x=%1 y=%2 width=%3 height=%4"
+ link(onFString,8965913:doEvent1,[(912,419)(912,521)(93,521)(93,426)])
+ link(Str1,14212042:Var3,[(797,271)])
+ link(Str2,9108617:Var3,[(804,264)])
+ link(Str3,11786656:Result,[(811,401)(856,401)(856,468)(713,468)])
+}
+Add(GetDataEx,11255359,539,266)
+{
+ link(Data,11151212:Value,[])
+}
+Add(GetDataEx,16165699,546,259)
+{
+ link(Data,13952837:Value,[(552,197)(587,197)])
+}
+Add(Math,11786656,707,413)
+{
+ OpType=1
+ ResultType=0
+ link(onResult,15909374:doOperation,[])
+ link(Op1,1912392:Var3,[(713,243)])
+ link(Op2,14212042:Var2,[])
+}
+Add(Math,15909374,749,413)
+{
+ OpType=1
+ ResultType=0
+ link(onResult,5150758:doString,[])
+ link(Op1,8292882:Var3,[(755,236)])
+ link(Op2,9108617:Var2,[])
+}
+Add(GetDataEx,14212042,714,266)
+{
+ Angle=3
+ link(Data,11255359:Var3,[])
+}
+Add(GetDataEx,9108617,756,259)
+{
+ Angle=3
+ link(Data,16165699:Var3,[])
+}
+Add(Hub,8965913,133,420)
+{
+ link(onEvent1,2953706:doCaption,[(161,426)(161,286)])
+ link(onEvent2,13984882:doCheck,[])
+}
+Add(RGN_Text,13837834,224,294)
+{
+ Str="HiASM"
+ X=150
+ Y=80
+ Font=[Palatino Linotype,72,1,0,204]
+}
+Add(GetDataEx,9678436,672,350)
+{
+ link(Data,7204182:Point,[])
+}
+Add(GetDataEx,12170268,539,343)
+{
+ link(Data,11003815:Point,[])
+}
+Add(RGN_Draw,5220806,280,420)
+{
+ Color=0
+ Point(doInvert)
+ Point(onInvert)
+ link(Bitmap,5229346:Var1,[(286,376)])
+ link(Region,197501:Var1,[(293,383)])
+}
+Add(GetDataEx,197501,350,378)
+{
+ link(Data,12803230:Var3,[(356,341)])
+}
+Add(Message,1948384,224,238)
+{
+ Message="Используя курсор мыши, выделите прямоугольную область в окне программы.\r\nЕсли надпись хоть одним пикселем попадет в область, оно изменит цвет."
+ Caption="Проверка попадания полигона в прямоугольник."
+}
+Add(Timer,2156240,175,238)
+{
+ Interval=100
+ AutoStop=1
+ link(onTimer,1948384:doMessage,[])
+}

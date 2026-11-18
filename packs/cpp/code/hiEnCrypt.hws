@@ -1,0 +1,48 @@
+func Data(value)
+  if(linked('Data'))
+    return(d('Data'))
+  end
+  if(len(value) > 0)
+    return(value)
+  end
+  return('""')
+end
+
+func KeyValue()
+  if(linked('Key'))
+    return(d('Key'))
+  else
+    return(cstr(get('Key')))
+  end
+end
+
+func RC4(text)
+  return('[](std::string data, const std::string &key) { unsigned char s[256]; int hi = 0; int hj = 0; for(int i = 0; i < 256; ++i) s[i] = static_cast<unsigned char>(i); for(int i = 0; i < 256; ++i) { hj = (hj + s[i] + static_cast<unsigned char>(key[static_cast<std::size_t>(i) % key.size()])) & 255; unsigned char t = s[i]; s[i] = s[hj]; s[hj] = t; } hi = 0; hj = 0; for(std::size_t k = 0; k < data.size(); ++k) { hi = (hi + 1) & 255; hj = (hj + s[hi]) & 255; unsigned char t = s[hi]; s[hi] = s[hj]; s[hj] = t; data[k] = static_cast<char>(static_cast<unsigned char>(data[k]) ^ s[(s[hi] + s[hj]) & 255]); } return data; }(std::string(' && text && '), hiasm_hashsum(std::string(' && KeyValue() && '), ' && get('HashMode') && '))')
+end
+
+func doEnCrypt(_data)
+  if(get('Mode') == 1)
+    println('{')
+    block.inclvl()
+    println('if(!std::string(', KeyValue(), ').empty()) {')
+    block.inclvl()
+    println('hiasm_str_state(', _id_, ') = ', RC4(Data(_data)), ';')
+    println('hiasm_int_state(', _id_, ', 0) = 0;')
+    event(onEnCrypt, 'hiasm_str_state(' && _id_ && ')')
+    block.declvl()
+    println('} else {')
+    block.inclvl()
+    println('hiasm_int_state(', _id_, ', 0) = 2;')
+    event(onError, 'hiasm_int_state(' && _id_ && ', 0)')
+    block.declvl()
+    println('}')
+    block.declvl()
+    println('}')
+  else
+    println('#error "EnCrypt: RC2/DES/3DES/AES/CYLINK_MEK modes require MS CryptoAPI and are not supported in this package; use Mode=RC4"')
+  end
+end
+
+func Result()
+  return('hiasm_str_state(' && _id_ && ')')
+end

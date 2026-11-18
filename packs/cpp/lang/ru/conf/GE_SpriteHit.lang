@@ -1,0 +1,5 @@
+Sprite collision=Столкновение спрайтов
+Sprite to check for collision=Спрайт, который требуется проверить на столкновение
+IDs of sprites whose collisions need to be checked (listed by commas)=ID спрайтов, столкновение с которыми требуется проверить(перечисляются через запятую)
+Checks the specified sprite for collisions with other scene sprites ARG(Sprite)=Проверяет указанный спрайт на столкновение с другими спрайтами сцены ARG(Sprite)
+The event occurs whenever the specified sprite collides with one of the scene sprites and emits its Handle to the ARG(Handle) stream=Событие происходит всякий раз после столкновения указанного спрайта с одним из спрайтов сцены и выдает его Handle в поток ARG(Handle)

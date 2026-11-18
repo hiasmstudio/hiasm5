@@ -1,0 +1,18 @@
+section java
+
+func doEscape(_data)
+  if(linked(Result))
+    println(_escp_, ' = ' + Mode + '(', Text, ');')
+    event(onEscape,_escp_)
+  else
+    event(onEscape, Mode + '(' && Text && ')')
+  end
+end
+
+func Result()
+  if(linked(doEscape))
+    return(_escp_)
+  else
+    return(Mode + '(' && Text && ')')
+  end
+end

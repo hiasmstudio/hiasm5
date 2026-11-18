@@ -1,0 +1,4 @@
+Exchange data with hiasm core=Обмен данными со средой
+Number of return args=Кол-во возвращаемых аргументов
+Transmit data from scheme to hiasm core=Передает данные из схемы в среду
+Event emit every time after transmit data from hiasm core to scheme=Событие происходит всякий раз при передаче данных от среды в схему

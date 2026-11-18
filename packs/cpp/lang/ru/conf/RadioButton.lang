@@ -1,0 +1,8 @@
+Radio button=Переключатель
+Caption transparency=Прозрачность надписи
+Sets the initial value of the radio button=Задаёт начальное значение переключателя
+Sets the text of the caption near the radio button=Задаёт текст надписи возле переключателя
+Element display style=Стиль отображения элемента
+Selects the current radio button=Выбирает текущий переключатель
+The event occurs whenever the component is clicked=Событие происходит всякий раз при клике на компоненте
+Contains 1 if the radio button is selected, 0 otherwise=Содержит 1, если переключатель выбран, и 0 - в противном случае

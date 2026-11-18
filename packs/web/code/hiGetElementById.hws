@@ -1,0 +1,27 @@
+section java
+
+func doGet  
+  if(CheckExists = 0)
+    println(e, ' = document.getElementById(', Id, ');')
+    println('if(', e, ') {')
+      block.inclvl()
+      event(onGet, e)
+      block.declvl()
+    println('}')
+  else
+    if(linked(Object))
+      println(e, ' = document.getElementById(', Id, ');')
+      event(onGet, e)
+    else
+      event(onGet, 'document.getElementById(' && Id && ')')
+    end
+  end
+end
+
+func Object
+  if(CheckExists = 0 or linked(doGet))
+    return(e)
+  else
+    return('document.getElementById(' && Id && ')')
+  end  
+end

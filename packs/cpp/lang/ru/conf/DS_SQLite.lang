@@ -1,0 +1,8 @@
+SQLite data source=Источник данных SQLite
+Element name=Имя элемента
+Path to database file=Путь к файлу базы данных
+Waiting for complete completion when closing database=Ожидание полного завершения при закрытии базы данных
+Opens the database=Открывает базу данных
+Closes the database=Закрывает базу данных
+The event occurs every time the database is successfully opened=Событие происходит всякий раз после успешного открытия базы данных
+The event occurs every time an error occurs=Событие происходит всякий раз после возникновения ошибки

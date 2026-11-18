@@ -1,0 +1,12 @@
+Channel visualization=Визуализация канала
+Sound stream=Звуковой поток
+Background color=Цвет фона
+Wave output range along the Y axis=Диапозон вывода волны по оси Y
+Column color=Цвет столбика
+Wave display mode=Режим отображения волны
+Sample length (256/512 samples)=Длина выборки (256/512 отсчетов)
+Background cleaning=Очистка фона
+Drawing channel state ARG(WindowsHandle, BackBitmap)=Отрисовка состояния канала ARG(WindowsHandle, BackBitmap)
+The event occurs every time the channel state is rendered=Событие происходит всякий раз после отрисовки состояния канала
+Defines the identifier of the picture on which the diagram is to be drawn (Bitmap points)=Определяет идентификатор картинки, на которой требуется отрисовать диаграмму (точки Bitmap)
+Defines the background image=Определяет фоновую картинку

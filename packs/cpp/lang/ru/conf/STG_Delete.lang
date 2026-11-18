@@ -1,0 +1,5 @@
+Removal=Удаление
+Structured Storage Management=Управление структуированным хранилищем
+Removes an item from storage ARG(InPath)=Удаляет элемент из хранилища ARG(InPath)
+The event occurs whenever an item is successfully removed from the store=Событие происходит всякий раз после успешного удаления элемента из хранилища
+Path to storage element=Путь к элементу хранилища

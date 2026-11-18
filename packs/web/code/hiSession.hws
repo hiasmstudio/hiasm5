@@ -1,0 +1,12 @@
+func doStart
+  println('session_start();')
+  event(onStart)
+end
+
+func doDestroy
+  println('session_destroy();')
+end
+
+func Id
+  return('session_id()')
+end

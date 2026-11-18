@@ -1,0 +1,103 @@
+func ClassOf()
+  if(linked('ClassName'))
+    return(d('ClassName'))
+  else
+    return(cstr(get('ClassName')))
+  end
+end
+
+func CaptionOf()
+  if(linked('Caption'))
+    return(d('Caption'))
+  else
+    return(cstr(get('Caption')))
+  end
+end
+
+func ParentOf()
+  if(linked('ParentHandle'))
+    return(d('ParentHandle'))
+  else
+    return('0')
+  end
+end
+
+func ChildOf()
+  if(linked('ChildHandle'))
+    return(d('ChildHandle'))
+  else
+    return('0')
+  end
+end
+
+func EmitFind()
+  println('hiasm_ll_state(', _id_, ') = hiasm_ll_state(', _id_, ' * 100);')
+  event(onFind, 'hiasm_text(hiasm_ll_state(' && _id_ && '))')
+end
+
+func doFind(_data)
+  println('#if defined(_WIN32)')
+  println('{')
+  block.inclvl()
+  println('std::string hiasm_cls', _id_, ' = std::string(', ClassOf(), ');')
+  println('std::string hiasm_cap', _id_, ' = std::string(', CaptionOf(), ');')
+  if(get('SkipParam') == 1)
+    println('HWND hiasm_w', _id_, ' = ::FindWindowA(hiasm_cls', _id_, '.c_str(), NULL);')
+  else
+    if(get('SkipParam') == 2)
+      println('HWND hiasm_w', _id_, ' = ::FindWindowA(NULL, hiasm_cap', _id_, '.c_str());')
+    else
+      println('HWND hiasm_w', _id_, ' = ::FindWindowA(hiasm_cls', _id_, '.c_str(), hiasm_cap', _id_, '.c_str());')
+    end
+  end
+  println('hiasm_ll_state(', _id_, ' * 100) = hiasm_w', _id_, ' != NULL ? (long long)reinterpret_cast<long long>(hiasm_w', _id_, ') : 0;')
+  block.declvl()
+  println('}')
+  EmitFind()
+  println('#else')
+  println('#error "FindWindow: the element is only available on the Windows platform"')
+  println('#endif')
+end
+
+func doFindChild(_data)
+  println('#if defined(_WIN32)')
+  println('{')
+  block.inclvl()
+  println('std::string hiasm_cls', _id_, ' = std::string(', ClassOf(), ');')
+  println('std::string hiasm_cap', _id_, ' = std::string(', CaptionOf(), ');')
+  println('HWND hiasm_pw', _id_, ' = reinterpret_cast<HWND>(static_cast<long long>(', ParentOf(), '));')
+  println('HWND hiasm_ch', _id_, ' = reinterpret_cast<HWND>(static_cast<long long>(', ChildOf(), '));')
+  println('HWND hiasm_w', _id_, ' = NULL;')
+  println('if(hiasm_pw', _id_, ' != NULL) {')
+  block.inclvl()
+  if(get('SkipParam') == 1)
+    println('hiasm_w', _id_, ' = ::FindWindowExA(hiasm_pw', _id_, ', hiasm_ch', _id_, ', hiasm_cls', _id_, '.c_str(), NULL);')
+  else
+    if(get('SkipParam') == 2)
+      println('hiasm_w', _id_, ' = ::FindWindowExA(hiasm_pw', _id_, ', hiasm_ch', _id_, ', NULL, hiasm_cap', _id_, '.c_str());')
+    else
+      println('hiasm_w', _id_, ' = ::FindWindowExA(hiasm_pw', _id_, ', hiasm_ch', _id_, ', hiasm_cls', _id_, '.c_str(), hiasm_cap', _id_, '.c_str());')
+    end
+  end
+  block.declvl()
+  println('}')
+  println('hiasm_ll_state(', _id_, ' * 100) = hiasm_w', _id_, ' != NULL ? (long long)reinterpret_cast<long long>(hiasm_w', _id_, ') : 0;')
+  block.declvl()
+  println('}')
+  EmitFind()
+  println('#else')
+  println('#error "FindWindow: the element is only available on the Windows platform"')
+  println('#endif')
+end
+
+func Handle()
+  return('hiasm_ll_state(' && _id_ && ' * 100)')
+end
+
+func ParentHandle()
+  if(linked('ParentHandle'))
+    return(d('ParentHandle'))
+  else
+    return('0')
+  end
+end

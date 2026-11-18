@@ -1,0 +1,24 @@
+func doMessage(_data)
+  fvar(text, caption, icon, msg, cap, ic)
+  if(is_gui_project())
+    text = '""'
+    msg = d('Message')
+    if(isset(msg))
+      text = cstr(msg)
+    end
+    caption = '""'
+    cap = d('Caption')
+    if(isset(cap))
+      caption = cstr(cap)
+    end
+    icon = '""'
+    ic = d('Icon')
+    if(isset(ic))
+      icon = cstr(ic)
+    end
+    println('int hiasm_msg', _id_, ' = hiasm_message(', text, ', ', caption, ', ', d('Type'), ', ', icon, ');')
+    event(onMessage, 'hiasm_msg' && _id_)
+  else
+    error('hcMessage needs a GUI project')
+  end
+end

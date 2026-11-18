@@ -1,0 +1,6 @@
+Returns information about a file's security settings=Возвращает информацию о настройках безопасности файла
+File name=Имя файла
+Retrieves information about the security settings of the specified file=Получает информацию о настройках безопасности указанного файла
+The event occurs whenever security information is received and outputs it to the stream=Событие происходит всякий раз после получения информации о безопасности и выдает её в поток
+The event occurs whenever an error occurs while retrieving information about security settings=Событие происходит всякий раз при возникновении ошибки в процессе получения информации о настройках безопасности
+Contains information about file security settings=Содержит информацию о настройках безопасности файла

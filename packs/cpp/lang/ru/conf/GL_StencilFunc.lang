@@ -1,0 +1,6 @@
+Comparison function=Функция сравнения
+Stensil buffer test function=Функция теста стенсил буфера
+Parameter for the stencil buffer test function=Параметр для функции теста стенсил буфера
+Mask with which to perform a bitwise AND of both values compared in the stensil buffer test function=Маска, с которой выполняется побитовое И обеих величин, сравниваемых в функции теста стенсил буфера
+Sets the stencil buffer function=Устанавливает функцию буфера трафарета
+The event occurs whenever the stencil buffer function is set=Событие происходит всякий раз после установки функции буфера трафарета

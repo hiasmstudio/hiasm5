@@ -1,0 +1,7 @@
+func doPrint:any
+  event(onPrint, Lines)
+end
+
+func Text:any
+  return(Lines)
+end

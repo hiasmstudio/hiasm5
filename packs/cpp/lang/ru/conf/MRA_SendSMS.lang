@@ -1,0 +1,6 @@
+Sending SMS via Mail.ru agent=Отправка SMS через Mail.ru агента
+Defines Mail.ru agent for authorization on the server=Определяет Mail.ru agent для авторизации на сервере
+Phone number for sending SMS=Номер телефона для отправки SMS
+Message text=Текст сообщения
+Sends an SMS to the specified phone number ARG(Phone, Text)=Отсылает SMS на указанный номер телефона ARG(Phone, Text)
+The event occurs every time an SMS message is sent=Событие происходит всякий раз после отправки SMS сообщения

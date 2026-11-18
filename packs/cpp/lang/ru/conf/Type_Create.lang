@@ -1,0 +1,9 @@
+Creates a new variable type=Формирует новый тип переменных
+Defines the variables included in the created type=Определяет переменные, входящие в созданный тип
+New type name=Имя нового типа
+Stores the default data inserted into a variable=Хранит данные по умолчанию, вставляемые в переменную
+Determines whether the type being created will be a storage type. (Details in help)=Определяет, будет ли создаваемый тип типом-хранилищем. (Подробности в справке)
+Creates a new variable type ARG(Vars)=Создает новый тип переменной ARG(Vars)
+Completely clears the type, removing all variables ARG(<no>)=Полностью очищает тип с удалением всех переменных ARG(<no>)
+The event occurs after a new type is created and emits it to the ARG(FType) stream=Событие происходит после создания нового типа и выдает его в поток ARG(FType)
+Contains the created type identifier=Содержит индификатор созданного типа

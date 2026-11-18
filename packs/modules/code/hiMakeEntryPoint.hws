@@ -1,0 +1,52 @@
+section cpp
+
+func build_cpp_source()
+  fvar(program)
+
+  program = block.reggen()
+  block.select(program)
+  println('#include <windows.h>')
+  println('#include "..\..\CGTShare.h"')
+  println('#include "share.h"')
+  println('')
+  block.select(BLK_FUNC)
+  if(not block.empty())
+    block.select(program)
+    block.copyhere(BLK_FUNC)
+  end
+  block.delete(BLK_FUNC)
+  block.select(program)
+  println('')
+  block.copyhere(BLK_HEAD)
+  block.delete(BLK_HEAD)
+  println('')
+  println('int WINAPI DllMain(HINSTANCE hInstance, DWORD fdReason, PVOID pvReserved)')
+  println('{')
+  block.inclvl()
+    block.copyhere(BLK_BODY)
+    block.delete(BLK_BODY)
+    println('return 0;')
+  block.declvl()
+  println('}')
+end
+
+func doStart
+  gvar(BLK_HEAD, BLK_BODY, BLK_EXP, BLK_FUNC)
+
+  BLK_HEAD = "head" 
+  BLK_BODY = "body"
+  BLK_FUNC = "locvars"
+
+  // регистрируем два блока под функции и собственно тело приложения
+  block.reg(BLK_HEAD)
+  block.reg(BLK_BODY)
+  block.reg(BLK_FUNC)
+  
+  // выбираем в качестве текущего блок body(оператор print по-умолчанию будет печатать именно сюда)
+  block.select(BLK_BODY)
+  event(onStart)
+  build_cpp_source()
+  
+  println('')
+  println('// made by ' + sys.hi_version("HiAsm %mj.%mn build %bl"))
+end

@@ -1,0 +1,18 @@
+Make(cpp)
+Add(InfoTip,900,24,18)
+{
+ @Width=680
+ @Height=145
+ Info=#36:Параметры пользовательского действия|0:|153:Как в исходном уроке, параметры задают фильтр файлов. C++-лямбда получает каталог имён и расширение явно. Внешние свойства контейнеров v4 не эмулируются.|
+ HAlign=0
+ Margin=12
+}
+Add(Entry,1,42,196)
+{
+ link(onStart,2:doExecute,[])
+}
+Add(Code,2,196,196)
+{
+ Code=#80:const std::vector<std::string> files = {"intro.sha", "notes.txt", "second.sha"};|67:auto filter = [](const auto& names, const std::string& extension) {|34:  std::vector<std::string> result;|32:  for (const auto& name : names)|144:    if (name.size() >= extension.size() && name.compare(name.size()-extension.size(), extension.size(), extension) == 0) result.push_back(name);|16:  return result;|2:};|78:for (const auto& name : filter(files, ".sha")) std::cout << name << std::endl;|
+ Expression=input
+}

@@ -1,0 +1,6 @@
+Vertex=Вершина 3D
+X coordinate=Координата X
+Y coordinate=Координата Y
+Z coordinate=Координата Z
+Displays a point on the screen=Выводит точку на экран
+The event occurs immediately after the point is displayed=Событие происходит сразу после вывода точки

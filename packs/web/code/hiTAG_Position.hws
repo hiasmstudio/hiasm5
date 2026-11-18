@@ -1,0 +1,28 @@
+section java
+
+func readObj(Data)
+  fvar(_obj)
+  _obj = Id
+  return(isdef(IdAsObject) ? ('document.getElementById(' && _obj && ')') : _obj)
+end
+
+func doPosition(_data)
+  fvar(s, _obj)
+
+  s = readObj(_data) && '.style.' + lower(Place)
+  println(s, ' = (', Value, ').toString() + ' + Metric + ';')
+  event(onPosition, s)
+end
+
+func Position()
+  return(readObj(_data) && '.offset' + Place)
+end
+
+func AbsPosition()
+  //println(obj + ' = ', readObj(_data))
+  //println(ps + ' = ' + obj + '.offset' + Place)
+  //println('while(' + obj + ' = ' + obj + '.parentNode)')
+  //println('  ' + ps + ' += ' + obj + '.offset' + Place)
+  //return(ps)
+  return(readObj(_data) + '.offset' + Place)
+end

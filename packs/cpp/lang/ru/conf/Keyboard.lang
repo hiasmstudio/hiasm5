@@ -1,0 +1,7 @@
+Keyboard=Клавиатура
+Sets the key code for the doReadKey method=Задает код клавиши для метода doReadKey
+Reads the state of a keyboard key=Читает состояние клавиши клавиатуры
+The event occurs after reading the state of a key and returns 1 if the key is pressed, and 0 otherwise=Событие происходит после чтения состояния клавиши и выдаёт 1, если клавиша нажата, и 0 - в противном случае
+Contains an array of 256 elements for all keys. If an array element is 1, then the corresponding key is pressed; if 0, the key is released=Содержит массив из 256 элементов для всех клавиш. Если элемент массива равен 1, то соответствующая ему клавиша нажата, если 0 - отпущена
+Contains the trigger state of the key read by the last call to the doReadKey method=Содержит триггерное состояние клавиши, прочитанной последним вызовом метода doReadKey
+Defines a key code=Определяет код клавиши

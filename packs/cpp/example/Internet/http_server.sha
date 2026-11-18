@@ -1,0 +1,111 @@
+Make(cpp)
+Add(MainForm,3006772,105,112)
+{
+ Left=20
+ Top=105
+ link(onCreate,4557003:##open,[])
+}
+Add(TCP_ServerEx,4557003,154,126)
+{
+}
+BEGIN_SDK
+  Add(EditMultiEx,9971778,3,3)
+  {
+   WorkCount=#6:##open|
+   Width=650
+   Height=333
+  }
+  Add(TCP_Connection,916654,42,56)
+  {
+   link(onRead,6091776:doSearch,[])
+  }
+  Add(FormatStr,14028257,557,231)
+  {
+   Mask="%2Content-Length: %1\n\r\n\r"
+   link(onFString,5832223:doWork2,[])
+   link(Str1,6544603:Size,[(563,216)(524,216)])
+   link(Str2,2893471:Text,[])
+  }
+  Add(Convertor,8776093,511,273)
+  {
+   Mode=11
+   link(onResult,5832223:doWork3,[(613,279)])
+   link(Data,6544603:Stream,[])
+  }
+  Add(StrList,2893471,564,162)
+  {
+   Strings=#15:HTTP/1.1 200 OK|32:Server: mywebserver/1.0.0(Win32)|
+  }
+  Add(BlockFind,6091776,91,56)
+  {
+   IncludeBlock=1
+   StartBlock="GET "
+   EndBlock=" HTTP"
+   link(onSearch,12312877:doReplace,[])
+  }
+  Add(Hub,2110309,427,168)
+  {
+   OutCount=4
+   link(onEvent1,6544603:doOpen,[])
+   link(onEvent2,14028257:doString,[(492,181)(492,237)])
+   link(onEvent3,8776093:doConvert,[(485,188)(485,279)])
+   link(onEvent4,6544603:doClose,[(500,195)(500,181)])
+  }
+  Add(HubEx,2954087,609,105)
+  {
+   Angle=3
+   link(onEvent,916654:doSend,[(613,37)(30,37)(30,69)])
+  }
+  Add(Replace,12312877,154,56)
+  {
+   SubStr="/"
+   DestStr="\\"
+   link(onReplace,8984929:doStrCat,[])
+  }
+  Add(StrCat,8984929,203,56)
+  {
+   Str1="www"
+   link(onStrCat,14307555:doValue,[])
+  }
+  Add(Memory,14307555,252,56)
+  {
+   link(onData,2500498:doFileExists,[(296,62)(296,83)])
+  }
+  Add(FileStream,6544603,511,168)
+  {
+   link(FileName,14307555:Value,[(517,152)(258,152)])
+  }
+  Add(HubEx,5832223,609,224)
+  {
+   Angle=3
+   link(onEvent,2954087:doWork3,[])
+  }
+  Add(FileTools,2500498,308,56)
+  {
+   link(onEnd,12755746:doEvent,[])
+  }
+  Add(IndexToChanel,12755746,357,56)
+  {
+   link(onEvent1,10876968:doData,[(450,62)(450,118)])
+   link(onEvent2,2110309:doEvent1,[(408,69)(408,174)])
+  }
+  Add(StrList,8702102,511,49)
+  {
+   Strings=#22:HTTP/1.1 404 Not found|32:Server: mywebserver/1.0.0(Win32)|18:Content-Length: 48|0:|46:<html><body><h1>Not found !</h1></body></html>|
+  }
+  Add(DoData,10876968,511,112)
+  {
+   link(onEventData,2954087:doWork2,[])
+   link(Data,8702102:Text,[])
+  }
+END_SDK
+Add(InfoTip,2900301,196,49)
+{
+ Info=#53:Для проверки работы сервера введите в браузере адрес:|
+ Width=274
+}
+Add(LinkTip,16509513,252,91)
+{
+ Link="http://127.0.0.1/index.html"
+ Font=[MS Sans Serif,8,0,16711680,1]
+}

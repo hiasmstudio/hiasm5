@@ -1,0 +1,159 @@
+*Пример работы компонента StatusBarEx в режиме отображения ProgressBara
+Make(cpp)
+Add(MainForm,1165713,168,189)
+{
+ Left=20
+ Top=105
+ Height=77
+ Caption="ProgressBar in StatusBar"
+ Position=1
+ Point(onResize)
+ Point(onMouseDown)
+}
+Add(StatusBarEx,11254596,413,259)
+{
+ Text="StatusBar"
+ TextAlign=1
+ EnablePBar=0
+ PanelPBar=1
+ HintPBar="ProgressBar"
+ HintManager="123"
+ ColorPBar=-16777203
+ Panels=#14:Progress -=110|15:ProgressBar=150|1: |
+ Point(doMax)
+ Point(doPosPBar)
+ Point(doVisiblePBar)
+ Point(PosPBar)
+ Point(doHintPBar)
+ Point(doPanelPBar)
+ Point(doVisible)
+ link(Text,11871194:FString,[(419,247)(395,247)(395,413)(433,413)])
+ link(Panel,3069932:Value,[])
+ link(Width,8010323:Value,[(433,247)(468,247)])
+}
+Add(Switch,1279942,217,336)
+{
+ DataOn=Integer(0)
+ DataOff=Integer(1)
+ Point(onOn)
+ Point(onOff)
+ link(onSwitch,11254596:doPanelPBar,[(327,342)(327,307)])
+ link(onOn,16423557:doData,[])
+ link(onOff,16355963:doData,[(257,356)(257,391)])
+}
+Add(Button,6644361,168,336)
+{
+ Left=265
+ Top=10
+ Enabled=1
+ TabOrder=-1
+ Caption="1 --> 0"
+ Data=String(aerfere)
+ Point(doEnabled)
+ Point(doCaption)
+ link(onClick,1279942:doSwitch,[])
+}
+Add(Memory,8010323,462,189)
+{
+ Default=Integer(100)
+}
+Add(Hub,7677790,315,238)
+{
+ OutCount=3
+ link(onEvent1,11254596:doPosPBar,[(376,244)(376,286)])
+ link(onEvent2,11871194:doString,[(366,251)(366,377)])
+ link(onEvent3,11254596:doHintPBar,[(356,258)(356,300)])
+}
+Add(FormatStr,11871194,427,371)
+{
+ Mask="Progress - %2"
+ Point(FString)
+ link(onFString,11254596:doText,[(506,377)(506,186)(403,186)(403,265)])
+ link(Str2,11254596:PosPBar,[])
+}
+Add(Memory,3069932,420,189)
+{
+ Default=Integer(0)
+}
+Add(Switch,3405495,217,287)
+{
+ DataOn=Integer(1)
+ DataOff=Integer(0)
+ link(onSwitch,5879790:doEvent1,[])
+}
+Add(Counter,3601757,266,238)
+{
+ link(onNext,7677790:doEvent1,[])
+}
+Add(Button,11238449,168,238)
+{
+ Left=205
+ Top=10
+ Enabled=1
+ TabOrder=-1
+ Caption="Start"
+ Data=String(aerfere)
+ Point(doEnabled)
+ link(onClick,13499075:doTimer,[])
+}
+Add(Timer,13499075,217,238)
+{
+ Interval=10
+ Enable=1
+ link(onTimer,3601757:doNext,[])
+}
+Add(Button,9439506,168,287)
+{
+ Left=135
+ Top=10
+ Width=65
+ TabOrder=-1
+ Caption="VisiblePBar"
+ Data=String(aerfere)
+ link(onClick,3405495:doSwitch,[])
+}
+Add(Hub,5879790,266,287)
+{
+ OutCount=3
+ link(onEvent1,11254596:doVisiblePBar,[])
+ link(onEvent2,11238449:doEnabled,[(312,300)(312,279)(157,279)(157,244)])
+ link(onEvent3,6644361:doEnabled,[(312,307)(312,327)(157,327)(157,342)])
+}
+Add(Switch,7039529,217,371)
+{
+ DataOn=Integer(1)
+ DataOff=Integer(0)
+ Default=0
+ link(onSwitch,11254596:doVisible,[(356,377)(356,314)])
+}
+Add(Button,134273,168,371)
+{
+ Left=65
+ Top=10
+ Width=65
+ TabOrder=-1
+ Caption="Visible"
+ Data=String(aerfere)
+ link(onClick,7039529:doSwitch,[])
+}
+Add(HintManager,6108259,266,189)
+{
+ Name="123"
+ Font=[Tahoma,8,0,0,1]
+ HintTrack=0
+}
+Add(DoData,16423557,266,343)
+{
+ Data=String(0 --> 1)
+ link(onEventData,1890836:doWork1,[(312,349)])
+}
+Add(DoData,16355963,266,385)
+{
+ Data=String(1 --> 0)
+ link(onEventData,1890836:doWork2,[])
+}
+Add(HubEx,1890836,308,385)
+{
+ Angle=1
+ link(onEvent,6644361:doCaption,[(312,425)(158,425)(158,349)])
+}

@@ -1,0 +1,20 @@
+include('tag_maker')
+
+section html
+
+func doPrint
+  if(isdef(CSSFileName))
+    include('tag_header')
+    //... other tags ...
+    include('tag_footer')
+  else
+    if(linked(onPrint))
+      fvar(old)
+      old = block.select(block.reggen())
+      event(onPrint)
+      block.save(project_dir() + CSSFileName)
+      block.delete(block.select(old))
+    end
+    print('<link rel="stylesheet" href="', CSSFileName, '" type="text/css">')
+  end    
+end

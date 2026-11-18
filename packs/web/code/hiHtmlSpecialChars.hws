@@ -1,0 +1,17 @@
+func doHtmlSpecialChars(_data)
+  if(linked(Result))
+    println(s, ' = htmlspecialchars(', Text, ');')
+    event(onHtmlSpecialChars,s)
+  else
+    event(onHtmlSpecialChars,'htmlspecialchars(' && Text && ')')
+  end
+end
+
+func Result()
+  if(linked(doHtmlSpecialChars))
+    return(s)
+  else
+    return('htmlspecialchars(' && Text && ')')
+  end
+end
+

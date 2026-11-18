@@ -1,0 +1,34 @@
+include('tag_maker')
+
+section java
+
+func doPrint()
+  fvar(ctrl)
+  println(hid, ' = document.createElement("input")')
+  ctrl = hid
+  println(ctrl, '.type = "hidden"')
+  include('tag_header_java')
+  if(isset(Value))
+    println(ctrl, '.value = ', Value)
+  end  
+  if(isset(Name))
+    println(ctrl, '.name = ', Name)
+  end  
+
+  event(onPrint, ctrl)
+end 
+
+section html
+
+func doPrint
+  include('tag_header')
+  s[1] = "input"
+  s &= " type=\"hidden\""
+  if(isset(Name))
+    s &= " name=\"" & Name & "\""
+  end
+  if(isset(Value))
+    s &= " value=\"" & Value & "\""
+  end
+  include('tag_footer')
+end

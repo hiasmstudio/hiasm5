@@ -1,0 +1,10 @@
+Organization of the MT stack=Организация MT-стека
+Ignore an attempt to take a value from an empty stack when True, and output default data to the stream when False=Игнорировать попытку взятия значения из пустого стека при True, и выдать в поток данные по-умолчанию при False
+Saves the current value of the component and equals it to the data from the stream=Сохраняет текущее значение компонента и приравнивает его данным из потока
+Pops a value from the top of the stack and makes it current=Извлекает значение из верхушки стека и делает его текущим
+Clears the stack=Очищает стек
+The event occurs whenever data is stored on the stack=Событие происходит всякий раз при сохранении данных в стеке
+The event occurs whenever data is popped from the stack=Событие происходит всякий раз при извлечении данных из стека
+Contains the current value of the component=Содержит текущее значение компонента
+Gets the value of the top of the stack without popping it=Получает значение верхушки стека не извлекая его
+Data to be added to the stack=Данные для добавления в стек

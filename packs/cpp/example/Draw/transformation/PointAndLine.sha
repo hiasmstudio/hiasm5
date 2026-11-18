@@ -1,0 +1,58 @@
+Make(cpp)
+Add(MainForm,2953706,154,175)
+{
+ Position=1
+}
+Add(Img_Point,7152607,280,224)
+{
+ X=100
+ Y=100
+ Size=4
+ Point(Transform)
+ link(onDraw,12480176:doDraw,[])
+ link(Bitmap,11471110:Var2,[])
+ link(Transform,16432828:Var2,[])
+}
+Add(Img_Line,12480176,329,224)
+{
+ Point1=3276900
+ Point2=3277000
+ Point(Transform)
+ link(Bitmap,11471110:Var3,[(335,212)])
+ link(Transform,16432828:Var3,[(342,201)])
+}
+Add(PaintBox,3326994,217,224)
+{
+ Left=370
+ Top=130
+ Align=5
+ Color=16777215
+ ClearBeforeDraw=0
+ link(onBeforeDraw,7152607:doDraw,[])
+}
+Add(Img_UseScale,10889532,147,287)
+{
+ link(X,10355354:Var2,[])
+ link(Y,10355354:Var3,[(167,271)])
+}
+Add(ScrollBar,11968536,154,224)
+{
+ Left=370
+ Top=75
+ Align=2
+ Max=360
+ link(onPosition,3326994:doRefresh,[])
+}
+Add(GetDataEx,10355354,154,266)
+{
+ link(Data,11968536:Position,[])
+}
+Add(GetDataEx,11471110,280,207)
+{
+ Angle=3
+ link(Data,3326994:Bitmap,[(266,212)(266,266)(223,266)])
+}
+Add(GetDataEx,16432828,287,196)
+{
+ link(Data,10889532:Transform,[(293,177)(204,177)(204,341)(153,341)])
+}

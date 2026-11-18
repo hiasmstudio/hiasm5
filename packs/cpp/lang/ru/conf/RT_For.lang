@@ -1,0 +1,12 @@
+Loop with a given number of iterations=Цикл с заданным числом итераций
+Sets the default value, when crossed, the loop is exited=Задает значение по-умолчанию, при пересечении которого, происходит выход из цикла
+Sets the initial value of the default loop counter=Задает начальное значение счетчика цикла по-умолчанию
+False - loop with range [Start,End), i.e. right border is not included, True - loop with range [Start,End]=False - цикл с диапазоном [Start,End), т.е. правая граница не включена, True - цикл с диапазоном [Start,End]
+True - take data from the stream, False - overlap data from the stream with empty data=True - брать данные из потока, False - перекрывать данные из потока пустыми данными
+Starts a loop with a counter=Запускает цикл со счетчиком
+Premature stop of the cycle=Преждевременная остановка цикла
+The event occurs every time the loop iterates=Событие происходит всякий раз при итерации цикла
+Event occurs at the end of the cycle=Событие происходит по окончанию цикла
+Stores the current counter value=Хранит текущее значение счетчика
+Defines the value that, when crossed, exits the loop=Определяет значение, при пересечении которого, происходит выход из цикла
+Defines the initial value of the counter=Определяет начальное значение счетчика

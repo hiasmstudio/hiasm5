@@ -1,0 +1,10 @@
+Find window=Поиск окна
+Window or control class name=Имя класса окна или элемента управления
+Window or control title=Заголовок окна или элемента управления
+Skip comparisons of the found window by title (Caption) or class name (ClassName). None - search for a window using all parameters=Пропустить сравнения найденного окна по заголовку (Caption), либо имени класса (ClassName). None - искать окно по всем параметрам
+Finding the main window=Поиск главного окна
+Finding the child control for a window with ID ParentHandle=Поиск дочернего элемента управления для окна с идентификатором ParentHandle
+The event occurs every time after searching for a window and outputs its identifier to the stream, or 0 if the window is not found ARG(Handle)=Событие происходит всякий раз после поиска окна и выдает в поток его идентификатор, либо 0, если окно не найдено ARG(Handle)
+Contains the ID of the last window found=Содержит идентификатор последнего найденного окна
+Parent window ID (for doFindChild method)=Идентификатор родительского окна (для метода doFindChild)
+ID of the window from which the search begins (for the doFindChild method)=Идентификатор окна, с которого начинается поиск (для метода doFindChild)

@@ -1,0 +1,23 @@
+section java
+
+func doConfirm(_data)
+  println('if( ', linked(onConfirmOk) ? '' : '!','confirm(', Message, ') ) {')
+  if(linked(onConfirmOk))
+    block.inclvl()
+    event(onConfirmOk)
+    block.declvl()
+    println('}')
+  end
+  if(linked(onConfirmCancel))
+    if(linked(onConfirmOk))
+      println('else {')
+    end
+    block.inclvl()
+    event(onConfirmCancel)
+    block.declvl() 
+  end
+  if(linked(onConfirmCancel) or not linked(onConfirmOk))
+    println('}')
+  end
+end
+

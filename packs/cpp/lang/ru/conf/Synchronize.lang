@@ -1,0 +1,4 @@
+Calling an event on the main thread from a parallel thread=Вызов события в главном потоке из параллельного потока
+Raise the onSync event on the main thread=Вызвать событие onSync в главном потоке
+The event occurs on the main thread after doSynchronize is called=Событие происходит в главном потоке после вызова doSynchronize
+Data to be output by the onSync event=Данные для выдачи событием onSync

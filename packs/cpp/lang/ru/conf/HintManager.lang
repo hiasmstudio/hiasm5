@@ -1,0 +1,8 @@
+Hint Manager=Менеджер подсказки
+Element name=Имя элемента
+Default tooltip font=Шрифт всплывающей подсказки по-умолчанию
+Tooltip style=Стиль всплывающей подсказки
+Mouse cursor tracking (in this mode delays are canceled)=Слежение за курсором мыши (в этом режиме задержки анулируются)
+Margins from window edges to text edges=Отступы от краев окна до краев текста
+Maximum tooltip width (-1 - unlimited width)=Максимальная ширина всплывающей подсказки (-1 - ширина не ограничена)
+Tooltip background color=Цвет фона всплывающей подсказки

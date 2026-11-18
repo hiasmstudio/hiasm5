@@ -1,0 +1,8 @@
+Sets other values of the selected variables in the type=Устанавливает другие значения выбранных переменных в типе
+List of variables to set new values for=Список переменных для установки им новых значений
+Type name=Имя типа
+Default data inserted into variable=Данные по умолчанию, вставляемые в переменную
+True - use both the GType point and the stream to determine the type whose variable value needs to be changed, False - determine the type only from the stream=True - использовать и точку GType и поток для определения типа, значение переменных которого нужно изменить, False - определять тип только из потока
+Sets the value of selected variables=Устанавливает значение выбранных переменных
+The event occurs after setting the values of the selected variables=Событие происходит после установки значений выбранных переменных
+The event occurs when an error occurs and outputs its code to the streamARG(err_code,info)=Событие происходит при возникновении ошибки и выдает ее код в потокARG(err_code,info)

@@ -1,0 +1,5 @@
+Array of strings MTStrTbl=Массив строк MTStrTbl
+Managing the MTStrTbl element=Управление элементом MTStrTbl
+Contains an array of strings, where each row is a set of MT elements with the values of each column and a data tuple=Содержит массив строк, где каждая строка - это набор MT-элементов со значениями каждой колонки и кортежем данных
+Contains the number of rows in the table=Содержит количество строк в таблице
+Contains the index of the last row in the table=Содержит индекс последней строки в таблице

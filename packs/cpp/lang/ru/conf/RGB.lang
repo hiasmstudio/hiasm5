@@ -1,0 +1,7 @@
+Formation of color by R, G and B components=Формирование цвета по R, G и B составляющим
+Red component of color=Красная составляющая цвета
+Green component of color=Зелёная составляющая цвета
+Blue component of color=Синяя составляющая цвета
+Forms color according to its components=Формирует цвет по его составляющим
+The event occurs every time after the color is formed and outputs it to the ARG(Color) stream=Событие происходит всякий раз после формирование цвета и выдаёт его в поток ARG(Color)
+Contains the result of color formation=Содержит результат формирования цвета

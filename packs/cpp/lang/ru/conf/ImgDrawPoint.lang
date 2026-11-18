@@ -1,0 +1,14 @@
+Drawing figures=Рисование фигур
+Default coordinates of the top left corner of the figure=Координаты верхнего левого угла фигуры по-умолчанию
+Default coordinates for the bottom right corner of a shape=Координаты нижнего правого угла фигуры по умолчанию
+Count the coordinates of the second point relative to the first (i.e. the second point is the length and height of the figure)=Отсчитывать координаты второй точки относительно первой (т.е. вторая точка это длина и высота фигуры)
+Graphics output object: Bitmap - picture, Handle - window or Windows control, Context - device context=Объект вывода графики: Bitmap - картинка, Handle - окно или элемент управления Windows, Context - контекст устройства
+Filling a shape with a template image. True - fill the figure with the template image; if there is no template, the figure is not filled, False - fill the figure with the Style fill style=Заливка фигуры изображением шаблона. True - заливать фигуру изображением шаблона, при отсутствии шаблона заливка фигуры не производится, False - заливать фигуру стилем заливки Style
+Shape fill style: bsClear - no fill, bsSolid - BgColor, bsHorizontal - horizontal lines, bsVertical - vertical lines, bsFDiagonal - descending stroke from left to right, bsBDiagonal - ascending stroke from left to right, bsCross - grid, bsDiagCros - diagonal grid=Стиль заливки фигуры: bsClear - без заливки, bsSolid - цветом BgColor, bsHorizontal - горизонтальными линиями, bsVertical - вертикальными линиями, bsFDiagonal - нисходящим шштрихом слева направо, bsBDiagonal - восходящим штрихом слева направо, bsCross - решеткой, bsDiagCros - диагональной решеткой
+Line size (thickness) from 1 or more=Размер линии (толщина) от 1 и более
+Draws a shape with the top left corner at Point1 and the bottom right corner at Point2=Отрисовывает фигуру с верхним левым углом в точке Point1 и правым нижним в точке Point2
+The event occurs every time after the figure is drawn=Событие происходит всякий раз после отрисовки фигуры
+The graphic output object on which you want to draw the shape=Объект вывода графики, на которой требуется отрисовать фигуру
+Coordinates of the top left corner of the figure=Координаты верхнего левого угла фигуры
+Coordinates of the lower right corner of the figure=Координаты нижнего правого угла фигуры
+Line size=Размер линии

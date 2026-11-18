@@ -1,0 +1,14 @@
+List of drives=Список дисков
+Height of each list item=Высота каждого пункта списка
+Rendering Manager=Менеджер отрисовки
+Add a backslash to the drive letter=Добавить к букве диска обратную косую черту
+Show drive names in capital letters=Показывать имена дисков заглавными буквами
+Automatically selects the default drive=Автоматически выбирает диск по-умолчанию
+Default drive=Диск по-умолчанию
+Sets the label of the selected disk=Устанавливает метку выбранного диска
+Sets the default disk=Устанавливает диск по-умолчанию
+The event occurs whenever a drive is selected from the list and outputs its letter to the stream=Событие происходит всякий раз при выборе диска из списка и выдает в поток его букву
+The event occurs every time you select a disk from the list, if the disk is unavailable and outputs its letter to the stream=Событие происходит всякий раз при выборе диска из списка, в случае, если диск недоступен и выдает в поток его букву
+Contains the selected drive letter=Содержит букву выбранного диска
+Contains the label of the selected drive=Содержит метку выбранного диска
+Default installation drive=Диск для установки по-умолчанию

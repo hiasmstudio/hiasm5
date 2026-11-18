@@ -1,0 +1,9 @@
+Determining HostName and IP Address=Определение HostName и IP-адреса
+Determines HostName by IP address=Определяет HostName по IP-адресу
+Determines IP address by HostName=Определяет IP-адрес по HostName
+Returns HostName by IP address=Возвращает HostName по IP-адресу
+Returns the IP address by HostName=Возвращает IP-адрес по HostName
+The IP address for which you need to find out the HostName. If the address is not specified, then the default name (localhost) is given.=IP-адрес для которого нужно узнать HostName. Если адрес не задан, то выдаётся имя по-умолчанию (lоcalhost)
+The name of the host whose IP address you want to find out. If the name is not specified or there is no Internet connection, the IP address is issued by default (127.0.0.1)=Имя хоста у которого нужно узнать IP-адрес. Если имя не задано или нет подключения к интернету, то IP-адрес выдаётся по умолчанию (127.0.0.1)
+Contains the HostName of the current computer=Содержит HostName текущего компьютера
+Contains the IP address of the current computer=Содержит IP-адрес текущего компьютера

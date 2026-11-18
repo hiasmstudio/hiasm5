@@ -1,0 +1,8 @@
+Material properties=Св-ва материала
+The side of the object for which the material is installed=Сторона объекта, для которой устанавливается материал
+Diffuse color=Рассеянный цвет
+Mirror color=Зеркальный цвет
+Emitted Color=Излучаемый цвет
+Degree of specular reflection=Степень зеркального отражения
+Sets the parameters of the current material to the specified ones=Устанавливает параметры текущего материала на заданные
+The event occurs after installing the St. TV material=Событие происходит после установки св-тв материала

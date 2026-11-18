@@ -1,0 +1,41 @@
+func Source(value)
+  if(len(value) > 0)
+    return(value)
+  else
+    return(cstr(get('Text')))
+  end
+end
+
+func ModeTwoWay()
+  if(get('Mode') == "2-Way")
+    return(1)
+  else
+    return(0)
+  end
+end
+
+func EnterTag()
+  fvar(tag)
+  tag = get('EnterTag')
+  if(pos(tag, '#', 0) < 0)
+    return('"<#13#10>"')
+  end
+  return(cstr(tag))
+end
+
+func Expr(value)
+  return('[](std::string text, const std::string &list, const std::string &delim, const std::string &endSymbol, const std::string &enterTag, int twoWay) { std::vector<std::pair<std::string, std::string>> pairs; std::size_t pos = 0; while(pos <= list.size()) { std::size_t nl = list.find(static_cast<char>(10), pos); std::string line = list.substr(pos, nl == std::string::npos ? std::string::npos : nl - pos); if(!line.empty() && line.back() == static_cast<char>(13)) line.pop_back(); if(!line.empty()) { std::size_t d = line.find(delim); if(d != std::string::npos) { std::string from = line.substr(0, d); std::string to = line.substr(d + delim.size()); if(!endSymbol.empty() && to.size() >= endSymbol.size() && to.compare(to.size() - endSymbol.size(), endSymbol.size(), endSymbol) == 0) to.erase(to.size() - endSymbol.size()); if(!enterTag.empty()) { std::size_t ep = 0; while((ep = to.find(enterTag, ep)) != std::string::npos) { to.replace(ep, enterTag.size(), std::string(1, static_cast<char>(10))); ep += 1; } } if(!from.empty()) pairs.push_back(std::make_pair(from, to)); } } if(nl == std::string::npos) break; pos = nl + 1; } if(twoWay) { for(std::size_t i = 0; i < pairs.size(); ++i) { std::string marker = std::string(1, static_cast<char>(1)) + std::to_string(i) + std::string(1, static_cast<char>(2)); std::size_t p = 0; while((p = text.find(pairs[i].first, p)) != std::string::npos) { text.replace(p, pairs[i].first.size(), marker); p += marker.size(); } } for(std::size_t i = 0; i < pairs.size(); ++i) { std::string marker = std::string(1, static_cast<char>(1)) + std::to_string(i) + std::string(1, static_cast<char>(2)); std::size_t p = 0; while((p = text.find(marker, p)) != std::string::npos) { text.replace(p, marker.size(), pairs[i].second); p += pairs[i].second.size(); } } } else { for(std::size_t i = 0; i < pairs.size(); ++i) { std::size_t p = 0; while((p = text.find(pairs[i].first, p)) != std::string::npos) { text.replace(p, pairs[i].first.size(), pairs[i].second); p += pairs[i].second.size(); } } } return text; }(' && value && ', ' && cstr(get('ReplaceList')) && ', ' && cstr(get('Delimiter')) && ', ' && cstr(get('EndSymbol')) && ', ' && EnterTag() && ', ' && ModeTwoWay() && ')')
+end
+
+func doMultiReplace(_data)
+  println('auto hiasm_mr', _id_, ' = ', Expr(Source(_data)), ';')
+  event(onResult, 'hiasm_mr' && _id_)
+end
+
+func Result()
+  if(linked('doMultiReplace'))
+    return('hiasm_mr' && _id_)
+  else
+    return(Expr(cstr(get('Text'))))
+  end
+end

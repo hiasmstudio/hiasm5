@@ -1,0 +1,6 @@
+Column array MTStrTbl=Массив столбцов MTStrTbl
+Managing the MTStrTbl element=Управление элементом MTStrTbl
+Array of column format properties=Массив форматных свойств столбцов
+Contains MT elements of column format properties=Содержит MT-элементы форматных свойств столбцов
+Contains the number of columns=Содержит количество столбцов
+Contains the index of the last column in the table=Содержит индекс последнего столбца в таблице

@@ -1,0 +1,2 @@
+Bookmarks=Закладки
+Standard - imitation of the MultiElement component, Dynamic - support for dynamic arrays, OnlyOnce - creating a copy of the scheme when calling any method and destroying it when this method ends=Standard - имитация компонента MultiElement, Dynamic - поддержка динамических массивов, OnlyOnce - создание копии схемы при вызове любого метода и уничтожение её при завершении работы этого метода

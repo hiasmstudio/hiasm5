@@ -1,0 +1,209 @@
+﻿*Демонстрация работы "быстрого математического блока " - FastMathParse#13#10______________#13#10Автор: Galkov
+Make(cpp)
+Pos(0,0)
+Add(MainForm,49024,49,175)
+{
+ Left=242
+ Top=105
+ Width=558
+ Height=460
+ Font=[Arial,8,0,0]
+ Caption="FastMathParser"
+ Icon=[ZIP5E07000078DAED94310E823018859F13373018071D1DBD8171F35656191835DD1C8CC7F1188C8C8E8EE541A1A9B44A5A16637CFC8F342FCDC7DF1F0230E195A6A8EFD825C014C08A668435745E6B99E0AF5F916ACA0D8324A574393A0C928018E40C764B08B3CF1CB73737B139CDBA059A9DEAB5BC89D38F3267D41CD949AFE14BBC1C658D2BFA5CAAEBBA3779FBB9EF925E3FA6342AE8A53B936B3918CD098578391110971307E971A22136670CC47046422CD477FC06F921FB5C160AF71B7D7D22BF94389EB7EC3983989510F307C442416CE83DCDFD073AA373FA44172DA7027027D5D8]
+}
+Add(Hub,23124,105,126)
+{
+ link(onEvent1,49841:doClear,[])
+ link(onEvent2,93894:doData,[(153,139)(153,118)])
+}
+Add(Edit,24927,161,70)
+{
+ Width=550
+ Height=21
+ Align=2
+ Font=[Arial,8,0,0]
+ Text="1+%3*(%1*%2+(%1*2+3*(%2*2+3*(%2*2+3*(%2*2+3*(%2*2+3*(%2*2+3*(%2*2+3*(%2*2+1)))))))))"
+}
+Add(Message,63573,364,112)
+{
+ Caption="Error"
+ Icon=1
+}
+Add(StringTable,49841,273,119)
+{
+ Left=90
+ Top=21
+ Width=460
+ Height=412
+ Align=5
+ Font=[Courier New,8,0,16711680]
+ FileName="Proc.lst"
+ Columns='Hex =115','Mnemonics   =175','Comments=150'
+ StrDelimiter="\9"
+ SaveWidth=0
+ @Hint='ЕЕЕЕЕ','ЫВОАРООЛРЫВАФВлвамоварлмо','чьтсимтчбьтчмрываыва орывапв ывопро'
+}
+Add(ChildPanel,5198,56,112)
+{
+ link(onEvent1,66015:doCalc,[(102,118)(102,111)])
+ link(onEvent2,66015:doClear,[])
+ link(onEvent3,23124:doEvent1,[])
+ link(onEvent4,91755:doEvent1,[(101,139)(101,202)])
+}
+BEGIN_SDK
+Pos(0,0)
+  Add(EditMulti,71424,3,3)
+  {
+   EventCount=4
+   VarCount=4
+   link(Var1,8834:Text,[(9,173)(27,173)])
+   link(Var2,13026:Text,[(16,178)(69,178)])
+   link(Var3,13177:Text,[(23,183)(111,183)])
+   link(Var4,59158:Text,[(30,190)(153,190)])
+  }
+  Add(Panel,99441,21,21)
+  {
+   Top=21
+   Width=90
+   Height=412
+   Align=1
+   Font=[Arial,8,0,0]
+   Caption=""
+   BevelInner=1
+  }
+  Add(Edit,59158,147,126)
+  {
+   Left=10
+   Top=210
+   Width=70
+   Height=21
+   Font=[Arial,8,0,0]
+   Text="Аргумент4"
+  }
+  Add(Button,43147,203,126)
+  {
+   Left=15
+   Top=90
+   Width=60
+   Font=[Arial,8,0,0]
+   Caption="Save"
+   link(onClick,71424:onEvent4,[(269,132)(269,30)])
+  }
+  Add(Button,67731,203,91)
+  {
+   Left=15
+   Top=15
+   Width=60
+   Font=[Arial,8,0,0]
+   Caption="doMathStr"
+   link(onClick,71424:onEvent3,[(269,97)(269,23)])
+  }
+  Add(Edit,13026,63,126)
+  {
+   Left=10
+   Top=150
+   Width=70
+   Height=21
+   Font=[Arial,8,0,0]
+   Text="Аргумент2"
+  }
+  Add(Button,41458,203,56)
+  {
+   Left=15
+   Top=65
+   Width=60
+   Font=[Arial,8,0,0]
+   Caption="doClear"
+   Data=Real(-5)
+   link(onClick,71424:onEvent2,[(269,62)(269,16)])
+  }
+  Add(Edit,8834,21,126)
+  {
+   Left=10
+   Top=120
+   Width=70
+   Height=21
+   Font=[Arial,8,0,0]
+   Text="Аргумент1"
+  }
+  Add(Edit,13177,105,126)
+  {
+   Left=10
+   Top=180
+   Width=70
+   Height=21
+   Font=[Arial,8,0,0]
+   Text="Аргумент3"
+  }
+  Add(Button,5191,203,21)
+  {
+   Left=15
+   Top=40
+   Width=60
+   Font=[Arial,8,0,0]
+   Caption="doCalc"
+   Data=Real(-5)
+   link(onClick,71424:onEvent1,[(269,27)(269,9)])
+  }
+END_SDK
+Add(ArrayRW,33044,322,112)
+{
+ link(onRead,63573:doMessage,[])
+ link(Array,99991:Array,[])
+}
+Add(Hub,91755,161,196)
+{
+ OutCount=4
+ link(onEvent1,49841:doSave,[(211,202)(211,153)])
+ link(onEvent2,69603:doOpen,[(220,209)(220,174)])
+ link(onEvent3,40306:doData,[])
+ link(onEvent4,69603:doClose,[(228,223)(228,181)])
+}
+Add(DoData,40306,238,210)
+{
+ link(onEventData,72386:doPut,[])
+ link(Data,66015:Proc,[])
+}
+Add(StrList,99991,308,56)
+{
+ Strings='Синтаксическая ошибка!','Ошибка вычислений!'
+}
+Add(DoData,93894,161,112)
+{
+ link(onEventData,66015:doMathStr,[])
+ link(Data,24927:Text,[])
+}
+Add(Message,93826,266,70)
+{
+ Caption="Result"
+ Icon=4
+}
+Add(FileStream,69603,287,168)
+{
+ FileName="Proc.bin"
+ Mode=1
+}
+Add(DataToFile,72386,287,210)
+{
+ Type=5
+ link(Stream,69603:Stream,[])
+}
+Add(FastMathParse,66015,217,105)
+{
+ DataCount=4
+ MathStr="1+%3*(%1*%2+(%1*2+3*(%2*2+3*(%2*2+3*(%2*2+3*(%2*2+3*(%2*2+3*(%2*2+3*(%2*2+1)))))))))"
+ Point(doMathStr)
+ Point(doClear)
+ Point(onError)
+ Point(onDebugStrings)
+ Point(reCalc)
+ Point(PosErr)
+ Point(Proc)
+ link(onResult,93826:doMessage,[(260,111)(260,76)])
+ link(X1,5198:Var1,[(223,60)(62,60)])
+ link(X2,5198:Var2,[(230,57)(69,57)])
+ link(X3,5198:Var3,[(237,55)(76,55)])
+ link(X4,5198:Var4,[(244,50)(83,50)])
+ link(onError,33044:doRead,[])
+ link(onDebugStrings,49841:doAdd,[])
+}

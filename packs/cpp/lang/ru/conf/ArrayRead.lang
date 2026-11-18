@@ -1,0 +1,6 @@
+Reading array elements by index=Чтение элементов массива по индексу
+Element index=Индекс элемента
+Reads the value of the specified element from an array=Читает значение указанного элемента из массива
+The event occurs every time a value is read from the array and outputs it to the stream=Событие происходит всякий раз после чтения значения из массива и выдает его в поток
+Contains the value read from the array=Содержит значение, прочитанное из массива
+Defines an array to read the value from=Определяет массив для чтения значения

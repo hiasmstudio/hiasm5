@@ -1,0 +1,7 @@
+Stores data from a stream into a FIFO queue=Запоминает данные из потока в очередь FIFO
+Default data, or after doClear=Данные по-умолчанию, или после doClear
+Number of data access points=Количество точек доступа к данным
+Stores data in memory=Запоминает данные в памяти
+Sets all memory cells to their initial state (i.e. equals it to the default value)=Устанавливает все ячейки памяти в исходное состояние (т.е. приравнивает её значению по-умолчанию)
+The event occurs on the doValue call, returning the deleted (oldest) data from the FIFO queue=Событие происходит по вызову doValue, выдавая удаленные (самые старые) из очереди FIFO данные
+Data to be stored by the doValue method=Данные для запоминания методом doValue

@@ -1,0 +1,9 @@
+Multidimensional stream to and from a string=Многомерный поток в строку и обратно
+Mask for forming one stream link=Маска для формирования одного звена потока
+Converts a multidimensional stream into a string separated by Delimeter=Преобразовывает многомерный поток в строку разделенную Delimeter-ом
+Converts a string separated by Delimeter into a type-aware multidimensional stream=Преобразовывает строку разделенную Delimeter-ом в многомерный поток с учетом типов
+Converts a string separated by Delimeter into a type-insensitive multidimensional stream=Преобразовывает строку разделенную Delimeter-ом в многомерный поток без учета типов
+Converts a multidimensional stream into a Delimeter-separated string of elements created by the Mask=Преобразовывает многомерный поток в строку разделенную Delimeter-ом из элементов, созданных по маске Mask
+The event occurs after any conversion, outputting the result to the stream=Событие происходит после любого преобразования, выдавая результат в поток
+Contains the resulting string after executing doStr=Содержит результирующую строку после выполнения doStr
+String to be parsed using the doMT method=Cтрока для разбора методом doMT

@@ -1,0 +1,10 @@
+Data encryption=Шифрование данных
+Encryption algorithm=Алгоритм шифрования
+Hash algorithm for the key when encrypting using the RC2, RC4, DES, 3DES, AES, CYLINK_MEK algorithms=Хеш-алгоритм для ключа при шифровании по алгоритмам RC2, RC4, DES, 3DES, AES, CYLINK_MEK
+Default cryptographic security key=Криптографический ключ защиты по умолчанию
+Performs the encryption procedure ARG(Data, Key)=Производит процедуру шифрования ARG(Data, Key)
+The event occurs every time after encryption has finished and outputs the result to the ARG(DataCrypt) stream=Событие происходит всякий раз после окончания шифрования и выдает результат в поток ARG(DataCrypt)
+The event occurs as a result of an error and issues an error code to the ARG(Error) stream=Событие происходит в результате ошибки и выдает код ошибки в поток ARG(Error)
+Contains the result of encryption=Содержит результат шифрования
+Data to Encrypt=Данные для шифрования
+Cryptographic security key=Криптографический ключ защиты

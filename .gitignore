@@ -1,0 +1,7 @@
+# Build
+/build/
+/debug/
+/release/
+*.o
+.goutputstream*
+/decompile-src/

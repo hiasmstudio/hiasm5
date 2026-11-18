@@ -1,0 +1,4 @@
+func doInclude(_data)
+  println(code(Mode),isdef(Once) ? '' : '_once','(', FileName, ');')
+  event(onInclude)
+end

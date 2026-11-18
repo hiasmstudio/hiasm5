@@ -1,0 +1,31 @@
+func Init:java
+  fvar(old)
+  if(issec("php") and isset(BLK_FUNC) and isdef(Extern))
+    old = block.select(BLK_FUNC)    
+    println('global ', val, ';')
+    block.select(old)
+  end
+  if(isndef(Default) and (linked(doValue) or linked(doClear)))
+    old = block.select((isset(BLK_FUNC) and isndef(Extern)) ? BLK_FUNC : BLK_HEAD)
+    println(issec("php") ? '' : 'var ', val, ' = ', Default, ';')
+    block.select(old)
+  end 
+end
+
+func doValue(data):java
+  println(val, ' = ', data, ';') 
+  event(onData, val)
+end
+
+func doClear:java
+  println(val, ' = ', Default, ';')
+  event(onData, val)
+end
+
+func Value:java
+  if(linked(doValue) or linked(doClear))
+    return(val)
+  else
+    return(Default)
+  end
+end

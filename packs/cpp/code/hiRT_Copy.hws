@@ -1,0 +1,26 @@
+func Expr(value)
+  return('std::string(' && value && ').substr(' && Position && ', ' && CharCount && ')')
+end
+
+func Source(value)
+  if(len(value) > 0)
+    return(value)
+  else
+    return(SrcStr)
+  end
+end
+
+func doCopy(_data)
+  fvar(src)
+  src = Source(_data)
+  println('auto hiasm_rtcopy', _id_, ' = ', Expr(src), ';')
+  event(onCopy, 'hiasm_rtcopy' && _id_)
+end
+
+func Result()
+  if(linked('doCopy'))
+    return('hiasm_rtcopy' && _id_)
+  else
+    return(Expr(SrcStr))
+  end
+end

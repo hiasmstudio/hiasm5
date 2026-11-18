@@ -1,0 +1,14 @@
+func doString(_data)
+  fvar(i, items, expr)
+  items = ''
+  i = 1
+  while(i <= d('StrCount'))
+    if(i > 1)
+      items = items && ', '
+    end
+    items = items && get('Str' && i)
+    i = i + 1
+  end
+  expr = 'hiasm_format(' && d('Mask') && ', {' && items && '})'
+  event(onFString, expr)
+end

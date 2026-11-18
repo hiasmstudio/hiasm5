@@ -1,0 +1,58 @@
+func Arg(value)
+  if(len(value) > 0)
+    return(value)
+  else
+    return('""')
+  end
+end
+
+func doStart
+  println('{')
+  fvar(parts, i)
+  println('GtkWidget *widget = gtk_combo_box_text_new();')
+  parts = split(Strings, "\n")
+  i = 0
+  while(i < parts.size())
+    println('hiasm_combo_add(GTK_COMBO_BOX(widget), ', cstr(parts.get(i)), ', 0);')
+    i = i + 1
+  end
+  switch(d('ReadOnly'))
+    case "True":
+      println('GtkWidget *entry = gtk_combo_box_get_child(GTK_COMBO_BOX(widget));')
+      println('if(entry && GTK_IS_EDITABLE(entry)) gtk_editable_set_editable(GTK_EDITABLE(entry), FALSE);')
+  end
+  println('hiasm_place("hcTplComboBox', _id_, '", widget, ', Left, ', ', Top, ');')
+  if(linked(onClick))
+    println('g_signal_connect(widget, "changed", G_CALLBACK(+[](GtkComboBox *combo, gpointer) {')
+    println('if(!hiasm_form_ready) return;')
+    block.inclvl()
+    switch(d('DataType'))
+      case 1: event(onClick, 'hiasm_combo_text(combo)')
+      default: event(onClick, 'gtk_combo_box_get_active(combo)')
+    end
+    block.declvl()
+    println('}), NULL);')
+  end
+  println('}')
+end
+
+func doAdd(_data)
+  println('hiasm_combo_add(GTK_COMBO_BOX(hiasm_widget("hcTplComboBox', _id_, '").get()), hiasm_text(', Arg(_data), ').c_str(), 0);')
+end
+
+func doClear(_data)
+  println('hiasm_combo_clear(GTK_COMBO_BOX(hiasm_widget("hcTplComboBox', _id_, '").get()));')
+end
+
+func doSelectByIndex(_data)
+  println('gtk_combo_box_set_active(GTK_COMBO_BOX(hiasm_widget("hcTplComboBox', _id_, '").get()), static_cast<int>(', Arg(_data), '));')
+end
+
+func Index()
+  return('gtk_combo_box_get_active(hiasm_combo("hcTplComboBox' && _id_ && '"))')
+end
+
+func EditText()
+  return('std::string(gtk_editable_get_text(GTK_EDITABLE(gtk_combo_box_get_child(GTK_COMBO_BOX(hiasm_combo("hcTplComboBox' && _id_ && '"))))))')
+end
+

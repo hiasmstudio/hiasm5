@@ -1,0 +1,7 @@
+Compare strings by mask=Сравнение строк по маске
+Mask for comparison with a string (* - any characters, ? - any one character, # - any one digit)=Маска для сравнения со строкой (* - любые символы, ? - один любой символ, # - одна любая цифра)
+Case sensitivity of letters in a string=Чувствительность к регистру букв в строке
+Compares a string with a mask=Сравнивает строку с маской
+The event occurs if the string does not match the mask=Событие происходит в том случае, если строка не соответствует маске
+The event occurs if the string matches the mask=Событие происходит в том случае, если строка соответствует маске
+Defines a string to compare with a mask=Определяет строку для сравнения с маской

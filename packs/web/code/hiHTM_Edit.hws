@@ -1,0 +1,40 @@
+include('tag_maker')
+
+section java
+
+func doPrint()
+  fvar(ctrl)
+  println(memo, ' = document.createElement("input")')
+  ctrl = memo
+  include('tag_header_java')
+  if(isset(Value))
+    println(ctrl, '.value = ', Value)
+  end  
+  if(isset(Name))
+    println(ctrl, '.name = ', Name)
+  end  
+
+  event(onPrint, ctrl)
+end 
+
+section html
+
+func doPrint
+  include('tag_header')
+  s[1] = "input"
+  if(isdef(Password))
+    s &= " type=\"text\""
+  else
+    s &= " type=\"password\""
+  end  
+  if(isset(Name))
+    s &= " name=\"" & Name & "\""
+  end 
+  if(isset(Value))
+    s &= " value=\"" & Value & "\""
+  end
+  if(isset(Size))
+    s &= " size=\"" & Size & "\""
+  end
+  include('tag_footer')
+end

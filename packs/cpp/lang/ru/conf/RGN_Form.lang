@@ -1,0 +1,7 @@
+Creating a region based on form or panel controls=Создание региона на основе контролов формы или панели
+Apply a region to a form or panel immediately after creation=Применять регион к форме или панели сразу после создания
+Element Control=Управление элементом
+Creates a region based on form or panel controls=Создает регион на основе контролов формы или панели
+The event occurs every time a region is created and outputs the result to the ARG(Region) stream=Событие происходит всякий раз после создания региона и выдает результат в поток ARG(Region)
+Contains the created region=Содержит созданный регион
+Contains the index of the combination result (0 - error, 1 - empty region, 2 - simple (rectangular) region, 3 - complex (multiple rectangle) region)=Содержит индекс результата комбинирования (0 - ошибка, 1 - регион пуст, 2 - простой (прямоугольный) регион, 3 - сложный (из нескольких прямоугольников) регион)

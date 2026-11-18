@@ -1,0 +1,30 @@
+func Expr(value)
+  switch(Type)
+    case 1: return('[](std::string value) { for(char &c : value) c = static_cast<char>(std::toupper(static_cast<unsigned char>(c))); return value; }(' && value && ')')
+    case 2: return('[](std::string value) { bool start = true; for(char &c : value) { if(std::isspace(static_cast<unsigned char>(c))) { start = true; } else if(start) { c = static_cast<char>(std::toupper(static_cast<unsigned char>(c))); start = false; } else { c = static_cast<char>(std::tolower(static_cast<unsigned char>(c))); } } return value; }(' && value && ')')
+    default: return('[](std::string value) { for(char &c : value) c = static_cast<char>(std::tolower(static_cast<unsigned char>(c))); return value; }(' && value && ')')
+  end
+end
+
+func Source(value)
+  if(len(value) > 0)
+    return(value)
+  else
+    return(SrcStr)
+  end
+end
+
+func doModify(_data)
+  fvar(src)
+  src = Source(_data)
+  println('auto hiasm_rtcase', _id_, ' = ', Expr(src), ';')
+  event(onModify, 'hiasm_rtcase' && _id_)
+end
+
+func Result()
+  if(linked('doModify'))
+    return('hiasm_rtcase' && _id_)
+  else
+    return(Expr(SrcStr))
+  end
+end

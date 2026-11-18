@@ -1,0 +1,23 @@
+section java
+
+func create(_data)
+  return(Parent && '.firstChild')
+end
+
+func doGetFirstChild(_data)
+  if(linked(Child))
+    println(fn, ' = ', create(_data), ';')
+    event(onGetFirstChild, fn)
+  else
+    event(onGetFirstChild, create(_data))
+  end
+end
+
+func Child(_data)
+  if(linked(doGetFirstChild))
+    return(fn)
+  else
+    return(create(_data))
+  end
+end
+

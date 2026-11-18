@@ -1,0 +1,6 @@
+Gets the access list=Получает список доступа
+Gets the access list for the specified security settings=Получает список доступа для указанных настроек безопасности
+The event occurs whenever an access list is retrieved and outputs it to the stream=Событие происходит всякий раз после получения списка доступа и выдает его в поток
+The event occurs whenever an error occurs during the access list retrieval process=Событие происходит всякий раз при возникновении ошибки в процессе получения списка доступа
+Contains the access list identifier=Содержит идентификатор списка доступа
+Security Settings Information=Информация о настройках безопасности

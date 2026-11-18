@@ -1,0 +1,100 @@
+func Arg(value)
+  if(len(value) > 0)
+    return(value)
+  else
+    return('""')
+  end
+end
+
+func doStart
+  println('{')
+  fvar(first, policy)
+  first = 0
+  switch(d('AddType'))
+    case 1: first = 1
+  end
+  policy = 'GTK_POLICY_AUTOMATIC'
+  println('GtkWidget *memo = gtk_text_view_new();')
+  println('hiasm_set_background(memo, ', cstr(d('Color')), ');')
+  println('hiasm_set_font(memo, ', cstr(d('Font')), ');')
+  println('GtkWidget *scroll = gtk_scrolled_window_new();')
+  switch(get('ScrollBars'))
+    case 0: println('gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll), GTK_POLICY_NEVER, GTK_POLICY_NEVER);')
+    case 1: println('gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll), GTK_POLICY_AUTOMATIC, GTK_POLICY_NEVER);')
+    case 2: println('gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);')
+    default: println('gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);')
+  end
+  switch(get('ReadOnly'))
+    case 0: println('gtk_text_view_set_editable(GTK_TEXT_VIEW(memo), FALSE);')
+  end
+  println('gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scroll), memo);')
+  println('hiasm_text_set(GTK_TEXT_VIEW(memo), ', cstr(Strings), ');')
+  println('hiasm_place_scroll("Memo', _id_, '", scroll, memo, ', Left, ', ', Top, ');')
+  if(linked(onChange))
+    println('g_signal_connect(gtk_text_view_get_buffer(GTK_TEXT_VIEW(memo)), "changed", G_CALLBACK(+[](GtkTextBuffer *, gpointer user_data) {')
+  println('if(!hiasm_form_ready) return;')
+    block.inclvl()
+    println('if(hiasm_view_text(GTK_TEXT_VIEW(user_data)).empty()) return;')
+    event(onChange, 'hiasm_view_text(GTK_TEXT_VIEW(user_data))')
+    block.declvl()
+    println('}), memo);')
+  end
+  println('}')
+end
+
+func First()
+  fvar(first)
+  first = 0
+  switch(get('AddType'))
+    case 1: first = 1
+  end
+  return(first)
+end
+
+func doAdd(_data)
+  println('hiasm_text_add(GTK_TEXT_VIEW(hiasm_widget("Memo', _id_, '").get()), hiasm_text(', Arg(_data), ').c_str(), ', First(), ');')
+end
+
+func doText(_data)
+  println('hiasm_text_set(GTK_TEXT_VIEW(hiasm_widget("Memo', _id_, '").get()), hiasm_text(', Arg(_data), ').c_str());')
+end
+
+func doClear(_data)
+  println('hiasm_text_set(GTK_TEXT_VIEW(hiasm_widget("Memo', _id_, '").get()), "");')
+end
+
+func doDelete(_data)
+  println('hiasm_text_remove(GTK_TEXT_VIEW(hiasm_widget("Memo', _id_, '").get()), static_cast<int>(', _data, '));')
+end
+
+func doLoad(_data)
+  println('hiasm_text_set(GTK_TEXT_VIEW(hiasm_widget("Memo', _id_, '").get()), hiasm_read_file(', cstr(get('FileName')), ').c_str());')
+end
+
+func doSave(_data)
+  println('hiasm_write_file(', cstr(get('FileName')), ', hiasm_view_text(GTK_TEXT_VIEW(hiasm_widget("Memo', _id_, '").get())));')
+end
+
+func Text()
+  return('hiasm_view_text(hiasm_text_view("Memo' && _id_ && '"))')
+end
+
+func Count()
+  return('hiasm_view_lines(hiasm_text_view("Memo' && _id_ && '"))')
+end
+
+func Array()
+  return('hiasm_text_lines(hiasm_text_view("Memo' && _id_ && '"))')
+end
+
+func EndIdx()
+  return('(hiasm_view_lines(hiasm_text_view("Memo' && _id_ && '")) - 1)')
+end
+
+func doEnsureVisible(_data)
+  println('hiasm_text_ensure_visible(GTK_TEXT_VIEW(hiasm_widget("Memo', _id_, '").get()));')
+end
+
+func doKeyBack(_data)
+end
+

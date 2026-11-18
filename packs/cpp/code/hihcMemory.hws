@@ -1,0 +1,17 @@
+func doValue(_data)
+  println('auto hiasm_mem_', _id_, ' = ', _data, ';')
+  event(onData, 'hiasm_mem_' && _id_)
+end
+
+func doClear(_data)
+  println('hiasm_mem_', _id_, ' = ', Default, ';')
+  event(onData, 'hiasm_mem_' && _id_)
+end
+
+func Value()
+  if(linked('doValue') or linked('doClear'))
+    return('hiasm_mem_' && _id_)
+  else
+    return(Default)
+  end
+end

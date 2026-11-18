@@ -1,0 +1,16 @@
+func doGetSize(_data)
+  if(linked(Size))
+    println(_size, ' = ', Array, '.length;')
+    event(onGetSize, _size)
+  else 
+    event(onGetSize, Array && '.length')
+  end
+end
+
+func Size()
+  if(linked(doGetSize))
+    return(_size)
+  else
+    return(Array && '.length')
+  end
+end

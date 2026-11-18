@@ -1,0 +1,5 @@
+BASS version=Версия BASS
+Checks the current version of bass.dll against the version of the same library at the time the program was built=Проверяет текущую версию bass.dll на соответствие версии этой же библиотеки на момент сборки программы
+The event occurs every time after a successful library version check=Событие происходит всякий раз после успешной проверки версии библиотеки
+The event occurs every time after a mismatch between the required library version and the available one=Событие происходит всякий раз после несовппадения требуемой версии библиотеки и имеющейся
+contains the version of the current bass.dll=содержит версию текущей bass.dll

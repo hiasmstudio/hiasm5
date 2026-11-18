@@ -1,0 +1,26 @@
+func doFor(_data)
+  // Like the Delphi element: the direction follows the sign of Step, and IncludeEnd=False leaves the end out.
+  println('{')
+  block.inclvl()
+  println('const int hiasm_step', _id_, ' = static_cast<int>(', get('Step'), ');')
+  println('int hiasm_end', _id_, ' = static_cast<int>(', End, ');')
+  if(get('IncludeEnd') == "False")
+    println('hiasm_end', _id_, ' += (hiasm_step', _id_, ' > 0 ? -1 : 1);')
+  end
+  println('for(int hiasm_i', _id_, ' = static_cast<int>(', Start, '); hiasm_step', _id_, ' != 0 && (hiasm_step', _id_, ' > 0 ? hiasm_i', _id_, ' <= hiasm_end', _id_, ' : hiasm_i', _id_, ' >= hiasm_end', _id_, '); hiasm_i', _id_, ' += hiasm_step', _id_, ') {')
+  block.inclvl()
+  event(onEvent, 'hiasm_i' && _id_)
+  block.declvl()
+  println('}')
+  event(onStop)
+  block.declvl()
+  println('}')
+end
+
+func doStop(_data)
+  println('break;')
+end
+
+func Position()
+  return('hiasm_i' && _id_)
+end

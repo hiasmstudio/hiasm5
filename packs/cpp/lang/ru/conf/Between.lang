@@ -1,0 +1,11 @@
+Entering the range=Вхождение в диапазон
+Default verification data=Данные для проверки по умолчанию
+Default range start=Начало диапазона по умолчанию
+Default end of range=Конец диапазона по умолчанию
+Consider borders (Both - both, Right - only right, Left - only left, NotRightLeft - do not take both into account)=Учитывать границы (Both - обе, Right - только правую, Left - только левую, NotRightLeft - не учитывать обе)
+Checks whether data is within a range=Проверяет вхождение данных в диапазон
+Data to check=Данные для проверки
+Start of range=Начало диапазона
+End of range=Конец диапазона
+The event occurs whenever data is found outside the range=Событие происходит всякий раз при наахождении данных за пределами диапазона
+The event occurs whenever data is within the range=Событие происходит всякий раз при наахождении данных в пределах диапазоне

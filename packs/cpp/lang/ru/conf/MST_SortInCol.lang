@@ -1,0 +1,7 @@
+Sorting rows in the MTStrTbl column=Сортировка строк в столбце MTStrTbl
+Ascending - sort columns from top to bottom, Descending - sort from bottom to top=Ascending - сортировать столбцы сверху вниз, Descending - сортировать снизу вверх
+Managing the MTStrTbl element=Управление элементом MTStrTbl
+Sorts the rows in a column according to the selected MethodSort. ARG(IndexCol)=Сортирует строки в столбце, согласно выбрнного MethodSort. ARG(IndexCol)
+Sorts the rows in a column as a number, according to the selected MethodSort. ARG(IndexCol)=Сортирует строки в столбце, как число, согласно выбрнного MethodSort. ARG(IndexCol)
+The event occurs whenever the list of table rows is changed=Событие происходит всякий раз при изменении списка строк таблицы
+The result of comparing two MT strings during sorting using the doSortExtCmp method=Результат сравнения двух MT-строк в процессе сортировки методом doSortExtCmp

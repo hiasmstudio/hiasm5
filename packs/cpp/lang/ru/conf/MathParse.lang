@@ -1,0 +1,14 @@
+Parsing and evaluating mathematical expressions=Разбор и вычисление математических выражений
+Number of arguments (numbered from %1 to %DataCount, %0 is the result value)=Кол-во аргументов (нумеруются от %1 до %DataCount, %0 - значение результата)
+Formula line=Строка с формулой
+Defines the type of the result=Определяет тип результата
+Initial result values=Начальные значения результата
+Units for trigonometric functions=Единицы для тригонометрических функций
+Evaluates a mathematical expression=Вычисляет математическое выражение
+Sets the initial values of the result=Устанавливает начальные значения результата
+Outputs the calculation result to the stream=Выдает в поток результат расчета
+The event occurs whenever there is an error in the operation of the component: 0 - syntax error, 1 - error in calculations=Событие происходит всякий раз при ошибке в работе компонента: 0 - ошибка синтаксиса, 1 - ошибка при вычислениях
+Contains the result of calculating a mathematical expression (in case of an error - NULL)=Содержит результат вычисления математического выражения (при ошибке - NULL)
+An alternative call to a new calculation (the data below is equal to the data from the stream)=Альтернативный вызов нового вычисления (данные снизу приравниваются данным из потока)
+Error position in line (-1 - no error)=Позиция ошибки в строке (-1 - нет ошибки)
+Length of the erroneous word (token)=Длина ошибочного слова (лексемы)

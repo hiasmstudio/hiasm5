@@ -1,0 +1,5 @@
+func doAdd(_data)
+  println('sys.addelement(', Pack, ',', Name, ',', Info, ',', Tab, ');')
+  event(onAdd)
+end
+

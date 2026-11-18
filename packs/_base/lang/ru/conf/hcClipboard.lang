@@ -1,0 +1,6 @@
+Clipboard=Буфер обмена
+Text for put it to clipboard=Текст для помещения в буфер обмена
+Puts data to clipboard=Заносит данные в Буфер Обмена
+Event emit every time after puting text into clipboard=Событие происходит всякий раз после занесения данных в буфер обмена
+Contains text string from clipboard=Содержит текстовую строку из Буфера Обмена
+

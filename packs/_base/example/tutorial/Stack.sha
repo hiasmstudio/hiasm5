@@ -1,0 +1,18 @@
+Make(cpp)
+Add(InfoTip,900,24,18)
+{
+ @Width=680
+ @Height=145
+ Info=#16:Стек: Push и Pop|0:|127:Последнее добавленное значение извлекается первым. Пустой стек проверяется до обращения к back: это важно для защиты от ошибок.|
+ HAlign=0
+ Margin=12
+}
+Add(Entry,1,42,196)
+{
+ link(onStart,2:doExecute,[])
+}
+Add(Code,2,196,196)
+{
+ Code=#23:std::vector<int> stack;|41:stack.push_back(10); stack.push_back(20);|84:while (!stack.empty()) { std::cout << stack.back() << std::endl; stack.pop_back(); }|53:std::cout << "empty: " << stack.empty() << std::endl;|
+ Expression=input
+}

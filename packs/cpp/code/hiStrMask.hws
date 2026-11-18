@@ -1,0 +1,24 @@
+func Source(value)
+  if(len(value) > 0)
+    return(value)
+  else
+    return(cstr(get('Str')))
+  end
+end
+
+func doCompare(_data)
+  fvar(sensitive)
+  sensitive = 1
+  switch(get('CaseSensitive'))
+    case 0: sensitive = 0
+  end
+  println('if(hiasm_mask_match(std::string(', Source(_data), ').c_str(), ', cstr(get('Mask')), ', ', sensitive, ' ? true : false)) {')
+  block.inclvl()
+  event(onTrue)
+  block.declvl()
+  println('} else {')
+  block.inclvl()
+  event(onFalse)
+  block.declvl()
+  println('}')
+end

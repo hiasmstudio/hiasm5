@@ -1,0 +1,34 @@
+func create(_data)
+  fvar(i, s)
+  s = code(Name) && '('
+  for(i = 1; i <= _data_count_; i++)
+    if(i > 1) 
+     s &&= ','
+    end
+    s &&= point("Arg" + i)
+  end
+  s &&=')'
+  return(s)
+end
+
+func doPrint(_data):java
+  if(linked(Result))    
+    println(res, ' = ', create(_data), ';')
+    event(onPrint, res)
+  else
+    if(isdef(IgnoreResult)) 
+      println(create(_data), ';')
+      event(onPrint)
+    else
+      event(onPrint, create(_data))
+    end
+  end
+end
+
+func Result:java
+  if(linked(doPrint))
+    return(res)
+  else
+    return(create(''))
+  end
+end

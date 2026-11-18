@@ -1,0 +1,8 @@
+Stream converter=Конвертер потока
+StreamToHex - Stream->HEX, HexToStream - HEX->Stream, StrToHex - String->HEX, HexToStr - HEX->String, StreamToASCII - Stream->String with ASCII character set, StrToASCII - String->String with ASCII character set, StreamToStr - Stream->String, StrToStream - String->Stream=StreamToHex - Поток->HEX, HexToStream - HEX->Поток, StrToHex - Строка->HEX, HexToStr - HEX->Строка, StreamToASCII - Поток->Строка с набором ASCII символов, StrToASCII - Строка->Строка с набором ASCII символов, StreamToStr - Поток->Строка, StrToStream - Строка->Поток
+Substitute for non-printable characters in a string for the StreamToASCII and StrToASCII methods=Заменитель непечатных символов в строке для методов StreamToASCII и StrToASCII
+Converts input data according to the Mode parameter=Конвертирует входные данные согласно параметра Mode
+Outputs the result of an operation to a stream=Выдаёт результат операции в поток
+Current transform position=Текущая позиция преобразования
+Checksum for byte stream=Контрольная сумма для байтового потока
+Data to convert=Данные для преобразования

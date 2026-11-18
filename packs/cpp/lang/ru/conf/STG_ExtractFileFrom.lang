@@ -1,0 +1,9 @@
+Extracting a file=Извлечение файла
+Structured Storage Management=Управление структуированным хранилищем
+Retrieves a file from storage ARG(InPath)=Извлекает файл из хранилища ARG(InPath)
+Sets the current position of the extracted file stream pointer ARG(Position)=Устанавливает текущую позицию указателя извлеченного файлового потока ARG(Position)
+The event occurs every time a file is successfully retrieved from storage ARG(ExtractStream)=Событие происходит всякий раз после успешного извлечения файла из хранилища ARG(ExtractStream)
+Path to the file to be extracted from the storage=Путь к извлекаемому из хранилища файлу
+Contains the data identifier of a file retrieved from storage=Содержит идентификатор данных файла, извлеченного из хранилища
+Contains the size of the file retrieved from storage=Содержит размер файла, извлеченного из хранилища
+Contains the current pointer position of the extracted file stream=Содержит текущую позицию указателя извлеченного файлового потока

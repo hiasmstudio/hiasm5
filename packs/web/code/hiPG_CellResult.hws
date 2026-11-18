@@ -1,0 +1,9 @@
+func doGetCell(_data)
+  println(arr, ' = pg_fetch_array(', Result, ', NULL, PGSQL_NUM);')
+  event(onGetCell, arr + '[0]')
+end
+
+func Cell()
+  return(arr + '[0]')
+end
+

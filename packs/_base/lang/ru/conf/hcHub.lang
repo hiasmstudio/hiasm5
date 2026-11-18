@@ -1,0 +1,3 @@
+Node for cloning and merging threads=Узел, объединяет и клонирует потоки, вызывая последовательно события onEvent1, onEvent2 и т.д.
+Number of incoming threads=Кол-во входящих потоков
+Number of outgoing threads=Кол-во исходящих потоков

@@ -1,0 +1,9 @@
+Returns information about the computer's RAM and virtual memory=Возвращает информацию об оперативной и виртуальной памяти компьютера
+Dimension of the returned result=Размерность возвращаемого результата
+Updates memory status information=Обновляет информацию о состояние памяти
+RAM capacity=Объём оперативной памяти
+Free amount of RAM=Свободный объём оперативной памяти
+Paging file size=Объём файла подкачки
+Free paging file size=Свободный объём файла подкачки
+Virtual memory size=Объём виртуальной памяти
+Free virtual memory=Свободный объём виртуальной памяти

@@ -1,0 +1,398 @@
+Make(cpp)
+Add(MainForm,841979,98,343)
+{
+ Left=20
+ Top=105
+ Width=398
+ Height=358
+ Font=[Arial,8,0,0,1]
+ Caption="Моделирование звеньев"
+ link(onCreate,1848554:doFor,[])
+}
+Add(PaintBox,15465076,301,161)
+{
+ Left=15
+ Top=50
+ Width=360
+ Height=270
+ Color=12632256
+ ClearBeforeDraw=0
+ Point(MouseX)
+ Point(MouseY)
+ link(onBeforeDraw,9861288:doEvent1,[(344,167)(344,155)(151,155)(151,293)])
+}
+Add(Timer,14093932,231,161)
+{
+ Interval=10
+ link(onTimer,15465076:doRefresh,[])
+}
+Add(Hub,9861288,161,287)
+{
+ OutCount=3
+ link(onEvent1,2848735:doData,[(208,293)(208,237)])
+ link(onEvent2,13786422:doData,[])
+ link(onEvent3,13558073:doFor,[(208,307)(208,370)])
+}
+Add(DoData,13786422,315,294)
+{
+ link(onEventData,10958191:doValue,[])
+ link(Data,15465076:MouseY,[])
+}
+Add(DoData,2848735,308,231)
+{
+ link(onEventData,7632352:doValue,[])
+ link(Data,15465076:MouseX,[])
+}
+Add(MathParse,12363551,385,70)
+{
+ DataCount=1
+ MathStr="1 - %1/100"
+ link(onResult,5058261:doValue,[])
+}
+Add(GlobalVar,10958191,371,294)
+{
+ Name="cy0"
+}
+Add(GlobalVar,7632352,371,231)
+{
+ Name="cx0"
+}
+Add(For,13558073,224,364)
+{
+ End=60
+ link(onEvent,4843185:##select,[])
+}
+Add(MultiElementEx,4843185,301,357)
+{
+ Mode=1
+ link(Handle,15465076:Bitmap,[])
+}
+BEGIN_SDK
+  Add(EditMultiEx,5083368,3,3)
+  {
+   WorkCount=#5:##add|8:##select|
+   DataCount=#6:Handle|
+   Width=405
+   Height=312
+   Point(##add)
+   Point(##select)
+   link(##add,6394064:doEvent1,[(26,9)(26,34)])
+   link(##select,16067169:doData,[(19,16)(19,279)])
+  }
+  Add(MultiElementEx,13235936,196,273)
+  {
+   link(onX,8038219:doValue,[(336,279)(336,146)])
+   link(onY,4784989:doValue,[(346,286)(346,195)])
+   link(x,8038219:Var,[(202,186)(363,186)])
+   link(y,4784989:Var,[(209,243)(363,243)])
+   link(mx,11698439:Var,[])
+   link(my,10448535:Var,[])
+  }
+  BEGIN_SDK
+    Add(EditMultiEx,8936834,3,3)
+    {
+     WorkCount=#22:doDraw=Отрисовка шаров|
+     EventCount=#3:onX|3:onY|
+     DataCount=#1:x|1:y|2:mx|2:my|
+     Width=475
+     Height=305
+     link(doDraw,4097654:doDraw,[(6,9)(6,251)])
+    }
+    Add(Img_Ellipse,4097654,49,245)
+    {
+     Point2AsOffset=0
+     Point(Point1)
+     Point(Point2)
+     link(onDraw,2413014:doCalc,[])
+     link(Point1,8011950:Point,[])
+     link(Point2,7667148:Point,[])
+    }
+    Add(PointXY,8011950,56,98)
+    {
+     link(X,11819058:Var2,[])
+     link(Y,10341368:Var2,[])
+    }
+    Add(PointXY,7667148,63,147)
+    {
+     X=5
+     Y=5
+    }
+    Add(Math,6581917,343,259)
+    {
+     link(onResult,8936834:onY,[(458,265)(458,16)])
+     link(Op1,7880152:Var2,[])
+     link(Op2,554125:Result,[])
+    }
+    Add(Hub,12228896,161,245)
+    {
+     OutCount=3
+     link(onEvent1,9189064:doEvent1,[(208,251)(208,146)])
+     link(onEvent2,3560222:doOperation,[])
+     link(onEvent3,6581917:doOperation,[])
+    }
+    Add(GetDataEx,11819058,49,42)
+    {
+     Angle=3
+     link(Data,8936834:x,[(9,51)])
+    }
+    Add(GetDataEx,4039732,112,224)
+    {
+     link(Data,11287552:Var2,[])
+    }
+    Add(MathParse,2413014,112,245)
+    {
+     DataCount=4
+     MathStr="atan(%2 - %1, %4 - %3)"
+     link(onResult,12228896:doEvent1,[])
+     link(X1,13301308:Var2,[])
+     link(X2,4039732:Var2,[])
+     link(X3,13978772:Var2,[])
+     link(X4,10706858:Var2,[])
+    }
+    Add(GetDataEx,10706858,126,168)
+    {
+     link(Data,10341368:Var3,[(139,44)])
+    }
+    Add(GetDataEx,10341368,56,35)
+    {
+     Angle=3
+     link(Data,8936834:y,[(16,44)])
+    }
+    Add(Math,3560222,273,252)
+    {
+     link(onResult,8936834:onX,[(447,258)(447,9)])
+     link(Op1,4039732:Var3,[(279,233)])
+     link(Op2,7224259:Result,[])
+    }
+    Add(GetDataEx,13978772,119,175)
+    {
+     link(Data,8936834:my,[(132,25)(30,25)])
+    }
+    Add(GlobalVar,4148444,399,91)
+    {
+     Name="l"
+    }
+    Add(GetDataEx,2065411,385,112)
+    {
+     link(Data,5058261:Var,[])
+    }
+    Add(GlobalVar,5058261,392,70)
+    {
+     Name="ka"
+    }
+    Add(Hub,9189064,217,140)
+    {
+     link(onEvent1,7224259:doCalc,[])
+     link(onEvent2,554125:doCalc,[(260,153)(260,209)])
+    }
+    Add(MathParse,7224259,280,140)
+    {
+     DataCount=7
+     MathStr="(%0 - sin(%2)/%5 + (%3 - %4)/%7 )*%6"
+     link(X3,13301308:Var3,[(300,114)])
+     link(X4,11287552:Var3,[(307,107)])
+     link(X5,10185840:Var1,[(314,114)])
+     link(X6,2065411:Var1,[(321,121)])
+     link(X7,3833483:Var1,[(328,128)])
+    }
+    Add(MathParse,554125,350,203)
+    {
+     DataCount=8
+     MathStr="(%0 -  cos(%2)/%6 + (%3 - %4)/%8 )*%7 + %5"
+     link(X3,13978772:Var3,[(370,184)])
+     link(X4,7880152:Var3,[(377,177)])
+     link(X5,10290138:Var,[])
+     link(X6,10185840:Var2,[])
+     link(X7,2065411:Var2,[])
+     link(X8,3833483:Var2,[])
+    }
+    Add(GetDataEx,10185840,378,105)
+    {
+     link(Data,8570133:Var,[])
+    }
+    Add(GetDataEx,13301308,105,105)
+    {
+     link(Data,8936834:mx,[(118,33)(23,33)])
+    }
+    Add(GetDataEx,3833483,392,119)
+    {
+     link(Data,4148444:Var,[])
+    }
+    Add(GetDataEx,11287552,112,98)
+    {
+     link(Data,11819058:Var3,[(125,51)])
+    }
+    Add(GetDataEx,7880152,336,168)
+    {
+     Angle=3
+     link(Data,10706858:Var3,[])
+    }
+    Add(GlobalVar,10290138,378,154)
+    {
+     Name="gravity"
+    }
+    Add(GlobalVar,8570133,385,49)
+    {
+     Name="a"
+    }
+  END_SDK
+  Add(Hub,6394064,49,28)
+  {
+   OutCount=3
+   link(onEvent1,10041749:doStrCat,[])
+   link(onEvent2,345090:doStrCat,[(103,41)(103,83)])
+   link(onEvent3,8745933:doOperation,[(95,48)(95,153)])
+  }
+  Add(StrCat,10041749,126,28)
+  {
+   Str1="cx"
+   link(onStrCat,11698439:doName,[])
+  }
+  Add(StrCat,345090,126,77)
+  {
+   Str1="cy"
+   link(onStrCat,10448535:doName,[])
+  }
+  Add(GlobalVar,11698439,210,21)
+  {
+   Point(doName)
+  }
+  Add(GlobalVar,10448535,217,70)
+  {
+   Point(doName)
+  }
+  Add(Hub,12685480,196,147)
+  {
+   link(onEvent1,3064402:doStrCat,[])
+   link(onEvent2,8695624:doStrCat,[(250,160)(250,202)])
+  }
+  Add(StrCat,3064402,273,147)
+  {
+   Str1="cx"
+   link(onStrCat,8038219:doName,[])
+  }
+  Add(StrCat,8695624,273,196)
+  {
+   Str1="cy"
+   link(onStrCat,4784989:doName,[])
+  }
+  Add(GlobalVar,8038219,357,140)
+  {
+   Point(doName)
+  }
+  Add(GlobalVar,4784989,357,189)
+  {
+   Point(doName)
+  }
+  Add(Math,8745933,133,147)
+  {
+   Op2=1
+   ResultType=0
+   link(onResult,12685480:doEvent1,[])
+  }
+  Add(DoData,16067169,35,273)
+  {
+   link(onEventData,13235936:doDraw,[])
+   link(Data,5083368:Handle,[(41,7)(9,7)])
+  }
+END_SDK
+Add(For,1848554,161,357)
+{
+ End=60
+ link(onEvent,4843185:##add,[])
+}
+Add(ScrollBar,2387239,77,28)
+{
+ Left=95
+ Top=5
+ Max=10
+ Position=2
+ link(onPosition,11045822:doOperation,[])
+}
+Add(Math,11045822,140,28)
+{
+ OpType=3
+ Op2=10
+ link(onResult,10290138:doValue,[])
+}
+Add(GlobalVar,10290138,202,28)
+{
+ Name="gravity"
+ Data=Real(0.2)
+}
+Add(GlobalVar,8570133,391,28)
+{
+ Name="a"
+ Data=Integer(5)
+}
+Add(ScrollBar,8647359,322,28)
+{
+ Left=270
+ Top=5
+ Max=40
+ Min=5
+ Position=5
+ link(onPosition,8570133:doValue,[])
+}
+Add(Label,4436550,28,28)
+{
+ Left=25
+ Top=5
+ Width=65
+ Height=13
+ Font=[Arial,8,0,0,1]
+ Caption="Гравитация"
+}
+Add(Label,7506722,280,28)
+{
+ Left=205
+ Top=5
+ Width=59
+ Height=13
+ Font=[Arial,8,0,0,1]
+ Caption="Инерция"
+}
+Add(Label,16528695,280,70)
+{
+ Left=205
+ Top=25
+ Width=49
+ Height=18
+ Font=[Arial,8,0,0,1]
+ Caption="Трение"
+}
+Add(Label,12756395,28,70)
+{
+ Left=25
+ Top=25
+ Width=65
+ Height=18
+ Font=[Arial,8,0,0,1]
+ Caption="Упругость"
+}
+Add(ScrollBar,769750,322,70)
+{
+ Left=270
+ Top=25
+ Min=1
+ Position=20
+ link(onPosition,12363551:doCalc,[])
+}
+Add(ScrollBar,11751201,77,70)
+{
+ Left=95
+ Top=25
+ Min=1
+ Position=30
+ link(onPosition,4148444:doValue,[])
+}
+Add(GlobalVar,4148444,202,70)
+{
+ Name="l"
+ Data=Real(30)
+}
+Add(GlobalVar,5058261,433,70)
+{
+ Name="ka"
+ Data=Real(0.8)
+}

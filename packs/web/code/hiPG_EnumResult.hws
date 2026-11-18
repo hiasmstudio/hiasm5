@@ -1,0 +1,18 @@
+func doEnum(_data)
+  if(isdef(OneRow))
+    println('while(', arr, ' = pg_fetch_array(', Result, ', NULL, ', ('PGSQL_NUM' & 'PGSQL_ASSOC')[ArrayType], ')) {')
+    block.inclvl()
+      event(onEnum, arr)
+    block.declvl()
+    println('}')
+  else
+    println(arr, ' = pg_fetch_array(', Result, ', NULL, ', ('PGSQL_NUM' & 'PGSQL_ASSOC')[ArrayType], ');')
+    event(onEnum, arr)
+  end
+  event(onEndEnum)
+end
+
+func Array()
+  return(arr)
+end
+

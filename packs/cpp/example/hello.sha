@@ -1,0 +1,14 @@
+Make(cpp)
+Add(Entry,1,56,56)
+{
+ link(onStart,2:doData,[])
+}
+Add(DoData,2,147,56)
+{
+ Data=String(Hello from C++17)
+ link(onEventData,3:doPrint,[])
+}
+Add(hcConsole,3,238,56)
+{
+ Count=1
+}

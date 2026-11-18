@@ -1,0 +1,9 @@
+Inserts a substring into a string=Вставляет подстроку в строку
+The string into which you want to insert the substring=Строка, в которую необходимо вставить подстроку
+Substring to insert=Подстрока для вставки
+Contains the default position from which the substring is inserted=Содержит позицию по-умолчанию, с которой вставляется подстрока
+Insertion direction=Направление вставки
+Inserts the substring SubStr into the string Str, starting at Position=Вставляет подстроку SubStr в строку Str, начиная с позиции Position
+The event occurs every time after an insertion is performed and outputs the result to the stream=Событие происходит всякий раз, после выполнения вставки и выдаёт результат в поток
+Specifies the string into which the substring should be inserted=Определяет строку, в которую необходимо вставить подстроку
+Determines the position at which the substring is inserted (starting at 1)=Определяет позицию, с которой вставляется подстрока (начиная с 1)

@@ -1,0 +1,8 @@
+Drawing a point=Рисование точки
+Graphics output object: Bitmap - image, Handle - window or Windows control, HDC - output context=Объект вывода графики: Bitmap - картинка, Handle - окно или элемент управления Windows, HDC - контекст вывода
+X coordinate of the point=Координата Х точки
+Y coordinate of the point=Координата Y точки
+Dot color=Цвет точки
+Draw point ARG(X,Y)=Нарисовать точку ARG(X,Y)
+The event occurs every time after the figure is drawn=Событие происходит всякий раз после отрисовки фигуры
+The object on which you want to draw a point=Объект, на котором требуется нарисовать точку

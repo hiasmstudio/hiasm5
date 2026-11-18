@@ -1,0 +1,50 @@
+Make(modules)
+Add(MakeEntryPoint,3565775,21,105)
+{
+ link(onStart,12031692:doEvent,[])
+}
+Add(GetParams,8294915,133,105)
+{
+ Run=0
+}
+Add(MakeProject,8976005,133,154)
+{
+}
+Add(Complite,15007304,133,203)
+{
+}
+Add(Hub,12031692,77,105)
+{
+ OutCount=4
+ link(onEvent1,8294915:doDeclare,[])
+ link(onEvent2,8976005:doDeclare,[(121,118)(121,160)])
+ link(onEvent3,15007304:doDeclare,[(121,125)(121,209)])
+ link(onEvent4,15189190:doDeclare,[(121,132)(121,258)])
+}
+Add(While,5390718,301,252)
+{
+ link(Data,6181983:IsTimeOut,[(307,244)(314,244)])
+}
+Add(CreateProcess,10465578,245,252)
+{
+ link(onCreateProcess,5390718:doWhile,[])
+ link(CommandLine,169126:Result,[(258,244)(251,244)])
+}
+Add(WaitObject,6181983,301,203)
+{
+ Point(IsTimeOut)
+ link(ObjHandle,10465578:Process,[(307,191)(288,191)(288,296)(251,296)])
+}
+Add(StrCat,169126,245,203)
+{
+ Str1="explorer.exe "
+ link(Str2,15189190:FileName,[(258,191)(175,191)(175,297)(139,297)])
+}
+Add(RunProject,15189190,133,252)
+{
+ link(onDeclare,4725807:doData,[])
+}
+Add(DoData,4725807,189,252)
+{
+ link(onEventData,10465578:doCreateProcess,[])
+}

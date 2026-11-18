@@ -1,0 +1,28 @@
+section cpp
+
+func doWait(_data)
+  fvar(s)
+  s = 'WaitForSingleObject(' && ObjHandle && ', ' && TimeOut && ')'
+  if(linked(Result) or isndef(IgnoreResult))
+    println(res, ' = ', s, ';')
+    event(onWait, res)
+  else
+    event(onWait, s)
+  end
+end
+
+func Result()
+  if(linked(doWait))
+    return(res)
+  else
+    return('WaitForSingleObject(' && ObjHandle && ', ' && TimeOut && ')')
+  end
+end
+
+func IsTimeOut()
+  if(linked(doWait))
+    return(res && ' == WAIT_TIMEOUT')
+  else
+    return('WaitForSingleObject(' && ObjHandle && ', ' && TimeOut && ') == WAIT_TIMEOUT')
+  end
+end

@@ -1,0 +1,20 @@
+func doReplace(_data):any
+  fvar(code_str)
+
+  code_str = '(' && SrcStr && ').replace(' && SubStr && ',' && DestStr && ')'
+  if(linked(Result))
+    println(s, ' = ', code_str, ';')
+    event(onReplace, s)
+  else
+    event(onReplace, code_str)
+  end  
+end
+
+func Result():any
+  if(linked(doReplace))
+    return(s)
+  else
+    return('(' && SrcStr && ').replace(' && SubStr && ',' && DestStr && ')')
+  end
+end
+

@@ -1,0 +1,34 @@
+Make(modules)
+Add(HISEntryPoint,9245829,21,105)
+{
+ link(onStart,15672862:doCompare,[])
+}
+Add(CheckElement,4249846,70,56)
+{
+ Pack="modules"
+ Name="If_else"
+}
+Add(If_else,15672862,70,105)
+{
+ link(onTrue,12948889:doMessage,[])
+ link(onFalse,5322628:doAdd,[(110,118)(110,160)])
+ link(Op1,4249846:Result,[])
+}
+Add(Message,12948889,119,105)
+{
+ Text="Элемент If_else уже установлен"
+}
+Add(AddElement,5322628,119,154)
+{
+ Pack="modules"
+ Name="If_else"
+ Info="Условие"
+ Tab="Main"
+}
+Add(InfoTip,3519274,119,56)
+{
+ Info=#92: Пример генерации инсталяционного файла для элемента If_else с проверкой его наличия в среде|
+ Transparent=1
+ Width=281
+ Margin=2
+}

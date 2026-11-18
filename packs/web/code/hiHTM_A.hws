@@ -1,0 +1,44 @@
+include('tag_maker')
+
+section java
+
+func doPrint()
+  fvar(ctrl)
+  println(a, ' = document.createElement("a")')
+  ctrl = a
+  include('tag_header_java')
+  if(isset(Href))
+    println(ctrl, '.href = ', Href)
+  end  
+  if(isset(Name))
+    println(ctrl, '.name = ', Name)
+  end  
+  if(isset(Target))
+    println(ctrl, '.target = ', Target)
+  end  
+  
+  event(onPrint, ctrl)
+end 
+
+section html
+
+func doPrint
+  include('tag_header')
+  if(isset(Href))
+    s &= " href=\"" & Href & "\""
+  elseif(linked(onJavaHref))
+    fvar(old)
+    old = block.select(block.reggen())
+    block.lvloff()
+    event(onJavaHref:java, 'this')
+    s &= " href='javascript:" & block.astext() & "'"   
+    block.delete(block.select(old))
+  end
+  if(isset(Name))
+    s &= " name=\"" & Name & "\""
+  end 
+  if(isset(Target))
+    s &= " target=\"" & Target & "\""
+  end
+  include('tag_footer')
+end

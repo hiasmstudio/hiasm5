@@ -1,0 +1,17 @@
+Console=Консоль
+Contains the program icon=Содержит иконку программы
+Console window title=Заголовок окна консоли
+Parameter transfer method: Get - transferring data from the browser location string, Post - transferring data via STDIN=Способ передачи параметров: Get - передача данных из строки location браузера, Post - передача данных через STDIN
+Prints a line to the console=Выводит строку в консоль
+Sets the cursor position=Устанавливает позицию курсора
+Gets the value of a parameter from InParams by name in the stream=Получает значение параметра из InParams по имени в потоке
+Sets text attributes=Устанавливает атрибуты текста
+The event occurs every time after the program starts=Событие происходит всякий раз после старта программы
+Returns the value of the parameter=Возвращает значение параметра
+Reads a line from the console=Читает строку из консоли
+Standard input identifier=Идентификатор стандартного потока ввода
+Contains a parameter string=Содержит строку параметров
+Cursor coordinates=Координаты курсора
+If, when pressing Ctrl+C, this point contains 0, then the console will be closed - otherwise the operation will be canceled=Если при нажатии Ctrl+C эта точка содержит 0, то консоль будет закрыта - иначе операция будет отменена
+If, when closing the console, this point contains 0, then the console will be closed - otherwise the operation will be canceled=Если при закрытии консоли эта точка содержит 0, то консоль будет закрыта - иначе операция будет отменена
+If, when pressing Ctrl+Break, this point contains 0, then the console will be closed - otherwise the operation will be canceled=Если при нажатии Ctrl+Break эта точка содержит 0, то консоль будет закрыта - иначе операция будет отменена

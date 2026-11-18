@@ -1,0 +1,9 @@
+Folder Operations=Операции с папками
+Creates a new folder with a name determined by Source=Создает новую папку с именем, определяемым Source
+Renames the Source folder to Dest=Переименовывает папку Source в Dest
+Deletes an empty folder named Source=Удаляет пустую папку с именем Source
+Checks the presence of a folder named Source on the device and issues in the onOK stream: 1 - if the folder exists, 2 - if the file exists and 0 - if there are none=Проверяет наличие в устройстве папки с именем Source и выдает в потоке onOK: 1 - если папка существует, 2 - если файл существует и 0 - при отсутствии таковых
+Counts the volume of the entire contents of a folder=Считает объем всего содержимого папки
+The event occurs if the operation is successful=Событие происходит в случае успешного выполнения операции
+Name of the folder on which the operation is performed=Имя папки, над которой производится операция
+New folder name for Rename operation=Новое имя папки для операции Rename

@@ -1,0 +1,6 @@
+func Data(_index)
+  if(linked('Data'))
+    return(d('Data'))
+  end
+  return('std::string()')
+end

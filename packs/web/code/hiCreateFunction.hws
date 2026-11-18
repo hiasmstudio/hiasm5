@@ -1,0 +1,42 @@
+section java
+
+func doWork(_data, index)
+  fvar(old, old_body, old_head, i)
+  if(not isset(_head))
+    var(_head, _body, _section)
+  end
+  
+  old_body = BLK_BODY
+  old_head = BLK_HEAD
+  BLK_BODY = "java_fbody_" + _id_
+  BLK_HEAD = "java_fhead_" + _id_
+  block.reg(BLK_BODY)
+  block.reg(BLK_HEAD)
+  old = block.select(BLK_BODY)
+
+  sys.selectElement(cgt.el_get_child_id(0))
+  block.lvloff()
+  event(cgt.pt_get_name_byid(cgt.pt_arr_event(index)))
+  sys.selectElement(cgt.el_get_parent_id())
+  
+  _body = 'new Function('
+  for(i = 0; i < _data_count_; i++)
+    _body &&= cgt.pt_get_name_byid(cgt.pt_arr_data(i)) && ',' 
+  end  
+  _body &&= block.ascode() && ')'
+  block.delete(block.select(BLK_HEAD)) 
+  _head = block.astext()
+    
+  BLK_BODY = old_body
+  BLK_HEAD = old_head
+  block.delete(block.select(old))
+  event(onFunction, _body)  
+end
+
+func GetVar(_data, index)
+  if(index = 0)
+    return(_body)
+  else
+    return(_head)
+  end
+end

@@ -1,0 +1,13 @@
+Moving a region=Перемещение региона
+X coordinate=Координата X
+Y coordinate=Координата Y
+Use packed X and Y coordinates (take data from Point)=Использовать упакованные координаты X и Y (брать данные из Point)
+Moves the region X pixels horizontally and Y pixels vertically=Перемещает регион на X пикселей по горизонтали и Y пикселей по вертикали
+Sets the region to X and Y coordinates=Устанавливает регион в координаты X и Y
+Deletes a region (zeroes Result)=Удаляет регион (обнуляет Result)
+The event occurs whenever the region ARG(Region) is moved=Событие происходит всякий раз после перемещения региона ARG(Region)
+The event occurs every time after setting the region ARG(Region)=Событие происходит всякий раз после установки региона ARG(Region)
+Contains the region after moving or installing=Содержит регион после перемещения или установки
+Contains the region's left padding=Содержит отступ региона слева
+Contains the region top padding=Содержит отступ региона сверху
+Region to move=Регион для перемещения

@@ -1,0 +1,37 @@
+func Arg(name)
+  if(linked(name))
+    return(d(name))
+  else
+    return(get(name))
+  end
+end
+
+func doCheck(_data)
+  println('{')
+  block.inclvl()
+  println('const int hiasm_point', _id_, ' = static_cast<int>(', Arg('Point'), ');')
+  println('const int hiasm_r1', _id_, ' = static_cast<int>(', Arg('RPoint1'), ');')
+  println('const int hiasm_r2', _id_, ' = static_cast<int>(', Arg('RPoint2'), ');')
+  println('const int hiasm_px', _id_, ' = hiasm_point', _id_, ' & 0xFFFF;')
+  println('const int hiasm_py', _id_, ' = (hiasm_point', _id_, ' >> 16) & 0xFFFF;')
+  println('const int hiasm_x1', _id_, ' = hiasm_r1', _id_, ' & 0xFFFF;')
+  println('const int hiasm_y1', _id_, ' = (hiasm_r1', _id_, ' >> 16) & 0xFFFF;')
+  if(get('Point2AsOffset') == "True")
+    println('const int hiasm_x2', _id_, ' = hiasm_x1', _id_, ' + (hiasm_r2', _id_, ' & 0xFFFF);')
+    println('const int hiasm_y2', _id_, ' = hiasm_y1', _id_, ' + ((hiasm_r2', _id_, ' >> 16) & 0xFFFF);')
+  else
+    println('const int hiasm_x2', _id_, ' = hiasm_r2', _id_, ' & 0xFFFF;')
+    println('const int hiasm_y2', _id_, ' = (hiasm_r2', _id_, ' >> 16) & 0xFFFF;')
+  end
+  println('if(hiasm_px', _id_, ' >= hiasm_x1', _id_, ' && hiasm_px', _id_, ' <= hiasm_x2', _id_, ' && hiasm_py', _id_, ' >= hiasm_y1', _id_, ' && hiasm_py', _id_, ' <= hiasm_y2', _id_, ') {')
+  block.inclvl()
+  event(onTrue)
+  block.declvl()
+  println('} else {')
+  block.inclvl()
+  event(onFalse)
+  block.declvl()
+  println('}')
+  block.declvl()
+  println('}')
+end

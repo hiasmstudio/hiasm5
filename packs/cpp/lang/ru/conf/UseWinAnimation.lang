@@ -1,0 +1,13 @@
+Animation Control=Управление анимацией
+Element Control=Управление элементом
+Animation display time in ms=Время показа анимации в мсек
+Activate - enable animation for display. Hide - enable hiding animation=Activate - включить анимацию на показ. Hide - включить анимацию на скрытие
+Animation Modes=Режимы анимирования
+Uncompress/compress from point(s) (overlaps other modes)=Разжимать/сжимать из(в) точки(у) (перекрывает остальные режимы)
+Use slide animation (drive out/drive in) instead of roller animation (expand/collapse) (ignored when used with CENTER)=Использовать слайдовую анимацию (выезжание/заезжание) вместо роликовой (разворачивание/сворачивание) (игнорируется, когда используется с CENTER)
+Expand/collapse left to right (ignored when used with CENTER)=Разворачивать/сворачивать слева-направо (игнорируется, когда используется с CENTER)
+Expand/collapse from right to left (ignored when used with CENTER)=Разворачивать/сворачивать справа-налево (игнорируется, когда используется с CENTER)
+Expand/collapse from top to bottom (ignored when used with CENTER)=Разворачивать/сворачивать сверху-вниз (игнорируется, когда используется с CENTER)
+Expand/collapse from bottom to top (ignored when used with CENTER)=Разворачивать/сворачивать снизу-вверх (игнорируется, когда используется с CENTER)
+Enables control animation=Включает анимацию контрола
+Redraws the interface element window and all child element windows=Перерисовывает окно интерфейсного элемента и все окна дочерних элементов

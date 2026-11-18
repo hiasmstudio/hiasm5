@@ -1,0 +1,236 @@
+*Построение фрактала на основе множества Мандельброта
+Make(cpp)
+Add(FTCG_Tools,15576339,287,168)
+{
+}
+BEGIN_SDK
+  Add(EditMultiEx,9772904,21,21)
+  {
+   WorkCount=#9:doFractal|
+   EventCount=#7:onPoint|
+   VarCount=#1:Y|1:X|
+   Width=699
+   Height=424
+   link(doFractal,15281298:doGetDC,[(35,27)(35,83)])
+  }
+  Add(FT_For,5564942,91,77)
+  {
+   End=100
+   Start=-100
+   link(onEvent,10410395:doOperation,[])
+  }
+  Add(FT_For,788010,175,77)
+  {
+   End=100
+   Start=-200
+   link(onEvent,6028388:doOperation,[])
+  }
+  Add(FT_Math,10410395,133,77)
+  {
+   OpType=3
+   Op2=100
+   link(onResult,788010:doFor,[])
+  }
+  Add(FT_Math,6028388,280,77)
+  {
+   OpType=3
+   Op2=100
+   link(onResult,2892868:doEvent1,[])
+  }
+  Add(FT_Hub,2892868,336,77)
+  {
+   OutCount=4
+   link(onEvent1,3665469:doWork2,[])
+   link(onEvent2,16266579:doData,[])
+   link(onEvent3,5626388:doFor,[(367,97)(367,272)])
+   link(onEvent4,6092603:doOperation,[(360,104)(360,356)])
+  }
+  Add(FT_Memory,7996409,588,84)
+  {
+   Default=Real(0)
+  }
+  Add(FT_Memory,5709161,539,77)
+  {
+   Default=Real(0)
+  }
+  Add(FT_DoData,16266579,378,84)
+  {
+   link(onEventData,5456823:doWork2,[])
+   link(Data,12388366:Var2,[])
+  }
+  Add(FT_For,5626388,378,266)
+  {
+   End=64
+   Start=1
+   link(onEvent,12808774:doCompare,[])
+  }
+  Add(FT_Math,5012256,427,217)
+  {
+   link(Op1,15896741:Var1,[(433,198)])
+   link(Op2,15726141:Var1,[(440,205)])
+  }
+  Add(FT_If_else,12808774,427,266)
+  {
+   Type=1
+   Op2=Real(4)
+   link(onTrue,16612960:doEvent1,[])
+   link(onFalse,5626388:doStop,[(470,279)(470,303)(366,303)(366,279)])
+   link(Op1,5012256:Result,[])
+  }
+  Add(FT_Math,15138583,539,266)
+  {
+   link(onResult,15173191:doOperation,[])
+   link(Op1,2755010:Result,[])
+   link(Op2,6028388:Result,[(552,256)(286,256)])
+  }
+  Add(FT_Math,15173191,630,266)
+  {
+   link(onResult,5456823:doWork1,[(676,272)(676,64)(522,64)])
+   link(Op1,13876730:Result,[])
+   link(Op2,12388366:Var3,[(668,249)(668,72)])
+  }
+  Add(FT_Math,13221389,539,154)
+  {
+   OpType=2
+   link(Op1,7712978:Var2,[])
+   link(Op2,7712978:Var3,[(552,142)])
+  }
+  Add(FT_Math,7079949,588,154)
+  {
+   OpType=2
+   link(Op1,12065971:Var2,[])
+   link(Op2,12065971:Var3,[(601,142)])
+  }
+  Add(FT_Math,2755010,539,217)
+  {
+   OpType=1
+   link(Op1,15896741:Var2,[])
+   link(Op2,15726141:Var2,[])
+  }
+  Add(GetDataEx,7712978,532,133)
+  {
+   link(Data,8812783:Var2,[])
+  }
+  Add(GetDataEx,12065971,581,133)
+  {
+   link(Data,6256355:Var2,[])
+  }
+  Add(FT_Math,7951103,630,154)
+  {
+   OpType=2
+   link(Op1,8812783:Var3,[(636,135)])
+   link(Op2,6256355:Var3,[(643,128)])
+  }
+  Add(GetDataEx,8812783,532,126)
+  {
+   link(Data,5709161:Value,[])
+  }
+  Add(GetDataEx,6256355,581,119)
+  {
+   link(Data,7996409:Value,[])
+  }
+  Add(FT_Math,13876730,630,217)
+  {
+   OpType=2
+   Op2=2
+   link(Op1,7951103:Result,[])
+  }
+  Add(GetDataEx,12388366,371,63)
+  {
+   Angle=3
+   link(Data,10410395:Result,[(263,72)(263,121)(139,121)])
+  }
+  Add(HubEx,5456823,518,77)
+  {
+   link(onEvent,7996409:doValue,[])
+  }
+  Add(FT_DoData,11512331,539,315)
+  {
+   link(onEventData,3665469:doWork1,[(685,321)(685,57)(508,57)])
+   link(Data,15138583:Result,[])
+  }
+  Add(HubEx,3665469,504,70)
+  {
+   link(onEvent,5709161:doValue,[])
+  }
+  Add(FT_Math,14992852,91,126)
+  {
+   Op2=100
+   link(Op1,5564942:Position,[])
+  }
+  Add(FT_Math,4999040,175,126)
+  {
+   Op2=200
+   link(Op1,788010:Position,[])
+  }
+  Add(FT_Hub,16612960,483,266)
+  {
+   link(onEvent1,15138583:doOperation,[])
+   link(onEvent2,11512331:doData,[(518,279)(518,321)])
+  }
+  Add(FT_Math,6092603,378,350)
+  {
+   OpType=2
+   Op2=8
+   link(onResult,10176146:doDraw,[(423,356)(423,391)(135,391)(135,286)])
+   link(Op1,5626388:Position,[])
+  }
+  Add(GetDataEx,15726141,539,196)
+  {
+   Angle=1
+   link(Data,7079949:Result,[(594,205)])
+  }
+  Add(GetDataEx,15896741,532,189)
+  {
+   link(Data,13221389:Result,[])
+  }
+  Add(FT_Img_Point,10176146,147,280)
+  {
+   DrawSource=2
+   link(Bitmap,15281298:HDC,[(153,229)(55,229)])
+   link(X,4999040:Result,[(160,219)(181,219)])
+   link(Y,14992852:Result,[(167,219)(97,219)])
+  }
+  Add(GetDC,15281298,49,77)
+  {
+   link(onResult,5564942:doFor,[])
+  }
+END_SDK
+Add(Button,9657125,77,168)
+{
+ Left=135
+ Top=150
+ Width=25
+ Caption="Go"
+ link(onClick,13947386:doData,[])
+}
+Add(MainForm,7230711,140,105)
+{
+ Width=300
+ Height=200
+ Caption="Mandelbrot"
+ BorderStyle=1
+ ClientSize=0
+ Point(Handle)
+}
+Add(DoData,13947386,140,168)
+{
+ link(onEventData,12484864:doStart,[])
+ link(Data,7230711:Handle,[])
+}
+Add(TimeCounter,12484864,196,168)
+{
+ link(onStart,2050611:doEvent1,[])
+ link(onStop,399324:doCalc,[(236,181)(236,216)])
+}
+Add(Hub,2050611,245,168)
+{
+ link(onEvent1,15576339:doFractal,[])
+ link(onEvent2,12484864:doStop,[(271,181)(271,169)(184,169)(184,181)])
+}
+Add(MathParse,399324,245,210)
+{
+ DataCount=1
+ MathStr="300*200/%1*1000 / 1024"
+ link(onResult,7230711:doCaption,[(331,216)(331,92)(127,92)(127,111)])
+}

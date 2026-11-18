@@ -1,0 +1,14 @@
+Determining the fact of intersection of line segments and the coordinates of the intersection point=Определения факта пересечения отрезков прямых и координаты точки пересечения
+X coordinate of the beginning of the first line segment=Координата Х начала первого отрезка линии
+Coordinate At the beginning of the first line segment=Координата У начала первого отрезка линии
+X coordinate of the end of the first line segment=Координата Х окончания первого отрезка линии
+Coordinate At the end of the first line segment=Координата У окончания первого отрезка линии
+Defines the type of the result=Определяет тип результата
+Determining the fact of intersection of line segments=Определения факта пересечения отрезков прямых
+The event occurs every time after the intersection of segments is determined and outputs the result to the stream: 0 - no intersection, 1 - there is ARG(State)=Событие происходит всякий раз после определения пересечения отрезков и выдаёт в поток результат: 0 - нет пересечения, 1 - есть ARG(State)
+X coordinate of the beginning of the second line segment=Координата Х начала второго отрезка линии
+Coordinate At the beginning of the second line segment=Координата У начала второго отрезка линии
+X coordinate of the end of the second line segment=Координата Х окончания второго отрезка линии
+Coordinate At the end of the second line segment=Координата У окончания второго отрезка линии
+Contains the X coordinate of the intersection point=Содержит координату Х точки пересечения
+Contains the Y coordinate of the intersection point=Содержит координату У точки пересечения

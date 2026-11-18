@@ -1,0 +1,32 @@
+func Expr()
+  fvar(op)
+  switch(Type)
+    case 0: op = ' == '
+    case 1: op = ' < '
+    case 2: op = ' > '
+    case 3: op = ' <= '
+    case 4: op = ' >= '
+    case 5: op = ' != '
+    default: op = ' == '
+  end
+  return('(' && Op1 && op && Op2 && ')')
+end
+
+func doCompare(_data)
+  if(isdef(Type) and isnset(Op2) and isdef(Op2))
+    println('if(', Op1, ') {')
+  else
+    println('if(', Expr(), ') {')
+  end
+  block.inclvl()
+  event(onTrue)
+  block.declvl()
+  println('}')
+  if(linked(onFalse))
+    println('else {')
+    block.inclvl()
+    event(onFalse)
+    block.declvl()
+    println('}')
+  end
+end

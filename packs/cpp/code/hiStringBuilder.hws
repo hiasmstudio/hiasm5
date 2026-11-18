@@ -1,0 +1,55 @@
+func Build()
+  fvar(s, out, start, i, j, p, name)
+  s = get('Mask')
+  out = ''
+  start = 0
+  i = pos(s, '%', start)
+  while(i >= 0)
+    p = copy(s, start, i - start)
+    if(len(p) > 0)
+      if(len(out) > 0)
+        out = out && ' + '
+      end
+      out = out && cstr(p)
+    end
+    j = pos(s, '%', i + 1)
+    if(j < 0)
+      start = i
+      i = -1
+    else
+      name = copy(s, i + 1, j - i - 1)
+      if(len(name) > 0)
+        if(len(out) > 0)
+          out = out && ' + '
+        end
+        out = out && 'std::string(hiasm_text(' && get(name) && '))'
+      end
+      start = j + 1
+      i = pos(s, '%', start)
+    end
+  end
+  p = copy(s, start, len(s) - start)
+  if(len(p) > 0)
+    if(len(out) > 0)
+      out = out && ' + '
+    end
+    out = out && cstr(p)
+  end
+  if(len(out) == 0)
+    out = 'std::string()'
+  end
+  return(out)
+end
+
+func doBuild(_data)
+  println('auto hiasm_sb', _id_, ' = ', Build(), ';')
+  event(onBuild, 'hiasm_sb' && _id_)
+end
+
+func Result()
+  if(linked('doBuild'))
+    return('hiasm_sb' && _id_)
+  else
+    return(Build())
+  end
+end

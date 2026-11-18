@@ -1,0 +1,44 @@
+func doEnum(_data):java
+  println(arr, ' = ', Array, ';')
+  if(issec("php"))
+    println('for(', _item, ' = 0;', _item, ' < count(', arr, '); ', _item, '++) {')
+  else
+    println('for( var ', _item, ' in ', arr, ') {')
+  end
+  block.inclvl()
+  event(onEnum, arr && '[' && _item && ']')
+  block.declvl()
+  println('}')
+  event(onEndEnum)
+end
+
+func Item():java
+  return(arr && '[' && _item && ']')
+end
+
+func Index():java
+  return(_item)
+end
+
+func doStop():java
+  println('break;')
+end
+
+section html
+
+func doEnum()
+  var(i,a)
+  a = Array  
+  for(i = 0; i < count(a); i++)
+    event(onEnum, a[i])
+  end
+  event(onEndEnum)
+end
+
+func Item()
+  return(a[i])
+end
+
+func Index()
+  return(i)
+end

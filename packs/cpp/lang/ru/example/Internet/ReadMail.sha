@@ -1,0 +1,121 @@
+Pos(0,54)
+Add(MainForm,19160,21,51)
+{
+ Left=21
+ Top=105
+ Width=402
+ Height=338
+ Font=[Arial,8,0,0,1]
+ Caption="Mailer"
+}
+Add(Button,87804,84,23)
+{
+ Left=10
+ Top=10
+ Font=[Arial,8,0,0,1]
+ Caption="Connect"
+ link(onClick,34270:doConnect,[(135,29)(135,106)])
+}
+Add(Memo,37677,273,149)
+{
+ Left=10
+ Top=35
+ Width=370
+ Height=100
+ Font=[Arial,8,0,0,1]
+ ScrollBars=3
+}
+Add(POP3,34270,154,100)
+{
+ link(onConnect,1969106:doStrCat,[])
+ link(onRead,14704815:doEvent1,[(205,113)(205,176)])
+}
+Add(Label,2225581,308,100)
+{
+ Left=145
+ Top=15
+ Font=[MS Sans Serif,8,0,0,1]
+ Caption="Count:"
+}
+Add(Button,24970,84,107)
+{
+ Left=70
+ Top=10
+ Font=[Arial,8,0,0,1]
+ Caption="Read"
+ Data=Integer(1)
+ link(onClick,34270:doRead,[])
+}
+Add(StrCat,1969106,238,100)
+{
+ Str1="Count: "
+ link(onStrCat,2225581:doText,[])
+}
+Add(POP3_Parse,2707666,273,219)
+{
+}
+Add(Edit,9890082,273,282)
+{
+ Left=10
+ Top=145
+ Width=155
+ Font=[MS Sans Serif,8,0,0,1]
+ link(Str,2707666:From,[])
+}
+Add(Edit,814934,280,331)
+{
+ Left=175
+ Top=145
+ Width=165
+ Font=[MS Sans Serif,8,0,0,1]
+ link(Str,2707666:Subject,[])
+}
+Add(Memo,9723279,294,380)
+{
+ Left=10
+ Top=170
+ Width=365
+ Height=135
+ Font=[MS Sans Serif,8,0,0,1]
+ ScrollBars=3
+}
+Add(Hub,14704815,217,170)
+{
+ OutCount=3
+ link(onEvent1,37677:doText,[])
+ link(onEvent2,2707666:doParse,[(264,183)(264,225)])
+ link(onEvent3,2378853:doEvent1,[(259,190)(259,242)(186,242)(186,288)])
+}
+Add(Hub,2378853,196,282)
+{
+ OutCount=3
+ link(onEvent1,9890082:doText,[])
+ link(onEvent2,814934:doText,[(254,295)(254,337)])
+ link(onEvent3,15676420:doData,[(236,302)(236,407)])
+}
+Add(DoData,15676420,245,401)
+{
+ link(onEventData,9723279:doText,[])
+ link(Data,2707666:Text,[(251,326)(293,326)])
+}
+Add(Memory,224257,392,219)
+{
+ link(onData,89292:doData,[])
+}
+Add(FileStream,14014400,504,205)
+{
+ Mode=1
+ AutoCopy=0
+ Point(doCopyFromStream)
+ link(FileName,224257:Value,[(510,195)(482,195)(482,264)(398,264)])
+}
+Add(DoData,89292,441,219)
+{
+ link(onEventData,14014400:doCopyFromStream,[])
+ link(Data,2707666:Attach,[(447,209)(376,209)(376,261)(307,261)])
+}
+Add(StrCat,4314815,329,219)
+{
+ Str1="d:\"
+ link(onStrCat,224257:doValue,[])
+}

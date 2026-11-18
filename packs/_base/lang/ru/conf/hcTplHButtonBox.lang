@@ -1,0 +1,3 @@
+Group of horizontaly placed buttons=Группа горизонтально расположенных кнопок
+Distance between child elements of container=Расстояние между дочерними элементами контейнера
+Style of location widgets in container: Default - style used by default, Spread - uniform distribution, Edge - at edges, Start - from container begin, End - from container end, Center - at center=Стиль расположения элементов в контейнере: Default - стиль используемый поумолчанию, Spread - равномерное распределение, Edge - по краям, Start - с начала контейнера, End - с конца контейнера, Center - по центру

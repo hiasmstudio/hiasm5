@@ -1,0 +1,8 @@
+OLEDB data source=Источник данных OLEDB
+Element name=Имя элемента
+Default OLEDB connection string=Строка подключения к OLEDB по-умолчанию
+Connects to OLEDB=Осуществляет подключение к OLEDB
+Closes the connection to OLEDB=Закрывает соединение с OLEDB
+The event occurs whenever a data source is successfully created=Событие происходит всякий раз после успешного создания источника данных
+The event occurs every time an error occurs and outputs its code to the stream=Событие происходит всякий раз после возникновения ошибки и выдает её код в поток
+OLEDB connection string=Строка подключения к OLEDB

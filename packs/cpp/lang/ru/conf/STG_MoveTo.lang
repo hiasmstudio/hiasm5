@@ -1,0 +1,6 @@
+Shipping=Пересылка
+Structured Storage Management=Управление структуированным хранилищем
+Moves an item from one storage location to another ARG(InPath, InMoveToPath)=Пересылает элемент из одного места хранилища в другое ARG(InPath, InMoveToPath)
+The event occurs every time an element is successfully transferred to the store=Событие происходит всякий раз после успешной пересылки элемента в хранилище
+Path to storage element=Путь к элементу хранилища
+Path to storage for item transfer=Путь в хранилище для пересылки элемента

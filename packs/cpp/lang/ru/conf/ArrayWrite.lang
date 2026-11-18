@@ -1,0 +1,7 @@
+Writing a value to an array by element index=Запись значения в массив по индексу элемента
+Array element index=Индекс элемента массива
+Writes a value to the specified array element=Записывает значение в указанный элемент массива
+The event occurs every time after writing to the array=Событие происходит всякий раз после записи в массив
+Defines an array to write to=Определяет массив для записи
+Defines the element's index=Определяет индекс элемента
+Defines the value for the entry=Определяет значение для записи

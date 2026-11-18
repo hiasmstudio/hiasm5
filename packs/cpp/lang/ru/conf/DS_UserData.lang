@@ -1,0 +1,7 @@
+User data=Пользовательские данные
+element name=имя элемента
+The event occurs whenever user data needs to be initialized=Событие происходит всякий раз при необходимости инициализации пользовательских данных
+The event occurs every time after the end of receiving data=Событие происходит всякий раз после окончания получения данных
+Defines the number of data rows=Определяет количество строк с данными
+Defines the names of the data columns=Определяет имена столбцов с данными
+Defines the next row with data=Определяет очередную строку с данными

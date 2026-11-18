@@ -1,0 +1,10 @@
+Input/output to port=Ввод\вывод в порт
+Specifies the base port number=Определяет номер базового порта
+Determines the size of the port space to be opened=Определяет размер открываемого портового пространства
+Offset relative to base port=Смещение относительно базового порта
+Type of data exchanged via port=Тип данных для обмена через порт
+Reads one data from a port=Читает один данные из порта
+Writes data to a port=Записывает данные в порт
+The event occurs every time after data is read and outputs it to the stream=Событие происходит всякий раз после чтения данных и выдает их в поток
+Defines the data to be written to the port=Определяет данные для записи в порт
+Specifies the offset relative to the base port for read-write operations=Определяет смещение относительно базового порта для операций чтения записи

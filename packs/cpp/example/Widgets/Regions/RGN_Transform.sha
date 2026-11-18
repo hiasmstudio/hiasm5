@@ -1,0 +1,360 @@
+Make(cpp)
+Add(VisualShape,7007242,546,49)
+{
+ Left=4
+ Top=35
+ Width=390
+ Height=325
+ Color2=12639424
+}
+Add(VisualShape,15960758,679,49)
+{
+ Left=404
+ Top=35
+ Width=390
+ Height=325
+ Color2=15780518
+}
+Add(MainForm,2953706,273,84)
+{
+ Width=806
+ Height=391
+ Caption="RGN_Transform"
+ BorderStyle=1
+ Position=1
+ Point(doWidth)
+ Point(Width)
+ link(onCreate,12362957:doEvent1,[])
+}
+Add(RGN_SetToWindow,4673242,644,168)
+{
+ link(Handle,15525545:Handle,[])
+}
+Add(RGN_Elliptic,475601,385,98)
+{
+ Point1=6553750
+ Point2=9830550
+ Point2AsOffset=0
+ link(onCreateElliptic,11280062:doCreateRect,[])
+}
+Add(RGN_Rect,11280062,427,98)
+{
+ Point1=3276900
+ Point2=6553700
+ Point2AsOffset=0
+ link(onCreateRect,16336353:doCombine,[])
+}
+Add(RGN_Combine,16336353,469,98)
+{
+ Mode=2
+ link(onCombine,7086282:doSetRegion,[])
+ link(Region1,475601:Result,[(475,86)(462,86)(462,141)(391,141)])
+}
+Add(RGN_Transform,10547037,581,168)
+{
+ X=1.5
+ Y=0.7
+ link(onTransform,12047982:doWork2,[])
+}
+Add(RGN_Transform,14318580,581,301)
+{
+ Type=2
+ link(onTransform,15049431:doWork2,[])
+}
+Add(ComboBox,1666988,392,147)
+{
+ Left=5
+ Top=5
+ Width=300
+ Height=21
+ Strings=#8:Оригинал|14:Маштаб 1.5:0.7|16:Сдвиг по Х = 0.2|16:Сдвиг по Y = 0.5|24:Зеркально по горизонтали|22:Зеркально по вертикали|36:Зеркально по горизонтали и вертикали|12:Произвольное|
+ Point(doSelect)
+ Point(onSelect)
+ link(onClick,229192:doWork1,[(431,160)])
+ link(onSelect,229192:doWork2,[])
+}
+Add(IndexToChanel,1783814,469,161)
+{
+ Count=8
+ Point(Data)
+ link(onEvent1,12047982:doWork1,[(627,167)])
+ link(onEvent2,10547037:doTransform,[])
+ link(onEvent3,1209402:doTransform,[(553,181)(553,216)])
+ link(onEvent4,5012621:doTransform,[(544,188)(544,258)])
+ link(onEvent5,14318580:doTransform,[(537,195)(537,307)])
+ link(onEvent6,6299759:doTransform,[(527,202)(527,349)])
+ link(onEvent7,5161429:doTransform,[(518,209)(518,391)])
+ link(onEvent8,15095050:doWork1,[(509,216)(509,440)])
+ link(Data,13632435:Var2,[])
+}
+Add(HubEx,12047982,623,168)
+{
+ link(onEvent,4673242:doSetRegion,[])
+}
+Add(RGN_Transform,6299759,581,343)
+{
+ Type=3
+ link(onTransform,16212437:doWork2,[])
+}
+Add(HubEx,15049431,623,301)
+{
+ Angle=3
+ link(onEvent,9601341:doWork3,[])
+}
+Add(RGN_Transform,5161429,581,385)
+{
+ Type=4
+ link(onTransform,1883678:doWork2,[])
+}
+Add(HubEx,16212437,623,343)
+{
+ Angle=3
+ link(onEvent,15049431:doWork3,[])
+}
+Add(PaintBox,15525545,637,49)
+{
+ Left=404
+ Top=35
+ Width=390
+ Height=325
+ Color=8388608
+ Point(Handle)
+}
+Add(Hub,12362957,315,98)
+{
+ link(onEvent1,475601:doCreateElliptic,[])
+ link(onEvent2,8530300:doWork1,[])
+}
+Add(ChanelToIndex,8530300,343,105)
+{
+ Count=1
+ link(onIndex,1666988:doSelect,[(381,111)(381,195)])
+}
+Add(HubEx,229192,427,161)
+{
+ link(onEvent,6057799:doEvent1,[])
+}
+Add(RGN_Transform,1209402,581,210)
+{
+ Type=1
+ X=0.2
+ Y=0
+ link(onTransform,12612791:doWork2,[])
+}
+Add(HubEx,12612791,623,210)
+{
+ Angle=3
+ link(onEvent,12047982:doWork3,[])
+}
+Add(RGN_Transform,5012621,581,252)
+{
+ Type=1
+ X=0
+ Y=0.5
+ link(onTransform,9601341:doWork2,[])
+}
+Add(HubEx,9601341,623,252)
+{
+ Angle=3
+ link(onEvent,12612791:doWork3,[])
+}
+Add(RGN_SetToWindow,7086282,511,98)
+{
+ link(Handle,15262078:Handle,[])
+}
+Add(PaintBox,15262078,504,49)
+{
+ Left=5
+ Top=35
+ Width=390
+ Height=325
+ Color=32768
+ Point(Handle)
+}
+Add(RGN_Transform,2794152,560,427)
+{
+ Point(doSetTransform)
+ link(onTransform,1883678:doWork3,[(627,433)])
+ link(Region,13632435:Var3,[(566,145)])
+}
+Add(HubEx,1883678,623,385)
+{
+ Angle=3
+ link(onEvent,16212437:doWork3,[])
+}
+Add(GetDataEx,13632435,469,140)
+{
+ link(Data,16336353:Result,[])
+}
+Add(ChildGroupBox,15095050,518,434)
+{
+ link(onEvent1,2794152:doSetTransform,[])
+}
+BEGIN_SDK
+  Add(EditMulti,15617703,21,21)
+  {
+   EventCount=1
+   WorkCount=1
+   Width=678
+   Height=403
+   link(doWork1,2303921:doWork2,[(143,27)(143,300)])
+  }
+  Add(GroupBox,16186442,35,105)
+  {
+   Left=800
+   Top=30
+   Width=114
+   Height=330
+   Caption="Произвольное"
+  }
+  Add(MT_AddData,6137880,266,294)
+  {
+   Count=6
+   link(onAdd,15617703:onEvent1,[(426,300)(426,27)])
+   link(Data1,4619659:Text,[])
+   link(Data2,7451767:Text,[])
+   link(Data3,647835:Text,[])
+   link(Data4,1270498:Text,[])
+   link(Data5,6698024:Text,[])
+   link(Data6,420347:Text,[])
+  }
+  Add(Edit,4619659,266,70)
+  {
+   Left=50
+   Top=15
+   Text="-1.1"
+   DataType=4
+   link(onEnter,2653302:doWork1,[(347,83)])
+  }
+  Add(Edit,7451767,273,105)
+  {
+   Left=50
+   Top=40
+   Text="0.2"
+   DataType=4
+   link(onEnter,2653302:doWork2,[])
+  }
+  Add(Edit,647835,282,140)
+  {
+   Left=50
+   Top=65
+   Text="-0.9"
+   DataType=4
+   link(onEnter,6257156:doWork2,[])
+  }
+  Add(Edit,1270498,287,175)
+  {
+   Left=50
+   Top=91
+   Text="-1.2"
+   DataType=4
+   link(onEnter,4752836:doWork2,[])
+  }
+  Add(Edit,6698024,294,210)
+  {
+   Left=50
+   Top=118
+   Text="-25"
+   DataType=4
+   link(onEnter,5358143:doWork2,[])
+  }
+  Add(Edit,420347,301,245)
+  {
+   Left=50
+   Top=145
+   Text="10"
+   DataType=4
+   link(onEnter,1132392:doWork2,[])
+  }
+  Add(Label,648287,210,70)
+  {
+   Left=5
+   Top=20
+   Width=40
+   Height=150
+   Caption="eM11 :\r\n\r\neM12 :\r\n\r\neM21 :\r\n\r\neM22 :\r\n\r\neDx  :\r\n\r\neDy  :"
+   AutoSize=1
+   Alignment=1
+  }
+  Add(Button,7593391,203,308)
+  {
+   Left=10
+   Top=180
+   Width=90
+   Caption="Применить"
+   link(onClick,2303921:doWork3,[(249,314)])
+  }
+  Add(HubEx,2303921,245,294)
+  {
+   link(onEvent,6137880:doAdd,[])
+  }
+  Add(HubEx,1132392,343,252)
+  {
+   Angle=1
+   link(onEvent,2303921:doWork1,[(347,287)(249,287)])
+  }
+  Add(HubEx,5358143,343,217)
+  {
+   Angle=1
+   link(onEvent,1132392:doWork1,[])
+  }
+  Add(HubEx,4752836,343,182)
+  {
+   Angle=1
+   link(onEvent,5358143:doWork1,[])
+  }
+  Add(HubEx,6257156,343,147)
+  {
+   Angle=1
+   link(onEvent,4752836:doWork1,[])
+  }
+  Add(HubEx,2653302,343,112)
+  {
+   Angle=1
+   link(onEvent,6257156:doWork1,[])
+  }
+  Add(Label,714857,518,217)
+  {
+   Left=10
+   Top=240
+   Width=95
+   Height=45
+   Font=[MS Sans Serif,8,0,0,204]
+   Caption="| eM11   eM12   0 |  \r\n| eM21   eM22   0 | \r\n| eDx      eDy     1 |"
+   AutoSize=1
+  }
+END_SDK
+Add(CounterEx,5434910,182,112)
+{
+ Min=-120
+ Max=120
+ Step=240
+ Default=-120
+ link(onNext,16680748:doOperation,[])
+}
+Add(Math,16680748,224,112)
+{
+ link(onResult,2953706:doWidth,[])
+ link(Op1,2953706:Width,[(230,102)(263,102)(263,134)(279,134)])
+}
+Add(Hub,6057799,441,161)
+{
+ link(onEvent1,1783814:doEvent,[])
+ link(onEvent2,16440815:doCase,[(463,174)(463,230)(45,230)(45,118)])
+}
+Add(Case,16440815,56,112)
+{
+ Value=Integer(7)
+ link(onNextCase,10372956:doWork1,[])
+ link(onTrue,10372956:doWork2,[])
+ AddHint(-2,35,21,13,Value)
+}
+Add(ChanelToIndex,10372956,98,112)
+{
+ link(onIndex,15978022:doData,[])
+}
+Add(ChangeMon,15978022,140,112)
+{
+ Data=Integer(0)
+ link(onData,5434910:doNext,[])
+}

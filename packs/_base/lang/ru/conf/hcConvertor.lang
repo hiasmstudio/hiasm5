@@ -1,0 +1,6 @@
+Convert one value to another=Конвертер одной величины в другую
+IntToStr - integer->string, StrToInt - string->integer, RealToInt - double->integer, CharToInt - char->integer, IntToChar - integer->char, HexToInt - hex->integer, IntToHex - integer->hex, BinToInt - binary->integer, IntToBin - integer->binary, RealToStr - double->string, StrToReal - string->double=IntToStr - число->строка, StrToInt - строка->число, RealToInt - дробное->целое, CharToInt - символ->число, IntToChar - число->символ, HexToInt - шестнадцатиричное->целое, IntToHex - целое->шестнадцатеричное, BinToInt - двоичное->целое, IntToBin - целое->двоичное, RealToStr - дробное->строка, StrToReal - строка->дробное
+Convert input data by property 'Mode'=Конвертирует входные данные согласно параметру Mode
+Event emit after convert data and gives result in thread=Выдаёт результат операции в поток
+Contains result of converting=Содержит результат преобразования
+Data for converting=Данные для преобразования

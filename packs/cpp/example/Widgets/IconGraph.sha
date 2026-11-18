@@ -1,0 +1,292 @@
+*Пример работы компонента IconGraph в различных режимах отображения с возможностью упраления режимами в реальном времени
+Make(cpp)
+Add(MainForm,6448791,147,126)
+{
+ Left=20
+ Top=105
+ Width=123
+ Height=133
+ Visible=1
+ Caption="IconGraph"
+ BorderStyle=5
+ Icon=[ZIP5E07000078DA636060044209090610C9E0C1CEC020C6C0C0A001C4402106030688380828B0338C3CB064C10232105673C8B01AABE0A74F9F800C641217F8040678CC4103780C21C91C4CA390A5C836074D8A5473E0A651C51C4C2992CC41366DF09883158C9A333CCCA14A3936CCC0FFFFFFE1F801033B5530B299009A1BEC6F]
+ Position=1
+ Point(doVisible)
+ Point(Handle)
+ link(onCreate,11098579:doEvent1,[(187,146)(187,167)])
+}
+Add(IconGraph,15542887,364,70)
+{
+ Sensit=1
+ TranspIcon=1
+ Style=3
+ FonColor=5395026
+ Point(onBmpGraph)
+ Point(doStyle)
+ Point(doTranspIcon)
+ Point(doKindBar)
+ Point(doFrameBar)
+ Point(doChannelsBar)
+ Point(doFonColor)
+ Point(doTranspColor)
+ Point(doGraphColor)
+ Point(doTextColor)
+ Point(doFrameColor)
+ Point(doMaxColor)
+ Point(doMidColor)
+ Point(doMinColor)
+ link(onIconGraph,4863793:doIcon,[])
+ link(onBmpGraph,12998636:doLoad,[(404,83)(404,104)])
+}
+Add(ChanelToIndex,4110385,672,196)
+{
+ link(onIndex,4539516:In,[])
+}
+Add(TrayIcon,4863793,462,56)
+{
+ FormHook=0
+ ShowWORemoveIcon=0
+ link(onClick,3804698:doEvent,[(502,62)(502,48)])
+ link(onDblClick,2674293:doWork1,[(774,69)])
+}
+Add(Hub,11098579,196,161)
+{
+ OutCount=3
+ link(onEvent1,4863793:doHide,[(320,167)(320,69)])
+ link(onEvent2,6852023:doWork3,[(249,174)])
+ link(onEvent3,15329026:doPopup,[(240,181)(240,202)(135,202)(135,223)])
+}
+Add(Timer,10654413,77,35)
+{
+ Interval=75
+ link(onTimer,8772003:doRandom,[])
+}
+Add(PopupMenuEx,2234454,560,49)
+{
+ Menu=#16:Картинка графика|1:-|5:Стиль|1:(|11:-!Histogram|7:-!Graph|9:-!Numeric|5:+!Bar|1:)|15:Параметры Bar'a|1:(|16:Ориентация Bar'a|1:(|10:+!Vertical|12:-!Horisontal|1:)|11:Рамка Bar'a|1:(|11:-!Выключена|10:+!Включена|1:)|12:Каналы Bar'a|1:(|6:-!Один|5:+!Два|1:)|1:)|4:Цвет|1:(|3:Фон|9:Замешение|6:График|5:Текст|11:Рамка Bar'a|9:Min Bar'a|9:Mid Bar'a|9:Max Bar'a|1:)|12:Прозрачность|1:(|10:-!Включена|11:+!Выключена|1:)|1:-|5:Выход|
+ Font=[MS Sans Serif,8,1,0,1]
+ SelColorLight=15780518
+ SelColorDark=15780518
+ Bitmaps=['Bitmap'=[ZIP3609000078DA73F235E36400033320D600620928666450804800E58FF041300CFC67F8FF7F141387972C5840158CCF7C709450800999FFE9D327B03A749A1006A9036162CCC78689319B12F371D981AE869AE6635343A9F9C8F6D0D27C5C6A28311FDD9EA16A3E3E3C6AFEA8F9B4349F96F5CB28C6C40074D10020],'Bitmap'=[],'Bitmap'=[],'Bitmap'=[],'Bitmap'=[],'Bitmap'=[],'Bitmap'=[],'Bitmap'=[],'Bitmap'=[],'Bitmap'=[],'Bitmap'=[],'Bitmap'=[],'Bitmap'=[],'Bitmap'=[],'Bitmap'=[],'Bitmap'=[],'Bitmap'=[],'Bitmap'=[],'Bitmap'=[],'Bitmap'=[],'Bitmap'=[],'Bitmap'=[],'Bitmap'=[],'Bitmap'=[],'Bitmap'=[],'Bitmap'=[],'Bitmap'=[],'Bitmap'=[],'Bitmap'=[ZIP3604000078DAA593B10AC2400C8623B889D4F3090A2EE220B838D44D47717075F51D049FC2B9939393ABA3B3A3A3A083A0080A8AE013D4FEB12931D6416CF9E9F52E5FEE4FAE6DF79A79E2AB19AB1AAB942847FE6B2159D75794DC6118FE2C61A3E877A539E271ABB5A742614A9EB7F8A239158B3316E2EAF56D9A034FCF5B51A572A25AED53BEBF4F552EEFC8B935E7D03CD61A8D03753A4756109C587A4E7238B7611F96473CE2A43EE1F49C78B03C7CDA58C9A1DFC503FAA179F8EC76CF2CCB6856EA404F350FEFFDFE8595E543FA28BC73CB371EF38341366BF7472ECBC3B7F09A415DB61FDFF8E1F0CA3974AC9CA1E5F1BD681EDC787C4F73E85AACB2F60737993C6834BAF158E781D057391BF8B1E707168CC4E9B3B4DFA3F4916BFAE3FF93FB09CE77EDBE]]
+ Point(doCheckIdx)
+ link(MenuItemIdx,1807075:doValue,[])
+}
+Add(IndexToChanel,3804698,511,42)
+{
+ link(onEvent2,2234454:doPopupHere,[])
+}
+Add(ColorDialog,2665884,721,280)
+{
+ link(onSelect,2587049:In,[(764,286)(764,314)])
+}
+Add(HubEx,6852023,245,70)
+{
+ link(onEvent,15542887:doPosition2,[])
+}
+Add(Memory,1807075,616,49)
+{
+ link(onData,3841712:doEvent,[(660,55)(660,76)(604,76)(604,97)])
+}
+Add(WinTools,15329026,147,210)
+{
+ link(Handle,6448791:Handle,[])
+}
+Add(Image,12998636,462,98)
+{
+ Width=115
+ Height=107
+ Align=5
+ Color=16777215
+ TabOrder=-1
+ ViewStyle=1
+}
+Add(DoData,6224631,98,154)
+{
+ Data=Integer(1)
+ link(onEventData,6448791:doVisible,[])
+}
+Add(LineBreak,2298576,35,140)
+{
+ Caption="Close"
+ link(Out,6448791:doClose,[(111,146)(111,153)])
+ Primary=[2511480,756,182]
+}
+Add(IndexToChanel,3841712,616,91)
+{
+ Count=31
+ Point(Data)
+ link(onEvent1,2674293:doWork2,[])
+ link(onEvent4,716648:doWork1,[])
+ link(onEvent5,716648:doWork2,[])
+ link(onEvent6,716648:doWork3,[])
+ link(onEvent7,716648:doWork4,[])
+ link(onEvent10,14603904:doWork1,[])
+ link(onEvent11,14603904:doWork2,[])
+ link(onEvent13,8994211:doWork1,[])
+ link(onEvent14,8994211:doWork2,[])
+ link(onEvent16,4110385:doWork1,[])
+ link(onEvent17,4110385:doWork2,[])
+ link(onEvent19,13158670:doOpen,[(660,223)(660,237)])
+ link(onEvent20,1756595:doOpen,[(664,230)(664,244)])
+ link(onEvent21,11977282:doOpen,[(667,237)(667,251)])
+ link(onEvent22,1492105:doOpen,[(670,244)(670,258)])
+ link(onEvent23,13079075:doOpen,[(674,251)(674,265)])
+ link(onEvent24,8915592:doOpen,[(678,258)(678,272)])
+ link(onEvent25,7257453:doOpen,[(681,265)(681,279)])
+ link(onEvent26,2665884:doOpen,[(684,272)(684,286)])
+ link(onEvent28,8045861:doWork2,[(660,286)(660,349)])
+ link(onEvent29,8045861:doWork1,[(660,293)(660,342)])
+ link(onEvent31,2511480:In,[(720,307)(720,328)])
+ link(Data,1807075:Value,[])
+}
+Add(LineBreak,15359062,35,154)
+{
+ Caption="Visible"
+ link(Out,6224631:doData,[])
+ Primary=[3353326,756,-63]
+}
+Add(LineBreak,912775,259,112)
+{
+ Caption="Kind"
+ link(Out,15542887:doKindBar,[(329,118)(329,104)])
+ Primary=[12438439,532,42]
+}
+Add(ChanelToIndex,716648,672,112)
+{
+ Count=4
+ link(onIndex,13942282:In,[])
+}
+Add(HubEx,2674293,770,84)
+{
+ link(onEvent,3353326:In,[])
+}
+Add(Timer,9831726,77,77)
+{
+ Interval=76
+ link(onTimer,16515704:doRandom,[])
+}
+Add(LineBreak,15448927,259,84)
+{
+ Caption="Style"
+ link(Out,15542887:doStyle,[])
+ Primary=[13942282,532,28]
+}
+Add(ChanelToIndex,14603904,672,154)
+{
+ link(onIndex,12438439:In,[])
+}
+Add(ChanelToIndex,8994211,672,175)
+{
+ link(onIndex,4818837:In,[])
+}
+Add(LineBreak,927756,259,126)
+{
+ Caption="Frame"
+ link(Out,15542887:doFrameBar,[(333,132)(333,111)])
+ Primary=[4818837,532,49]
+}
+Add(LineBreak,11869362,259,98)
+{
+ Caption="TranspIcon"
+ link(Out,15542887:doTranspIcon,[(345,104)(345,97)])
+ Primary=[15537804,532,238]
+}
+Add(LineBreak,16064068,259,140)
+{
+ Caption="Channels"
+ link(Out,15542887:doChannelsBar,[(326,146)(326,118)])
+ Primary=[4539516,532,56]
+}
+Add(ChanelToIndex,8045861,672,336)
+{
+ link(onIndex,15537804:In,[])
+}
+Add(ColorDialog,13158670,672,231)
+{
+ link(onSelect,658570:In,[(748,237)(748,216)])
+}
+Add(ColorDialog,1756595,679,238)
+{
+ link(onSelect,6123943:In,[(757,244)(757,230)])
+}
+Add(ColorDialog,11977282,686,245)
+{
+ link(onSelect,14043196:In,[(766,251)(766,244)])
+}
+Add(LineBreak,14326209,259,168)
+{
+ Caption="FonColor"
+ link(Out,15542887:doFonColor,[(329,174)(329,125)])
+ Primary=[658570,532,42]
+}
+Add(LineBreak,5363045,259,182)
+{
+ Caption="TranspColor"
+ link(Out,15542887:doTranspColor,[(333,188)(333,132)])
+ Primary=[6123943,532,42]
+}
+Add(LineBreak,9693856,259,196)
+{
+ Caption="GraphColor"
+ link(Out,15542887:doGraphColor,[(337,202)(337,139)])
+ Primary=[14043196,532,42]
+}
+Add(LineBreak,13761500,259,210)
+{
+ Caption="TextColor"
+ link(Out,15542887:doTextColor,[(340,216)(340,146)])
+ Primary=[13751274,532,42]
+}
+Add(LineBreak,9495915,259,224)
+{
+ Caption="FrameColor"
+ link(Out,15542887:doFrameColor,[(344,230)(344,153)])
+ Primary=[8305579,532,42]
+}
+Add(LineBreak,1435176,259,238)
+{
+ Caption="MaxColor"
+ link(Out,15542887:doMaxColor,[(348,244)(348,160)])
+ Primary=[2587049,532,70]
+}
+Add(LineBreak,8449693,259,252)
+{
+ Caption="MidColor"
+ link(Out,15542887:doMidColor,[(351,258)(351,167)])
+ Primary=[5392419,532,42]
+}
+Add(LineBreak,4669628,259,266)
+{
+ Caption="MinColor"
+ link(Out,15542887:doMinColor,[(355,272)(355,174)])
+ Primary=[4342606,532,14]
+}
+Add(ColorDialog,1492105,693,252)
+{
+ link(onSelect,13751274:In,[])
+}
+Add(ColorDialog,13079075,700,259)
+{
+ link(onSelect,8305579:In,[(780,265)(780,272)])
+}
+Add(ColorDialog,8915592,707,266)
+{
+ link(onSelect,4342606:In,[(774,272)(774,286)])
+}
+Add(ColorDialog,7257453,714,273)
+{
+ link(onSelect,5392419:In,[(769,279)(769,300)])
+}
+Add(Random,16515704,154,77)
+{
+ link(onRandom,6852023:doWork2,[])
+}
+Add(Random,8772003,154,35)
+{
+ link(onRandom,4919367:doEvent1,[])
+}
+Add(Hub,4919367,203,35)
+{
+ link(onEvent1,15542887:doPosition1,[(299,41)(299,76)])
+ link(onEvent2,16515704:doRandomize,[(247,48)(247,69)(142,69)(142,90)])
+}

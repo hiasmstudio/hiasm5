@@ -1,0 +1,10 @@
+Temporary file=Временный файл
+Defines default memory data=Определяет данные в памяти по-умолчанию
+Temporary file prefix=Префикс временного файла
+Temporary file extension=Расширение временного файла
+Creates a temporary file. If there is an open file, the latter is deleted=Создает временный файл. При наличии открытого файла, последний удаляется
+Deletes a temporary file=Удаляет временный файл
+The event occurs whenever a temporary file is successfully created, outputting the name of that file to the stream=Событие происходит всякий раз при успешном создании временного файла, выдавая имя этого файла в поток
+Contains the name of the current temporary file=Содержит имя текущего временного файла
+Contains the path to the system temporary folder=Содержит путь к системной временной папке
+Specifies data to be copied into memory=Определяет данные для копирования в память

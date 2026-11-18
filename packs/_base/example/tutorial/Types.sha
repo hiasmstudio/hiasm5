@@ -1,0 +1,18 @@
+Make(cpp)
+Add(InfoTip,900,24,18)
+{
+ @Width=680
+ @Height=145
+ Info=#21:Именованные поля типа|0:|129:Тип из HiAsm 4 представляет набор именованных полей. C++-пример создаёт, изменяет, добавляет и удаляет поля и проверяет имя типа.|
+ HAlign=0
+ Margin=12
+}
+Add(Entry,1,42,196)
+{
+ link(onStart,2:doExecute,[])
+}
+Add(Code,2,196,196)
+{
+ Code=#79:struct Record { std::string name; std::map<std::string, std::string> fields; };|69:Record value{"Person", {{"name", "Alice"}, {"age", hiasm_text(20)}}};|92:auto set = [&](const std::string& type, const std::string& field, const std::string& data) {|68:  if(type != value.name || !value.fields.count(field)) return false;|42:  value.fields[field] = data; return true;|2:};|37:set("Person", "age", hiasm_text(21));|39:value.fields.emplace("city", "Moscow");|141:std::cout << value.name << ": " << value.fields.at("name") << ", " << value.fields.at("age") << ", " << value.fields.at("city") << std::endl;|89:std::cout << "wrong type rejected: " << !set("Other", "age", hiasm_text(0)) << std::endl;|27:value.fields.erase("city");|60:std::cout << "fields: " << value.fields.size() << std::endl;|
+ Expression=input
+}

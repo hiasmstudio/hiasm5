@@ -1,0 +1,81 @@
+Make(cpp)
+Add(MainForm,89870,21,105)
+{
+ Left=20
+ Top=105
+ Width=319
+ Height=174
+}
+Add(Translator,13244755,301,140)
+{
+ Lang="ru"
+ LangWords=['Edit'="правка",'Label'="метка",'This example show how you can add multi language in your HiAsm project'="Этот пример показывает как вы можете добавить многоязычность в ваш проект HiAsm",'Hello world'="Привет мир"]
+}
+Add(Edit,6652430,189,56)
+{
+ Left=150
+ Top=25
+ MakeTrans(Text)
+}
+Add(Label,8717120,133,56)
+{
+ Left=80
+ Top=30
+ MakeTrans(Caption)
+}
+Add(Label,8392555,161,98)
+{
+ Left=35
+ Top=65
+ Width=237
+ Height=42
+ Caption="This example show how you can add multi language in your HiAsm project"
+ AutoSize=1
+ MakeTrans(Caption)
+}
+Add(InfoTip,15815105,105,35)
+{
+ Info=#18:static translation|
+ Width=155
+ Height=109
+}
+Add(Button,14674692,112,203)
+{
+ Left=85
+ Top=115
+ link(onClick,7292687:doStrCat,[])
+}
+Add(Label,9255622,210,203)
+{
+ Left=155
+ Top=120
+ Caption="------"
+}
+Add(StrCat,7292687,161,203)
+{
+ Str1="Hello world"
+ MakeTrans(Str1)
+ link(onStrCat,9255622:doText,[])
+}
+Add(InfoTip,3445379,105,154)
+{
+ Info=#19:dynamic translation|
+ Width=155
+ Height=109
+}
+Add(ComboBox,11375930,301,49)
+{
+ Left=5
+ Top=5
+ Width=40
+ Height=21
+ Strings=#2:ru|2:en|
+ DataType=1
+ link(onClick,16395214:doWrite,[])
+}
+Add(Registry,16395214,357,49)
+{
+ HKey=1
+ Key="Software\HiAsm"
+ Value="tr"
+}

@@ -1,0 +1,267 @@
+Make(cpp)
+Add(MainForm,12071789,266,84)
+{
+ Left=20
+ Top=105
+ Width=445
+ Height=245
+ Caption="LedNumber"
+ Icon=[ZIP5E07000078DA636060044209090610C9E0C1CEC020C6C0C0A001C440210603068838082800E512182078B883250B16500B014DFBFF1F0B8288C3011E35107390152303B84A340331D5C0CDC1AA0CCD1C3C6A86BD395409676AC5FB68FA194D3F94C43BB50AB16109FE83C30B8269612600A15EDA2E]
+ Position=1
+ link(onCreate,9769129:In,[])
+}
+Add(LedNumber,2253745,434,147)
+{
+ Width=437
+ Height=103
+ Align=2
+ Cursor=2
+ Hint="LedNumber"
+ Alignment=2
+ SegColor=16776960
+ NoSegColor=8421376
+ Point(doText)
+ Point(doAlignment)
+ Point(doShowLines)
+ Point(doColorHover)
+ Point(Caption)
+ Point(doFonColor)
+ Point(doSegColor)
+ Point(doNoSegColor)
+ Point(doFonHover)
+ Point(doSegHover)
+ Point(doNoSegHover)
+ Point(onMouseMove)
+ Point(MouseX)
+ Point(MouseY)
+ Point(Handle)
+ Point(onResize)
+ link(onMouseMove,16414269:doEvent1,[(478,160)(478,248)(373,248)(373,335)])
+}
+Add(Button,9201023,105,147)
+{
+ Left=10
+ Top=135
+ TabOrder=-1
+ Caption="Text"
+ link(onClick,3156899:doData,[])
+}
+Add(Button,13856539,105,196)
+{
+ Left=130
+ Top=135
+ TabOrder=-1
+ Caption="Left"
+ Data=Integer(0)
+ link(onClick,5579011:doWork2,[])
+}
+Add(Button,14450582,105,231)
+{
+ Left=190
+ Top=135
+ TabOrder=-1
+ Caption="Right"
+ Data=Integer(1)
+ link(onClick,5579011:doWork3,[(165,237)])
+}
+Add(Button,12937902,105,266)
+{
+ Left=250
+ Top=135
+ TabOrder=-1
+ Caption="Center"
+ Data=Integer(2)
+ link(onClick,11138626:doWork3,[(186,272)])
+}
+Add(HubEx,5579011,161,189)
+{
+ link(onEvent,11138626:doWork2,[])
+}
+Add(HubEx,11138626,182,189)
+{
+ link(onEvent,2253745:doAlignment,[(299,202)(299,160)])
+}
+Add(Switch,2205047,182,308)
+{
+ DataOn=Integer(1)
+ DataOff=Integer(0)
+ link(onSwitch,2253745:doShowLines,[(310,314)(310,167)])
+}
+Add(Button,2017938,105,308)
+{
+ Left=310
+ Top=135
+ TabOrder=-1
+ Caption="Lines"
+ Data=Integer(2)
+ link(onClick,2205047:doSwitch,[])
+}
+Add(Switch,35406,182,350)
+{
+ DataOn=Integer(1)
+ DataOff=Integer(0)
+ link(onSwitch,2253745:doColorHover,[(310,356)(310,174)])
+}
+Add(Button,11106107,105,350)
+{
+ Left=370
+ Top=135
+ TabOrder=-1
+ Caption="Hover"
+ Data=Integer(2)
+ link(onClick,35406:doSwitch,[])
+}
+Add(Edit,3280689,168,91)
+{
+ Left=70
+ Top=135
+ Width=55
+ Text="123"
+}
+Add(DoData,3156899,168,147)
+{
+ link(onEventData,2253745:doText,[])
+ link(Data,3280689:Text,[])
+}
+Add(Button,11714576,105,399)
+{
+ Left=10
+ Top=160
+ TabOrder=-1
+ Caption="FonColor"
+ link(onClick,11777477:doOpen,[])
+}
+Add(Button,11220836,105,441)
+{
+ Left=70
+ Top=160
+ TabOrder=-1
+ Caption="SegColor"
+ link(onClick,6086295:doOpen,[])
+}
+Add(Button,5886175,105,483)
+{
+ Left=130
+ Top=160
+ Width=85
+ TabOrder=-1
+ Caption="NoSegColor"
+ link(onClick,9232694:doOpen,[])
+}
+Add(Button,358506,105,609)
+{
+ Left=340
+ Top=160
+ Width=90
+ TabOrder=-1
+ Caption="NoSegHover"
+ link(onClick,2412568:doOpen,[])
+}
+Add(Button,8361682,105,567)
+{
+ Left=280
+ Top=160
+ TabOrder=-1
+ Caption="SegHover"
+ link(onClick,15204017:doOpen,[])
+}
+Add(Button,14563938,105,525)
+{
+ Left=220
+ Top=160
+ TabOrder=-1
+ Caption="FonHover"
+ link(onClick,10766042:doOpen,[])
+}
+Add(ColorDialog,11777477,182,399)
+{
+ link(onSelect,2253745:doFonColor,[(324,405)(324,181)])
+}
+Add(ColorDialog,6086295,182,441)
+{
+ link(onSelect,2253745:doSegColor,[(324,447)(324,188)])
+}
+Add(ColorDialog,9232694,182,483)
+{
+ link(onSelect,2253745:doNoSegColor,[(324,489)(324,195)])
+}
+Add(ColorDialog,10766042,182,525)
+{
+ link(onSelect,2253745:doFonHover,[(324,531)(324,202)])
+}
+Add(ColorDialog,15204017,182,567)
+{
+ link(onSelect,2253745:doSegHover,[(324,573)(324,209)])
+}
+Add(ColorDialog,2412568,182,609)
+{
+ link(onSelect,2253745:doNoSegHover,[(324,615)(324,216)])
+}
+Add(Button,9099805,357,266)
+{
+ Left=10
+ Top=185
+ TabOrder=-1
+ Caption="Caption"
+ link(onClick,318283:doText,[])
+}
+Add(Edit,318283,434,266)
+{
+ Left=70
+ Top=185
+ Width=55
+ TabOrder=-1
+ Text=""
+ link(Str,2253745:Caption,[])
+}
+Add(Edit,5936563,441,329)
+{
+ Left=285
+ Top=185
+ Text=""
+ link(Str,2253745:MouseX,[])
+}
+Add(Label,13759934,217,91)
+{
+ Left=360
+ Top=185
+ Width=12
+ Height=17
+ Font=[MS Sans Serif,8,1,0,1]
+ Caption="Y"
+}
+Add(Edit,14654600,448,336)
+{
+ Left=380
+ Top=185
+ Text=""
+ link(Str,2253745:MouseY,[])
+}
+Add(Hub,16414269,385,329)
+{
+ link(onEvent1,5936563:doText,[])
+ link(onEvent2,14654600:doText,[])
+}
+Add(Edit,10304725,455,378)
+{
+ Left=130
+ Top=185
+ Width=85
+ Text=""
+ link(Str,2253745:Handle,[])
+}
+Add(LineBreak,9826498,385,378)
+{
+ Caption="Create"
+ link(Out,10304725:doText,[])
+ Primary=[9769129,-70,-280]
+}
+Add(Label,16676346,224,98)
+{
+ Left=265
+ Top=185
+ Width=12
+ Height=17
+ Font=[MS Sans Serif,8,1,0,1]
+ Caption="X"
+}

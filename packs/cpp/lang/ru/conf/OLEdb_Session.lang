@@ -1,0 +1,6 @@
+OLE DB session=Сессия OLE БД
+Creates a session to the specified database=Создает сессию к указанной БД
+The event occurs every time after a successful session creation and outputs its identifier to the stream=Событие происходит всякий раз после успешного создания сессии и выдает её идентификатор в поток
+The event occurs every time an error occurs and outputs its code to the stream=Событие происходит всякий раз после возникновения ошибки и выдает её код в поток
+Contains the session ID=Содержит идентификатор сессии
+DB ID=Идентификатор БД

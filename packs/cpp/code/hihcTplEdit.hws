@@ -1,0 +1,52 @@
+func Arg(value)
+  if(len(value) > 0)
+    return(value)
+  else
+    return('""')
+  end
+end
+
+func doStart
+  println('{')
+  println('GtkWidget *widget = gtk_entry_new();')
+  println('hiasm_set_font(widget, ', cstr(d('Font')), ');')
+  switch(d('Password'))
+    case "True": println('gtk_entry_set_visibility(GTK_ENTRY(widget), FALSE);')
+  end
+  switch(d('ReadOnly'))
+    case "True": println('gtk_editable_set_editable(GTK_EDITABLE(widget), FALSE);')
+  end
+  println('gtk_widget_set_size_request(widget, ', Width, ', ', Height, ');')
+  println('gtk_editable_set_text(GTK_EDITABLE(widget), ', cstr(d('Text')), ');')
+  println('hiasm_place("hcTplEdit', _id_, '", widget, ', Left, ', ', Top, ');')
+  if(linked(onChange))
+    println('g_signal_connect(widget, "changed", G_CALLBACK(+[](GtkEditable *editable, gpointer) {')
+    println('if(!hiasm_form_ready) return;')
+    block.inclvl()
+    event(onChange, 'std::string(gtk_editable_get_text(editable))')
+    block.declvl()
+    println('}), NULL);')
+  end
+  if(linked(onEnter))
+    println('g_signal_connect(widget, "activate", G_CALLBACK(+[](GtkEntry *entry, gpointer) {')
+    println('if(!hiasm_form_ready) return;')
+    block.inclvl()
+    event(onEnter, 'std::string(gtk_editable_get_text(GTK_EDITABLE(entry)))')
+    block.declvl()
+    println('}), NULL);')
+  end
+  println('}')
+end
+
+func doText(_data)
+  println('gtk_editable_set_text(GTK_EDITABLE(hiasm_widget("hcTplEdit', _id_, '").get()), hiasm_text(', Arg(_data), ').c_str());')
+end
+
+func doText2(_data)
+  doText(_data)
+end
+
+func Text()
+  return('std::string(gtk_editable_get_text(GTK_EDITABLE(hiasm_widget("hcTplEdit' && _id_ && '").get())))')
+end
+

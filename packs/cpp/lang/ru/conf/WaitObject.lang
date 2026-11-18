@@ -1,0 +1,5 @@
+Waiting for an object's state to change=Ожидание смены состояния объекта
+Timeout in ms (-1 for infinite timeout)=Время ожидания в мсек (-1 для бесконечного времени ожидания)
+Waits for an object's state to change=Ожидает смены состояния объекта
+The event occurs every time after a change in the state of an object or due to a timeout and issues a return code to the stream=Событие происходит всякий раз после смены состояния объекта либо по таймауту и выдает код возврата в поток
+Object ID=Идентификатор объекта

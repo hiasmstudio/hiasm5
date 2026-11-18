@@ -1,0 +1,150 @@
+Make(cpp)
+Add(MainForm,4844206,119,105)
+{
+ Left=20
+ Top=105
+ Width=323
+ Height=210
+ Caption="DDE_Client"
+}
+Add(DDEClient,12344087,259,259)
+{
+ ServiceName="DDE_Server"
+ TopicName="Form1"
+ Items=#5:Text1|5:Text2|
+ AutoUpdate=1
+ ServerApp="DDE_Server.exe"
+ Point(doExecute)
+ Point(onError)
+ Point(onExecute)
+ Point(doAutoUpdate)
+ link(onOpenLink,12663095:doMessage,[(302,265)(302,174)])
+ link(onCloseLink,1739619:doMessage,[(311,272)(311,216)])
+ link(onGetItem,93666:doEvent,[(303,279)(303,349)])
+ link(onError,16655346:doMessage,[(322,293)(322,258)])
+ link(onExecute,10085185:doMessage,[])
+}
+Add(Button,11312604,119,147)
+{
+ Left=30
+ Top=15
+ TabOrder=-1
+ Caption="Open"
+ link(onClick,12344087:doOpenLink,[(228,153)(228,265)])
+}
+Add(Button,4128219,119,189)
+{
+ Left=30
+ Top=40
+ TabOrder=-1
+ Caption="Close"
+ link(onClick,12344087:doCloseLink,[(219,195)(219,272)])
+}
+Add(Button,16435339,119,231)
+{
+ Left=30
+ Top=80
+ TabOrder=-1
+ Caption="Get 1"
+ Data=String(Text1)
+ link(onClick,9514449:doWork1,[(165,237)])
+}
+Add(Button,11150203,119,273)
+{
+ Left=30
+ Top=110
+ TabOrder=-1
+ Caption="Get 2"
+ Data=String(Text2)
+ link(onClick,9514449:doWork2,[])
+}
+Add(Button,10810816,119,406)
+{
+ Left=95
+ Top=80
+ TabOrder=-1
+ Caption="Put 1"
+ Data=String(Text1)
+ link(onClick,16155591:doAdd,[])
+}
+Add(Button,15309567,119,462)
+{
+ Left=95
+ Top=110
+ TabOrder=-1
+ Caption="Put 2"
+ Data=String(Text2)
+ link(onClick,10124916:doAdd,[])
+}
+Add(Edit,1939541,378,343)
+{
+ Left=170
+ Top=80
+ Width=110
+}
+Add(Edit,14198003,378,406)
+{
+ Left=170
+ Top=110
+ Width=110
+}
+Add(IndexToChanel,93666,315,343)
+{
+ Point(Index)
+ link(onEvent1,1939541:doText,[])
+ link(onEvent2,14198003:doText,[(366,356)(366,412)])
+ link(Index,12344087:ItemIndex,[(321,329)(272,329)])
+}
+Add(CheckBox,5539552,119,357)
+{
+ Left=170
+ Top=50
+ Width=110
+ TabOrder=-1
+ Checked=0
+ Caption="Auto Update"
+ link(onCheck,12344087:doAutoUpdate,[(239,363)(239,300)])
+}
+Add(MT_Add,16155591,168,406)
+{
+ link(onAdd,289436:doWork2,[])
+ link(Data,1939541:Text,[(174,390)(384,390)])
+}
+Add(MT_Add,10124916,168,462)
+{
+ link(onAdd,289436:doWork3,[(214,468)])
+ link(Data,14198003:Text,[(174,450)(384,450)])
+}
+Add(HubEx,289436,210,399)
+{
+ link(onEvent,12344087:doPutItem,[(229,412)(229,286)])
+}
+Add(Message,12663095,378,168)
+{
+ Caption="Opened"
+}
+Add(Message,1739619,378,210)
+{
+ Caption="Closed"
+}
+Add(Message,16655346,378,252)
+{
+ Caption="Error"
+}
+Add(Message,10085185,378,294)
+{
+ Caption="Executed"
+}
+Add(Button,15304288,119,315)
+{
+ Left=95
+ Top=15
+ TabOrder=-1
+ Caption="Execute"
+ Data=String(Hello, Dima !)
+ link(onClick,12344087:doExecute,[(189,321)(189,293)])
+}
+Add(HubEx,9514449,161,266)
+{
+ link(onEvent,12344087:doGetItem,[])
+}

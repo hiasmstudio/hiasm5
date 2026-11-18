@@ -1,0 +1,4 @@
+Enumeration of COM ports=Перечисление COM-портов
+Number - outputs the port number to the stream, Name - outputs the port name to the stream=Number - выдает в поток номер порта, Name - выдает в поток имя порта
+Starts listing free COM ports on the system=Начинает перечисление свободных COM-портов в системе
+The event occurs every time when a free COM port is found in the system (see OutType) ARG(Port)=Событие происходит вский раз, когда в системе найден свободный COM порт (см. OutType) ARG(Port)

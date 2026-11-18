@@ -1,0 +1,9 @@
+ProgressBar on taskbar icons=ProgressBar на значках в панели задач
+Sets the maximum value of the progress amount=Задает максимальное значение величины прогресса
+Enables display mode with normal style=Включает режим отображения c нормальным стилем
+Turns off any style display mode=Выключает режим отображения любого стиля
+Sets the progress position=Устанавливает позицию прогресса
+Includes running progress style=Включает стиль бегущего прогресса
+Includes style with red progress=Включает стиль с красным прогрессом
+Includes style with yellow progress=Включает стиль с желтым прогрессом
+Contains the current progress position=Содержит текущую позицию прогресса

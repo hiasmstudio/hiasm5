@@ -1,0 +1,252 @@
+*Пример создания материалов
+Pos(0,0)
+Add(MainForm,15261923,35,70)
+{
+ Left=20
+ Top=105
+ Width=581
+ Height=580
+ Font=[MS Sans Serif,8,0,0,1]
+ Point(MouseX)
+ Point(MouseY)
+ link(onResize,547163:doWork1,[(186,104)])
+ link(onCreate,16299401:doEvent1,[(97,111)(97,174)])
+}
+Add(GL_Main,12986311,210,168)
+{
+ Color=0
+ link(onInit,14782293:doEnabled,[])
+ link(onViewPort,3410847:doPerspective,[(251,181)(251,223)])
+ link(Handle,15261923:Handle,[(216,134)(41,134)])
+}
+Add(Timer,9506849,63,266)
+{
+ Interval=33
+ Enable=1
+ link(onTimer,1049454:doEvent1,[])
+}
+Add(GL_GTools,771925,175,266)
+{
+ Point(doClear)
+ Point(doPushMatrix)
+ Point(doPopMatrix)
+}
+Add(GL_Light,6505538,434,168)
+{
+ link(onEnabled,6505538:doMove,[(476,174)(476,158)(424,158)(424,181)])
+ link(Point,7772462:Point3D,[])
+}
+Add(Hub,1049454,112,266)
+{
+ OutCount=5
+ link(onEvent1,771925:doClear,[])
+ link(onEvent2,771925:doPushMatrix,[])
+ link(onEvent3,16629135:doTranslate,[])
+ link(onEvent4,771925:doPopMatrix,[(167,293)(167,286)])
+ link(onEvent5,12986311:doFlip,[(161,300)(161,188)])
+}
+Add(Hub,16299401,105,168)
+{
+ OutCount=3
+ link(onEvent1,12986311:doInit,[])
+ link(onEvent2,547163:doWork2,[])
+ link(onEvent3,9506849:doTimer,[(147,188)(147,233)(53,233)(53,272)])
+}
+Add(GL_Point3D,7772462,434,112)
+{
+ Y=10
+ Z=20
+}
+Add(GL_Perspective,3410847,260,217)
+{
+ Fovy=40
+}
+Add(GL_Sphere,8507053,336,280)
+{
+ Radius=0.5
+ Slices=30
+ link(onDraw,16152719:doTranslate,[])
+}
+Add(GL_GluTools,4593655,364,168)
+{
+ link(onInit,6505538:doEnabled,[])
+}
+Add(HubEx,547163,182,168)
+{
+ link(onEvent,12986311:doViewPort,[])
+}
+Add(Gl_Translate,16629135,238,280)
+{
+ X=-2
+ Y=2
+ link(onTranslate,12007207:doSet,[])
+}
+Add(GL_Sphere,2644451,511,280)
+{
+ Radius=0.5
+ Slices=30
+ Stacks=30
+ link(onDraw,15327737:doTranslate,[])
+}
+Add(Gl_Translate,16152719,413,280)
+{
+ X=2
+ link(onTranslate,1210077:doSet,[])
+}
+Add(GL_Material,1210077,462,280)
+{
+ Diffuse=8388608
+ Specular=12632256
+ link(onSet,2644451:doDraw,[])
+}
+Add(GL_Material,12007207,287,280)
+{
+ Diffuse=8388608
+ link(onSet,8507053:doDraw,[])
+}
+Add(GL_Sphere,1045615,681,280)
+{
+ Radius=0.5
+ Slices=30
+ Stacks=30
+ link(onDraw,11889454:doTranslate,[(723,286)(723,334)(573,334)(573,363)])
+}
+Add(Gl_Translate,15327737,583,280)
+{
+ X=2
+ link(onTranslate,6372705:doSet,[])
+}
+Add(GL_Material,6372705,632,280)
+{
+ Diffuse=8388608
+ Specular=12632256
+ Shininess=120
+ link(onSet,1045615:doDraw,[])
+}
+Add(GL_Sphere,1797354,681,357)
+{
+ Radius=0.5
+ Slices=30
+ Stacks=30
+ link(onDraw,15472308:doTranslate,[(723,363)(723,347)(402,347)(402,363)])
+}
+Add(Gl_Translate,11889454,583,357)
+{
+ Y=-2
+ link(onTranslate,11994468:doSet,[])
+}
+Add(GL_Material,11994468,632,357)
+{
+ Diffuse=8388608
+ Specular=12632256
+ Emission=8388608
+ Shininess=5
+ link(onSet,1797354:doDraw,[])
+}
+Add(GL_Sphere,14337766,510,357)
+{
+ Radius=0.5
+ Slices=30
+ Stacks=30
+ link(onDraw,11315832:doTranslate,[(552,363)(552,403)(227,403)(227,363)])
+}
+Add(Gl_Translate,15472308,412,357)
+{
+ X=-2
+ link(onTranslate,8281868:doSet,[])
+}
+Add(GL_Material,8281868,461,357)
+{
+ Diffuse=8388608
+ Specular=4934475
+ Emission=8388608
+ link(onSet,14337766:doDraw,[])
+}
+Add(GL_Sphere,11777899,337,357)
+{
+ Radius=0.5
+ Slices=30
+ link(onDraw,13027562:doTranslate,[(379,363)(379,415)(229,415)(229,447)])
+}
+Add(Gl_Translate,11315832,239,357)
+{
+ X=-2
+ link(onTranslate,5199807:doSet,[])
+}
+Add(GL_Material,5199807,288,357)
+{
+ Ambient=65535
+ Diffuse=8388608
+ link(onSet,11777899:doDraw,[])
+}
+Add(GL_Sphere,3436598,337,441)
+{
+ Radius=0.5
+ Slices=30
+ link(onDraw,6777366:doTranslate,[])
+}
+Add(Gl_Translate,13027562,239,441)
+{
+ Y=-2
+ link(onTranslate,15363172:doSet,[])
+}
+Add(GL_Material,15363172,288,441)
+{
+ Ambient=16777215
+ Diffuse=8388608
+ link(onSet,3436598:doDraw,[])
+}
+Add(GL_Sphere,4060553,510,441)
+{
+ Radius=0.5
+ Slices=30
+ Stacks=30
+ link(onDraw,185293:doTranslate,[])
+}
+Add(Gl_Translate,6777366,412,441)
+{
+ X=2
+ link(onTranslate,189181:doSet,[])
+}
+Add(GL_Material,189181,461,441)
+{
+ Diffuse=8388608
+ Specular=8388608
+ link(onSet,4060553:doDraw,[])
+}
+Add(GL_Sphere,248373,681,441)
+{
+ Radius=0.5
+ Slices=30
+ Stacks=30
+}
+Add(Gl_Translate,185293,583,441)
+{
+ X=2
+ link(onTranslate,14331738:doSet,[])
+}
+Add(GL_Material,14331738,632,441)
+{
+ Diffuse=8388608
+ Specular=8388608
+ Shininess=20
+ link(onSet,248373:doDraw,[])
+}
+Add(GL_Options,14782293,259,168)
+{
+ link(onEvent,5301287:doEnabled,[])
+}
+Add(GL_Options,5301287,315,168)
+{
+ Flag=2
+ link(onEvent,4593655:doInit,[])
+}
+Add(InfoTip,7166267,168,35)
+{
+ Info='Материалы в OpenGL'
+ Font=[MS Sans Serif,18,1,0,1]
+ Frame=1
+ Transparent=1
+ Width=288
+ Height=25
+}

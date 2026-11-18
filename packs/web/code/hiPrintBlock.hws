@@ -1,0 +1,12 @@
+func doPrint(_data):java,html
+  if(isset(Name))
+    fvar(old)
+    old = block.select(Name)
+    trace(block.astext())
+    block.select(old)
+  else
+    trace(block.astext())
+  end 
+  event(onPrint)
+end
+

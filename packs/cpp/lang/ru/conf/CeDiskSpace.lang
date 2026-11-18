@@ -1,0 +1,9 @@
+Disk space information=Информация о дисковом пространстве
+Default folder defining the storage device=Папка по-умолчанию, определяющая устройство хранения
+Dimension in which the value is returned=Размерность, в которой возвращается значение
+Contains the volume of the storage device defined in Dir; if empty (non-existent), returns the storage volume=Содержит объем устройства хранения, определенного в Dir, при пустом (несуществующем) значении возвращает объем хранилища
+Contains the free space of the storage device defined in Dir=Содержит свободное место устройства хранения, определенного в Dir
+Contains the free space of the storage device defined in Dir and available to the calling function=Содержит свободное место устройства хранения, определенного в Dir и доступное вызывающей функции
+Contains the storage size=Содержит объем хранилища
+Contains free storage space=Содержит свободное место в хранилище
+Folder defining the storage device=Папка, определяющая устройство хранения

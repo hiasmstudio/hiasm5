@@ -1,0 +1,280 @@
+*Пример построения круговой диаграммы элементом  GL_PartialDisk #13#10- - - - - - -#13#10автор: sla8a
+Make(cpp)
+Add(MainForm,15340401,28,42)
+{
+ Width=427
+ Height=448
+ Caption="Diagram 3D"
+ Position=1
+ Point(Handle)
+ link(onCreate,5558289:doEvent1,[])
+}
+Add(GL_Perspective,2,182,119)
+{
+ Fovy=35
+ zFar=100
+ link(onPerspective,8988601:doBeginList,[(222,125)(222,188)])
+}
+Add(GL_Main,3,133,56)
+{
+ Color=15780518
+ link(onInit,4:doInit,[])
+ link(onViewPort,2:doPerspective,[(173,69)(173,125)])
+ link(Handle,15340401:Handle,[(139,34)(19,34)(19,86)(34,86)])
+}
+Add(Timer,5,42,119)
+{
+ Interval=33
+ Enable=1
+ link(onTimer,7:doEvent1,[])
+}
+Add(GL_GTools,6,133,119)
+{
+ Point(doClear)
+ Point(doPushMatrix)
+ Point(doPopMatrix)
+}
+Add(Hub,7,84,119)
+{
+ OutCount=5
+ link(onEvent1,6:doClear,[])
+ link(onEvent2,6:doPushMatrix,[])
+ link(onEvent3,9113718:doRotate,[(108,139)(108,545)])
+ link(onEvent4,3:doFlip,[(114,146)(114,76)])
+ link(onEvent5,6:doPopMatrix,[(124,153)(124,139)])
+}
+Add(Hub,5558289,70,56)
+{
+ OutCount=3
+ link(onEvent1,3:doInit,[])
+ link(onEvent2,3:doViewPort,[])
+ link(onEvent3,5:doTimer,[(92,76)(92,108)(30,108)(30,125)])
+}
+Add(GL_GluTools,4,182,56)
+{
+ Texture=0
+ link(onInit,26:doEnabled,[])
+}
+Add(GL_Light,26,231,56)
+{
+ Ambient=8421504
+ Diffuse=15793151
+ link(onEnabled,26:doMove,[(270,62)(270,97)(226,97)(226,69)])
+ link(onMove,14322260:doEnabled,[])
+ link(Point,9644193:Point3D,[])
+}
+Add(GL_Options,14322260,280,63)
+{
+ link(onEvent,14251063:doEnabled,[])
+}
+Add(GL_Options,14251063,322,63)
+{
+ Flag=1
+ link(onEvent,614504:doEnabled,[])
+}
+Add(GL_Options,614504,364,63)
+{
+ Flag=2
+ link(onEvent,12407500:doEnabled,[])
+}
+Add(GL_Point3D,9644193,231,14)
+{
+ Y=1
+ Z=-2
+}
+Add(GL_Rotate,16196306,217,539)
+{
+ Z=1
+ link(onRotate,3197625:doEnabled,[])
+}
+Add(GL_Rotate,9113718,133,539)
+{
+ Angle=-55
+ X=1
+ link(onRotate,14564239:doNext,[])
+}
+Add(GL_Options,12407500,406,63)
+{
+ Flag=8
+ link(onEvent,11113631:doTexEnv,[])
+}
+Add(GL_Cylinder,2895704,343,539)
+{
+ BaseRadius=1.5
+ TopRadius=1.5
+ Height=0.3
+ Slices=40
+ Stacks=2
+ link(onDraw,6183533:doDisabled,[(383,545)(383,552)])
+}
+Add(GL_Options,3197625,259,539)
+{
+ Flag=10
+ link(onEvent,12728831:doDraw,[])
+}
+Add(GL_Options,6183533,392,539)
+{
+ Flag=10
+ link(onEvent,2691859:doTranslate,[])
+}
+Add(Bitmap,6096033,616,49)
+{
+ HWidth=256
+ HHeight=256
+ Point(doCreate)
+}
+Add(GL_GenTextures,12939820,399,189)
+{
+ Index=1
+ link(Bitmap,6171322:Var1,[(405,173)])
+ link(onGenTextures,6096033:doClear,[(488,195)(488,62)])
+}
+Add(StrList,11461101,287,126)
+{
+ @Hint=#16:Список секторов:|32:цвет=процент занимаемый сектором|
+ Strings=#11:16711680=24|6:255=10|10:4227072=36|8:65535=30|
+ AddHint(-121,106,191,26,@Hint)
+}
+Add(Img_Rectangle,843201,616,322)
+{
+ Style=1
+ Point(BgColor)
+ Point(Point1)
+ Point(Point2)
+ link(onDraw,15272553:doValue,[(674,328)(674,237)])
+ link(Bitmap,6171322:Var2,[])
+ link(Color,13494575:Var2,[])
+ link(BgColor,13494575:Var3,[(636,271)])
+ link(Point1,6557064:Point,[])
+ link(Point2,16709330:Point,[(650,312)(692,312)])
+}
+Add(ArrayEnum,15791049,301,182)
+{
+ link(onItem,10152765:doSplit,[])
+ link(onEndEnum,5455227:doEndList,[])
+ link(Array,11461101:Array,[])
+}
+Add(MathParse,6594185,644,182)
+{
+ DataCount=1
+ MathStr="%0-256/100*%1"
+ Default=256
+ link(onResult,15469003:doColor,[(732,188)(732,414)(394,414)(394,328)])
+}
+Add(StrPart,10152765,497,182)
+{
+ Char="="
+ Point(Left)
+ Point(Right)
+ link(onSplit,6594185:doCalc,[])
+}
+Add(PointXY,6557064,637,273)
+{
+ link(Y,13505771:Var2,[])
+}
+Add(PointXY,16709330,686,273)
+{
+ X=256
+ link(Y,15272553:Value,[])
+}
+Add(Memory,15272553,693,231)
+{
+ Default=Integer(256)
+ Point(Data)
+ link(Data,13505771:Var3,[(699,222)])
+}
+Add(GetDataEx,13494575,623,266)
+{
+ Angle=3
+ link(Data,13487493:Var3,[])
+}
+Add(MathParse,3112636,476,322)
+{
+ @Hint=#14:вычисляет угол|22:распостронения сектора|
+ DataCount=1
+ MathStr="360/100*%1"
+ link(onResult,15081152:doDraw,[])
+ link(X1,15434604:Var1,[(482,278)])
+ AddHint(-70,56,127,26,@Hint)
+}
+Add(MathParse,13484481,574,322)
+{
+ @Hint=#14:вычисляет угол|14:начала сектора|
+ DataCount=1
+ MathStr="%0+360/100*%1"
+ link(onResult,843201:doDraw,[])
+ link(X1,15434604:Var3,[(580,278)])
+ AddHint(-18,54,94,26,@Hint)
+}
+Add(GetDataEx,13487493,497,266)
+{
+ link(Data,10152765:Left,[])
+}
+Add(Gl_Translate,2691859,434,539)
+{
+ Z=0.3
+ link(onTranslate,677836:doCallList,[])
+}
+Add(GetDataEx,15434604,504,273)
+{
+ link(Data,10152765:Right,[])
+}
+Add(Counter,14564239,175,539)
+{
+ Max=360
+ link(onNext,16196306:doRotate,[])
+}
+Add(GL_TexEnvMode,11113631,448,63)
+{
+ link(onTexEnv,6096033:doCreate,[])
+}
+Add(GetDataEx,6171322,616,168)
+{
+ link(Data,6096033:Bitmap,[])
+}
+Add(GetDataEx,13505771,644,217)
+{
+ link(Data,6594185:Result,[])
+}
+Add(GL_Cylinder,12728831,301,539)
+{
+ BaseRadius=0.5
+ TopRadius=0.5
+ Height=0.3
+ Slices=20
+ Stacks=2
+ link(onDraw,2895704:doDraw,[])
+}
+Add(Gl_BeginList,8988601,238,182)
+{
+ Index=2
+ link(onBiginList,15791049:doEnum,[])
+ AddHint(0,-27,21,13,Index)
+}
+Add(GL_CallList,677836,476,539)
+{
+ Index=2
+ AddHint(5,-23,21,13,Index)
+}
+Add(Gl_EndList,5455227,357,189)
+{
+ link(onEndList,12939820:doGenTextures,[])
+}
+Add(GL_PartialDisk,15081152,525,322)
+{
+ InRadius=0.49
+ Slices=30
+ Stacks=30
+ SweepAngle=45
+ Point(SweepAngle)
+ Point(StartAngle)
+ link(onDraw,13484481:doCalc,[])
+ link(SweepAngle,3112636:Result,[(545,310)(517,310)(517,364)(482,364)])
+ link(StartAngle,13484481:Result,[(552,310)(566,310)(566,364)(580,364)])
+}
+Add(GL_Color,15469003,427,322)
+{
+ Color=128
+ link(onColor,3112636:doCalc,[])
+ link(Color,13487493:Var1,[(433,271)])
+}

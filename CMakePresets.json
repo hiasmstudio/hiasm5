@@ -1,0 +1,157 @@
+{
+    "version": 6,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 21,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "windows-mingw-debug",
+            "displayName": "Windows UCRT64 x64 Debug",
+            "description": "Debug build with MSYS2 UCRT64 (GTK3/gtkmm3, Ninja)",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/Windows_MinGW-x64-Debug",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "HIASM_GTK_VERSION": "3",
+                "CMAKE_CXX_COMPILER": "C:/msys64/ucrt64/bin/g++.exe",
+                "CMAKE_MAKE_PROGRAM": "C:/msys64/ucrt64/bin/ninja.exe",
+                "PKG_CONFIG_EXECUTABLE": "C:/msys64/ucrt64/bin/pkg-config.exe",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+            },
+            "environment": {
+                "PATH": "C:/msys64/ucrt64/bin;C:/msys64/usr/bin;$penv{PATH}"
+            },
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            }
+        },
+        {
+            "name": "windows-mingw-release",
+            "displayName": "Windows UCRT64 x64 Release",
+            "description": "Release build with MSYS2 UCRT64 (GTK3/gtkmm3, Ninja)",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/Windows_MinGW-x64-Release",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "HIASM_GTK_VERSION": "3",
+                "CMAKE_CXX_COMPILER": "C:/msys64/ucrt64/bin/g++.exe",
+                "CMAKE_MAKE_PROGRAM": "C:/msys64/ucrt64/bin/ninja.exe",
+                "PKG_CONFIG_EXECUTABLE": "C:/msys64/ucrt64/bin/pkg-config.exe",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+            },
+            "environment": {
+                "PATH": "C:/msys64/ucrt64/bin;C:/msys64/usr/bin;$penv{PATH}"
+            },
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            }
+        },
+        {
+            "name": "windows-mingw-gtk4-debug",
+            "displayName": "Windows UCRT64 x64 GTK4 Debug",
+            "description": "Debug build with MSYS2 UCRT64 (GTK4/gtkmm4, Ninja)",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/Windows_MinGW-x64-GTK4-Debug",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_CXX_COMPILER": "C:/msys64/ucrt64/bin/g++.exe",
+                "CMAKE_MAKE_PROGRAM": "C:/msys64/ucrt64/bin/ninja.exe",
+                "PKG_CONFIG_EXECUTABLE": "C:/msys64/ucrt64/bin/pkg-config.exe",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+                "HIASM_GTK_VERSION": "4"
+            },
+            "environment": {
+                "PATH": "C:/msys64/ucrt64/bin;C:/msys64/usr/bin;$penv{PATH}"
+            },
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            }
+        },
+        {
+            "name": "windows-mingw-gtk4-release",
+            "displayName": "Windows UCRT64 x64 GTK4 Release",
+            "description": "Release build with MSYS2 UCRT64 (GTK4/gtkmm4, Ninja)",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/Windows_MinGW-x64-GTK4-Release",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_CXX_COMPILER": "C:/msys64/ucrt64/bin/g++.exe",
+                "CMAKE_MAKE_PROGRAM": "C:/msys64/ucrt64/bin/ninja.exe",
+                "PKG_CONFIG_EXECUTABLE": "C:/msys64/ucrt64/bin/pkg-config.exe",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+                "HIASM_GTK_VERSION": "4"
+            },
+            "environment": {
+                "PATH": "C:/msys64/ucrt64/bin;C:/msys64/usr/bin;$penv{PATH}"
+            },
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "windows-mingw-debug",
+            "displayName": "Windows UCRT64 x64 Debug",
+            "configurePreset": "windows-mingw-debug",
+            "environment": {
+                "PATH": "C:/msys64/ucrt64/bin;C:/msys64/usr/bin;$penv{PATH}"
+            },
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            }
+        },
+        {
+            "name": "windows-mingw-release",
+            "displayName": "Windows UCRT64 x64 Release",
+            "configurePreset": "windows-mingw-release",
+            "environment": {
+                "PATH": "C:/msys64/ucrt64/bin;C:/msys64/usr/bin;$penv{PATH}"
+            },
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            }
+        },
+        {
+            "name": "windows-mingw-gtk4-debug",
+            "displayName": "Windows UCRT64 x64 GTK4 Debug",
+            "configurePreset": "windows-mingw-gtk4-debug",
+            "environment": {
+                "PATH": "C:/msys64/ucrt64/bin;C:/msys64/usr/bin;$penv{PATH}"
+            },
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            }
+        },
+        {
+            "name": "windows-mingw-gtk4-release",
+            "displayName": "Windows UCRT64 x64 GTK4 Release",
+            "configurePreset": "windows-mingw-gtk4-release",
+            "environment": {
+                "PATH": "C:/msys64/ucrt64/bin;C:/msys64/usr/bin;$penv{PATH}"
+            },
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            }
+        }
+    ]
+}
+

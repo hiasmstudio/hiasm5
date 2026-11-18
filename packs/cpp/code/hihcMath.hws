@@ -1,0 +1,59 @@
+func Expr()
+  fvar(op)
+  switch(OpType)
+    case 0: op = ' + '
+    case 1: op = ' - '
+    case 2: op = ' * '
+    case 3: op = ' / '
+    case 4: op = ' & '
+    case 5: op = ' | '
+    case 6: op = ' ^ '
+    case 7: op = ' / '
+    case 8: op = ' % '
+    case 9: op = ' << '
+    case 10: op = ' >> '
+    case 11: return('std::pow(' && Op1 && ', ' && Op2 && ')')
+    case 12: return('std::cos(' && Op1 && ')')
+    case 13: return('std::sin(' && Op1 && ')')
+    case 14: return('std::tan(' && Op1 && ')')
+    case 15: return('(1.0 / std::tan(' && Op1 && '))')
+    case 16: return('std::acos(' && Op1 && ')')
+    case 17: return('std::asin(' && Op1 && ')')
+    case 18: return('std::atan(' && Op1 && ')')
+    case 19: return('std::cosh(' && Op1 && ')')
+    case 20: return('std::sinh(' && Op1 && ')')
+    case 21: return('std::tanh(' && Op1 && ')')
+    case 24: return('std::log(' && Op1 && ')')
+    case 25: return('std::log10(' && Op1 && ')')
+    case 26: return('std::log(' && Op1 && ')')
+    case 27: return('std::exp(' && Op1 && ')')
+    case 28: return('((' && Op1 && ') * (' && Op1 && '))')
+    case 29: return('std::sqrt(' && Op1 && ')')
+    case 30: return('std::fabs(' && Op1 && ')')
+    case 33: return('std::round(' && Op1 && ')')
+    case 34: return('((' && Op1 && ') - std::trunc(' && Op1 && '))')
+    case 35: return('std::trunc(' && Op1 && ')')
+    case 36: return('std::min(' && Op1 && ', ' && Op2 && ')')
+    case 37: return('std::max(' && Op1 && ', ' && Op2 && ')')
+    default: op = ' + '
+  end
+  return('((' && Op1 && ')' && op && '(' && Op2 && '))')
+end
+
+func doOperation(_data)
+  println('auto hiasm_result', _id_, ' = ', Expr(), ';')
+  event(onResult, 'hiasm_result' && _id_)
+end
+
+func doClear(_data)
+  println('auto hiasm_result', _id_, ' = ', d('Default'), ';')
+  event(onResult, 'hiasm_result' && _id_)
+end
+
+func Result()
+  if(linked('doOperation') or linked('doClear'))
+    return('hiasm_result' && _id_)
+  else
+    return(d('Default'))
+  end
+end

@@ -1,0 +1,4 @@
+Begin point block=Начало блока вершин
+Type of primitives defined by vertices=Тип примитивов, заданных вершинами
+Initializes a list of vertices=Инициализирует список вершин
+The event occurs after the list of vertices is initialized=Событие происходит после инициализации списка вершин

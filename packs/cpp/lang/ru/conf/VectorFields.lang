@@ -1,0 +1,7 @@
+Vector fields=Векторные поля
+Vector field type=Тип векторного поля
+Field length=Длинна поля
+Field width=Ширина поля
+Vector field calculation=Расчет векторного поля
+The event occurs every time after a vector field is calculated and outputs the corresponding image to the ARG(Bitmap) stream=Событие происходит всякий раз после расчета векторного поля и выдает соответствующее ему изображение в поток ARG(Bitmap)
+Contains the current vector field image=Содержит текущее изображение векторного поля

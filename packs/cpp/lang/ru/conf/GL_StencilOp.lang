@@ -1,0 +1,6 @@
+Stencil Buffer Operations=Операции над буфером трафарета
+Action to take if the test function fails=Действие, которое необходимо выполнить в случае неудачного срабатывания функции теста
+Action to take when a buffer's stencil test function succeeds but the depth test condition fails=Действие, которое необходимо выполнить, когда функция теста стенсил (stencil test) буфера сработала успешно, но условие теста глубины (depth test) не было выполнено
+Action to take if one of the previous conditions succeeds=Действие, которое необходимо выполнить в случае успеха выполнения одного из предыдущих условий
+Performs a stencil buffer test=Выполняет тест буфера трафарета
+The event occurs whenever a stencil buffer test is executed=Событие происходит всякий раз после выполнения теста буфера трафарета

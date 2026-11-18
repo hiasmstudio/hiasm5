@@ -1,0 +1,183 @@
+*Chapter 7: Использование таблицы для выравнивания формы
+Make(web)
+Add(InfoTip,9564197,7,308)
+{
+ Info=#6:Важно!|
+ Font=[MS Sans Serif,12,1,255,1]
+ Transparent=1
+ Width=323
+ Height=123
+}
+Add(InfoTip,5292217,14,329)
+{
+ Info=#351:  Элементы формы могут распологаться в любом месте HTML приложения и чередоваться с выводом любых других тегов. Единственное условие правильной работы формы это вставка элементов внутри нее, т.е. после точки onPrint. При любых других расположениях элементы не будут считаться принадлежащими к данной форме и информация, введенная в них будет потерена.|
+ Frame=1
+ HAlign=0
+ Width=309
+ Height=102
+}
+Add(HtmlEntryPoint,16563582,21,105)
+{
+ link(onStart,8284333:doPrint,[])
+}
+Add(HTM_Html,8284333,77,105)
+{
+ link(onPrint,6847978:doEvent,[])
+}
+Add(Hub,6847978,133,105)
+{
+ link(onEvent1,2288322:doPrint,[])
+ link(onEvent2,763948:doPrint,[(177,118)(177,209)])
+}
+Add(HTM_Head,2288322,189,105)
+{
+ link(onPrint,13151932:doEvent,[])
+}
+Add(HTM_Body,763948,189,203)
+{
+ link(onPrint,4749107:doPrint,[])
+}
+Add(HTM_Title,10304836,301,105)
+{
+ link(onPrint,3973328:doPrint,[])
+}
+Add(VisualText,3973328,357,105)
+{
+ Lines=#55:Chapter 7: Использование таблицы для выравнивания формы|
+ Width=326
+ Point(doPrint)
+}
+Add(VisualText,13714669,301,203)
+{
+ Lines=#103:В данном примере показано, каким образом можно упорядочить элементы формы с использованием HTML таблицы|
+ Width=382
+ Height=32
+ Point(doPrint)
+}
+Add(CSS,208528,357,154)
+{
+ Tag="table"
+ BorderColor="gray"
+ BorderWidth="1px"
+ BorderStyle=3
+ BgColor="silver"
+ link(onPrint,6191608:doPrint,[])
+}
+Add(CSS,6191608,413,154)
+{
+ Tag="tr"
+ BgColor="#dddddd"
+}
+Add(HTM_Style,8768063,301,154)
+{
+ link(onPrint,208528:doPrint,[])
+}
+Add(HTM_Span,4749107,245,203)
+{
+ Class="text"
+ link(onPrint,13714669:doPrint,[])
+ link(onAfterPrint,11509907:doPrint,[(287,216)(287,247)(179,247)(179,265)])
+}
+Add(Hub,13151932,245,105)
+{
+ link(onEvent1,10304836:doPrint,[])
+ link(onEvent2,8768063:doPrint,[(289,118)(289,160)])
+}
+Add(HTM_Form,11509907,189,259)
+{
+ Method=1
+ Action="Chapter_7.html"
+ link(onPrint,5499291:doPrint,[])
+}
+Add(HTM_Edit,13808929,525,308)
+{
+ Name="memo1"
+}
+Add(HTM_Submit,9796973,525,504)
+{
+ Value="Отправить"
+}
+Add(HTM_Td,16261266,469,504)
+{
+ link(onPrint,9796973:doPrint,[])
+}
+Add(HTM_Table,5499291,245,259)
+{
+ link(onPrint,13430455:doEvent,[])
+}
+Add(Hub,13430455,301,259)
+{
+ OutCount=3
+ link(onEvent1,3824523:doPrint,[])
+ link(onEvent2,5370563:doPrint,[(345,272)(345,363)])
+ link(onEvent3,2724907:doPrint,[(345,279)(345,461)])
+}
+Add(HTM_Tr,3824523,357,259)
+{
+ link(onPrint,12582895:doEvent,[])
+}
+Add(HTM_Td,12463104,469,259)
+{
+ link(onPrint,15432651:doPrint,[])
+}
+Add(Hub,12582895,413,259)
+{
+ link(onEvent1,12463104:doPrint,[])
+ link(onEvent2,7537292:doPrint,[(457,272)(457,314)])
+}
+Add(VisualText,15432651,525,259)
+{
+ Lines=#15:Первый параметр|
+ Width=109
+ Point(doPrint)
+}
+Add(HTM_Edit,9138203,525,406)
+{
+ Name="memo2"
+}
+Add(HTM_Tr,5370563,357,357)
+{
+ link(onPrint,9232807:doEvent,[])
+}
+Add(HTM_Td,9601387,469,357)
+{
+ link(onPrint,8160666:doPrint,[])
+}
+Add(Hub,9232807,413,357)
+{
+ link(onEvent1,9601387:doPrint,[])
+ link(onEvent2,4990764:doPrint,[(457,370)(457,412)])
+}
+Add(VisualText,8160666,525,357)
+{
+ Lines=#15:Второй параметр|
+ Width=109
+ Point(doPrint)
+}
+Add(VisualText,3900649,525,455)
+{
+ Lines=#15:Кнопка отправки|
+ Width=109
+ Point(doPrint)
+}
+Add(HTM_Tr,2724907,357,455)
+{
+ link(onPrint,4175043:doEvent,[])
+}
+Add(HTM_Td,937689,469,455)
+{
+ link(onPrint,3900649:doPrint,[])
+}
+Add(Hub,4175043,413,455)
+{
+ link(onEvent1,937689:doPrint,[])
+ link(onEvent2,16261266:doPrint,[(457,468)(457,510)])
+}
+Add(HTM_Td,7537292,469,308)
+{
+ link(onPrint,13808929:doPrint,[])
+}
+Add(HTM_Td,4990764,469,406)
+{
+ link(onPrint,9138203:doPrint,[])
+}

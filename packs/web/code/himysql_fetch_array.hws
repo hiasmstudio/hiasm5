@@ -1,0 +1,9 @@
+func doFetchArray(_data)
+  println(f, ' = mysql_fetch_assoc(', Query, ');')
+  event(onFetchArray, f)
+end
+
+func Result()
+  return(f)
+end
+

@@ -1,0 +1,112 @@
+Pos(0,0)
+Add(MainForm,93172,20,105)
+{
+ Left=389
+ Top=320
+ Width=246
+ Height=129
+ Font=[MS Sans Serif,8,0,0,1]
+}
+Add(InfoTip,12111,70,329)
+{
+ Info='Разница между компонентами, выполняемыми в потоке и в главном процессе очевидна: в первом случае, нажав на кнопку вы по прежнему можете работать с формой. Во втором же случае, пока не отыграет вся мелодия вы не сможете получить доступ к форме и её элементам.'
+ Font=[Times New Roman,10,2,255,1]
+ Transparent=1
+ Width=449
+ Height=67
+}
+Add(InfoTip,32257,147,14)
+{
+ Info='Потоки. Основы параллельного конструирования в HiAsm.'
+ Font=[Times New Roman,12,1,0,1]
+ Width=274
+ Height=39
+}
+Add(Button,18522,112,126)
+{
+ Left=30
+ Top=25
+ Font=[MS Sans Serif,8,0,0,1]
+ Caption="Start"
+ link(onClick,2883:doStart,[])
+}
+Add(Label,49732,84,77)
+{
+ Left=5
+ Top=5
+ Font=[MS Sans Serif,8,0,0,1]
+ Caption="thread"
+}
+Add(InfoTip,3149,238,77)
+{
+ Info='Все элементы, идущие после события onExec компонента Thread выполняются в отдельном потоке'
+ Font=[Times New Roman,9,0,0,1]
+ Width=225
+ Height=95
+}
+Add(For,62875,287,126)
+{
+ Start=5
+ End=20
+ link(onEvent,68874:doOperation,[])
+}
+Add(Thread,2883,182,126)
+{
+ Delay=0
+ FastStop=0
+ @Hint='Запуск нового потока'
+ link(onExec,62875:doFor,[])
+}
+Add(Beep,21504,385,126)
+{
+ Freq=0
+ Duration=100
+}
+Add(Button,83519,112,252)
+{
+ Left=30
+ Top=75
+ Font=[MS Sans Serif,8,0,0,1]
+ Caption="Start"
+ link(onClick,50944:doFor,[])
+}
+Add(Beep,85930,385,252)
+{
+ Freq=0
+ Duration=100
+}
+Add(Math,40444,336,252)
+{
+ OpType=2
+ Op2=100
+ ResultType=0
+ link(onResult,85930:doBeep,[])
+}
+Add(For,50944,287,252)
+{
+ Start=5
+ End=20
+ link(onEvent,40444:doOperation,[])
+}
+Add(InfoTip,2693,238,203)
+{
+ Info='А тут все элементы, выполняются в главном процессе.'
+ Font=[Times New Roman,9,0,0,1]
+ Width=225
+ Height=95
+}
+Add(Label,43901,84,203)
+{
+ Left=5
+ Top=50
+ Width=125
+ Font=[MS Sans Serif,8,0,0,1]
+ Caption="main process"
+}
+Add(Math,68874,336,126)
+{
+ OpType=2
+ Op2=100
+ ResultType=0
+ link(onResult,21504:doBeep,[])
+}

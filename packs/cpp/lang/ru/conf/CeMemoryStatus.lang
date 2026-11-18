@@ -1,0 +1,9 @@
+Returns information about the device's RAM and virtual memory=Возвращает информацию об оперативной и виртуальной памяти устройства
+Dimension of the returned result=Размерность возвращаемого результата
+Updates memory status information=Обновляет информацию о состояние памяти
+The event occurs every time the device memory information is updated=Событие происходит всякий раз после обновления информации о памяти устройства
+RAM capacity=Объём оперативной памяти
+Free amount of RAM=Свободный объём оперативной памяти
+Virtual memory size=Объём виртуальной памяти
+Free virtual memory=Свободный объём виртуальной памяти
+Memory usage percentage=Процент использования памяти

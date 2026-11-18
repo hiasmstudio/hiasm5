@@ -1,0 +1,8 @@
+Checking whether a point is in a rectangle=Проверка нахождения точки в прямоугольнике
+Count the coordinates of the second point relative to the first (i.e. the second point is the length and height of the figure)=Отсчитывать координаты второй точки относительно первой (т.е. вторая точка это длина и высота фигуры)
+Checks whether a point is inside a rectangle=Проверяет нахождение точки внутри прямоугольника
+The event occurs whenever a point is found inside the rectangle=Событие происходит всякий раз при нахождении точки внутри прямоугольника
+The event occurs whenever a point does not fall inside the rectangle=Событие происходит всякий раз при непопадании точки внутрь прямоугольника
+Point (X,Y)=Точка (X,Y)
+Coordinates of the upper left corner of the rectangle=Координаты верхнего левого угла прямоугольника
+Coordinates of the lower right corner of the rectangle=Координаты нижнего правого угла прямоугольника

@@ -1,0 +1,11 @@
+Arc=Дуга
+Default coordinates of the start of the arc (first radius)=Координаты начала дуги (первого радиуса) по-умолчанию
+Default arc end (second radius) coordinates=Координаты конца дуги (второго радиуса) по умолчанию
+Count the coordinates of the fourth point relative to the third=Отсчитывать координаты четвертой точки относительно третьей
+Shape drawing mode=Режим отрисовки фигуры
+Drawing direction=Направление рисования
+Defines the default color of the edge (outer border) of the arc (sector)=Определяет цвет кромки (внешней границы) дуги (сектора) по-умолчанию
+Defines the default fill color of the sector in Pie mode=Определяет цвет заливки сектора в режиме Pie по-умолчанию
+Edge (outer border) color of the ellipse=Цвет кромки (внешней границы) эллипса
+Ellipse fill color=Цвет заливки эллипса
+Transformation=Трансформация

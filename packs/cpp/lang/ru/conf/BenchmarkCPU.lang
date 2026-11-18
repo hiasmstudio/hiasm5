@@ -1,0 +1,6 @@
+CPU test=Тест CPU
+Number of threads=Количество потоков
+Number of loop iterations per thread (measured in millions)=Количество итераций цикла для одного потока (измеряется в миллионах штук)
+Begins the testing procedure ARG(ThreadCount)=Начинает процедуру тестирования ARG(ThreadCount)
+The event occurs every time after the end of the testing procedure and outputs the elapsed time to the ARG(Time) thread=Событие происходит всякий раз после окончания процедуры тестирования и выдает затраченное время в поток ARG(Time)
+Contains 1 if the testing process is in progress, and 0 otherwise=Содержит 1 если идет процесс тестирования, и 0 в противном случае

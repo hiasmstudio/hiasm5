@@ -1,0 +1,459 @@
+Make(cpp)
+Add(Hub,12174927,147,119)
+{
+ OutCount=5
+ link(onEvent1,12470231:doClear,[(389,125)(389,195)])
+ link(onEvent2,4703078:doClear,[(257,132)(257,139)])
+ link(onEvent3,5523932:doWork,[(202,139)(202,146)])
+ link(onEvent4,11253226:doEnum,[(196,146)(196,188)])
+ link(onEvent5,12721186:doData,[(188,153)(188,202)])
+}
+Add(MainForm,5039042,70,105)
+{
+ Left=20
+ Top=105
+ Width=677
+ Height=332
+ Caption="Записная книжка"
+ Icon=[000001000200101000000000000068030000260000002020000000000000A80C00008E030000280000001000000020000000010018000000000040030000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004A4A4A4A4A4A000000ACACAC0000000000000000000000000000000000000000000000000000000000004A4A4A4A4A4A4A4A4A252525F2F2F2E0E0E08282820000000000000000000000000000000000000000000000004A4A4A4A4A4A4A4A4A4A4A4A000000F2F2F2CECECE9898984343430000000000003A3A3A6161611616160000000000000000000000004A4A4A000000F2F2F2F2F2F2B9B9B96A6A6A0808084F4F4F929292BABABAAAAAAA595959000000000000000000000000000000000000F2F2F2DDDDDD989898000000424242BCBCBCEAEAEAF6F6F6F6F6F68C8C8C1B1B1B000000000000000000000000F2F2F2F2F2F2CBCBCB2727276A6A6AA8A8A84A4A4AEAEAEAEAEAEAF0F0F0C9C9C9545454000000000000000000000000F2F2F2F2F2F2767676272727E1E1E1E4E4E4AFAFAF4A4A4AB0C9D6B2D7E9F0F0F07B7B7B000000000000000000F2F2F2F2F2F2E0E0E0181818BBBBBBF0F0F0E9E9E9E5E5E5BFBFBF4A4A4A006EA7B2D7E9C9C9C9000000000000000000F2F2F2F2F2F2E9E9E94A4A4AF0F0F0E0E0E0E8E8E8ECECECE2E2E2898989000000006EA77B9FB2000000000000F2F2F2F2F2F2F2F2F2F2F2F2B5B5B54A4A4AF0F0F0E6E6E6E9E9E9E4E4E4000000000000000000000000000000000000F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2B5B5B54A4A4AEAEAEAE8E8E8000000000000000000000000000000000000000000000000B5B5B5F2F2F2F2F2F2F2F2F2F2F2F2B5B5B54A4A4A4A4A4A000000000000000000000000000000000000000000000000000000000000B5B5B5F2F2F2F2F2F2F2F2F2000000000000000000000000000000000000000000000000000000000000000000000000000000000000B5B5B5797979000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000F9FFFFFFE0FFFFFF8067FFFF0003FFFFC001FFFFE001FFFFC000FFFFC000FFFF8000FFFF8000FFFF0009FFFF001FFFFF001FFFFFC03FFFFFF07FFFFFFCFFFFFF2800000020000000400000000100180000000000800C0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004A4A4A4A4A4A000000F2F2F2F2F2F20000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004A4A4A4A4A4A4A4A4A4A4A4A000000F2F2F2F2F2F2CECECE0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004A4A4A4A4A4A4A4A4A4A4A4A4A4A4A000000F2F2F2F2F2F2F2F2F2CECECEC2C2C20000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004A4A4A4A4A4A4A4A4A4A4A4A4A4A4A4A4A4A4A4A4A000000F2F2F2F2F2F2F2F2F2CECECEB6B6B69292920000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004A4A4A4A4A4A4A4A4A4A4A4A4A4A4A4A4A4A4A4A4A000000F2F2F2F2F2F2F2F2F2F2F2F2C2C2C29E9E9E9292928686860000000000000000000000000000000000000000000000004F4F4F0000000000000000000000000000000000000000000000004A4A4A4A4A4A4A4A4A4A4A4A4A4A4A4A4A4A000000F2F2F2F2F2F2F2F2F2CECECEB6B6B69E9E9E929292868686000000000000000000000000000000565656929292BEBEBE7777775B5B5B0000000000000000000000000000000000000000000000000000004A4A4A4A4A4A4A4A4A000000F2F2F2F2F2F2F2F2F2F2F2F2CECECEB6B6B69292928686860000000000000000005656565656569E9E9EBEBEBEBEBEBEBEBEBE7777779393930000000000000000000000000000000000000000000000000000000000000000004A4A4A000000F2F2F2F2F2F2F2F2F2F2F2F2C2C2C29E9E9E9292920000000C0C0C161616575757929292AAAAAAAAAAAAB6B6B6B6B6B6B6B6B6BFBFBF6565656C6C6C000000000000000000000000000000000000000000000000000000000000000000F2F2F2F2F2F2F2F2F2F2F2F2CECECEB6B6B69292920000000000002424242A2A2A929292CECECECECECEF6F6F6F6F6F6F6F6F6F6F6F6F6F6F68A8A8A939393000000000000000000000000000000000000000000000000000000000000000000F2F2F2F2F2F2F2F2F2F2F2F2C2C2C2B6B6B66262620000000000005151516C6C6CACACACE5E5E5F1F1F1F5F5F5F6F6F6F6F6F6F6F6F6F6F6F6AEAEAE6565656C6C6C000000000000000000000000000000000000000000000000000000F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2B6B6B69E9E9E000000000000616161B6B6B6737373696969B6B6B6E9E9E9F5F5F5DFDFDFDFDFDFF6F6F6DFDFDFF6F6F68A8A8A939393000000000000000000000000000000000000000000000000000000F2F2F2F2F2F2F2F2F2F2F2F2CECECEB6B6B6000000000000636363E5E5E5B6B6B6C3C3C3737373A6A6A6DBDBDBF0F0F0F6F6F6F6F6F6F6F6F6F6F6F6F6F6F6AEAEAE6565655B5B5B000000000000000000000000000000000000000000F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2C2C2C2626262000000000000B6B6B6F0F0F0F0F0F0C6C6C6BEBEBE808080B6B6B6ECECECF5F5F5DFDFDFF6F6F6DFDFDFDFDFDFF6F6F68A8A8A515151000000000000000000000000000000000000000000F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2B6B6B60000000000009E9E9EF0F0F0F0F0F0F1F1F1EBEBEBD0D0D0AEAEAE939393B6B6B6EEEEEE0062960092DCF6F6F6F6F6F6F6F6F6AEAEAE6565655B5B5B000000000000000000000000000000F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2CECECE626262000000636363E5E5E5F0F0F0F0F0F0EDEDEDD5D5D5EEEEEEE9E9E9CECECE868686DCDCDC0062960062960092DCDFDFDFF6F6F6F6F6F68A8A8A515151000000000000000000000000000000F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2CECECE000000000000B6B6B6F0F0F0F0F0F0F0F0F0F2F2F2F0F0F0F0F0F0D0D0D0E9E9E9BFBFBF868686E5E5E50062960062960092DCF6F6F6F6F6F6AEAEAE8A8A8A000000000000000000000000F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2CECECE000000A0A0A0F0F0F0F0F0F0EDEDEDD3D3D3F0F0F0F0F0F0ECECECEEEEEEEEEEEEE3E3E3A2A2A2B6B6B6EFEFEF0062960062960092DCF6F6F6F6F6F6AEAEAE000000000000000000000000F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2000000B2B2B2F0F0F0F0F0F0D3D3D3F0F0F0F0F0F0D3D3D3E9E9E9F0F0F0D0D0D0E7E7E7CECECE0000000000000000000062960062960092DC000000000000000000000000000000F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2000000AEAEAEF0F0F0F0F0F0F0F0F0D3D3D3EAEAEAF0F0F0D3D3D3EEEEEEE7E7E7000000000000000000000000000000000000000000000000000000000000000000000000F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2000000BEBEBEF0F0F0F0F0F0ECECECF0F0F0F0F0F0F2F2F2EFEFEFCECECE000000000000000000000000000000000000000000000000000000000000000000F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2000000BEBEBEF0F0F0F0F0F0F0F0F0D3D3D3F0F0F0F0F0F0000000000000000000000000000000000000000000000000000000000000000000000000F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2000000BEBEBEDADADAF0F0F0F0F0F0F0F0F0CECECE000000000000000000000000000000000000000000000000000000000000000000000000000000000000F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2000000BEBEBEBEBEBEF0F0F0F0F0F0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F20000009A9A9A9A9A9ACECECE000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000F2F2F2F2F2F2F2F2F2F2F2F2000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000F2F2F2F2F2F2000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000FFFFFFFFFFE7FFFFFF03FFFFFC01FFFFF000FFFFC0007C3F8000301FC000000FF000000FFC000007FC000007FC000003F8000003F8000001F0000001F0000000E0000000E0000000C0000000C0000001800001C7800001FF000003FF000003FF800007FFE00007FFF8000FFFFE007FFFFF80FFFFFFE0FFFFFFF9FFFFFFFFFFFF]
+ link(onCreate,15894993:doWork2,[])
+}
+Add(InfoTip,14089446,21,14)
+{
+ Info=#1:*|37:Пример работы с данными из DBF-файла.|47:Записная книжка (данные в DBF-файле PHONE.DBF).|
+ Font=[MS Sans Serif,8,1,255,1]
+ Frame=3
+ Width=519
+ Height=501
+}
+Add(StrList,4703078,336,126)
+{
+}
+Add(VBJScript,5523932,210,140)
+{
+ @Hint=#16:Чтение DBF файла|
+ WorkPoints=#6:doWork|
+ EventPoints=#11:onAddColumn|7:onEvent|
+ VarPoints=#5:Count|
+ Language=1
+ Script=#4://js|69:/*******************************************************************/|69:/* Имя: DBFBlocknote                                               */|69:/* Язык: JScript                                                   */|69:/* Описание: Просмотр записей таблицы без использования DSN        */|69:/*******************************************************************/|0:|33://Объявляем глобальные переменные|3:var|43:  WshShell,    //Экземпляр объекта WshShell|44:  RS,          //Экземпляр объекта Recordset|50:  SSource,     //Строка с текстом SQL-запроса к БД|53:  SConnect,    //Строка с параметрами соединения с БД|66:  SOut,        //Строка, в которой сохраняется выходная информация|67:  SDefaultDir, //Путь к каталогу, в котором находится таблица Phone|40:  Count,       //Количество записей в БД|7:  s, i;|0:|27:function doWork(Data,Index)|1:{|25://Создаем объект WshShell|46:WshShell = new ActiveXObject("WScript.Shell");|71://Определяем путь к текущему каталогу, в котором хранится таблица Phone|38:SDefaultDir=WshShell.CurrentDirectory;|38://Формируем SQL-запрос к таблице Phone|32:SSource = "SELECT * FROM Phone";|48://Формируем строку с параметрами соединения с БД|24://(указываем нужный DSN)|75:SConnect="Driver={Microsoft dBase Driver (*.dbf)};DefaultDir="+SDefaultDir;|26://Создаем объект Recordset|42:RS = new ActiveXObject("ADODB.Recordset");|27://Задаём статический курсор|18:RS.CursorType = 3;|44://Открываем набор записей-результата запроса|26:RS.Open(SSource,SConnect);|36://Определяем количество записей в БД|23:Count = RS.RecordCount;|27://Определяем имена полей БД|35:for (i=0; i<RS.Fields.Count; i++) {|37:  sys.onAddColumn(RS.Fields(i).Name);|3:  }|25://Очищаем выходную строку|8:SOut="";|40://Перебираем все записи набора данных RS|17:while (!RS.EOF) {|64:  //Формируем строку со значениями трех полей, которые разделены|23:  //символами табуляции|78:  s=RS.Fields("LastName")+"\t"+RS.Fields("Name")+"\t"+RS.Fields("Phone")+"\t";|95:  s+=RS.Fields("Street")+"\t"+RS.Fields("House")+"\t"+RS.Fields("App")+"\t"+RS.Fields("Notes");|48:  //В конце строки ставим символ перевода строки|12:  s+="\r\n";|53:  //Добавляем сформированную строку к переменной SOut|10:  SOut+=s;|32:  //Переходим к следующей записи|16:  RS.MoveNext();|3:  }|28://Закрываем объект Recordset|11:RS.Close();|42://Создаём событие со строкой SOut в потоке|18:sys.onEvent(SOut);|1:}|0:|28:function GetVar(Data, Index)|1:{|38://Возвращаем значение переменной Count|15:  return Count;|1:}|68:/*************  Конец *********************************************/|
+ UseName=0
+ link(onAddColumn,12470231:doAddColumn,[(302,146)(302,223)])
+ link(onEvent,4703078:doText,[])
+}
+Add(ArrayEnum,11253226,350,182)
+{
+ link(onItem,12470231:doAdd,[])
+ link(Array,4703078:Array,[])
+}
+Add(StringTable,12470231,399,182)
+{
+ Width=669
+ Height=305
+ Align=5
+ StrDelimiter="	"
+ Grid=0
+ ClearAll=0
+ Point(doAddColumn)
+}
+Add(ChildPanel,10541313,35,272)
+{
+ link(onEvent1,4037946:doEvent,[])
+}
+BEGIN_SDK
+  Add(EditMulti,14085203,3,3)
+  {
+   EventCount=1
+   Width=244
+   Height=158
+  }
+  Add(Panel,10295005,35,35)
+  {
+   Width=669
+   Height=42
+   Align=2
+   Point(doColor)
+  }
+  Add(ChanelToIndex,8132349,161,35)
+  {
+   link(onIndex,14085203:onEvent1,[])
+  }
+  Add(Button,11421432,105,35)
+  {
+   Left=20
+   Top=10
+   Hint="Добавить новую запись"
+   Caption="Add"
+   Data=Integer(1)
+   link(onClick,8132349:doWork1,[(145,41)(145,41)])
+  }
+  Add(Button,11562694,105,70)
+  {
+   Left=80
+   Top=10
+   Hint="Удалить запись"
+   Caption="Delete"
+   Data=Integer(1)
+   link(onClick,8132349:doWork2,[(145,76)(145,48)])
+  }
+END_SDK
+Add(DoData,12721186,210,196)
+{
+ link(onEventData,16276031:doStrCat,[])
+ link(Data,5523932:Count,[])
+}
+Add(StrCat,16276031,259,196)
+{
+ Str1="Количество записей: "
+ link(onStrCat,15092803:doText,[])
+}
+Add(Label,15092803,308,196)
+{
+ Left=365
+ Top=13
+ Width=175
+ Caption=""
+ Alignment=1
+}
+Add(VBJScript,7074764,168,321)
+{
+ @Hint=#21:Добавление в DBF файл|
+ WorkPoints=#6:doWork|
+ EventPoints=#7:onEvent|
+ DataPoints=#2:D1|2:D2|2:D3|2:D4|2:D5|2:D6|2:D7|
+ Language=1
+ Script=#4://js|69:/*******************************************************************/|69:/* Имя: AddRecord                                                  */|69:/* Язык: JScript                                                   */|69:/* Описание: Записная книжка (данные в DBF-файле PHONE.DBF).       */|69:/*           Вставка новых записей в DBF-файл                      */|69:/*******************************************************************/|22://Объявляем переменные|3:var|43:  WshShell,    //Экземпляр объекта WshShell|53:  SConnect,    //Строка с параметрами соединения к БД|67:  SDefaultDir, //Путь к каталогу, в котором находится таблица Phone|61:  PersonRec;   //Объект для хранения данных об одном человеке|46://Инициализируем константы для диалоговых окон|65:var vbYesNo=4,vbQuestion=32,vbInformation=64,vbYes=6,vbOkOnly=0; |0:|28://Конструктор объекта Person|60:function Person(LastName,Name,Phone,Street,House,App,Note) {|35:  this.LastName=LastName; //Фамилия|31:  this.Name=Name;         //Имя|35:  this.Phone=Phone;       //Телефон|33:  this.Street=Street;     //Улица|31:  this.House=House;       //Дом|36:  this.App=App;           //Квартира|38:  this.Note=Note;         //Примечание|3:  }|0:|36://Заполнение полей объекта PersonRec|26:function MakePersonRec() {|46:  //Создаем экземпляр PersonRec объекта Person|25:  PersonRec=new Person();|36:  //Заполняем поля объекта PersonRec|44:  PersonRec.LastName=sys.D1;       //Фамилия|40:  PersonRec.Name=sys.D2;           //Имя|44:  PersonRec.Phone=sys.D3;          //Телефон|42:  PersonRec.Street=sys.D4;         //Улица|40:  PersonRec.House=sys.D5;          //Дом|45:  PersonRec.App=sys.D6;            //Квартира|47:  PersonRec.Note=sys.D7;           //Примечание|3:  }|0:|32://Вставка в таблицу одной записи|30:function RecordToDB(PersRec) {|50:  //Переменная для формирования текста SQL-запроса|14:  var SSQL="";|0:|51:  //Строим список значений полей добавляемой записи|34:  SSQL+="'"+PersRec.LastName+"',";|30:  SSQL+="'"+PersRec.Name+"',";|31:  SSQL+="'"+PersRec.Phone+"',";|32:  SSQL+="'"+PersRec.Street+"',";|31:  SSQL+="'"+PersRec.House+"',";|29:  SSQL+="'"+PersRec.App+"',";|29:  SSQL+="'"+PersRec.Note+"'";|50:  //Формируем текст SQL-запроса для вставки записи|90:  SSQL="INSERT INTO Phone (LastName,Name,Phone,Street,House,App,Notes) VALUES ("+SSQL+")";|68:  //Выполняем подготовленный SQL-запрос (добавляем запись в таблицу)|24:  Connect.Execute(SSQL);|3:  }|0:|34://Добавление новой записи в книжку|22:function AddRecord() {|36:  //Заполняем поля объекта PersonRec|18:  MakePersonRec();|52:  //Сохраняем данные из объекта PersonRec в DBF-файл|24:  RecordToDB(PersonRec);|3:  }|0:|28://Основная запускная функция|17:function Main() {|8:var Res;|27:  //Создаем объект WshShell|48:  WshShell = new ActiveXObject("WScript.Shell");|73:  //Определяем путь к текущему каталогу, в котором хранится таблица Phone|40:  SDefaultDir=WshShell.CurrentDirectory;|29:  //Создаем объект Connection|49:  Connect= new ActiveXObject("ADODB.Connection");|50:  //Формируем строку с параметрами соединения к БД|26:  //(указываем нужный DSN)|77:  SConnect="Driver={Microsoft dBase Driver (*.dbf)};DefaultDir="+SDefaultDir;|28:  //Устанавливаем связь с БД|25:  Connect.Open(SConnect);|35:  //Запрос на создание новой записи|98:  Res=WshShell.Popup("Добавить запись в Базу Данных?",0,"Работа с DBF-файлом",vbQuestion+vbYesNo);|38:  if (Res==vbYes) { //Нажата кнопка Да|33:    //Добавляем новую запись в БД|16:    AddRecord();|33:    //Выводим информацию на экран|61:    WshShell.Popup("Новая запись\n\n"+PersonRec.LastName+" "+|47:      PersonRec.Name+"\n"+PersonRec.Phone+"\n"+|69:      PersonRec.Street+", "+PersonRec.House+"-"+PersonRec.App+"\n\n"+|80:      "добавлена в Базу Данных",0,"Работа с DBF-файлом",vbInformation+vbOkOnly);|5:    }|19:  sys.onEvent("0");|3:  }|0:|65:/*******************  Начало  **********************************/|27:function doWork(Data,Index)|1:{|7:Main();|1:}|68:/*************  Конец *********************************************/|
+ UseName=0
+ link(onEvent,1464368:doEvent1,[])
+ link(D1,6522157:Var1,[])
+ link(D2,6522157:Var2,[])
+ link(D3,6522157:Var3,[])
+ link(D4,6522157:Var4,[])
+ link(D5,6522157:Var5,[])
+ link(D6,6522157:Var6,[])
+ link(D7,6522157:Var7,[])
+}
+Add(ChildForm,6522157,168,272)
+{
+ link(onEvent1,44631:doCompare,[])
+}
+BEGIN_SDK
+  Add(EditMulti,10559478,3,3)
+  {
+   EventCount=1
+   WorkCount=1
+   VarCount=7
+   Width=399
+   Height=389
+   link(doWork1,4522807:doCompare,[])
+   link(Var1,5655512:Text,[(160,226)])
+   link(Var2,9607550:Text,[(195,247)])
+   link(Var3,2080591:Text,[(230,268)])
+   link(Var4,11531335:Text,[(265,289)])
+   link(Var5,8053908:Text,[(293,310)])
+   link(Var6,4909914:Text,[(321,331)])
+   link(Var7,11585420:Text,[(356,352)])
+  }
+  Add(MainForm,8939820,112,7)
+  {
+   Left=35
+   Top=105
+   Width=306
+   Height=251
+   Visible=1
+   Caption="Ввод данных"
+   Point(doVisible)
+  }
+  Add(Edit,5655512,154,28)
+  {
+   Left=130
+   Top=25
+   Width=150
+   Text="Фамилия"
+  }
+  Add(Edit,9607550,189,70)
+  {
+   Left=130
+   Top=45
+   Width=150
+   TabOrder=1
+   Text="Имя"
+  }
+  Add(Edit,2080591,224,112)
+  {
+   Left=130
+   Top=65
+   Width=150
+   TabOrder=2
+   Text="Телефон"
+  }
+  Add(Edit,11531335,259,154)
+  {
+   Left=130
+   Top=85
+   Width=150
+   TabOrder=3
+   Text="Улица"
+  }
+  Add(Edit,8053908,287,196)
+  {
+   Left=130
+   Top=105
+   Width=150
+   TabOrder=4
+   Text="Дом"
+  }
+  Add(Edit,4909914,315,238)
+  {
+   Left=130
+   Top=125
+   Width=150
+   TabOrder=5
+   Text="Квартира"
+  }
+  Add(Edit,11585420,350,280)
+  {
+   Left=130
+   Top=145
+   Width=150
+   TabOrder=6
+   Text="Примечание"
+  }
+  Add(Label,919593,14,28)
+  {
+   Left=10
+   Top=25
+   Width=56
+   Height=17
+   Caption="Фамилия:"
+  }
+  Add(Label,8428909,14,70)
+  {
+   Left=10
+   Top=45
+   Width=29
+   Height=17
+   Caption="Имя:"
+  }
+  Add(Label,14807752,14,112)
+  {
+   Left=10
+   Top=65
+   Width=52
+   Height=17
+   Caption="Телефон:"
+  }
+  Add(Label,13419684,14,154)
+  {
+   Left=10
+   Top=85
+   Width=39
+   Height=17
+   Caption="Улица:"
+  }
+  Add(Label,4059475,14,196)
+  {
+   Left=10
+   Top=105
+   Width=30
+   Height=17
+   Caption="Дом:"
+  }
+  Add(Label,14336432,14,238)
+  {
+   Left=10
+   Top=125
+   Width=55
+   Height=17
+   Caption="Квартира:"
+  }
+  Add(Label,13326405,14,280)
+  {
+   Left=10
+   Top=145
+   Width=70
+   Height=17
+   Caption="Примечание:"
+  }
+  Add(Button,13272033,322,14)
+  {
+   Left=65
+   Top=185
+   Caption="OK"
+   Data=Integer(1)
+   link(onClick,12989068:doWork2,[])
+  }
+  Add(Button,8250856,322,49)
+  {
+   Left=150
+   Top=185
+   Caption="Cancel"
+   Data=Integer(0)
+   link(onClick,12989068:doWork3,[(368,55)])
+  }
+  Add(HubEx,12989068,364,7)
+  {
+   link(onEvent,10559478:onEvent1,[])
+  }
+  Add(If_else,4522807,70,28)
+  {
+   Op2=Integer(0)
+   link(onTrue,8939820:doClose,[])
+   link(onFalse,8939820:doVisible,[])
+  }
+END_SDK
+Add(Hub,15246983,196,450)
+{
+ link(onEvent1,16475326:doWork3,[(216,456)(216,446)(137,446)])
+ link(onEvent2,15894993:doWork1,[(298,463)(298,104)(135,104)])
+}
+Add(HubEx,15894993,131,112)
+{
+ link(onEvent,12174927:doEvent1,[])
+}
+Add(If_else,44631,238,272)
+{
+ Op2=Integer(1)
+ link(onTrue,7074764:doWork,[(280,278)(280,315)(163,315)(163,327)])
+ link(onFalse,13005793:doWork1,[(284,285)(284,254)(151,254)])
+}
+Add(Hub,1464368,231,321)
+{
+ link(onEvent1,13005793:doWork3,[(252,327)(252,309)(151,309)])
+ link(onEvent2,15894993:doWork3,[(253,334)(253,357)(135,357)])
+}
+Add(HubEx,13005793,147,265)
+{
+ link(onEvent,6522157:doWork1,[])
+}
+Add(VBJScript,9290393,154,450)
+{
+ @Hint=#21:Удаление из DBF файла|
+ WorkPoints=#6:doWork|
+ EventPoints=#7:onEvent|
+ DataPoints=#2:D1|
+ Language=1
+ Script=#4://js|69:/*******************************************************************/|69:/* Имя: DeleteRecord                                               */|69:/* Язык: JScript                                                   */|69:/* Описание: Записная книжка (данные в DBF-файле PHONE.DBF).       */|69:/*           Поиск и удаление элементов в DBF-файле                */|69:/*******************************************************************/|22://Объявляем переменные|3:var|43:  WshShell,    //Экземпляр объекта WshShell|53:  SConnect,    //Строка с параметрами соединения к БД|67:  SDefaultDir, //Путь к каталогу, в котором находится таблица Phone|52:  LastName;    //Фамилия для поиска удаляемой записи|46://Инициализируем константы для диалоговых окон|65:var vbYesNo=4,vbQuestion=32,vbInformation=64,vbYes=6,vbOkOnly=0; |0:|40://Удаление записи Базы Данных о человеке|17://с этой фамилией|22:function DelRecord() {|51:  //Формируем текст SQL-запроса для удаления записи|57:  SSQL="DELETE FROM Phone WHERE LastName='"+LastName+"'";|68:  //Выполняем подготовленный SQL-запрос (добавляем запись в таблицу)|24:  Connect.Execute(SSQL);|3:  }|0:|28://Основная запускная функция|17:function Main() {|8:var Res;|27:  //Создаем объект WshShell|48:  WshShell = new ActiveXObject("WScript.Shell");|73:  //Определяем путь к текущему каталогу, в котором хранится таблица Phone|40:  SDefaultDir=WshShell.CurrentDirectory;|50:  //Формируем строку с параметрами соединения к БД|26:  //(указываем нужный DSN)|77:  SConnect="Driver={Microsoft dBase Driver (*.dbf)};DefaultDir="+SDefaultDir;|29:  //Создаем объект Connection|49:  Connect= new ActiveXObject("ADODB.Connection");|28:  //Устанавливаем связь с БД|25:  Connect.Open(SConnect);|39:  //Фамилия для поиска удаляемой записи|20:  LastName = sys.D1;|29:  //Запрос на удаление записи|49:  Res=WshShell.Popup("Удалить фамилию "+LastName+|67:    " из Базы Данных?",0,"Работа с DBF-файлом",vbQuestion+vbYesNo);|38:  if (Res==vbYes) { //Нажата кнопка Да|59:    //Ищем в книжке нужную фамилию и удаляем относящуюся к |16:    //ней запись|16:    DelRecord();|5:    }|19:  sys.onEvent("0");|3:  }|0:|65:/*******************  Начало  **********************************/|27:function doWork(Data,Index)|1:{|7:Main();|1:}|68:/*************  Конец *********************************************/|
+ UseName=0
+ link(onEvent,15246983:doEvent1,[])
+ link(D1,7811465:Var1,[])
+}
+Add(ChildForm,7811465,154,401)
+{
+ link(onEvent1,1339305:doCompare,[])
+ link(Data1,12470231:Select,[(160,239)(412,239)])
+}
+BEGIN_SDK
+  Add(EditMulti,10559478,3,3)
+  {
+   EventCount=1
+   WorkCount=1
+   DataCount=1
+   VarCount=1
+   Width=280
+   Height=172
+   link(doWork1,4522807:doCompare,[])
+   link(Var1,5655512:Text,[])
+  }
+  Add(MainForm,8939820,126,21)
+  {
+   Left=35
+   Top=105
+   Width=306
+   Height=126
+   Visible=1
+   Caption="Удаление данных"
+   Point(doVisible)
+  }
+  Add(Edit,5655512,154,84)
+  {
+   Left=130
+   Top=25
+   Width=150
+   Text=""
+  }
+  Add(HubEx,12989068,231,77)
+  {
+   link(onEvent,10559478:onEvent1,[])
+  }
+  Add(Button,8250856,196,119)
+  {
+   Left=150
+   Top=60
+   Caption="Cancel"
+   Data=Integer(0)
+   link(onClick,12989068:doWork3,[(235,125)])
+  }
+  Add(Button,13272033,196,84)
+  {
+   Left=65
+   Top=60
+   Caption="OK"
+   Data=Integer(1)
+   link(onClick,12989068:doWork2,[])
+  }
+  Add(Label,919593,154,126)
+  {
+   Left=10
+   Top=25
+   Width=119
+   Height=17
+   Caption="Фамилия удаляемого:"
+  }
+  Add(If_else,4522807,21,42)
+  {
+   Op2=Integer(0)
+   link(onTrue,8939820:doClose,[])
+   link(onFalse,8054294:doEvent1,[])
+  }
+  Add(Hub,8054294,63,49)
+  {
+   link(onEvent1,8939820:doVisible,[])
+   link(onEvent2,15249095:doSplit,[(103,62)(103,83)])
+  }
+  Add(StrPart,15249095,112,77)
+  {
+   Char="	"
+   link(onPart,5655512:doText,[])
+   link(Str,10559478:Data1,[(118,40)])
+  }
+END_SDK
+Add(If_else,1339305,217,401)
+{
+ Op2=Integer(1)
+ link(onTrue,9290393:doWork,[(262,407)(262,438)(144,438)(144,456)])
+ link(onFalse,16475326:doWork1,[(257,414)(257,394)(137,394)])
+}
+Add(HubEx,16475326,133,394)
+{
+ link(onEvent,7811465:doWork1,[(148,407)(148,407)])
+}
+Add(IndexToChanel,4037946,77,272)
+{
+ link(onEvent1,13005793:doWork2,[])
+ link(onEvent2,16475326:doWork2,[(128,285)(128,407)])
+}
+Add(InfoTip,10407100,119,367)
+{
+ Info=#1:*|16:Удаление записей|
+ Font=[MS Sans Serif,8,0,16711680,1]
+ Frame=3
+ Width=190
+ Height=130
+}
+Add(InfoTip,1049776,119,243)
+{
+ Info=#1:*|18:Добавление записей|
+ Font=[MS Sans Serif,8,0,16711680,1]
+ Frame=3
+ Width=190
+ Height=123
+}
+Add(InfoTip,15489291,119,77)
+{
+ Info=#1:*|19:Отображение записей|
+ Font=[MS Sans Serif,8,0,16711680,1]
+ Frame=3
+ Width=323
+ Height=158
+}

@@ -1,0 +1,90 @@
+*Отсылка файлов между компьютерами в сети или в Internet.
+Make(cpp)
+Add(MainForm,89020,28,105)
+{
+ Left=21
+ Top=105
+ Width=248
+ Height=91
+}
+Add(FileStream,52995,525,112)
+{
+ Mode=1
+ Point(doCopyFromStream)
+ link(FileName,45791:Value,[])
+}
+Add(Edit,67360,329,147)
+{
+ Left=90
+ Top=20
+ Width=130
+ Font=[Arial,8,0,0,1]
+ Text="127.0.0.1"
+}
+Add(Message,75291,329,98)
+{
+}
+Add(TCP_Server,37674,259,56)
+{
+ Port=130
+ DataType=3
+ link(onRead,27261:doDeCompress,[])
+ link(onConnect,75291:doMessage,[(317,69)(317,104)])
+}
+Add(SDialog,98143,469,49)
+{
+ link(onExecute,45791:doValue,[])
+}
+Add(Hub,56102,98,210)
+{
+ OutCount=3
+ link(onEvent1,66235:doOpen,[(159,216)(159,167)])
+ link(onEvent2,43492:doCompress,[])
+ link(onEvent3,66235:doClose,[(172,230)(172,174)])
+}
+Add(Hub,46308,189,56)
+{
+ link(onEvent1,37674:doOpen,[])
+ link(onEvent2,52372:doOpen,[(249,69)(249,209)])
+}
+Add(Hub,34347,392,49)
+{
+ OutCount=4
+ link(onEvent1,98143:doExecute,[])
+ link(onEvent2,52995:doOpen,[(458,62)(458,118)])
+ link(onEvent3,52995:doCopyFromStream,[(452,69)(452,132)])
+ link(onEvent4,52995:doClose,[(444,76)(444,125)])
+}
+Add(ZLIB,27261,329,49)
+{
+ link(onStream,34347:doEvent1,[])
+}
+Add(Button,49699,140,56)
+{
+ Left=20
+ Top=20
+ Font=[Arial,8,0,0,1]
+ Caption="Open"
+ link(onClick,46308:doEvent1,[])
+}
+Add(TCP_Client,52372,329,203)
+{
+ Port=130
+ DataType=3
+ link(IP,67360:Text,[])
+}
+Add(FileStream,66235,189,161)
+{
+}
+Add(Memory,45791,525,49)
+{
+}
+Add(ZLIB,43492,189,217)
+{
+ link(onStream,52372:doSend,[])
+ link(Stream,66235:Stream,[])
+}
+Add(DropFile,18756,35,210)
+{
+ link(onDropFile,56102:doEvent1,[])
+}

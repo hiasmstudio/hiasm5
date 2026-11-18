@@ -1,0 +1,54 @@
+*Сервер. После его запуска вы не увидите формы, но сможете посылать ему различные команды на выполнение программой Client
+Pos(0,0)
+Add(Service,52078,20,105)
+{
+ Wait=0
+ link(onStart,2687049:doEvent1,[])
+}
+Add(Case,59515,280,105)
+{
+ Value=String(stop)
+ link(onNextCase,60132:doCase,[])
+ link(onTrue,11725663:doEvent1,[(320,118)(320,167)])
+}
+Add(Message,45838,406,112)
+{
+ Message="I'am running!!!"
+ Caption="Service"
+ Icon=4
+}
+Add(Case,60132,343,105)
+{
+ Value=String(ping)
+ link(onTrue,45838:doMessage,[])
+}
+Add(UDP,12446313,189,105)
+{
+ LocalPort=32457
+ ReceiveMode=1
+ link(onReceive,59515:doCase,[])
+}
+Add(InfoTip,31368,147,21)
+{
+ Info='Демонстрация построения фоновой программы Сервер для выполнения запросов от программ-Клиентов.'
+ Font=[Times New Roman,11,2,0]
+ Width=253
+ Height=60
+}
+Add(Thread,7606171,126,119)
+{
+ Delay=0
+ Point(doStopFlag)
+ link(onExec,12446313:doReceive,[])
+}
+Add(Hub,2687049,70,105)
+{
+ OutCount=3
+ link(onEvent1,12446313:doOpen,[])
+ link(onEvent2,7606171:doStart,[(114,118)(114,125)])
+}
+Add(Hub,11725663,329,161)
+{
+ link(onEvent1,7606171:doStopFlag,[(371,167)(371,156)(116,156)(116,139)])
+ link(onEvent2,52078:doStop,[(376,174)(376,272)(11,272)(11,111)])
+}

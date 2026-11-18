@@ -1,0 +1,11 @@
+Loading images in various formats=Загрузка изображений различных форматов
+Defines the default image file name=Определяет имя файла с изображением по-умолчанию
+Loads an image from file ARG(FileName)=Загружает изображение из файла ARG(FileName)
+Gets the image size ARG(FileName)=Получает размер изображения ARG(FileName)
+The event occurs every time an image is fully loaded, outputting it as an image to the ARG(Bitmap) stream=Событие происходит всякий раз после полной загрузки изображения, выдавая его как картинку в поток ARG(Bitmap)
+The event occurs whenever the image size is received, outputting the received dimensions to the ARG(Width, Height) stream=Событие происходит всякий раз после получения размера изображения, выдавая полученные размеры в поток ARG(Width, Height)
+Contains a picture of the uploaded image=Cодержит картинку загруженного изображения
+Contains 1 if the file is being downloaded, 0 otherwise=Содержит 1, если происходит загрузка файла, 0 - в противном случае
+Uploaded image width=Ширина загруженного изображения
+Uploaded image height=Высота загруженного изображения
+Specifies the name of the image file=Определяет имя файла с изображением

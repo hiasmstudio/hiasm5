@@ -1,0 +1,5 @@
+Vertex color=Цвет вершин
+Color=Цвет
+Transparency=Прозрачность
+Sets the current primitive colors=Устанавливает текущий цвета примитивов
+The event occurs after setting the color of the primitives=Событие происходит после установки цвета примитивов

@@ -1,0 +1,191 @@
+*Реализация игры жизнь в 3D
+Make(cpp)
+Add(MainForm,15261923,42,35)
+{
+ Left=20
+ Top=105
+ Width=440
+ Height=421
+ Caption="Press any key to reset"
+ Point(MouseX)
+ Point(MouseY)
+ Point(onKeyDown)
+ Point(onResize)
+ Point(Handle)
+ link(onCreate,16299401:doEvent1,[(101,55)(101,167)])
+ link(onKeyDown,9975869:doWork1,[(557,62)])
+ link(onResize,14551396:doWork1,[(172,69)])
+}
+Add(GL_Main,12986311,182,161)
+{
+ Color=0
+ link(onInit,12198675:doInit,[])
+ link(onViewPort,3410847:doPerspective,[(237,174)(237,216)])
+ link(Handle,15261923:Handle,[(188,132)(62,132)])
+}
+Add(Timer,9506849,70,245)
+{
+ Interval=33
+ Enable=1
+ link(onTimer,1049454:doEvent1,[])
+}
+Add(GL_GTools,771925,182,245)
+{
+ Point(doClear)
+ Point(doPushMatrix)
+ Point(doPopMatrix)
+}
+Add(GL_GluTools,12198675,245,161)
+{
+ Texture=0
+ link(onInit,1101264:doEnabled,[])
+}
+Add(Hub,1049454,119,245)
+{
+ OutCount=5
+ link(onEvent1,771925:doClear,[])
+ link(onEvent2,771925:doPushMatrix,[])
+ link(onEvent3,10714674:doWork1,[(196,265)(196,118)])
+ link(onEvent4,771925:doPopMatrix,[(170,272)(170,265)])
+ link(onEvent5,12986311:doFlip,[(166,279)(166,181)])
+}
+Add(Hub,16299401,112,161)
+{
+ OutCount=3
+ link(onEvent1,12986311:doInit,[])
+ link(onEvent2,14551396:doWork2,[])
+ link(onEvent3,9506849:doTimer,[(154,181)(154,219)(60,219)(60,251)])
+}
+Add(MultiElement,10714674,245,112)
+{
+ link(onEvent1,10036663:doDraw,[])
+ link(Data1,15261923:MouseX,[(251,99)(48,99)])
+ link(Data2,15261923:MouseY,[(258,90)(55,90)])
+}
+BEGIN_SDK
+  Add(EditMulti,4359962,3,3)
+  {
+   EventCount=1
+   WorkCount=1
+   DataCount=2
+   Width=181
+   Height=109
+   link(doWork1,3276760:doRotate,[(19,9)(19,55)])
+  }
+  Add(GL_Rotate,3276760,35,49)
+  {
+   Y=1
+   link(onRotate,8079493:doRotate,[])
+   link(Angle,4359962:Data1,[(41,26)(9,26)])
+  }
+  Add(GL_Rotate,8079493,112,49)
+  {
+   X=1
+   link(onRotate,4359962:onEvent1,[(159,55)(159,9)])
+   link(Angle,4359962:Data2,[(118,21)(16,21)])
+  }
+END_SDK
+Add(InfoTip,7166267,183,15)
+{
+ Info=#12:Игра "Жизнь"|
+ Font=[MS Sans Serif,18,1,0,1]
+ Frame=1
+ Transparent=1
+ Width=288
+ Height=25
+}
+Add(GL_Options,10513853,490,161)
+{
+ Flag=1
+ link(onEvent,9975869:doWork2,[])
+}
+Add(HubEx,14551396,168,161)
+{
+ link(onEvent,12986311:doViewPort,[])
+}
+Add(GL_Perspective,3410847,245,210)
+{
+ Fovy=40
+ zNear=5
+}
+Add(HubEx,9975869,553,154)
+{
+ link(onEvent,7224192:doInit,[])
+}
+Add(GL_Options,5809249,343,161)
+{
+ Flag=2
+ link(onEvent,4378486:doEnabled,[])
+}
+Add(GL_Options,1101264,294,161)
+{
+ link(onEvent,5809249:doEnabled,[])
+}
+Add(GL_Light,14989894,441,161)
+{
+ link(onEnabled,10513853:doEnabled,[])
+}
+Add(InlineCode,7224192,567,161)
+{
+ WorkPoints=#43:doInit=Инициализация поля начальной фигурой|39:doProcess=Выполнение одного цикла жизни|21:doDraw=Отрисовка поля|
+ EventPoints=#65:onDraw=Событие происходит при необходимости отрисовать кубик поля|
+ VarPoints=#21:X=Координата Х кубика|21:Y=Координата У кубика|
+ Code=#15:unit HiAsmUnit;|0:|9:interface|0:|28:uses kol,Share,Debug,OpenGL;|0:|4:type|28: THiAsmClass = class(TDebug)|10:   private|39:    Space:array[0..150,0..150] of byte;|44:    function GetSos(const x,y:integer):byte;|9:   public|21:    OnDraw:THI_Event;|0:|53:    procedure doProcess(var _Data:TData; Index:Word);|50:    procedure doInit(var _Data:TData; Index:Word);|50:    procedure doDraw(var _Data:TData; Index:Word);|0:|45:    procedure X(var _Data:TData; Index:Word);|45:    procedure Y(var _Data:TData; Index:Word);|5: end;|0:|14:implementation|0:|52:function THiAsmClass.GetSos(const x,y:integer):byte;|54:const kx:array[1..8]of integer = (0,1,1,1,0,-1,-1,-1);|54:      ky:array[1..8]of integer = (-1,-1,0,1,1,1,0,-1);|11:var i:byte;|18:    px,py:integer;|5:begin|16:    Result := 0;|22:    for i := 1 to 8 do|10:     begin|24:        px := x + kx[i];|24:        py := y + ky[i];|38:        if (px >= 0)and(px <= 150)then|39:         if (py >= 0)and(py <= 150)then|55:          if (Space[px,py] = 1)or(Space[px,py] = 2)then|23:           inc(Result);|9:     end;|4:end;|0:|58:procedure THiAsmClass.doInit(var _Data:TData; Index:Word);|13:var i,j:byte;|5:begin|23:   for i := 0 to 150 do|24:    for j := 0 to 150 do|21:     Space[i,j] := 0;|21:   Space[70,70] := 1;|21:   Space[70,69] := 1;|21:   Space[70,68] := 1;|21:   Space[71,68] := 1;|21:   Space[72,68] := 1;|21:   Space[72,69] := 1;|21:   Space[72,70] := 1;|4:end;|0:|15:var _X,_Y:real;|17:    c:real = 0.2;|0:|58:procedure THiAsmClass.doDraw(var _Data:TData; Index:Word);|13:var i,j:byte;|5:begin|23:   for i := 0 to 150 do|8:   begin|18:    c := c + 0.01;|27:    if c > 1 then c := 0.2;|24:    for j := 0 to 150 do|27:     if Space[i,j] = 1 then|11:      begin|21:        _X := i / 10;|21:        _Y := j / 10;|25:        glColor3f(c,c,c);|28:        _hi_OnEvent(OnDraw);|10:      end;|7:   end;|4:end;|0:|53:procedure THiAsmClass.X(var _Data:TData; Index:Word);|5:begin|24:   _Data := _DoData(_x);|4:end;|0:|53:procedure THiAsmClass.Y(var _Data:TData; Index:Word);|5:begin|24:   _Data := _DoData(_y);|4:end;|0:|61:procedure THiAsmClass.doProcess(var _Data:TData; Index:Word);|13:var i,j:byte;|13:    sos:byte;|5:begin|23:   for i := 0 to 150 do|25:     for j := 0 to 150 do|11:      begin|28:         sos := GetSos(i,j);|31:         if Space[i,j] = 1 then|36:          if(sos < 2)or(sos > 3)then|27:           Space[i,j] := 2;|0:|31:         if Space[i,j] = 0 then|25:          if sos = 3 then|27:           Space[i,j] := 3;|10:      end;|23:   for i := 0 to 150 do|24:    for j := 0 to 150 do|27:     if Space[i,j] > 1 then|25:       dec(Space[i,j],2);|4:end;|0:|4:end.|
+ link(onDraw,12232667:doDraw,[(609,167)(609,201)(557,201)(557,216)])
+}
+Add(Gl_Axis,10036663,294,112)
+{
+ TitleScale=0.5
+ link(onDraw,14058394:doTranslate,[])
+}
+Add(Timer,1327181,490,210)
+{
+ Interval=100
+ link(onTimer,7224192:doProcess,[(544,216)(544,174)])
+}
+Add(MultiElementEx,12232667,567,210)
+{
+ link(X,7224192:X,[])
+ link(Y,7224192:Y,[])
+}
+BEGIN_SDK
+  Add(EditMultiEx,10318047,3,3)
+  {
+   WorkCount=#6:doDraw|
+   DataCount=#1:X|1:Y|
+   Width=258
+   Height=116
+   link(doDraw,3402642:doPushMatrix,[(26,9)(26,69)])
+  }
+  Add(GL_GTools,1607586,210,63)
+  {
+   Point(doPopMatrix)
+  }
+  Add(GL_GTools,3402642,49,63)
+  {
+   Point(doPushMatrix)
+   link(onEvent,9453751:doTranslate,[])
+  }
+  Add(GL_Cube,2149235,154,63)
+  {
+   Size=0.09
+   link(onDraw,1607586:doPopMatrix,[])
+  }
+  Add(Gl_Translate,9453751,98,63)
+  {
+   link(onTranslate,2149235:doDraw,[])
+   link(X,10318047:X,[(104,33)(9,33)])
+   link(Y,10318047:Y,[(111,27)(16,27)])
+  }
+END_SDK
+Add(Gl_Translate,14058394,343,112)
+{
+ X=-7
+ Y=-7
+ link(onTranslate,7224192:doDraw,[(548,118)(548,181)])
+}
+Add(GL_Options,4378486,392,161)
+{
+ Flag=3
+ link(onEvent,14989894:doEnabled,[])
+}

@@ -1,0 +1,79 @@
+Make(cpp)
+Pos(0,0)
+Add(MainForm,12053419,28,14)
+{
+ Left=20
+ Top=105
+ Width=940
+ Height=431
+ Caption="ODBC List"
+}
+Add(ODBC,14170810,189,168)
+{
+ Point(BrowseType)
+ Point(doList)
+ link(onStreamString,4228955:doConvert,[])
+ link(onStreamBinary,8014720:doConvert,[(229,181)(229,216)])
+ link(BrowseType,9303322:String,[])
+}
+Add(FormatStr,15362790,322,210)
+{
+ Mask="%1~%2"
+ link(onFString,14772620:doAdd,[(366,216)(366,160)])
+ link(Str1,3935874:Value,[])
+}
+Add(Convertor,4228955,238,168)
+{
+ Mode=11
+ link(onResult,3935874:doValue,[])
+}
+Add(Convertor,8014720,238,210)
+{
+ Mode=11
+ link(onResult,12652852:doReplace,[])
+}
+Add(StringTable,14772620,378,154)
+{
+ Left=5
+ Top=30
+ Width=930
+ Height=370
+ Columns=#24:Driver / Data Source=260|13:Attribute=640|
+ StrDelimiter="~"
+ Grid=0
+ Redaction=1
+ StaticColumn=0
+}
+Add(ComboBox,9303322,182,105)
+{
+ Left=375
+ Top=5
+ Width=90
+ Height=21
+ Strings=#7:Drivers|11:DataSources|
+ link(onClick,9267215:doEvent1,[(224,118)(224,155)(130,155)(130,167)])
+}
+Add(Hub,9267215,140,161)
+{
+ link(onEvent1,14772620:doClear,[])
+ link(onEvent2,14170810:doList,[(180,174)(180,202)])
+}
+Add(Memory,3935874,322,168)
+{
+}
+Add(InfoTip,2981795,161,14)
+{
+ Info=#163:Пример использования компонента ODBC  для получения информации об установленных в системе ODBC драйверах и источниках данных ( Data Source Name ) с их атрибутами. |
+ Font=[MS Sans Serif,8,0,255,1]
+ Frame=1
+ Transparent=1
+ HAlign=0
+ Width=288
+ Height=60
+}
+Add(Replace,12652852,280,210)
+{
+ SubStr="\0"
+ DestStr=":"
+ link(onReplace,15362790:doString,[])
+}

@@ -1,0 +1,25 @@
+include('tag_maker')
+
+section html
+
+func doPrint
+  include('tag_header')
+
+  if(isndef(Type))
+    s &= " type=\"" & Type & "\""
+  end 
+  
+  if(isndef(Label))
+    s &= " label=\"" & Label & "\""
+  end 
+    
+  if(isndef(Name))
+    s &= " name=\"" & Name & "\""
+  end 
+
+  if(isndef(Optional))
+    s &= " optional=\"" & Optional & "\""
+  end 
+
+  include('tag_footer')
+end

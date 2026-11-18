@@ -1,0 +1,11 @@
+section html
+
+func doPrint(_data)
+  print('<a name="dt_' + _SCOPE_ + '_')
+  inc_sec("php")
+  print('$f' + _SITE_ + '["id"]')
+  dec_sec("html")
+  println('"> </a>')        
+  event(onPrint, _data)
+end
+

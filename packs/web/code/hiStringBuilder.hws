@@ -1,0 +1,36 @@
+func doBuild(_data):java,html
+  fvar(s, r, p, pname, i, t)
+  
+  s = Mask
+  i = pos("%", s)
+  while(i)
+    p = copy(s,1,i-1) 
+    if(p)
+      r &= p
+    end 
+    delete(s,1,i)
+    t = pos("%",s)
+    pname = copy(s,1,t-1)
+    if(!cgt.get_point_id(pname))
+      error("Точка "  + pname + " не найдена")
+    end
+    r &= point(pname)
+    delete(s,1,t)
+    i = pos("%", s)
+  end
+  if(s)
+    r &= s
+  end
+
+  if(linked(Result))
+    println(res, ' = ', r, ';')
+    event(onBuild, res)
+  else
+    event(onBuild, r)
+  end
+end
+
+func Result():java,html
+  return(res)
+end
+

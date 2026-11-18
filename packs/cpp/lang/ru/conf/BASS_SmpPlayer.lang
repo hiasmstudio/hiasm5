@@ -1,0 +1,9 @@
+Sample Player=Проигрыватель сэмплов
+Plays a sample from the current position=Проигрывает сэмпл с текущей позиции
+Stops sample playback=Останавливает проигрывание сэмпла
+The event occurs in case of an error and outputs its number to the stream=Событие происходит в случае ошибки и выдаёт её номер в поток
+Contains the sample rate=Содержит частоту дискретизации сэмпла
+Contains the volume of the sample sound=Содержит громкость звучания сэмпла
+Contains channel balance=Содержит баланс каналов
+Contains the sample length in seconds=Содержит длину сэмпла в секундах
+Specifies the sample ID=Определяет идентификатор сэмпла

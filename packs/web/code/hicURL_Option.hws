@@ -1,0 +1,64 @@
+func doSetOptions()
+    fvar(a,s)
+	s = 'curl_setopt_array('+cURLID+', array('
+	a = ''
+	if (isndef(TransferMode))
+		a = 'CURLOPT_BINARYTRANSFER => TRUE, '
+	end	
+	
+	a = a + 'CURLOPT_FAILONERROR => ' + CURLOPT_FAILONERROR + ', '
+	
+	if (isndef(CURLOPT_HEADER))
+		a = a + 'CURLOPT_HEADER => TRUE, '
+	end
+
+
+	switch(Method)
+		case 'GET':
+			a = a + 'CURLOPT_HTTPGET => TRUE, '
+		case 'POST':
+			if (isndef(PostData))
+				a = a + 'CURLOPT_POST => TRUE, CURLOPT_POSTFIELDS => ' + PostData + ', '
+			else
+				a = a + 'CURLOPT_HTTPGET => TRUE, '
+			end
+		case 'HEAD':
+			a = a + 'CURLOPT_NOBODY => TRUE, '
+		case 'PUT':
+			a = a + 'CURLOPT_PUT => TRUE, '
+		case 'Custom':
+			if (isndef(CustomRequest))
+				a = a + 'CURLOPT_CUSTOMREQUEST => ' + CustomRequest + ', '
+			else
+				a = a + 'CURLOPT_HTTPGET => TRUE, '
+			end
+	end
+	
+	if (isndef(ReturnTransfer))
+		a = a + 'CURLOPT_RETURNTRANSFER => TRUE, '
+	end
+	
+	if (isndef(ConnectTimeout))
+		a = a + 'CURLOPT_CONNECTTIMEOUT => ' + ConnectTimeout + ', '
+	end
+	
+	if (isndef(CookieJar))
+		a = a + 'CURLOPT_COOKIEJAR => ' + CookieJar + ', '
+	end
+	
+	if (isndef(URL))
+		a = a + 'CURLOPT_URL => ' + URL + ', '
+	end
+	
+	if (isndef(UserAgent))
+		a = a + 'CURLOPT_USERAGENT => ' + UserAgent + ', '
+	end
+	
+	if (linked(onSetOptions))
+	  println (result, ' = ', s, a, '));')
+	  event(onSetOptions, result);
+	else
+	  println (s, a, '));')
+	  event(onSetOptions)
+	end
+end

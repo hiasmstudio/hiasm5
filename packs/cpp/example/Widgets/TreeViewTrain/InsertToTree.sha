@@ -1,0 +1,130 @@
+*ѕростой пример, демонстрирующий вставку нового пункта в дерево по ID родител€
+Make(cpp)
+Add(MainForm,2953706,21,105)
+{
+ link(onCreate,10500446:doEnum,[])
+}
+Add(TreeViewTrain,2363091,420,119)
+{
+ Left=175
+ Top=20
+ Width=210
+ Height=250
+ Name="main_tree"
+ Layout="main"
+ WidthScale=100
+ ParentIDIndex=2
+ IDIndex=1
+}
+Add(TVT_AddNode,5460754,280,119)
+{
+ TreeView="main_tree"
+}
+Add(StrList,15705233,133,49)
+{
+ Strings=#11:категори€ 1|12:категори€ 2 |11:категори€ 3|
+}
+Add(ArrayEnum,10500446,133,119)
+{
+ link(onItem,16327444:doAdd,[])
+ link(Array,15705233:Array,[(139,107)(153,107)])
+}
+Add(MT_Add,12235697,231,119)
+{
+ Data=Integer(-1)
+ link(onAdd,5460754:doAddNode,[])
+}
+Add(MT_Add,16327444,182,119)
+{
+ link(onAdd,12235697:doAdd,[])
+ link(Data,10500446:Index,[(188,107)(175,107)(175,166)(146,166)])
+}
+Add(Button,10942384,119,301)
+{
+ Left=105
+ Top=150
+ Caption="Add"
+ link(onClick,14242362:doData,[])
+}
+Add(Edit,13531228,168,252)
+{
+ Left=15
+ Top=20
+ Width=145
+ Text=" артошка"
+}
+Add(MT_Add,12078062,266,301)
+{
+ link(onAdd,2948288:doAddNode,[])
+ link(Data,10643341:Text,[])
+}
+Add(MT_Add,16371405,217,301)
+{
+ link(onAdd,12078062:doAdd,[])
+ link(Data,8077804:Text,[])
+}
+Add(DoData,14242362,168,301)
+{
+ link(onEventData,16371405:doAdd,[])
+ link(Data,13531228:Text,[])
+}
+Add(TVT_AddNode,2948288,315,301)
+{
+ TreeView="main_tree"
+ link(onAddFailed,8175173:doMessage,[])
+}
+Add(Label,13983827,168,203)
+{
+ Left=15
+ Width=35
+ Height=17
+ Caption="“овар"
+}
+Add(Label,9661684,217,203)
+{
+ Left=15
+ Top=50
+ Width=53
+ Height=17
+ Caption="ID товара"
+}
+Add(Edit,8077804,217,252)
+{
+ Left=15
+ Top=70
+ Width=145
+ Text="41"
+ DataType=1
+}
+Add(Label,14395369,265,203)
+{
+ Left=15
+ Top=100
+ Width=120
+ Height=17
+ Caption="ID категории(от 0 до 2)"
+}
+Add(Edit,10643341,266,252)
+{
+ Left=15
+ Top=120
+ Width=145
+ Text="1"
+ DataType=1
+}
+Add(Message,8175173,371,308)
+{
+}
+Add(LayoutSpacer,7138913,378,119)
+{
+ Top=190
+ Width=170
+ Height=75
+ Layout="main"
+}
+Add(HBoxLayout,9418853,399,161)
+{
+ Name="main"
+ Space=3
+ Padding=3
+}

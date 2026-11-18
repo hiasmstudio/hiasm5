@@ -1,0 +1,7 @@
+Clipping rectangle=Прямоугольник отсечения
+X coordinate of the bottom left corner (in pixels)=Координата X левого нижнего угла (в пикселях)
+Y coordinate of the lower left corner (in pixels)=Координата Y левого нижнего угла (в пикселях)
+Rectangle width (in pixels)=Ширина прямоугольника (в пикселях)
+Rectangle height (in pixels)=Высота прямоугольника (в пикселях)
+Cuts a window according to a given rectangle=Вырезает окно по заданному прямоугольнику
+The event occurs every time a window is cut=Событие происходит всякий раз после вырезания окна

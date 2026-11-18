@@ -1,0 +1,7 @@
+Changing the size of an Alpha picture=Изменение размера Alpha-картинки
+Image width=Ширина картинки
+Picture height=Высота картинки
+Changes the size of the Alpha image ARG(Bitmap, NewWidth, NewHeight)=Изменяет размер Alpha-картинки ARG(Bitmap, NewWidth, NewHeight)
+The event occurs after the Alpha image is resized and outputs the result to the ARG(AlphaBitmap) stream=Событие происходит после изменения размера Alpha-картинки и выдаёт результат в поток ARG(AlphaBitmap)
+Picture to resize=Картинка для изменения размера
+Contains a modified Alpha picture=Содержит измененную Alpha-картинку

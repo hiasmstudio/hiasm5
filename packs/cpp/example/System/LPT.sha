@@ -1,0 +1,92 @@
+*Об использование программы смотрите в Подробной Справке по компоненту LPT.
+Make(cpp)
+Pos(0,0)
+Add(MainForm,9531,210,190)
+{
+ Left=312
+ Top=284
+ Width=283
+ Height=135
+ Caption="Тестирование LPT порта"
+}
+Add(Counter,29880,60,215)
+{
+ Max=1
+ link(onNext,64187:doD3,[(156,221)(156,96)])
+}
+Add(Button,24416,10,215)
+{
+ Left=10
+ Top=85
+ Width=75
+ Font=[Arial,8,0,0,1]
+ Caption="Диод 4"
+ link(onClick,29880:doNext,[])
+}
+Add(Button,67137,10,135)
+{
+ Left=10
+ Top=35
+ Width=75
+ Font=[Arial,8,0,0,1]
+ Caption="Диод 2"
+ Data=Integer(1)
+ link(onClick,10142:doNext,[])
+}
+Add(Button,66041,10,175)
+{
+ Left=10
+ Top=60
+ Width=75
+ Font=[Arial,8,0,0,1]
+ Caption="Диод 3"
+ link(onClick,31125:doNext,[])
+}
+Add(Button,63340,10,95)
+{
+ Left=10
+ Top=10
+ Width=75
+ Font=[Arial,8,0,0,1]
+ Caption="Диод 1"
+ Data=Integer(1)
+ link(onClick,71320:doNext,[])
+}
+Add(Counter,49544,60,55)
+{
+ Max=15
+ link(onNext,64187:doData,[])
+}
+Add(Counter,31125,60,175)
+{
+ Max=1
+ link(onNext,64187:doD1,[(149,181)(149,89)])
+}
+Add(Timer,6474,103,6)
+{
+ Interval=50
+ link(onTimer,64187:doCheck,[(160,12)(160,68)])
+}
+Add(Counter,10142,60,135)
+{
+ Max=1
+ link(onNext,64187:doD2,[(143,141)(143,82)])
+}
+Add(Counter,71320,60,95)
+{
+ Max=1
+ link(onNext,64187:doD0,[(138,101)(138,75)])
+}
+Add(LPT,64187,185,55)
+{
+ Port=1
+ Point(doD0)
+ Point(doD2)
+ Point(doD1)
+ Point(doD3)
+}
+Add(ListBox,14460635,161,371)
+{
+ Left=180
+ Top=410
+}

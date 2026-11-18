@@ -1,0 +1,17 @@
+func doReplace(_data)
+  if(linked(Result))
+    println(rslt, ' = nl2br(', Value, ');')
+    event(onReplace, rslt)
+  else
+    event(onReplace, 'nl2br(' && Value && ')')
+  end 
+end
+
+func Result()
+  if(linked(doReplace))
+    return(rslt)
+  else
+    return('nl2br(' && Value && ')')
+  end
+end
+

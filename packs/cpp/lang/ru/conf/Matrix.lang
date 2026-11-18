@@ -1,0 +1,10 @@
+Data Matrix=Матрица данных
+Matrix type=Тип матрицы
+Number of matrix columns=Количество столбцов матрицы
+Number of matrix rows=Количество строк матрицы
+Sets the matrix size in the format Col + 65536*Row=Устанавливает размер матрицы в формате Col + 65536*Row
+Fills all matrix cells with zeros=Заполняет все ячейки матрицы нулями
+Returns a matrix=Возвращает матрицу
+Contains the number of matrix columns=Содержит количество столбцов матрицы
+Contains the number of matrix rows=Содержит количество строк матрицы
+Matrix size in Col + 65536*Row format=Размер матрицы в формате Col + 65536*Row

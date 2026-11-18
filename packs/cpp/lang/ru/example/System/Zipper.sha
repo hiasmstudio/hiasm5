@@ -1,0 +1,482 @@
+*Пример работы с компонентом Zipper#13#10__________#13#10Автор: Nic
+Make(cpp)
+Pos(37,0)
+Add(MainForm,11375753,649,133)
+{
+ Left=20
+ Top=105
+ Width=772
+ Height=428
+ Caption="Zipper"
+ BorderStyle=1
+ Point(Left)
+ Point(Top)
+ Point(Width)
+ Point(Height)
+}
+Add(Zipper,3909792,411,189)
+{
+ Method=2
+ CheckAttr=1
+ Comment="Comment for HiAsm"
+ Point(doOpen)
+ Point(doList)
+ Point(doOrderMulti)
+ Point(doExtractOne)
+ Point(doExtractAll)
+ Point(doDelete)
+ Point(doCancel)
+ link(onProgress,860011:doWork2,[])
+ link(onError,14108451:doIndexText,[(469,202)(469,216)])
+ link(ZipFileName,2629433:Text,[])
+ link(BasePath,16766626:Text,[(424,164)(480,164)])
+ link(FileMask,691008:Var1,[(431,100)])
+ link(Index,775369:Var1,[(438,179)(462,179)(462,338)])
+}
+Add(Button,358358,96,196)
+{
+ Left=10
+ Top=135
+ Width=65
+ Caption="Add"
+ link(onClick,8699084:doExecute,[])
+}
+Add(Edit,2629433,411,126)
+{
+ Left=355
+ Top=30
+ Width=395
+ Text=""
+}
+Add(ODialog,8699084,138,196)
+{
+ Title="Add file to list"
+ link(onExecute,4015847:doEvent1,[])
+}
+Add(Hub,2779771,180,280)
+{
+ InCount=2
+ OutCount=3
+ link(onEvent1,3909792:doCompress,[(261,286)(261,209)])
+ link(onEvent2,2138304:doEvent1,[(238,293)(238,153)])
+ link(onEvent3,13441761:doEvent4,[(222,300)(222,321)])
+}
+Add(StatusBar,14108451,481,203)
+{
+ Strings=#18:Operation complete|36:The structure of ZIP file is damaged|31:Old compression method is used |22:Cannot read from file |17:Cannot open file |21:Cannot write to file |23:Cannot create new file |31:Error in runtime info function |11:User break |20:File already exists |31:Cannot delete the old zip file |33:Cannot rename the temporary file |33:Cannot create the temporary file |32:Target directory does not exist |35:Cannot open the temporary zip file |68:This is the first volume of spanned zip set, the last one is needed |45:Cannot find a volume of the spanned zip file |2:  |
+ link(onText,14498505:doData,[(518,209)(518,209)])
+}
+Add(HubEx,627524,397,203)
+{
+ link(onEvent,3909792:doClose,[])
+}
+Add(ChildFormEx,10257916,656,189)
+{
+ link(onCancel,3909792:doCancel,[(700,195)(700,273)(401,273)(401,265)])
+ link(D1,11375753:Left,[])
+ link(D2,11375753:Top,[])
+ link(D3,11375753:Width,[])
+ link(D4,11375753:Height,[])
+}
+BEGIN_SDK
+  Add(EditMultiEx,6485354,3,3)
+  {
+   WorkCount=#10:doPosition|5:doMax|
+   EventCount=#8:onCancel|
+   DataCount=#2:D1|2:D2|2:D3|2:D4|
+   Width=356
+   Height=242
+   link(doPosition,11203112:doEvent1,[])
+   link(doMax,8753213:doMax,[])
+  }
+  Add(MainForm,8375215,203,112)
+  {
+   Left=35
+   Top=105
+   Height=124
+   Caption="Progress..."
+   BorderStyle=0
+   Visible=1
+   Point(doVisible)
+   Point(Width)
+   Point(Height)
+   Point(doLeft)
+   Point(doTop)
+  }
+  Add(ProgressBar,8753213,245,84)
+  {
+   Left=10
+   Top=33
+   Width=372
+   Point(doMax)
+  }
+  Add(Button,3190852,245,126)
+  {
+   Left=165
+   Top=65
+   Caption="Cancel"
+   link(onClick,6485354:onCancel,[])
+  }
+  Add(Label,13186431,245,42)
+  {
+   Left=155
+   Top=10
+   Width=75
+   Height=17
+   Caption="Process:"
+   Alignment=2
+  }
+  Add(If_else,9935051,98,133)
+  {
+   link(onTrue,8375215:doClose,[])
+   link(onFalse,10975768:doEvent1,[])
+  }
+  Add(Hub,11203112,49,14)
+  {
+   OutCount=3
+   link(onEvent1,9935051:doCompare,[(93,20)(93,139)])
+   link(onEvent2,8753213:doPosition,[(86,27)(86,90)])
+   link(onEvent3,12137498:doProcessMessages,[])
+  }
+  Add(InlineCode,8779013,35,189)
+  {
+   @Hint=#41:Выравнивание по центру родительского окна|
+   WorkPoints=#5:doSet|
+   EventPoints=#6:onLeft|5:onTop|
+   DataPoints=#1:L|1:T|1:W|1:H|2:LW|2:LH|
+   Code=#15:unit HiAsmUnit;|0:|9:interface|0:|21:uses KOL,Share,Debug;|0:|4:type|28: THiAsmClass = class(TDebug)|7:private|6:public|31: L, T, W, H, LW, LH: THI_Event;|18: onTop: THI_Event;|19: onLeft: THI_Event;|46: procedure doSet(var _Data:TData; Index:word);|4:end;|0:|14:implementation|3:var|32: ParentLeft, ParentTop: Integer;|36: ParentWidth, ParentHeight: Integer;|34: LocalWidth, LocalHeight: Integer;|0:|28:procedure THiAsmClass.doSet;|3:var|20:   ResW, ResH: Real;|15:   Data: TData;|5:begin|30:   Data.Data_type := data_int;|19:   Data.idata := 0;|39:   ParentLeft := ReadInteger(data,L,0);|38:   ParentTop := ReadInteger(data,T,0);|40:   ParentWidth := ReadInteger(data,W,0);|41:   ParentHeight := ReadInteger(data,H,0);|40:   LocalWidth := ReadInteger(data,LW,0);|41:   LocalHeight := ReadInteger(data,LH,0);|51:   ResW := (ParentWidth-LocalWidth)/2 + ParentLeft;|52:   ResH := (ParentHeight-LocalHeight)/2 + ParentTop;|27:   _hi_onEvent(onTop,ResH);|28:   _hi_onEvent(onLeft,ResW);|4:end;|4:end.|
+   link(onLeft,8375215:doLeft,[(189,195)(189,153)])
+   link(onTop,8375215:doTop,[(195,202)(195,160)])
+   link(L,6485354:D1,[])
+   link(T,6485354:D2,[])
+   link(W,6485354:D3,[])
+   link(H,6485354:D4,[])
+   link(LW,8375215:Width,[(69,177)(216,177)])
+   link(LH,8375215:Height,[(76,182)(223,182)])
+  }
+  Add(Hub,10975768,140,140)
+  {
+   link(onEvent1,8779013:doSet,[(177,146)(177,174)(25,174)(25,195)])
+   link(onEvent2,8375215:doVisible,[(184,153)(184,146)])
+  }
+  Add(Application,12137498,105,28)
+  {
+   Info="Zipper"
+   Wait=1
+  }
+END_SDK
+Add(Button,10204283,96,112)
+{
+ Left=10
+ Top=65
+ Width=65
+ Caption="Create"
+ link(onClick,13989529:doExecute,[])
+}
+Add(Button,8536433,96,280)
+{
+ Left=10
+ Top=205
+ Width=65
+ Caption="Compress"
+ link(onClick,2779771:doEvent1,[])
+}
+Add(Label,11151075,516,14)
+{
+ Left=10
+ Top=10
+ Width=54
+ Height=17
+ Caption="Mask files:"
+}
+Add(Button,12183890,96,364)
+{
+ Left=10
+ Top=275
+ Width=65
+ Caption="ExtraclAll"
+ link(onClick,11427953:doBrowse,[])
+}
+Add(Browse,11427953,138,364)
+{
+ Title="Select Folder for Extract"
+ link(onBrowse,6267579:doEvent1,[])
+}
+Add(Edit,16766626,474,112)
+{
+ Left=130
+ Top=30
+ Width=215
+ Text=""
+ link(onChange,5175359:doSearch,[])
+}
+Add(Hub,13441761,376,294)
+{
+ InCount=6
+ link(onEvent1,977168:doClear,[])
+ link(onEvent2,14952107:doEnum,[])
+}
+Add(HubEx,2115161,383,217)
+{
+ link(onEvent,3909792:doList,[])
+}
+Add(ODialog,7499055,138,154)
+{
+ Title="Open Archive"
+ link(onExecute,2626670:doEvent1,[])
+}
+Add(HubEx,12985945,390,210)
+{
+ link(onEvent,3909792:doOpen,[])
+}
+Add(ArrayEnum,14952107,418,301)
+{
+ link(onItem,977168:doAdd,[(470,307)(470,293)])
+ link(Array,3909792:List,[])
+}
+Add(StringTable,977168,481,287)
+{
+ Left=95
+ Top=65
+ Width=656
+ Height=301
+ Columns=#8:Name=150|12:Modified=120|8:Size=100|8:Ratio=45|10:Packed=100|8:Path=230|
+ StrDelimiter="\9"
+ Grid=0
+ Redaction=1
+ ColumnClick=1
+ Point(Index)
+}
+Add(Button,278810,96,406)
+{
+ Left=10
+ Top=310
+ Width=65
+ Caption="Delete"
+ link(onClick,14149248:doEvent1,[])
+}
+Add(DoData,12883819,495,350)
+{
+ link(onEventData,3909792:doDelete,[(534,356)(534,281)(394,281)(394,258)])
+ link(Data,775369:Var2,[])
+}
+Add(Label,794415,411,14)
+{
+ Left=355
+ Top=10
+ Width=62
+ Height=17
+ Caption="ZIP archive:"
+}
+Add(Hub,14149248,180,406)
+{
+ OutCount=3
+ link(onEvent1,12883819:doData,[(478,412)(478,356)])
+ link(onEvent2,2138304:doEvent2,[(310,419)(310,160)])
+ link(onEvent3,13441761:doEvent5,[(358,426)(358,328)])
+}
+Add(Hub,1276092,180,238)
+{
+ OutCount=4
+ link(onEvent1,479678:doWork2,[(299,244)(299,118)])
+ link(onEvent2,3909792:doOrderMulti,[(317,251)(317,237)])
+ link(onEvent3,11961934:doData,[(292,258)(292,275)(579,275)(579,202)])
+ link(onEvent4,2779771:doEvent2,[(222,265)(222,275)(170,275)(170,293)])
+}
+Add(Button,1749935,96,154)
+{
+ Left=10
+ Top=100
+ Width=65
+ Caption="Open"
+ link(onClick,7499055:doExecute,[])
+}
+Add(Button,11668391,96,322)
+{
+ Left=10
+ Top=240
+ Width=65
+ Caption="ExtractOne"
+ link(onClick,11953475:doBrowse,[])
+}
+Add(GetDataEx,775369,488,329)
+{
+ link(Data,977168:Index,[])
+}
+Add(Hub,4015847,180,196)
+{
+ OutCount=3
+ link(onEvent1,3909792:doOrder,[])
+ link(onEvent2,13441761:doEvent3,[(230,209)(230,314)])
+ link(onEvent3,1856392:doWork1,[(268,216)])
+}
+Add(Edit,7274508,516,56)
+{
+ Left=10
+ Top=30
+ Width=110
+ Text="*.*"
+}
+Add(Button,6933482,96,238)
+{
+ Left=10
+ Top=170
+ Width=65
+ Caption="AddMulti"
+ link(onClick,924601:doBrowse,[])
+}
+Add(Label,13090421,467,14)
+{
+ Left=130
+ Top=10
+ Width=56
+ Height=17
+ Caption="Base Path:"
+}
+Add(Browse,924601,138,238)
+{
+ Title="Select Base Folder"
+ link(onBrowse,1276092:doEvent1,[])
+}
+Add(FilePart,9736937,369,70)
+{
+ link(onPath,479678:doWork1,[(457,76)])
+}
+Add(Hub,9783842,327,70)
+{
+ InCount=2
+ link(onEvent1,9736937:doPart,[])
+ link(onEvent2,2629433:doText,[(364,83)(364,132)])
+}
+Add(Hub,8582419,180,112)
+{
+ OutCount=3
+ link(onEvent1,9783842:doEvent1,[(269,118)(269,76)])
+ link(onEvent2,3909792:doCreate,[(282,125)(282,195)])
+ link(onEvent3,13441761:doEvent1,[(325,132)(325,300)])
+}
+Add(Hub,6267579,180,364)
+{
+ OutCount=3
+ link(onEvent1,8617123:doWork2,[])
+ link(onEvent2,1856392:doWork3,[(268,377)])
+ link(onEvent3,3909792:doExtractAll,[(343,384)(343,251)])
+}
+Add(SDialog,13989529,138,112)
+{
+ Filter=""
+ Title="Create New Archive"
+ link(onExecute,8582419:doEvent1,[])
+}
+Add(Button,8219243,96,448)
+{
+ Left=10
+ Top=345
+ Width=65
+ Caption="Close"
+ link(onClick,8177990:doEvent1,[])
+}
+Add(HubEx,479678,453,105)
+{
+ link(onEvent,16766626:doText,[(468,118)(461,118)])
+}
+Add(Hub,2626670,180,154)
+{
+ OutCount=4
+ link(onEvent1,9783842:doEvent2,[(292,160)(292,83)])
+ link(onEvent2,12985945:doWork2,[(272,167)(272,223)])
+ link(onEvent3,2115161:doWork2,[(254,174)(254,230)])
+ link(onEvent4,13441761:doEvent2,[(247,181)(247,307)])
+}
+Add(Hub,8177990,180,448)
+{
+ link(onEvent1,627524:doWork2,[(283,454)(283,216)])
+ link(onEvent2,13441761:doEvent6,[(367,461)(367,335)])
+}
+Add(InfoTip,8540618,19,119)
+{
+ Info=#6:Create|0:|0:|4:Open|0:|0:|3:Add|0:|0:|8:AddMulti|0:|0:|8:Compress|0:|0:|10:ExtractOne|0:|0:|10:ExtraclAll|0:|0:|6:Delete|0:|0:|5:Close|
+ Font=[Arial,8,0,16711680,204]
+ Frame=1
+ Height=403
+}
+Add(Hub,2138304,348,147)
+{
+ InCount=2
+ OutCount=3
+ link(onEvent1,627524:doWork1,[(401,153)])
+ link(onEvent2,12985945:doWork1,[(394,160)])
+ link(onEvent3,2115161:doWork1,[(387,167)])
+}
+Add(DoData,14498505,523,203)
+{
+ Data=Integer(0)
+ link(onEventData,860011:doWork3,[(569,209)])
+}
+Add(HubEx,860011,565,182)
+{
+ link(onEvent,10257916:doPosition,[])
+}
+Add(DoData,11961934,593,196)
+{
+ Data=Integer(0)
+ link(onEventData,12707546:doWork2,[(630,202)(630,202)])
+ link(Data,5175359:Count,[(599,170)(522,170)])
+}
+Add(HubEx,12707546,635,189)
+{
+ link(onEvent,10257916:doMax,[])
+}
+Add(FileSearch,5175359,516,112)
+{
+ link(Ext,691008:Var2,[])
+}
+Add(GetDataEx,691008,509,91)
+{
+ link(Data,7274508:Text,[])
+}
+Add(DoData,11601578,593,280)
+{
+ Data=Integer(0)
+ link(onEventData,12707546:doWork3,[(639,286)])
+ link(Data,3909792:Count,[(599,277)(417,277)])
+}
+Add(Browse,11953475,138,322)
+{
+ Title="Select Folder for Extract"
+ link(onBrowse,14773651:doEvent1,[])
+}
+Add(Hub,14773651,180,322)
+{
+ link(onEvent1,8617123:doWork1,[(226,328)])
+ link(onEvent2,3909792:doExtractOne,[(334,335)(334,244)])
+}
+Add(HubEx,8617123,222,357)
+{
+ link(onEvent,479678:doWork3,[(457,370)])
+}
+Add(HubEx,1856392,264,273)
+{
+ link(onEvent,11601578:doData,[])
+}
+Add(InfoTip,3139768,502,399)
+{
+ Info=#9:Внимание!|
+ Font=[MS Sans Serif,12,1,255,1]
+ Transparent=1
+ Width=232
+ Height=95
+}
+Add(InfoTip,8392515,509,420)
+{
+ Info=#84:Для работы компонента Zipper необходимо скачать DLL и скопировать её в папку Windows|
+ Frame=1
+ HAlign=0
+ Width=218
+ Height=39
+}
+Add(LinkTip,9279260,509,469)
+{
+ Link="http://www.hiasm.com/down/bszip.dll=load://http://www.hiasm.hexshock.com/down/bszip.dll"
+ Font=[MS Sans Serif,8,0,16711680,1]
+}

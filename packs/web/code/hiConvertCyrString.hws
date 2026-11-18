@@ -1,0 +1,17 @@
+func doConvertCyrString (_data)
+  if(linked(Result))
+    println(rslt, ' = convert_cyr_string(', Value, ',', From, ',', To, ');')
+    event(onConvertCyrString, rslt)
+  else
+    event(onConvertCyrString, 'convert_cyr_string(' && Value && ',' && From ',' && To && ')')
+  end 
+end
+
+func Result()
+  if(linked(doConvertCyrString))
+    return(rslt)
+  else
+    return('convert_cyr_string(' && Value && ',' && From ',' && To &&  ')')
+  end
+end
+

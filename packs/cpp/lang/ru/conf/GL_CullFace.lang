@@ -1,0 +1,4 @@
+Cull face=Отсечение передних или задних сторон объектов сцены
+The side of the object for which the edge trimming mode is set=Сторона объекта, для которой устанавливается режим отсечения граней
+Sets the type of cut sides=Устанавливает тип отсекаемых сторон
+The event occurs after setting the type of cut sides=Событие происходит после установки типа отсекаемых сторон

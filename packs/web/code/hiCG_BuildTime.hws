@@ -1,0 +1,4 @@
+func Time():any
+  return(sys.time(Mask))
+end
+

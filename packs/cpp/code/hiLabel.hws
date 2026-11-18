@@ -1,0 +1,15 @@
+func doStart
+  println('{')
+  fvar(align)
+  switch(Alignment)
+    case 1: align = '1.0'
+    case 2: align = '0.5'
+    default: align = '0.0'
+  end
+  println('GtkWidget *label = gtk_label_new(', Caption, ');')
+  println('hiasm_set_color(label, ', cstr(d('Color')), ');')
+  println('hiasm_set_font(label, ', cstr(d('Font')), ');')
+  println('gtk_label_set_xalign(GTK_LABEL(label), ', align, ');')
+  println('hiasm_place("Label', _id_, '", label, ', Left, ', ', Top, ');')
+  println('}')
+end

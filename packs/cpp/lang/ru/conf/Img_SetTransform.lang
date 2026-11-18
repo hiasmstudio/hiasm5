@@ -1,0 +1,13 @@
+Transformation installation=Установка трансформации
+Default coordinates of the upper left corner of the rectangular area=Координаты верхнего левого угла прямоугольной области по-умолчанию
+Default coordinates of the lower right corner of the rectangular area=Координаты нижнего правого угла прямоугольной области по-умолчанию
+Count the coordinates of the second point relative to the first (i.e. the second point is the length and height)=Отсчитывать координаты второй точки относительно первой (т.е. вторая точка это длина и высота)
+Graphics output object to which the transformation will be applied: Bitmap - image, Handle - window or Windows control, Context - device context=Объект вывода графики к которуму будет применена трансформация: Bitmap - картинка, Handle - окно или элемент управления Windows, Context - контекст устройства
+Sets the transformation=Устанавливает трансформацию
+Reset transformation=Сброс трансформации
+The event occurs every time a transformation is set=Событие происходит всякий раз после установки трансформации
+The event occurs every time after the transformation is reset=Событие происходит всякий раз после сброса трансформации
+Defines the image to be transformed=Определяет картинку для трансформации
+Coordinates of the upper left corner of the rectangular area=Координаты верхнего левого угла прямоугольной области
+Coordinates of the lower right corner of the rectangular area=Координаты нижнего правого угла прямоугольной области
+Transformation=Трансформация

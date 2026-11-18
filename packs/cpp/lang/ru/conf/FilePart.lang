@@ -1,0 +1,8 @@
+Separating a file name into path, name and extension=Разделение имeни файла на путь, имя и расширение
+True - the file extension is output to the stream with a dot in front, False - without a dot=True - расширение файла выдаётся в поток с точкой впереди, False - без точки
+True - output the file name without extension to the stream (onName), False - with extension=True - выдать в поток (onName) имя файла без расширения, False - с расширением
+Splits the full file name into path, name and extension=Разбивает полное имя файла на путь, имя и расширение
+Outputs the path to the file into the stream=Выдаёт в поток путь к файлу
+Outputs the file name without extension into the stream=Выдаёт в поток имя файла без расширения
+Outputs the file extension to the stream=Выдаёт в поток расширение файла
+Full file name=Полное имя файла

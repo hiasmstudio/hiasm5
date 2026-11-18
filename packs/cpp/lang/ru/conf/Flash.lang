@@ -1,0 +1,11 @@
+Flash player=Flash-проигрыватель
+File name to play in Flash-Player=Имя файла для проигрывания во Flash-Player
+Background color=Цвет фона
+Start playing=Начать проигрывание
+Pause=Пауза
+Stop=Стоп
+Go to frame=Перейти к кадру
+Event occurs when playback starts=Событие происходит при начале проигрывания
+Event occurs when paused=Событие происходит при паузе
+Event occurs when playback is stopped=Событие происходит при остановке проигрывания
+Contains the current frame=Содержит текущий кадр

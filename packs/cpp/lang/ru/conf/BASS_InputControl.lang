@@ -1,0 +1,6 @@
+Input Device Control=Управление устройством ввода
+Sound level from 0 to 1=Уровень звука от 0 до 1
+Device status=Состояние устройства
+Sets the parameters of the specified input device ARG(Index, Volume, State)=Устанавливает параметры указанного устройства ввода ARG(Index, Volume, State)
+The event occurs every time after setting input device parameters=Событие происходит всякий раз после установки параметров устройства ввода
+Input device index=Индекс устройства ввода

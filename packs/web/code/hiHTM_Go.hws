@@ -1,0 +1,21 @@
+include('tag_maker')
+
+section html
+
+func doPrint
+  include('tag_header')
+
+  if(isndef(Href))
+    s &= " href=\"" & Href & "\""
+  end 
+  
+  if(isndef(Method))
+    s &= " method=\"" & Method & "\""
+  end
+
+  if(isndef(Charset))
+    s &= " accept-charset =\"" & Charset & "\""
+  end
+
+  include('tag_footer')
+end

@@ -1,0 +1,106 @@
+func Source(value)
+  if(len(value) > 0)
+    return(value)
+  else
+    return(cstr(''))
+  end
+end
+
+func HomeExpr(sub)
+  fvar(path)
+  path = '[](const char *home, const char *profile, const char *sub) { std::string base = profile && *profile ? std::string(profile) : (home && *home ? std::string(home) : std::string(".")); if(sub && *sub) base += std::string("/") + sub; return base; }(std::getenv("HOME"), std::getenv("USERPROFILE"), '
+  if(len(sub) == 0)
+    path = path && '""'
+  else
+    path = path && cstr(sub)
+  end
+  return(path && ')')
+end
+
+func WindowsExpr(variable, fallback)
+  return('[](const char *name, const char *def) { const char *value = std::getenv(name); return std::string(value && *value ? value : def); }(' && cstr(variable) && ', ' && cstr(fallback) && ')')
+end
+
+func doDir(_data)
+  println('{')
+  block.inclvl()
+  println('std::error_code hiasm_ec', _id_, ';')
+  println('std::filesystem::create_directories(std::filesystem::path(std::string(', Source(_data), ')), hiasm_ec', _id_, ');')
+  println('if(!hiasm_ec', _id_, ') {')
+  block.inclvl()
+  event(onEnd)
+  block.declvl()
+  println('} else {')
+  block.inclvl()
+  event(onError)
+  block.declvl()
+  println('}')
+  block.declvl()
+  println('}')
+end
+
+func doCurrentDir(_data)
+  println('{')
+  block.inclvl()
+  println('std::error_code hiasm_ec', _id_, ';')
+  println('std::filesystem::current_path(std::filesystem::path(std::string(', Source(_data), ')), hiasm_ec', _id_, ');')
+  println('if(!hiasm_ec', _id_, ') {')
+  block.inclvl()
+  event(onEnd)
+  block.declvl()
+  println('} else {')
+  block.inclvl()
+  event(onError)
+  block.declvl()
+  println('}')
+  block.declvl()
+  println('}')
+end
+
+func CurrentDir()
+  return('std::filesystem::current_path().string()')
+end
+
+func DesktopDir()
+  return(HomeExpr('Desktop'))
+end
+
+func TempDir()
+  return('std::filesystem::temp_directory_path().string()')
+end
+
+func StartUpDir()
+  return(HomeExpr('.config/autostart'))
+end
+
+func WindowsDir()
+  return(WindowsExpr('WINDIR', '/'))
+end
+
+func ProgramsDir()
+  return(WindowsExpr('ProgramFiles', '/usr'))
+end
+
+func StartMenuDir()
+  return(HomeExpr('.local/share/applications'))
+end
+
+func FavoritesDir()
+  return(HomeExpr('Favorites'))
+end
+
+func FontsDir()
+  return(HomeExpr('.fonts'))
+end
+
+func HistoryDir()
+  return(HomeExpr('.local/share/history'))
+end
+
+func MyDocumentDir()
+  return(HomeExpr('Documents'))
+end
+
+func SendToDir()
+  return(HomeExpr('.local/share/SendTo'))
+end

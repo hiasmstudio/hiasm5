@@ -1,0 +1,220 @@
+Make(cpp)
+Add(MainForm,2953706,42,105)
+{
+ link(onCreate,15525783:doEvent1,[])
+}
+Add(PaintBox,11954044,161,203)
+{
+ Left=30
+ Top=25
+ Width=320
+ Height=230
+ Color=12632256
+ Point(onMouseMove)
+ Point(MouseX)
+ Point(MouseY)
+ link(onBeforeDraw,8604724:doData,[])
+ link(onMouseMove,16770553:doEvent1,[(201,216)(201,272)])
+}
+Add(PolymorphMulti,15277182,329,119)
+{
+ Childrens=#3:box|6:circle|
+ Selected="base"
+ WorkScheme=1
+ link(onTrue,4133194:doValue,[(373,125)(373,265)])
+}
+BEGIN_SDK
+  Add(EditPolyMulti,14470326,21,21)
+  {
+   WorkCount=#59:##Add=Создает дочерний контейнер по указанному имени класса|6:doDraw|7:doCheck|
+   EventCount=#6:onTrue|
+  }
+END_SDK
+BEGIN_SDK
+  Add(EditPolyMulti,9034777,21,21)
+  {
+   WorkCount=#59:##Add=Создает дочерний контейнер по указанному имени класса|6:doDraw|7:doCheck|
+   EventCount=#6:onTrue|
+   Width=265
+   Height=277
+   link(##Add,15978066:doRandom,[(56,27)(56,55)])
+   link(doDraw,3464998:doDraw,[(56,34)(56,181)])
+   link(doCheck,755789:doCalc,[(56,41)(56,251)])
+  }
+  Add(Img_Rectangle,3464998,91,175)
+  {
+   Point2AsOffset=0
+   Point(Point1)
+   Point(Point2)
+   link(Point1,3622762:Var2,[])
+   link(Point2,13382430:Var1,[(118,156)])
+  }
+  Add(PointXY,14495459,91,105)
+  {
+   link(X,15978066:Random,[])
+   link(Y,3649181:Random,[(104,93)(146,93)])
+  }
+  Add(PointXY,6924954,140,105)
+  {
+   X=40
+   Y=30
+  }
+  Add(Random,15978066,91,49)
+  {
+   Max=200
+   link(onRandom,3649181:doRandom,[])
+  }
+  Add(Random,3649181,140,49)
+  {
+   Max=200
+  }
+  Add(PointInRect,2858558,140,245)
+  {
+   Point2AsOffset=0
+   link(onTrue,3314029:doData,[])
+   link(RPoint1,3622762:Var3,[(153,163)])
+   link(RPoint2,13382430:Var3,[(160,156)])
+  }
+  Add(MathParse,755789,91,245)
+  {
+   MathStr="%2*65536 + %1"
+   ResultType=0
+   link(onResult,2858558:doCheck,[])
+  }
+  Add(GetDataEx,3622762,98,154)
+  {
+   link(Data,14495459:Point,[(111,151)(97,151)])
+  }
+  Add(GetDataEx,13382430,133,147)
+  {
+   link(Data,6924954:Point,[])
+  }
+  Add(DoData,3314029,189,245)
+  {
+   Data=String(box)
+   link(onEventData,9034777:onTrue,[(246,251)(246,27)])
+  }
+END_SDK
+BEGIN_SDK
+  Add(EditPolyMulti,14853045,21,21)
+  {
+   WorkCount=#59:##Add=Создает дочерний контейнер по указанному имени класса|6:doDraw|7:doCheck|
+   EventCount=#6:onTrue|
+   Width=398
+   Height=263
+   link(##Add,15978066:doRandom,[(53,27)(53,48)])
+   link(doDraw,9553048:doDraw,[(53,34)(53,174)])
+   link(doCheck,4007400:doGet,[(53,41)(53,237)])
+  }
+  Add(PointXY,14495459,84,112)
+  {
+   link(X,7181077:Var2,[])
+   link(Y,13297102:Var2,[])
+  }
+  Add(PointXY,6924954,147,112)
+  {
+   X=30
+   Y=30
+  }
+  Add(Random,15978066,84,42)
+  {
+   link(onRandom,3649181:doRandom,[])
+  }
+  Add(Random,3649181,133,42)
+  {
+  }
+  Add(Img_Ellipse,9553048,84,168)
+  {
+   Point2AsOffset=0
+   Point4AsOffset=0
+   Point(Point1)
+   Point(Point2)
+   link(Point1,14495459:Point,[(104,156)(90,156)])
+   link(Point2,6924954:Point,[(111,156)(153,156)])
+  }
+  Add(MT_Get,4007400,84,231)
+  {
+   link(onData,16295382:doCalc,[])
+   link(onGet,5427215:doCalc,[])
+  }
+  Add(MathParse,5427215,133,238)
+  {
+   MathStr="%2 - (%1 + 15)"
+   link(X1,13297102:Var3,[(139,100)])
+  }
+  Add(GetDataEx,7181077,77,77)
+  {
+   link(Data,15978066:Random,[])
+  }
+  Add(MathParse,16295382,182,231)
+  {
+   MathStr="%2 - (%1 + 15)"
+   link(onResult,11493549:doCalc,[])
+   link(X1,7181077:Var3,[(188,86)])
+  }
+  Add(GetDataEx,13297102,84,91)
+  {
+   link(Data,3649181:Random,[(97,82)(139,82)])
+  }
+  Add(MathParse,11493549,238,231)
+  {
+   MathStr="%1*%1 + %2*%2"
+   link(onResult,10616349:doCompare,[])
+   link(X2,5427215:Result,[(251,219)(223,219)(223,280)(139,280)])
+  }
+  Add(If_else,10616349,287,231)
+  {
+   Type=1
+   Op2=Integer(225)
+   link(onTrue,8631386:doData,[])
+  }
+  Add(DoData,8631386,336,231)
+  {
+   Data=String(circle)
+   link(onEventData,14853045:onTrue,[(394,237)(394,27)])
+  }
+END_SDK
+Add(Hub,15525783,98,119)
+{
+ link(onEvent1,1187935:doEnum,[])
+ link(onEvent2,11954044:doRefresh,[(146,132)(146,209)])
+}
+Add(StrList,11127059,147,56)
+{
+ Strings=#3:box|6:circle|3:box|
+}
+Add(ArrayEnum,1187935,161,119)
+{
+ link(onItem,15277182:##Add,[])
+ link(Array,11127059:Array,[])
+}
+Add(DoData,8604724,210,203)
+{
+ link(onEventData,15277182:doDraw,[(286,209)(286,132)])
+ link(Data,11954044:Bitmap,[(216,188)(137,188)(137,247)(167,247)])
+}
+Add(MT_Add,5248943,308,273)
+{
+ link(onAdd,15277182:doCheck,[(352,279)(352,220)(317,220)(317,139)])
+ link(Data,11954044:MouseX,[(314,250)(174,250)])
+}
+Add(DoData,7775177,259,273)
+{
+ link(onEventData,5248943:doAdd,[])
+ link(Data,11954044:MouseY,[(265,250)(181,250)])
+}
+Add(Memory,4133194,385,259)
+{
+}
+Add(Hub,16770553,210,266)
+{
+ OutCount=3
+ link(onEvent1,4133194:doClear,[])
+ link(onEvent2,7775177:doData,[])
+ link(onEvent3,947192:doData,[(250,286)(250,321)])
+}
+Add(DoData,947192,385,315)
+{
+ link(onEventData,2953706:doCaption,[(426,321)(426,356)(23,356)(23,111)])
+ link(Data,4133194:Value,[])
+}

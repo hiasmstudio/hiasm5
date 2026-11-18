@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ Author: Andrew Johnson <acjgenius@earthlink.net>
+ Copyright (C) 2004 Andrew Johnson <acjgenius@earthlink.net>
+ Copyright (C) 2005 Thierry Moisan <thierryn@videotron.ca>
+
+ This library is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+-->
+<language id="hws" _name="HiAsm WS" version="2.0" _section="Sources">
+  <metadata>
+    <property name="globs">*.hws</property>
+    <property name="line-comment-start">//</property>
+  </metadata>
+
+  <styles>
+    <style id="comment" _name="Comment" map-to="def:comment"/>
+    <style id="string" _name="String" map-to="def:string"/>
+    <style id="keyword" _name="Keyword" map-to="def:keyword"/>
+    <style id="decimal" _name="Decimal" map-to="def:decimal"/>
+    <style id="type" _name="Data Type" map-to="def:type"/>
+    <style id="object" _name="Object"/>
+  </styles>
+
+  <default-regex-options case-sensitive="false"/>
+
+  <definitions>
+
+    <context id="single-quoted-string" style-ref="string" class="string" class-disabled="no-spell-check">
+      <start>[uUrR]?'</start>
+      <end>'</end>
+    </context>
+
+    <context id="double-quoted-string" style-ref="string" class="string" class-disabled="no-spell-check">
+      <start>"</start>
+      <end>"</end>
+      <include>
+        <context style-ref="def:special-char">
+          <match>\\["\\]</match>
+        </context>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="line-comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>//</start>
+      <include>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="general-format" style-ref="keyword">
+      <keyword>end</keyword>
+    </context>
+
+    <context id="functions-and-function-modifiers" style-ref="keyword">
+      <keyword>func</keyword>
+      <keyword>include</keyword>
+    </context>
+
+    <context id="boolean-bitwise-operators" style-ref="keyword">
+      <keyword>if</keyword>
+      <keyword>elseif</keyword>
+      <keyword>else</keyword>
+      <keyword>and</keyword>
+      <keyword>not</keyword>
+      <keyword>or</keyword>
+    </context>
+
+    <context id="math-operators" style-ref="keyword">
+      <keyword>div</keyword>
+      <keyword>mod</keyword>
+    </context>
+
+    <context id="loop-flow-and-exceptions-keywords" style-ref="keyword">
+      <keyword>while</keyword>
+      <keyword>for</keyword>
+      <keyword>switch</keyword>
+      <keyword>case</keyword>
+    </context>
+
+    <context id="type-class-and-object-keywords" style-ref="keyword">
+      <keyword>print</keyword>
+      <keyword>println</keyword>
+      <keyword>var</keyword>
+      <keyword>gvar</keyword>
+      <keyword>fvar</keyword>
+      <keyword>free</keyword>
+      <keyword>event</keyword>
+      <keyword>return</keyword>
+      <keyword>lang</keyword>
+    </context>
+
+    <context id="objects" style-ref="object">
+      <keyword>block</keyword>
+      <keyword>cgt</keyword>
+      <keyword>lng</keyword>
+      <keyword>sys</keyword>
+    </context>
+
+    <context id="builtin-types" style-ref="type">
+      <keyword>int</keyword>
+      <keyword>str</keyword>
+      <keyword>real</keyword>
+    </context>
+
+    <context id="builtin-functions" style-ref="keyword">
+      <keyword>linked</keyword>
+      <keyword>isdef</keyword>
+      <keyword>isndef</keyword>
+      <keyword>isset</keyword>
+      <keyword>isprop</keyword>
+      <keyword>issec</keyword>
+      <keyword>typeof</keyword>
+      <keyword>expof</keyword>
+      <keyword>count</keyword>
+    </context>
+
+    <context id="builtin-values" style-ref="keyword">
+      <keyword>False</keyword>
+      <keyword>True</keyword>
+    </context>
+
+    <context id="number" style-ref="decimal">
+      <match extended="true">
+        (?&lt;![\w\.])
+        (([0-9]+)|([0-9]+\.[0-9]+([Ee][-]?[0-9]+)?))
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="hex-number" style-ref="decimal">
+      <match extended="true">
+        (?&lt;![\w\.])
+        \$[0-9a-fA-F]*
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="hws" class="no-spell-check">
+      <include>
+        <context ref="single-quoted-string"/>
+        <context ref="double-quoted-string"/>
+        <context ref="line-comment"/>
+        <context ref="general-format"/>
+        <context ref="functions-and-function-modifiers"/>
+        <context ref="boolean-bitwise-operators"/>
+        <context ref="math-operators"/>
+        <context ref="loop-flow-and-exceptions-keywords"/>
+        <context ref="type-class-and-object-keywords"/>
+        <context ref="builtin-types"/>
+        <context ref="builtin-functions"/>
+        <context ref="builtin-values"/>
+        <context ref="number"/>
+        <context ref="hex-number"/>
+        <context ref="objects" />
+      </include>
+    </context>
+
+  </definitions>
+</language>

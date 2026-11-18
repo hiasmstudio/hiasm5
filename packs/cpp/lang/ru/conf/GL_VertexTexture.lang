@@ -1,0 +1,5 @@
+Texture mapping=Натягивание текстур по вершинам примитивов
+Texture X coordinates relative to the object=Координаты текстуры по Х относительно объекта
+Texture Y coordinates relative to the object=Координаты текстуры по Y относительно объекта
+Sets the coordinates of the current texture=Задаёт координаты текущей текстуре
+The event occurs every time after setting the coordinates=Событие происходит всякий раз после задания координат

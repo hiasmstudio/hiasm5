@@ -1,0 +1,37 @@
+func Guard()
+  println('#if !defined(_WIN32)')
+  println('#error "CPUUsage is a Windows-only element"')
+  println('#endif')
+end
+
+func doCollectCPUData(_data)
+  Guard()
+  println('{')
+  block.inclvl()
+  println('FILETIME hiasm_idle', _id_, ', hiasm_kernel', _id_, ', hiasm_user', _id_, ';')
+  println('GetSystemTimes(&hiasm_idle', _id_, ', &hiasm_kernel', _id_, ', &hiasm_user', _id_, ');')
+  println('auto hiasm_ft', _id_, ' = [](const FILETIME &ft) { return (static_cast<long long>(ft.dwHighDateTime) << 32) | static_cast<long long>(ft.dwLowDateTime); };')
+  println('const long long hiasm_i', _id_, ' = hiasm_ft', _id_, '(hiasm_idle', _id_, ');')
+  println('const long long hiasm_k', _id_, ' = hiasm_ft', _id_, '(hiasm_kernel', _id_, ');')
+  println('const long long hiasm_u', _id_, ' = hiasm_ft', _id_, '(hiasm_user', _id_, ');')
+  println('const long long hiasm_pi', _id_, ' = hiasm_ll_state(', _id_, ' * 10 + 1, hiasm_i', _id_, ');')
+  println('const long long hiasm_pk', _id_, ' = hiasm_ll_state(', _id_, ' * 10 + 2, hiasm_k', _id_, ');')
+  println('const long long hiasm_pu', _id_, ' = hiasm_ll_state(', _id_, ' * 10 + 3, hiasm_u', _id_, ');')
+  println('hiasm_ll_state(', _id_, ' * 10 + 1) = hiasm_i', _id_, ';')
+  println('hiasm_ll_state(', _id_, ' * 10 + 2) = hiasm_k', _id_, ';')
+  println('hiasm_ll_state(', _id_, ' * 10 + 3) = hiasm_u', _id_, ';')
+  println('const long long hiasm_total', _id_, ' = (hiasm_k', _id_, ' - hiasm_pk', _id_, ') + (hiasm_u', _id_, ' - hiasm_pu', _id_, ');')
+  println('const long long hiasm_idle', _id_, '_delta = hiasm_i', _id_, ' - hiasm_pi', _id_, ';')
+  println('const int hiasm_usage', _id_, ' = hiasm_total', _id_, ' > 0 ? static_cast<int>(100 - (hiasm_idle', _id_, '_delta * 100 / hiasm_total', _id_, ')) : 0;')
+  event(onUsage, 'hiasm_usage' && _id_)
+  block.declvl()
+  println('}')
+end
+
+func doReleaseCPUData(_data)
+  println('/* nothing to release */')
+end
+
+func CPUCount()
+  return('static_cast<int>(std::thread::hardware_concurrency())')
+end

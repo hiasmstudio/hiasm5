@@ -1,0 +1,6 @@
+Monitoring data changes in a stream=Мониторинг изменения данных в потоке
+Sets the initial value of the data in the component=Задаёт начальное значение данных в компоненте
+Compares the data from the stream with the data of the component and if they are not equal, it remembers them and outputs them to the stream, otherwise it does nothing=Сравнивает данные из потока с данными компонента и если они не равны, то запоминает их и выдает в поток, иначе ничего не делает
+The event occurs whenever data from the stream does not match the data in the component and outputs this data back to the stream=Событие происходит всякий раз при несовпадении данных из потока с данными в компоненте и выдает эти данные назад в поток
+The event occurs whenever data from the stream matches data in the component and outputs this data back to the stream=Событие происходит всякий раз при совпадении данных из потока с данными в компоненте и выдает эти данные назад в поток
+Defines data=Определяет данные

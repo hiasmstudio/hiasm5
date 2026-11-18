@@ -1,0 +1,5 @@
+Clearing the MTStrTbl table=Очистка таблицы MTStrTbl
+True - clear the table by deleting all columns, False - clear only the table data without deleting columns=True - очищать таблицу с удалением всех столбцов, False - очищать только данные таблицы без удаления столбцов
+Managing the MTStrTbl element=Управление элементом MTStrTbl
+Clears the table=Очищает таблицу
+The event occurs whenever the list of table rows is changed=Событие происходит всякий раз при изменении списка строк таблицы

@@ -1,0 +1,36 @@
+func KeyValue()
+  if(linked('Key'))
+    return(d('Key'))
+  else
+    return(get('Key'))
+  end
+end
+
+func Mod(prop, key)
+  switch(get(prop))
+    case 1: return(' && hiasm_key_state(' && key && ')')
+    case 2: return(' && !hiasm_key_state(' && key && ')')
+    default: return('')
+  end
+end
+
+func Condition()
+  return('hiasm_key_state(static_cast<int>(' && KeyValue() && '))' && Mod('Shift', 'VK_SHIFT') && Mod('Ctrl', 'VK_CONTROL') && Mod('Alt', 'VK_MENU'))
+end
+
+func doCheckMask(_data)
+  println('{')
+  block.inclvl()
+  println('const int hiasm_keymask', _id_, ' = static_cast<int>(', KeyValue(), ');')
+  println('if(', Condition(), ') {')
+  block.inclvl()
+  event(onTrue)
+  block.declvl()
+  println('} else {')
+  block.inclvl()
+  event(onFalse, 'hiasm_keymask' && _id_)
+  block.declvl()
+  println('}')
+  block.declvl()
+  println('}')
+end

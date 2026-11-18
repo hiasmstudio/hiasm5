@@ -1,0 +1,7 @@
+Cryptography=Криптография
+Encryption method=Метод шифрования
+Key=Ключ
+Begins the encryption procedure ARG(Data, Key)=Начинает процедуру шифрования ARG(Data, Key)
+The event occurs every time after encryption has finished and outputs the result to the ARG(Data) stream=Событие происходит всякий раз после окончания шифрования и выдает результат в поток ARG(Data)
+Contains the result of encryption=Содержит результат шифрования
+Data to Encrypt=Данные для шифрования

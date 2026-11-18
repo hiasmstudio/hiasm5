@@ -1,0 +1,32 @@
+func Item(i)
+  if(linked('Data' && i))
+    return(d('Data' && i))
+  else
+    return('std::string()')
+  end
+end
+
+func Source()
+  fvar(expr, i)
+  expr = Item(1)
+  i = 2
+  while(i <= get('Count'))
+    expr = expr && ', std::string(' && Item(i) && ')'
+    i = i + 1
+  end
+  return(expr)
+end
+
+func doIndex(_data)
+  println('{')
+  block.inclvl()
+  println('const int hiasm_ind', _id_, ' = std::atoi(hiasm_text(', _data, ').c_str());')
+  println('hiasm_int_state(', _id_, ', -1) = (hiasm_ind', _id_, ' >= 0 && hiasm_ind', _id_, ' < ', get('Count'), ') ? hiasm_ind', _id_, ' : -1;')
+  event(onIndex, 'hiasm_ind' && _id_)
+  block.declvl()
+  println('}')
+end
+
+func Var()
+  return('[]() { int fi = hiasm_int_state(' && _id_ && ', -1); if(fi < 0) return std::string(); std::vector<std::string> vals = { ' && Source() && ' }; if(fi >= static_cast<int>(vals.size())) return std::string(); return vals[static_cast<std::size_t>(fi)]; }()')
+end

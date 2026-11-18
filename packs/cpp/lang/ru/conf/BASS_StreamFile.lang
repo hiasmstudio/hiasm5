@@ -1,0 +1,8 @@
+Stream audio from file or Internet=Поточный звук из файла или Internet
+Loads WAV/MP3/MP2/MP1/OGG files with on-the-fly decoding=Загружает файлы WAV/MP3/MP2/MP1/OGG с декодированием "на лету"
+Downloads a file from the Internet=Загружает файл из Internet
+Stops the process and frees the resources occupied by the file=Останавливает процесс и освобождает ресурсы, занимаемые файлом
+The event occurs in case of an error and outputs its number to the stream=Событие происходит в случае ошибки и выдаёт её номер в поток
+Displays connection status=Отображает состояние соединения
+Stream Audio ID=Идентификатор поточного звука
+Specifies the file name or URL to download=Определяет имя файла или URL для загрузки

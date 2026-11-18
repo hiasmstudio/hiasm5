@@ -1,0 +1,81 @@
+*Пример сохранения глобальных переменных в файле.
+Pos(0,0)
+Add(MainForm,4349082,56,189)
+{
+ Left=20
+ Top=105
+ Width=271
+ Height=93
+ Font=[MS Sans Serif,8,0,0]
+ Point(Close)
+ link(onCreate,9013019:doLoad,[])
+ link(Close,11056260:GetData,[])
+}
+Add(GVarContainer,9013019,203,224)
+{
+ Section="Vars"
+ FilleName="test.ini"
+ VarList='var1','var2'
+ link(onLoad,8563428:doEvent1,[])
+}
+Add(EventFromData,11056260,56,126)
+{
+ link(onEvent,9013019:doSave,[(145,132)(145,237)])
+}
+Add(Edit,2695133,259,84)
+{
+ Left=40
+ Top=5
+ Width=185
+ Font=[MS Sans Serif,8,0,0]
+ link(onChange,602156:doValue,[])
+}
+Add(Edit,11788891,266,133)
+{
+ Left=40
+ Top=35
+ Width=185
+ Font=[MS Sans Serif,8,0,0]
+ link(onChange,15397749:doValue,[])
+}
+Add(GlobalVar,15397749,343,133)
+{
+ Name="var2"
+}
+Add(GlobalVar,602156,322,84)
+{
+ Name="var1"
+}
+Add(Label,11383746,175,84)
+{
+ Left=5
+ Top=10
+ Width=25
+ Height=17
+ Font=[MS Sans Serif,8,0,0]
+ Caption="var1"
+}
+Add(Label,10025414,175,133)
+{
+ Left=5
+ Top=35
+ Width=25
+ Height=17
+ Font=[MS Sans Serif,8,0,0]
+ Caption="var2"
+}
+Add(DoData,10311888,322,224)
+{
+ link(onEventData,2695133:doText,[(408,230)(408,73)(249,73)(249,90)])
+ link(Data,602156:Var,[])
+}
+Add(Hub,8563428,252,224)
+{
+ link(onEvent1,10311888:doData,[])
+ link(onEvent2,10119454:doData,[(313,237)(313,293)])
+}
+Add(DoData,10119454,343,287)
+{
+ link(onEventData,11788891:doText2,[(391,293)(391,330)(244,330)(244,146)])
+ link(Data,15397749:Var,[])
+}

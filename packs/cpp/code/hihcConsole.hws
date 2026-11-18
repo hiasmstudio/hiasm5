@@ -1,0 +1,14 @@
+func doPrint(_data)
+  fvar(value, test)
+  test = Text1
+  if(len(test) > 0)
+    value = test
+  else
+    value = _data
+  end
+  if(len(value) > 0)
+    println('std::puts(hiasm_text(', value, ').c_str());')
+  else    println('std::puts(hiasm_text("").c_str());')
+  end
+  event(onPrint)
+end

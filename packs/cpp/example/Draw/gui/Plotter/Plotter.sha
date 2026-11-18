@@ -1,0 +1,136 @@
+*ѕример использовани€ графика дл€ отображени€ статических и динамических данных
+Make(cpp)
+Add(MainForm,16184661,63,161)
+{
+ Left=20
+ Top=105
+ Width=501
+ Height=412
+ Caption="Plotter"
+ link(onCreate,14310219:doFor,[])
+}
+Add(ChildPanel,15338234,119,112)
+{
+ link(onEvent1,8271532:doWork1,[(165,118)])
+}
+BEGIN_SDK
+  Add(EditMulti,3245134,17,17)
+  {
+   EventCount=1
+  }
+  Add(Panel,14944618,49,119)
+  {
+   Width=493
+   Height=38
+   Align=2
+   BevelInner=0
+   Point(doColor)
+  }
+  Add(Button,8422764,119,112)
+  {
+   Left=5
+   Top=10
+   Caption="Add"
+   link(onClick,7940827:doData,[])
+  }
+  Add(Edit,11860193,175,56)
+  {
+   Left=65
+   Top=10
+   Text="0"
+  }
+  Add(DoData,7940827,175,112)
+  {
+   link(onEventData,14531340:doWork1,[(249,118)])
+   link(Data,11860193:Text,[])
+  }
+  Add(ScrollBar,8095960,175,154)
+  {
+   Left=140
+   Top=10
+   Width=240
+   Min=-200
+   link(onPosition,14531340:doWork3,[(249,160)])
+  }
+  Add(HubEx,14531340,245,112)
+  {
+   link(onEvent,3245134:onEvent1,[(285,125)(285,23)])
+  }
+END_SDK
+Add(For,14310219,119,175)
+{
+ End=200
+ link(onEvent,8271532:doWork2,[])
+}
+Add(Math,14546787,189,175)
+{
+ OpType=3
+ Op2=10
+ link(onResult,14060830:doOperation,[])
+}
+Add(Math,14060830,245,175)
+{
+ OpType=13
+ link(onResult,13676781:doAdd,[(289,181)(289,244)])
+}
+Add(Plotter,10574215,189,112)
+{
+ Left=5
+ Top=40
+ Width=475
+ Height=340
+ Align=5
+ Name="Plotter"
+ GridColor=16777215
+}
+Add(PlotLines,7547227,301,175)
+{
+ Grapher="Plotter"
+}
+Add(PlotPoints,13676781,301,238)
+{
+ Grapher="Plotter"
+ Size=3
+ Shape=2
+ link(ValueX,14546787:Result,[(314,219)(195,219)])
+}
+Add(PlotAxis,4986410,294,91)
+{
+ Grapher="Plotter"
+ Color=0
+}
+Add(PlotAxis,7393577,343,91)
+{
+ Grapher="Plotter"
+ Color=0
+ Angle=90
+}
+Add(PlotAxis,8415170,476,105)
+{
+ Grapher="Plotter"
+ Color=0
+ Style=2
+ Y=1
+}
+Add(PlotAxis,10710613,476,147)
+{
+ Grapher="Plotter"
+ Color=0
+ Style=2
+ Y=-1
+}
+Add(InfoTip,5177955,280,70)
+{
+ Info=#9:main axis|
+ Width=113
+ Height=67
+}
+Add(InfoTip,1126987,462,77)
+{
+ Info=#12:tangent axis|
+ Height=116
+}
+Add(HubEx,8271532,161,168)
+{
+ link(onEvent,14546787:doOperation,[])
+}

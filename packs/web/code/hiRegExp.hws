@@ -1,0 +1,23 @@
+section java
+
+func create(_data)
+  return('new RegExp(' && Pattern && ',' && Switch && ')')
+end
+
+func doRegExp(_data)
+  if(linked(Result))
+    println(re, ' = ', create(_data), ';')
+    event(onRegExp, re)
+  else
+    event(onRegExp, create(_data))
+  end
+end
+
+func Result(_data)
+  if(linked(doRegExp))
+    return(re)
+  else
+    return(create(_data))
+  end
+end
+

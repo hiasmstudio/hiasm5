@@ -1,0 +1,527 @@
+Make(cpp)
+Add(MainForm,2953706,21,105)
+{
+ Width=875
+ Height=573
+ Position=1
+ link(onCreate,5150765:doData,[])
+}
+Add(Img_Bmp,14834304,581,119)
+{
+ X=300
+ Y=30
+ Point(Transform)
+ link(onDraw,4321348:doDraw,[])
+ link(Bitmap,12638861:Var2,[])
+ link(SourceBitmap,2111405:Var2,[])
+ link(Transform,16766605:Var2,[])
+}
+Add(Img_Rectangle,13763744,497,119)
+{
+ Point1=1966130
+ Point2=2621510
+ Point2AsOffset=0
+ Style=7
+ rX=25
+ rY=12
+ Color=8388736
+ BgColor=8388736
+ Point(Transform)
+ link(onDraw,4167568:doDraw,[])
+ link(Bitmap,1094628:Var2,[])
+ link(Transform,13856890:Var2,[])
+}
+Add(Img_Ellipse,4321348,623,119)
+{
+ Point1=1966480
+ Point2=3932260
+ Point2AsOffset=0
+ Style=6
+ Color=8388608
+ BgColor=8388608
+ Point(Transform)
+ link(onDraw,2394779:doDraw,[])
+ link(Bitmap,16707988:Var2,[])
+ link(Transform,289025:Var2,[])
+}
+Add(Img_Text,4167568,539,119)
+{
+ X=200
+ Y=30
+ Font=[Microsoft Sans Serif,12,0,0,204]
+ Text="HiAsm"
+ Point(Transform)
+ link(onDraw,14834304:doDraw,[])
+ link(Bitmap,11039216:Var2,[])
+ link(Transform,4273613:Var2,[])
+}
+Add(PaintBox,6488492,434,119)
+{
+ Left=175
+ Top=5
+ Width=685
+ Height=265
+ Color=12639424
+ ClearBeforeDraw=0
+ link(onBeforeDraw,13763744:doDraw,[])
+}
+Add(GetIndexData,14387982,224,119)
+{
+ Count=7
+ link(onIndex,795015:doEvent1,[])
+ link(Data2,2785032:Transform,[(237,99)(181,99)])
+ link(Data3,5037465:Transform,[(244,88)(216,88)])
+ link(Data4,6301217:Transform,[])
+ link(Data5,5811810:Transform,[(258,89)(286,89)])
+ link(Data6,2400328:Transform,[(265,100)(321,100)])
+ link(Data7,4311696:Transform,[(272,106)(356,106)])
+}
+Add(DoData,5150765,77,119)
+{
+ Data=Integer(0)
+ link(onEventData,11360504:doEvent1,[])
+ AddHint(0,-21,21,13,Data)
+}
+Add(ListBox,4963528,175,133)
+{
+ Width=165
+ Height=117
+ Strings=#17:Без трансформации|14:Маштаб (1.5:1)|11:Сдвиг (0.4)|12:Поворот (45)|9:Отражение|20:Смещение (x:50 y:50)|32:Поворот (-15) и маштаб (1.2:1.5)|
+ Point(doSelect)
+ link(onClick,2593399:doWork3,[(214,146)])
+}
+Add(Hub,11360504,126,119)
+{
+ link(onEvent1,2593399:doWork2,[])
+ link(onEvent2,4963528:doSelect,[(158,132)(158,181)])
+}
+Add(HubEx,2593399,210,119)
+{
+ link(onEvent,14387982:doIndex,[])
+}
+Add(Bitmap,14066710,588,49)
+{
+ Picture=[ZIP3604000078DA95534D4F5341143D26FE00FF01D006786D851A9562E247144C58A9412346175A75438436247E4450CA420DD56235A00D89460503A931B60103341A1B17BA406453CAA60ABCBEF7FAFDB1E8067775E6BE3E4213A9619293C9DC33E7DE73EF645A4E58768296854160D855C20E54AB4489DFBC8AC5E296387FE167457E2BDCEDFF8E06F3187A7A3E229BCD229FCF6F4B7FF8C8386A742E5CBF31854C268368544643E3285A5A8315755E6F18E9741A172F79497FF3D6349DD7D624D4D63D80BE7618274FF9FFA9DDBB6F021DE7DE209148A2FD8C5ABFEFCE0C52A914565745188C831473B982CC53794F673BE6A1D3BB61BDFC1AC3235F512FB8E9AEC33147FE254961FE1F52ACDF31CB3C6590CBE536F4CD07DE13572FB868D73030304BFE1525C6FCA9319BCD8F643259A637EF192FD369B877FF13F98F4625589A872866B5BE63B134F9D2F4A6DD2F88D3E99DE8EC7CC5F6C7741E747EA67BB1581C070FA93DB59F7E4B39F9BB6A7AA3699438B7DB87951509553543A5597D217D3C9EC0D1634F28D67AFC25E5E37D697AC1E861DC230402F3585A1251C7E677BB770691884C7ADE6F5BDB08E99B2C1E7AA3CDF505C37354553BB1B8B8CC669D40382C527E0DDC6F30B88CAE6E3F1ACDCF983E51A637983CB0D97DE493DFE7F9E7023F70E5EA18AE754DE083EF1B6459613E521045D53BD7AFAFFFC1D4F42F4C4E86E8CCC16B8542BF61B7FBB1BFC9C366F314DDECCD161622C4F17E2AFD091EE73CAFC1EBC94A72E3BDB6FB8F0A85C27F357F01C7A43AA2]
+}
+Add(Img_Gradient,8237322,749,119)
+{
+ Point1=8519900
+ Point2=6553700
+ Point2AsOffset=0
+ StartColor=255
+ EndColor=65280
+ Point(Transform)
+ link(onDraw,9473669:doDraw,[])
+ link(Bitmap,8369081:Var2,[])
+ link(Transform,13658574:Var2,[])
+}
+Add(GetDataEx,1094628,497,102)
+{
+ Angle=3
+ link(Data,6488492:Bitmap,[(474,107)(474,162)(440,162)])
+}
+Add(GetDataEx,11039216,539,102)
+{
+ Angle=3
+ link(Data,1094628:Var3,[])
+}
+Add(GetDataEx,12638861,581,102)
+{
+ Angle=3
+ link(Data,11039216:Var3,[])
+}
+Add(GetDataEx,16707988,623,102)
+{
+ Angle=3
+ link(Data,12638861:Var3,[])
+}
+Add(GetDataEx,13856890,511,95)
+{
+ Angle=3
+ link(Data,4256594:Var3,[(419,100)(419,168)])
+}
+Add(GetDataEx,4273613,553,95)
+{
+ Angle=3
+ link(Data,13856890:Var3,[])
+}
+Add(GetDataEx,16766605,595,95)
+{
+ Angle=3
+ link(Data,4273613:Var3,[])
+}
+Add(GetDataEx,289025,637,95)
+{
+ Angle=3
+ link(Data,16766605:Var3,[])
+}
+Add(Img_Arc,1568088,707,119)
+{
+ Point1=8519730
+ Point2=6553700
+ Point2AsOffset=0
+ Style=4
+ Point4=100
+ Point4AsOffset=0
+ Mode=1
+ Color=8421376
+ BgColor=8421376
+ Point(Transform)
+ link(onDraw,8237322:doDraw,[])
+ link(Bitmap,4981155:Var2,[])
+ link(Transform,11427840:Var2,[])
+}
+Add(GetDataEx,4981155,707,102)
+{
+ Angle=3
+ link(Data,14344705:Var3,[])
+}
+Add(GetDataEx,11427840,721,95)
+{
+ Angle=3
+ link(Data,8066201:Var3,[])
+}
+Add(Img_Line,6756713,840,119)
+{
+ Point1=8520230
+ Point2=6553600
+ Point2AsOffset=0
+ Point(Transform)
+ link(onDraw,7892348:doDraw,[])
+ link(Bitmap,16454337:Var2,[])
+ link(Transform,14869547:Var2,[])
+}
+Add(Img_UseScale,2785032,175,49)
+{
+ X=1.5
+}
+Add(Img_UseRotate,6301217,245,49)
+{
+ Angle=45
+}
+Add(Img_UseSkew,5037465,210,49)
+{
+ X=0.4
+}
+Add(GetDataEx,8369081,749,102)
+{
+ Angle=3
+ link(Data,4981155:Var3,[])
+}
+Add(GetDataEx,13658574,756,95)
+{
+ Angle=3
+ link(Data,11427840:Var3,[])
+}
+Add(Img_Point,7892348,882,119)
+{
+ X=600
+ Y=180
+ Color=128
+ Size=7
+ Point(Transform)
+ link(Bitmap,16454337:Var3,[(888,107)])
+ link(Transform,14869547:Var3,[(895,100)])
+}
+Add(GetDataEx,12845063,791,102)
+{
+ Angle=3
+ link(Data,8369081:Var3,[])
+}
+Add(GetDataEx,14305226,805,95)
+{
+ Angle=3
+ link(Data,13658574:Var3,[])
+}
+Add(PointXY,9139630,819,42)
+{
+ X=340
+ Y=80
+}
+Add(Img_Polygon,9473669,791,119)
+{
+ PointsArray=['0'=3276850,'0'=3276890,'0'=3932260,'0'=3276910,'0'=3276950,'0'=6553725,'0'=9830550,'0'=9830520,'0'=9175160,'0'=9175120,'0'=9830480,'0'=9830450,'0'=6553675]
+ Offset=-3211314
+ PatternStyle=0
+ Style=1
+ Point(Transform)
+ Point(Pattern)
+ Point(Offset)
+ link(onDraw,6756713:doDraw,[])
+ link(Bitmap,12845063:Var2,[])
+ link(Transform,14305226:Var2,[])
+ link(Pattern,2111405:Var3,[(818,89)])
+ link(Offset,9139630:Point,[])
+}
+Add(Img_MultiText,2394779,665,119)
+{
+ X=550
+ Y=30
+ Font=[Microsoft Sans Serif,12,1,32896,204]
+ Text="HiAsm\r\nThe\r\nBest"
+ Point(Transform)
+ link(onDraw,1568088:doDraw,[])
+ link(Bitmap,14344705:Var2,[])
+ link(Transform,8066201:Var2,[])
+}
+Add(GetDataEx,2111405,588,84)
+{
+ link(Data,14066710:Bitmap,[])
+}
+Add(GetDataEx,16454337,840,102)
+{
+ Angle=3
+ link(Data,12845063:Var3,[])
+}
+Add(GetDataEx,14869547,847,95)
+{
+ Angle=3
+ link(Data,14305226:Var3,[])
+}
+Add(GetDataEx,14344705,665,102)
+{
+ Angle=3
+ link(Data,16707988:Var3,[])
+}
+Add(GetDataEx,8066201,679,95)
+{
+ Angle=3
+ link(Data,289025:Var3,[])
+}
+Add(PaintBox,1778789,434,245)
+{
+ Left=175
+ Top=275
+ Width=685
+ Height=265
+ Color=12639424
+ ClearBeforeDraw=0
+ Point(onPaint)
+ link(onPaint,537921:doDraw,[])
+}
+Add(Hub,795015,364,119)
+{
+ link(onEvent1,6488492:doRefresh,[])
+ link(onEvent2,1778789:doRefresh,[(406,132)(406,251)])
+}
+Add(Img_Bmp,12519909,567,252)
+{
+ X=300
+ Y=30
+ DrawSource=2
+ Point(Transform)
+ link(onDraw,13845917:doDraw,[])
+ link(SourceBitmap,7959791:Var2,[])
+ link(Transform,16391083:Var2,[])
+}
+Add(Img_Rectangle,537921,483,252)
+{
+ Point1=1966130
+ Point2=2621510
+ Point2AsOffset=0
+ DrawSource=2
+ Style=7
+ rX=25
+ rY=12
+ Color=8388736
+ BgColor=8388736
+ Point(Transform)
+ Point(BgColor)
+ link(onDraw,15007055:doDraw,[])
+ link(Transform,15142247:Var2,[])
+}
+Add(Img_Ellipse,13845917,609,252)
+{
+ Point1=1966480
+ Point2=3932260
+ Point2AsOffset=0
+ DrawSource=2
+ Style=6
+ Color=8388608
+ BgColor=8388608
+ Point(Transform)
+ link(onDraw,15729255:doDraw,[])
+ link(Transform,11057070:Var2,[])
+}
+Add(Img_Text,15007055,525,252)
+{
+ X=200
+ Y=30
+ DrawSource=2
+ Font=[Microsoft Sans Serif,12,0,0,204]
+ Text="HiAsm"
+ Point(Transform)
+ link(onDraw,12519909:doDraw,[])
+ link(Transform,5805727:Var2,[])
+}
+Add(Img_Gradient,8218655,735,252)
+{
+ Point1=8519900
+ Point2=6553700
+ Point2AsOffset=0
+ DrawSource=2
+ StartColor=255
+ EndColor=65280
+ Point(Transform)
+ link(onDraw,4469674:doDraw,[])
+ link(Transform,10818716:Var2,[])
+}
+Add(GetDataEx,15142247,497,228)
+{
+ Angle=3
+ link(Data,4256594:Var2,[(230,233)])
+}
+Add(GetDataEx,5805727,539,228)
+{
+ Angle=3
+ link(Data,15142247:Var3,[])
+}
+Add(GetDataEx,16391083,581,228)
+{
+ Angle=3
+ link(Data,5805727:Var3,[])
+}
+Add(GetDataEx,11057070,623,228)
+{
+ Angle=3
+ link(Data,16391083:Var3,[])
+}
+Add(Img_Arc,4317584,693,252)
+{
+ Point1=8519730
+ Point2=6553700
+ Point2AsOffset=0
+ DrawSource=2
+ Style=4
+ Point4=100
+ Point4AsOffset=0
+ Mode=1
+ Color=8421376
+ BgColor=8421376
+ Point(Transform)
+ link(onDraw,8218655:doDraw,[])
+ link(Transform,15349655:Var2,[])
+}
+Add(GetDataEx,15349655,707,228)
+{
+ Angle=3
+ link(Data,15604729:Var3,[])
+}
+Add(Img_Line,9205936,826,252)
+{
+ Point1=8520230
+ Point2=6553600
+ Point2AsOffset=0
+ DrawSource=2
+ Point(Transform)
+ link(onDraw,16650992:doDraw,[])
+ link(Transform,10643049:Var2,[])
+}
+Add(GetDataEx,10818716,742,228)
+{
+ Angle=3
+ link(Data,15349655:Var3,[])
+}
+Add(Img_Point,16650992,868,252)
+{
+ X=600
+ Y=180
+ DrawSource=2
+ Color=128
+ Size=7
+ Point(Transform)
+ link(Transform,10643049:Var3,[(881,233)])
+}
+Add(GetDataEx,6228209,791,228)
+{
+ Angle=3
+ link(Data,10818716:Var3,[])
+}
+Add(PointXY,3490066,805,175)
+{
+ X=340
+ Y=80
+}
+Add(Img_Polygon,4469674,777,252)
+{
+ PointsArray=['0'=3276850,'0'=3276890,'0'=3932260,'0'=3276910,'0'=3276950,'0'=6553725,'0'=9830550,'0'=9830520,'0'=9175160,'0'=9175120,'0'=9830480,'0'=9830450,'0'=6553675]
+ Offset=-3211314
+ DrawSource=2
+ PatternStyle=0
+ Style=1
+ Point(Transform)
+ Point(Pattern)
+ Point(Offset)
+ link(onDraw,9205936:doDraw,[])
+ link(Transform,6228209:Var2,[])
+ link(Pattern,7959791:Var3,[(804,222)])
+ link(Offset,3490066:Point,[])
+}
+Add(Img_MultiText,15729255,651,252)
+{
+ X=550
+ Y=30
+ DrawSource=2
+ Font=[Microsoft Sans Serif,12,1,32896,204]
+ Text="HiAsm\r\nThe\r\nBest"
+ Point(Transform)
+ link(onDraw,4317584:doDraw,[])
+ link(Transform,15604729:Var2,[])
+}
+Add(GetDataEx,7959791,574,217)
+{
+ link(Data,2111405:Var1,[(580,89)])
+}
+Add(GetDataEx,10643049,833,228)
+{
+ Angle=3
+ link(Data,6228209:Var3,[])
+}
+Add(GetDataEx,15604729,665,228)
+{
+ Angle=3
+ link(Data,11057070:Var3,[])
+}
+Add(GetDataEx,4256594,224,163)
+{
+ link(Data,14387982:Var,[])
+}
+Add(Img_UseFlip,5811810,280,49)
+{
+ Mode=2
+}
+Add(Label,1197402,448,49)
+{
+ Left=175
+ Top=5
+ Width=36
+ Height=17
+ Color=12639424
+ Font=[MS Sans Serif,8,1,255,1]
+ Caption="Bitmap"
+}
+Add(Label,11630182,434,196)
+{
+ Left=175
+ Top=275
+ Width=37
+ Height=17
+ Color=12639424
+ Font=[MS Sans Serif,8,1,255,1]
+ Caption="Contex"
+}
+Add(Img_UseOffset,2400328,315,49)
+{
+ X=50
+ Y=50
+}
+Add(Img_UseRotate,4311696,350,49)
+{
+ Angle=-15
+ link(AddTransform,10248515:Transform,[])
+}
+Add(Img_UseScale,10248515,350,7)
+{
+ X=1.2
+ Y=1.5
+}

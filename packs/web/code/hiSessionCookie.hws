@@ -1,0 +1,15 @@
+func doSet(_data)
+  print('session_set_cookie_params(', LifeTime)
+  if(isset(Path) or isset(Domain) or isndef(Secure))
+    print(', ', Path)
+  end
+  if(isset(Domain) or isndef(Secure))
+    print(', ', Domain)
+  end
+  if(isndef(Secure))
+    print(', ', lower(Secure))
+  end
+  println(');')
+  event(onSet)
+end
+

@@ -1,0 +1,31 @@
+func Init:java
+  fvar(old)
+  old = block.select((isset(BLK_FUNC) and isndef(Extern)) ? BLK_FUNC : BLK_HEAD)
+  println(issec("php") ? '' : 'var ', prev_data, ' = ', Store, ';')
+  block.select(old)
+end
+
+func doCalcDelta(_data):java
+  fvar(dt)
+  dt = Data
+  if(linked(Result))
+    println(delta, ' = ', dt, ' - ', prev_data, ';')
+    event(onCalcDelta, delta)
+  else
+    event(onCalcDelta, dt && ' - ' && prev_data)
+  end
+  println(prev_data, ' = ', dt, ';')  
+end
+
+func Result():java
+  fvar(dt,res)
+  dt = Data
+  if(linked(doCalcDelta))
+    res = delta
+  else
+    res = dt && ' - ' && prev_data
+  end
+  println(prev_data, ' = ', dt, ';')
+  return(res)
+end
+

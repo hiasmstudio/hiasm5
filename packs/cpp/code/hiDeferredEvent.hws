@@ -1,0 +1,38 @@
+// DeferredEvent: re-emits the event after Delay ms, on "another message queue".
+// Desktop HiAsm posts WM_DEFERREDEVENT to a hidden window; the generated C++
+// program has no message loop, so a detached worker thread plays its role.
+
+func Delay()
+  return(get('Delay'))
+end
+
+func InDataExpr(_data)
+  fvar(pd)
+  if(linked('Data'))
+    return(d('Data'))
+  end
+  pd = cstr(get('Data'))
+  if(pd != '')
+    return('hiasm_text(' && pd && ')')
+  end
+  return(_data)
+end
+
+func doDeferredEvent(_data)
+  println('{')
+  block.inclvl()
+  if(get('InData') == 1)
+    println('const std::string hiasm_dft', _id_, ' = hiasm_text(', InDataExpr(_data), ');')
+  else
+    println('const std::string hiasm_dft', _id_, ';')
+  end
+  println('std::thread hiasm_thr', _id_, '([=]() {')
+  block.inclvl()
+  println('std::this_thread::sleep_for(std::chrono::milliseconds(', Delay(), '));')
+  event(onDeferredEvent, 'hiasm_dft' && _id_)
+  block.declvl()
+  println('});')
+  println('hiasm_thr', _id_, '.detach();')
+  block.declvl()
+  println('}')
+end

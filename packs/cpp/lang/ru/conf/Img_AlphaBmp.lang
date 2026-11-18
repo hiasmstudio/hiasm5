@@ -1,0 +1,6 @@
+Rendering a picture with transparency=Отрисовка картинки с прозрачностью
+Determines the degree of transparency of the picture (from 0 to 255)=Определяет степень прозрачности картинки (от 0 до 255)
+Enable Transparency Mode=Включить режим прозрачности
+Smoothing the original image before rendering=Сглаживание исходной картинки перед отрисовкой
+An image with an Alpha channel that needs to be drawn=Картинка c Alpha-каналом, которую необходимо отрисовать
+Transformation=Трансформация

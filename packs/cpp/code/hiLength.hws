@@ -1,0 +1,22 @@
+func Source(value)
+  if(linked('Str'))
+    return(d('Str'))
+  end
+  if(len(value) > 0)
+    return(value)
+  end
+  return('""')
+end
+
+func doLength(_data)
+  println('auto hiasm_len', _id_, ' = static_cast<int>(std::string(', Source(_data), ').size());')
+  event(onLength, 'hiasm_len' && _id_)
+end
+
+func Result()
+  if(linked('doLength'))
+    return('hiasm_len' && _id_)
+  else
+    return('static_cast<int>(std::string(', Source(''), ').size())')
+  end
+end

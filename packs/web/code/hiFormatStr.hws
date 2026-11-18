@@ -1,0 +1,18 @@
+func doString
+  fvar(s,i)
+  s = 'sprintf(' && Mask && ','
+  for(i = 1; i <= _data_count_; i++) 
+    s &&= (i > 1) ? ',' : '' && point("Str" + i)
+  end
+  s &&= ')'
+  if(linked(Result))
+    println(res, ' = ', s, ';')
+    event(onFString, res)
+  else
+    event(onFString, s)
+  end
+end
+
+func Result
+  return(res)
+end

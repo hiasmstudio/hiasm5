@@ -1,0 +1,27 @@
+func doFirstTok
+  fvar(s)
+  s = 'strtok(' && Data && ', ' && Delimiter && ')'
+  if(linked(Tok))
+    println(token, ' = ', s, ';')
+    s = token
+  end
+  event(onTok, s)
+end
+
+func doTok
+  fvar(s)
+  s = 'strtok(' && Delimiter && ')'
+  if (linked(Tok))
+    println(token, ' = ', s, ';')
+    s = token
+  end
+  event(onTok, s)
+end
+
+func Tok
+  if(linked(doTok) or linked(doFirstTok))
+    return(token)
+  else
+    return('strtok(' && Delimiter && ')')
+  end
+end

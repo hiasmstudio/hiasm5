@@ -1,0 +1,37 @@
+func create(_data)
+  fvar(old)
+  old = block.select(BLK_HEAD)
+  println('function reg_callback' + code(_id_) + '($matches) {')
+  block.inclvl()
+  include("func_head")  
+    event(onFindMatch, '$matches')
+  include("func_tail")  
+  block.declvl()
+  println('}')
+  block.select(old)
+  
+  return('preg_replace_callback(' && Pattern && ', "reg_callback' + code(_id_) && '", ' && Text && ')')
+end
+
+func doReplace(_data)
+  fvar(s)
+  s = create(_data)
+  if(linked(Result))
+    println(pr_rep, ' = ', s, ';')
+    event(onReplace, pr_rep)
+  else
+    if(linked(onReplace))
+      event(onReplace, s)
+    else 
+      println(s, ';')
+    end
+  end
+end
+
+func Result(_data)
+  if(linked(doReplace))
+    return(pr_rep)
+  else
+    return(create(_data))
+  end
+end

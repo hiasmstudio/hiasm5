@@ -1,0 +1,9 @@
+Copies part of a string=Копирует часть строки
+Contains the default position from which characters are copied=Содержит позицию по-умолчанию, с которой копируются символы
+Contains the default number of copied characters=Содержит кол-во копируемых символов по-умолчанию
+Copy direction=Направление копирования
+Copies Count characters from the string Str, starting from Position. Returns the copied substring to the stream=Копирует из строки Str символы, начиная с позиции Position в количестве Count штук. Возвращает в поток скопированную подстроку
+The event occurs whenever part of a string is copied=Событие происходит всякий раз при копировании части строки
+Specifies the string from which characters should be copied=Определяет строку, из которой необходимо скопировать символы
+Defines the position from which characters are copied=Определяет позицию, с которой копируются символы
+Defines the number of characters to be copied=Определяет кол-во копируемых символов

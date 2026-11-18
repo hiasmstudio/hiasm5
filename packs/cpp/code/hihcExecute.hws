@@ -1,0 +1,4 @@
+func doExec(_data)
+  println('std::system((std::string(', d('Application'), ') + " " + std::string(', d('Args'), ')).c_str());')
+  event(onExec)
+end

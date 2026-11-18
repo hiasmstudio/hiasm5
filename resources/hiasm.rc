@@ -1,0 +1,32 @@
+#include <windows.h>
+
+IDI_ICON1 ICON "hiasm.ico"
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 6,0,0,0
+ PRODUCTVERSION 6,0,0,0
+ FILEFLAGSMASK 0x3fL
+ FILEFLAGS 0x0L
+ FILEOS 0x40004L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "CompanyName", "HiAsm Studio Contributors\0"
+            VALUE "FileDescription", "HiAsm graphical programming studio\0"
+            VALUE "FileVersion", "6.0.0.0\0"
+            VALUE "InternalName", "hiasm.exe\0"
+            VALUE "OriginalFilename", "hiasm.exe\0"
+            VALUE "ProductName", "HiAsm Studio\0"
+            VALUE "ProductVersion", "6.0.0.0\0"
+            VALUE "LegalCopyright", "Copyright (C) 2004-2026 HiAsm Studio Contributors\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END

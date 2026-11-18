@@ -1,0 +1,4 @@
+Color dialog=Диалог выбора цвета
+Shows color selection dialog=Показывает диалог выбора цвета
+The event occurs every time a color is selected in the dialog and outputs it to the ARG(Color) stream=Событие происходит всякий раз после выбора цвета в диалоге и выдает его в поток ARG(Color)
+Defines the color that will be highlighted in the dialog=Определяет цвет, который будет выделен в диалоге

@@ -1,0 +1,50 @@
+func Expr()
+  fvar(op)
+  switch(OpType)
+    case "+": op = ' + '
+    case "-": op = ' - '
+    case "*": op = ' * '
+    case "/": op = ' / '
+    case "and": op = ' & '
+    case "or": op = ' | '
+    case "xor": op = ' ^ '
+    case "div": op = ' / '
+    case "mod": op = ' % '
+    case "shl": op = ' << '
+    case "shr": op = ' >> '
+    case "min": return('std::min(' && Op1 && ', ' && Op2 && ')')
+    case "max": return('std::max(' && Op1 && ', ' && Op2 && ')')
+    case "cos": return('std::cos(' && Op1 && ')')
+    case "sin": return('std::sin(' && Op1 && ')')
+    case "tg": return('std::tan(' && Op1 && ')')
+    case "ctg": return('(1.0 / std::tan(' && Op1 && '))')
+    case "acos": return('std::acos(' && Op1 && ')')
+    case "asin": return('std::asin(' && Op1 && ')')
+    case "atan": return('std::atan(' && Op1 && ')')
+    case "ch": return('std::cosh(' && Op1 && ')')
+    case "sh": return('std::sinh(' && Op1 && ')')
+    case "th": return('std::tanh(' && Op1 && ')')
+    case "log": return('std::log(' && Op1 && ')')
+    case "lg": return('std::log10(' && Op1 && ')')
+    case "ln": return('std::log(' && Op1 && ')')
+    case "exp": return('std::exp(' && Op1 && ')')
+    case "sqr": return('((' && Op1 && ') * (' && Op1 && '))')
+    case "sqrt": return('std::sqrt(' && Op1 && ')')
+    case "abs": return('std::fabs(' && Op1 && ')')
+    case "round": return('std::round(' && Op1 && ')')
+    case "trun": return('std::trunc(' && Op1 && ')')
+    case "frac": return('((' && Op1 && ') - std::trunc(' && Op1 && '))')
+    case "x^y": return('std::pow(' && Op1 && ', ' && Op2 && ')')
+    default: op = ' + '
+  end
+  return('((' && Op1 && ')' && op && '(' && Op2 && '))')
+end
+
+func doOperation(_data)
+  println('auto hiasm_r', _id_, ' = ', Expr(), ';')
+  event(onResult, 'hiasm_r' && _id_)
+end
+
+func Result()
+  return(Expr())
+end

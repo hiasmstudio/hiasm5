@@ -1,0 +1,6 @@
+Contains a set of sounds in WAV format=Содержит набор звуков в формате WAV
+Contains an array of sounds=Содержит массив звуков
+True - allow access to array elements by their names and indexes, False - access only by indexes (fast)=True - разрешить доступ к элементам массива по их именам и по индексам, False - доступ только по индексам (быстрый)
+SND_SYNC - return control to the program only after playing the sound file. SND_ASYNC - return control to the program immediately after the sound file starts playing. SND_LOOP - play a sound file cyclically=SND_SYNC - вернуть управление в программу только после проигрывания файла звука. SND_ASYNC - вернуть управление в программу сразу же после начала проигрывания файла звука. SND_LOOP - циклически проигрывать файл звука
+Plays sound from an array with an index from the stream (see UseName property)=Проигрывает звук из массива с индексом из потока (см. св-во UseName)
+Contains the number of array elements=Содержит кол-во элементов массива

@@ -1,0 +1,9 @@
+func doFile(_data)
+  println(farr, ' = file(', Filename, ');')
+  event(onFile, farr)
+end
+
+func Result()
+  return(farr)
+end
+

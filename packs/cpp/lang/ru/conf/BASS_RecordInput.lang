@@ -1,0 +1,3 @@
+Input device=Уствойство ввода
+Lists audio input devices=Перечисляет устройства ввода звуковых данных
+The event occurs every time after receiving information about the audio input device and outputs it to the ARG(Name, Volume, Status) stream=Событие происходит всякий раз после получения информации об устройстве ввода звуковых данных и выдает ее в поток ARG(Name, Volume, Status)

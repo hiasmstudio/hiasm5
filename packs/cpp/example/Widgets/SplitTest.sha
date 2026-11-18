@@ -1,0 +1,87 @@
+*Пример применения компонента Splitter
+Make(cpp)
+Add(MainForm,7187,105,77)
+{
+ Left=273
+ Top=255
+ Width=378
+ Height=282
+ Caption=""
+ TaskBar=1
+}
+Add(ListBox,76614,154,133)
+{
+ Width=77
+ Height=184
+ Align=1
+ AddType=1
+ ModeSp=2
+}
+Add(ChildPanel,61201,210,77)
+{
+}
+BEGIN_SDK
+  Add(EditMulti,90521,3,3)
+  {
+   Width=145
+   Height=155
+  }
+  Add(Panel,58967,28,98)
+  {
+   Width=370
+   Height=35
+   Align=2
+   BorderWidth=7
+   BevelInner=0
+   Point(doColor)
+  }
+  Add(Edit,89666,91,42)
+  {
+   Left=95
+   Top=5
+   Width=265
+   Height=21
+   Align=5
+   Text=""
+  }
+  Add(Button,24653,28,42)
+  {
+   Left=10
+   Top=5
+   Width=75
+   Align=1
+   link(onClick,89666:doText,[])
+  }
+END_SDK
+Add(ListBox,51580,266,133)
+{
+ Left=315
+ Height=184
+ Align=3
+ ModeSp=2
+}
+Add(InfoTip,37245,70,28)
+{
+ Info=#31:Создание "резиновых" приложений|
+ Font=[Times New Roman,14,1,0,1]
+ Frame=1
+ Width=295
+ Height=25
+}
+Add(ListBox,49671,210,210)
+{
+ Top=196
+ Width=370
+ Height=61
+ Align=4
+ AddType=1
+ ModeSp=2
+}
+Add(Memo,59730,210,133)
+{
+ Left=80
+ Width=230
+ Height=184
+ Align=5
+ ModeSp=2
+}

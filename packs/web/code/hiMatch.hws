@@ -1,0 +1,19 @@
+section java
+
+func doMatch(_data)
+  if(linked(Result))
+    println(arr, ' = ', Text, '.match(', code(Expression), ');')
+    event(onMatch, arr)
+  else
+    event(onMatch, Text && '.match(' && code(Expression) && ')')
+  end
+end
+
+func Result()
+  if(linked(doMatch))
+    return(arr)
+  else
+    return(Text && '.match(' && code(Expression) && ')')
+  end
+end
+

@@ -1,0 +1,7 @@
+Returns information about the device's operating system=Возвращает информацию об операционной системе устройства
+Requests information about the operating system=Запрашивает информацию об операционной системе
+The event occurs every time information about the operating system version is received=Событие происходит всякий раз после получения информации о версии операционной системы
+OS version high byte=Старший байт версии ОС
+Low byte of OS version=Младший байт версии ОС
+OS version release build=Билд релиза версии ОС
+May contain additional information about the OS=Может содержать дополнительную информацию об ОС

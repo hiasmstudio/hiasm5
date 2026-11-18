@@ -1,0 +1,18 @@
+Make(cpp)
+Add(InfoTip,900,24,18)
+{
+ @Width=680
+ @Height=145
+ Info=#20:Флаг включения ветви|0:|138:Check в HiAsm 4 включал связь при построении. В C++ флаг constexpr в Code включает и отключает ветви на этапе компиляции; это не CheckBox.|
+ HAlign=0
+ Margin=12
+}
+Add(Entry,1,42,196)
+{
+ link(onStart,2:doExecute,[])
+}
+Add(Code,2,196,196)
+{
+ Code=#28:constexpr bool sound = true;|31:constexpr bool caption = false;|70:if constexpr (sound) std::cout << "sound branch enabled" << std::endl;|74:if constexpr (caption) std::cout << "caption branch enabled" << std::endl;|45:std::cout << "always connected" << std::endl;|
+ Expression=input
+}

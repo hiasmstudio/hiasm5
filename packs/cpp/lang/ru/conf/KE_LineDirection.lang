@@ -1,0 +1,7 @@
+Changing the direction of the USB device line=Изменение направления линии USB устройства
+Defines the line number to change its direction=Определяет номер линии для изменения ее направления
+Line direction: 0 - output, 1 - input=Направление линии: 0 - выход, 1 - вход
+Save the line setting in non-volatile memory when changing its direction=Сохранять настройку линии в энергонезависимой памяти при смене ее направления
+USB device=Устройство USB
+Sets the direction of the line ARG(Line, Direction)=Устанавливает направление линии ARG(Line, Direction)
+The event occurs every time the line direction is successfully set=Событие происходит всякий раз после успешной установки направления линии

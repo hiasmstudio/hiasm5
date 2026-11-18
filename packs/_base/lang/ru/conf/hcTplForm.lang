@@ -1,0 +1,7 @@
+Form template=Шаблон формы
+Containes caption of form=Содержит заголовок формы
+Show form in modal state=Показать форму как модальную
+Allow user to resize form=Позволять пользователю изменять размеры формы
+Displays form on the screen=Отображает форму на экране
+Close form=Закрывает форму
+Event emit every time after form was created=Событие происходит всякий раз после создания формы

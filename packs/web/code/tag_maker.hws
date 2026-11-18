@@ -1,0 +1,9 @@
+func makeevent(ename):java,html
+  fvar(old,evn)
+  old = block.select(block.reggen())
+  block.lvloff()
+  event(ename:java, 'this')
+  evn = " " & ename & "='" & block.astext() & "'"   
+  block.delete(block.select(old))
+  return(evn)
+end

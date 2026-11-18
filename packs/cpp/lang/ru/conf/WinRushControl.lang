@@ -1,0 +1,14 @@
+Advanced interface element=Элемент расширенного интерфейса
+Style for the element's normal state=Стиль для нормального состояния элемента
+First color used in the gradient=Первый цвет, используемый в градиенте
+Second color used in the gradient=Второй цвет, используемый в градиенте
+Text color=Цвет текста
+Frame color=Цвет рамки
+Shadow color=Цвет тени
+Shadow distance from element=Расстояние тени от элемента
+Gradient fill type=Вид градиентной заливки
+Border Width=Ширина границы
+Element Hover Style=Стиль при наведении указателя на элемент
+Style when the pointer clicks on an element=Стиль при нажатии указателем на элемент
+Style for the element's locked state=Стиль для заблокированного состояния элемента
+Rate of State Change=Скорость изменения состояния

@@ -1,0 +1,5 @@
+Expands values from type to stream=Раскладывает значения из типа в поток
+Defines variables for decomposition=Определяет переменные для раскладывания
+Defines the name of the type=Определяет имя типа
+Unfolds type=Раскладывает тип
+Defines the type that will be decomposed=Определяет тип, который будет раскладываться

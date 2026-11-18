@@ -1,0 +1,13 @@
+func doRead
+  println(s, ' = fread(', FileID, ', ', Length, ');')
+  event(onRead, s)
+end                  
+
+func doReadString
+  println(s, ' = fgets(', FileID, ', ', Length, ');')
+  event(onRead, s)
+end
+
+func Result()
+  return(s)
+end

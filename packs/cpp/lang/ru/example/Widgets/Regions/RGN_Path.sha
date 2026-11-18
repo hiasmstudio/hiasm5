@@ -1,0 +1,84 @@
+Make(cpp)
+Add(MainForm,2953706,245,91)
+{
+ Width=438
+ Height=271
+ Caption="RGN_Path"
+ BorderStyle=1
+ Position=1
+ link(onCreate,3748360:doCreateRegion,[])
+}
+Add(RGN_Path,3748360,343,105)
+{
+ link(onStartCreate,2886194:doDraw,[])
+ link(onFinishCreate,10647222:doRefresh,[(387,118)(387,178)(268,178)(268,237)])
+}
+Add(RGN_Draw,913372,336,231)
+{
+ Style=6
+ Color=8388736
+ BgColor=8421376
+ LineColor=255
+ link(Bitmap,10647222:Bitmap,[(342,219)(321,219)(321,275)(286,275)])
+ link(Region,3748360:Result,[])
+}
+Add(Img_Ellipse,2886194,406,105)
+{
+ Point2=6553700
+ DrawSource=2
+ link(onDraw,10538293:doDraw,[])
+}
+Add(PaintBox,10647222,280,231)
+{
+ Left=10
+ Top=15
+ Width=410
+ Height=215
+ Color=12639424
+ ClearBeforeDraw=0
+ link(onBeforeDraw,913372:doDraw,[])
+}
+Add(Img_Text,13692790,490,105)
+{
+ X=210
+ Y=-10
+ DrawSource=2
+ Font=[Arial Black,72,1,0,204]
+ Text="H"
+ link(onDraw,3969108:doDraw,[])
+}
+Add(Img_Arc,10538293,448,105)
+{
+ Point1=105
+ Point2=6553700
+ Point2AsOffset=0
+ DrawSource=2
+ Style=1
+ Point4=3276850
+ Point4AsOffset=0
+ Mode=1
+ Direction=1
+ link(onDraw,13692790:doDraw,[])
+}
+Add(Img_Polygon,3969108,532,105)
+{
+ PointsArray=['0'=50,'0'=6553700,'0'=6553600]
+ Offset=300
+ DrawSource=2
+ link(onDraw,15645509:doDraw,[])
+}
+Add(Img_Text,15645509,574,105)
+{
+ Y=100
+ DrawSource=2
+ Font=[Webdings,72,1,0,2]
+ Text="zeqv"
+}
+Add(InfoTip,11787266,399,42)
+{
+ Info=#77:Из всех пикселей которые будут закрашены этими элементами будет создан регион|
+ Font=[MS Sans Serif,10,0,0,1]
+ Frame=2
+ Width=225
+ Height=109
+}

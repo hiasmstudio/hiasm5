@@ -1,0 +1,29 @@
+func doCopy():java
+  fvar(s)
+
+  if(issec("php"))
+    s = 'substr(' && SrcStr && ',' && Position && ',' && CharCount && ')'
+  else
+    s = '(' && SrcStr && ').substr(' && Position && ',' && CharCount && ')'
+  end 
+
+  if(linked(Result))
+    println(cp, ' = ', s, ';')
+    event(onCopy, cp)
+  else
+    event(onCopy, s)
+  end
+end
+
+func Result():java
+  if(linked(doCopy))
+    return(cp)
+  else
+    if(issec("php"))
+      return('substr(' && SrcStr && ',' && Position && ',' && CharCount && ')')
+    else
+      return('(' && SrcStr && ').substr(' && Position && ',' && CharCount && ')')
+    end
+  end
+end
+

@@ -1,0 +1,14 @@
+List of strings=Список строк
+Defines file name for load and save list=Имя файла для загрузки/сохранения списка
+Defines list of strings by default=Определяет список строк элемента по-умолчанию
+Adds string to list=Добавляет строку в список из потока или поля str
+Initializes list of strings the text from thread=Инициализирует список строками в виде: <Строка1,Строка2,...>
+Load list of strings from file=Загружает список строк из файла
+Save list of strings to file=Сохраняет список строк в файле
+Clear list=Очищает список
+Event emit every time after change text in element=Событие происходит всякий раз при изменении списка строк
+Contain list of strings as one long string=Хранит список строк
+Contain number of strings in list=Хранит число строк в списке
+Access at any element of list by index=Доступ к любому элементу списка по его индексу
+String for adding to list=Строка для добавления в список
+File name for load\save list=Имя файла для загрузки/сохранения списка

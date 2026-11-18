@@ -1,0 +1,212 @@
+Make(cpp)
+Add(MainForm,53463,343,336)
+{
+ Left=334
+ Top=97
+ Width=337
+ Height=313
+ Caption="Rotate"
+ BorderStyle=1
+ Position=1
+}
+Add(Img_Rotate,13120,581,322)
+{
+ Angle=90
+ BackgroundColor=12632256
+ Point(Height)
+ Point(Width)
+ Point(Result)
+ link(onResult,3166142:doEvent1,[])
+ link(Bitmap,4250477:Bitmap,[])
+ link(Angle,5809329:Position,[(594,300)(622,300)])
+}
+Add(Button,18010,497,196)
+{
+ Left=95
+ Top=255
+ Width=105
+ Font=[Arial,8,0,0,1]
+ TabOrder=-1
+ Caption="CycleRotate"
+ link(onClick,822562:doEvent1,[])
+}
+Add(FormatStr,1257612,266,336)
+{
+ DataCount=4
+ Mask="%1 sec [%2 usec]   %3 x %4"
+ link(onFString,13295883:doWork2,[])
+ link(Str2,11601643:Result,[])
+ link(Str3,13120:Width,[(286,315)(545,315)(545,370)(594,370)])
+ link(Str4,13120:Height,[(293,310)(550,310)(550,365)(587,365)])
+}
+Add(Hub,822562,553,196)
+{
+ OutCount=3
+ link(onEvent1,12662142:doClear,[(579,202)(579,174)(320,174)(320,209)])
+ link(onEvent2,15077783:doStart,[(584,209)(584,154)(150,154)(150,335)])
+ link(onEvent3,5809329:doFor,[])
+}
+Add(For,5809329,616,210)
+{
+ End=360
+ link(onEvent,4289473:doEvent1,[])
+ link(onStop,11601643:doOperation,[(657,223)(657,169)(258,169)(258,258)])
+}
+Add(Image,84451,700,336)
+{
+ Left=5
+ Top=5
+ Width=320
+ Height=240
+ Point(Handle)
+}
+Add(Application,5482673,700,231)
+{
+}
+Add(Hub,4289473,665,210)
+{
+ OutCount=3
+ link(onEvent1,10307360:doStart,[(689,216)(689,164)(160,164)(160,195)])
+ link(onEvent2,13120:doRotate,[(745,223)(745,375)(570,375)(570,328)])
+ link(onEvent3,5482673:doProcessMessages,[(689,230)(689,237)])
+}
+Add(TimeCounter,15077783,175,329)
+{
+ link(onStop,5493787:doOperation,[])
+}
+Add(Bitmap,4250477,581,252)
+{
+}
+Add(Hub,7700790,546,280)
+{
+ link(onEvent1,4250477:doLoad,[(570,286)(570,258)])
+ link(onEvent2,1231625:doWork1,[(669,293)])
+}
+Add(TimeCounter,10307360,168,189)
+{
+ Precision=1
+ link(onStop,14088096:doValue,[])
+}
+Add(HubEx,1231625,665,336)
+{
+ link(onEvent,84451:doLoad,[])
+}
+Add(Hub,3166142,630,322)
+{
+ OutCount=3
+ link(onEvent1,10307360:doStop,[(740,328)(740,159)(155,159)(155,202)])
+ link(onEvent2,4711917:doData,[(656,335)(656,470)(200,470)(200,391)])
+ link(onEvent3,1231625:doWork2,[])
+}
+Add(Math,16409974,273,196)
+{
+ ResultType=0
+ link(onResult,12662142:doValue,[])
+ link(Op2,12662142:Value,[(286,185)(315,185)(315,235)(335,235)])
+}
+Add(Memory,12662142,329,196)
+{
+}
+Add(Math,11601643,273,252)
+{
+ OpType=3
+ Op2=361
+ ResultType=0
+ link(onResult,15077783:doStop,[(367,258)(367,149)(145,149)(145,342)])
+ link(Op1,16409974:Result,[])
+}
+Add(Math,5493787,217,336)
+{
+ OpType=3
+ Op2=1000
+ ResultType=0
+ link(onResult,1257612:doString,[])
+}
+Add(HubEx,13295883,322,336)
+{
+ link(onEvent,53463:doCaption,[])
+}
+Add(FormatStr,15972595,280,385)
+{
+ DataCount=1
+ Mask="[%1 usec]"
+ link(onFString,13295883:doWork3,[(326,391)])
+}
+Add(DoData,4711917,217,385)
+{
+ link(onEventData,3617395:doWork2,[])
+ link(Data,14088096:Value,[])
+}
+Add(Memory,14088096,217,196)
+{
+ link(onData,16409974:doOperation,[])
+}
+Add(Button,16657660,399,273)
+{
+ Left=10
+ Top=255
+ Width=80
+ Font=[Arial,8,0,0,1]
+ TabOrder=-1
+ Caption="Load"
+ link(onClick,5049552:doExecute,[])
+}
+Add(ODialog,5049552,441,273)
+{
+ Filter="*.bmp|*.bmp"
+ link(onExecute,4434340:doLoad,[])
+}
+Add(ImageLoader,4434340,497,273)
+{
+ DrawSource=2
+ link(onLoad,4434340:doDraw,[(541,279)(541,257)(485,257)(485,286)])
+ link(onDraw,7700790:doEvent1,[])
+}
+Add(Button,9037622,399,364)
+{
+ Left=205
+ Top=255
+ TabOrder=-1
+ Caption="FlipH"
+ link(onClick,9121040:doEvent1,[])
+}
+Add(Button,16558466,399,322)
+{
+ Left=265
+ Top=255
+ TabOrder=-1
+ Caption="FlipV"
+ link(onClick,2053636:doEvent1,[])
+}
+Add(TimeCounter,5038911,217,427)
+{
+ link(onStop,3617395:doWork3,[(263,440)])
+}
+Add(Hub,2053636,448,322)
+{
+ OutCount=3
+ link(onEvent1,4763726:doWork1,[(473,328)])
+ link(onEvent2,13120:doFlipVertical,[])
+ link(onEvent3,14076436:doWork1,[(487,342)])
+}
+Add(Hub,9121040,448,364)
+{
+ OutCount=3
+ link(onEvent1,4763726:doWork2,[])
+ link(onEvent2,13120:doFlipHorizontal,[(500,377)(500,342)])
+ link(onEvent3,14076436:doWork2,[])
+}
+Add(HubEx,3617395,259,385)
+{
+ link(onEvent,15972595:doString,[])
+}
+Add(HubEx,4763726,469,364)
+{
+ Angle=1
+ link(onEvent,5038911:doStart,[(473,420)(205,420)(205,433)])
+}
+Add(HubEx,14076436,483,378)
+{
+ Angle=1
+ link(onEvent,5038911:doStop,[(487,465)(205,465)(205,440)])
+}

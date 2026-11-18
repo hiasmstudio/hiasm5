@@ -1,0 +1,9 @@
+Counter=Счетчик
+Maximum counter value=Максимальное значение счетчика
+Minimum counter value=Минимальное значение счетчика
+Counter start position=Начальная позиция счётчика
+Element orientation on the form=Ориентация элемента на форме
+Counter increment step=Шаг приращения счетчика
+Sets the counter position=Устанавливает позицию счётчика
+The event occurs whenever a new counter value is set=Событие происходит всякий раз при установке нового значения счетчика
+Contains the current counter value=Содержит текущее значение счетчика

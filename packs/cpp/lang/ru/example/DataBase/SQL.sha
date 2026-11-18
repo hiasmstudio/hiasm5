@@ -1,0 +1,80 @@
+Make(cpp)
+Add(MainForm,46813,14,182)
+{
+ Left=314
+ Top=236
+ Width=396
+ Height=297
+ SavePosName="MyProject"
+}
+Add(DataGrid,14699,238,210)
+{
+ Left=80
+ Top=70
+ Width=300
+ Height=195
+ Font=[Arial,8,0,0,1]
+ link(Query,61892:Query,[])
+}
+Add(Hub,29256,112,140)
+{
+ link(onEvent1,89786:doData,[])
+ link(onEvent2,53168:doEvent1,[(163,153)(163,216)])
+}
+Add(Hub,53168,182,210)
+{
+ InCount=2
+ OutCount=1
+ link(onEvent1,14699:doRefresh,[])
+}
+Add(Button,81531,119,217)
+{
+ Left=5
+ Top=70
+ Font=[Arial,8,0,0,1]
+ Caption="Refresh"
+ link(onClick,53168:doEvent2,[])
+}
+Add(Button,99133,98,70)
+{
+ Left=5
+ Top=10
+ Font=[Arial,8,0,0,1]
+ Caption="Open"
+ link(onClick,61892:doOpen,[(223,76)(223,125)])
+}
+Add(DoData,89786,168,140)
+{
+ link(onEventData,61892:doQuery,[])
+ link(Data,36653:Text,[])
+}
+Add(Edit,36653,168,91)
+{
+ Left=80
+ Top=40
+ Width=300
+ Height=21
+ Font=[Arial,8,0,0,1]
+ Text="select * from OTV"
+}
+Add(Button,71023,56,140)
+{
+ Left=5
+ Top=40
+ Font=[Arial,8,0,0,1]
+ Caption="Query"
+ link(onClick,29256:doEvent1,[])
+}
+Add(MSSQL,61892,238,119)
+{
+ link(FileName,3943:Text,[])
+}
+Add(Edit,3943,238,28)
+{
+ Left=80
+ Top=10
+ Width=300
+ Height=21
+ Font=[Arial,8,0,0,1]
+ Text="tst.mdb"
+}

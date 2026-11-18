@@ -1,0 +1,16 @@
+  fvar(tag, s)
+  
+  tag = lower(delete(cgt.el_get_class_name(sys.curelement()),1,4))
+  s = "<" & tag
+  if(isset(Id))
+    s &= " id=\"" & Id & "\""
+  end 
+  if(isset(Class))
+    s &= " class=\"" & Class & "\""
+  end 
+  if(isset(Style))
+    s &= " style=\"" & Style & "\""
+  end
+  if(isset(Title))
+    s &= " title=\"" & Title & "\""
+  end

@@ -1,0 +1,9 @@
+Merging storages=Объединение хранилищ
+Path to the default storage file to be added=Путь к файлу добавляемого хранилища по-умолчанию
+Path to the default unifying storage file=Путь к файлу объединяющего хранилища по-умолчанию
+Structured Storage Management=Управление структуированным хранилищем
+Merges storages ARG(MergeStgPath1, MergeStgPath2)=Объединяет хранилища ARG(MergeStgPath1, MergeStgPath2)
+The event occurs every time after storage merging is complete=Событие происходит всякий раз после окончания объединения хранилищ
+Path to the storage file to be added=Путь к файлу добавляемого хранилища
+Path to the unifying repository file=Путь к файлу объединяющего хранилища
+An event for this point is issued when an attempt is made to merge with an open current storage. If 0 is returned, the join operation will continue, otherwise it will be cancelled.=Событие на эту точку выдается тогда, когда производится попытка объединиться с открытым текущим хранилищем. Если будет возвращен 0, то операция объединения будет продолжена, иначе - отменена

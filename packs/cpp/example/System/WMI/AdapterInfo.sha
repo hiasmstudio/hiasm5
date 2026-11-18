@@ -1,0 +1,937 @@
+Make(cpp)
+Pos(47,0)
+Add(MainForm,12231298,149,70)
+{
+ Left=20
+ Top=105
+ Width=625
+ Height=688
+ Caption="AdapterInfo"
+ BorderStyle=3
+ Icon=[ZIPFE02000078DABD50390EC230105C0C0F4014D4C68DE9A0A78027596E1651B98C4411294FA0C937F21C4ABA344866D64E10A79406663DDECC7A464E423442693DC53EA1B3229A13D112D4E00E947982A22F08695108B949E1A1691A7499C4B428C6DCA46424DB7F70DC00EB01BA7842A0D2186F2CB830B385D1D0F25F943709A2F7C116D0692CBA752B864E63EDCA6CECFDAECB33D707AE3D74D5E5934BCEBB3C7CCADFF3CC665F2876F0E7FBADE8749EF39DBEF4796B5A863F949595DBA1A5CBFB655D9FEAACF911EEEDFB7F8DF80957DAF68465FCC2A178CAC52FB801E001A17C]
+ Position=1
+}
+Add(FormatStr,9941160,310,280)
+{
+ DataCount=4
+ Mask="%4;%1;%3;%2"
+ link(onFString,15910474:doAdd,[(455,286)(455,111)])
+ link(Str1,15696148:Var2,[])
+ link(Str2,5261141:Var2,[])
+ link(Str3,14013151:Var2,[])
+ link(Str4,11707471:DeviceID,[(337,236)(316,236)])
+}
+Add(HubEx,5896964,254,154)
+{
+ link(onEvent,11707471:doInfo,[])
+}
+Add(StringTable,15910474,611,105)
+{
+ Width=619
+ Height=192
+ Align=2
+ Hint="Двойной клик выводит подробную информацию"
+ Font=[MS Sans Serif,8,1,0,1]
+ Columns=#9:Индекс=60|25:Наименование адаптера=300|16:Тип адаптера=100|15:MAC - адрес=130|
+ Redaction=1
+ ColumnClick=1
+ Flat=1
+ Point(Matrix)
+ Point(Index)
+ Point(onDblClick)
+ link(onDblClick,3060657:doRead,[])
+}
+Add(AdapterInfo,11707471,310,161)
+{
+ Point(ServiceName)
+ Point(PNPDeviceID)
+ Point(SystemName)
+ Point(DNSHostName)
+ Point(DNSDomain)
+ Point(DHCPEnabled)
+ Point(WINSServer)
+ Point(DHCPServer)
+ Point(IPArray)
+ Point(MaskArray)
+ Point(GatewayArray)
+ Point(MetricArray)
+ Point(DNSArray)
+ Point(MACAddress)
+ Point(Id)
+ Point(AdapterType)
+ Point(onErr)
+ Point(Computer)
+ Point(Query)
+ link(onInfo,1247059:doEvent,[])
+ link(onErr,6379849:doString,[(494,174)(494,216)])
+ link(Computer,2027042:Var2,[])
+ link(Query,10967607:Value,[(330,139)(379,139)])
+}
+Add(If_else,9935317,737,378)
+{
+ Type=5
+ link(onTrue,3746311:doEvent,[])
+ link(onFalse,8476975:doWork3,[(784,391)(784,416)(892,416)])
+}
+Add(FormatStr,12556594,611,175)
+{
+ Mask="AdapterInfo     Найдено адаптеров - %1"
+ link(onFString,1010446:doWork,[])
+ link(Str1,15910474:Count,[])
+}
+Add(Hub,9051821,205,140)
+{
+ OutCount=7
+ link(onEvent1,10967607:doClear,[(250,146)(250,76)])
+ link(onEvent2,8225392:doWork1,[(365,153)(365,97)])
+ link(onEvent3,15910474:doClear,[(424,160)(424,118)])
+ link(onEvent4,5896964:doWork2,[])
+ link(onEvent5,8225392:doWork2,[(365,174)(365,104)])
+ link(onEvent6,12556594:doString,[])
+ link(onEvent7,10446964:doData,[(249,188)(249,269)(46,269)(46,342)])
+}
+Add(MatrixRW,3060657,660,112)
+{
+ X=7
+ link(onRead,5896964:doWork1,[(704,118)(704,140)(258,140)])
+ link(Matrix,15910474:Matrix,[(666,100)(648,100)(648,155)(631,155)])
+ link(X,6645965:Value,[])
+ link(Y,15910474:Index,[(687,100)(663,100)(663,155)(638,155)])
+}
+Add(LineBreakEx,1010446,660,175)
+{
+ Caption="Caption"
+}
+Add(LineBreakEx,2390562,79,70)
+{
+ Caption="Caption"
+ Type=1
+ link(OnEvent,12231298:doCaption,[])
+}
+Add(Memory,6645965,674,63)
+{
+ Default=Integer(0)
+}
+Add(GetDataEx,15696148,303,231)
+{
+ link(Data,11707471:Name,[(316,214)(323,214)])
+}
+Add(GetDataEx,14013151,317,238)
+{
+ link(Data,11707471:AdapterType,[(330,218)(442,218)])
+}
+Add(GetDataEx,5261141,310,245)
+{
+ link(Data,11707471:MACAddress,[(323,221)(435,221)])
+}
+Add(IndexToChanel,1247059,541,161)
+{
+ Point(Index)
+ link(onEvent1,9941160:doString,[(585,167)(585,227)(298,227)(298,286)])
+ link(onEvent2,12173243:doEvent1,[(585,174)(585,240)(537,240)(537,307)])
+ link(Index,16539872:Value,[])
+}
+Add(Memory,16539872,541,91)
+{
+}
+Add(ChanelToIndex,8225392,492,91)
+{
+ link(onIndex,16539872:doValue,[])
+}
+Add(InfoTip,10664306,289,14)
+{
+ Info=#28:Пример применения компонента|16: WMI AdapterInfo|
+ Font=[MS Sans Serif,8,1,0,1]
+ Width=218
+ Height=39
+}
+Add(Button,4932573,149,140)
+{
+ Left=185
+ Top=195
+ Width=100
+ TabOrder=-1
+ Font=[MS Sans Serif,8,1,0,1]
+ Caption="StartScan"
+ link(onClick,9051821:doEvent1,[])
+}
+Add(FormatStr,6379849,611,210)
+{
+ Mask="Компьютер %1 недоступен"
+ link(onFString,294324:doMessage,[])
+ link(Str1,2027042:Var3,[(617,149)])
+}
+Add(GetDataEx,2027042,310,140)
+{
+ link(Data,6283314:Text,[])
+}
+Add(Message,294324,667,210)
+{
+ Caption="Внимание!"
+ Icon=3
+}
+Add(Edit,6283314,317,84)
+{
+ Left=5
+ Top=195
+ Width=175
+ Hint="Сетевое имя компьютера"
+ Text=""
+}
+Add(Memory,10967607,373,63)
+{
+ Default=String(Name,AdapterType,DeviceID,MACAddress)
+}
+Add(CheckBox,12754400,163,336)
+{
+ Left=10
+ Top=230
+ Width=160
+ TabOrder=-1
+ Font=[MS Sans Serif,8,1,8388608,1]
+ Caption="Название адаптера:"
+ link(onCheck,15859251:doEvent,[])
+}
+Add(CheckBox,7321664,170,343)
+{
+ Left=10
+ Top=255
+ Width=160
+ TabOrder=-1
+ Font=[MS Sans Serif,8,1,8388608,1]
+ Caption="Производитель:"
+ link(onCheck,14003431:doEvent,[])
+}
+Add(CheckBox,5066769,177,350)
+{
+ Left=10
+ Top=280
+ Width=160
+ TabOrder=-1
+ Font=[MS Sans Serif,8,1,8388608,1]
+ Caption="Короткое имя:"
+ link(onCheck,3927453:doEvent,[])
+}
+Add(CheckBox,16218857,184,357)
+{
+ Left=10
+ Top=305
+ Width=160
+ TabOrder=-1
+ Font=[MS Sans Serif,8,1,8388608,1]
+ Caption="Тип:"
+ link(onCheck,1170960:doEvent,[])
+}
+Add(CheckBox,1981811,191,364)
+{
+ Left=10
+ Top=330
+ Width=160
+ TabOrder=-1
+ Font=[MS Sans Serif,8,1,8388608,1]
+ Caption="Индентификатор PNP:"
+ link(onCheck,14430326:doEvent,[])
+}
+Add(CheckBox,13263861,198,371)
+{
+ Left=10
+ Top=355
+ Width=160
+ TabOrder=-1
+ Font=[MS Sans Serif,8,1,8388608,1]
+ Caption="MAC-адрес:"
+ link(onCheck,7717996:doEvent,[])
+}
+Add(CheckBox,12492631,205,378)
+{
+ Left=10
+ Top=380
+ Width=160
+ TabOrder=-1
+ Font=[MS Sans Serif,8,1,8388608,1]
+ Caption="Имя компьютера:"
+ link(onCheck,3719680:doEvent,[])
+}
+Add(CheckBox,10141429,212,385)
+{
+ Left=10
+ Top=405
+ Width=160
+ TabOrder=-1
+ Font=[MS Sans Serif,8,1,8388608,1]
+ Caption="Хост:"
+ link(onCheck,7037302:doEvent,[])
+}
+Add(CheckBox,3079825,219,392)
+{
+ Left=10
+ Top=430
+ Width=160
+ TabOrder=-1
+ Font=[MS Sans Serif,8,1,8388608,1]
+ Caption="Домен:"
+ link(onCheck,13781492:doEvent,[])
+}
+Add(CheckBox,14840877,226,399)
+{
+ Left=10
+ Top=455
+ Width=160
+ TabOrder=-1
+ Font=[MS Sans Serif,8,1,8388608,1]
+ Caption="Адрес DHCP-сервера:"
+ link(onCheck,13567871:doEvent,[])
+}
+Add(CheckBox,11740703,233,406)
+{
+ Left=10
+ Top=480
+ Width=160
+ TabOrder=-1
+ Font=[MS Sans Serif,8,1,8388608,1]
+ Caption="Адрес WINS-сервера:"
+ link(onCheck,9964185:doEvent,[])
+}
+Add(CheckBox,16592203,240,413)
+{
+ Left=10
+ Top=505
+ Width=160
+ TabOrder=-1
+ Font=[MS Sans Serif,8,1,8388608,1]
+ Caption="IP-адрес назначен:"
+ link(onCheck,1013269:doEvent,[])
+}
+Add(Hub,1041519,107,336)
+{
+ OutCount=15
+ link(onEvent1,12754400:doCheck,[])
+ link(onEvent2,7321664:doCheck,[])
+ link(onEvent3,5066769:doCheck,[])
+ link(onEvent4,16218857:doCheck,[])
+ link(onEvent5,1981811:doCheck,[])
+ link(onEvent6,13263861:doCheck,[])
+ link(onEvent7,12492631:doCheck,[])
+ link(onEvent8,10141429:doCheck,[])
+ link(onEvent9,3079825:doCheck,[])
+ link(onEvent10,14840877:doCheck,[])
+ link(onEvent11,11740703:doCheck,[])
+ link(onEvent12,16592203:doCheck,[])
+ link(onEvent13,14163697:doWork2,[])
+ link(onEvent14,13882220:doWork2,[(348,433)(348,440)])
+ link(onEvent15,16766501:doWork2,[(362,440)(362,454)])
+}
+Add(DoData,10446964,58,336)
+{
+ link(onEventData,1041519:doEvent1,[])
+}
+Add(IndexToChanel,15859251,247,336)
+{
+ link(onEvent1,4982203:doValue,[])
+ link(onEvent2,4982203:doClear,[])
+}
+Add(IndexToChanel,14003431,254,343)
+{
+ link(onEvent1,2374944:doValue,[])
+ link(onEvent2,2374944:doClear,[])
+}
+Add(IndexToChanel,3927453,261,350)
+{
+ link(onEvent1,7506430:doValue,[])
+ link(onEvent2,7506430:doClear,[])
+}
+Add(IndexToChanel,1170960,268,357)
+{
+ link(onEvent1,5480943:doValue,[])
+ link(onEvent2,5480943:doClear,[])
+}
+Add(LineBreakEx,7273960,478,336)
+{
+ Caption="FString"
+}
+Add(LineBreakEx,12886401,478,350)
+{
+ Caption="FString"
+}
+Add(LineBreakEx,5995490,478,364)
+{
+ Caption="FString"
+}
+Add(LineBreakEx,14064058,478,378)
+{
+ Caption="FString"
+}
+Add(LineBreakEx,15483063,478,392)
+{
+ Caption="FString"
+}
+Add(LineBreakEx,519295,478,406)
+{
+ Caption="FString"
+}
+Add(LineBreakEx,11314059,478,420)
+{
+ Caption="FString"
+}
+Add(LineBreakEx,693113,226,553)
+{
+ Caption="FString"
+ Type=1
+ link(OnEvent,844449:doString,[])
+}
+Add(FormatStr,844449,296,553)
+{
+ DataCount=15
+ Mask="%1%2%3%4%5%6%7%8%9%10%11%12%13%14%15"
+ link(onFString,12032294:In,[])
+ link(Str1,4982203:Value,[])
+ link(Str2,2374944:Value,[])
+ link(Str3,7506430:Value,[])
+ link(Str4,5480943:Value,[])
+ link(Str5,11960512:Value,[])
+ link(Str6,9189977:Value,[])
+ link(Str7,16508095:Value,[])
+ link(Str8,15802377:Value,[])
+ link(Str9,15222690:Value,[])
+ link(Str10,9868274:Value,[])
+ link(Str11,2490666:Value,[])
+ link(Str12,13842189:Value,[])
+ link(Str13,14163697:Var1,[(386,499)(619,499)])
+ link(Str14,13882220:Var1,[(393,506)(633,506)])
+ link(Str15,16766501:Var1,[(400,513)(647,513)])
+}
+Add(DoData,1524921,674,378)
+{
+ link(onEventData,9935317:doCompare,[])
+ link(Data,11707471:DHCPEnabled,[(680,286)(379,286)])
+}
+Add(Memory,4982203,296,336)
+{
+ Default=String(Name,)
+ link(onData,7273960:doWork,[])
+}
+Add(Memory,2374944,303,343)
+{
+ Default=String(Manufacturer,)
+ link(onData,12886401:doWork,[(407,349)(407,356)])
+}
+Add(Memory,7506430,310,350)
+{
+ Default=String(ServiceName,)
+ link(onData,5995490:doWork,[(410,356)(410,370)])
+}
+Add(Memory,5480943,317,357)
+{
+ Default=String(AdapterType,)
+ link(onData,14064058:doWork,[(413,363)(413,384)])
+}
+Add(IndexToChanel,14430326,275,364)
+{
+ link(onEvent1,11960512:doValue,[])
+ link(onEvent2,11960512:doClear,[])
+}
+Add(Memory,11960512,324,364)
+{
+ Default=String(PNPDeviceID,)
+ link(onData,15483063:doWork,[(417,370)(417,398)])
+}
+Add(IndexToChanel,7717996,282,371)
+{
+ link(onEvent1,9189977:doValue,[])
+}
+Add(Memory,9189977,331,371)
+{
+ Default=String(MACAddress,)
+ link(onData,519295:doWork,[(421,377)(421,412)])
+}
+Add(IndexToChanel,3719680,289,378)
+{
+ link(onEvent1,16508095:doValue,[])
+ link(onEvent2,16508095:doClear,[])
+}
+Add(Memory,16508095,338,378)
+{
+ Default=String(SystemName,)
+ link(onData,11314059:doWork,[(424,384)(424,426)])
+}
+Add(Memory,15802377,345,385)
+{
+ Default=String(DNSHostName,)
+ link(onData,10986771:doWork,[(427,391)(427,440)])
+}
+Add(Memory,15222690,352,392)
+{
+ Default=String(DNSDomain,)
+ link(onData,1090347:doWork,[(431,398)(431,454)])
+}
+Add(Memory,9868274,359,399)
+{
+ Default=String(DHCPServer,)
+ link(onData,5015896:doWork,[(435,405)(435,468)])
+}
+Add(Memory,2490666,366,406)
+{
+ Default=String(WINSPrimaryServer,)
+ link(onData,10192576:doWork,[(438,412)(438,482)])
+}
+Add(IndexToChanel,7037302,296,385)
+{
+ link(onEvent1,15802377:doValue,[])
+ link(onEvent2,15802377:doClear,[])
+}
+Add(IndexToChanel,13781492,303,392)
+{
+ link(onEvent1,15222690:doValue,[])
+ link(onEvent2,15222690:doClear,[])
+}
+Add(IndexToChanel,13567871,310,399)
+{
+ link(onEvent1,9868274:doValue,[])
+ link(onEvent2,9868274:doClear,[])
+}
+Add(IndexToChanel,9964185,317,406)
+{
+ link(onEvent1,2490666:doValue,[])
+ link(onEvent2,2490666:doClear,[])
+}
+Add(Memory,13842189,373,413)
+{
+ Default=String(DHCPEnabled,)
+ link(onData,3408473:doWork,[(441,419)(441,496)])
+}
+Add(IndexToChanel,1013269,324,413)
+{
+ link(onEvent1,13842189:doValue,[])
+ link(onEvent2,13842189:doClear,[])
+}
+Add(LineBreakEx,10986771,478,434)
+{
+ Caption="FString"
+}
+Add(LineBreakEx,1090347,478,448)
+{
+ Caption="FString"
+}
+Add(LineBreakEx,5015896,478,462)
+{
+ Caption="FString"
+}
+Add(LineBreakEx,10192576,478,476)
+{
+ Caption="FString"
+}
+Add(LineBreakEx,3408473,478,490)
+{
+ Caption="FString"
+}
+Add(ChildGroupBox,14163697,613,413)
+{
+ link(onEvent1,6209602:doWork,[])
+ link(Data1,11707471:IPArray,[(619,303)(400,303)])
+ link(Data2,11707471:MaskArray,[(626,303)(407,303)])
+}
+BEGIN_SDK
+  Add(EditMulti,9700063,21,21)
+  {
+   EventCount=1
+   WorkCount=2
+   DataCount=2
+   VarCount=1
+   Height=179
+   link(doWork1,1990570:doEvent1,[(39,27)(39,90)])
+   link(doWork2,10567958:doCheck,[(39,34)(39,146)])
+   link(Var1,9420876:Value,[(27,186)(167,186)])
+  }
+  Add(GroupBox,173171,56,42)
+  {
+   Left=5
+   Top=535
+   Width=265
+   Height=115
+   Font=[MS Sans Serif,8,1,0,1]
+   Caption=""
+   Point(doVisible)
+  }
+  Add(StringTable,4919763,266,77)
+  {
+   Left=7
+   Top=15
+   Width=251
+   Height=75
+   Font=[MS Sans Serif,8,1,0,1]
+   Columns=#12:IP-адрес=110|9:Маска=118|
+  }
+  Add(ArrayEnum,3879466,105,91)
+  {
+   link(onItem,7172640:doRead,[])
+   link(Array,9700063:Data1,[(111,56)(27,56)])
+  }
+  Add(ArrayRW,7172640,161,91)
+  {
+   link(onRead,7985057:doString,[])
+   link(Array,9700063:Data2,[(167,56)(34,56)])
+   link(Index,3879466:Index,[(174,79)(146,79)(146,135)(118,135)])
+  }
+  Add(FormatStr,7985057,210,91)
+  {
+   Mask="%1;%2"
+   link(onFString,4919763:doAdd,[(254,97)(254,83)])
+   link(Str1,3879466:Item,[(216,79)(164,79)(164,135)(111,135)])
+  }
+  Add(Hub,1990570,56,84)
+  {
+   link(onEvent1,4919763:doClear,[])
+   link(onEvent2,3879466:doEnum,[])
+  }
+  Add(CheckBox,10567958,56,140)
+  {
+   Left=10
+   Top=90
+   Width=240
+   TabOrder=-1
+   Font=[MS Sans Serif,8,1,8388608,1]
+   Caption="Основные IP-адреса"
+   link(onCheck,5693391:doEvent,[])
+  }
+  Add(IndexToChanel,5693391,105,140)
+  {
+   link(onEvent1,9420876:doValue,[])
+   link(onEvent2,9420876:doClear,[])
+  }
+  Add(Memory,9420876,161,140)
+  {
+   Default=String(IPAddress,IPSubnet,)
+   link(onData,9700063:onEvent1,[(304,146)(304,27)])
+  }
+END_SDK
+Add(LineBreakEx,6209602,688,413)
+{
+ Caption="FString"
+}
+Add(LineBreakEx,5797064,688,427)
+{
+ Caption="FString"
+}
+Add(ChildGroupBox,13882220,627,427)
+{
+ link(onEvent1,5797064:doWork,[])
+ link(Data1,11707471:GatewayArray,[(633,310)(414,310)])
+ link(Data2,11707471:MetricArray,[(640,310)(421,310)])
+}
+BEGIN_SDK
+  Add(EditMulti,9700063,21,21)
+  {
+   EventCount=1
+   WorkCount=2
+   DataCount=2
+   VarCount=1
+   Height=193
+   link(doWork1,1990570:doEvent1,[(39,27)(39,83)])
+   link(doWork2,10567958:doCheck,[(39,34)(39,146)])
+   link(Var1,9420876:Value,[(27,193)(167,193)])
+  }
+  Add(GroupBox,173171,56,35)
+  {
+   Left=270
+   Top=535
+   Width=215
+   Height=115
+   Font=[MS Sans Serif,8,1,0,1]
+   Caption=""
+   Point(doVisible)
+  }
+  Add(StringTable,4919763,266,70)
+  {
+   Left=7
+   Top=15
+   Width=201
+   Height=75
+   Font=[MS Sans Serif,8,1,0,1]
+   Columns=#12:IP-адрес=110|10:Метрика=68|
+  }
+  Add(ArrayEnum,3879466,105,84)
+  {
+   link(onItem,7172640:doRead,[])
+   link(Array,9700063:Data1,[(111,52)(27,52)])
+  }
+  Add(ArrayRW,7172640,161,84)
+  {
+   link(onRead,7985057:doString,[])
+   link(Array,9700063:Data2,[(167,52)(34,52)])
+   link(Index,3879466:Index,[(174,72)(146,72)(146,128)(118,128)])
+  }
+  Add(FormatStr,7985057,210,84)
+  {
+   Mask="%1;%2"
+   link(onFString,4919763:doAdd,[(254,90)(254,76)])
+   link(Str1,3879466:Item,[(216,72)(164,72)(164,128)(111,128)])
+  }
+  Add(Hub,1990570,56,77)
+  {
+   link(onEvent1,4919763:doClear,[])
+   link(onEvent2,3879466:doEnum,[])
+  }
+  Add(CheckBox,10567958,56,140)
+  {
+   Left=10
+   Top=90
+   Width=190
+   TabOrder=-1
+   Font=[MS Sans Serif,8,1,8388608,1]
+   Caption="Оcновные шлюзы"
+   link(onCheck,5693391:doEvent,[])
+  }
+  Add(IndexToChanel,5693391,105,140)
+  {
+   link(onEvent1,9420876:doValue,[])
+   link(onEvent2,9420876:doClear,[])
+  }
+  Add(Memory,9420876,161,140)
+  {
+   Default=String(DefaultIPGateway,GatewayCostMetric,)
+   link(onData,9700063:onEvent1,[(257,146)(257,27)])
+  }
+END_SDK
+Add(LineBreakEx,6586948,688,441)
+{
+ Caption="FString"
+}
+Add(ChildGroupBox,16766501,641,441)
+{
+ link(onEvent1,6586948:doWork,[])
+ link(Data1,11707471:DNSArray,[(647,317)(428,317)])
+}
+BEGIN_SDK
+  Add(EditMulti,9700063,21,21)
+  {
+   EventCount=1
+   WorkCount=2
+   DataCount=1
+   VarCount=1
+   Width=237
+   Height=179
+   link(doWork1,178225:doEvent1,[(42,27)(42,62)])
+   link(doWork2,12114394:doCheck,[(42,34)(42,146)])
+   link(Var1,9420876:Value,[(27,186)(174,186)])
+  }
+  Add(GroupBox,173171,63,98)
+  {
+   Left=485
+   Top=535
+   Width=130
+   Height=115
+   Font=[MS Sans Serif,8,1,0,1]
+   Caption=""
+   Point(doVisible)
+  }
+  Add(ListBox,14266187,175,49)
+  {
+   Left=5
+   Top=15
+   Width=120
+   Height=75
+   Font=[MS Sans Serif,8,1,0,1]
+  }
+  Add(Hub,178225,63,56)
+  {
+   link(onEvent1,14266187:doClear,[])
+   link(onEvent2,12362958:doEnum,[])
+  }
+  Add(ArrayEnum,12362958,112,63)
+  {
+   link(onItem,14266187:doAdd,[(160,69)(160,55)])
+   link(Array,9700063:Data1,[(118,42)(27,42)])
+  }
+  Add(CheckBox,12114394,63,140)
+  {
+   Left=10
+   Top=90
+   Width=110
+   TabOrder=-1
+   Font=[MS Sans Serif,8,1,8388608,1]
+   Caption="DNS-сервера"
+   link(onCheck,5693391:doEvent,[])
+  }
+  Add(IndexToChanel,5693391,112,140)
+  {
+   link(onEvent1,9420876:doValue,[])
+   link(onEvent2,9420876:doClear,[])
+  }
+  Add(Memory,9420876,168,140)
+  {
+   Default=String(DNSServerSearchOrder,)
+   link(onData,9700063:onEvent1,[(229,146)(229,27)])
+  }
+END_SDK
+Add(LineBreak,14884030,303,63)
+{
+ Caption="Query"
+ link(Out,10967607:doValue,[])
+ Primary=[12032294,175,490]
+}
+Add(Label,3518195,870,301)
+{
+ Left=175
+ Top=232
+ Width=435
+ Height=17
+ Font=[MS Sans Serif,8,1,128,1]
+ Caption=""
+ AutoSize=1
+ link(Text,15696148:Var3,[(876,240)])
+}
+Add(Label,14164224,877,308)
+{
+ Left=175
+ Top=257
+ Width=435
+ Height=17
+ Font=[MS Sans Serif,8,1,128,1]
+ Caption=""
+ AutoSize=1
+ link(Text,11707471:Manufacturer,[(883,250)(330,250)])
+}
+Add(Label,3955394,884,315)
+{
+ Left=175
+ Top=282
+ Width=435
+ Height=17
+ Font=[MS Sans Serif,8,1,128,1]
+ Caption=""
+ AutoSize=1
+ link(Text,11707471:ServiceName,[(890,254)(344,254)])
+}
+Add(Label,6561350,891,322)
+{
+ Left=175
+ Top=307
+ Width=435
+ Height=17
+ Font=[MS Sans Serif,8,1,128,1]
+ Caption=""
+ AutoSize=1
+ link(Text,14013151:Var3,[(897,247)])
+}
+Add(Label,7553401,898,329)
+{
+ Left=175
+ Top=332
+ Width=435
+ Height=17
+ Font=[MS Sans Serif,8,1,128,1]
+ Caption=""
+ AutoSize=1
+ link(Text,11707471:PNPDeviceID,[(904,261)(351,261)])
+}
+Add(Label,4592221,905,336)
+{
+ Left=175
+ Top=357
+ Width=435
+ Height=17
+ Font=[MS Sans Serif,8,1,128,1]
+ Caption=""
+ AutoSize=1
+ link(Text,5261141:Var3,[(911,254)])
+}
+Add(Label,1923906,912,343)
+{
+ Left=175
+ Top=382
+ Width=435
+ Height=17
+ Font=[MS Sans Serif,8,1,128,1]
+ Caption=""
+ AutoSize=1
+ link(Text,11707471:SystemName,[(918,268)(358,268)])
+}
+Add(Label,10198530,919,350)
+{
+ Left=175
+ Top=407
+ Width=435
+ Height=17
+ Font=[MS Sans Serif,8,1,128,1]
+ Caption=""
+ AutoSize=1
+ link(Text,11707471:DNSHostName,[(925,272)(365,272)])
+}
+Add(Label,2042642,926,357)
+{
+ Left=175
+ Top=432
+ Width=435
+ Height=17
+ Font=[MS Sans Serif,8,1,128,1]
+ Caption=""
+ AutoSize=1
+ link(Text,11707471:DNSDomain,[(932,275)(372,275)])
+}
+Add(Label,3504390,933,364)
+{
+ Left=175
+ Top=457
+ Width=435
+ Height=17
+ Font=[MS Sans Serif,8,1,128,1]
+ Caption=""
+ AutoSize=1
+ link(Text,11707471:DHCPServer,[(939,278)(393,278)])
+}
+Add(Label,14700031,940,371)
+{
+ Left=175
+ Top=482
+ Width=435
+ Height=17
+ Font=[MS Sans Serif,8,1,128,1]
+ Caption=""
+ AutoSize=1
+ link(Text,11707471:WINSServer,[(946,282)(386,282)])
+}
+Add(Label,4926256,947,378)
+{
+ Left=175
+ Top=507
+ Width=435
+ Height=17
+ Font=[MS Sans Serif,8,1,128,1]
+ Caption=""
+ AutoSize=1
+}
+Add(HubEx,8476975,888,385)
+{
+ link(onEvent,4926256:doText,[(922,398)(922,384)])
+}
+Add(IndexToChanel,3746311,797,378)
+{
+ Data=String(Статически)
+ Point(Index)
+ link(onEvent1,8476975:doWork1,[(892,384)])
+ link(onEvent2,8016987:doData,[(837,391)(837,398)])
+}
+Add(DoData,8016987,846,392)
+{
+ Data=String(Автоматически)
+ link(onEventData,8476975:doWork2,[])
+}
+Add(Hub,12173243,549,301)
+{
+ OutCount=15
+ link(onEvent1,3518195:doText,[])
+ link(onEvent2,14164224:doText,[])
+ link(onEvent3,3955394:doText,[])
+ link(onEvent4,6561350:doText,[])
+ link(onEvent5,7553401:doText,[])
+ link(onEvent6,4592221:doText,[])
+ link(onEvent7,1923906:doText,[])
+ link(onEvent8,10198530:doText,[])
+ link(onEvent9,2042642:doText,[])
+ link(onEvent10,3504390:doText,[])
+ link(onEvent11,14700031:doText,[])
+ link(onEvent12,1524921:doData,[])
+ link(onEvent13,14163697:doWork1,[(597,391)(597,419)])
+ link(onEvent14,13882220:doWork1,[(604,398)(604,433)])
+ link(onEvent15,16766501:doWork1,[(611,405)(611,447)])
+}

@@ -1,0 +1,11 @@
+Region data=Данные о регионе
+Retrieves data about the region ARG(Region)=Получает данные о регионе ARG(Region)
+The event occurs every time after receiving data about the region ARG(Region)=Событие происходит всякий раз после получения данных о регионе ARG(Region)
+Contains the region's left padding=Содержит отступ региона слева
+Contains the region top padding=Содержит отступ региона сверху
+Contains the width of the region=Содержит ширину региона
+Contains the height of the region=Содержит высоту региона
+Header size in bytes=Размер заголовка в байтах
+Number of rectangles creating a region=Кол-во прямоугольников создающих регион
+Array size=Размер массива
+Region for receiving data=Регион для получения данных

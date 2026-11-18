@@ -1,0 +1,14 @@
+Switch=Переключатель
+Defines data for the default On state=Определяет данные для состояния Включено (On) по-умолчанию
+Defines data for the default Off state=Определяет данные для состояния Выключено (Off) по-умолчанию
+Switch initial state=Начальное состояние переключателя
+Switches the state from On to Off or vice versa from Off to On=Переключает состояние с On на Off или наоборот с Off на On
+Resets a component to the Off state=Сбрасывает компонент в состояние Выключено (Off)
+Switches to On state=Переключает в состояние Включено (On)
+Checks the state of the Switch - onSwitch does not occur, but one of the events will occur: onOn or onOff=Проверяет состояние Переключателя - onSwitch не происходит, но произойдет одно из событий: onOn или onOff
+The event occurs after a state change and outputs DataOn in the On state or DataOff in the Off state to the stream.=Событие происходит после изменения состояния и выдает в поток DataOn в состоянии Включено (On) или DataOff в состоянии Выключено (Off)
+The event occurs whenever the component transitions to the On state and issues DataOn to the stream=Событие происходит всякий раз при переходе компонента в состояние Включено (On) и выдает в поток DataOn
+The event occurs whenever the component goes into the Off state and outputs DataOff to the stream=Событие происходит всякий раз при переходе компонента в состояние Выключено (Off) и выдает в поток DataOff
+Contains the current state of the key: DataOn in the On state or DataOff in the Off state.=Содержит текущее состояние ключа: DataOn в состоянии Включено (On) или DataOff в состоянии Выключено (Off)
+Defines data for the On state=Определяет данные для состояния Включено (On)
+Defines data for the Off state=Определяет данные для состояния Выключено (Off)

@@ -1,0 +1,12 @@
+Printing text on a printer=Печать текста на принтере
+Job title in the print queue=Заголовок задания в очереди печати
+File name to print to file=Имя файла для печати в файл
+Prints the document=Печатает документ
+Shows the print page setup dialog=Показывает диалог настройки страницы печати
+Shows a dialog for selecting and setting up a printer followed by printing=Показывает диалог выбора и настройки принтера с последующей печатью
+The event occurs whenever an image needs to be drawn on the device context=Событие происходит всякий раз, когда необходимо отрисовать изображение на контексте устройства
+Device context=Контекст устройства
+Contains the number of pixels per inch across the width=Содержит количество пикселей на дюйм по ширине
+Contains the number of pixels per inch in height=Содержит количество пикселей на дюйм по высоте
+Text to be printed=Текст, который необходимо вывести на принтер
+Outputting RichEdit content to a printer=Вывод содержимого RichEdit на принтер

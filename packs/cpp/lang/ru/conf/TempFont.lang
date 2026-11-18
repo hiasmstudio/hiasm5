@@ -1,0 +1,15 @@
+Temporary font=Временный шрифт
+Font file name=Имя файла шрифта
+Temporary file prefix=Префикс временного файла
+Use internal broadcast message WM_FONTCHANGE to update the system font list=Использовать внутреннее широковещательное сообщение WM_FONTCHANGE для обновления списка шрифтов системы
+Defines the default font data in memory=Определяет данные шрифта в памяти по-умолчанию
+Installs a temporary font on the system=Устанавливает временный шрифт в системе
+Installs a temporary font on the system from memory=Устанавливает временный шрифт в системе из памяти
+Removes a temporary font from the system=Удаляет временный шрифт из системы
+Removes a temporary font from the system by file name from the stream or TempFName field=Удаляет временный шрифт из системы по имени файла из потока или поля TempFName
+Result of performing temporary font installation operations (1 - completed successfully, 0 - execution error) ARG(State)=Результат выполнения операций установки временного шрифта (1 - выполнено успешно, 0 - ошибка выполнения) ARG(State)
+Contains the name of the temporary font after successful installation=Содержит имя временного шрифта после успешной установки
+Contains the full path to the current temporary font file name=Содержит полный путь к текущему имени файла временного шрифта
+Name of the temporary font file to install on the system=Имя файла временного шрифта для установки в системе
+Full path to the file name to delete the temporary font=Полный путь к имени файла для удаления временного шрифта
+Specifies temporary font data to be copied into memory=Определяет данные временного шрифта для копирования в память

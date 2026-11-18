@@ -1,0 +1,9 @@
+Button=Кнопка
+Text on button=Надпись на кнопке
+Data, puted in thread from event onClick=Данные, выдаваемые в поток событием onClick
+Image on button=Картинка на кнопке
+Integrate image from GTK theme=Встроенная картинка из темы GTK
+Size of integrate image=Размер встроенной картинки
+Position of the image relative on button caption=Позиция картинки относительно заголовка кнопки
+Custom image on button=Произвольная картинка на кнопке
+Event emit every time after when user click on the element=Событие происходит всякий раз при клике на элементе

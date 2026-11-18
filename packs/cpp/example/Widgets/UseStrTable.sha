@@ -1,0 +1,112 @@
+*Пример использование компонента Таблица Строк.
+Pos(0,0)
+Add(Button,53310,175,280)
+{
+ Left=305
+ Top=60
+ Width=80
+ Font=[Arial,8,0,0]
+ Caption="Сохранить"
+ link(onClick,17962:doExecute,[])
+}
+Add(FormatStr,74316,252,189)
+{
+ DataCount=3
+ Mask="%1\9%2\9%3"
+ link(onFString,87160:doAdd,[])
+ link(Str1,70870:Text,[(258,142)(209,142)])
+ link(Str2,65912:Text,[])
+ link(Str3,21182:Text,[(272,174)(307,174)])
+}
+Add(Label,85963,105,63)
+{
+ Left=10
+ Top=10
+ Font=[Arial,8,0,0]
+ Caption="Фамилия"
+}
+Add(Edit,70870,203,63)
+{
+ Left=65
+ Top=10
+ Width=195
+ Height=21
+ Font=[Arial,8,0,0]
+ Text="Простатин"
+}
+Add(Label,64905,105,147)
+{
+ Left=10
+ Top=60
+ Font=[Arial,8,0,0]
+ Caption="Отчество"
+}
+Add(Edit,65912,259,91)
+{
+ Left=65
+ Top=35
+ Width=195
+ Height=21
+ Font=[Arial,8,0,0]
+ Text="Никита"
+}
+Add(Label,21476,105,105)
+{
+ Left=10
+ Top=35
+ Font=[Arial,8,0,0]
+ Caption="Имя"
+}
+Add(Button,55985,175,238)
+{
+ Left=305
+ Top=35
+ Width=80
+ Font=[Arial,8,0,0]
+ Caption="Открыть"
+ link(onClick,74772:doExecute,[])
+}
+Add(Edit,21182,301,126)
+{
+ Left=65
+ Top=60
+ Width=195
+ Height=21
+ Font=[Arial,8,0,0]
+ Text="Иванович"
+}
+Add(StringTable,87160,343,189)
+{
+ Left=65
+ Top=85
+ Width=320
+ Height=185
+ Font=[Arial,8,0,0]
+ Columns='Фамилия','Имя','Отчество'
+ StrDelimiter="\9"
+}
+Add(SDialog,17962,245,280)
+{
+ Filter="Text file|*.txt"
+ link(onExecute,87160:doSave,[(326,286)(326,223)])
+}
+Add(ODialog,74772,245,238)
+{
+ Filter="Text file|*.txt"
+ link(onExecute,87160:doLoad,[(310,244)(310,216)])
+}
+Add(Button,91075,175,189)
+{
+ Left=305
+ Top=10
+ Width=80
+ Font=[Arial,8,0,0]
+ Caption="Добавить"
+ link(onClick,74316:doString,[])
+}
+Add(MainForm,96227,28,231)
+{
+ Left=21
+ Top=105
+ Font=[Arial,8,0,0]
+}

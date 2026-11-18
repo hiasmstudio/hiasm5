@@ -1,0 +1,8 @@
+Some information about MP3 files=Некоторая информация о MP3 файлах
+Number - give the genre tag as a number, Name - give the genre tag as a name=Number - выдавать тэг жанра как номер, Name - выдавать тэг жанра как название
+Reads data about MP3 file=Читает данные о MP3 файле
+The event occurs every time after receiving ID3v1 tags from an MP3 file, outputting these tags to the ARG(Title, Artist, Album, Year, Comment, Genre, Track) stream=Событие происходит вский раз после получения тэгов ID3v1 из MP3 файла, выдавая эти тэги в поток ARG(Title, Artist, Album, Year, Comment, Genre, Track)
+The event occurs every time after receiving ID3v2 tags from an MP3 file, outputting these tags to the ARG(Title, Artist, Album, Year, Comment, Genre, Track, Composer, OrigArtist, Copyright, URL, Encoder) stream=Событие происходит вский раз после получения тэгов ID3v2 из MP3 файла, выдавая эти тэги в поток ARG(Title, Artist, Album, Year, Comment, Genre, Track, Composer, OrigArtist, Copyright, URL, Encoder)
+Contains an array of all ID3v1 tags from an MP3 file=Содержит массив всех тэгов ID3v1 из MP3 файла
+Contains an array of main ID3v2 tags from an MP3 file=Содержит массив основных тэгов ID3v2 из MP3 файла
+Specifies the MP3 file name=Определяет имя MP3 файла

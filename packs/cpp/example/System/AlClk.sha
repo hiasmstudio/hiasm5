@@ -1,0 +1,191 @@
+*Часы с будильником#13#10_____________________#13#10Автор: Виктор Васильев
+Make(cpp)
+Pos(0,0)
+Add(MainForm,8644,20,170)
+{
+ Left=200
+ Top=200
+ Width=118
+ Height=92
+ Caption="Часы"
+ BorderStyle=3
+ Icon=[ZIP0E03000078DA75523B92C3200C7D7632E3D2E3665B5CE616BB47E206F6D17C942D533A555C6456AB2701C1712210203DFD10008D8E713C83746D812FDD2FCAA3F28F7203C7D0E203CD3631CFBE7150A5CBB22CAA119B10F18D832A2E469DCD42B15AAB432CC693BAC6EC12550C21A8223AAC28658966103B49F29D0606BB9C0CC4E9DECB9ACD493139F405F672A7027B0D152CAB06BC0D4C65B005F403E161A07C0B66F8C45D31ED7091CEF11CDF0C2C7ECA2FBDE52FF519D5F54BAA1F4F79CDEDD10648BEBF3B84629E1A54DA63FDA59CFA7BE8FFEBFB1CDEEFF0BE15C9A6F52F0D4B9FFE80EF071036BD9496DAFD0227B2FEA026B3FFAFF75CDB655FC6613CC6657CE6B17C5B9F3BB6A37FB6342310]
+ TaskBar=1
+ Point(onShow)
+ link(onShow,30360:doEvent2,[(188,218)(188,143)])
+}
+Add(Time,96690,280,30)
+{
+ Format="D.M.Y  h:m:s"
+}
+Add(DoData,19363,280,130)
+{
+ link(onEventData,99780:doText,[])
+ link(Data,96690:FormatTime,[])
+}
+Add(Timer,78859,145,130)
+{
+ link(onTimer,30360:doEvent1,[])
+}
+Add(Button,40583,215,215)
+{
+ Left=20
+ Top=30
+ Width=75
+ Font=[Arial,8,0,0,1]
+ Caption="Будильник"
+ link(onClick,63253:doWork2,[(267,221)(267,208)])
+}
+Add(Label,99780,355,130)
+{
+ Left=5
+ Top=10
+ Width=85
+ Font=[Arial,8,0,0,1]
+ Caption="Время"
+ Alignment=2
+}
+Add(Beep,84933,360,195)
+{
+ Duration=1000
+}
+Add(Hub,30360,215,130)
+{
+ InCount=2
+ link(onEvent1,19363:doData,[])
+ link(onEvent2,63253:doWork1,[(267,143)(267,201)])
+}
+Add(ChildForm,63253,287,195)
+{
+ link(onEvent1,84933:doBeep,[])
+ link(Data1,96690:Hours,[])
+ link(Data2,96690:Minute,[])
+ link(Data3,96690:Second,[])
+}
+BEGIN_SDK
+  Add(EditMulti,71823,3,3)
+  {
+   EventCount=1
+   WorkCount=2
+   DataCount=3
+   Width=560
+   Height=275
+   link(doWork1,93666:doEvent1,[(13,9)(13,111)])
+   link(doWork2,40402:doVisible,[(7,17)(7,219)])
+  }
+  Add(MainForm,40402,20,185)
+  {
+   Left=200
+   Top=200
+   Height=91
+   Caption="Установка будильника"
+   BorderStyle=3
+   Visible=1
+   Point(doVisible)
+  }
+  Add(If_else,26222,190,210)
+  {
+   Op2=Integer(0)
+   link(onTrue,26736:doCompare,[])
+   link(Op1,99372:Data2,[(196,139)(98,139)])
+  }
+  Add(If_else,55570,215,105)
+  {
+   link(onTrue,27799:doCompare,[])
+   link(Op1,71823:Data1,[(221,91)(9,91)])
+   link(Op2,8769:Position,[(228,81)(206,81)])
+  }
+  Add(GetData,99372,85,35)
+  {
+   link(Data,71823:Data2,[(91,21)(16,21)])
+  }
+  Add(Hub,66643,410,105)
+  {
+   InCount=2
+   OutCount=1
+   link(onEvent1,71823:onEvent1,[(502,111)(502,9)])
+  }
+  Add(ScrollBar,86052,305,20)
+  {
+   Left=5
+   Top=25
+   Width=345
+   Height=15
+   Max=59
+   link(onPosition,33737:doText,[])
+  }
+  Add(If_else,30688,100,210)
+  {
+   Op2=Integer(1)
+   link(onTrue,26222:doCompare,[])
+   link(Op1,13105:Checked,[])
+  }
+  Add(If_else,80032,135,105)
+  {
+   Op2=Integer(1)
+   link(onTrue,55570:doCompare,[])
+   link(Op1,34898:Checked,[])
+  }
+  Add(If_else,26736,275,210)
+  {
+   Op2=Integer(0)
+   link(onTrue,66643:doEvent2,[(358,216)(358,118)])
+   link(Op1,71823:Data3,[(281,165)(23,165)])
+  }
+  Add(Hub,93666,30,105)
+  {
+   link(onEvent1,80032:doCompare,[])
+   link(onEvent2,30688:doCompare,[(81,118)(81,216)])
+  }
+  Add(CheckBox,34898,135,15)
+  {
+   Left=5
+   Top=45
+   Width=125
+   Height=15
+   Font=[Arial,8,0,0,1]
+   Caption="Включить будильник"
+  }
+  Add(Label,67554,255,25)
+  {
+   Left=355
+   Top=5
+   Width=35
+   Font=[Arial,8,0,0,1]
+   Caption="Час. 0"
+   Alignment=2
+  }
+  Add(If_else,27799,305,105)
+  {
+   link(onTrue,66643:doEvent1,[])
+   link(Op1,99372:Data1,[(311,86)(91,86)])
+   link(Op2,86052:Position,[(318,79)(311,79)])
+  }
+  Add(CheckBox,13105,100,150)
+  {
+   Left=245
+   Top=45
+   Width=140
+   Height=15
+   Font=[Arial,8,0,0,1]
+   Caption="Ежечасное оповещение"
+  }
+  Add(ScrollBar,8769,200,25)
+  {
+   Left=5
+   Top=5
+   Width=345
+   Height=15
+   Max=23
+   link(onPosition,67554:doText,[])
+  }
+  Add(Label,33737,360,20)
+  {
+   Left=355
+   Top=25
+   Width=35
+   Font=[Arial,8,0,0,1]
+   Caption="Мин. 0"
+   Alignment=2
+  }
+END_SDK

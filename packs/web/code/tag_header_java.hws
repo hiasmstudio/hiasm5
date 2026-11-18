@@ -1,0 +1,24 @@
+  if(isset(Id))
+    println(ctrl, '.setAttribute("id", ', Id, ')')
+  end  
+  if(isset(Class))
+    println(ctrl, '.className = ', Class)
+  end
+  if(isset(Style))
+    println(ctrl, '.setAttribute("style", ', Style, ')')
+  end  
+  if(isset(Title))
+    println(ctrl, '.title = ', Title)
+  end  
+
+  fvar(old,evn,en,i)
+  for(i = 1; i < _event_count_; i++)
+    old = block.select(block.reggen())
+    block.lvloff()
+    en = cgt.pt_get_name_byid(cgt.pt_arr_event(i))
+    event(en:java, 'this')
+    evn = block.ascode()   
+    block.lvlon()
+    block.delete(block.select(old))
+    println(ctrl, '.setAttribute(', en, ', ', evn, ')')
+  end

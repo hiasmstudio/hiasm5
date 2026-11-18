@@ -1,0 +1,33 @@
+section cpp
+
+func doCreateProcess(_data)
+  fvar(app, cmd, dir)
+  lng.decl_loc_var(si, 'STARTUPINFO')
+  lng.decl_loc_var(pi, 'PROCESS_INFORMATION')
+  println('ZeroMemory(&', si, ', sizeof(STARTUPINFO));')
+  println(si, '.cb = sizeof(STARTUPINFO);')
+  println(si, '.dwFlags = STARTF_USESHOWWINDOW;')
+  println(si, '.wShowWindow = SW_SHOWDEFAULT;')
+  app = isnset(ApplicationName) ? 'NULL' : PChar(ApplicationName)
+  cmd = isnset(CommandLine) ? 'NULL' : PChar(CommandLine)   
+  dir = isnset(CurrentDirectory) ? 'NULL' : PChar(CurrentDirectory)   
+  println('CreateProcess(', app, ', ', cmd, ', ', 'NULL, NULL, false, CREATE_DEFAULT_ERROR_MODE, NULL, ', dir, ', &', si, ', &', pi, ');')
+  event(onCreateProcess, pi && '.hProcess')
+end
+
+func Process()
+  return(pi && '.hProcess')
+end
+
+func Thread()
+  return(pi && '.hThread')
+end
+
+func ProcessId()
+  return(pi && '.dwProcessId')
+end
+
+func ThreadId()
+  return(pi && '.dwThreadId')
+end
+

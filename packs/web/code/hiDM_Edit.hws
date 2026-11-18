@@ -1,0 +1,16 @@
+section html
+
+func doPrint(_data)
+  print('<input type=' + lower(Type) + ' name="' + DataBind + _SCOPE_ + '" ')
+  include('dmtag_html')
+  print(' value="')
+  if(isdef(Mode))
+    inc_sec("php")
+    print('str_replace(\'"\', "&#034",$f' + _SITE_ + '[' + DataBind + '])')
+    dec_sec("html")
+  end
+  println('">')
+  event(onPrint, _data)
+end
+
+

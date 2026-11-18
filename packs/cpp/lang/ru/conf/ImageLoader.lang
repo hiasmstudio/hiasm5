@@ -1,0 +1,17 @@
+Loading and rendering images of various formats=Загрузка и отрисовка изображений различных форматов
+Defines the default image file name=Определяет имя файла с изображением по-умолчанию
+Drawing method: Draw - draws the image with original dimensions from the starting point Point1; Stretch - fits the image into the drawing area <Point1,Point2>; ScaleMin and ScaleMax - fits into the display area <Point1,Point2> respecting the proportions; Mosaic - "pave" the display area <Point1,Point2> with a fragment <Point3,Point4> from the original image=Способ отрисовки: Draw - отрисовывает изображение с оригинальными размерами от начальной точки Point1; Stretch - вписывает изображение в область отрисовки <Point1,Point2>; ScaleMin и ScaleMax - вписывает в область отображения <Point1,Point2> с соблюдением пропрорций; Mosaic - "мостит" область отображения <Point1,Point2> фрагментом <Point3,Point4> из оригинального изображения
+Graphics output object: Bitmap - picture, Handle - window or Windows control, NewBitmap - a new picture is created and issued by the onDraw event=Объект вывода графики: Bitmap - картинка, Handle - окно или элемент управления Windows, NewBitmap - создается новая картинка и выдается по событию onDraw
+Drawing areas in DrawSource, and in the original image=Области рисования в DrawSource, и в оригинальном изображении
+Coordinates of the upper left corner of the display area=Координаты левого верхнего угла области отображения
+Count the coordinates of the second point relative to the first=Отсчитывать координаты второй точки относительно первой
+Coordinates of the upper left corner in the source file=Координаты левого верхнего угла в исходном файле
+Count the coordinates of the 4th point relative to the 3rd=Отсчитывать координаты 4-й точки относительно 3-ей
+Loads an image from a file=Загружает изображение из файла
+Draws an image on a picture or window=Отрисовывает изображение на картинке или окне
+The event occurs every time the image is fully loaded=Событие происходит всякий раз после полной загрузки изображения
+Contains 1 if the file is being downloaded, 0 otherwise=Содержит 1, если происходит загрузка файла, 0 - в противном случае
+Width of the loaded original image=Ширина загруженного оригинального изображения
+Height of the loaded original image=Высота загруженного оригинального изображения
+Specifies the name of the image file=Определяет имя файла с изображением
+Picture or window for drawing an image=Картинка или окно для отрисовки изображения

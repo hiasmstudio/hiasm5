@@ -1,0 +1,105 @@
+*Отображение гистограм двух функций на одном графике
+Make(cpp)
+Add(MainForm,16184661,84,161)
+{
+ Left=20
+ Top=105
+ Width=501
+ Height=412
+ Caption="Histogram"
+ link(onCreate,14310219:doFor,[])
+}
+Add(For,14310219,140,175)
+{
+ Start=1
+ End=10
+ link(onEvent,16518841:doEvent1,[])
+}
+Add(Plotter,10574215,196,119)
+{
+ Left=5
+ Top=40
+ Width=475
+ Height=340
+ Align=5
+ Name="Plotter"
+ GridColor=16777215
+}
+Add(PlotAxis,4986410,287,175)
+{
+ Grapher="Plotter"
+ Name="X1"
+ Color=0
+ Style=2
+}
+Add(PlotAxis,7393577,343,91)
+{
+ Grapher="Plotter"
+ Name="Y"
+ Color=0
+ Angle=90
+}
+Add(PlotHistogram,7049018,238,175)
+{
+ Grapher="Plotter"
+ Color=8421504
+ Step=3
+ BgColor=65280
+ Offset=2
+ Axis="X1"
+}
+Add(PlotAxis,101635,336,238)
+{
+ Grapher="Plotter"
+ Name="X2"
+ Color=0
+ Style=2
+ Y=15
+}
+Add(PlotHistogram,1711603,287,238)
+{
+ Grapher="Plotter"
+ Color=8421504
+ Step=3
+ BgColor=65535
+ Offset=2
+ Axis="X2"
+}
+Add(Hub,16518841,189,175)
+{
+ link(onEvent1,7049018:doAdd,[])
+ link(onEvent2,8625915:doOperation,[(215,188)(215,216)(177,216)(177,244)])
+}
+Add(Math,8625915,189,238)
+{
+ OpType=12
+ link(onResult,8539704:doOperation,[])
+}
+Add(Math,8539704,238,238)
+{
+ Op2=15
+ link(onResult,1711603:doAdd,[])
+}
+Add(PlotMarker,4841519,336,175)
+{
+ Grapher="Plotter"
+ Style=5
+ FrameStyle=5
+ BgStyle=1
+ HAlign=1
+ VAlign=2
+ X=15
+ Text="Linear function"
+}
+Add(PlotMarker,13600468,392,238)
+{
+ Grapher="Plotter"
+ Style=5
+ FrameStyle=5
+ BgStyle=1
+ HAlign=1
+ VAlign=2
+ X=15
+ Y=14
+ Text="Periodical function"
+}

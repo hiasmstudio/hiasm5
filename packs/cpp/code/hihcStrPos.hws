@@ -1,0 +1,14 @@
+func doSearch(_data)
+  fvar(pos)
+  pos = 'static_cast<int>(std::string(' && _data && ').find(' && Target && ', ' && StartPos && '))'
+  println('int hiasm_pos', _id_, ' = ', pos, ';')
+  println('if(hiasm_pos', _id_, ' >= 0) {')
+  block.inclvl()
+  event(onSearch, 'hiasm_pos' && _id_)
+  block.declvl()
+  println('} else {')
+  block.inclvl()
+  event(onNotFound)
+  block.declvl()
+  println('}')
+end

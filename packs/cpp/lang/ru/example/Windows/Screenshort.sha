@@ -1,0 +1,56 @@
+﻿Pos(0,0)
+Add(MainForm,16383,14,105)
+{
+ Left=309
+ Top=352
+ Width=415
+ Height=306
+ Font=[MS Sans Serif,8,0,0]
+}
+Add(Image,33989,301,189)
+{
+ Left=35
+ Top=40
+ Width=350
+ Height=235
+}
+Add(ScreenShort,47616,189,112)
+{
+ link(Handle,14791:GetActiveWindow,[])
+ link(onCapture,63461:doEvent1,[])
+}
+Add(KeyMask,32478,126,112)
+{
+ Ctrl=1
+ Key=81
+ link(onTrue,47616:doCapture,[(173,125)(173,118)])
+}
+Add(WinEnum,14791,182,63)
+{
+ Point(GetActiveWindow)
+}
+Add(Hub,63461,245,112)
+{
+ link(onEvent1,52877:doSave,[])
+ link(onEvent2,33989:doLoad,[(289,125)(289,195)])
+}
+Add(PictureStream,52877,294,105)
+{
+ link(FileName,12920:Text,[])
+}
+Add(DropFile,65330,224,14)
+{
+ link(onDropFile,12920:doText,[])
+}
+Add(KeyHook,53285,70,112)
+{
+ link(onKeyDown,32478:doCheckMask,[])
+}
+Add(Edit,12920,294,14)
+{
+ Left=35
+ Top=10
+ Width=350
+ Height=21
+ Font=[Arial,8,0,0]
+}

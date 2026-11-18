@@ -1,0 +1,6 @@
+Loading MO3/IT/XM/S3M/MTM/MOD/UMX=Загрузка MO3/IT/XM/S3M/MTM/MOD/UMX
+Loads a music file into memory=Загружает файл музыки в память
+Releases resources occupied by a file=Освобождает ресурсы, занимаемые файлом
+The event occurs in case of an error and outputs its number to the stream=Событие происходит в случае ошибки и выдаёт её номер в поток
+Contains the music file ID=Содержит идентификатор музыкального файла
+Specifies the file name=Определяет имя файла

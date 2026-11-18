@@ -1,0 +1,24 @@
+func doPrint:java
+  fvar(s,i,pref)
+  pref = issec("php") ? '$arg' : 'arg'
+  s = ''
+  for(i = 1; i <= _var_count_; i++)
+    s &&= (i > 1) ? ', ' : '' && pref + i
+  end
+  println('')
+  println('function ', code(Name), '(', s, ') {')
+  block.inclvl()
+  include("func_head")
+  event(onPrint)
+  include("func_tail")
+  block.declvl()
+  println('}')
+end
+
+func doReturn(data):java
+  println('return(', data, ');')
+end
+
+func Arg(_data, index):java
+  return(issec("php") ? '$arg' : 'arg' + (index + 1))
+end

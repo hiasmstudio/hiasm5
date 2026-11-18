@@ -1,0 +1,9 @@
+Receiving discarded text=Приём сброшенного текста
+Control for receiving discarded text=Контрол для приёма сбрасываемого текста
+Type of operation for receiving dropped objects=Тип операции приёма сброшенных объектов
+Allows text reception=Разрешает приём текста
+Disables text reception=Запрещает приём текста
+Occurs after the text is reset to the control and contains it in the stream=Происходит после сброса текста на контрол и содержит его в потоке
+Occurs when the mouse cursor enters the control and contains the state of the keys pressed in the stream.=Происходит, когда курсор мыши входит в пределы контрола и содержит в потоке состояние нажатых клавиш
+Occurs while dragging over a control and contains the state of the pressed keys in the stream=Происходит во время перетаскивания над контролом и содержит в потоке состояние нажатых клавиш
+Occurs when the mouse cursor leaves the control or the user cancels the drag-and-drop operation=Происходит, когда курсор мыши покидает пределы контрола или пользователь отменяет операцию перетаскивания

@@ -1,0 +1,8 @@
+Initializing the BASS audio subsystem=Инициализация звуковой подсистемы BASS
+Sound output device: -1 - default, 0 - no sound, 1,2 ... N - sound device with a specific number=Устройство вывода звука: -1 - по-умолчанию, 0 - нет звука, 1,2 ... N - звуковое устройство с конкретным номером
+Output audio sampling rate=Частота дискретизации выходного звукового потока
+BASS parameters=Параметры BASS
+Initializes the BASS audio subsystem ARG(Device, Freq, Handle)=Инициализирует звуковую подсистему BASS ARG(Device, Freq, Handle)
+The event occurs every time after successful initialization of the audio subsystem=Событие происходит всякий раз после успешной инициализации звуковой подсистемы
+The event occurs every time an error occurs and outputs it to the ARG(Error) stream=Событие происходит всякий раз после возникновения ошибки и выдает ее в поток ARG(Error)
+ID of the main application window=Идентификатор основного окна приложения

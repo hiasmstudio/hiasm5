@@ -1,0 +1,9 @@
+Testing a key combination=Проверка нажатия комбинации клавиш
+Shift key state: none - do not check, Down - check for pressing, Up - check for releasing=Состояние клавиши Shift: none - не проверять, Down - проверить на нажатие, Up - проверить на отпускание
+State of the Ctrl key: none - do not check, Down - check for pressing, Up - check for releasing=Состояние клавиши Ctrl: none - не проверять, Down - проверить на нажатие, Up - проверить на отпускание
+Alt key state: none - do not check, Down - check for pressing, Up - check for releasing=Состояние клавиши Alt: none - не проверять, Down - проверить на нажатие, Up - проверить на отпускание
+Default mask key code=Код основной клавиши маски по-умолчанию
+Checks the keys pressed in the specified mask (see Key)=Производит проверку нажатых клавиш заданной маске (см. Key)
+The event occurs when there is a mismatch with the mask and outputs the key code to the stream=Событие происходит при несовпадении с маской и выдаёт в поток код клавиши
+The event occurs when the mask is matched=Событие происходит при совпадении с маской
+Defines the key code to compare with the mask=Определяет код клавиши для сравнения с маской

@@ -1,0 +1,4 @@
+func doWrite(_data)
+  println(Array, '[', Index, '] = ', Value, ';')
+  event(onWrite, Array && '[' && Index && ']')
+end

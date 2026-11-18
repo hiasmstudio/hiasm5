@@ -1,0 +1,11 @@
+Media player=Медиа плеер
+Contains the name of the file being played by default=Содержит имя проигрываемого файла по-умолчанию
+Plays a media file (see FileName) ARG(FileName)=Проигрывает медиа-файл (см. FileName) ARG(FileName)
+Sets the file playback position (in Real seconds) ARG(Position)=Устанавливает позицию проигрывания файла (в секундах типа Real) ARG(Position)
+Stops playing a file and frees the resources occupied by it=Останавливает воспроизведение файла и освобождает ресурсы, занятые им
+Fits the video into all available window space=Вписывает видео во все доступное пространство окна
+The event occurs every time the file is finished playing=Событие происходит всякий раз при окончании проигрывания файла
+Contains the position of the current place where the file is played (in Real seconds)=Содержит позицию текущего места проигрывания файла (в секундах типа Real)
+Contains the length of the file being played (in Real seconds)=Содержит длину проигрываемого файла (в секундах типа Real)
+Specifies the name of the file being played=Определяет имя проигрываемого файла
+ID of the window or control to display the video image=Идентификатор окна или элемента управления для вывода видео изображения

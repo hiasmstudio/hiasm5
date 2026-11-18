@@ -1,0 +1,43 @@
+func ArrayExpr()
+  if(get('ArrayType') == 0)
+    if(linked('Array'))
+      return(d('Array'))
+    else
+      return('std::vector<std::string>()')
+    end
+  else
+    if(get('ArrayType') == 1)
+      if(linked('Array'))
+        return(d('Array'))
+      else
+        return('std::vector<int>()')
+      end
+    else
+      if(linked('Array'))
+        return(d('Array'))
+      else
+        return('std::vector<double>()')
+      end
+    end
+  end
+end
+
+func Expr()
+  if(get('ArrayType') == 0)
+    return('[](const std::vector<std::string> &a, const std::string &d) { std::string out; for(std::size_t i = 0; i < a.size(); ++i) { if(i) out += d; out += a[i]; } return out; }(' && ArrayExpr() && ', ' && cstr(get('Delimiter')) && ')')
+  else
+    if(get('ArrayType') == 1)
+      return('[](const std::vector<int> &a) { long long sum = 0; for(std::size_t i = 0; i < a.size(); ++i) sum += a[i]; return static_cast<int>(sum); }(' && ArrayExpr() && ')')
+    else
+      return('[](const std::vector<double> &a) { double sum = 0; for(std::size_t i = 0; i < a.size(); ++i) sum += a[i]; return sum; }(' && ArrayExpr() && ')')
+    end
+  end
+end
+
+func doSum(_data)
+  event(onSum, Expr())
+end
+
+func Sum()
+  return(Expr())
+end

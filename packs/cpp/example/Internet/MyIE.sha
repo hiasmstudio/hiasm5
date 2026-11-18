@@ -1,0 +1,186 @@
+Make(cpp)
+Pos(0,0)
+Add(MainForm,56019,377,70)
+{
+ Left=227
+ Top=129
+ Width=570
+ Height=510
+ Caption="Mini Web Browser"
+}
+Add(Hub,86708,238,154)
+{
+ InCount=2
+ OutCount=1
+ link(onEvent1,6447:doNavigate,[(278,160)(278,104)])
+}
+Add(ChildPanel,87995,378,140)
+{
+}
+BEGIN_SDK
+  Add(EditMulti,37817,3,3)
+  {
+   WorkCount=1
+   link(doWork1,37450:doCaption,[(65,9)(65,113)])
+  }
+  Add(Panel,37450,128,100)
+  {
+   Top=465
+   Width=562
+   Height=20
+   Align=4
+   Font=[Arial,8,0,0,1]
+   Caption="none"
+   BevelInner=0
+   BevelOuter=1
+   Point(doColor)
+  }
+END_SDK
+Add(ChildPanel,83544,91,161)
+{
+ link(onEvent1,86708:doEvent2,[])
+}
+BEGIN_SDK
+  Add(EditMulti,23674,3,3)
+  {
+   EventCount=1
+  }
+  Add(Panel,42245,30,128)
+  {
+   Top=30
+   Width=100
+   Height=435
+   Align=1
+   Font=[Arial,8,0,0,1]
+   BevelInner=1
+   Point(doColor)
+  }
+  Add(BitBtn,20427,70,28)
+  {
+   Left=2
+   Width=95
+   Hint="http://hiasm.spb.ru"
+   Font=[Arial,8,0,0,1]
+   Frame=1
+   Caption="Home"
+   Data=String(http://www.hiasm.com)
+   link(onClick,22728:doEvent1,[(156,34)(156,69)])
+  }
+  Add(Hub,22728,210,63)
+  {
+   InCount=3
+   OutCount=1
+   link(onEvent1,23674:onEvent1,[(272,69)(272,9)])
+  }
+  Add(BitBtn,59989,70,70)
+  {
+   Left=2
+   Top=20
+   Width=95
+   Hint="http://hiasm.spb.ru/forum"
+   Font=[Arial,8,0,0,1]
+   Frame=1
+   Caption="Forum"
+   Data=String(http://www.hiasm.com/forum)
+   link(onClick,22728:doEvent2,[])
+  }
+  Add(BitBtn,75406,70,112)
+  {
+   Left=2
+   Top=40
+   Width=95
+   Hint="ya.ru"
+   Font=[Arial,8,0,0,1]
+   Frame=1
+   Caption="ya.ru"
+   Data=String(http://ya.ru)
+   link(onClick,22728:doEvent3,[(156,118)(156,83)])
+  }
+END_SDK
+Add(ChildPanel,76754,196,105)
+{
+ link(onEvent1,6447:doRefresh,[])
+ link(onEvent2,6447:doBack,[])
+ link(onEvent3,6447:doForward,[])
+ link(onEvent4,86708:doEvent1,[(233,132)(233,160)])
+}
+BEGIN_SDK
+  Add(EditMulti,32470,3,3)
+  {
+   EventCount=4
+   WorkCount=1
+   Width=216
+   Height=158
+   link(doWork1,7866:doText,[(17,9)(17,118)])
+  }
+  Add(Panel,15373,9,149)
+  {
+   Width=562
+   Height=30
+   Align=2
+   Font=[Arial,8,0,0,1]
+   Point(doColor)
+  }
+  Add(BitBtn,63101,91,28)
+  {
+   Left=38
+   Top=2
+   Width=26
+   Height=26
+   Hint="Forward"
+   Font=[Arial,8,0,0,1]
+   Frame=1
+   Caption=""
+   Bitmap=[ZIP3604000078DA73F235636100033320D600620128666450804840E591C1FFFFFF47311198D2B02226BC890594EAC76506A5F653EA7F5A86FF28C68E01E8F08FFA]
+   link(onClick,32470:onEvent3,[(171,34)(171,23)])
+  }
+  Add(BitBtn,23768,42,14)
+  {
+   Left=7
+   Top=2
+   Width=26
+   Height=26
+   Hint="Back"
+   Font=[Arial,8,0,0,1]
+   Frame=1
+   FrameColor=15780518
+   Caption=""
+   Bitmap=[ZIP3604000078DA73F235636100033320D600620128666450804840E591C1FFFFFF47311AA6245C2809576201257AF1B98D52FD94FA9F1AE13F8A49C300CEEE8FFA]
+   link(onClick,32470:onEvent2,[(146,20)(146,16)])
+  }
+  Add(Edit,7866,147,112)
+  {
+   Left=105
+   Top=5
+   Width=450
+   Height=21
+   Font=[Arial,8,0,0,1]
+   Text="http://"
+   link(onEnter,32470:onEvent4,[(199,125)(199,30)])
+  }
+  Add(BitBtn,78055,140,49)
+  {
+   Left=69
+   Top=2
+   Width=26
+   Height=26
+   Hint="Refresh"
+   Font=[Arial,8,0,0,1]
+   Frame=1
+   Caption=""
+   Bitmap=[ZIP3604000078DA73F235636100033320D600620128666450804840E591C1FFFFFF8715A6C44F948409B18012BDF43283183F921BFEA486313A686868205A3F297EA7A6DEA18401B15343C8]
+   link(onClick,32470:onEvent1,[(195,55)(195,9)])
+  }
+END_SDK
+Add(WebBrowser,6447,287,98)
+{
+ Left=100
+ Top=30
+ Width=462
+ Height=435
+ Align=5
+ URL=""
+ link(onNavigate,76754:doWork1,[(329,104)(329,88)(186,88)(186,111)])
+ link(onTitle,56019:doCaption,[(348,111)(348,76)])
+ link(onStatus,87995:doWork1,[(348,118)(348,146)])
+}

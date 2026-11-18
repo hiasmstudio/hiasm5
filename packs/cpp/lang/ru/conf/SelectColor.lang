@@ -1,0 +1,5 @@
+Color selection=Выбор цвета
+Original color=Исходный цвет
+Gets the selected color=Получает выбранный цвет
+The event occurs every time a color is selected and outputs it to the ARG(Color) stream=Событие происходит всякий раз после выбора цвета и выдает его в поток ARG(Color)
+Contains the selected color=Содержит выбранный цвета

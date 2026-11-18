@@ -1,0 +1,7 @@
+Reads the item of array=Чтение элемента массива
+Index item of array=Индекс элемента массива
+Reads the item of array with the specified index ARG(Array, Index)=Читает элемент массива с указанным индексом ARG(Array, Index)
+Event emit every time after reading item of array and gives it in thread ARG(Item)=Событие происходит всякий раз после чтения элемента массива и выдает его в поток ARG(Item)
+Contains the last readed array item=Содержит текущий элемент массива
+Defines array for reading items=Определяет массив, данные из которого необходимо получить
+

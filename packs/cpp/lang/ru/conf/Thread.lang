@@ -1,0 +1,10 @@
+Running a parallel thread=Запуск параллельного потока
+Delay between iterations in milliseconds=Задержка между итерациями в миллисекундах
+Stop the thread immediately after the first iteration=Остановить поток сразу же после первой итерации
+Reaction to calling the doStart method when a thread is already running=Реакция на вызов метода doStart при уже запущенном потоке
+Starts a thread for execution=Запускает поток на выполнение
+Stops a thread and waits for it to complete=Останавливает поток с ожиданием его завершения
+Sets the thread termination flag (immediately returns control to the program)=Устанавливает флаг завершения потока (мгновенный возврат управления программе)
+The event occurs only when the thread is running with a delay between iterations equal to Delay (see Additional Help)=Событие происходит только при запущенном потоке с задержкой между итерациями равной Delay (см. Дополнительная Справка)
+Same as the onExec event, only synchronized with the main thread (see Additional Help)=То же самое, что и событие onExec, только синхронизованное с главным потоком (см. Дополнительная Справка)
+Contains 1 if the thread is running, 0 otherwise=Содержит 1, если поток запущен, или 0 - в противном случае

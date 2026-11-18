@@ -1,0 +1,137 @@
+Make(cpp)
+Add(MainForm,2953706,21,56)
+{
+ Width=404
+ Height=250
+ Caption="Read serial"
+ BorderStyle=3
+ link(onCreate,2669301:doSearch,[(83,76)(83,62)])
+}
+Add(KE_Connect,2822398,168,252)
+{
+ Name="mainUSB"
+ link(onConnect,6044020:doData,[])
+ link(onError,7537683:doString,[(212,265)(212,300)])
+ link(ComPort,6842903:Text,[])
+}
+Add(Button,13116887,112,252)
+{
+ Left=10
+ Top=15
+ Width=70
+ Caption="Connect"
+ link(onClick,2822398:doConnect,[])
+}
+Add(Edit,6842903,168,203)
+{
+ Left=120
+ Top=15
+ Text="0"
+}
+Add(Label,15080301,168,161)
+{
+ Left=90
+ Top=20
+ Width=28
+ Height=17
+ Caption="COM"
+}
+Add(ListBox,6138828,287,294)
+{
+ Left=5
+ Top=135
+ Width=385
+ Height=85
+ AddType=1
+}
+Add(FormatStr,7537683,224,294)
+{
+ DataCount=1
+ Mask="Connection error: code = %1"
+ link(onFString,4115016:doWork2,[])
+}
+Add(HubEx,4115016,273,287)
+{
+ link(onEvent,6138828:doAdd,[])
+}
+Add(DoData,6044020,224,252)
+{
+ Data=String(Connected!)
+ link(onEventData,4115016:doWork1,[(277,258)])
+}
+Add(Button,5398867,112,294)
+{
+ Left=10
+ Top=45
+ Width=70
+ Caption="Disconnect"
+ link(onClick,2822398:doDisconnect,[(156,300)(156,265)])
+}
+Add(KE_SerialNumber,1208277,168,357)
+{
+ KE_Device="mainUSB"
+ link(onGetSerial,16172088:doText,[])
+}
+Add(Button,12717045,112,357)
+{
+ Left=10
+ Top=95
+ Width=70
+ Caption="Read serial"
+ link(onClick,1208277:doGetSerial,[])
+}
+Add(Label,16172088,224,357)
+{
+ Left=120
+ Top=95
+ Width=40
+ Height=17
+ Caption="------------"
+}
+Add(KE_DetectDevices,2669301,112,56)
+{
+ link(onSearch,14266507:doString,[])
+ link(onEndSearch,16599267:doCompare,[(156,69)(156,118)])
+}
+Add(Message,14620155,287,112)
+{
+ Message="Not found"
+ Caption="KernelChip devices not found in you system!"
+ Icon=3
+}
+Add(If_else,16599267,168,112)
+{
+ Op2=Integer(0)
+ link(onTrue,14620155:doMessage,[])
+ link(onFalse,9645946:doData,[])
+}
+Add(FormatStr,14266507,168,56)
+{
+ Mask="%1 - COM%2"
+ link(onFString,11724721:doAdd,[])
+}
+Add(ComboBox,11724721,224,56)
+{
+ Left=195
+ Top=15
+ Width=150
+ Height=21
+ ReadOnly=0
+ link(onClick,5534604:doWork2,[])
+}
+Add(Copy,9030333,287,63)
+{
+ Position=1
+ Count=1
+ Direction=1
+ link(onCopy,6842903:doText,[(331,69)(331,175)(156,175)(156,209)])
+}
+Add(DoData,9645946,224,119)
+{
+ link(onEventData,5534604:doWork3,[(270,125)])
+ link(Data,11724721:String,[(230,110)(237,110)])
+}
+Add(HubEx,5534604,266,56)
+{
+ link(onEvent,9030333:doCopy,[])
+}

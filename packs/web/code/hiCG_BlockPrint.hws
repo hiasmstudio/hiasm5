@@ -1,0 +1,16 @@
+func doPrint(_data):any
+  fvar(old)
+  if(isndef(Name))
+    old = block.select(Name)
+  end
+  trace(block.astext())
+  if(isndef(Name))
+    block.select(old)
+  end  
+  event(onPrint)
+end
+
+func Text():any
+  return(block.astext())
+end
+

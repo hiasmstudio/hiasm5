@@ -1,0 +1,106 @@
+Make(cpp)
+Pos(0,0)
+Add(MainForm,10139355,21,105)
+{
+ Left=20
+ Top=105
+ Font=[MS Sans Serif,8,0,0]
+}
+Add(Edit,12576342,133,126)
+{
+ Left=60
+ Top=100
+ Width=135
+ Font=[MS Sans Serif,8,0,0]
+ Point(onKeyDown)
+ link(Str,7825998:Var1,[(139,107)])
+ link(onKeyDown,8797186:doEvent1,[])
+}
+Add(HubEx,15964300,441,196)
+{
+ link(onEvent,12606814:doWork3,[(452,209)])
+}
+Add(Keyboard,12516291,245,147)
+{
+ Key=17
+ link(onReadKey,922966:doCase,[])
+}
+Add(DoData,16642561,343,147)
+{
+ Data=String(Ctrl)
+ link(onEventData,9877511:doString,[])
+}
+Add(Hub,8797186,182,140)
+{
+ OutCount=5
+ link(onEvent1,3669161:doClear,[(240,146)(240,55)])
+ link(onEvent2,12516291:doReadKey,[])
+ link(onEvent3,825986:doReadKey,[(235,160)(235,202)])
+ link(onEvent4,10726526:doReadKey,[(229,167)(229,251)])
+ link(onEvent5,12576342:doText2,[(222,174)(222,198)(123,198)(123,139)])
+}
+Add(Keyboard,825986,245,196)
+{
+ Key=16
+ link(onReadKey,5306141:doCase,[])
+}
+Add(Case,922966,294,147)
+{
+ Value=Integer(0)
+ link(onNextCase,16642561:doData,[])
+}
+Add(Case,5306141,294,196)
+{
+ Value=Integer(0)
+ link(onNextCase,11098676:doData,[])
+}
+Add(DoData,11098676,343,196)
+{
+ Data=String(Shift)
+ link(onEventData,12745791:doString,[])
+}
+Add(Memory,3669161,399,42)
+{
+}
+Add(FormatStr,9877511,413,147)
+{
+ link(onFString,12606814:doWork2,[])
+ link(Str1,7825998:Var3,[(419,107)])
+}
+Add(FormatStr,12745791,392,196)
+{
+ link(onFString,15964300:doWork1,[(445,202)])
+ link(Str1,7695465:Var1,[(398,184)])
+}
+Add(GetDataEx,7825998,392,98)
+{
+ link(Data,3669161:Value,[])
+}
+Add(HubEx,12606814,448,140)
+{
+ link(onEvent,3669161:doValue,[(467,153)(467,93)(382,93)(382,48)])
+}
+Add(Keyboard,10726526,245,245)
+{
+ Key=18
+ link(onReadKey,3036998:doCase,[])
+}
+Add(Case,3036998,294,245)
+{
+ Value=Integer(0)
+ link(onNextCase,9754846:doData,[])
+}
+Add(DoData,9754846,343,245)
+{
+ Data=String(Alt)
+ link(onEventData,3410781:doString,[])
+}
+Add(FormatStr,3410781,399,245)
+{
+ link(onFString,15964300:doWork3,[(445,251)])
+ link(Str1,7695465:Var2,[])
+}
+Add(GetDataEx,7695465,392,175)
+{
+ link(Data,7825998:Var2,[])
+}

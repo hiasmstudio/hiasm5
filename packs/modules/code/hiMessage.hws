@@ -1,0 +1,11 @@
+func doMessage(_data)
+  println('sys.message(', Text, ');')
+  event(onMessage)
+end
+
+section cpp
+
+func doMessage(_data)
+  println('MessageBoxA(0, ', PChar(Text), ', ', PChar(Caption), ', MB_OK);')
+  event(onMessage)
+end

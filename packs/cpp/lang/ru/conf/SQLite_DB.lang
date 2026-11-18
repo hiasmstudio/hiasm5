@@ -1,0 +1,8 @@
+SQLite Database=База данных SQLite
+Path to database file=Путь к файлу базы данных
+Waiting for complete completion when closing database=Ожидание полного завершения при закрытии базы данных
+Opens the database=Открывает базу данных
+Closes the database=Закрывает базу данных
+The event occurs every time after the database is successfully opened and outputs its identifier to the stream=Событие происходит всякий раз после успешного открытия базы данных и выдает в поток её идентификатор
+The event occurs every time an error occurs=Событие происходит всякий раз после возникновения ошибки
+Contains the database identifier after it is opened=Содержит идентификатор базы данных после её открытия

@@ -1,0 +1,445 @@
+*Сравнение производительности технологий Конструктора
+Make(cpp)
+Add(MainForm,2925456,98,84)
+{
+ @Hint=#
+}
+Add(Button,1016704,154,84)
+{
+ @Hint=#
+ Left=5
+ Top=20
+ Caption="Start"
+ link(onClick,13150694:doEvent1,[])
+}
+Add(TimeCounter,7191915,336,84)
+{
+ @Hint=#
+ link(onStart,12666662:doFor,[])
+ link(onStop,6558162:doStrCat,[(386,97)(386,139)])
+}
+Add(For,12666662,399,84)
+{
+ @Hint=#
+ End=2000000
+ link(onEvent,1439633:doOperation,[])
+ link(onStop,7191915:doStop,[(441,97)(441,74)(326,74)(326,97)])
+}
+Add(ListBox,10719358,644,133)
+{
+ @Hint=#
+ Left=125
+ Top=10
+ Width=250
+ Height=225
+ link(onChange,16155670:doProcessMessages,[])
+}
+Add(StrCat,6558162,560,133)
+{
+ @Hint=#
+ Str1="Math: "
+ link(onStrCat,12700334:doWork2,[])
+}
+Add(Math,1439633,448,84)
+{
+ @Hint=#
+ Op2=2
+ link(onResult,9787283:doOperation,[])
+ link(Op1,7442537:Var2,[])
+}
+Add(Math,9787283,504,84)
+{
+ @Hint=#
+ Op2=4
+ link(onResult,9258770:doOperation,[])
+ link(Op1,7442537:Var3,[(510,72)])
+}
+Add(Math,9258770,560,84)
+{
+ @Hint=#
+ OpType=2
+ link(onResult,8706918:doValue,[])
+ link(Op1,1439633:Result,[(566,74)(548,74)(548,124)(454,124)])
+}
+Add(Hub,13150694,217,84)
+{
+ @Hint=#
+ OutCount=9
+ link(onEvent1,7191915:doStart,[])
+ link(onEvent2,1056237:doStart,[(307,97)(307,202)])
+ link(onEvent3,1636590:doStart,[(299,104)(299,328)])
+ link(onEvent4,8729923:doStart,[(289,111)(289,419)])
+ link(onEvent5,2516117:doStart,[(280,118)(280,503)])
+ link(onEvent6,2464597:doStart,[(272,125)(272,587)])
+ link(onEvent7,673291:doStart,[(265,132)(265,678)])
+ link(onEvent8,11274361:doStart,[(257,139)(257,755)])
+ link(onEvent9,2623118:doEvent1,[(243,146)(243,223)(93,223)(93,300)])
+}
+Add(TimeCounter,1056237,336,196)
+{
+ @Hint=#
+ link(onStart,15227972:doFor,[])
+ link(onStop,214777:doStrCat,[(389,209)(389,258)])
+}
+Add(For,15227972,399,196)
+{
+ @Hint=#
+ End=2000000
+ link(onEvent,8916750:doCalc,[])
+ link(onStop,1056237:doStop,[(441,209)(441,186)(326,186)(326,209)])
+}
+Add(StrCat,214777,560,252)
+{
+ @Hint=#
+ Str1="MathParse: "
+ link(onStrCat,14397119:doWork2,[])
+}
+Add(HubEx,12700334,616,126)
+{
+ @Hint=#
+ link(onEvent,10719358:doAdd,[])
+}
+Add(MathParse,8916750,448,196)
+{
+ @Hint=#
+ DataCount=1
+ MathStr="(%1 + 2)*(%1 + 4)"
+ link(onResult,8189578:doValue,[])
+ link(X1,14133952:Value,[])
+}
+Add(Application,16155670,700,133)
+{
+ @Hint=#
+}
+Add(TimeCounter,1636590,336,322)
+{
+ @Hint=#
+ link(onStart,13691821:doFor,[])
+ link(onStop,11472377:doStrCat,[(389,335)(389,384)])
+}
+Add(For,13691821,399,322)
+{
+ @Hint=#
+ End=2000000
+ link(onEvent,4629234:doCalc,[])
+ link(onStop,1636590:doStop,[(441,335)(441,312)(326,312)(326,335)])
+}
+Add(StrCat,11472377,560,378)
+{
+ @Hint=#
+ Str1="FastMathParse: "
+ link(onStrCat,11112729:doWork2,[])
+}
+Add(HubEx,14397119,616,245)
+{
+ @Hint=#
+ Angle=3
+ link(onEvent,12700334:doWork3,[])
+}
+Add(HubEx,5083424,616,630)
+{
+ @Hint=#
+ Angle=3
+ link(onEvent,9030037:doWork3,[])
+}
+Add(TimeCounter,8729923,336,413)
+{
+ @Hint=#
+ link(onStart,15511665:doEvent1,[])
+ link(onStop,10254301:doStrCat,[(389,426)(389,475)])
+}
+Add(StrCat,10254301,560,469)
+{
+ @Hint=#
+ Str1="VBJScript: "
+ link(onStrCat,12975730:doWork2,[])
+}
+Add(HubEx,11112729,616,371)
+{
+ @Hint=#
+ Angle=3
+ link(onEvent,5537084:doWork3,[])
+}
+Add(StrCat,6309647,560,728)
+{
+ @Hint=#
+ Str1="Empty: "
+ link(onStrCat,1766258:doWork2,[])
+}
+Add(TimeCounter,2516117,336,497)
+{
+ @Hint=#
+ link(onStart,15545215:doFor,[])
+ link(onStop,7903462:doStrCat,[(389,510)(389,559)])
+}
+Add(For,15545215,399,497)
+{
+ @Hint=#
+ End=200000
+ link(onEvent,10972671:doTest,[])
+ link(onStop,2516117:doStop,[(441,510)(441,487)(326,487)(326,510)])
+}
+Add(StrCat,7903462,560,553)
+{
+ @Hint=#
+ Str1="Gentee: "
+ link(onStrCat,9030037:doWork2,[])
+}
+Add(HubEx,12975730,616,462)
+{
+ @Hint=#
+ Angle=3
+ link(onEvent,11112729:doWork3,[])
+}
+Add(Gentee,10972671,448,497)
+{
+ @Hint=#
+ WorkPoints=#6:doTest|
+ Code=#24:func doTest( uint Data )|1:{|8:  int i;|14:  float t,b,m;|0:|29:  for i = 0, i < 2000000, i++|3:  {|24:     m = (t + 2)*(b + 4)|3:  }|1:}|
+}
+Add(TimeCounter,2464597,336,581)
+{
+ @Hint=#
+ link(onStart,3630210:doEvent1,[])
+ link(onStop,10802240:doStrCat,[(389,594)(389,643)])
+}
+Add(StrCat,10802240,560,637)
+{
+ @Hint=#
+ Str1="С++: "
+ link(onStrCat,5083424:doWork2,[])
+}
+Add(InlineCode,9136725,448,581)
+{
+ @Hint=#
+ WorkPoints=#6:doTest|
+ Code=#15:unit HiAsmUnit;|0:|9:interface|0:|21:uses kol,Share,Debug;|0:|4:type|28: THiAsmClass = class(TDebug)|10:   private|0:|9:   public|50:     procedure doTest(var Data:TData; index:word);|5: end;|0:|14:implementation|0:|57:procedure THiAsmClass.doTest(var Data:TData; index:word);|14:var i:integer;|13:    t,m:real;|5:begin|11:  t := 0.0;|26:  for i := 0 to 2000000 do|25:    m := (t + 2)*(t + 4);|4:end;|0:|4:end.|
+}
+Add(HubEx,9030037,616,546)
+{
+ @Hint=#
+ Angle=3
+ link(onEvent,12975730:doWork3,[])
+}
+Add(TimeCounter,673291,336,672)
+{
+ @Hint=#
+ link(onStart,7513438:doFor,[])
+ link(onStop,6309647:doStrCat,[(389,685)(389,734)])
+}
+Add(For,7513438,399,672)
+{
+ @Hint=#
+ End=2000000
+ link(onStop,673291:doStop,[(441,685)(441,662)(326,662)(326,685)])
+}
+Add(VBJScript,2071130,448,413)
+{
+ @Hint=#
+ WorkPoints=#6:doTest|
+ Language=1
+ Script=#28:function doWork(Data, Index)|1:{|18:  var m, x, y, i; |30:  for(i = 0; i < 2000000; i++)|24:    m = (x + 2)*(y + 4);|13:  return m;  |1:}|
+}
+Add(FastMathParse,4629234,448,322)
+{
+ @Hint=#
+ DataCount=1
+ MathStr="(%1 + 2)*(%1 + 4)"
+ link(onResult,14449906:doValue,[])
+ link(X1,11037109:Value,[])
+}
+Add(RTCG_Tools,4817965,455,749)
+{
+ @Hint=#
+}
+BEGIN_SDK
+  Add(EditMultiEx,4134766,21,21)
+  {
+   @Hint=#
+   WorkCount=#11:doOperation|
+   link(doOperation,11811093:doData,[(39,27)(39,132)])
+  }
+  Add(RT_Math,2934723,168,63)
+  {
+   @Hint=#
+   Op2=2
+   link(Op1,7794330:Var1,[(174,51)])
+  }
+  Add(RT_Math,13910015,217,63)
+  {
+   @Hint=#
+   Op2=4
+   link(onResult,8412189:doValue,[])
+   link(Op1,7794330:Var2,[])
+  }
+  Add(RT_Math,6145629,168,126)
+  {
+   @Hint=#
+   OpType=2
+   link(onResult,5314617:doValue,[])
+   link(Op1,2934723:Result,[])
+   link(Op2,13910015:Result,[(181,110)(223,110)])
+  }
+  Add(RT_Memory,5314617,224,126)
+  {
+   @Hint=#
+   Default=Real(0)
+   Extern=1
+  }
+  Add(RT_For,4657462,112,126)
+  {
+   @Hint=#
+   End=2000000
+   link(onEvent,6145629:doOperation,[])
+  }
+  Add(RT_DoData,11811093,56,126)
+  {
+   @Hint=#
+   link(onEventData,4657462:doFor,[])
+  }
+  Add(RT_Memory,8412189,266,63)
+  {
+   @Hint=#
+   Default=Real(0)
+   Extern=1
+  }
+  Add(GetDataEx,7794330,210,42)
+  {
+   @Hint=#
+   Angle=1
+   link(Data,8412189:Value,[(308,51)(308,102)(272,102)])
+  }
+END_SDK
+Add(TimeCounter,11274361,336,749)
+{
+ @Hint=#
+ link(onStart,7600778:doEvent1,[])
+ link(onStop,3417407:doStrCat,[(389,762)(389,818)])
+}
+Add(StrCat,3417407,560,812)
+{
+ @Hint=#
+ Str1="RTCG: "
+ link(onStrCat,1766258:doWork3,[(620,818)])
+}
+Add(HubEx,1766258,616,721)
+{
+ @Hint=#
+ Angle=3
+ link(onEvent,5083424:doWork3,[])
+}
+Add(Memory,8706918,616,84)
+{
+ @Hint=#
+}
+Add(Memory,8189578,504,196)
+{
+ @Hint=#
+}
+Add(Memory,14449906,504,322)
+{
+ @Hint=#
+}
+Add(Memory,5367423,448,28)
+{
+ @Hint=#
+ Default=Real(0)
+}
+Add(GetDataEx,7442537,441,63)
+{
+ @Hint=#
+ link(Data,5367423:Value,[])
+}
+Add(Memory,14133952,448,140)
+{
+ @Hint=#
+ Default=Real(0)
+}
+Add(Memory,11037109,448,266)
+{
+ @Hint=#
+ Default=Real(0)
+}
+Add(Hub,15511665,406,413)
+{
+ @Hint=#
+ link(onEvent1,2071130:doTest,[])
+ link(onEvent2,8729923:doStop,[(432,426)(432,401)(325,401)(325,426)])
+}
+Add(Hub,3630210,399,581)
+{
+ @Hint=#
+ link(onEvent1,9136725:doTest,[])
+ link(onEvent2,2464597:doStop,[(425,594)(425,570)(324,570)(324,594)])
+}
+Add(Hub,7600778,399,749)
+{
+ @Hint=#
+ link(onEvent1,4817965:doOperation,[])
+ link(onEvent2,11274361:doStop,[(425,762)(425,738)(325,738)(325,762)])
+}
+Add(ProcInfo,5986150,147,294)
+{
+ @Hint=#
+ Query="Name,MaxClockSpeed"
+ Point(MaxClockSpeed)
+ link(onInfo,8100601:doString,[])
+}
+Add(FormatStr,8100601,203,294)
+{
+ @Hint=#
+ Mask="%1(%2Ггц)"
+ link(onFString,850301:doWork2,[])
+ link(Str1,5986150:Name,[(209,279)(126,279)(126,338)(160,338)])
+ link(Str2,5986150:MaxClockSpeed,[(216,280)(240,280)(240,338)(181,338)])
+}
+Add(HubEx,5537084,616,287)
+{
+ @Hint=#
+ Angle=3
+ link(onEvent,14397119:doWork3,[])
+}
+Add(MemoryInfo,3820158,147,357)
+{
+ @Hint=#
+ Point(Speed)
+ Point(MemoryType)
+ Point(Model)
+ link(onInfo,15295408:doString,[])
+}
+Add(Hub,2623118,105,294)
+{
+ @Hint=#
+ link(onEvent1,5986150:doInfo,[])
+ link(onEvent2,3820158:doInfo,[(133,307)(133,363)])
+}
+Add(FormatStr,15295408,203,357)
+{
+ @Hint=#
+ DataCount=4
+ Mask="Mem: %1, Speed: %2, Type: %3, Model: %4"
+ link(onFString,850301:doWork3,[(249,363)])
+ link(Str1,3820158:Capacity,[(209,345)(188,345)(188,401)(167,401)])
+ link(Str2,3820158:Speed,[(216,345)(198,345)(198,401)(181,401)])
+ link(Str3,3820158:MemoryType,[(223,345)(205,345)(205,401)(188,401)])
+ link(Str4,3820158:Model,[(230,345)(212,345)(212,401)(195,401)])
+}
+Add(HubEx,850301,245,287)
+{
+ @Hint=#
+ link(onEvent,5537084:doWork2,[])
+}
+Add(Button,13716277,644,217)
+{
+ @Hint=#
+ Left=225
+ Top=245
+ Caption="Copy"
+ link(onClick,9415504:doPutText,[])
+}
+Add(Clipboard,9415504,700,217)
+{
+ @Hint=#
+ Point(PutText)
+ link(PutText,10719358:Text,[(706,197)(650,197)])
+}

@@ -1,0 +1,8 @@
+Gradient Rectangle=Градиентный Прямоугольник
+Gradient style. SingleVert - single vertical, SingleHoriz - single horizontal, DoubleVert - double vertical, DoubleHoriz - double horizontal, SingleLeft - single left, SingleRight - single right, DoubleLeft - double left, DoubleRight - double right, AngleLeftTop - upper left corner, AngleLeftBott - lower left corner, AngleRightTop - upper right corner, AngleRightBott - lower right corner, Center - central=Стиль градиента. SingleVert - одиночный вертикальный, SingleHoriz - одиночный горизонтальный, DoubleVert - двойной вертикальный, DoubleHoriz - двойной горизонтальный, SingleLeft - одиночный левый, SingleRight - одиночный правый, DoubleLeft - двойной левый, DoubleRight - двойной правый, AngleLeftTop - левый верхний угловой, AngleLeftBott - левый нижний угловой, AngleRightTop - правый верхний угловой, AngleRightBott - правый нижний угловой, Center - центральный
+True - reverse gradient, False - forward gradient=True - обратный градиент, False - прямой градиент
+True - draw a frame, False - do not draw=True - рисовать рамку, False - не рисовать
+Frame color=Цвет рамки
+Gradient start color=Начальный цвет градиента
+Final gradient color=Конечный цвет градиента
+Transformation=Трансформация

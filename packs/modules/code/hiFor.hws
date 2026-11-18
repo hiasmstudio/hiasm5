@@ -1,0 +1,24 @@
+func doFor():cpp
+  fvar(step_code,end_num,start_num)
+  lang(i:int)
+  
+  end_num = End         
+  start_num = Start
+  step_code = (Step = 1) ? '++' : (' += ' + Step)
+  
+  println('for(' + issec("cpp") ? 'int ' : '', i, ' = ', start_num, '; ', i, ' < ', end_num, '; ', i, step_code, ') {')
+  block.inclvl()
+  event(onEvent, i)
+  block.declvl()
+  println('}')
+
+  event(onStop)
+end
+
+func doStop():cpp
+  println('break;')
+end
+
+func Position():cpp
+  return(i)
+end

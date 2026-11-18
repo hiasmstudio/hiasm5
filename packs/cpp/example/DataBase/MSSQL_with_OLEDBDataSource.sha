@@ -1,0 +1,99 @@
+*Пример работы с базой данных MSSQL через источник данных OLEDB#13#10______________________#13#10Автор: nesco
+Make(cpp)
+Add(MainForm,3171043,119,119)
+{
+ Left=20
+ Top=105
+ Width=390
+ Height=415
+ Caption="MSSQL_with_OLEDBDataSource"
+ Position=1
+ link(onCreate,11947023:doStrCat,[])
+}
+Add(Button,941652,161,252)
+{
+ Left=305
+ Top=5
+ Width=75
+ TabOrder=-1
+ Caption="Подключить"
+ link(onClick,5366140:doOpen,[])
+}
+Add(StringTable,6078793,406,224)
+{
+ Left=5
+ Top=165
+ Width=375
+ Height=210
+ Point(doAddColumn)
+}
+Add(MT_Enum,5673081,350,259)
+{
+ link(onItem,6078793:doAddColumn,[])
+}
+Add(MT_String,16321824,350,217)
+{
+ link(onResult,6078793:doAdd,[(394,223)(394,230)])
+}
+Add(Edit,11108326,217,133)
+{
+ Left=5
+ Top=5
+ Width=295
+ Text=""
+ link(onChange,7246550:doEvent1,[])
+}
+Add(Dir,5145339,168,84)
+{
+}
+Add(StrCat,11947023,168,133)
+{
+ Str2="tst.mdb"
+ link(onStrCat,11108326:doText,[])
+ link(Str1,5145339:CurrentDir,[])
+}
+Add(FormatStr,5564056,308,133)
+{
+ DataCount=1
+ Mask="Provider=Microsoft.Jet.OLEDB.4.0;\r\nUser ID=Admin;\r\nData Source=%1;\r\nMode=Share Deny None;\r\nExtended Properties="";\r\nLocale Identifier=1033;\r\nPersist Security Info=False;"
+ Point(FString)
+ link(onFString,14216946:doText,[])
+}
+Add(FormatStr,10216816,350,168)
+{
+ Mask="SELECT * FROM OTV"
+ Point(FString)
+ link(onFString,14260284:doText,[])
+}
+Add(Memo,14216946,406,112)
+{
+ Left=5
+ Top=30
+ Width=375
+ Height=105
+}
+Add(DS_OLEDB,5366140,217,252)
+{
+ Name="ole_driver_1"
+ link(onCreate,13233332:doQuery,[])
+ link(Driver,5564056:FString,[(223,184)(314,184)])
+}
+Add(DSC_Query,13233332,266,252)
+{
+ DSManager="ole_driver_1"
+ link(onQuery,16321824:doStr,[(328,258)(328,223)])
+ link(onColumns,5673081:doEnum,[])
+ link(SQL,14260284:Text,[(272,210)(412,210)])
+}
+Add(Hub,7246550,266,133)
+{
+ link(onEvent1,5564056:doString,[])
+ link(onEvent2,10216816:doString,[(290,146)(290,174)])
+}
+Add(Edit,14260284,406,168)
+{
+ Left=5
+ Top=140
+ Width=375
+ Text=""
+}

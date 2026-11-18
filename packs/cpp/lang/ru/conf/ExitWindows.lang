@@ -1,0 +1,9 @@
+Reboot/exit Windows/change user=Перезагрузка/выход из Windows/смена пользователя
+Speed up command execution and forcefully unload hung processes (even those that ask the user “Save changes?”), reducing the time allowed for processes to terminate correctly. Beware: Some unsaved documents will be lost=Ускорить выполнение команды и принудительно выгружать зависшие процессы (даже те, что спрашивают пользователя "Сохранить изменения?"), уменьшив процессам допустимое время на корректное завершение. Осторожно: некоторые несохраненные документы будут потеряны
+Reboot the system=Перезагрузка системы
+Shutting down the computer, stopping processes and dumping all buffers to disk=Выключение компьютера с остановкой процессов и сбросом всех буферов на диск
+Puts the computer into standby power-saving mode with the display and disks turned off, quickly ready to resume work at the click of a mouse or keyboard=Переводит компьютер в ждущий энергосберегающий режим с отключенным дисплеем и дисками с быстрой готовностью возобновить работу по клику мышки или клавиатуре
+Change user=Смена пользователя
+Puts the computer into sleep mode with the power turned off: the state of the entire OS is written to the disk and the computer turns off. When turned on, the state, OS and running applications will be restored=Переводит компьютер в спящий режим с отключением питания: на диск запишется состояние всей ОС и компьютер выключится. При включении состояние, ОС и работающие приложения восстановятся
+Locks the workstation by displaying a user profile selection dialog=Блокирует рабочую станцию путем показа диалога выбора профиля пользователя
+Turning off the computer=Выключение компьютера

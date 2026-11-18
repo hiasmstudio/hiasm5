@@ -1,0 +1,7 @@
+Contains a list of method names allowed by the Basic language=Содержит список имён методов, разрешённых языком Basic
+Contains a list of event names allowed by the Basic language=Содержит список имён событий, разрешённых языком Basic
+Contains a list of property names allowed by the Basic language=Содержит список имён свойств, разрешённых языком Basic
+Contains a list of data point names allowed by the Basic language=Содержит список имён точек получения данных, разрешённых языком Basic
+Contains script text=Содержит текст скрипта
+Contains a mask that determines the format for displaying error messages=Содержит маску, определяющую формат вывода сообщений об ощибках
+Contains a mask that determines the output format of additional messages=Содержит маску, определяющую формат вывода дополнительных сообщений

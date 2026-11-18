@@ -1,0 +1,9 @@
+func doFetchRow(_data)
+  println(f, ' = mysql_fetch_row(', Query, ');')
+  event(onFetchRow, f)
+end
+
+func Result()
+  return(f)
+end
+

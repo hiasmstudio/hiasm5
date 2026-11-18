@@ -1,0 +1,179 @@
+Make(cpp)
+Add(MainForm,12413584,42,245)
+{
+ Width=931
+ Height=456
+}
+Add(DocumentTemplate,15557505,280,189)
+{
+ Name="MainPage"
+ link(onDraw,8750585:doText,[])
+ link(Bitmap,13572165:Bitmap,[(286,177)(262,177)(262,233)(223,233)])
+}
+BEGIN_SDK
+  Add(Print_Shape,10271985,37,36)
+  {
+   X=40
+   Y=39
+   Width=225
+   Height=25
+   Type=2
+   BackStyle=0
+  }
+  Add(Print_Text,8461347,42,40)
+  {
+   X=45
+   Y=43
+   Width=85
+   Height=19
+   Text="Current time:"
+   Font=[MS Sans Serif,8,1,0,1]
+   Horizontal=0
+  }
+  Add(Print_Text,565839,126,40)
+  {
+   Name="time"
+   X=129
+   Y=43
+   Width=127
+   Height=18
+   Text="00:00:00"
+   Horizontal=0
+  }
+  Add(Print_Table,15348492,32,76)
+  {
+   Name="mtable"
+   X=35
+   Y=79
+   Width=903
+   Height=203
+   Columns=#9:ФИО|217|0|6:1|21|1|6:2|21|1|6:3|21|1|6:4|21|1|6:5|21|1|6:6|21|1|6:7|21|1|6:8|21|1|6:9|21|1|7:10|21|1|7:11|21|1|7:12|21|1|7:13|21|1|7:14|21|1|7:15|21|1|7:16|21|1|7:17|21|1|7:18|21|1|7:19|21|1|7:20|21|1|7:21|21|1|7:22|21|1|7:23|21|1|7:24|21|1|7:25|21|1|7:26|21|1|7:27|21|1|7:28|21|1|7:29|21|1|7:30|21|1|7:31|21|1|
+   HeadFont=[Comic Sans MS,10,1,0,1]
+   HeadBackColor=12303291
+   CellBackColor=15658734
+   RowHeight=20
+   Spacing=1
+   TBorderStyle=5
+   TableTrans=0
+  }
+END_SDK
+Add(Time,10633387,329,133)
+{
+ Format="W:M:Y  h:m:s"
+}
+Add(PaintBox,13572165,217,189)
+{
+ Left=10
+ Top=40
+ Width=905
+ Height=385
+ Color=16777215
+ Layout="horz"
+ WidthScale=100
+ HeightScale=100
+ ClearBeforeDraw=0
+ link(onBeforeDraw,15557505:doDraw,[])
+}
+Add(PC_TableRow,1179918,441,245)
+{
+ ItemName="mtable"
+ Document="MainPage"
+ link(onAddRow,13344997:doEvent1,[])
+}
+Add(PC_TableSetCell,3777948,525,245)
+{
+ ItemName="mtable"
+ Document="MainPage"
+ link(Text,10867376:Item,[(531,233)(429,233)(429,289)(391,289)])
+ link(Col,1498554:Value,[])
+}
+Add(Hub,13344997,490,245)
+{
+ link(onEvent1,3777948:doText,[])
+ link(onEvent2,13831645:doFor,[(514,258)(514,321)])
+}
+Add(Memory,1498554,532,189)
+{
+ Default=Integer(0)
+}
+Add(PC_TableSetCell,6703915,686,315)
+{
+ ItemName="mtable"
+ Document="MainPage"
+ link(Col,7768189:Var1,[(699,303)(615,303)])
+ link(Row,10751545:Var2,[])
+}
+Add(VBoxLayout,10551583,245,301)
+{
+ Name="horz"
+ Space=3
+ Padding=2
+}
+Add(PC_Text,8750585,329,189)
+{
+ ItemName="time"
+ Document="MainPage"
+ link(Text,10633387:FormatTime,[])
+}
+Add(StrList,12798864,385,168)
+{
+ Strings=#9:Иванов И.|9:Петров П.|10:Сидоров К.|10:Иванова М.|10:Петрова С.|11:Сидорова К.|
+}
+Add(ArrayEnum,10867376,385,245)
+{
+ link(onItem,1179918:doAddRow,[])
+ link(Array,12798864:Array,[(391,229)(405,229)])
+}
+Add(Button,9618318,98,245)
+{
+ Left=15
+ Top=10
+ link(onClick,12070866:doEvent1,[])
+}
+Add(Hub,12070866,161,245)
+{
+ link(onEvent1,10867376:doEnum,[])
+ link(onEvent2,13572165:doRefresh,[(196,258)(196,195)])
+}
+Add(For,13831645,525,315)
+{
+ Start=1
+ End=31
+ link(onEvent,3471255:doRandom,[])
+}
+Add(Random,3471255,595,315)
+{
+ Min=1
+ Max=10
+ link(onRandom,1838264:doEvent1,[])
+}
+Add(If_else,9992652,686,392)
+{
+ Type=2
+ Op2=Integer(8)
+ link(onTrue,16269631:doSetStyle,[])
+}
+Add(Hub,1838264,644,315)
+{
+ link(onEvent1,6703915:doText,[])
+ link(onEvent2,9992652:doCompare,[(672,328)(672,398)])
+}
+Add(PC_TableCellStyle,16269631,749,392)
+{
+ ItemName="mtable"
+ Document="MainPage"
+ BgApply=0
+ Background=14540253
+ link(Col,7768189:Var3,[(755,359)])
+ link(Row,10751545:Var3,[(762,296)])
+}
+Add(GetDataEx,7768189,602,350)
+{
+ Angle=3
+ link(Data,13831645:Position,[(531,359)])
+}
+Add(GetDataEx,10751545,693,287)
+{
+ Angle=3
+ link(Data,1179918:Row,[(447,296)])
+}

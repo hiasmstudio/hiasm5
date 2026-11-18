@@ -1,0 +1,111 @@
+*Демонстрация работы Windows технологии MailSlot, используемой для передачи коротких сообщений между компьютерами.
+Pos(0,0)
+Add(MainForm,28199,21,105)
+{
+ Left=318
+ Top=308
+ Width=343
+ Height=146
+ Align=0
+ Color=-16777201
+ AlphaBlendValue=255
+ Caption=Form
+ BorderStyle=2
+ WindowsState=0
+ Icon=[]
+ ShowType=0
+ TaskBar=0
+ DragForm=1
+ Visible=0
+ Picture=[]
+}
+Add(Button,27301,133,105)
+{
+ Left=30
+ Top=20
+ Width=55
+ Height=20
+ Align=0
+ TabOrder=0
+ Hint=
+ Font=[Arial,8,0,0]
+ Caption=Open
+ Data=Null()
+ link(onClick,10001:doCreate,[(198,111)(198,132)])
+}
+Add(ListBox,53580,315,126)
+{
+ Left=100
+ Top=20
+ Width=215
+ Height=80
+ Align=0
+ TabOrder=0
+ Color=-16777211
+ Ctl3D=0
+ Hint=
+ Font=[Arial,8,0,0]
+ Transparent=1
+ FileName=
+ Strings=
+ AddType=0
+ DataType=0
+}
+Add(Button,15299,168,266)
+{
+ Left=30
+ Top=80
+ Width=55
+ Height=20
+ Align=0
+ TabOrder=0
+ Hint=
+ Font=[Arial,8,0,0]
+ Caption=Write
+ Data=String(hello world)
+ link(onClick,44272:doWrite,[])
+}
+Add(MailSlot_Server,10001,231,126)
+{
+ Name=test
+ link(onRead,53580:doAdd,[])
+}
+Add(Button,52692,133,154)
+{
+ Left=30
+ Top=45
+ Width=55
+ Height=20
+ Align=0
+ TabOrder=0
+ Hint=
+ Font=[Arial,8,0,0]
+ Caption=Close
+ Data=Null()
+ link(onClick,10001:doDestroy,[(198,160)(198,139)])
+}
+Add(MailSlot_Client,44272,266,266)
+{
+ Name=test
+ Computer=.
+}
+Add(InfoTip,44763,126,77)
+{
+ Info="Сервер.Создается на локальном компьютере для приема сообщений"
+ Font=[Arial,8,0,0]
+ Frame=0
+ VAlign=0
+ HAlign=1
+ Width=232
+ Height=123
+}
+Add(InfoTip,17498,126,210)
+{
+ Info="Клиент. Служит для отправки сообщений в MailSlot удаленного или локального компьютера."
+ Font=[Arial,8,0,0]
+ Frame=0
+ VAlign=0
+ HAlign=1
+ Width=232
+ Height=102
+}

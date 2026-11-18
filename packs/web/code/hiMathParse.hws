@@ -1,0 +1,41 @@
+func Init:java
+  fvar(old)
+  if(isndef(Default) and (linked(doOperation) or linked(doClear)))
+    old = block.select((isset(BLK_FUNC) and isndef(Extern)) ? BLK_FUNC : BLK_HEAD)
+    println(issec("php") ? '' : 'var ', res, ' = ', Default, ';')
+    block.select(old)
+  end
+end
+
+func doCalc:java
+  fvar(i,s)
+  s = code("(" + MathStr + ")")
+  for(i = 1; i <= _data_count_; i++)
+    replace(s, '%' + i, lcode(point("X" + i)))
+  end
+  if(linked(Result))
+    println(res, ' = ', s, ';')
+    s = res
+  end
+  event(onResult, s)
+end
+
+func doClear:java
+  println(res, ' = ', Default, ';')
+end
+
+func Result:java
+  if(linked(doCalc) or linked(doClear))
+    return(res)
+  else
+    fvar(i,s)
+    s = code("(" + MathStr + ")")
+    for(i = 1; i <= _data_count_; i++)
+      replace(s, '%' + i, lcode(point("X" + i)))
+    end
+    return(s)
+  end
+end
+
+// todo:
+//  сделать нормальный парсинг строки через оператор &

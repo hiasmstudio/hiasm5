@@ -1,0 +1,10 @@
+Controlling your scanner and other TWAIN-enabled devices=Управление сканером и другими устройствами, поддерживающими протокол TWAIN
+Whether or not to show a window with various scanner settings=Показывать или нет окно с различными установками сканера
+Defines the modality of the scanning window=Определяет модальность окна сканирования
+Selects scan source=Выбирает источник сканирования
+Performs a scan=Производит сканирование
+The event occurs after scanning is completed and contains the scanned image in the stream.=Событие происходит после завершения сканирования и содержит в потоке отсканированную картинку
+Returns the last scanned image=Возвращает последнюю отсканированную картинку
+Image width=Ширина картинки
+Picture height=Высота картинки
+Whether or not to show a window with different settings=Показывать или нет окно с различными установками

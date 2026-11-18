@@ -1,0 +1,802 @@
+Make(delphi)
+ver(4.02 build 179)
+Add(MainForm,2953706,21,105)
+{
+ link(onCreate,1632778:doEvent1,[])
+}
+Add(TCP_Server,9478494,133,210)
+{
+ DataType=3
+ Point(doSendByIp)
+ link(onRead,3345940:doGet,[])
+ link(onConnect,12180447:doConnect,[(177,223)(177,419)])
+ link(onDisconnect,7791478:doDisconnect,[(177,230)(177,461)])
+ link(Port,657371:Var,[(146,200)(139,200)])
+}
+Add(GVarContainer,11119299,133,119)
+{
+ Section="net"
+ FilleName="settings.ini"
+ VarList=#4:port|
+ link(onLoad,9634353:doOpen,[])
+}
+Add(GlobalVar,657371,133,175)
+{
+ Name="port"
+}
+Add(Hub,1632778,91,119)
+{
+ OutCount=3
+ link(onEvent1,11119299:doLoad,[])
+ link(onEvent2,9478494:doOpen,[(119,132)(119,216)])
+}
+Add(SQLite_DB,9634353,182,119)
+{
+ FileName="users.db"
+ link(onOpen,11320496:doEvent1,[])
+}
+Add(SQLite_Exec,5880998,259,35)
+{
+ SQL="create table users(id INTEGER PRIMARY KEY AUTOINCREMENT, name varchar(128), ip varchar(15), gip int, state int)"
+}
+Add(SQLite_Exec,10382260,259,77)
+{
+ SQL="create table groups(id INTEGER PRIMARY KEY AUTOINCREMENT, name varchar(128), info varchar(128))"
+}
+Add(MemoryStream,12951795,294,210)
+{
+ Point(doPosition)
+}
+Add(Hub,3064159,252,210)
+{
+ link(onEvent1,12951795:doCopy,[])
+ link(onEvent2,12951795:doPosition,[(283,223)(283,230)])
+}
+Add(DataToFile,6385282,294,266)
+{
+ Type=5
+ link(onGet,14812891:doEvent1,[])
+ link(Stream,11765244:Var2,[])
+}
+Add(IntegerArray,15079238,378,210)
+{
+ IntArray=['auth'=0,'list'=1,'text'=2,'state'=3]
+ UseName=0
+}
+Add(ArrayRW,6821501,378,266)
+{
+ link(onRead,937606:doEvent,[])
+ link(Array,15079238:Array,[])
+}
+Add(IndexToChanel,937606,434,266)
+{
+ Count=4
+ link(onEvent1,8702551:doAuth,[])
+ link(onEvent2,16568074:doList,[(478,279)(478,321)])
+ link(onEvent3,7748068:doText,[(478,286)(478,370)])
+ link(onEvent4,10579696:doText,[(478,293)(478,412)])
+}
+Add(MultiElementEx,8702551,490,266)
+{
+ @Hint=#4:auth|
+ link(onSendNick,13254618:doWork1,[(536,272)])
+ link(Stream,15578973:Var3,[(496,254)])
+}
+BEGIN_SDK
+  Add(EditMultiEx,1148947,21,21)
+  {
+   WorkCount=#6:doAuth|
+   EventCount=#10:onSendNick|
+   DataCount=#6:Stream|
+   Width=594
+   Height=312
+   link(doAuth,4921415:doGet,[(53,27)(53,139)])
+  }
+  Add(DataToFile,4921415,84,126)
+  {
+   Type=5
+   link(onGet,14570403:doValue,[])
+   link(Stream,1148947:Stream,[(90,81)(27,81)])
+  }
+  Add(FormatStr,1421351,182,126)
+  {
+   Mask="select id from users where ip = '%2'"
+   link(onFString,9583223:doQuery,[])
+   link(Str2,4953200:Var2,[])
+  }
+  Add(FormatStr,11890512,182,189)
+  {
+   Mask="select * from users where name = '%1' and ip = '%2'"
+  }
+  Add(GlobalVar,1956226,245,84)
+  {
+   Name="db"
+  }
+  Add(If_else,16582062,308,175)
+  {
+   Op2=String()
+   link(onTrue,4481186:doString,[])
+   link(onFalse,489323:doEvent1,[(348,188)(348,237)])
+  }
+  Add(FormatStr,4481186,385,175)
+  {
+   Mask="insert into users(name, ip, gip, state) values('%2', '%1', 1, 1)"
+   link(onFString,4921664:doWork2,[])
+   link(Str1,12401460:Var2,[])
+   link(Str2,9387334:Var3,[(398,163)])
+  }
+  Add(SQLite_Exec,1917150,441,175)
+  {
+   link(dbHandle,6156621:Var3,[(447,107)])
+  }
+  Add(GetDataEx,6156621,238,98)
+  {
+   link(Data,1956226:Var,[])
+  }
+  Add(FormatStr,549614,385,231)
+  {
+   Mask="update users set name = '%1' where ip = '%2'"
+   link(onFString,4921664:doWork3,[(431,237)])
+   link(Str1,11276923:Var2,[])
+   link(Str2,12562354:Var1,[(398,219)])
+  }
+  Add(Memory,14570403,133,126)
+  {
+   link(onData,1421351:doString,[])
+  }
+  Add(HubEx,4921664,427,168)
+  {
+   link(onEvent,1917150:doExec,[])
+  }
+  Add(GetDataEx,9387334,364,154)
+  {
+   Angle=3
+   link(Data,14570403:Value,[(139,163)])
+  }
+  Add(GetDataEx,12401460,378,140)
+  {
+   link(Data,4953200:Var3,[(391,72)])
+  }
+  Add(GlobalVar,7816751,189,42)
+  {
+   Name="ip"
+  }
+  Add(GetDataEx,4953200,182,63)
+  {
+   link(Data,7816751:Var,[])
+  }
+  Add(SQLite_QueryScalar,9583223,245,126)
+  {
+   link(onQuery,16582062:doCompare,[(293,132)(293,181)])
+   link(dbHandle,6156621:Var2,[])
+  }
+  Add(Hub,489323,357,231)
+  {
+   link(onEvent1,549614:doString,[])
+   link(onEvent2,8822072:doString,[(378,244)(378,286)])
+  }
+  Add(MultiElementEx,4538611,553,280)
+  {
+   elink(10008204)
+   link(onSend,1148947:onSendNick,[(597,286)(597,27)])
+   link(cmd,5035239:Value,[])
+   link(Data,15079018:FString,[(566,268)(541,268)(541,324)(503,324)])
+  }
+  Add(Memory,5035239,553,224)
+  {
+   Default=String(nick)
+  }
+  Add(SQLite_QueryScalar,15336626,441,280)
+  {
+   link(onQuery,15079018:doString,[])
+   link(dbHandle,5551947:Var,[])
+  }
+  Add(FormatStr,8822072,385,280)
+  {
+   DataCount=1
+   Mask="select (id + 1000) as id from users where ip = '%1'"
+   link(onFString,15336626:doQuery,[])
+   link(Str1,12562354:Var2,[(391,270)(426,270)])
+  }
+  Add(GlobalVar,5551947,441,245)
+  {
+   Name="db"
+  }
+  Add(FormatStr,15079018,497,280)
+  {
+   Mask="%1;%2"
+   Point(FString)
+   link(onFString,4538611:doSend,[])
+   link(Str2,11276923:Var3,[(510,212)])
+  }
+  Add(GetDataEx,11276923,378,203)
+  {
+   Angle=3
+   link(Data,9387334:Var2,[(377,212)])
+  }
+  Add(GetDataEx,12562354,413,210)
+  {
+   link(Data,12401460:Var3,[(426,149)])
+  }
+END_SDK
+Add(GetDataEx,11765244,287,245)
+{
+ link(Data,12951795:Stream,[])
+}
+Add(Memo,13673111,266,371)
+{
+ Left=595
+ Top=410
+ Align=5
+ Color=0
+ Font=[Arial,7,0,12632256,204]
+ AddType=1
+ ScrollBars=3
+ ReadOnly=0
+}
+Add(MultiElementEx,12180447,189,413)
+{
+ @Hint=#14:client connect|
+ link(onFString,13278574:doWork2,[])
+ link(onSendCmd,15108127:doWork2,[])
+ AddHint(-76,-34,82,13,@Hint)
+}
+BEGIN_SDK
+  Add(EditMultiEx,5978657,21,21)
+  {
+   WorkCount=#9:doConnect|
+   EventCount=#9:onFString|9:onSendCmd|
+   Width=279
+   Height=235
+   link(doConnect,10932829:doEvent1,[(31,27)(31,55)])
+  }
+  Add(FormatStr,4077443,77,49)
+  {
+   DataCount=1
+   Mask="Client connect %1"
+   link(onFString,5978657:onFString,[(201,55)(201,27)])
+  }
+  Add(Hub,10932829,42,49)
+  {
+   OutCount=3
+   link(onEvent1,4077443:doString,[])
+   link(onEvent2,7547300:doString,[(66,62)(66,104)])
+   link(onEvent3,8822072:doString,[(66,69)(66,202)])
+  }
+  Add(GlobalVar,1956226,133,63)
+  {
+   Name="db"
+  }
+  Add(FormatStr,7547300,77,98)
+  {
+   DataCount=1
+   Mask="update users set state = 1 where ip = '%1'"
+   link(onFString,3660945:doExec,[])
+  }
+  Add(SQLite_Exec,3660945,133,98)
+  {
+   link(dbHandle,1956226:Var,[])
+  }
+  Add(MultiElementEx,515783,245,196)
+  {
+   elink(10008204)
+   link(onSend,5978657:onSendCmd,[(289,202)(289,34)])
+   link(cmd,5035239:Value,[])
+   link(Data,2304664:Result,[(258,184)(235,184)(235,238)(195,238)])
+  }
+  Add(Memory,5035239,245,140)
+  {
+   Default=String(state)
+  }
+  Add(SQLite_QueryScalar,15336626,133,196)
+  {
+   link(onQuery,2304664:doStrCat,[])
+   link(dbHandle,5551947:Var,[])
+  }
+  Add(FormatStr,8822072,77,196)
+  {
+   DataCount=1
+   Mask="select (id + 1000) as id from users where ip = '%1'"
+   link(onFString,15336626:doQuery,[])
+  }
+  Add(GlobalVar,5551947,133,161)
+  {
+   Name="db"
+  }
+  Add(StrCat,2304664,189,196)
+  {
+   Str2=";2"
+   link(onStrCat,515783:doSend,[])
+  }
+END_SDK
+Add(MultiElementEx,7791478,189,455)
+{
+ @Hint=#17:client disconnect|
+ link(onFString,13278574:doWork3,[(235,461)])
+ link(onSendCmd,15108127:doWork3,[(249,468)])
+ AddHint(-78,42,95,13,@Hint)
+}
+BEGIN_SDK
+  Add(EditMultiEx,11723258,21,21)
+  {
+   WorkCount=#12:doDisconnect|
+   EventCount=#9:onFString|9:onSendCmd|
+   Width=328
+   Height=270
+   link(doDisconnect,12181279:doEvent1,[(28,27)(28,55)])
+  }
+  Add(FormatStr,1614566,77,49)
+  {
+   DataCount=1
+   Mask="Client disconnect %1"
+   link(onFString,11723258:onFString,[(166,55)(166,27)])
+  }
+  Add(GlobalVar,1956226,133,84)
+  {
+   Name="db"
+  }
+  Add(FormatStr,7547300,77,119)
+  {
+   DataCount=1
+   Mask="update users set state = 0 where ip = '%1'"
+   link(onFString,3660945:doExec,[])
+  }
+  Add(Hub,12181279,35,49)
+  {
+   OutCount=3
+   link(onEvent1,1614566:doString,[])
+   link(onEvent2,7547300:doString,[(63,62)(63,125)])
+   link(onEvent3,8822072:doString,[(63,69)(63,209)])
+  }
+  Add(SQLite_Exec,3660945,133,119)
+  {
+   link(dbHandle,1956226:Var,[])
+  }
+  Add(MultiElementEx,1801492,245,203)
+  {
+   elink(10008204)
+   link(onSend,11723258:onSendCmd,[(313,209)(313,34)])
+   link(cmd,5035239:Value,[])
+   link(Data,2304664:Result,[(258,191)(235,191)(235,245)(195,245)])
+  }
+  Add(Memory,5035239,245,147)
+  {
+   Default=String(state)
+  }
+  Add(SQLite_QueryScalar,15336626,133,203)
+  {
+   link(onQuery,2304664:doStrCat,[])
+   link(dbHandle,5551947:Var,[])
+  }
+  Add(FormatStr,8822072,77,203)
+  {
+   DataCount=1
+   Mask="select (id + 1000) as id from users where ip = '%1'"
+   link(onFString,15336626:doQuery,[])
+  }
+  Add(GlobalVar,5551947,133,168)
+  {
+   Name="db"
+  }
+  Add(StrCat,2304664,189,203)
+  {
+   Str2=";1"
+   link(onStrCat,1801492:doSend,[])
+  }
+END_SDK
+Add(HubEx,8018344,231,364)
+{
+ link(onEvent,13673111:doAdd,[])
+}
+Add(MT_Get,3345940,189,210)
+{
+ link(onData,7816751:doValue,[(233,216)(233,279)])
+ link(onGet,3064159:doEvent1,[(237,223)(237,216)])
+}
+Add(MultiElementEx,16568074,490,315)
+{
+ @Hint=#4:list|
+ link(onList,10126953:doAdd,[])
+}
+BEGIN_SDK
+  Add(EditMultiEx,14579849,21,21)
+  {
+   WorkCount=#6:doList|
+   EventCount=#6:onList|
+   Width=356
+   Height=326
+   link(doList,15177425:doEvent1,[(39,27)(39,125)])
+  }
+  Add(StrList,7577503,252,119)
+  {
+  }
+  Add(SQLite_Query,5288270,84,119)
+  {
+   SQL="select *, -1 from groups"
+   link(onQuery,7200702:doAdd,[])
+   link(dbHandle,3956946:Var2,[])
+  }
+  Add(GlobalVar,1956226,84,84)
+  {
+   Name="db"
+  }
+  Add(MT_String,3263725,196,119)
+  {
+   link(onResult,7577503:doAdd,[])
+  }
+  Add(Hub,15177425,49,119)
+  {
+   OutCount=3
+   link(onEvent1,5288270:doQuery,[])
+   link(onEvent2,3651978:doQuery,[(73,132)(73,181)])
+   link(onEvent3,12549587:doEvent1,[(70,139)(70,258)])
+  }
+  Add(SQLite_Query,3651978,84,175)
+  {
+   SQL="select state + 1, (id + 1000) as id, name, ip, gip from users"
+   link(onQuery,3185799:doWork3,[(186,181)])
+   link(dbHandle,3956946:Var1,[(90,163)(76,163)(76,107)])
+  }
+  Add(GetDataEx,3956946,77,98)
+  {
+   link(Data,1956226:Var,[])
+  }
+  Add(MT_Add,7200702,140,119)
+  {
+   Data=Integer(0)
+   InputMT=1
+   link(onAdd,3185799:doWork2,[])
+  }
+  Add(HubEx,3185799,182,112)
+  {
+   link(onEvent,3263725:doStr,[])
+  }
+  Add(MemoryStream,13370581,252,196)
+  {
+  }
+  Add(DataToFile,4627197,252,252)
+  {
+   Type=5
+   link(Stream,2171176:Var2,[])
+  }
+  Add(DoData,195995,196,294)
+  {
+   link(onEventData,11380321:doPut,[])
+   link(Data,7577503:Text,[(202,184)(258,184)])
+  }
+  Add(Hub,12549587,168,252)
+  {
+   OutCount=5
+   link(onEvent1,11713381:doData,[])
+   link(onEvent2,195995:doData,[(189,265)(189,300)])
+   link(onEvent3,11890336:doData,[])
+   link(onEvent4,13370581:doClear,[(217,279)(217,209)])
+   link(onEvent5,7577503:doClear,[(241,286)(241,132)])
+  }
+  Add(DoData,11890336,301,266)
+  {
+   link(onEventData,14579849:onList,[(355,272)(355,27)])
+   link(Data,2171176:Var3,[(307,240)])
+  }
+  Add(GetDataEx,2171176,245,231)
+  {
+   link(Data,13370581:Stream,[])
+  }
+  Add(DataToFile,11380321,245,294)
+  {
+   Type=5
+   link(Stream,2171176:Var1,[(251,240)])
+  }
+  Add(DoData,11713381,203,252)
+  {
+   Data=String(list)
+   link(onEventData,4627197:doPut,[])
+  }
+END_SDK
+Add(GlobalVar,1956226,301,133)
+{
+ Name="db"
+}
+Add(MultiElementEx,7748068,490,364)
+{
+ @Hint=#4:text|
+ link(onText,13254618:doWork2,[])
+ link(Stream,540601:Var3,[(496,352)])
+}
+BEGIN_SDK
+  Add(EditMultiEx,14579849,21,21)
+  {
+   WorkCount=#6:doText|
+   EventCount=#6:onText|
+   DataCount=#6:Stream|
+   Width=328
+   Height=228
+   link(doText,8762536:doEvent1,[(31,27)(31,132)])
+  }
+  Add(MultiElementEx,13098555,217,182)
+  {
+   elink(10008204)
+   link(onSend,14579849:onText,[(304,188)(304,27)])
+   link(cmd,5035239:Value,[(223,170)(265,170)])
+   link(Data,5866820:Value,[(230,170)(223,170)])
+  }
+  Add(DataToFile,6385282,84,126)
+  {
+   Type=5
+   link(onGet,3746663:doEvent1,[])
+   link(Stream,14579849:Stream,[(90,103)(27,103)])
+  }
+  Add(Memory,5035239,259,126)
+  {
+   Default=String(text)
+  }
+  Add(Memory,5866820,217,126)
+  {
+  }
+  Add(Hub,3746663,126,126)
+  {
+   link(onEvent1,8677476:doString,[])
+   link(onEvent2,13098555:doSend,[(147,139)(147,188)])
+  }
+  Add(SQLite_QueryScalar,9583223,161,63)
+  {
+   link(dbHandle,1956226:Var,[])
+  }
+  Add(FormatStr,11159054,84,63)
+  {
+   DataCount=1
+   Mask="select name from users where ip = '%1'"
+   link(onFString,9583223:doQuery,[])
+   link(Str1,6573905:Var,[])
+  }
+  Add(GlobalVar,6573905,84,35)
+  {
+   Name="ip"
+  }
+  Add(Hub,8762536,42,126)
+  {
+   link(onEvent1,11159054:doString,[(70,132)(70,69)])
+   link(onEvent2,6385282:doGet,[])
+  }
+  Add(GlobalVar,1956226,161,35)
+  {
+   Name="db"
+  }
+  Add(FormatStr,8677476,161,126)
+  {
+   Mask="%1: %2"
+   link(onFString,5866820:doValue,[])
+   link(Str1,9583223:Result,[])
+  }
+END_SDK
+Add(MultiElementEx,10008204,392,63)
+{
+ @Hint=#14:Command sender|
+ @IsLib=True
+}
+BEGIN_SDK
+  Add(EditMultiEx,2468589,21,21)
+  {
+   WorkCount=#6:doSend|
+   EventCount=#6:onSend|
+   DataCount=#3:cmd|4:Data|
+   Width=237
+   Height=207
+   link(doSend,1386699:doEvent1,[(39,27)(39,104)])
+  }
+  Add(MemoryStream,10092057,161,49)
+  {
+  }
+  Add(DataToFile,14579944,161,105)
+  {
+   Type=5
+   link(Stream,4061183:Var2,[])
+  }
+  Add(DoData,2805201,112,105)
+  {
+   link(onEventData,14579944:doPut,[])
+   link(Data,2468589:cmd,[(118,76)(27,76)])
+  }
+  Add(DataToFile,13279869,147,154)
+  {
+   Type=5
+   link(Stream,4061183:Var1,[(153,93)])
+  }
+  Add(GetDataEx,4061183,154,84)
+  {
+   link(Data,10092057:Stream,[])
+  }
+  Add(DoData,924221,98,154)
+  {
+   link(onEventData,13279869:doPut,[])
+   link(Data,2468589:Data,[(104,88)(34,88)])
+  }
+  Add(Hub,1386699,56,98)
+  {
+   OutCount=4
+   link(onEvent1,10092057:doClear,[(83,104)(83,62)])
+   link(onEvent2,2805201:doData,[])
+   link(onEvent3,924221:doData,[(84,118)(84,160)])
+   link(onEvent4,12642041:doData,[(79,125)(79,195)])
+  }
+  Add(DoData,12642041,203,189)
+  {
+   link(onEventData,2468589:onSend,[(247,195)(247,27)])
+   link(Data,4061183:Var3,[(209,93)])
+  }
+END_SDK
+Add(GetDataEx,15578973,469,245)
+{
+ Angle=3
+ link(Data,11765244:Var3,[])
+}
+Add(Hub,14812891,343,266)
+{
+ link(onEvent1,6821501:doRead,[])
+ link(onEvent2,4077443:doString,[(367,279)(367,328)])
+}
+Add(FormatStr,4077443,378,322)
+{
+ Mask="Cmd %1 doing from ip %2"
+ link(onFString,8018344:doWork1,[(422,328)(422,364)(235,364)])
+ link(Str2,7816751:Var,[(391,304)(251,304)])
+}
+Add(Timer,4484219,28,343)
+{
+ link(onTimer,9923059:doString,[])
+}
+Add(MT_Add,10126953,546,315)
+{
+ link(onAdd,7348703:In,[])
+ link(Data,6573905:Var,[])
+}
+Add(Hub,11320496,231,119)
+{
+ OutCount=4
+ link(onEvent1,5880998:doExec,[(252,125)(252,41)])
+ link(onEvent2,10382260:doExec,[(252,132)(252,83)])
+ link(onEvent3,1956226:doValue,[])
+ link(onEvent4,4411198:doExec,[])
+}
+Add(SQLite_Exec,4411198,259,140)
+{
+ SQL="update users set state = 0"
+}
+Add(LineBreak,16629901,56,224)
+{
+ Caption="send"
+ link(Out,9478494:doSend,[])
+ Primary=[10482618,497,140]
+}
+Add(LineBreak,5242968,49,245)
+{
+ Caption="sendip"
+ link(Out,9478494:doSendByIp,[(114,251)(114,237)])
+ Primary=[7348703,560,70]
+}
+Add(GlobalVar,7816751,245,273)
+{
+ Name="ip"
+ link(onValue,6385282:doGet,[])
+}
+Add(GlobalVar,6573905,546,287)
+{
+ Name="ip"
+}
+Add(FormatStr,9923059,77,343)
+{
+ DataCount=1
+ Mask="Clients connected %1"
+ link(onFString,2953706:doCaption,[(121,349)(121,301)(10,301)(10,111)])
+ link(Str1,9478494:Count,[(83,313)(139,313)])
+}
+Add(HubEx,13254618,532,357)
+{
+ link(onEvent,10482618:In,[])
+}
+Add(HubEx,15108127,245,413)
+{
+ link(onEvent,15519426:doWork3,[(536,426)])
+}
+Add(HubEx,13278574,231,406)
+{
+ Angle=3
+ link(onEvent,8018344:doWork3,[])
+}
+Add(InfoTip,23890,455,245)
+{
+ Info=#14:Command center|
+ Width=211
+ Height=200
+}
+Add(MultiElementEx,10579696,490,406)
+{
+ @Hint=#5:state|
+ link(onText,15519426:doWork2,[])
+ link(Stream,540601:Var2,[(496,400)(482,400)])
+}
+BEGIN_SDK
+  Add(EditMultiEx,14579849,21,21)
+  {
+   WorkCount=#6:doText|
+   EventCount=#6:onText|
+   DataCount=#6:Stream|
+   Width=328
+   Height=228
+   link(doText,8762536:doEvent1,[(31,27)(31,132)])
+  }
+  Add(MultiElementEx,12013019,217,182)
+  {
+   elink(10008204)
+   link(onSend,14579849:onText,[(304,188)(304,27)])
+   link(cmd,5035239:Value,[(223,170)(265,170)])
+   link(Data,5866820:Value,[(230,170)(223,170)])
+  }
+  Add(DataToFile,6385282,84,126)
+  {
+   Type=5
+   link(onGet,3746663:doEvent1,[])
+   link(Stream,14579849:Stream,[(90,103)(27,103)])
+  }
+  Add(Memory,5035239,259,126)
+  {
+   Default=String(state)
+  }
+  Add(Memory,5866820,217,126)
+  {
+  }
+  Add(Hub,3746663,126,126)
+  {
+   link(onEvent1,8677476:doString,[])
+   link(onEvent2,12013019:doSend,[(147,139)(147,188)])
+  }
+  Add(SQLite_QueryScalar,9583223,161,63)
+  {
+   link(dbHandle,1956226:Var,[])
+  }
+  Add(GlobalVar,6573905,84,35)
+  {
+   Name="ip"
+  }
+  Add(Hub,8762536,42,126)
+  {
+   link(onEvent1,11159054:doString,[(70,132)(70,69)])
+   link(onEvent2,6385282:doGet,[])
+  }
+  Add(GlobalVar,1956226,161,35)
+  {
+   Name="db"
+  }
+  Add(FormatStr,8677476,161,126)
+  {
+   Mask="%1;%2"
+   link(onFString,5866820:doValue,[])
+   link(Str1,9583223:Result,[])
+  }
+  Add(FormatStr,11159054,84,63)
+  {
+   DataCount=1
+   Mask="select id + 1000 from users where ip = '%1'"
+   link(onFString,9583223:doQuery,[])
+   link(Str1,6573905:Var,[])
+  }
+END_SDK
+Add(HubEx,15519426,532,399)
+{
+ Angle=3
+ link(onEvent,13254618:doWork3,[])
+}
+Add(GetDataEx,540601,469,343)
+{
+ link(Data,15578973:Var2,[])
+}
+Add(TrayIcon,4738844,77,455)
+{
+ link(onClick,4738844:doShow,[(121,461)(121,449)(65,449)(65,461)])
+}
+Add(InfoTip,736336,231,14)
+{
+ Info=#15:create database|
+ Width=85
+ Height=102
+}

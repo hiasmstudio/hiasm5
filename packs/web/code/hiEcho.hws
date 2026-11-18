@@ -1,0 +1,14 @@
+func doEcho
+  println('echo ', Message, ';')
+  event(onEcho)
+end
+
+func doEcho:html
+  print(Message)
+  event(onEcho)
+end
+
+func doEcho:java
+  println('alert(', Message, ');')
+  event(onEcho)
+end

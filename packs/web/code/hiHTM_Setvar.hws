@@ -1,0 +1,17 @@
+include('tag_maker')
+
+section html
+
+func doPrint
+  include('tag_header')
+
+  if(isndef(Name))
+    s &= " name=\"" & Name & "\""
+  end
+    
+  if(isndef(Value))
+    s &= " value=\"" & Value & "\""
+  end
+  
+  include('tag_footer')
+end

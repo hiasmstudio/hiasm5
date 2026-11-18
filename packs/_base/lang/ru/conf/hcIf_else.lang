@@ -1,0 +1,9 @@
+Emit event by condition=Вызов события по условию
+Define type of compare for operands=Определяет тип сравнения операндов
+Operand 1 by default=Операнд 1 по умолчанию
+Operand 2 by default=Операнд 2 по умолчанию
+Compares two operands=Производит сравнение первого операнда со вторым
+Event emit every time after implement conditions for comparison=Событие происходит всякий раз при выполнении условия сравнения
+Event emit every time after failure conditions for comparison=Событие происходит всякий раз при невыполнении условия сравнения
+Operand 1=Операнд 1
+Operand 2=Операнд 2

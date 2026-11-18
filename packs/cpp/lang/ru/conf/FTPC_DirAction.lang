@@ -1,0 +1,10 @@
+Actions on FTP folders=Действия над папками FTP
+SetCurrentDir - sets the current folder, GetCurrentDir - gets the path to the current folder, CreateDir - creates a folder, RemoveDir - deletes an empty folder=SetCurrentDir - устанавливает текущую папку, GetCurrentDir - получает путь к текущей папке, CreateDir - создает папку, RemoveDir - удаляет пустую папку
+Default folder path on FTP server=Путь к папке на FTP-сервере по умолчанию
+Issuing error events: Global - to the onGlobalError output of the FTP_Client component, Local - to the onError output of the current component, Global+Local - to the onGlobalError and onError outputs=Выдача событий ошибки: Global - на выход onGlobalError компонента FTP_Client, Local - на выход onError текущего компонента, Global+Local - на выходы onGlobalError и onError
+Managing the FTP_Client Element=Управление элементом FTP_Client
+Performs various actions on folders on the FTP server according to the Action parameter ARG(Directory)=Выполняет различные действия над папками на FTP-сервере согласно параметра Action ARG(Directory)
+The event occurs whenever an action is performed on folders on the FTP server ARG(Directory)=Событие происходит всякий раз при выполнении какого-либо действия над папками на FTP-сервере ARG(Directory)
+The event occurs every time after a component operation error and outputs its number to the stream ARG(Error)=Событие происходит всякий раз после ошибки работы компонента и выдает её номер в поток ARG(Error)
+Contains the path to the current folder on the FTP server after the doGetCurrentDir method is completed=Содержит путь к текущей папке на FTP-сервере после вполнения метода doGetCurrentDir
+Path to the folder on the FTP server=Путь к папке на FTP-сервере

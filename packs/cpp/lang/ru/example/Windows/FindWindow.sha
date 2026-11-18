@@ -1,0 +1,85 @@
+﻿Pos(0,0)
+Add(MainForm,2367494,14,63)
+{
+ Left=20
+ Top=105
+ Width=301
+ Height=166
+ Font=[Arial,8,0,0]
+ link(onCreate,4689185:doFind,[(105,104)(105,69)])
+}
+Add(Button,10463612,133,98)
+{
+ Left=50
+ Top=35
+ Font=[Arial,8,0,0]
+ Caption="Hide"
+ link(onClick,16602065:doWork1,[(184,104)(184,132)])
+}
+Add(WinTools,8455869,287,126)
+{
+ link(Handle,4689185:Handle,[])
+}
+Add(Button,9440968,133,147)
+{
+ Left=50
+ Top=65
+ Font=[Arial,8,0,0]
+ Caption="Show"
+ link(onClick,16602065:doWork2,[(184,153)(184,139)])
+}
+Add(ChanelToIndex,16602065,203,126)
+{
+ link(onIndex,8455869:doVisible,[])
+}
+Add(FindWindow,4689185,287,63)
+{
+ ClassName="Shell_TrayWnd"
+ link(onFind,7131965:doFindChild,[(332,69)(332,191)(277,191)(277,223)])
+}
+Add(Button,15498815,133,245)
+{
+ Left=170
+ Top=35
+ Font=[Arial,8,0,0]
+ Caption="Hide"
+ link(onClick,6189251:doWork1,[(184,251)(184,279)])
+}
+Add(WinTools,9410413,287,273)
+{
+ link(Handle,7131965:Handle,[])
+}
+Add(Button,11824792,133,294)
+{
+ Left=170
+ Top=65
+ Font=[Arial,8,0,0]
+ Caption="Show"
+ link(onClick,6189251:doWork2,[(184,300)(184,286)])
+}
+Add(ChanelToIndex,6189251,203,273)
+{
+ link(onIndex,9410413:doVisible,[])
+}
+Add(FindWindow,7131965,287,210)
+{
+ ClassName="Button"
+}
+Add(Label,6543902,21,7)
+{
+ Left=35
+ Top=15
+ Width=59
+ Height=18
+ Font=[Arial,8,0,0]
+ Caption="Shell tray"
+}
+Add(Label,275373,126,7)
+{
+ Left=150
+ Top=15
+ Width=60
+ Height=18
+ Font=[Arial,8,0,0]
+ Caption="Start button"
+}

@@ -1,0 +1,12 @@
+func Name()
+  return(cstr(get('Name')))
+end
+
+func doValue(_data)
+  println('hiasm_global_var(', Name(), ') = ', _data, ';')
+  event(onValue, 'hiasm_global_var(' && Name() && ')')
+end
+
+func Var()
+  return('(hiasm_global_var(' && Name() && ').empty() ? std::string(' && cstr(get('Data')) && ') : hiasm_global_var(' && Name() && '))')
+end

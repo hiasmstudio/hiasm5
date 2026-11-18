@@ -1,0 +1,361 @@
+*Очень простой и несовсем традиционный калькулятор. Это конечно не Microsoft Super Calculator, но считает он ничуть не хуже.
+Pos(0,28)
+Add(InfoTip,72700,21,7)
+{
+ Info='Очень простой и не слишком функциональный калькулятор'
+ Font=[Times New Roman,12,2,8388736]
+ Width=288
+ Height=95
+}
+Add(Memory,83527,413,294)
+{
+ @Hint='Тут хранится код операции'
+}
+Add(Button,83167,126,231)
+{
+ Left=50
+ Top=110
+ Width=25
+ Height=25
+ Font=[Arial,8,0,0]
+ Caption="2"
+ link(onClick,91049:doWork8,[(167,237)(167,268)(249,268)(249,167)])
+}
+Add(Button,81875,126,168)
+{
+ Left=50
+ Top=80
+ Width=25
+ Height=25
+ Font=[Arial,8,0,0]
+ Caption="5"
+ link(onClick,91049:doWork5,[(167,174)(167,208)(231,208)(231,146)])
+}
+Add(Button,76205,175,168)
+{
+ Left=80
+ Top=80
+ Width=25
+ Height=25
+ Font=[Arial,8,0,0]
+ Caption="6"
+ link(onClick,91049:doWork4,[(226,174)(226,139)])
+}
+Add(Button,6804,77,231)
+{
+ Left=20
+ Top=110
+ Width=25
+ Height=25
+ Font=[Arial,8,0,0]
+ Caption="1"
+ link(onClick,91049:doWork9,[(119,237)(119,279)(255,279)(255,174)])
+}
+Add(GetData,79288,336,63)
+{
+ Count=3
+ link(Data,50389:Value,[])
+}
+Add(Hub,75995,280,196)
+{
+ link(onEvent1,87545:doData,[])
+ link(onEvent2,97134:doEvent2,[(320,209)(320,258)])
+}
+Add(Button,52080,77,168)
+{
+ Left=20
+ Top=80
+ Width=25
+ Height=25
+ Font=[Arial,8,0,0]
+ Caption="4"
+ link(onClick,91049:doWork6,[(117,174)(117,219)(238,219)(238,153)])
+}
+Add(Button,82548,77,112)
+{
+ Left=20
+ Top=50
+ Width=25
+ Height=25
+ Font=[Arial,8,0,0]
+ Caption="7"
+ link(onClick,91049:doWork3,[(117,118)(117,160)(221,160)(221,132)])
+}
+Add(Button,94032,175,112)
+{
+ Left=80
+ Top=50
+ Width=25
+ Height=25
+ Font=[Arial,8,0,0]
+ Caption="9"
+ link(onClick,91049:doWork1,[])
+}
+Add(Button,57736,126,112)
+{
+ Left=50
+ Top=50
+ Width=25
+ Height=25
+ Font=[Arial,8,0,0]
+ Caption="8"
+ link(onClick,91049:doWork2,[(168,118)(168,154)(211,154)(211,125)])
+}
+Add(Button,34976,175,231)
+{
+ Left=80
+ Top=110
+ Width=25
+ Height=25
+ Font=[Arial,8,0,0]
+ Caption="3"
+ link(onClick,91049:doWork7,[(243,237)(243,160)])
+}
+Add(MainForm,76096,21,112)
+{
+ Left=312
+ Top=234
+ Width=234
+ Height=201
+ Font=[MS Sans Serif,8,0,0]
+ Caption="Easy Calc"
+ BorderStyle=3
+}
+Add(Button,77974,77,294)
+{
+ Left=20
+ Top=140
+ Width=25
+ Height=25
+ Font=[Arial,8,0,0]
+ Caption="0"
+ link(onClick,91049:doWork10,[(118,300)(118,290)(263,290)(263,181)])
+}
+Add(ChanelToIndex,91049,280,112)
+{
+ Count=10
+ link(onIndex,67284:doWork1,[])
+}
+Add(ChildPanel,56626,406,14)
+{
+ @Hint='Дисплей'
+}
+BEGIN_SDK
+Pos(0,0)
+  Add(EditMulti,745,3,3)
+  {
+   WorkCount=1
+   Width=132
+   Height=165
+   link(doWork1,73979:doCaption,[(16,9)(16,113)])
+  }
+  Add(Panel,73979,30,100)
+  {
+   Left=20
+   Top=25
+   Width=190
+   Height=20
+   Font=[Arial,8,0,0]
+   Caption="0"
+   BevelInner=1
+   Alignment=1
+  }
+END_SDK
+Add(Button,26676,175,308)
+{
+ Left=80
+ Top=140
+ Width=25
+ Height=25
+ Font=[Arial,8,0,0]
+ Caption="="
+ link(onClick,99331:doWork1,[(220,314)(220,384)])
+}
+Add(DoData,55572,406,245)
+{
+ link(onEventData,38053:doText,[])
+ link(Data,79288:Data2,[(412,108)(349,108)])
+}
+Add(MultiElement,99331,413,378)
+{
+ @Hint='Вычисление результата по коду операции и двум операндам'
+ link(onEvent1,78346:doEvent2,[(450,384)(450,125)])
+ link(Data1,83527:Value,[])
+ link(Data2,38053:Caption,[(426,337)(496,337)])
+ link(Data3,79288:Data3,[(433,103)(356,103)])
+}
+BEGIN_SDK
+Pos(0,0)
+  Add(EditMulti,5421,3,3)
+  {
+   EventCount=1
+   WorkCount=1
+   DataCount=3
+   Width=314
+   Height=151
+   link(doWork1,87695:doData,[(19,47)(19,111)])
+  }
+  Add(DoData,87695,42,105)
+  {
+   link(onEventData,81404:doEvent1,[])
+   link(Data,5421:Data1,[(48,41)(26,41)])
+  }
+  Add(Hub,81404,91,105)
+  {
+   link(onEvent1,77642:doRead,[])
+   link(onEvent2,56599:doCalc,[(138,118)(138,69)])
+  }
+  Add(MathParse,56599,266,63)
+  {
+   MathStr="%1 +  %2"
+   Point(doMathStr)
+   link(onResult,5421:onEvent1,[(304,69)(304,9)])
+   link(X1,5421:Data2,[(272,34)(32,34)])
+   link(X2,5421:Data3,[(279,26)(35,26)])
+  }
+  Add(StrList,51243,154,35)
+  {
+   Strings='%1+%2','%1-%2','%1*%2','%1/%2'
+  }
+  Add(ArrayRW,77642,168,105)
+  {
+   link(onRead,56599:doMathStr,[(233,111)(233,76)])
+   link(Array,51243:Array,[])
+  }
+END_SDK
+Add(Button,66303,231,308)
+{
+ Left=110
+ Top=50
+ Width=25
+ Height=25
+ Font=[Arial,8,0,0]
+ Caption="+"
+ link(onClick,8353:doWork1,[])
+}
+Add(Memory,50389,336,14)
+{
+ Default=Integer(0)
+ link(onData,56626:doWork1,[])
+}
+Add(Button,99724,231,434)
+{
+ Left=110
+ Top=140
+ Width=25
+ Height=25
+ Font=[Arial,8,0,0]
+ Caption="/"
+ link(onClick,8353:doWork4,[(284,440)(284,335)])
+}
+Add(Button,17108,231,350)
+{
+ Left=110
+ Top=80
+ Width=25
+ Height=25
+ Font=[Arial,8,0,0]
+ Caption="-"
+ link(onClick,8353:doWork2,[(270,356)(270,321)])
+}
+Add(Button,13193,231,392)
+{
+ Left=110
+ Top=110
+ Width=25
+ Height=25
+ Font=[Arial,8,0,0]
+ Caption="*"
+ link(onClick,8353:doWork3,[(275,398)(275,328)])
+}
+Add(ChanelToIndex,8353,294,308)
+{
+ Count=4
+ link(onIndex,97134:doEvent1,[(334,314)(334,251)])
+}
+Add(Hub,97134,350,245)
+{
+ InCount=2
+ OutCount=3
+ link(onEvent1,55572:doData,[])
+ link(onEvent2,50389:doClear,[(392,258)(392,184)(326,184)(326,27)])
+ link(onEvent3,83527:doValue,[(397,265)(397,300)])
+}
+Add(DoData,87545,329,196)
+{
+ Data=Integer(0)
+ link(onEventData,78346:doEvent3,[(377,202)(377,132)])
+}
+Add(Hub,78346,455,112)
+{
+ InCount=3
+ link(onEvent1,50389:doValue,[(494,118)(494,11)(326,11)(326,20)])
+}
+Add(Label,38053,490,245)
+{
+ Left=20
+ Top=5
+ Width=190
+ Color=-16777204
+ Font=[Arial,8,0,0]
+ Caption="0"
+ AutoSize=1
+ Alignment=1
+}
+Add(Button,87247,126,294)
+{
+ Left=50
+ Top=140
+ Width=25
+ Height=25
+ Hint="Отчистить"
+ Font=[Arial,8,0,0]
+ Caption="CE"
+ Data=Integer(-1)
+ link(onClick,75995:doEvent1,[(272,300)(272,202)])
+}
+Add(MultiElement,67284,336,112)
+{
+ @Hint='Обработчик вывода числа на дисплей'
+ link(onEvent1,78346:doEvent1,[])
+ link(Data1,79288:Data1,[])
+}
+BEGIN_SDK
+Pos(0,0)
+  Add(EditMulti,132,3,3)
+  {
+   EventCount=1
+   WorkCount=1
+   DataCount=1
+   link(doWork1,61145:doOperation,[(8,9)(8,104)])
+  }
+  Add(StrCat,44572,112,133)
+  {
+   link(onStrCat,75915:doEvent2,[(159,139)(159,111)])
+   link(Str1,80920:Data2,[(118,80)(69,80)])
+  }
+  Add(GetData,80920,56,28)
+  {
+   link(Data,132:Data1,[(62,16)(9,16)])
+  }
+  Add(Hub,75915,175,98)
+  {
+   InCount=2
+   OutCount=1
+   link(onEvent1,132:onEvent1,[(255,104)(255,9)])
+  }
+  Add(Math,61145,14,98)
+  {
+   OpType=1
+   Op1=9
+   ResultType=0
+   link(onResult,86491:doCompare,[])
+  }
+  Add(If_else,86491,56,98)
+  {
+   Op2=String(0)
+   link(onTrue,75915:doEvent1,[])
+   link(onFalse,44572:doStrCat,[(100,111)(100,139)])
+   link(Op1,80920:Data1,[])
+  }
+END_SDK

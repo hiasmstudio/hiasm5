@@ -1,0 +1,8 @@
+Renaming the parent window=Переназеачение родительского окна
+Reassigns the parent window to the child window ARG(Handle, NewParent)=Переназначает родителское окно для окна наследника ARG(Handle, NewParent)
+The event occurs whenever the parent window is successfully reassigned=Событие происходит всякий раз при успешном переназначении родительского окна
+Event occurs when the parent window cannot be reassigned=Событие происходит в случае невозможности переназначить родительское окно
+Contains the ID of the parent window=Содержит идентификатор родительского окна
+Contains the ID of the previous parent window=Содержит идентификатор предыдущего родительского окна
+Successor window ID=Идентификатор окна наследника
+ID of the new parent window=Идентификатор нового родительского окна

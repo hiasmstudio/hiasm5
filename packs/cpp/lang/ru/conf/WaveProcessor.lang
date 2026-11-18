@@ -1,0 +1,14 @@
+Wave processor=Волновой процессор
+Viscosity=Вязкость
+Wave speed=Скорость волны
+Degree of wave crest glow=Степень свечения гребней волны
+Wave depth=Глубина волны
+Radius of the generated wave=Радиус создаваемой волны
+Height of the created wave (from -1 to +1)=Высота создаваемой волны (от -1 до +1)
+Run a wave simulation=Выполнить симуляцию волны
+Create a wave at the specified epicenter ARG(X,Y,Radius,Height)=Создать волну в указанном эпицентре ARG(X,Y,Radius,Height)
+The event occurs every time after a wave is calculated=Событие происходит всякий раз после расчета волны
+The picture on which you want to draw the result of the simulation=Картинка, на которой требуется отрисовать результат симуляции
+Original picture=Исходная картинка
+X coordinate of the wave center=Координата X центра волны
+Y coordinate of the wave center=Координата Y центра волны

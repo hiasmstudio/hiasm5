@@ -1,0 +1,11 @@
+Converter from one quantity to another=Конвертер одной величины в другую
+IntToStr - number->string, StrToInt - string->number, RealToInt - fractional->integer, CharToInt - character->number, IntToChar - number->character, HexToInt - hexadecimal->integer, IntToHex - integer->hexadecimal, BinToInt - binary->integer, IntToBin - integer->binary, RealToStr - fractional->string, StrToReal - string->fractional, StreamToStr - stream->string, StrToStream - string->stream, IntToRom - number->Roman numerals, RomToInt - Roman numerals->number, StrToTri - string->string of triads, StrToWrd - string->number expression=IntToStr - число->строка, StrToInt - строка->число, RealToInt - дробное->целое, CharToInt - символ->число, IntToChar - число->символ, HexToInt - шестнадцатиричное->целое, IntToHex - целое->шестнадцатеричное, BinToInt - двоичное->целое, IntToBin - целое->двоичное, RealToStr - дробное->строка, StrToReal - строка->дробное, StreamToStr - поток->строка, StrToStream - строка->поток, IntToRom - число->римские цифры, RomToInt - римские цифры->число, StrToTri - строка->строка триад, StrToWrd -  строка->кол-е выражение
+Minimum number of characters in the resulting string for the IntToHex, IntToBin and IntToStr methods=Минимальное количество знакомест в результирующей строке для методов IntToHex, IntToBin и IntToStr
+A placeholder character for insignificant digits for the IntToStr method. If the field is empty, no filling occurs=Символ-заполнитель незначащих знакомест для метода IntToStr. При пустом поле заполнение не происходит
+Placeholder padding direction=Направление заполнения символом-заполнителем
+Single number for the StrToWrd method (for example - 1 point)=Единственное число для метода StrToWrd (например - 1 точка)
+Plural (range 2..4 and fractions) for the StrToWrd method (for example - 2 points, 1.12 points)=Множественное число (диапазон 2..4 и дробные) для метода StrToWrd (например - 2 точки, 1.12 точки)
+Plural (other options) for the StrToWrd method (for example - 5 points, N points)=Множественное число (остальные варианты) для метода StrToWrd (например - 5 точек, N точек)
+Converts input data according to the Mode parameter=Конвертирует входные данные согласно параметру Mode
+Outputs the result of an operation to a stream=Выдаёт результат операции в поток
+Data to convert=Данные для преобразования

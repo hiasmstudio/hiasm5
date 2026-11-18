@@ -1,0 +1,181 @@
+Make(cpp)
+Add(MainForm,2953706,21,105)
+{
+ Width=340
+ Height=251
+ Caption="Set line value"
+ BorderStyle=3
+ link(onCreate,2669301:doSearch,[])
+}
+Add(KE_Connect,2822398,203,399)
+{
+ Name="mainUSB"
+ link(onConnect,6044020:doData,[])
+ link(onError,7537683:doString,[(251,412)(251,447)])
+ link(ComPort,6842903:Text,[])
+}
+Add(Button,13116887,147,399)
+{
+ Left=10
+ Top=15
+ Width=70
+ Caption="Connect"
+ link(onClick,2822398:doConnect,[])
+}
+Add(Edit,6842903,203,350)
+{
+ Left=120
+ Top=15
+ Text="0"
+}
+Add(Label,15080301,203,301)
+{
+ Left=90
+ Top=20
+ Width=28
+ Height=17
+ Caption="COM"
+}
+Add(ListBox,6138828,357,441)
+{
+ Left=5
+ Top=135
+ Width=320
+ Height=85
+ AddType=1
+}
+Add(FormatStr,7537683,266,441)
+{
+ DataCount=1
+ Mask="Connection error: code = %1"
+ link(onFString,4115016:doWork2,[])
+}
+Add(HubEx,4115016,322,434)
+{
+ link(onEvent,6138828:doAdd,[])
+}
+Add(DoData,6044020,266,399)
+{
+ Data=String(Connected!)
+ link(onEventData,4115016:doWork1,[(326,405)])
+}
+Add(Button,5398867,147,441)
+{
+ Left=10
+ Top=45
+ Width=70
+ Caption="Disconnect"
+ link(onClick,2822398:doDisconnect,[(191,447)(191,412)])
+}
+Add(Button,12717045,147,546)
+{
+ Left=10
+ Top=95
+ Width=70
+ Caption="Write"
+ link(onClick,2431611:doWriteLine,[])
+}
+Add(KE_WriteLine,2431611,203,546)
+{
+ KE_Device="mainUSB"
+ link(onWriteLine,2682899:doData,[])
+ link(onError,2387784:doData,[])
+ link(Line,1863203:Text,[])
+ link(Value,3745559:Selected,[(216,538)(258,538)])
+}
+Add(Label,1904324,266,609)
+{
+ Left=190
+ Top=100
+ Width=30
+ Height=17
+ Caption="value"
+}
+Add(Label,1639803,203,448)
+{
+ Left=90
+ Top=100
+ Width=24
+ Height=17
+ Caption="Line"
+}
+Add(Edit,1863203,203,497)
+{
+ Left=120
+ Top=95
+ Text="0"
+}
+Add(RadioButton,2735310,301,497)
+{
+ Left=230
+ Top=85
+ Caption="Off"
+}
+Add(RadioButton,3745559,252,497)
+{
+ Left=230
+ Top=105
+ Caption="On"
+}
+Add(DoData,2387784,266,553)
+{
+ Data=String(Write error)
+ link(onEventData,4537132:doWork3,[(326,559)])
+}
+Add(DoData,2682899,259,546)
+{
+ Data=String(Write OK)
+ link(onEventData,4537132:doWork2,[])
+}
+Add(HubEx,4537132,322,539)
+{
+ Angle=3
+ link(onEvent,4115016:doWork3,[])
+}
+Add(KE_DetectDevices,2669301,91,119)
+{
+ link(onSearch,14266507:doString,[])
+ link(onEndSearch,16599267:doCompare,[(135,132)(135,181)])
+}
+Add(Message,14620155,266,175)
+{
+ Message="Not found"
+ Caption="KernelChip devices not found in you system!"
+ Icon=3
+}
+Add(If_else,16599267,147,175)
+{
+ Op2=Integer(0)
+ link(onTrue,14620155:doMessage,[])
+ link(onFalse,9645946:doData,[])
+}
+Add(FormatStr,14266507,147,119)
+{
+ Mask="%1 - COM%2"
+ link(onFString,11724721:doAdd,[])
+}
+Add(ComboBox,11724721,203,119)
+{
+ Left=180
+ Top=15
+ Width=150
+ Height=21
+ ReadOnly=0
+ link(onClick,5534604:doWork2,[])
+}
+Add(Copy,9030333,266,126)
+{
+ Position=1
+ Count=1
+ Direction=1
+ link(onCopy,6842903:doText,[(310,132)(310,244)(191,244)(191,356)])
+}
+Add(DoData,9645946,203,182)
+{
+ link(onEventData,5534604:doWork3,[(249,188)])
+ link(Data,11724721:String,[(209,173)(216,173)])
+}
+Add(HubEx,5534604,245,119)
+{
+ link(onEvent,9030333:doCopy,[])
+}

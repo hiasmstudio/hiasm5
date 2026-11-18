@@ -1,0 +1,76 @@
+func printSection(evn, data)
+  fvar(old,s)
+  
+  old = block.select(block.reggen())
+  block.lvloff()
+  event(evn:html, data)
+  s = block.astext() 
+  block.delete(block.select(old))
+  println('echo ', s, ';')
+end
+
+func doMakeMenu(_data)
+  fvar(s)
+//  include("dm_head")
+  fvar(oldSite)
+  if(isset(_SITE_))
+    oldSite = _SITE_
+  else
+    gvar(_SITE_, _SCOPE_)
+  end
+  _SITE_ = code(_id_)
+  
+  sys.event(Items, 'ds_select', _id_, '')
+  println('$rec_count = ' + sys.event(Items, 'ds_count', _id_) + ';')
+  if(linked(onHeader))
+    printSection("onHeader", '')
+  end
+  println('for($i = 0; $i < $rec_count; $i++) {')
+  block.inclvl()
+    sys.event(Items, 'ds_fetch', _id_)
+    if(linked(onActiveItem))
+      println('if(strpos($_SERVER["REQUEST_URI"], ' + f + '[' + UrlField + '])) {')
+      block.inclvl()
+        printSection("onActiveItem", '')
+      block.declvl()
+      println('}else {')
+      block.inclvl()
+    end
+    printSection("onItem", '')
+    if(linked(onActiveItem))
+      block.declvl()
+      println('}')
+    end
+    if(linked(onSeparator))
+      println('if($i != $rec_count-1)')
+      block.inclvl()
+        printSection("onSeparator", '')
+      block.declvl()  
+    end
+  block.declvl()
+  println('}')
+  if(linked(onFooter))
+    printSection("onFooter", '')
+  end
+  
+//  include("dm_tail")
+  _SITE_ = oldSite
+end
+
+section html
+
+func Caption()
+  fvar(s)
+  dec_sec("php")
+  s = menu + '[$i]'
+  inc_sec("html") 
+  return(s)
+end
+
+func URL()
+  fvar(s)
+  dec_sec("php")
+  s = menu + '[$i+1]'
+  inc_sec("html") 
+  return(s)
+end

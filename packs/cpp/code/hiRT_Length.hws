@@ -1,0 +1,26 @@
+func Expr(value)
+  return('std::string(' && value && ').size()')
+end
+
+func Source(value)
+  if(len(value) > 0)
+    return(value)
+  else
+    return(SrcStr)
+  end
+end
+
+func doLength(_data)
+  fvar(src)
+  src = Source(_data)
+  println('auto hiasm_rtlen', _id_, ' = ', Expr(src), ';')
+  event(onLength, 'static_cast<int>(hiasm_rtlen' && _id_ && ')')
+end
+
+func Result()
+  if(linked('doLength'))
+    return('static_cast<int>(hiasm_rtlen' && _id_ && ')')
+  else
+    return('static_cast<int>(' && Expr(SrcStr) && ')')
+  end
+end

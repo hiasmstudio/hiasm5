@@ -1,0 +1,10 @@
+Animated hiding/showing of windows=Анимационное скрытие-отображение окон
+Animation speed from 1 to 255=Скорость анимации от 1 до 255
+Animation step from 1 to 5. The smaller the step, the slower and smoother the animation is.=Шаг анимации от 1 до 5. Чем меньше шаг, тем медленней и плавней происходит анимация
+Animation type: None - take from the thread (a number from 1 to 18); Appear... - appearance animations; Disappear... - disappearance animations=Тип анимации: None - взять из потока (число от 1 до 18); Appear... - анимации появления; Disappear... - анимации исчезновения
+If True, then the animation will occur in a separate thread. If False, the animation may pause while the application performs other actions=Если True, то анимация произойдет в отдельном потоке. Если False, анимация может приостановится на время выполнения приложением других действий
+Mode: Default - used in most cases; ForceNoRegion - only used to animate a regular native shape=Режим: Default - применяется в большинстве случаев; ForceNoRegion - применяется только для анимации обычной собственной формы
+Start animation=Запустить анимацию
+Occurs after the animation has completed and emits 0 when the window appears and 1 when it disappears.=Происходит после завершения анимации и выдает в поток 0 при появлении окна и 1 при исчезновении
+Window handle=Хэндл окна
+Animation type from 1 to 18 (see Type property)=Тип анимации от 1 до 18 (см. св-во Type)

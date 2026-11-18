@@ -1,0 +1,4 @@
+func doDrawText(_data)
+  println('Imagestring(', HImage, ', ', Size, ', ', X, ', ', Y, ', ', Text, ', ', Color, ');')
+  event(onDrawText, _data)
+end

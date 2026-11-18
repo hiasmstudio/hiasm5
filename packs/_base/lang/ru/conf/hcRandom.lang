@@ -1,0 +1,8 @@
+Generator pseudo random numeric sequence=Генератор псевдослучайной числовой последовательности
+Defines minimum random value=Определяет минимальное случайное число
+Defines maximum random value=Определяет максимальное случайное число
+Generates next random value=Генерирует следующее случайное число
+Resetup generator of random values (need this if after every run must have new line of random values)=Переустанавливает генератор случайных чисел (инициализация, если при каждом запуске необходим новый ряд случайных чисел)
+Event emit every time after generate random value and give his in thread=Событие происходит всякий раз при генерации случайного числа и выдает в поток само число
+Contain last generated value=Хранит последнее значение генератора
+

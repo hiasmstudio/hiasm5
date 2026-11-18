@@ -1,0 +1,4 @@
+Calling the texture list=Вызов текстурного списка
+Texture index in the list=Индекс текстуры в списке
+Associates a texture with an object according to index (Index_n)=Связывает текстуру с объектом согласно индекса (Index_n)
+Removes a texture from memory according to index (Index_n)=Удаляет текстуру из памяти согласно индекса (Index_n)

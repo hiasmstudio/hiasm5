@@ -1,0 +1,77 @@
+func DataValue(state)
+  if(state == 1)
+    return(cstr(get('DataOn')))
+  else
+    return(cstr(get('DataOff')))
+  end
+end
+
+func Emit(state)
+  event(onSwitch, DataValue(state))
+  if(state == 1)
+    event(onOn, DataValue(1))
+  else
+    event(onOff, DataValue(0))
+  end
+end
+
+func DefaultInit()
+  if(get('Default') == 0)
+    return(1)
+  else
+    return(0)
+  end
+end
+
+func doSwitch(_data)
+  println('{')
+  block.inclvl()
+  println('int hiasm_sw', _id_, ' = hiasm_int_state(', _id_, ', -1);')
+  println('if(hiasm_sw', _id_, ' < 0) hiasm_sw', _id_, ' = ', DefaultInit(), ';')
+  println('hiasm_sw', _id_, ' = hiasm_sw', _id_, ' == 0 ? 1 : 0;')
+  println('hiasm_int_state(', _id_, ', -1) = hiasm_sw', _id_, ';')
+  println('if(hiasm_sw', _id_, ' == 1) {')
+  block.inclvl()
+  Emit(1)
+  block.declvl()
+  println('} else {')
+  block.inclvl()
+  Emit(0)
+  block.declvl()
+  println('}')
+  block.declvl()
+  println('}')
+end
+
+func doReset(_data)
+  println('hiasm_int_state(', _id_, ', -1) = 0;')
+end
+
+func doOn(_data)
+  println('hiasm_int_state(', _id_, ', -1) = 1;')
+end
+
+func doCheck(_data)
+  println('{')
+  block.inclvl()
+  println('int hiasm_sw', _id_, ' = hiasm_int_state(', _id_, ', -1);')
+  println('if(hiasm_sw', _id_, ' < 0) hiasm_sw', _id_, ' = ', DefaultInit(), ';')
+  println('if(hiasm_sw', _id_, ' == 1) {')
+  block.inclvl()
+  event(onOn, DataValue(1))
+  block.declvl()
+  println('} else {')
+  block.inclvl()
+  event(onOff, DataValue(0))
+  block.declvl()
+  println('}')
+  block.declvl()
+  println('}')
+end
+
+func State()
+  fvar(on, off)
+  on = cstr(get('DataOn'))
+  off = cstr(get('DataOff'))
+  return('([]() { int st = hiasm_int_state(' && _id_ && ', -1); if(st < 0) st = ' && DefaultInit() && '; return (st == 1 ? std::string(' && on && ') : std::string(' && off && ')); }())')
+end

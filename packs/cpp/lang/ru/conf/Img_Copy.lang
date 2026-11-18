@@ -1,0 +1,12 @@
+Copying a picture=Копирование картинки
+X coordinate of the copied area=Координата Х копируемой области
+Y coordinate of the copied area=Координата Y копируемой области
+Copy area width=Ширина копируемой области
+Height of copied area=Высота копируемой области
+Image source: Bitmap - picture, Handle - window or Windows control=Источник изображения: Bitmap - картинка, Handle - окно или элемент управления Windows
+Copies an image from a stream or Source field=Копирует картинку из потока или поля Source
+The event occurs every time after copying an area of the image and outputs it to the stream ARG(Bitmap)=Событие происходит всякий раз после копирования области картинки и выдает её в поток ARG(Bitmap)
+Picture=Картинка
+X coordinate=Координата Х
+Y coordinate=Координата Y
+Contains a copied image=Содержит скопированную картинку

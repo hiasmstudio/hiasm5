@@ -1,0 +1,10 @@
+Setting table cell text=Установка текста ячейки таблицы
+Defines the name of the table to set the text in it=Определяет имя таблицы для установки текста в ней
+Defines a document template=Определяет шаблон документа
+Table column number=Номер колонки таблицы
+Table row number=Номер строки таблицы
+Sets the text in the table cell named TableName, in row Row and column Col ARG(Text, Col, Row)=Устанавливает текст в ячейке таблицы с именем TableName, в строке Row и колонке Col ARG(Text, Col, Row)
+The event occurs every time the text is set=Событие происходит всякий раз после установки текста
+Contains the current text in a table cell=Содержит текущий текст в ячейке таблицы
+Defines the text to be set in a print element=Определяет текст для установки в элементе печати
+Defines an object to change the text in it=Определяет объект для изменения текста в нем

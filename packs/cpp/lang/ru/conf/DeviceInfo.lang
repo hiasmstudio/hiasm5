@@ -1,0 +1,17 @@
+Device information=Информация об устройствах
+Allow showing hidden devices=Разрешить показ скрытых устройств
+Return only non-empty device parameters=Выдавать только непустые параметры устройств
+True - after doStop the onBreak event is called, but onEndEnum is not called=True - после doStop вызывается событие onBreak, а onEndEnum - не вызывается
+Starts enumerating devices in the system=Начинает перечисление устройств в системе
+Retrieves device information by index from the stream or the DeviceIdx field. ARG(DeviceIdx)=Получает информацию об устройстве по индексу из потока или поля DeviceIdx. ARG(DeviceIdx)
+Stops searching devices=Останавливает перебор устройств
+Turns the device on/off. ARG(DeviceIdx, State)=Включает/выключает устройство. ARG(DeviceIdx, State)
+The event occurs every time a new device is found in the system. ARG(ParentID, ID, IconIdx, Name, DeviceIdx, ClassGUID, ConfigFlags)=Событие происходит всякий раз при нахождении очередного устройства в системе. ARG(ParentID, ID, IconIdx, Name, DeviceIdx, ClassGUID, ConfigFlags)
+The event occurs every time the search of all devices in the system is completed. ARG(NULL)=Событие происходит всякий раз по окончанию перебора всех устройств в системе. ARG(NULL)
+The event occurs every time after receiving information about a device by its number. ARG(ParameterName, Info)=Событие происходит всякий раз после получения информации об устройстве по его номеру. ARG(ParameterName, Info)
+The event occurs every time the list of devices is changed=Событие происходит всякий раз после изменения списка устройств
+The event occurs every time after the device is turned on/off and outputs the state of the device to the stream (-1 - it is impossible to change the state of the device, 1 - the device is on, 2 - the device is off). ARG(State)=Событие происходит всякий раз после включения/выключения устройства и выдает в поток состяние устройства (-1 - невозможно измененить состояние устройства, 1 - устройство включено, 2 - устройство выключено). ARG(State)
+Contains the number of device classes found=Содержит количество найденных классов устройств
+Contains the number of devices found=Содержит количество найденных устройств
+Icon array=Массив иконок
+Device index for information=Индекс устройства для получения информации

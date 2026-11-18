@@ -1,0 +1,12 @@
+Desktop switch=Перключатель рабочих столов
+If Down, then additionally press Alt for a key combination=Если Down, то дополнительно нажать Alt для комбинации клавиш
+If Down, then additionally press Ctrl for the key combination=Если Down, то дополнительно нажать Ctrl для комбинации клавиш
+If Down, then additionally press Shift for a key combination=Если Down, то дополнительно нажать Shift для комбинации клавиш
+If Down, then additionally press Win for the key combination=Если Down, то дополнительно нажать Win для комбинации клавиш
+Default desktop number=Номер рабочего стола по-умолчанию
+Launches the desktop switcher. HotKeys (hot keys) - selected combinations of Alt, Ctrl, Shift, Win + 1..5. ARG(StartDSK)=Запускает переключатель рабочих столов. HotKeys (горячие клавиши) - выбранные комбинации Alt, Ctrl, Shift, Win + 1..5. ARG(StartDSK)
+Stops desktop switcher=Останавливает переключатель рабочих столов
+Switches desktops. ARG(NumberDSK)=Переключает рабочие столы. ARG(NumberDSK)
+The event occurs whenever the switch is fired, throwing an error code to the stream. 0 - successful launch, 1 - impossible to create a handler class, 2 - impossible to create a handler window, 3 - impossible to register HotKeys. ARG(Error)=Событие происходит всякий раз после запуска переключателя, выдавая код ошибки в поток. 0 - успешный запуск, 1 - невозможно создать класс обработчика, 2 - невозможно создать окно обработчика, 3 - невозможно зарегистрировать HotKeys. ARG(Error)
+The event occurs whenever the active desktop changes, outputting the new desktop number to the stream. ARG(NumberDSK)=Событие происходит всякий раз при изменении активного рабочего стола, выдавая в поток номер нового рабочего стола. ARG(NumberDSK)
+Desktop number=Номер рабочего стола

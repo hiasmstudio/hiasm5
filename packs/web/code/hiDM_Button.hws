@@ -1,0 +1,24 @@
+section html
+
+func doPrint(_data)
+  switch(Type)
+    case 0:
+      print('<input type="submit" value="' + Caption + '" ')
+    case 1:
+      print('<a href="#" ')
+    case 2:
+      print('<img src="' + Caption + '" ')
+  end
+  include('dmtag_html')
+  print(' onclick=\'return sendCommand("')
+  inc_sec("php")
+  print('(isset($f' + _SITE_ + ') ? $f' + _SITE_ + '[' + "id" + '] : 0)')
+  dec_sec("html")
+  print('","' + _SCOPE_ + '","' + lower((Command == "Custom") ? CommandName : Command) + '", ' + UseAnchor + ');\'')
+  if(Type = 1)
+    print('>' + Caption + '</a')
+  end
+  println('>')
+  event(onPrint, _data)
+end
+

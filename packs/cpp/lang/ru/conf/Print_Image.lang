@@ -1,0 +1,11 @@
+Print pictures=Печать картинки
+Picture=Картинка
+True - set the element dimensions to the same size as the image, False - do nothing=True - установить размеры элемента равными размерам картинки, False - ничего не делать
+Display method: Center - align the image to the center, Stretch - stretch/compress the image to the size of the image, ScaleMin - fit the image into the image area (while maintaining proportions) completely, Mosaic - tile (mosaic), None - display the image as is, ScaleMax - fit the image into the image area (while maintaining proportions) without voids=Способ отображения: Center - выравнивание картинки по центру, Stretch - растягивание/сжатие картинки до размеров изображения, ScaleMin - вписывание картинки в область изображения (с сохранением пропорции) полностью, Mosaic - замостить (мозаика), None - отображать картинку как есть, ScaleMax - вписывание картинки в область изображения (с сохранением пропорции) без пустот
+Frame=Рамка
+Frame style=Стиль рамки
+Frame size=Размер рамки
+Frame color=Цвет рамки
+Fill=Заливка
+Fill style=Стиль заливки
+Fill color=Цвет заливки

@@ -1,0 +1,11 @@
+Proxy server=Прокси сервер
+IP address of the computer for connecting to the Internet=IP адрес компьютера для подключения к Internet
+Port from which requests are received=Порт, с которого принимаются запросы
+Port to which requests are sent=Порт, на который отправляются запросы
+Is user authorization required?=Требуется ли авторизация пользователей
+Activates the Proxy server=Активирует Прокси сервер
+Deactivates the Proxy server=Деактивирует Прокси сервер
+Returns the URL of the link requested by the client=Возвращает URL ссылки, запрашиваемой клиентом
+The event occurs whenever there is an error in the Proxy server.=Событие происходит всякий раз при ошибке в работе Прокси сервера
+Number of active requests=Количество активных запросов
+String array of access users and passwords. String format - user:password=Строковый массив пользователей и паролей доступа. Формат строки - user:password

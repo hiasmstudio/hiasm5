@@ -1,0 +1,10 @@
+Pop-up text=Всплывающая надпись
+Message title=Заголовок сообщения
+Icon to the left of the header=Иконка слева от заголовка
+Ballon - a tooltip appears above the element, Track - the tooltip is displayed using the doShow method=Ballon - подсказка появляется над элементом, Track - вывод подсказки задается методом doShow
+Creates a tooltip=Создает всплывающую подсказку
+Destroys the tooltip=Уничтожает всплывающую подсказку
+Shows a hint=Показывает подсказку
+Prompt window ID=Идентификатор окна подсказки
+Text displayed in tooltip=Текст, отображаемый в подсказке
+Hint output coordinates=Координаты вывода подсказки

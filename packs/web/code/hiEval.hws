@@ -1,0 +1,19 @@
+section java
+
+func doEval(_data)
+  if(linked(Result))
+    println(evl, ' = eval(' && Text && ');')
+    event(onEval, evl)
+  else
+    event(onEval, 'eval(' && Text && ')')
+  end
+end
+
+func Result()
+  if(linked(doEval))
+    return(evl)
+  else
+    return('eval(' && Text && ')')
+  end
+end
+

@@ -1,0 +1,8 @@
+Managing DLL Loading=Управление загрузкой DLL библиотек
+Default DLL file name=Имя файла DLL библиотеки по-умолчанию
+Loads a DLL library=Загружает DLL библиотеку
+Unloads a DLL library=Выгружает DLL библиотеку
+The event occurs every time the DLL is loaded=Событие происходит всякий раз после загрузки DLL библиотеки
+The event occurs every time a DLL is unloaded=Событие происходит всякий раз после выгрузки DLL библиотеки
+DLL file name=Имя файла DLL библиотеки
+Contains the identifier of the loaded DLL=Содержит идентификатор загруженной DLL библиотеки

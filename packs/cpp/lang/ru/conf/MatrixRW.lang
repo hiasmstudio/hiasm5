@@ -1,0 +1,12 @@
+Writing and reading from a matrix=Запись и чтение из матрицы
+Specifies the value to write to a matrix cell=Определяет значение для записи в ячейку матрицы
+Defines a matrix column=Определяет столбец матрицы
+Defines a row of a matrix=Определяет строку матрицы
+Reads a cell in column X and row Y=Читает ячейку в столбце X и строке Y
+Writes Value to a cell in column X and row Y=Записывает значение Value в ячейку в столбце X и строке Y
+Sets the matrix size in the format Col + 65536*Row=Устанавливает размер матрицы в формате Col + 65536*Row
+Fills all matrix cells with zeros=Заполняет все ячейки матрицы нулями
+The event occurs after the cell has been read and outputs its value to the stream.=Событие происходит после чтения ячейки и выдаёт в поток её значение
+Contains the number of columns (X) of the matrix=Содержит количество столбцов (X) матрицы
+Contains the number of rows (Y) of the matrix=Содержит количество строк (Y) матрицы
+Defines the matrix with which the element will work=Определяет матрицу, с которой будет работать элемент

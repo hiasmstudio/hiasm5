@@ -1,0 +1,15 @@
+func doMessage(_data)
+  fvar(text, caption, msg, cap)
+  text = '""'
+  msg = d('Message')
+  if(isset(msg))
+    text = cstr(msg)
+  end
+  caption = '""'
+  cap = d('Caption')
+  if(isset(cap))
+    caption = cstr(cap)
+  end
+  println('hiasm_message(', text, ', ', caption, ');')
+  event(onMessage)
+end

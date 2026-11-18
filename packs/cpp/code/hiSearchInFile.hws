@@ -1,0 +1,73 @@
+func Arg(name, fallback)
+  if(linked(name))
+    return(d(name))
+  else
+    return(cstr(fallback))
+  end
+end
+
+func File()
+  return(Arg('FileName', get('FileName')))
+end
+
+func Search()
+  return(Arg('Text', get('Text')))
+end
+
+func Sensitive()
+  if(get('Sensitive') == "True")
+    return(1)
+  else
+    return(0)
+  end
+end
+
+func doSearch(_data)
+  println('{')
+  block.inclvl()
+  println('std::ifstream hiasm_sfile', _id_, '(std::string(', File(), '));')
+  println('const std::string hiasm_needle', _id_, ' = std::string(', Search(), ');')
+  println('const int hiasm_sensitive', _id_, ' = ', Sensitive(), ';')
+  println('std::string hiasm_line', _id_, ';')
+  println('int hiasm_num', _id_, ' = 0;')
+  println('auto hiasm_lower', _id_, ' = [](std::string s) { for(char &c : s) c = static_cast<char>(std::tolower(static_cast<unsigned char>(c))); return s; };')
+  println('while(std::getline(hiasm_sfile', _id_, ', hiasm_line', _id_, ')) {')
+  block.inclvl()
+  println('if(!hiasm_line', _id_, '.empty() && hiasm_line', _id_, '.back() == static_cast<char>(13)) hiasm_line', _id_, '.pop_back();')
+  println('++hiasm_num', _id_, ';')
+  println('hiasm_str_state(', _id_, ' * 10 + 1) = hiasm_line', _id_, ';')
+  println('hiasm_int_state(', _id_, ' * 10 + 2, 0) = hiasm_num', _id_, ';')
+  println('bool hiasm_hit', _id_, ' = false;')
+  println('if(!hiasm_needle', _id_, '.empty()) {')
+  block.inclvl()
+  println('if(hiasm_sensitive', _id_, ') hiasm_hit', _id_, ' = hiasm_line', _id_, '.find(hiasm_needle', _id_, ') != std::string::npos;')
+  println('else hiasm_hit', _id_, ' = hiasm_lower', _id_, '(hiasm_line', _id_, ').find(hiasm_lower', _id_, '(hiasm_needle', _id_, ')) != std::string::npos;')
+  block.declvl()
+  println('}')
+  println('if(hiasm_hit', _id_, ') {')
+  block.inclvl()
+  event(onSearch, 'hiasm_line' && _id_)
+  block.declvl()
+  println('} else {')
+  block.inclvl()
+  event(onNotSearch, 'hiasm_line' && _id_)
+  block.declvl()
+  println('}')
+  block.declvl()
+  println('}')
+  event(onEnd)
+  block.declvl()
+  println('}')
+end
+
+func doStop(_data)
+  println('break;')
+end
+
+func String()
+  return('hiasm_str_state(' && _id_ && ' * 10 + 1)')
+end
+
+func NumStr()
+  return('hiasm_int_state(' && _id_ && ' * 10 + 2, 0)')
+end

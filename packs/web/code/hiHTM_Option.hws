@@ -1,0 +1,14 @@
+include('tag_maker')
+
+section html
+
+func doPrint
+  include('tag_header')
+  if(isset(Value))
+    s &= " value=\"" & Value & "\""
+  end
+  if(Checked = 0)
+    s &= " selected"
+  end
+  include('tag_footer')
+end

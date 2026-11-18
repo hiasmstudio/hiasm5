@@ -1,0 +1,6 @@
+Sending messages to a window=Посылка сообщений окну
+Message number=Номер сообщения
+The purpose of the parameter depends on the Message value and is determined by the OS developer=Назначение параметра зависит от значения Message, и определяется разработчиком ОС
+Sends a message=Отправляет сообщение
+The event occurs every time a message is sent and returns the result to the ARG(Result) stream=Событие происходит всякий раз после отправки сообщения и возвращает результат в поток ARG(Result)
+Form ID=Идентификатор формы

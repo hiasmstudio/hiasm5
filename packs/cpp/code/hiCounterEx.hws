@@ -1,0 +1,102 @@
+func Counter()
+  return('hiasm_int_state(' && _id_ && ', ' && get('Default') && ')')
+end
+
+func doNext(_data)
+  println('{')
+  block.inclvl()
+  println('int &hiasm_cnt', _id_, ' = ', Counter(), ';')
+  println('const int hiasm_cmin', _id_, ' = ', get('Min'), ';')
+  println('const int hiasm_cmax', _id_, ' = ', get('Max'), ';')
+  println('const int hiasm_cstep', _id_, ' = ', get('Step'), ';')
+  if(get('Direct') == 1)
+    println('hiasm_cnt', _id_, ' -= hiasm_cstep', _id_, ';')
+    println('if(hiasm_cnt', _id_, ' < hiasm_cmin', _id_, ') {')
+    block.inclvl()
+    println('hiasm_cnt', _id_, ' = hiasm_cmax', _id_, ';')
+    event(onThroughMin)
+    block.declvl()
+    println('}')
+  else
+    println('hiasm_cnt', _id_, ' += hiasm_cstep', _id_, ';')
+    println('if(hiasm_cnt', _id_, ' > hiasm_cmax', _id_, ') {')
+    block.inclvl()
+    println('hiasm_cnt', _id_, ' = hiasm_cmin', _id_, ';')
+    event(onThroughMax)
+    block.declvl()
+    println('}')
+  end
+  event(onNext, 'hiasm_cnt' && _id_)
+  block.declvl()
+  println('}')
+end
+
+func doPrev(_data)
+  println('{')
+  block.inclvl()
+  println('int &hiasm_cnt', _id_, ' = ', Counter(), ';')
+  println('const int hiasm_cmin', _id_, ' = ', get('Min'), ';')
+  println('const int hiasm_cmax', _id_, ' = ', get('Max'), ';')
+  println('const int hiasm_cstep', _id_, ' = ', get('Step'), ';')
+  if(get('Direct') == 1)
+    println('hiasm_cnt', _id_, ' += hiasm_cstep', _id_, ';')
+    println('if(hiasm_cnt', _id_, ' > hiasm_cmax', _id_, ') {')
+    block.inclvl()
+    println('hiasm_cnt', _id_, ' = hiasm_cmin', _id_, ';')
+    event(onThroughMax)
+    block.declvl()
+    println('}')
+  else
+    println('hiasm_cnt', _id_, ' -= hiasm_cstep', _id_, ';')
+    println('if(hiasm_cnt', _id_, ' < hiasm_cmin', _id_, ') {')
+    block.inclvl()
+    println('hiasm_cnt', _id_, ' = hiasm_cmax', _id_, ';')
+    event(onThroughMin)
+    block.declvl()
+    println('}')
+  end
+  event(onNext, 'hiasm_cnt' && _id_)
+  block.declvl()
+  println('}')
+end
+
+func doReset(_data)
+  println('{')
+  block.inclvl()
+  println('int &hiasm_cnt', _id_, ' = ', Counter(), ';')
+  println('hiasm_cnt', _id_, ' = ', get('Default'), ';')
+  event(onSet, 'hiasm_cnt' && _id_)
+  block.declvl()
+  println('}')
+end
+
+func doValue(_data)
+  fvar(value)
+  value = _data
+  if(len(value) == 0)
+    value = get('Default')
+  end
+  println('{')
+  block.inclvl()
+  println('int &hiasm_cnt', _id_, ' = ', Counter(), ';')
+  println('hiasm_cnt', _id_, ' = static_cast<int>(', value, ');')
+  event(onSet, 'hiasm_cnt' && _id_)
+  block.declvl()
+  println('}')
+end
+
+func Count()
+  return(Counter())
+end
+
+func Max()
+  return(get('Max'))
+end
+
+func Min()
+  return(get('Min'))
+end
+
+func Direct()
+  return(get('Direct'))
+end

@@ -1,0 +1,10 @@
+Browse directories, printers and computers=Обзор каталогов, принтеров и компьютеров
+Viewed objects=Просматриваемые объекты
+Text in the object selection dialog=Текст в диалоге выбора объекта
+Adding an input field to a dialog=Добавление поля ввода в диалог
+Applying a new dialog style - resizable, input field at the bottom, ability to add a 'Create Folder' button=Применение нового стиля диалога - изменяемый размер, поле ввода внизу, возможность добавления кнопки 'Создать папку'
+Adding a 'Create Folder' button to the dialog (only works in conjunction with the NewStyle option)=Добавление кнопки 'Создать папку' в диалог (работает только совместно с опцией NewStyle)
+The default folder from which to start viewing Folders and Files objects=Папка по умолчанию с которой начинается просмотр объектов Folders и Files
+Opens the object selection dialog=Открывает диалог выбора объектов
+Returns the name of the selected object=Возвращает имя выбранного объекта
+If nothing is selected=Если ничего не выбрано

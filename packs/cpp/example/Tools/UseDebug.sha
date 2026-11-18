@@ -1,0 +1,131 @@
+*Небольшая демонстрация возможностей по отладки схем HiAsm на основе специального компонента Debug.
+Make(cpp)
+Add(MainForm,40891,14,112)
+{
+ Left=368
+ Top=303
+ Width=288
+ Height=163
+}
+Add(Label,26794,343,154)
+{
+ Left=180
+ Top=50
+ Font=[Arial,8,0,0,1]
+}
+Add(InfoTip,76217,70,175)
+{
+ Info=#27:Просмотр содержимого потока|
+ Font=[Times New Roman,9,0,0,1]
+ VAlign=2
+ Width=218
+ Height=74
+}
+Add(Debug,96885,189,189)
+{
+ EventDelay=1000
+ WEName="случайное число"
+ VDName=""
+ LogCount=10
+ link(onEvent,55463:doText,[])
+}
+Add(MultiElementEx,14285444,210,112)
+{
+ link(onEvent1,7401:doText,[])
+ link(onEvent2,26794:doText,[(315,125)(315,160)])
+ link(onEvent3,66597:doText,[(307,132)(307,202)])
+ link(onEvent4,17596:doText,[(298,139)(298,244)])
+}
+BEGIN_SDK
+  Add(EditMultiEx,5658060,21,21)
+  {
+   WorkCount=#8:doEvent1|
+   EventCount=#8:onEvent1|8:onEvent2|8:onEvent3|8:onEvent4|
+   link(doEvent1,81859:doEvent1,[(35,27)(35,132)])
+  }
+  Add(Counter,4953,147,84)
+  {
+  }
+  Add(Hub,81859,49,126)
+  {
+   link(onEvent1,4953:doNext,[(89,132)(89,90)])
+   link(onEvent2,20734:doNext,[])
+  }
+  Add(InfoTip,21393,112,42)
+  {
+   Info=#24:Содержимое потока данных|
+   Font=[Times New Roman,9,0,0,1]
+   Width=99
+   Height=137
+  }
+  Add(Counter,20734,98,133)
+  {
+   Max=3
+   link(onNext,46540:doEvent,[])
+  }
+  Add(Debug,46540,147,133)
+  {
+   WEName="Timer"
+   VDName="Counter(счетчик)"
+   link(onEvent,50318:doEvent,[])
+   link(Data,4953:Count,[])
+  }
+  Add(IndexToChanel,50318,196,133)
+  {
+   Count=4
+   Point(Data)
+   link(onEvent1,5658060:onEvent1,[(269,139)(269,27)])
+   link(onEvent2,5658060:onEvent2,[(274,146)(274,34)])
+   link(onEvent3,5658060:onEvent3,[(279,153)(279,41)])
+   link(onEvent4,5658060:onEvent4,[(284,160)(284,48)])
+   link(Data,46540:Var,[(202,123)(178,123)(178,155)(153,155)])
+  }
+END_SDK
+Add(Label,55463,238,189)
+{
+ Left=75
+ Top=30
+ Font=[Arial,8,0,0,1]
+}
+Add(Label,17596,343,238)
+{
+ Left=180
+ Top=90
+ Font=[Arial,8,0,0,1]
+}
+Add(InfoTip,36,105,63)
+{
+ Info=#18:Отладка приложений|0:|0:|0:|0:|0:|0:|
+ Font=[Times New Roman,12,1,0,1]
+ Frame=1
+ Width=260
+ Height=18
+}
+Add(Label,66597,343,196)
+{
+ Left=180
+ Top=70
+ Font=[Arial,8,0,0,1]
+}
+Add(Button,68437,77,189)
+{
+ Left=10
+ Top=25
+ Font=[Arial,8,0,0,1]
+ link(onClick,91721:doRandom,[])
+}
+Add(Label,7401,343,112)
+{
+ Left=180
+ Top=30
+ Font=[Arial,8,0,0,1]
+}
+Add(Timer,99202,77,112)
+{
+ Interval=5000
+ link(onTimer,14285444:doEvent1,[])
+}
+Add(Random,91721,133,189)
+{
+ link(onRandom,96885:doEvent,[])
+}

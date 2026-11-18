@@ -1,0 +1,146 @@
+*Замена символов в строке
+Make(cpp)
+ver(4.01 build 174)
+Add(MainForm,2282860,343,301)
+{
+ Height=103
+ link(onCreate,4945128:doFor,[(387,321)(387,237)])
+}
+Add(Button,15441365,245,294)
+{
+ Left=15
+ Top=10
+ link(onClick,5886676:doStart,[])
+}
+Add(Edit,13843764,630,294)
+{
+ Left=15
+ Top=45
+ Width=370
+ Text=""
+}
+Add(TimeCounter,5886676,294,294)
+{
+ link(onStart,10857108:doData,[])
+ link(onStop,2282860:doCaption,[])
+}
+Add(For,4945128,399,231)
+{
+ End=4000
+ link(onEvent,13449648:doData,[])
+}
+Add(DoData,13449648,448,231)
+{
+ Data=String(abcdef)
+ link(onEventData,15263619:doAdd,[])
+}
+Add(FTCG_Tools,14820036,546,294)
+{
+ link(onEventData,2283744:doEvent1,[])
+}
+BEGIN_SDK
+  Add(EditMultiEx,1482937,21,21)
+  {
+   WorkCount=#6:doLoad|
+   EventCount=#11:onEventData|
+   Width=524
+   Height=270
+   link(doLoad,6705677:doLoad,[(45,27)(45,167)])
+  }
+  Add(FT_StringToArray,6705677,70,161)
+  {
+   link(onLoad,7260127:doFor,[])
+  }
+  Add(FT_For,7260127,140,161)
+  {
+   link(onEvent,1512675:doRead,[])
+   link(onStop,5303827:doData,[(184,174)(184,251)])
+   link(End,11947356:Result,[])
+  }
+  Add(FT_Length,11947356,140,98)
+  {
+   link(SrcStr,15886883:Var1,[(146,86)(111,86)])
+  }
+  Add(StrArray,16720356,294,56)
+  {
+   Strings=#1:a|1:b|1:c|1:d|1:e|1:f|
+   ItemType=1
+  }
+  Add(StrArray,671088,476,56)
+  {
+   Strings=#1:f|1:e|1:d|1:c|1:b|1:a|
+   ItemType=1
+  }
+  Add(FT_For,12722083,294,161)
+  {
+   link(onEvent,11896581:doRead,[])
+   link(End,14590584:Size,[])
+  }
+  Add(ArrayRead,1512675,196,161)
+  {
+   link(onRead,13285032:doData,[])
+   link(Array,12188210:Var2,[])
+  }
+  Add(ArraySize,14590584,294,112)
+  {
+   link(Array,9580795:Var2,[])
+  }
+  Add(ArrayRead,11896581,350,161)
+  {
+   link(onRead,3887820:doCompare,[])
+   link(Array,9580795:Var3,[(356,100)])
+  }
+  Add(GetDataEx,9580795,287,91)
+  {
+   link(Data,16720356:Array,[])
+  }
+  Add(FT_If_else,3887820,406,161)
+  {
+   link(onTrue,11279351:doWrite,[])
+   link(Op2,1512675:Item,[(419,154)(237,154)(237,208)(202,208)])
+  }
+  Add(ArrayWrite,11279351,462,161)
+  {
+   link(onWrite,12722083:doStop,[(508,167)(508,215)(284,215)(284,174)])
+   link(Array,12188210:Var3,[(468,149)])
+   link(Index,7260127:Position,[(475,149)(516,149)(516,222)(146,222)])
+   link(Value,5542732:Item,[])
+  }
+  Add(GetDataEx,12188210,189,140)
+  {
+   Angle=3
+   link(Data,6705677:Array,[(58,149)(58,205)(76,205)])
+  }
+  Add(ArrayRead,5542732,476,105)
+  {
+   link(Array,671088:Array,[])
+   link(Index,12722083:Position,[(489,93)(395,93)(395,205)(300,205)])
+  }
+  Add(FT_DoData,5303827,196,245)
+  {
+   link(onEventData,1482937:onEventData,[(528,251)(528,27)])
+   link(Data,15886883:Var2,[(202,231)(111,231)])
+  }
+  Add(GetDataEx,15886883,98,203)
+  {
+   Angle=3
+   link(Data,6705677:Str,[(83,212)])
+  }
+  Add(FT_DoData,13285032,245,161)
+  {
+   link(onEventData,12722083:doFor,[])
+  }
+END_SDK
+Add(DoData,10857108,497,294)
+{
+ link(onEventData,14820036:doLoad,[])
+ link(Data,15263619:Text,[])
+}
+Add(StrList,15263619,497,231)
+{
+}
+Add(Hub,2283744,595,294)
+{
+ link(onEvent1,13843764:doText,[])
+ link(onEvent2,5886676:doStop,[(621,307)(621,338)(285,338)(285,307)])
+}

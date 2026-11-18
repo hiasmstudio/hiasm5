@@ -1,0 +1,6 @@
+Button=Кнопка
+Caption on the button=Надпись на кнопке
+Data emitted to the stream by the onClick event=Данные, выдаваемые в поток событием onClick
+Element display style=Стиль отображения элемента
+Defines the default button=Определает кнопку по-умолчанию
+The event occurs every time the button is clicked and outputs the value of the Data property to the stream if it was specified ARG(Data)=Событие происходит всякий раз при нажатии на кнопку и выдает в поток значение св-ва Data, если оно было задано ARG(Data)

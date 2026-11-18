@@ -1,0 +1,10 @@
+Axes=Оси
+X axis color=Цвет оси X
+Y axis color=Цвет оси Y
+Z axis color=Цвет оси Z
+Axle length=Длина осей
+Axes label=Подпись осей
+Letter size=Размер букв
+Axle distance=Расстояние от осей
+Draws the axes=Отрисовывает оси
+The event occurs after the axes are drawn=Событие происходит после отрисовки осей

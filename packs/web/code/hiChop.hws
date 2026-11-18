@@ -1,0 +1,17 @@
+func doChop(_data)
+  if(linked(Result))
+    println(rslt, ' = chop(', Value, ');')
+    event(onChop, rslt)
+  else
+    event(onChop, 'chop(' && Value && ')')
+  end 
+end
+
+func Result()
+  if(linked(doChop))
+    return(rslt)
+  else
+    return('chop(' && Value && ')')
+  end
+end
+

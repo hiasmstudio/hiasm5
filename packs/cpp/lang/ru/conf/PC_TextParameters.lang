@@ -1,0 +1,9 @@
+Text Parameter Controller=Контроллер текстовых параметров
+Defines parameters for default text print elements=Определяет параметры для элементов печати текста по-умолчанию
+Defines a document template=Определяет шаблон документа
+Sets parameters in text print elements ARG(Parameters)=Устанавливает параметры в элементах печати текста ARG(Parameters)
+Begins enumerating the parameters of named text print elements=Начинает перечисление параметров именованных элементов печати текста
+The event occurs every time after setting the parameters=Событие происходит всякий раз после установки параметров
+The event occurs every time after receiving the parameter of the next element ARG(Parameters)=Событие происходит всякий раз после получения параметра очередного элемента ARG(Parameters)
+The event occurs after the elements have been iterated=Событие происходит после завершения перебора элементов
+Defines options for text print elements=Определяет параметры для элементов печати текста

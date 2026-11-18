@@ -1,0 +1,80 @@
+Make(cpp)
+Add(MainForm,5760284,21,154)
+{
+ Left=20
+ Top=105
+ Width=370
+ Caption="Print Image"
+}
+Add(Button,10902724,21,28)
+{
+ @Hint=#27:Запуск диалога выбора файла|
+ Width=362
+ Height=30
+ Align=2
+ Font=[MS Sans Serif,10,1,0,1]
+ Caption="Browse image file"
+ link(onClick,5049552:doExecute,[])
+}
+Add(Button,15415409,21,70)
+{
+ Top=236
+ Width=362
+ Height=30
+ Align=4
+ Font=[MS Sans Serif,10,1,0,1]
+ Caption="Print"
+ link(onClick,14309344:doPrint,[(93,76)(93,97)])
+}
+Add(ImageLoader,4434340,168,28)
+{
+ DrawSource=2
+ link(onLoad,4434340:doDraw,[(269,34)(269,82)(156,82)(156,41)])
+ link(onDraw,71505:doLoad,[])
+}
+Add(ODialog,5049552,112,28)
+{
+ Filter="Файлы рисунков( bmp )|*.bmp|Файлы рисунков( jpg )|*.jpg|Файлы рисунков( gif )|*.gif|Файлы рисунков( png )|*.png|All files|*.*|"
+ FileName=""
+ link(onExecute,4434340:doLoad,[])
+}
+Add(Image,71505,224,35)
+{
+ Top=30
+ Width=362
+ Height=176
+ Align=5
+ Color=16777215
+}
+Add(Printer,14309344,133,91)
+{
+ Point(doSettings)
+ Point(CurDPIY)
+ link(onPrint,4383238:doDraw,[(180,97)(180,196)(124,196)(124,160)])
+}
+Add(Img_Bmp,4383238,133,154)
+{
+ X=172
+ Y=10
+ DrawSource=2
+ Point(doDrawSource)
+ link(Bitmap,14309344:Context,[])
+ link(SourceBitmap,71505:ImageBitmap,[(146,140)(230,140)])
+}
+Add(Version,14454214,70,154)
+{
+ Version="1.0"
+ Description="Example of conclusion on the seal of pictures."
+ InternalName="Print image"
+ E-mail="tad@zmail.ru"
+}
+Add(Button,5229203,21,112)
+{
+ Top=206
+ Width=362
+ Height=30
+ Align=4
+ Font=[MS Sans Serif,8,1,0,1]
+ Caption="Printer setting"
+ link(onClick,14309344:doSettings,[(93,118)(93,104)])
+}

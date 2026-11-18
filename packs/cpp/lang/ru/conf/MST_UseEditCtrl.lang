@@ -1,0 +1,15 @@
+Managing external Edit controls MTStrTbl=Управление внешними Edit контролами MTStrTbl
+Message key onEnterCell=Клавиша выдачи сообщения onEnterCell
+True - allow issuing of the onEnterCell message upon double click of the mouse, False - do not allow=True - разрешить выдачу сообщения onEnterCell по двойному клику мыши, False - не разрешать
+Managing the MTStrTbl element=Управление элементом MTStrTbl
+Writes data from a stream to a table using SubItem and Index coordinates=Записывает данные из потока в таблицу по координатам SubItem и Index
+Gets the client rectangle parameters of a given cell=Получает параметры клиентского прямоугольника заданной ячейки
+The event occurs whenever the size of the client area needs to be passed=Событие происходит всякий раз, когда необходимо передать размер клиентской области
+The event occurs whenever it is necessary to exit external access mode to a cell and outputs the contents of the current cell to the stream=Событие происходит всякий раз при необходимости выйти из режима внешнего доступа к ячейке и выдает в поток содержимое текущей ячейки
+The event occurs every time after receiving the parameters of the client rectangle of a given cell and outputs them to the stream=Событие происходит всякий раз после получения параметров клиентского прямоугольника заданной ячейки и выдает их в поток
+Row Matrix=Матрица строк
+Contains the column index of the selected cell=Содержит индекс столбца выделенной ячейки
+Contains the index of the selected row=Содержит индекс выделенной строки
+Contains the value of the selected cell under the cursor=Содержит значение выбранной ячейки под курсором
+Row index=Индекс строки
+Column index=Индекс столбца

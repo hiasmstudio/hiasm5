@@ -1,0 +1,10 @@
+Element name=Имя элемента
+Mail.ru agent server address=Адрес сервера Mail.ru агента
+Mail.ru agent port number=Номер порта Mail.ru агента
+Establishes a connection to the Mail.ru agent server ARG(Host, Port)=Устанавливает соединение с сервером Mail.ru агента ARG(Host, Port)
+Disconnects the connection to the Mail.ru agent server=Разрывает соединение с сервером Mail.ru агента
+The event occurs every time after a successful connection to the Mail.ru agent server is established=Событие происходит всякий раз после успешной установки соединения с сервером Mail.ru агента
+The event occurs every time the connection to the server is lost=Событие происходит всякий раз после потери соединения с сервером
+The event occurs every time an error occurs during the process of establishing a connection to the Mail.ru agent server and issues an error code in the ARG(Error) stream=Событие происходит всякий раз после возникновения ошибки в процессе установления соединения с сервером Mail.ru агента и выдает код ошибки в поток ARG(Error)
+Contains the connection status to the Mail.ru agent server=Содержит статус подключения к серверу Mail.ru агента
+Contains Mail.ru agent identifier=Содержит идентификатор Mail.ru агента

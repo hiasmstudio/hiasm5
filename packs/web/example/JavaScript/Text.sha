@@ -1,0 +1,110 @@
+Make(web)
+ver(6.0.0.0)
+Add(HtmlEntryPoint,6444038,21,105)
+{
+ link(onStart,324267:doPrint,[])
+}
+Add(HTM_Html,324267,77,105)
+{
+ link(onPrint,7465234:doEvent,[])
+}
+Add(HTM_Div,9408152,273,203)
+{
+ Class=#4:main|
+ Id=#4:main|
+ link(onPrint,15576345:doEcho,[])
+}
+Add(HTM_Style,1898430,217,154)
+{
+ link(onPrint,8590754:doPrint,[])
+}
+Add(Hub,7465234,133,105)
+{
+ OutCount=3
+ link(onEvent1,12529672:doPrint,[])
+ link(onEvent2,1898430:doPrint,[(202,118)(202,160)])
+ link(onEvent3,15491478:doPrint,[(191,125)(191,209)])
+}
+Add(HTM_Body,15491478,217,203)
+{
+ link(onPrint,9408152:doPrint,[])
+ Point(onMouseMove)
+ link(onMouseMove,9487447:doPosition,[(261,216)(261,265)])
+ Point(onLoad)
+ link(onLoad,10777630:doData,[(256,223)(256,321)])
+ Point(onBeforeUpdate)
+}
+Add(CSS,8590754,273,154)
+{
+ Name=#4:main|
+ TextAlign=2
+ BgColor=#4:gold|
+ Width=#2:50|
+ Height=#2:50|
+ Position=2
+ VerticalAlign=#6:center|
+ link(onPrint,12069882:doPrint,[])
+}
+Add(Timer,11874539,329,315)
+{
+ Interval=1000
+ link(onTimer,11862226:doOperation,[])
+}
+Add(Echo,15576345,329,203)
+{
+ Message=#5:HiAsm|
+}
+Add(HTM_Head,12529672,217,105)
+{
+ link(onPrint,142091:doPrint,[])
+}
+Add(HTM_Title,142091,273,105)
+{
+ link(onPrint,14521885:doEcho,[])
+}
+Add(Echo,14521885,329,105)
+{
+ Message=#8:Drag box|
+}
+Add(MouseEvent,8759712,385,203)
+{
+}
+Add(Math,11862226,385,315)
+{
+ Op2=1
+ link(onResult,16119938:doInnerHTML,[])
+ link(Op1,11862226:Result,[(391,305)(375,305)(375,357)(391,357)])
+}
+Add(TAG_Position,9487447,273,259)
+{
+ Id=#4:main|
+ link(onPosition,4640436:doPosition,[])
+ link(Value,8759712:X,[(286,247)(391,247)])
+}
+Add(CSS,12069882,329,154)
+{
+ Tag=#4:body|
+ Height=#4:100%|
+}
+Add(TAG_Position,4640436,329,259)
+{
+ Id=#4:main|
+ Place=1
+ link(Value,8759712:Y,[(342,247)(398,247)])
+}
+Add(TAG_InnerHTML,16119938,434,315)
+{
+ Id=#4:main|
+}
+Add(DoData,10777630,273,315)
+{
+ link(onEventData,11874539:doTimer,[])
+}
+Add(CreateFunction,23,574,21)
+{
+}
+BEGIN_SDK
+ Add(FuncBody,22,14,14)
+ {
+ }
+END_SDK

@@ -1,0 +1,5 @@
+Array size=Размер массива
+Gets the size of the array=Получает размер массива
+The event occurs whenever the size of the array is received and outputs it to the stream=Событие происходит всякий раз после получения размера массива и выдает его в поток
+Contains the array size=Содержит размер массива
+Defines an array to get its size=Определяет массив для получения его размера

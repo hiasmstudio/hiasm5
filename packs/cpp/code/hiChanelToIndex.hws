@@ -1,0 +1,3 @@
+func doWork(_index)
+  event(onIndex, _index)
+end

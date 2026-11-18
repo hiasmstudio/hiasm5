@@ -1,0 +1,7 @@
+Running programs on a Win CE device=Запуск программ на устройстве Win CE
+Default application launch options=Параметры запуска приложения по-умолчанию
+Full path to the default file=Полный путь к файлу по-умолчанию
+Launches the application (see FileName)=Запускает приложение (см. FileName)
+The event occurs after the program is launched using the doExec method, outputting 1 to the stream if successful or 0 otherwise.=Событие происходит после запуска программы методом doExec, выдавая в поток 1 в случае успеха или 0 - в противном случае
+Full path to the application=Полный путь к приложению
+Application launch options=Параметры запуска приложения

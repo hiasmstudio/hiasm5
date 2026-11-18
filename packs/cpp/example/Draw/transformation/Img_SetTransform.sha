@@ -1,0 +1,231 @@
+Make(cpp)
+Add(MainForm,2953706,259,224)
+{
+ Width=881
+ Height=418
+ Position=1
+ link(onCreate,507373:doWork2,[])
+}
+Add(PaintBox,7042507,378,91)
+{
+ Left=195
+ Top=90
+ Width=493
+ Height=261
+ Color=12632256
+ Layout="ver01"
+ HeightScale=100
+ ClearBeforeDraw=0
+ Point(Width)
+ Point(Height)
+ link(onBeforeDraw,507373:doWork1,[(418,97)(418,74)(319,74)])
+}
+Add(Img_SetTransform,10116975,371,238)
+{
+ link(onSetTransform,16018092:doEvent1,[])
+ link(onResetTransform,28344:doDraw,[(429,251)(429,370)])
+ link(Bitmap,6315288:Var2,[])
+ link(Point2,7289410:Point,[])
+ link(Transform,5535402:Transform,[(398,210)(545,210)])
+}
+Add(PointXY,7289410,385,140)
+{
+ link(X,7042507:Width,[])
+ link(Y,7042507:Height,[])
+}
+Add(HubEx,507373,315,238)
+{
+ link(onEvent,10116975:doSetTransform,[])
+}
+Add(Img_Text,4412230,476,238)
+{
+ X=25
+ Y=25
+ Font=[Microsoft Sans Serif,10,0,0,204]
+ Text="HiAsm"
+ link(onDraw,5732756:doDraw,[])
+ link(Bitmap,11022583:Var2,[])
+}
+Add(GetDataEx,6315288,371,217)
+{
+ link(Data,7042507:Bitmap,[(377,131)(384,131)])
+}
+Add(Img_Rectangle,5732756,525,238)
+{
+ Point1=3276850
+ Point2=3539067
+ Point2AsOffset=0
+ link(onDraw,2452125:doDraw,[])
+ link(Bitmap,7220623:Var2,[])
+}
+Add(GetDataEx,11022583,476,217)
+{
+ Angle=3
+ link(Data,2772439:Var3,[])
+}
+Add(ScrollBar,14706639,490,70)
+{
+ Left=420
+ Top=5
+ Width=260
+ Layout="gor_01"
+ WidthScale=100
+ Min=1
+ Position=10
+ link(onPosition,904991:doOperation,[])
+}
+Add(Math,904991,546,70)
+{
+ OpType=3
+ Op2=10
+ Default=1
+ link(onResult,12568787:doEvent1,[])
+}
+Add(ScrollBar,5395127,490,112)
+{
+ Left=420
+ Top=35
+ Width=260
+ Layout="gor_02"
+ WidthScale=100
+ Min=1
+ Position=10
+ link(onPosition,8218903:doOperation,[])
+}
+Add(Math,8218903,553,112)
+{
+ OpType=3
+ Op2=10
+ Default=1
+ link(onResult,3462026:doEvent1,[])
+}
+Add(HubEx,14819192,714,70)
+{
+ Angle=3
+ link(onEvent,7042507:doRefresh,[(718,45)(373,45)(373,97)])
+}
+Add(Hub,12568787,595,70)
+{
+ link(onEvent1,14819192:doWork2,[])
+ link(onEvent2,7225363:doStrCat,[])
+}
+Add(Hub,3462026,595,112)
+{
+ link(onEvent1,14819192:doWork3,[(718,118)])
+ link(onEvent2,10055645:doStrCat,[])
+}
+Add(Label,16736062,672,77)
+{
+ Left=370
+ Top=5
+ Width=40
+ Layout="gor_01"
+ Caption="x: 1"
+ AutoSize=1
+}
+Add(StrCat,7225363,623,77)
+{
+ Str1="x: "
+ link(onStrCat,16736062:doText,[])
+}
+Add(Label,16385465,672,119)
+{
+ Left=365
+ Top=35
+ Width=40
+ Layout="gor_02"
+ Caption="y: 1"
+ AutoSize=1
+}
+Add(StrCat,10055645,623,119)
+{
+ Str1="y: "
+ link(onStrCat,16385465:doText,[])
+}
+Add(Hub,16018092,448,238)
+{
+ link(onEvent1,4412230:doDraw,[])
+ link(onEvent2,10116975:doResetTransform,[(467,251)(467,282)(353,282)(353,251)])
+}
+Add(Img_Bmp,2452125,574,238)
+{
+ link(Bitmap,7220623:Var3,[(580,222)])
+ link(SourceBitmap,10803159:Bitmap,[])
+}
+Add(Bitmap,10803159,581,189)
+{
+ Picture=[ZIP3604000078DA95534D4F5341143D26FE00FF01D006786D851A9562E247144C58A9412346175A75438436247E4450CA420DD56235A00D89460503A931B60103341A1B17BA406453CAA60ABCBEF7FAFDB1E8067775E6BE3E4213A9619293C9DC33E7DE73EF645A4E58768296854160D855C20E54AB4489DFBC8AC5E296387FE167457E2BDCEDFF8E06F3187A7A3E229BCD229FCF6F4B7FF8C8386A742E5CBF31854C268368544643E3285A5A8315755E6F18E9741A172F79497FF3D6349DD7D624D4D63D80BE7618274FF9FFA9DDBB6F021DE7DE209148A2FD8C5ABFEFCE0C52A914565745188C831473B982CC53794F673BE6A1D3BB61BDFC1AC3235F512FB8E9AEC33147FE254961FE1F52ACDF31CB3C6590CBE536F4CD07DE13572FB868D73030304BFE1525C6FCA9319BCD8F643259A637EF192FD369B877FF13F98F4625589A872866B5BE63B134F9D2F4A6DD2F88D3E99DE8EC7CC5F6C7741E747EA67BB1581C070FA93DB59F7E4B39F9BB6A7AA3699438B7DB87951509553543A5597D217D3C9EC0D1634F28D67AFC25E5E37D697AC1E861DC230402F3585A1251C7E677BB770691884C7ADE6F5BDB08E99B2C1E7AA3CDF505C37354553BB1B8B8CC669D40382C527E0DDC6F30B88CAE6E3F1ACDCF983E51A637983CB0D97DE493DFE7F9E7023F70E5EA18AE754DE083EF1B6459613E521045D53BD7AFAFFFC1D4F42F4C4E86E8CCC16B8542BF61B7FBB1BFC9C366F314DDECCD161622C4F17E2AFD091EE73CAFC1EBC94A72E3BDB6FB8F0A85C27F357F01C7A43AA2]
+}
+Add(GetDataEx,7220623,525,217)
+{
+ Angle=3
+ link(Data,6769070:Var3,[])
+}
+Add(Img_Text,1190919,497,364)
+{
+ X=200
+ Y=200
+ Font=[Microsoft Sans Serif,10,1,16777215,204]
+ Text="Не трансформируюсь"
+ link(Bitmap,6769070:Var2,[])
+}
+Add(GetDataEx,2772439,441,217)
+{
+ Angle=3
+ link(Data,6315288:Var3,[])
+}
+Add(HBoxLayout,16202855,784,63)
+{
+ Name="gor_01"
+ Layout="ver01"
+}
+Add(HBoxLayout,11737305,784,105)
+{
+ Name="gor_02"
+ Padding=2
+ Layout="ver01"
+}
+Add(VBoxLayout,1545770,784,147)
+{
+ Name="ver01"
+}
+Add(Img_Rectangle,28344,441,364)
+{
+ Point1=13107400
+ Point2AsOffset=0
+ Style=1
+ rX=25
+ rY=25
+ Color=12639424
+ BgColor=8388736
+ Point(Transform)
+ Point(Point2)
+ link(onDraw,1190919:doDraw,[])
+ link(Bitmap,2772439:Var2,[])
+ link(Transform,8950174:Transform,[])
+ link(Point2,12113892:Point,[(468,352)(486,352)(486,464)(503,464)])
+}
+Add(PointXY,12113892,497,406)
+{
+ link(X,1190919:TextWidth,[])
+ link(Y,1190919:TextHeight,[])
+}
+Add(GetDataEx,6769070,497,217)
+{
+ Angle=3
+ link(Data,11022583:Var3,[])
+}
+Add(Img_UseScale,8950174,455,315)
+{
+ X=1.2
+ Y=1.2
+}
+Add(Img_UseScale,5535402,539,161)
+{
+ X=1.2
+ Y=1.2
+ Mode=1
+ link(X,904991:Result,[])
+ link(Y,8218903:Result,[])
+ AddHint(-67,1,52,13,Mode)
+}

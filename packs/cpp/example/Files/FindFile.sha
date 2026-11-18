@@ -1,0 +1,160 @@
+*Поиск файлов по части имени
+Make(delphi)
+Add(MainForm,47236,161,133)
+{
+ Left=312
+ Top=284
+ Width=394
+ Height=240
+ Caption=""
+ TaskBar=1
+ link(onCreate,26907:doWork1,[(207,153)(207,176)(44,176)(44,48)])
+}
+Add(Case,41240,294,105)
+{
+ Value=Integer(13)
+ link(onTrue,98773:doData,[(338,118)(338,181)])
+}
+Add(WinExec,36387,448,175)
+{
+ FileName="explorer.exe"
+}
+Add(ListBox,11838,217,91)
+{
+ Top=56
+ Width=386
+ Height=159
+ Align=5
+ Font=[Arial,8,0,0,1]
+ AddType=1
+ Point(String)
+ Point(onKeyDown)
+ link(onKeyDown,41240:doCase,[])
+}
+Add(DoData,98773,350,175)
+{
+ link(onEventData,47848:doPart,[])
+ link(Data,11838:String,[(356,144)(244,144)])
+}
+Add(FilePart,47848,399,175)
+{
+ ExtPoint=0
+ link(onPath,36387:doExec,[])
+}
+Add(DoData,22111,161,91)
+{
+ link(onEventData,11838:doAdd,[])
+ link(Data,80529:Value,[])
+}
+Add(Hub,18155,105,42)
+{
+ link(onEvent1,80529:doValue,[])
+ link(onEvent2,47236:doCaption,[(149,55)(149,139)])
+}
+Add(Memory,80529,161,42)
+{
+}
+Add(ChildPanel,26907,56,42)
+{
+ link(onEvent1,18155:doEvent1,[])
+ link(onEvent2,22111:doData,[(101,55)(101,97)])
+}
+BEGIN_SDK
+  Add(EditMulti,79906,14,14)
+  {
+   EventCount=2
+   WorkCount=1
+   Width=395
+   Height=180
+   link(doWork1,11485283:doResize,[(24,20)(24,146)])
+  }
+  Add(Panel,70107,84,140)
+  {
+   Width=386
+   Align=2
+   Font=[Arial,8,0,0,1]
+   BorderWidth=0
+   BevelInner=0
+  }
+  Add(Memory,7285,280,98)
+  {
+  }
+  Add(FileSearch,75168,84,84)
+  {
+   Dir="C:\"
+   link(onSearch,93078:doEvent1,[])
+   link(Dir,37612:Text,[])
+  }
+  Add(Button,75934,35,84)
+  {
+   Left=5
+   Top=5
+   Width=50
+   Height=40
+   Font=[Arial,8,0,0,1]
+   Layout="all"
+   Caption="Find"
+   link(onClick,75168:doSearch,[])
+  }
+  Add(StrCase,44041,231,98)
+  {
+   link(onModify,7285:doValue,[])
+  }
+  Add(Hub,93078,133,84)
+  {
+   OutCount=3
+   link(onEvent1,79906:onEvent1,[(175,90)(175,20)])
+   link(onEvent2,5091:doPart,[])
+   link(onEvent3,58508:doSearch,[(173,104)(173,153)])
+  }
+  Add(Position,58508,280,147)
+  {
+   StartPos=0
+   ShortSearch=1
+   link(onSearch,79906:onEvent2,[(377,153)(377,27)])
+   link(Str,7285:Value,[])
+   link(Target,92259:Text,[(293,139)(335,139)])
+  }
+  Add(FilePart,5091,189,91)
+  {
+   ExtPoint=0
+   link(onName,44041:doModify,[])
+  }
+  Add(DropFile,20941,35,28)
+  {
+   link(onDropFile,37612:doText,[])
+  }
+  Add(Edit,37612,91,28)
+  {
+   Left=60
+   Top=5
+   Width=300
+   Height=21
+   Font=[Arial,8,0,0,1]
+   Layout="editors"
+   Text="D:\"
+  }
+  Add(VBoxLayout,2330541,413,210)
+  {
+   Name="editors"
+   Space=2
+   WidthScale=100
+   Layout="all"
+  }
+  Add(HBoxLayout,11485283,35,140)
+  {
+   Name="all"
+   Space=2
+   Padding=3
+  }
+  Add(Edit,92259,329,98)
+  {
+   Left=60
+   Top=30
+   Width=300
+   Height=21
+   Font=[Arial,8,0,0,1]
+   Layout="editors"
+   Text=""
+  }
+END_SDK

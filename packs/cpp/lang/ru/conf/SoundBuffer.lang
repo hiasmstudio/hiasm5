@@ -1,0 +1,7 @@
+Audio Data Buffer=Буфер звуковых данных
+Buffer size in bytes=Размер буфера в байтах
+Adds data to the buffer=Добавляет данные в буфер
+The event occurs every time data is added to the buffer=Событие происходит всякий раз после добавления данных в буфер
+Contains data from a buffer=Содержит данные из буфера
+Buffer full status (percentage)=Состояние заполнения буфера (в процентах)
+Data to be added to the buffer=Данные для добавления в буфер

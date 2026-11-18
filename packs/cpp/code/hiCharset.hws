@@ -1,0 +1,43 @@
+func Data(value)
+  if(linked('Text'))
+    return(d('Text'))
+  end
+  if(len(value) > 0)
+    return(value)
+  end
+  return('""')
+end
+
+func B64ENC(text)
+  return('[](const std::string &s) { static const char table[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"; std::string out; int value = 0, bits = -6; for(unsigned char c : s) { value = (value << 8) + c; bits += 8; while(bits >= 0) { out += table[(value >> bits) & 63]; bits -= 6; } } if(bits > -6) out += table[((value << (-bits)) & 63)]; while(out.size() % 4) out += static_cast<char>(61); return out; }(' && text && ')')
+end
+
+func B64DEC(text)
+  return('[](const std::string &s) { auto digit = [](char c) { if(c >= 65 && c <= 90) return c - 65; if(c >= 97 && c <= 122) return c - 97 + 26; if(c >= 48 && c <= 57) return c - 48 + 52; if(c == 43) return 62; if(c == 47) return 63; return -1; }; std::string out; int value = 0, bits = -8; for(char c : s) { const int d = digit(c); if(d < 0) continue; value = (value << 6) + d; bits += 6; if(bits >= 0) { out += static_cast<char>((value >> bits) & 0xFF); bits -= 8; } } return out; }(' && text && ')')
+end
+
+func URLENC(text)
+  return('[](const std::string &s) { static const char digits[] = "0123456789ABCDEF"; std::string out; for(unsigned char c : s) { if((c >= 65 && c <= 90) || (c >= 97 && c <= 122) || (c >= 48 && c <= 57) || c == 45 || c == 95 || c == 46 || c == 126) out += static_cast<char>(c); else { out += static_cast<char>(37); out += digits[c >> 4]; out += digits[c & 15]; } } return out; }(' && text && ')')
+end
+
+func URLDEC(text)
+  return('[](const std::string &s) { auto digit = [](char c) { return static_cast<int>(c >= 48 && c <= 57 ? c - 48 : (c >= 65 && c <= 70 ? c - 55 : (c >= 97 && c <= 102 ? c - 87 : 0))); }; std::string out; for(std::size_t i = 0; i < s.size(); ++i) { if(s[i] == 37 && i + 2 < s.size()) { out += static_cast<char>((digit(s[i + 1]) << 4) | digit(s[i + 2])); i += 2; } else out += s[i]; } return out; }(' && text && ')')
+end
+
+func Expr(value)
+  fvar(mode, text)
+  mode = get('Type')
+  text = 'std::string(' && Data(value) && ')'
+  switch(mode)
+    case 4: return(B64ENC(text))
+    case 5: return(B64DEC(text))
+    case 11: return(URLENC(text))
+    case 12: return(URLDEC(text))
+    default: return(text)
+  end
+end
+
+func doCharset(_data)
+  println('hiasm_str_state(', _id_, ') = ', Expr(_data), ';')
+  event(onCharset, 'hiasm_str_state(' && _id_ && ')')
+end

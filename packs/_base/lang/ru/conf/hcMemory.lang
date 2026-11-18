@@ -1,0 +1,7 @@
+Remember data from thread=Запоминает данные из потока
+Defines data by default=Хранит данные по умолчанию
+Saves data to memory=Запоминает данные в памяти
+Reset memory to default value=Устанавливает ячейку памяти в исходное состояние (т.е. приравнивает её значению по умолчанию)
+Event emit every time after change data in memory and give it in thread=Событие происходит всякий раз после изменения данных, их же и выдавая обратно в поток
+Contain data from memory=Содержит данные из ячейки памяти
+Defines data for saving in memory=Данные для запоминания методом doValue

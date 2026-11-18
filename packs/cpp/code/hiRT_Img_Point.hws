@@ -1,0 +1,10 @@
+func doDraw(_data)
+  println('#if !defined(_WIN32)')
+  println('#error "RT_Img_Point is a Windows-only drawing element"')
+  println('#endif')
+  println('HDC hiasm_dc', _id_, ' = reinterpret_cast<HDC>(static_cast<intptr_t>(Bitmap));')
+  println('if(std::string("', DrawSource, '") == "Handle") hiasm_dc', _id_, ' = GetDC(reinterpret_cast<HWND>(static_cast<intptr_t>(Bitmap)));')
+  println('if(std::string("', DrawSource, '") == "Bitmap") { static HDC hiasm_mem', _id_, ' = CreateCompatibleDC(NULL); SelectObject(hiasm_mem', _id_, ', reinterpret_cast<HBITMAP>(static_cast<intptr_t>(Bitmap))); hiasm_dc', _id_, ' = hiasm_mem', _id_, '; }')
+  println('SetPixel(hiasm_dc', _id_, ', static_cast<int>(', X, '), static_cast<int>(', Y, '), RGB(0, 0, 0));')
+  event(onDraw)
+end

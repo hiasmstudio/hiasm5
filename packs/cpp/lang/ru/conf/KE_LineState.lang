@@ -1,0 +1,6 @@
+Getting the status of I/O lines=Получение статуса линий ввода/вывода
+Determines the number of the line about which information needs to be obtained (if 0, then information will be received for all lines at once)=Определяет номер линии, информацию о которой необходимо получить (если 0, то информация будет получена для всех линий сразу)
+Current - information about the line state will correspond to the current moment, Memory - information about the line state will be taken from non-volatile memory=Current - информация о состоянии линии будет соответствовать текущему моменту, Memory - информация о состоянии линии будет взята из энергонезависимой памяти
+USB device=Устройство USB
+Retrieves information about the status of a line or lines ARG(Line)=Получает информацию о состоянии линии или линий ARG(Line)
+The event occurs every time after receiving information about the state of the line(s) and outputs it to the ARG([Line], State) stream=Событие происходит всякий раз после получения информации о состоянии линии(ий) и выдает ее в поток ARG([Line], State)

@@ -1,0 +1,8 @@
+Setting an external cursor=Установка внешнего курсора
+Default cursor file name=Имя файла курсора по-умолчанию
+Resets the cursor to standard when an element is destroyed=Сбрасывает курсор в стандартный при уничтожении элемента
+Element Control=Управление элементом
+Loads and sets a cursor from a file by name from the stream or the FileCurName field=Звгружает и устанавливает курсор из файла по имени из потока или поля FileCurName
+Resets the cursor to standard=Сбрасывает курсор в стандартный
+The event occurs after the cursor is loaded and placed=Событие происходит после загрузки и установки курсора
+Cursor file name=Имя файла курсора

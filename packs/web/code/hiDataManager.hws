@@ -1,0 +1,136 @@
+func printSection(evn)
+  fvar(old,s)
+  
+  old = block.select(block.reggen())
+  block.lvloff()
+  event(evn:html)
+  s = block.astext() 
+  block.delete(block.select(old))
+  println('echo ', s, ';')
+end
+
+func beginForm(id, up, attr)
+  fvar(p)   
+  _SCOPE_ = code(id)
+  p = str(_SITE_)
+  if(linked(onPages))
+    p &= "&start=\".$start.\""
+  end
+  if(str(up) != "")
+    p &= "&" & up
+  end
+  println('echo ', "<form onsubmit='return(false);' id=\\\"mform" & id & "\\\" " & attr & " action=\\\"?form=" & p & "\\\" method=\\\"post\\\">", ';')
+  println('echo "<input type=\"hidden\" id=\"id' + code(id) + '\" name=\"id\">";')
+end
+
+func doMakeManager(_data)
+  if(DataSource == 0)
+    error("DataSource property not defined!")
+    return()
+  end
+  include("dm_head")
+
+  //------server--------------
+  
+  if(linked(onPages))
+    println('$start = isset($_GET["start"]) ? (int)$_GET["start"] : 0;')
+  end
+  println('$do_cmd = isset($_GET["cmd"]) && isset($_GET["form"]) && $_GET["form"] == ' + _SITE_ + ';')
+  println('if($do_cmd) {')
+  block.inclvl()
+    event(onCommand, '$_GET["cmd"]')
+    if(sys.event(DataSource, 'ds_use', 1))
+      println('if($_GET["cmd"] == "insert") {')
+      block.inclvl()
+        sys.event(DataSource, 'ds_insert', _id_ + "ins") 
+      block.declvl()
+      println('}')
+    end
+    if(sys.event(DataSource, 'ds_use', 2))
+      println('if($_GET["cmd"] == "ok") {')
+      block.inclvl()
+        sys.event(DataSource, 'ds_update', _id_ )
+      block.declvl()
+      println('}')
+    end
+    if(sys.event(DataSource, 'ds_use', 3))
+      println('if($_GET["cmd"] == "delete") {')
+      block.inclvl()
+        sys.event(DataSource, 'ds_delete', _id_)
+      block.declvl()
+      println('}')
+    end
+  block.declvl()
+  println('}')
+  
+  //------client--------------
+  
+  if(linked(onHeader))
+    printSection("onHeader")
+  end
+  beginForm(_id_, UserParams, "")
+  
+  sys.event(DataSource, 'ds_select', _id_, linked(onPages) ? ('$start' ^ PageCount) : '')
+  println('$rec_count = ' + sys.event(DataSource, 'ds_count', _id_) + ';')
+  println('if($rec_count) {')
+  block.inclvl()
+    println('for($i = 0; $i < $rec_count; $i++) {')
+    block.inclvl()
+      sys.event(DataSource, 'ds_fetch', _id_)
+      if(linked(onEdit))
+        println('if($do_cmd && $_GET["cmd"] == "update" && $_POST["id"] == ' + f + '["id"]) {')
+        block.inclvl()
+          printSection("onEdit")
+        block.declvl()
+        println('} else {')
+        block.inclvl()
+      end
+      if(linked(onAltItem))
+        println('if($i % 2) {')
+        block.inclvl()
+          printSection("onAltItem")
+        block.declvl()
+        println('} else {')
+        block.inclvl()
+      end
+      if(linked(onItem))
+        printSection("onItem")
+      end
+      if(linked(onAltItem))
+        block.declvl()
+        println('}')
+      end      
+      if(linked(onEdit))
+        block.declvl()
+        println('}')
+      end
+      event(onAfterFor)
+    block.declvl()
+    println('}')
+  block.declvl()
+  println('}')
+  if(linked(onEmpty))
+    println('else {')
+    block.inclvl()
+      if(linked(onEmpty))
+        printSection("onEmpty")
+      end
+    block.declvl()
+    println('}')
+  end
+  println('echo "</form>";')
+  if(linked(onInsert))
+    beginForm(_id_ + "ins", UserParams, "enctype=\\\"" & FormType & "\\\"")
+    printSection("onInsert")
+    println('echo "</form>";')
+  end  
+  if(linked(onFooter))
+    printSection("onFooter")
+  end
+  if(isndef(PageCount))
+    event(onPages, '$start'@int & PageCount)
+  end
+  
+  include("dm_tail")
+end
+

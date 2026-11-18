@@ -1,0 +1,7 @@
+Pages=Страницы
+List of child scheme class names=Список названий классов дочерних схем
+Name of the currently selected class=Имя текущего выбранного класса
+Automatically create one copy of each class tab when an element is initialized=Автоматически создавать по одной копии вкладок каждого класса при инициализации элемента
+Set added tab as current=Устанавливать добавленную вкладку в качестве текущей
+Buttons or regular pages=Кнопки или обычные страницы
+Icon manager=Менеджер иконок

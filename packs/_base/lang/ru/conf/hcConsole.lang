@@ -1,0 +1,3 @@
+Output data to console=Вывод данных в консоль
+Number of lines output to console=Кол-во строк выводимых последовательно в консоль
+Event emit every time after output data to console=Событие происходит всякий раз после вывода данных в консоль

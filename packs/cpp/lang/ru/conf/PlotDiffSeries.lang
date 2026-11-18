@@ -1,0 +1,7 @@
+Series comparison=Сравнение серий
+Series to compare=Серия, в которую необходимо сравнить
+Series to compare with=Серия, с которой необходимо сравнить
+Series comparison mask: %1 - value of element from series 1, %2 - value of element from series 2=Маска сравнения серий: %1 - зничение элемента из серии 1, %2 - значение элемента из серии 2
+The series in which the comparison result is placed=Серия, в которую помещается результат сравнения
+Compares two series by mask=Сравнивает две серии по маске
+The event occurs every time after a series comparison=Событие происходит всякий раз после сравнения серий

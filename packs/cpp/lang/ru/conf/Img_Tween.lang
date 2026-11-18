@@ -1,0 +1,9 @@
+Image overlay=Наложение картинок
+Background fill color when aligning sizes=Цвет заливки фона при выравнивании размеров
+Loads images from a stream or BitmapA and BitmapB fields=Загружает картинки из потока или полей BitmapA и BitmapB
+Adjusts the BitmapB image to the BitmapA image=Наладывает картинку BitmapB на картинку BitmapA
+The event occurs after the overlay operation is completed, outputting the resulting image ARG(Bitmap) to the stream.=Событие происходит после выполнения операции наложения, выдавая в поток полученную картинку ARG(Bitmap)
+Specifies picture A to overlay=Определяет картинку A для наложения
+Specifies picture B to overlay=Определяет картинку B для наложения
+Penetration level of the BitmapB image into the BitmapA image=Уровень проникновения картинки BitmapB в картинку BitmapA
+Contains the result of image overlay=Содержит результат наложения картинок

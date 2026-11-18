@@ -1,0 +1,8 @@
+ODBC Data Source=Источник данных ODBC
+Element name=Имя элемента
+Default ODBC connection string=Строка подключения к ODBC по-умолчанию
+Connects to ODBC=Осуществляет подключение к ODBC
+Closes the ODBC connection=Закрывает соединение с ODBC
+The event occurs whenever a data source is successfully created=Событие происходит всякий раз после успешного создания источника данных
+The event occurs every time an error occurs and outputs its code to the stream=Событие происходит всякий раз после возникновения ошибки и выдает её код в поток
+ODBC connection string=Строка подключения к ODBC

@@ -1,0 +1,17 @@
+Virtual table MTStrTbl=Виртуальная таблица MTStrTbl
+Text - return the subitem column name, Index - return its index=Text - возвращать имя столбца подпункта, Index - возвращать его индекс
+Original data page number=Исходный номер страницы данных
+Managing the MTStrTbl element=Управление элементом MTStrTbl
+Sets the next data page=Устанавливает следующую страницу данных
+Sets the previous data page=Устанавливает предыдущую страницу данных
+Sets the data page to a value from a stream or Page field=Устанавливает страницу данных по значению из потока или поля Page
+Resets the data page number to its original state=Сбрасывает номер страницы данных в исходное состояние
+Initializes the current data page=Инициализирует текущую страницу данных
+Sets the virtual index to a value from a stream or VirtIdx field=Устанавливает виртуальный индекс по значению из потока или поля VirtIdx
+The event occurs whenever a virtual index changes, issuing it to the ARG(VirtIdx) stream=Событие происходит всякий раз при изменении виртуального индекса, выдавая его в поток ARG(VirtIdx)
+Contains the current virtual index=Содержит текущий виртуальный индекс
+Contains the current data page number=Содержит текущий номер страницы данных
+Contains the number of integer elements that fit on one display page=Содержит количество целых элементов, вмещающихся в одну страницу отображения
+Virtual table input/output=Входные/выходные данные виртуальной таблицы
+Data page number=Номер страницы данных
+Virtual index=Виртуальный индекс

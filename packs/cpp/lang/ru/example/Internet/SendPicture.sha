@@ -1,0 +1,75 @@
+*Отсылка скриншотов между компьютерами в сети или в Internet.
+Make(cpp)
+Add(MainForm,68161,28,98)
+{
+ Left=21
+ Top=106
+ Width=395
+ Height=299
+ link(onCreate,46308:doEvent1,[])
+}
+Add(ZLIB,43492,266,203)
+{
+ link(onStream,52372:doSend,[])
+ link(Stream,2160953:Var3,[(272,170)])
+}
+Add(TCP_Client,52372,343,189)
+{
+ Port=120
+ IP="127.0.0.1"
+ DataType=3
+}
+Add(BitmapStream,30541,329,49)
+{
+ link(onRead,19361:doLoad,[])
+}
+Add(GetDataEx,2160953,196,161)
+{
+ link(Data,93822:Stream,[])
+}
+Add(MemoryStream,93822,203,105)
+{
+}
+Add(ClipboardHook,85182,28,189)
+{
+ link(onBitmap,56102:doEvent1,[])
+}
+Add(Image,19361,378,49)
+{
+ Left=105
+ Top=21
+ Width=235
+ Height=195
+ Align=5
+ ViewStyle=0
+}
+Add(Hub,46308,91,133)
+{
+ link(onEvent1,37674:doOpen,[(148,139)(148,62)])
+ link(onEvent2,52372:doOpen,[(290,146)(290,195)])
+}
+Add(BitmapStream,23496,203,189)
+{
+ link(Stream,2160953:Var2,[])
+}
+Add(ZLIB,27261,273,49)
+{
+ link(onStream,30541:doRead,[])
+}
+Add(Hub,56102,91,196)
+{
+ OutCount=3
+ link(onEvent1,23496:doWrite,[])
+ link(onEvent2,43492:doCompress,[])
+ link(onEvent3,93822:doClear,[(163,216)(163,118)])
+}
+Add(Message,75291,273,105)
+{
+}
+Add(TCP_Server,37674,203,56)
+{
+ Port=120
+ DataType=3
+ link(onRead,27261:doDeCompress,[])
+ link(onConnect,75291:doMessage,[(254,69)(254,111)])
+}

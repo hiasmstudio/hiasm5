@@ -1,0 +1,53 @@
+func Init
+  if(isndef(Numbers))
+    fvar(s, n, i, old)
+
+    s = Numbers
+    if(_arr.count(s))
+      for(i = 0; i < _arr.count(s); i++)
+        if(isdef(UseName))
+          n &= s[i][0]
+        else
+          n &= '' + s[i][1] + ' => ' + s[i][0]
+        end
+      end  
+      s = _arr.join(n, ',') 
+    else
+      s = ''
+    end
+    old = block.select(BLK_HEAD)
+    println(arr, ' = array(', code(s), ');')
+    block.select(old)
+  end
+end
+
+func Array():java
+  return(arr)
+end
+
+section java
+
+func Init
+  if(isndef(Numbers))
+    fvar(s, i, n, old)
+
+    s = Numbers
+    if(_arr.count(s))
+      for(i = 0; i < _arr.count(s); i++)
+        n &= s[i][0]
+      end  
+      s = _arr.join(n, ',') 
+    else
+      s = ''
+    end
+    old = block.select(BLK_HEAD)
+    println(arr, ' = new Array(', code(s), ');')
+    block.select(old)
+  end
+end
+
+section html
+
+func Array()
+  return(Numbers)
+end

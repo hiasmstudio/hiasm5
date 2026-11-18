@@ -1,0 +1,5 @@
+func doTrace(_data):any
+  trace(Text)
+  event(onTrace)
+end
+

@@ -1,0 +1,17 @@
+FTP client via WinAPI=FTP-клиент через WinAPI
+Element name=Имя элемента
+Default FTP Server Name=Имя FTP-сервера по умолчанию
+Default username=Имя пользователя по умолчанию
+Default password=Пароль по умолчанию
+Default FTP Server Port=Порт FTP-сервера по умолчанию
+Issuing error events: Global - to the onGlobalError output, Local - to the onError output, Global+Local - to the onGlobalError and onError outputs=Выдача событий ошибки: Global - на выход onGlobalError, Local - на выход onError, Global+Local - на выходы onGlobalError и onError
+Opens a session with the FTP server ARG(Host, Port, UserName, Password)=Открывает сессию с FTP-сервером ARG(Host, Port, UserName, Password)
+Closes the session with the FTP server=Закрывает сессию с FTP-сервером
+The event occurs when a successful connection to the FTP server=Событие происходит в случае успешного соединения с FTP-сервером
+Event occurs when disconnected from the FTP server=Событие происходит в случае отсоединения от FTP-сервера
+The event occurs every time after an error in the operation of any associated FTP component and outputs its number to the stream ARG(GlobalError)=Событие происходит всякий раз после ошибки работы любого связанного компонента FTP и выдает её номер в поток ARG(GlobalError)
+The event occurs every time after an error in the FTP_Client component and outputs its number to the stream ARG(Error)=Событие происходит всякий раз после ошибки работы компонента FTP_Client и выдает её номер в поток ARG(Error)
+FTP server name=Имя FTP-сервера
+FTP server port=Порт FTP-сервера
+Username=Имя пользователя
+Password=Пароль

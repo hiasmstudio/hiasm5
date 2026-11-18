@@ -1,0 +1,11 @@
+Copying an Alpha picture=Копирование Alpha-картинки
+X coordinate of the copied area=Координата Х копируемой области
+Y coordinate of the copied area=Координата Y копируемой области
+Copy area width=Ширина копируемой области
+Height of copied area=Высота копируемой области
+Copies the area of the Alpha image ARG(Bitmap, X, Y, Width, Height)=Копирует область Alpha-картинки ARG(Bitmap, X, Y, Width, Height)
+The event occurs after copying the Alpha image area and outputs the result to the ARG(AlphaBitmap) stream=Событие происходит после копирования области Alpha-картинки и выдаёт результат в поток ARG(AlphaBitmap)
+Picture to copy=Картинка для копирования
+Copy X coordinate=Координата Х копирования
+Copy Y coordinate=Координата Y копирования
+Contains a copied Alpha picture=Содержит скопированную Alpha-картинку

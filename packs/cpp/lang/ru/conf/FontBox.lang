@@ -1,0 +1,9 @@
+List of fonts=Список шрифтов
+Height of each list item=Высота каждого пункта списка
+Rendering Manager=Менеджер отрисовки
+Default font name=Название шрифта, выбранного по-умолчанию
+Makes Font stand out=Делает шрифт Font выделенным
+Updates the font list=Обновляет список шрифтов
+The event occurs when the font changes and outputs its name to the stream=Событие происходит при изменении шрифта и выдаёт в поток его название
+Contains the name of the selected font=Содержит название выделенного шрифта
+Name of the font to be set using the doSetFont method=Название шрифта для установки методом doSetFont

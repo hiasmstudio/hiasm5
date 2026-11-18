@@ -1,0 +1,15 @@
+Drag and drop files dropped onto the form=Перетаскивание и приём брошенных на форму файлов
+Use default cursor when dragging=Использовать при перетаскивании курсор по-умолчанию
+Allowed Drag Modes=Разрешенные режимы перетаскивания
+Allow copy mode=Разрешить режим копирования
+Allow Move Mode=Разрешить режим перемещения
+Allow link creation mode=Разрешить режим создания ссылки
+Drag and drop list objects=Перетаскивание объектов списка
+Enables/disables receiving files by the component=Включает/выключает приём файлов компонентом
+The event occurs as many times as the number of files were dropped on the form and displays the name of the next file in the stream ARG(FileName)=Событие происходит столько раз, сколько файлов было брошено на форму и выдает в потоке имя очередного файла ARG(FileName)
+The event occurs every time after the end of file enumeration=Событие происходит всякий раз после окончания перебора файлов
+The event occurs every time files are dropped on the form=Событие происходит всякий раз при бросании файлов на форму
+Occurs after the drag has completed and contains the result of the operation in the stream.=Происходит после завершения перетаскивания и содержит в потоке результат операции
+Occurs after a reset and contains the final operation type in the stream=Происходит после сброса и содержит в потоке конечный тип операции
+Occurs continuously when dragging and contains the current operation type in the stream=Происходит постоянно при перетаскивании и содержит в потоке текущий тип операции
+List of objects to perform drag and drop operation=Список объектов для выполнения операции перетаскивания

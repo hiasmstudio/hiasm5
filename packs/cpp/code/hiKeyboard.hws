@@ -1,0 +1,25 @@
+func KeyValue()
+  if(linked('Key'))
+    return(d('Key'))
+  else
+    return(get('Key'))
+  end
+end
+
+func doReadKey(_data)
+  println('{')
+  block.inclvl()
+  println('const int hiasm_key', _id_, ' = hiasm_key_state(static_cast<int>(', KeyValue(), '));')
+  println('hiasm_int_state(', _id_, ', 0) = hiasm_key', _id_, ';')
+  event(onReadKey, 'hiasm_key' && _id_)
+  block.declvl()
+  println('}')
+end
+
+func Keys()
+  return('[]() { std::vector<int> keys; for(int i = 0; i < 256; ++i) keys.push_back(hiasm_key_state(i)); return keys; }()')
+end
+
+func ToggleState()
+  return('hiasm_int_state(' && _id_ && ', 0)')
+end

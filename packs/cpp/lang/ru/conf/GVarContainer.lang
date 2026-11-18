@@ -1,0 +1,8 @@
+Project Global Variables Container=Контейнер глобальных переменных проекта
+Section in the INI file that contains variable values=Секция в INI файле, которая содержит значения переменных
+INI file name=Имя INI файла
+List of global variable names=Список имён глобальных переменных
+Loads global variable values from an INI file=Загружает значения глобальных переменных из INI файла
+Saves the values of global variables to an INI file=Сохраняет значения глобальных переменных в INI файл
+The event occurs after loading variables from a file=Событие происходит после загрузки переменных из файла
+Defines a section in the INI file that contains variable values=Определяет секцию в INI файле, которая содержит значения переменных

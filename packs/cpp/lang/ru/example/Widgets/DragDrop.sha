@@ -1,0 +1,74 @@
+*Пример применение технологии "Взять и бросить" ( Drag & Drop )
+Pos(0,0)
+Add(MainForm,32792,28,147)
+{
+ Left=312
+ Top=284
+ Height=200
+ Font=[MS Sans Serif,8,0,0]
+ Caption="Drag & Drop tester"
+}
+Add(DropFile,71798,70,77)
+{
+ link(onDropFile,84417:doAdd,[])
+ link(onEndDrop,32949:doData,[(114,90)(114,160)])
+}
+Add(ListBox,84417,126,77)
+{
+ Top=45
+ Width=392
+ Height=130
+ Align=5
+ Font=[Arial,8,0,0]
+ AddType=1
+}
+Add(DoData,32949,133,154)
+{
+ link(onEventData,79578:doWork1,[])
+ link(Data,84417:Count,[])
+}
+Add(ChildPanel,79578,189,154)
+{
+ @Hint='Информация'
+}
+BEGIN_SDK
+Pos(0,0)
+  Add(EditMulti,34899,3,3)
+  {
+   WorkCount=1
+   Width=105
+   Height=145
+   link(doWork1,16262:doText,[(66,9)(66,61)])
+  }
+  Add(Panel,31764,45,110)
+  {
+   Width=392
+   Height=45
+   Align=2
+   Font=[Arial,8,0,0]
+   Caption=""
+  }
+  Add(Label,69767,25,15)
+  {
+   Left=5
+   Top=5
+   Width=245
+   Font=[Arial,8,0,0]
+   Caption="Киньте несколько файлов или папок на форму"
+  }
+  Add(Label,30664,25,55)
+  {
+   Left=5
+   Top=25
+   Font=[Arial,8,0,0]
+   Caption="Брошено:"
+  }
+  Add(Label,16262,70,55)
+  {
+   Left=60
+   Top=25
+   Width=30
+   Font=[Arial,8,0,0]
+   Caption="0"
+  }
+END_SDK

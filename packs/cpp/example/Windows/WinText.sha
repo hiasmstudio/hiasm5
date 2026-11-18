@@ -1,0 +1,37 @@
+﻿*Вывод текста во все видимые формы
+Make(cpp)
+Add(MainForm,36790,35,126)
+{
+ Left=312
+ Top=284
+ Width=272
+ Height=69
+ Caption="Caption hacker"
+ TaskBar=1
+}
+Add(Timer,67165,35,56)
+{
+ link(onTimer,20258:doEnum,[])
+}
+Add(Counter,42567,161,63)
+{
+ link(onNext,31869:doText,[])
+}
+Add(WinTools,27292,98,133)
+{
+ Point(doCaption)
+ link(Handle,20258:Handle,[])
+ link(Text,42567:Count,[(111,117)(167,117)])
+}
+Add(WinEnum,20258,98,56)
+{
+ link(onFindWindow,27292:doCaption,[(142,62)(142,47)(82,47)(82,167)])
+ link(onEndEnum,42567:doNext,[])
+}
+Add(Label,31869,210,63)
+{
+ Left=85
+ Top=15
+ Width=100
+ Font=[Arial,8,0,0,1]
+}

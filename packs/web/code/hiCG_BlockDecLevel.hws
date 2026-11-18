@@ -1,0 +1,9 @@
+func doDecLevel(_data):any
+  block.declvl()
+  event(onDecLevel)
+end
+
+func CurLevel():any
+  return(block.getlvl())
+end
+

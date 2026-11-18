@@ -1,0 +1,6 @@
+Translate=Перенос
+X offset=Смещение по X
+Y offset=Смещение по Y
+Z offset=Смещение по Z
+Moves the coordinate system along the X,Y,Z axes=Перемещает систему координат по осям X,Y,Z
+Event occurs after moving the coordinate system=Событие происходит после перемещения системы координат

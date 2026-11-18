@@ -1,0 +1,13 @@
+Arithmetic operations=Арифметические операции
+Defines arithmetic operation=Определяет арифметическую операцию
+Defines operand 1 by default=Определяет операнд 1 по умолчанию
+Defines operand 2 by default=Определяет операнд 2 по умолчанию
+Defines type of result=Определяет тип результата
+Initial value of result=Начальные значения результата
+Units for trigonometric functions=Единицы для тригонометрических функций
+Calculates operation by value of property OpType=Вычисляет операцию в соответствии со значением св-ва OpType
+Setup initial value of result=Устанавливает начальные значения результата
+Event emit every time after calculating result and give it in thread=Выдаёт в поток результат матоперации
+Operand 1=Операнд 1
+Operand 2=Операнд 2
+Contain result of operation=Содержит результат операции после его вычисления методом doOperation

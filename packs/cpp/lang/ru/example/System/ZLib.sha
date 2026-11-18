@@ -1,0 +1,102 @@
+*Сохранение и загрузка на диске сжатых скриншотов экрана по алгоритму ZIP.
+Make(cpp)
+Add(MainForm,5462,42,112)
+{
+ Left=21
+ Top=105
+ Height=305
+ Caption="ZLib"
+ BorderStyle=1
+}
+Add(BitmapStream,10487,315,252)
+{
+ link(Stream,7309760:Var1,[(321,205)])
+ link(Bitmap,55922:ImageBitmap,[])
+}
+Add(ZLIB,97704,175,196)
+{
+ link(onStream,78348:doRead,[])
+ link(Stream,32544:Stream,[])
+}
+Add(Hub,87854,98,196)
+{
+ OutCount=3
+ link(onEvent1,32544:doOpen,[(145,202)(145,118)])
+ link(onEvent2,97704:doDeCompress,[])
+ link(onEvent3,32544:doClose,[(152,216)(152,125)])
+}
+Add(Hub,77759,238,259)
+{
+ link(onEvent1,10487:doWrite,[])
+ link(onEvent2,91473:doCompress,[(296,272)(296,286)])
+}
+Add(Button,34912,42,196)
+{
+ Left=15
+ Top=35
+ Font=[Arial,8,0,0,1]
+ TabOrder=-1
+ Caption="Read"
+ link(onClick,87854:doEvent1,[])
+}
+Add(GetDataEx,7309760,364,196)
+{
+ link(Data,1510:Stream,[])
+}
+Add(HubEx,7902709,287,112)
+{
+ link(onEvent,55922:doLoad,[])
+}
+Add(ZLIB,91473,371,280)
+{
+ link(onStream,18270:doCopyFromStream,[])
+ link(Stream,7309760:Var2,[])
+}
+Add(MemoryStream,1510,371,119)
+{
+}
+Add(FileStream,18270,427,266)
+{
+ FileName=".\\test.bmp"
+ Mode=1
+ AutoCopy=0
+ Point(doCopyFromStream)
+}
+Add(FileStream,32544,175,112)
+{
+ FileName=".\\test.bmp"
+}
+Add(BitmapStream,78348,238,196)
+{
+ link(onRead,7902709:doWork3,[(291,202)])
+}
+Add(Image,55922,322,119)
+{
+ Left=95
+ Top=10
+ Width=285
+ Height=250
+ Color=16777215
+}
+Add(ClipboardHook,89302,238,112)
+{
+ link(onBitmap,7902709:doWork2,[])
+}
+Add(Button,93666,175,259)
+{
+ Left=15
+ Top=60
+ Color=-16777211
+ TabOrder=-1
+ Caption="Write"
+ link(onClick,77759:doEvent1,[])
+}
+Add(Button,9323431,238,154)
+{
+ Left=15
+ Top=85
+ Font=[Arial,8,0,0,1]
+ TabOrder=-1
+ Caption="Clear"
+ link(onClick,55922:doClear,[(300,160)(300,132)])
+}

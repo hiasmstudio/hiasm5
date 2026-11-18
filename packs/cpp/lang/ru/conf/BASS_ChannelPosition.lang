@@ -1,0 +1,8 @@
+Audio stream playback position=Позиция проигрывания звукового потока
+Sound stream=Звуковой поток
+Format for obtaining the playing position: Byte - in bytes, MusicOrder - in columns and rows (only for MOD), Seconds - in seconds=Формат получения позиции проигрывания: Byte - в байтах, MusicOrder - в колонках и строках (только для MOD), Seconds - в секундах
+Sets the playback position of the audio stream ARG(Position)=Устанавливает позицию проигрывания звукового потока ARG(Position)
+The event occurs every time after setting the playback position of the audio stream=Событие происходит всякий раз после установки позиции проигрывания звукового потока
+Contains the current playback position of the audio stream=Содержит текущую позицию проигрывания звукового потока
+Contains the current audio stream length=Содержит текущую длину звукового потока
+Determines the playback position of the audio stream=Определяет позицию проигрывания звукового потока

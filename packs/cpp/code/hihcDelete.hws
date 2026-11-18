@@ -1,0 +1,9 @@
+func doDelete(_data)
+  fvar(count)
+  count = d('Count')
+  if(Direction > 0)
+    event(onDelete, 'std::string(' && _data && ').erase(std::string(' && _data && ').size() - (' && Position && ') - (' && count && ') + 1, ' && count && ')')
+  else
+    event(onDelete, 'std::string(' && _data && ').erase((' && Position && ') - 1, ' && count && ')')
+  end
+end

@@ -1,0 +1,11 @@
+Independent timer, generates an onTimer event after a specified period of time=Независимый таймер, генерирует событие onTimer через заданный промежуток времени
+Timer accuracy (0 is the highest accuracy)=Точность таймера (0 - самая высокая точность)
+Interval (in milliseconds) between timer iterations=Интервал (в миллисекундах) между итерациями таймера
+True - the timer starts working immediately after the application or service is launched, False - the timer is disabled=True - таймер начинает работать сразу после запуска приложения или сервиса, False - таймер отключен
+The timer will automatically turn off after the specified number of times. If equal to 0, then this field is ignored and the timer will run continuously. When the timer starts, the counter is reset=Таймер автоматически отключится через указанное число срабатываний. Если равно 0, то это поле игнорируется и таймер буде работать постоянно. При запуске таймера счетчик устанавливается заново
+Turn on the timer=Включение таймера
+Turning off the timer=Выключение таймера
+Sets the value of the AutoStop property=Устанавливает значение св-ва AutoStop
+The event occurs every time the next iteration of the timer (see Interval)=Событие происходит всякий раз при очередной итерации таймера (см. Interval)
+The event occurs once immediately after the timer stops=Событие происходит один раз сразу после остановки таймера
+Contains 1 if the timer is running, or 0 otherwise=Содержит 1, если таймер запущен, или 0 - в противном случае

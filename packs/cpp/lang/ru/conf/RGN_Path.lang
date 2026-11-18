@@ -1,0 +1,6 @@
+Region from trajectory=Регион из траектории
+Creates a region from a path=Создает регион из траектории
+Deletes a region (zeroes Result)=Удаляет регион (обнуляет Result)
+The event occurs before the creation of the trajectory from which the region will be created and issues the drawing Context ARG(HDC) to the stream.=Событие происходит перед началом создания траектории из которой будет создан регион и выдает в поток Context рисования ARG(HDC)
+The event occurs every time a region is created from a trajectory and outputs it to the ARG(Region) stream=Событие происходит всякий раз после создания региона из траектории и выдает его в поток ARG(Region)
+Contains the created region=Содержит созданный регион

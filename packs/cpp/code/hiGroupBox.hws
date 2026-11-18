@@ -1,0 +1,19 @@
+func doStart
+  println('{')
+  println('GtkWidget *group = gtk_frame_new(', Caption, ');')
+  if(linked(onClick))
+    println('hiasm_place("GroupBox', _id_, '", group, ', Left, ', ', Top, ');')
+    println('GtkGesture *gesture = gtk_gesture_click_new();')
+    println('g_signal_connect(gesture, "pressed", G_CALLBACK(+[](GtkGestureClick *, int, double, double, gpointer) {')
+  println('if(!hiasm_form_ready) return;')
+    block.inclvl()
+    event(onClick)
+    block.declvl()
+    println('}), NULL);')
+    println('gtk_widget_add_controller(group, GTK_EVENT_CONTROLLER(gesture));')
+  else
+    println('gtk_widget_set_can_target(group, FALSE);')
+    println('hiasm_place("GroupBox', _id_, '", group, ', Left, ', ', Top, ');')
+  end
+  println('}')
+end

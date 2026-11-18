@@ -1,0 +1,107 @@
+*Перекрестие на экране монитора#13#10_____________#13#10Автор: svsoft#13#10E-mail: AleksandrVasilev@yandex.ru
+Make(cpp)
+Pos(0,0)
+Add(MainForm,16066659,84,56)
+{
+ Width=1
+ Height=1
+ BorderStyle=0
+ TaskBar=1
+ link(onCreate,12581796:doHide,[(132,97)(132,117)(74,117)(74,146)])
+}
+Add(Hub,13596816,126,175)
+{
+ link(onEvent1,7204194:doOperation,[])
+ link(onEvent2,16620926:doOperation,[])
+}
+Add(PosWindow,705721,399,175)
+{
+ link(Handle,15755846:Var1,[])
+}
+Add(Timer,1098386,84,175)
+{
+ Interval=33
+ link(onTimer,13596816:doEvent1,[])
+}
+Add(MouseEvent,14963826,210,105)
+{
+}
+Add(PosWindow,12236798,273,175)
+{
+ link(Handle,5673972:Var1,[])
+}
+Add(ChildForm,15755846,399,105)
+{
+}
+BEGIN_SDK
+  Add(EditMulti,15199858,3,3)
+  {
+   VarCount=1
+   Width=139
+   Height=165
+   link(Var1,3353699:Var1,[(9,93)])
+  }
+  Add(MainForm,4280599,49,14)
+  {
+   Width=3000
+   Height=1
+   Color=255
+   Caption=""
+   BorderStyle=0
+   link(onCreate,6073612:doPopup,[(91,55)(91,85)(39,85)(39,125)])
+  }
+  Add(WinTools,6073612,49,112)
+  {
+   link(Handle,3353699:Var2,[])
+  }
+  Add(GetDataEx,3353699,42,84)
+  {
+   link(Data,4280599:Handle,[(55,74)(55,74)])
+  }
+END_SDK
+Add(ChildForm,5673972,273,105)
+{
+}
+BEGIN_SDK
+  Add(EditMulti,15199858,3,3)
+  {
+   VarCount=1
+   Width=132
+   Height=144
+   link(Var1,15302184:Var1,[(9,72)])
+  }
+  Add(MainForm,4280599,42,14)
+  {
+   Width=1
+   Height=3000
+   Color=255
+   Caption=""
+   BorderStyle=0
+   link(onCreate,6073612:doPopup,[(84,55)(84,78)(32,78)(32,111)])
+  }
+  Add(WinTools,6073612,42,98)
+  {
+   link(Handle,15302184:Var2,[])
+  }
+  Add(GetDataEx,15302184,35,63)
+  {
+   link(Data,4280599:Handle,[])
+  }
+END_SDK
+Add(Math,7204194,210,175)
+{
+ Op2=1
+ link(onResult,12236798:doLeft,[])
+ link(Op1,14963826:MouseX,[])
+}
+Add(TrayIcon,12581796,84,133)
+{
+ Hint="Выход"
+ link(onClick,16066659:doClose,[(126,139)(126,109)(74,109)(74,83)])
+}
+Add(Math,16620926,336,182)
+{
+ Op2=1
+ link(onResult,705721:doTop,[])
+ link(Op1,14963826:MouseY,[(342,153)(223,153)])
+}

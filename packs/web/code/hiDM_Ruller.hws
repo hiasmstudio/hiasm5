@@ -1,0 +1,77 @@
+func printSection(evn)
+  fvar(old,s)
+  
+  old = block.select(block.reggen())
+  block.lvloff()
+  event(evn:html)
+  s = block.astext() 
+  block.delete(block.select(old))
+  println('echo ', s, ';')
+end
+
+func init()
+  fvar(old)
+  old = block.select(BLK_HEAD)
+  println('function makePage' + code(_id_) + '($start, $num, $off, $up) {')
+  block.inclvl()
+    if(linked(onCurrentPage))
+      println('if($start == $off)')
+      printSection("onCurrentPage")
+      println('else')
+    end
+    printSection("onPage")
+  block.declvl()
+  println('}')
+  block.select(old)
+end
+
+func doMakeRuller(_data)
+  fvar(s,c,up)
+  s = _data[0]
+  c = _data[1]
+  up = UserParams
+  up = UserParams
+  
+  println('$rc = ' + sys.event(DataSource, 'ds_allcount', _id_) + ';')
+  println('$prc = (int)(($rc-1) / ' + c + ') + 1;')
+  println('makePage' + code(_id_) + '(' + s + ', 1, 0, ', up, ');')
+  // 1 .. 8 9 10 11 12 .. 24
+  println('if(' + s + '/' + c + ' - ' + Length + ' > 1)')
+    printSection("onSpacer")
+  
+  println('for($i = max(' + s + ' - ' + Length + '*' + c + ', ' + c + '); $i <= min(($prc-2) * ' + c + ',' + s + ' + ' + Length + '*' + c + '); $i+=' + c + ') {')
+  block.inclvl()
+    println('makePage' + code(_id_) + '(' + s + ', $i / ' + c + ' + 1, $i, ', up, ');')
+  block.declvl()
+  println('}')
+  
+  println('if((int)(' + s + '/' + c + ') + 1 + ' + Length + ' < $prc-1)')
+    printSection("onSpacer")
+  println('if($prc > 1) makePage' + code(_id_) + '(' + s + ', $prc, ($prc-1) * ' + c + ', ', up, ');')    
+end
+
+section html
+
+func Page()
+  fvar(s)
+  dec_sec("php")
+  s = '$num'
+  inc_sec("html") 
+  return(s)
+end
+
+func Offset()
+  fvar(s)
+  dec_sec("php")
+  s = '$off'
+  inc_sec("html") 
+  return(s)
+end
+
+func PrepareUserParams()
+  fvar(s)
+  dec_sec("php")
+  s = '$up'
+  inc_sec("html") 
+  return(s)
+end

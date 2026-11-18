@@ -1,0 +1,11 @@
+Writing and reading from an array=Запись и чтение из массива
+Default array element index=Индекс элемента массива по-умолчанию
+Reads the array element with index Index=Читает элемент массива с индексом Index
+Writes the value from the Value field to the array element with index Index=Записывает в элемент массива с индексом Index значение из поля Value
+Adds an element to the end of the array=Добавляет элемент в конец массива
+The event occurs every time an array element is read and outputs its value to the stream=Событие происходит всякий раз после чтения элемента массива и выдаёт его значение в поток
+Contains an array element after the doRead method is executed=Содержит элемент массива после выполнения метода doRead
+Contains the number of array elements=Содержит кол-во элементов массива
+Defines the array identifier=Определяет идентификатор массива
+Determines the index of an array element=Определяет индекс элемента массива
+Defines the value to be written to the array=Определяет значение для записи в массив

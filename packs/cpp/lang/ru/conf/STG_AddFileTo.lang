@@ -1,0 +1,7 @@
+Adding a file=Добавление файла
+Structured Storage Management=Управление структуированным хранилищем
+Adds a file to storage ARG(InPath, SrcStream)=Добавляет файл в хранилище ARG(InPath, SrcStream)
+The event occurs every time a file is successfully added to the storage ARG(WriteFileSize)=Событие происходит всякий раз после успешного добавления файла в хранилище ARG(WriteFileSize)
+Path to the file saved in the storage=Путь к сохраняемому в хранилище файлу
+Defines data to be added to the repository=Определяет данные для добавления в хранилище
+An event for this point is issued when an attempt is made to overwrite an existing file. If 0 is returned, the write operation will continue, otherwise it will be cancelled.=Событие на эту точку выдается тогда, когда производится попытка перезаписать существующий файл. Если будет возвращен 0, то операция записи будет продолжена, иначе - отменена

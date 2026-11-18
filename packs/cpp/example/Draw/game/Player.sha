@@ -1,0 +1,139 @@
+*—оздание и обработка движений игрока.
+Make(cpp)
+Add(Label,24768,105,49)
+{
+ Left=20
+ Top=10
+ Width=360
+ Height=25
+ Font=[Arial,8,0,0,1]
+ Caption="”правление: стрелка вверх - вперед, стрелки вправо/влево - поворот"
+}
+Add(MathParse,60684,483,140)
+{
+ MathStr="%0 + cos(%2/180*pi)"
+ Default=50
+ link(X2,10092278:Var3,[(496,128)])
+}
+Add(Hub,96590,161,133)
+{
+ OutCount=4
+ link(onEvent1,22920:doReadKey,[])
+ link(onEvent2,52734:doReadKey,[(221,146)(221,195)])
+ link(onEvent3,91182:doReadKey,[(209,153)(209,251)])
+ link(onEvent4,50301:doDraw,[(203,160)(203,307)])
+}
+Add(PointXY,6583163,462,231)
+{
+ X=10
+ Y=10
+}
+Add(PaintBox,9343800,105,133)
+{
+ Left=75
+ Top=45
+ Width=260
+ Height=255
+ Color=8421376
+ ClearBeforeDraw=0
+ link(onBeforeDraw,96590:doEvent1,[])
+}
+Add(Img_Ellipse,50301,406,301)
+{
+ Point2AsOffset=0
+ Color=8388608
+ BgColor=12639424
+ Style=1
+ Point(Point1)
+ Point(Point2)
+ link(Bitmap,9343800:Bitmap,[(412,287)(111,287)])
+ link(Point1,69673:Point,[])
+ link(Point2,6583163:Point,[(433,289)(468,289)])
+}
+Add(GetDataEx,10800846,329,154)
+{
+ link(Data,10092278:Var1,[(342,128)])
+}
+Add(MainForm,41829,49,49)
+{
+ Left=312
+ Top=216
+ Height=336
+ Font=[Arial,8,0,0,1]
+ Caption="Game Player"
+}
+Add(HubEx,687957,385,189)
+{
+ link(onEvent,40878:doValue,[(410,202)(410,83)])
+}
+Add(GetDataEx,10092278,420,119)
+{
+ link(Data,40878:Value,[])
+}
+Add(Keyboard,22920,231,133)
+{
+ Key=38
+ link(onReadKey,48771:doCase,[])
+}
+Add(Math,97953,336,252)
+{
+ OpType=1
+ Op2=1
+ ResultType=0
+ link(onResult,687957:doWork3,[(389,258)])
+ link(Op1,10800846:Var2,[])
+}
+Add(Case,32142,287,189)
+{
+ Value=Integer(1)
+ link(onTrue,56042:doOperation,[])
+}
+Add(PointXY,69673,420,231)
+{
+ link(X,90639:Result,[])
+ link(Y,60684:Result,[(433,205)(489,205)])
+}
+Add(Keyboard,52734,231,189)
+{
+ Key=37
+ link(onReadKey,32142:doCase,[])
+}
+Add(Math,56042,350,196)
+{
+ Op2=1
+ ResultType=0
+ link(onResult,687957:doWork2,[])
+ link(Op1,10800846:Var3,[(356,163)])
+}
+Add(Case,92932,287,245)
+{
+ Value=Integer(1)
+ link(onTrue,97953:doOperation,[])
+}
+Add(Keyboard,91182,231,245)
+{
+ Key=39
+ link(onReadKey,92932:doCase,[])
+}
+Add(MathParse,90639,420,140)
+{
+ MathStr="%0 + sin(%2/180*pi)"
+ Default=50
+ link(onResult,60684:doCalc,[])
+ link(X2,10092278:Var2,[])
+}
+Add(Case,48771,287,133)
+{
+ Value=Integer(1)
+ link(onTrue,90639:doCalc,[])
+}
+Add(Timer,11419,49,133)
+{
+ Interval=10
+ link(onTimer,9343800:doRefresh,[])
+}
+Add(Memory,40878,427,77)
+{
+ @Hint=#20:”гол поворота игрока|
+ Default=Integer(0)
+}

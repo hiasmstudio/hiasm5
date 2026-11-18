@@ -1,0 +1,7 @@
+Query to execute in data source=Запрос на выполнение к источнику данных
+Text of query on SQL language=Текст запроса на языке SQL
+Manager of data source=Менеджер источника данных
+Execute SQL string in data source=Выполняет строку запроса на языке SQL
+Event emit every time after execute query in data source and give in thread last inserted row id ARG(RowID)=Событие происходит после выполнения запроса к источнику данных и выдает в поток последний добавленный ID ARG(RowID)
+Event emit every time after error and give her text in thread=Событие происходит в случае ошибки и выдает её описание в поток
+Contains ID of last inserted row=Содержит ID последней добавленной записи

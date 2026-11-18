@@ -1,0 +1,7 @@
+Contains a list of method names allowed by the Basic language=Содержит список имён методов, разрешённых языком Basic
+Contains a list of event names allowed by the Basic language=Содержит список имён событий, разрешённых языком Basic
+Contains a list of property names allowed by the Basic language=Содержит список имён свойств, разрешённых языком Basic
+Contains a list of data point names allowed by the Basic language=Содержит список имён точек получения данных, разрешённых языком Basic
+Script language=Язык скрипта
+Contains script text=Содержит текст скрипта
+True - call handlers of script methods and properties with the names of the corresponding points, False - call handlers with point indices=True - вызывать обработчики методов и свойств скрипта с именами соответствующих точек, False - вызывать обработчики с индексами точек

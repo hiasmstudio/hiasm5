@@ -1,0 +1,139 @@
+Make(cpp)
+Add(MainForm,841979,245,196)
+{
+ Left=20
+ Top=105
+ Font=[Arial,8,0,0,1]
+ Caption="Move1"
+}
+Add(PaintBox,7815008,343,77)
+{
+ Left=420
+ Top=45
+ Align=5
+ Color=12632256
+ ClearBeforeDraw=0
+ Point(MouseX)
+ Point(MouseY)
+ link(onBeforeDraw,4847170:doData,[(388,83)(388,68)(234,68)(234,146)])
+}
+Add(Timer,14093932,245,77)
+{
+ Interval=10
+ link(onTimer,7815008:doRefresh,[])
+}
+Add(Memory,16073077,413,140)
+{
+}
+Add(DoData,4847170,245,140)
+{
+ link(onEventData,7412108:doDraw,[])
+ link(Data,7815008:Bitmap,[(251,119)(349,119)])
+}
+Add(MultiElementEx,7412108,336,140)
+{
+ link(onX,16073077:doValue,[])
+ link(onY,7192105:doValue,[(390,153)(390,202)])
+ link(x,16073077:Value,[(342,130)(326,130)(326,184)(419,184)])
+ link(y,7192105:Value,[(349,123)(318,123)(318,238)(419,238)])
+ link(mx,7815008:MouseX,[])
+ link(my,7815008:MouseY,[])
+}
+BEGIN_SDK
+  Add(EditMultiEx,8936834,3,3)
+  {
+   WorkCount=#6:doDraw|
+   EventCount=#3:onX|3:onY|
+   DataCount=#1:x|1:y|2:mx|2:my|
+   Width=377
+   Height=354
+   link(doDraw,4097654:doDraw,[(6,9)(6,202)])
+  }
+  Add(Img_Ellipse,4097654,20,196)
+  {
+   Point2AsOffset=0
+   Point(Point1)
+   Point(Point2)
+   link(onDraw,2413014:doCalc,[(102,202)(102,258)])
+   link(Point1,8011950:Point,[(40,156)(82,156)])
+   link(Point2,7667148:Point,[(47,180)(103,180)])
+  }
+  Add(PointXY,8011950,76,84)
+  {
+   PColor(X,32768)
+   PColor(Y,0)
+   link(X,11819058:Var2,[])
+   link(Y,10341368:Var2,[])
+  }
+  Add(PointXY,7667148,97,133)
+  {
+   X=5
+   Y=5
+  }
+  Add(MathParse,13360748,314,308)
+  {
+   DataCount=3
+   MathStr="%1 -  abs(%3 - %1)/20*cos( %2 )"
+   PColor(X1,0)
+   link(onResult,8936834:onY,[(363,314)(363,16)])
+   link(X1,10706858:Var3,[(320,191)])
+   link(X3,13978772:Var3,[(334,184)])
+  }
+  Add(Hub,12228896,209,252)
+  {
+   link(onEvent1,8786243:doCalc,[])
+   link(onEvent2,13360748:doCalc,[(260,265)(260,314)])
+  }
+  Add(GetDataEx,11819058,69,56)
+  {
+   PColor(Data,32768)
+   link(Data,8936834:x,[(82,46)(9,46)])
+  }
+  Add(GetDataEx,4039732,153,203)
+  {
+   PColor(Data,32768)
+   link(Data,11819058:Var3,[(166,65)])
+  }
+  Add(MathParse,2413014,153,252)
+  {
+   DataCount=4
+   MathStr="atan(%2 - %1, %4 - %3)"
+   PColor(X2,32768)
+   PColor(X4,0)
+   link(onResult,12228896:doEvent1,[])
+   link(X1,5357228:Var2,[])
+   link(X2,4039732:Var2,[])
+   link(X3,13978772:Var2,[])
+   link(X4,10706858:Var2,[])
+  }
+  Add(GetDataEx,10706858,167,182)
+  {
+   PColor(Data,0)
+   link(Data,10341368:Var3,[(180,51)])
+  }
+  Add(GetDataEx,10341368,76,42)
+  {
+   PColor(Data,0)
+   link(Data,8936834:y,[(89,39)(16,39)])
+  }
+  Add(MathParse,8786243,279,252)
+  {
+   DataCount=3
+   MathStr="%1 -  abs(%3 - %1)/20*sin( %2 )"
+   PColor(X1,32768)
+   link(onResult,8936834:onX,[(345,258)(345,9)])
+   link(X1,4039732:Var3,[(285,212)])
+   link(X3,5357228:Var3,[(299,205)])
+  }
+  Add(GetDataEx,13978772,160,175)
+  {
+   link(Data,8936834:my,[(173,25)(30,25)])
+  }
+  Add(GetDataEx,5357228,146,196)
+  {
+   link(Data,8936834:mx,[(159,31)(23,31)])
+  }
+END_SDK
+Add(Memory,7192105,413,196)
+{
+}

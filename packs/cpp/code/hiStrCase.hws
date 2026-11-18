@@ -1,0 +1,21 @@
+func Source(value)
+  if(len(value) > 0)
+    return(value)
+  else
+    return(cstr(get('Str')))
+  end
+end
+
+func Expr(value)
+  switch(get('Type'))
+    case "Upper": return('[](std::string value) { for(char &c : value) c = static_cast<char>(std::toupper(static_cast<unsigned char>(c))); return value; }(' && value && ')')
+    case "ProperCase": return('[](std::string value) { bool start = true; for(char &c : value) { if(std::isspace(static_cast<unsigned char>(c))) { start = true; } else if(start) { c = static_cast<char>(std::toupper(static_cast<unsigned char>(c))); start = false; } else { c = static_cast<char>(std::tolower(static_cast<unsigned char>(c))); } } return value; }(' && value && ')')
+    case "FirstChar": return('[](std::string value) { for(char &c : value) { if(std::isalpha(static_cast<unsigned char>(c))) { c = static_cast<char>(std::toupper(static_cast<unsigned char>(c))); break; } } return value; }(' && value && ')')
+    case "Inversion": return('[](std::string value) { for(char &c : value) { if(std::islower(static_cast<unsigned char>(c))) c = static_cast<char>(std::toupper(static_cast<unsigned char>(c))); else if(std::isupper(static_cast<unsigned char>(c))) c = static_cast<char>(std::tolower(static_cast<unsigned char>(c))); } return value; }(' && value && ')')
+    default: return('[](std::string value) { for(char &c : value) c = static_cast<char>(std::tolower(static_cast<unsigned char>(c))); return value; }(' && value && ')')
+  end
+end
+
+func doModify(_data)
+  event(onModify, Expr(Source(_data)))
+end

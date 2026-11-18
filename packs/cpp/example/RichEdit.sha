@@ -1,0 +1,80 @@
+﻿*Пример использования некоторых возможностей компонента RichEdit
+Make(cpp)
+Add(MainForm,6560,21,105)
+{
+ Left=21
+ Top=105
+ Font=[Arial,8,0,0,1]
+}
+Add(Edit,92657,196,56)
+{
+ Left=80
+ Top=5
+ Width=305
+ Height=21
+ Font=[Arial,8,0,0,1]
+}
+Add(HubEx,14810186,175,154)
+{
+ link(onEvent,23272:doAdd,[])
+}
+Add(Button,97963,70,105)
+{
+ Left=10
+ Top=10
+ Font=[Arial,8,0,0,1]
+ Caption="Red"
+ Data=Integer(255)
+ link(onClick,73391:doEvent1,[])
+}
+Add(RichEdit,23272,196,161)
+{
+ Left=80
+ Top=35
+ Width=305
+ Height=235
+ Font=[Arial,8,0,0,1]
+ ScrollBars=3
+ link(Str,92657:Text,[])
+ link(Color,4665:Value,[])
+ link(Style,13914:Value,[(216,146)(258,146)])
+}
+Add(Hub,64747,126,154)
+{
+ link(onEvent1,6777491:doWork3,[(172,160)])
+ link(onEvent2,14810186:doWork2,[])
+}
+Add(HubEx,6777491,168,98)
+{
+ link(onEvent,4665:doValue,[])
+}
+Add(Memory,13914,252,105)
+{
+ Default=Integer(3)
+}
+Add(Button,52741,70,154)
+{
+ Left=10
+ Top=35
+ Font=[Arial,8,0,0,1]
+ Caption="Blue"
+ Data=Integer(15178569)
+ link(onClick,64747:doEvent1,[])
+}
+Add(Hub,73391,126,105)
+{
+ link(onEvent1,6777491:doWork2,[])
+ link(onEvent2,14810186:doWork1,[(179,118)])
+}
+Add(Memory,4665,203,105)
+{
+}
+Add(Button,70644,70,189)
+{
+ Left=10
+ Top=70
+ Font=[Arial,8,0,0,1]
+ Caption="Save"
+ Data=String(d:\\t1.rtf)
+ link(onClick,23272:doSave,[])
+}

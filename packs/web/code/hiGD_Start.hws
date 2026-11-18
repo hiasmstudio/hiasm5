@@ -1,0 +1,15 @@
+func doCreateImage(_data)
+  println('header("Content-type: image/', Type, '");')
+  if(isdef(Image))
+    println(_img, ' = ImageCreate(', Width, ', ', Height, ');')
+  else
+    println(_img, ' = ImageCreateFrom', Type, '(', Img, ');')
+  end
+  event(onCreateImage, _img)
+  println('Image', Type, '(', _img, ');')
+  println('ImageDestroy(', _img, ');')
+end
+
+func HImage()
+  return(_img)
+end

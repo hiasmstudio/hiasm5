@@ -1,0 +1,17 @@
+Status bar=Строка состояния
+Determines whether the status bar will have a resizing tab=Определяет, будет ли у строки состояния ярлычок для изменения размера
+Default text=Текст по-умолчанию
+Element visible/hidden=Элемент виден/скрыт
+Position of text in status bar cells=Положение текста в ячейках строки состояния
+List of cells=Список ячеек
+List of status bar messages used by the doIndexText method=Список сообщений в строке состояния, используемых методом doIndexText
+Sets the text Text in the Panel cell of the status bar=Устанавливает текст Text в строку состояния в ячейку Panel
+Sets indexed text from a stream to a Panel cell=Устанавливает текст с индексом из потока в ячейку Panel
+Sets the Width of a Panel cell=Устанавливает ячейке Panel ширину Width
+Event occurs when text is set in the status bar=Событие происходит при установке текста в строке состояния
+Contains the element identifier=Содержит идентификатор элемента
+Contains the number of cells=Содержит количество ячеек
+Text to display in the status bar=Текст для показа в статусбаре
+Cell index to display text or set width=Индекс ячейки для показа текста либо установки ширины
+Width=Ширина
+Access to any line of the message list by its index=Доступ к любой строке списка сообщений по её индексу

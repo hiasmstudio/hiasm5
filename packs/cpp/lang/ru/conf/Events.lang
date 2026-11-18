@@ -1,0 +1,9 @@
+Event organization=Организация событий
+Event name=Имя события
+True - reset only via doReset; False - automatic (and atomic) state reset by the waiting (and notified) stream=True - сброс только по doReset; False - автоматический (и атомарный) сброс состояния ожидающим (и дождавшимся) потоком
+Creates an event named Name=Создаёт событие с именем Name
+Sets an event=Устанавливает событие
+Resets event=Сбрасывает событие
+Destroys an event=Уничтожает событие
+Occurs every time an event is created=Происходит всякий раз после создания события
+Contains the event ID=Содержит идентификатор события

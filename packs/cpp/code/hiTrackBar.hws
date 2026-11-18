@@ -1,0 +1,103 @@
+func Arg(value)
+  if(len(value) > 0)
+    return(value)
+  else
+    return('0')
+  end
+end
+
+func doStart
+  println('{')
+  fvar(orient, adjustment, ticks, step, i, mark, page, tickpos, both, other)
+  orient = 'GTK_ORIENTATION_HORIZONTAL'
+  switch(d('Kind'))
+    case 1: orient = 'GTK_ORIENTATION_VERTICAL'
+  end
+  println('GtkWidget *track = gtk_scale_new_with_range(', orient, ', ', get('Min'), ', ', get('Max'), ', 1);')
+  if(get('ThumbLength') > 0)
+    println('hiasm_set_slider_size(track, ', get('ThumbLength'), ');')
+  end
+  adjustment = 'hiasm_adjustment' && _id_
+  println('GtkAdjustment *', adjustment, ' = gtk_range_get_adjustment(GTK_RANGE(track));')
+  page = get('PageSize')
+  if(page < 0)
+    page = 10
+  end
+  println('gtk_adjustment_set_page_increment(', adjustment, ', ', page, ');')
+  tickpos = 'GTK_POS_BOTTOM'
+  both = 0
+  other = 'GTK_POS_TOP'
+  switch(get('TickMarks'))
+    case 1: tickpos = 'GTK_POS_TOP'
+    case 2: both = 1
+  end
+  ticks = get('TickCount')
+  if(ticks > 1)
+    step = (get('Max') - get('Min')) / (ticks - 1)
+    i = 0
+    while(i < ticks)
+      mark = get('Min') + i * step
+      println('gtk_scale_add_mark(GTK_SCALE(track), ', mark, ', ', tickpos, ', NULL);')
+      if(both)
+        println('gtk_scale_add_mark(GTK_SCALE(track), ', mark, ', ', other, ', NULL);')
+      end
+      i = i + 1
+    end
+  else
+    println('gtk_scale_add_mark(GTK_SCALE(track), ', get('Position'), ', ', tickpos, ', NULL);')
+    if(both)
+      println('gtk_scale_add_mark(GTK_SCALE(track), ', get('Position'), ', ', other, ', NULL);')
+    end
+  end
+  println('gtk_range_set_value(GTK_RANGE(track), ', get('Position'), ');')
+  switch(get('HintPosition'))
+    case "True":
+      println('g_signal_connect(', adjustment, ', "value-changed", G_CALLBACK(+[](GtkAdjustment *adjustment, gpointer user_data) {')
+      println('gtk_widget_set_tooltip_text(GTK_WIDGET(user_data), std::to_string(static_cast<int>(gtk_adjustment_get_value(adjustment))).c_str());')
+      println('}), track);')
+      println('gtk_widget_set_tooltip_text(track, std::to_string(static_cast<int>(gtk_adjustment_get_value(', adjustment, '))).c_str());')
+  end
+  println('hiasm_place("TrackBar', _id_, '", track, ', Left, ', ', Top, ');')
+  if(linked(onPosition))
+    println('g_signal_connect(', adjustment, ', "value-changed", G_CALLBACK(+[](GtkAdjustment *adjustment, gpointer) {')
+    println('if(!hiasm_form_ready) return;')
+    block.inclvl()
+    event(onPosition, 'static_cast<int>(gtk_adjustment_get_value(adjustment))')
+    block.declvl()
+    println('}), NULL);')
+  end
+  if(linked(onStart))
+    println('GtkGesture *startgesture = gtk_gesture_drag_new();')
+    println('g_signal_connect(startgesture, "drag-begin", G_CALLBACK(+[](GtkGestureDrag *, double, double, gpointer) {')
+    println('if(!hiasm_form_ready) return;')
+    block.inclvl()
+    event(onStart)
+    block.declvl()
+    println('}), NULL);')
+    println('gtk_widget_add_controller(track, GTK_EVENT_CONTROLLER(startgesture));')
+  end
+  if(linked(onStop))
+    println('GtkGesture *stopgesture = gtk_gesture_drag_new();')
+    println('g_signal_connect(stopgesture, "drag-end", G_CALLBACK(+[](GtkGestureDrag *, double, double, gpointer) {')
+    println('if(!hiasm_form_ready) return;')
+    block.inclvl()
+    event(onStop)
+    block.declvl()
+    println('}), NULL);')
+    println('gtk_widget_add_controller(track, GTK_EVENT_CONTROLLER(stopgesture));')
+  end
+  println('}')
+end
+
+func doPosition(_data)
+  println('gtk_range_set_value(GTK_RANGE(hiasm_widget("TrackBar', _id_, '").get()), static_cast<double>(', Arg(_data), '));')
+end
+
+func doPosition2(_data)
+  doPosition(_data)
+end
+
+func Position()
+  return('static_cast<int>(hiasm_range_value("TrackBar' && _id_ && '"))')
+end
+

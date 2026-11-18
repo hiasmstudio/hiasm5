@@ -1,0 +1,6 @@
+Query to execute against data source=Запрос на выполнение к источнику данных
+Query text in SQL language=Текст запроса на языке SQL
+Data Source Manager=Менеджер источника данных
+Executes a query string in SQL language=Выполняет строку запроса на языке SQL
+The event occurs after a request to the data source is executed=Событие происходит после выполнения запроса к источнику данных
+The event occurs in case of an error and outputs its description to the stream=Событие происходит в случае ошибки и выдает её описание в поток

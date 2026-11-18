@@ -1,0 +1,11 @@
+Delete/copy/move/check for file presence on disk=Удaлeниe/кoпиpoвaниe/пepeмeщeниe/проверка наличия на диске фaйлa
+If this property is True, then the deleted files will be placed in the trash=Если это св-во равно True, то удаляемые файлы будут помещены в корзину
+The name of the file on which the default operation is performed=Имя файла, над которым производится операция по умолчанию
+New default file name for Move and Copy operations=Новое имя файла для операций Move и Copy по умолчанию
+Moves file FileName to NewFileName=Перемещает файл FileName в NewFileName
+Copies file FileName to NewFileName=Копирует файл FileName в NewFileName
+Deletes a file named FileName=Удаляет файл с именем FileName
+Checks the presence of a file named FileName on the disk and outputs the result to the stream: 1 - the file exists, 0 - the file does not exist=Проверяет наличие на диске файла с именем FileName и выдает в поток результат: 1 - файл существует, 0 - файл отсутствует
+The event occurs whenever an operation is performed on a file=Событие происходит всякий раз при выполнении операции над файлом
+Name of the file on which the operation is performed=Имя файла, над которым производится операция
+New file name for Move and Copy operations=Новое имя файла для операций Move и Copy

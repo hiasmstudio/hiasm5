@@ -1,0 +1,11 @@
+Key pair generator=Генератор ключевых пар
+Generation mode=Режим генерации
+Key length=Длина ключа
+Generates a key pair=Генерирует ключевую пару
+Gets the public key from the foreign key pair ARG(ExternalKeyPair)=Получает открытый ключ из внешней ключевой пары ARG(ExternalKeyPair)
+The event occurs every time after the end of generating a key pair and outputs the result to the ARG(KeyPair, PublicKey) stream=Событие происходит всякий раз после окончания генерирования ключевой пары и выдает результат в поток ARG(KeyPair, PublicKey)
+The event occurs every time after the public key has been retrieved and outputs the result to the ARG(PublicKey) stream=Событие происходит всякий раз после окончания получения открытого ключа и выдает результат в поток ARG(PublicKey)
+The event occurs as a result of an error and issues an error code to the ARG(Error) stream=Событие происходит в результате ошибки и выдает код ошибки в поток ARG(Error)
+Contains a key pair=Содержит ключевую пару
+Contains the public key=Содержит открытый ключ
+Foreign key pair to obtain public key=Внешняя ключевая пара для получения открытого ключа

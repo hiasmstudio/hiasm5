@@ -1,0 +1,387 @@
+Make(cpp)
+Pos(0,55)
+Add(MainForm,2953706,21,57)
+{
+ Width=340
+ Height=332
+ Caption="Line direction"
+ BorderStyle=3
+ link(onCreate,2669301:doSearch,[(89,77)(89,63)])
+}
+Add(KE_Connect,2822398,182,267)
+{
+ Name="mainUSB"
+ link(onConnect,6044020:doData,[])
+ link(onError,7537683:doString,[(230,280)(230,315)])
+ link(ComPort,6842903:Text,[])
+}
+Add(Button,13116887,126,267)
+{
+ Left=10
+ Top=15
+ Width=70
+ Caption="Connect"
+ link(onClick,2822398:doConnect,[])
+}
+Add(Edit,6842903,182,218)
+{
+ Left=120
+ Top=15
+ Text="0"
+}
+Add(Label,15080301,182,169)
+{
+ Left=90
+ Top=20
+ Width=28
+ Height=17
+ Caption="COM"
+}
+Add(ListBox,6138828,336,309)
+{
+ Left=5
+ Top=75
+ Width=185
+ Height=185
+ AddType=1
+}
+Add(FormatStr,7537683,245,309)
+{
+ DataCount=1
+ Mask="Connection error: code = %1"
+ link(onFString,4115016:doWork2,[])
+}
+Add(HubEx,4115016,301,302)
+{
+ link(onEvent,6138828:doAdd,[])
+}
+Add(DoData,6044020,245,267)
+{
+ Data=String(Connected!)
+ link(onEventData,9866871:doEvent1,[])
+}
+Add(Button,5398867,126,309)
+{
+ Left=10
+ Top=45
+ Width=70
+ Caption="Disconnect"
+ link(onClick,2822398:doDisconnect,[(170,315)(170,280)])
+}
+Add(CheckBox,10257426,672,120)
+{
+ Left=205
+ Top=50
+ Caption="Line 1"
+ Point(onClick)
+ link(onClick,16041577:doWork2,[(730,133)(730,252)])
+}
+Add(CheckBox,517956,672,162)
+{
+ Left=205
+ Top=70
+ Caption="Line 2"
+ Point(onClick)
+ link(onClick,16041577:doWork3,[(730,175)(730,259)])
+}
+Add(CheckBox,1956705,672,204)
+{
+ Left=205
+ Top=90
+ Caption="Line 3"
+ Point(onClick)
+ link(onClick,16041577:doWork4,[(730,217)(730,266)])
+}
+Add(CheckBox,12534953,672,246)
+{
+ Left=205
+ Top=110
+ Caption="Line 4"
+ Point(onClick)
+ link(onClick,16041577:doWork5,[(730,259)(730,273)])
+}
+Add(CheckBox,7690900,672,288)
+{
+ Left=205
+ Top=130
+ Caption="Line 5"
+ Point(onClick)
+ link(onClick,16041577:doWork6,[(730,301)(730,280)])
+}
+Add(CheckBox,13565374,672,330)
+{
+ Left=205
+ Top=150
+ Caption="Line 6"
+ Point(onClick)
+ link(onClick,16041577:doWork7,[(730,343)(730,287)])
+}
+Add(CheckBox,13076851,672,372)
+{
+ Left=205
+ Top=170
+ Caption="Line 7"
+ Point(onClick)
+ link(onClick,16041577:doWork8,[(730,385)(730,294)])
+}
+Add(CheckBox,4038513,672,414)
+{
+ Left=205
+ Top=190
+ Caption="Line 8"
+ Point(onClick)
+ link(onClick,16041577:doWork9,[(730,427)(730,301)])
+}
+Add(CheckBox,6071980,672,456)
+{
+ Left=205
+ Top=210
+ Caption="Line 9"
+ Point(onClick)
+ link(onClick,16041577:doWork10,[(730,469)(730,308)])
+}
+Add(CheckBox,3266855,672,498)
+{
+ Left=205
+ Top=230
+ Caption="Line 10"
+ Point(onClick)
+ link(onClick,16041577:doWork11,[(730,511)(730,315)])
+}
+Add(CheckBox,8482097,672,540)
+{
+ Left=205
+ Top=250
+ Caption="Line 11"
+ Point(onClick)
+ link(onClick,16041577:doWork12,[(730,553)(730,322)])
+}
+Add(CheckBox,1824663,672,582)
+{
+ Left=205
+ Top=270
+ Caption="Line 12"
+ Point(onClick)
+ link(onClick,16041577:doWork13,[(730,595)(730,329)])
+}
+Add(KE_LineState,5383339,350,267)
+{
+ KE_Device="mainUSB"
+ link(onLineState,12485733:doLoad,[])
+}
+Add(Hub,9866871,294,267)
+{
+ link(onEvent1,5383339:doGetLineDirection,[])
+ link(onEvent2,4115016:doWork1,[(338,280)(338,295)(305,295)])
+}
+Add(CharArray,12485733,406,267)
+{
+ link(onLoad,5085903:doEnum,[])
+}
+Add(ArrayEnum,5085903,455,267)
+{
+ link(onItem,7000942:doConvert,[])
+ link(Array,12485733:Array,[(461,252)(443,252)(443,311)(412,311)])
+}
+Add(IndexToChanel,10651319,560,267)
+{
+ Count=24
+ Point(Index)
+ link(onEvent1,10257426:doCheck,[(632,273)(632,126)])
+ link(onEvent2,517956:doCheck,[(632,280)(632,168)])
+ link(onEvent3,1956705:doCheck,[(632,287)(632,210)])
+ link(onEvent4,12534953:doCheck,[(632,294)(632,252)])
+ link(onEvent5,7690900:doCheck,[(632,301)(632,294)])
+ link(onEvent6,13565374:doCheck,[(632,308)(632,336)])
+ link(onEvent7,13076851:doCheck,[(632,315)(632,378)])
+ link(onEvent8,4038513:doCheck,[(632,322)(632,420)])
+ link(onEvent9,6071980:doCheck,[(632,329)(632,462)])
+ link(onEvent10,3266855:doCheck,[(632,336)(632,504)])
+ link(onEvent11,8482097:doCheck,[(632,343)(632,546)])
+ link(onEvent12,1824663:doCheck,[(632,350)(632,588)])
+ link(onEvent13,1163904:doCheck,[(632,357)(632,658)])
+ link(onEvent14,15527911:doCheck,[(632,364)(632,700)])
+ link(onEvent15,16582910:doCheck,[(632,371)(632,742)])
+ link(onEvent16,12117202:doCheck,[(632,378)(632,784)])
+ link(onEvent17,4757484:doCheck,[(632,385)(632,826)])
+ link(onEvent18,13037361:doCheck,[(632,392)(632,868)])
+ link(onEvent19,977502:doCheck,[(632,399)(632,910)])
+ link(onEvent20,11371621:doCheck,[(632,406)(632,952)])
+ link(onEvent21,13799741:doCheck,[(632,413)(632,994)])
+ link(onEvent22,15521525:doCheck,[(632,420)(632,1036)])
+ link(onEvent23,5070626:doCheck,[(632,427)(632,1078)])
+ link(onEvent24,10105321:doCheck,[(632,434)(632,1120)])
+ link(Index,5085903:Index,[(566,255)(492,255)(492,314)(468,314)])
+}
+Add(KE_LineDirection,7593313,812,239)
+{
+ KE_Device="mainUSB"
+}
+Add(MT_ChanelToIndex,16041577,756,239)
+{
+ Count=25
+ link(onIndex,7593313:doSetDirection,[])
+}
+Add(Convertor,7000942,504,267)
+{
+ Mode=1
+ link(onResult,10651319:doEvent,[])
+}
+Add(CheckBox,2938964,119,365)
+{
+ Left=5
+ Top=265
+ Width=115
+ Checked=0
+ Caption="Line ¹ - input line"
+}
+Add(CheckBox,15021523,169,369)
+{
+ Left=5
+ Top=285
+ Width=115
+ Caption="Line ¹ - output line"
+}
+Add(CheckBox,1163904,672,652)
+{
+ Left=265
+ Top=50
+ Caption="Line 13"
+ Point(onClick)
+ link(onClick,16041577:doWork14,[(730,665)(730,336)])
+}
+Add(CheckBox,15527911,672,694)
+{
+ Left=265
+ Top=70
+ Caption="Line 14"
+ Point(onClick)
+ link(onClick,16041577:doWork15,[(730,707)(730,343)])
+}
+Add(CheckBox,16582910,672,736)
+{
+ Left=265
+ Top=90
+ Caption="Line 15"
+ Point(onClick)
+ link(onClick,16041577:doWork16,[(730,749)(730,350)])
+}
+Add(CheckBox,12117202,672,778)
+{
+ Left=265
+ Top=110
+ Caption="Line 16"
+ Point(onClick)
+ link(onClick,16041577:doWork17,[(730,791)(730,357)])
+}
+Add(CheckBox,4757484,672,820)
+{
+ Left=265
+ Top=130
+ Caption="Line 17"
+ Point(onClick)
+ link(onClick,16041577:doWork18,[(730,833)(730,364)])
+}
+Add(CheckBox,13037361,672,862)
+{
+ Left=265
+ Top=150
+ Caption="Line 18"
+ Point(onClick)
+ link(onClick,16041577:doWork19,[(730,875)(730,371)])
+}
+Add(CheckBox,977502,672,904)
+{
+ Left=265
+ Top=170
+ Caption="Line 19"
+ Point(onClick)
+ link(onClick,16041577:doWork20,[(730,917)(730,378)])
+}
+Add(CheckBox,11371621,672,946)
+{
+ Left=265
+ Top=190
+ Caption="Line 20"
+ Point(onClick)
+ link(onClick,16041577:doWork21,[(730,959)(730,385)])
+}
+Add(CheckBox,13799741,672,988)
+{
+ Left=265
+ Top=210
+ Caption="Line 21"
+ Point(onClick)
+ link(onClick,16041577:doWork22,[(730,1001)(730,392)])
+}
+Add(CheckBox,15521525,672,1030)
+{
+ Left=265
+ Top=230
+ Caption="Line 22"
+ Point(onClick)
+ link(onClick,16041577:doWork23,[(730,1043)(730,399)])
+}
+Add(CheckBox,5070626,672,1072)
+{
+ Left=265
+ Top=250
+ Caption="Line 23"
+ Point(onClick)
+ link(onClick,16041577:doWork24,[(730,1085)(730,406)])
+}
+Add(CheckBox,10105321,672,1114)
+{
+ Left=265
+ Top=270
+ Caption="Line 24"
+ Point(onClick)
+ link(onClick,16041577:doWork25,[(730,1127)(730,413)])
+}
+Add(KE_DetectDevices,2669301,126,57)
+{
+ link(onSearch,14266507:doString,[])
+ link(onEndSearch,16599267:doCompare,[(170,70)(170,119)])
+}
+Add(Message,14620155,301,113)
+{
+ Message="Not found"
+ Caption="KernelChip devices not found in you system!"
+ Icon=3
+}
+Add(If_else,16599267,182,113)
+{
+ Op2=Integer(0)
+ link(onTrue,14620155:doMessage,[])
+ link(onFalse,9645946:doData,[])
+}
+Add(FormatStr,14266507,182,57)
+{
+ Mask="%1 - COM%2"
+ link(onFString,11724721:doAdd,[])
+}
+Add(ComboBox,11724721,238,57)
+{
+ Left=195
+ Top=15
+ Width=125
+ Height=21
+ ReadOnly=0
+ link(onClick,5534604:doWork2,[])
+}
+Add(Copy,9030333,301,64)
+{
+ Position=1
+ Count=1
+ Direction=1
+ link(onCopy,6842903:doText,[(345,70)(345,147)(170,147)(170,224)])
+}
+Add(DoData,9645946,238,120)
+{
+ link(onEventData,5534604:doWork3,[(284,126)])
+ link(Data,11724721:String,[(244,111)(251,111)])
+}
+Add(HubEx,5534604,280,57)
+{
+ link(onEvent,9030333:doCopy,[])
+}

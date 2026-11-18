@@ -1,0 +1,8 @@
+Drawing a line=Рисование линии
+Count the coordinates of the second point relative to the first (i.e. the second point is the width and height of the figure)=Отсчитывать координаты второй точки относительно первой (т.е. вторая точка это ширина и высота фигуры)
+Graphics output object: Bitmap - image, Handle - window or Windows control, HDC - output context=Объект вывода графики: Bitmap - картинка, Handle - окно или элемент управления Windows, HDC - контекст вывода
+Draw a line from Point1 to Point2=Нарисовать линию из точки Point1 в точку Point2
+The event occurs every time after the figure is drawn=Событие происходит всякий раз после отрисовки фигуры
+Picture on which you want to draw a line=Картинка, на которой требуется нарисовать линию
+The point from which the line begins=Точка, с которой начинается линия
+The point to which the line is drawn=Точка, до которой рисуется линия

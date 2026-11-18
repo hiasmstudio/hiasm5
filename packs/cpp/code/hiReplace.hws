@@ -1,0 +1,42 @@
+func Source(value)
+  if(linked('Str'))
+    return(d('Str'))
+  end
+  if(len(value) > 0)
+    return(value)
+  end
+  return('""')
+end
+
+func SubSource()
+  if(linked('Sub_str'))
+    return(d('Sub_str'))
+  else
+    return(cstr(get('SubStr')))
+  end
+end
+
+func DestSource()
+  if(linked('Dest'))
+    return(d('Dest'))
+  else
+    return(cstr(get('DestStr')))
+  end
+end
+
+func Expr(value)
+  return('[](std::string s, const std::string &from, const std::string &to) { if(from.empty()) return s; std::size_t p = 0; while((p = s.find(from, p)) != std::string::npos) { s.replace(p, from.size(), to); p += to.size(); } return s; }(' && Source(value) && ', std::string(' && SubSource() && '), std::string(' && DestSource() && '))')
+end
+
+func doReplace(_data)
+  println('auto hiasm_rep', _id_, ' = ', Expr(_data), ';')
+  event(onReplace, 'hiasm_rep' && _id_)
+end
+
+func Result()
+  if(linked('doReplace'))
+    return('hiasm_rep' && _id_)
+  else
+    return(Expr(''))
+  end
+end

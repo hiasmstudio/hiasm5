@@ -1,0 +1,8 @@
+Sprite Animation=Анимация спрайта
+Sprite to animate=Спрайт, который требуется анимировать
+Number of frames in sprite=Количество кадров в спрайте
+Index of the first frame from which the animation begins=Индекс первого кадра, с которого начинается анимация
+The number of gameplay ticks after which a sprite frame changes=Количество тактов игрового процесса, через которое происходит смена кадра спрайта
+Sets the animation parameters of the sprite ARG(Sprite, Frames, StartFrame, Speed)=Устанавливает параметры анимации спрайта ARG(Sprite, Frames, StartFrame, Speed)
+The event occurs every time after setting the sprite animation parameters=Событие происходит всякий раз после установки параметров анимации спрайта
+Sprite whose animation parameters you want to set=Спрайт, параметры анимации которого требуется установить

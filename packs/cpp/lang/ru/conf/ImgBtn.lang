@@ -1,0 +1,11 @@
+Picture button=Кнопка-картинка
+Enable changing the state of a button when you hover over it with the mouse pointer=Включить изменение состояния кнопки при наведении на неё указателя мыши
+Cut the shape of an element according to the picture in the Normal property=Вырезать форму элемента по рисунку в свойстве Normal
+Alpha transparency of pictures=Alpha-прозрачность картинок
+Alpha transparency level of pictures (from 0 to 255)=Cтепень Alpha-прозрачности картинок (от 0 до 255)
+Defines the button's normal state picture=Определяет картинку нормального состояния кнопки
+Defines the image of the button's highlighted state.=Определяет картинку выделенного состояния кнопки
+Defines the image of the pressed state of the button=Определяет картинку нажатого состояния кнопки
+Defines an image of the button's unavailable state.=Определяет картинку недоступного состояния кнопки
+The event occurs every time the button is clicked (see Data)=Событие происходит всякий раз при нажатии на кнопку (см. Data)
+Contains a picture of the normal state of the button=Содержит картинку нормального состояния кнопки

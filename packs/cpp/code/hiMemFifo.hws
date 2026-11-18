@@ -1,0 +1,49 @@
+func DataExpr(value)
+  if(linked('Data'))
+    return(d('Data'))
+  end
+  return(value)
+end
+
+func Slot(n)
+  return('[]() { auto &f = hiasm_str_list(' && _id_ && '); int &o = hiasm_int_state(' && _id_ && ', -1); if(o < 0) { f.assign(static_cast<std::size_t>(std::max(0, ' && get('Count') && ')), std::string(' && cstr(get('Default')) && ')); o = std::max(0, ' && get('Count') && ') - 1; } if(f.empty()) return std::string(); return f[static_cast<std::size_t>(((o + ' && n && ') % static_cast<int>(f.size()) + static_cast<int>(f.size())) % static_cast<int>(f.size()))]; }()')
+end
+
+func Value(_index)
+  if(_index >= 0 && _index < get('Count'))
+    return(Slot(_index))
+  end
+  return('std::string()')
+end
+
+func doValue(_data)
+  println('{')
+  block.inclvl()
+  println('auto &hiasm_f', _id_, ' = hiasm_str_list(', _id_, ');')
+  println('int &hiasm_o', _id_, ' = hiasm_int_state(', _id_, ', -1);')
+  println('if(hiasm_o', _id_, ' < 0) {')
+  block.inclvl()
+  println('hiasm_f', _id_, '.assign(static_cast<std::size_t>(std::max(0, ', get('Count'), ')), std::string(', cstr(get('Default')), '));')
+  println('hiasm_o', _id_, ' = std::max(0, ', get('Count'), ') - 1;')
+  block.declvl()
+  println('}')
+  println('if(!hiasm_f', _id_, '.empty()) {')
+  block.inclvl()
+  println('hiasm_o', _id_, ' = (hiasm_o', _id_, ' + static_cast<int>(hiasm_f', _id_, '.size()) - 1) % static_cast<int>(hiasm_f', _id_, '.size());')
+  println('const std::string hiasm_ev', _id_, ' = hiasm_f', _id_, '[hiasm_o', _id_, '];')
+  println('hiasm_f', _id_, '[hiasm_o', _id_, '] = std::string(', DataExpr(_data), ');')
+  event(onData, 'hiasm_ev' && _id_)
+  block.declvl()
+  println('}')
+  block.declvl()
+  println('}')
+end
+
+func doClear(_data)
+  println('{')
+  block.inclvl()
+  println('hiasm_str_list(', _id_, ').assign(static_cast<std::size_t>(std::max(0, ', get('Count'), ')), std::string(', cstr(get('Default')), '));')
+  println('hiasm_int_state(', _id_, ', -1) = std::max(0, ', get('Count'), ') - 1;')
+  block.declvl()
+  println('}')
+end

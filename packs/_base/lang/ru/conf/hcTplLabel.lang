@@ -1,0 +1,5 @@
+Label=Надпись
+Defines label text=Задаёт начальный текст надписи
+Text align in element=Выравнивание текста в элементе
+Event emit every time after click on the element=Событие происходит всякий раз при клике на элементе
+Contains text  of the label=Содержит текст элемента

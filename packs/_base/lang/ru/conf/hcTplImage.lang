@@ -1,0 +1,10 @@
+Image=Изображение
+Defines file name for load image=Имя файла для загрузки изображения
+Image of widget=Картинка элемента
+Integrate image from GTK theme=Встроенная картинка из темы GTK
+Size of integrate image=Размер встроенной картинки
+Custom image=Произвольная картинка
+Load image from file=Загружает изображение из файла
+Event emit every time after click on the widget=Событие происходит всякий раз при клике на элементе
+Provides access to image of widget=Предоставляет доступ к ихображению элемента
+Load image from thread=Загружает изображение из потока

@@ -1,0 +1,355 @@
+Pos(0,0)
+Add(MainForm,15261923,14,28)
+{
+ Left=20
+ Top=105
+ Width=581
+ Height=580
+ Font=[MS Sans Serif,8,0,0]
+ Point(MouseX)
+ Point(MouseY)
+ link(onResize,3213527:doWork1,[(165,62)])
+ link(onCreate,16299401:doEvent1,[(76,69)(76,118)])
+}
+Add(GL_Main,12986311,182,112)
+{
+ Point(Fovy)
+ link(onInit,3060881:doInit,[])
+ link(onViewPort,3410847:doPerspective,[(222,125)(222,160)])
+ link(Handle,15261923:Handle,[(188,85)(20,85)])
+}
+Add(Timer,9506849,42,210)
+{
+ Interval=33
+ Enable=1
+ link(onTimer,1049454:doEvent1,[])
+}
+Add(GL_GTools,771925,147,210)
+{
+ Point(doClear)
+ Point(doPushMatrix)
+ Point(doPopMatrix)
+}
+Add(GL_GluTools,4593655,448,112)
+{
+ DrawStyle=1
+ link(onInit,6976573:doEnabled,[])
+}
+Add(Hub,1049454,91,210)
+{
+ OutCount=5
+ link(onEvent1,771925:doClear,[])
+ link(onEvent2,771925:doPushMatrix,[])
+ link(onEvent3,1729843:doNext,[(180,230)(180,230)])
+ link(onEvent4,771925:doPopMatrix,[(139,237)(139,230)])
+ link(onEvent5,12986311:doFlip,[(144,244)(144,132)])
+}
+Add(Hub,16299401,84,112)
+{
+ OutCount=3
+ link(onEvent1,12986311:doInit,[])
+ link(onEvent2,3213527:doWork2,[])
+ link(onEvent3,9506849:doTimer,[(130,132)(130,177)(36,177)(36,216)])
+}
+Add(MultiElement,10714674,315,224)
+{
+ link(onEvent1,6162210:doWork1,[])
+ link(Data1,14771766:Value,[])
+ link(Data2,6043289:Value,[(328,205)(377,205)])
+}
+BEGIN_SDK
+Pos(0,0)
+  Add(EditMulti,4359962,3,3)
+  {
+   EventCount=1
+   WorkCount=1
+   DataCount=2
+   Width=181
+   Height=109
+   link(doWork1,3276760:doRotate,[(19,9)(19,55)])
+  }
+  Add(GL_Rotate,3276760,35,49)
+  {
+   Y=1
+   link(onRotate,8079493:doRotate,[])
+   link(Angle,4359962:Data1,[(41,26)(9,26)])
+  }
+  Add(GL_Rotate,8079493,112,49)
+  {
+   X=1
+   link(onRotate,4359962:onEvent1,[(160,55)(160,9)])
+   link(Angle,4359962:Data2,[(118,16)(16,16)])
+  }
+END_SDK
+Add(HubEx,3213527,161,112)
+{
+ link(onEvent,12986311:doViewPort,[])
+}
+Add(Gl_Translate,6434525,539,224)
+{
+ Y=-0.2
+ link(onTranslate,8759509:doNext,[])
+}
+Add(Gl_Text,3060881,245,112)
+{
+ Depth=0.2
+ Font=[Times New Roman,5,0,32768]
+ Text="HiAsm"
+ link(onInit,16663485:doEnabled,[])
+ link(GLHandle,12986311:GLHandle,[(251,102)(230,102)(230,154)(188,154)])
+}
+Add(MultiElement,6162210,371,224)
+{
+ link(onEvent1,1731160:doWork1,[])
+}
+BEGIN_SDK
+Pos(0,0)
+  Add(EditMulti,13416492,3,3)
+  {
+   EventCount=1
+   WorkCount=1
+   Width=468
+   Height=137
+   link(doWork1,11196606:doPushMatrix,[(29,9)(29,76)])
+  }
+  Add(GL_Sphere,12678019,357,70)
+  {
+   Radius=0.05
+   Slices=10
+   link(onDraw,16242413:doPopMatrix,[])
+  }
+  Add(Gl_Translate,6506827,308,70)
+  {
+   Z=1.5
+   link(onTranslate,12678019:doDraw,[])
+  }
+  Add(GL_Rotate,15834536,259,70)
+  {
+   X=1
+   link(onRotate,6506827:doTranslate,[])
+  }
+  Add(GL_GTools,11196606,49,70)
+  {
+   Point(doPushMatrix)
+   link(onEvent,4975387:doDraw,[])
+  }
+  Add(GL_GTools,16242413,413,70)
+  {
+   Point(doPopMatrix)
+   link(onEvent,13416492:onEvent1,[(454,76)(454,9)])
+  }
+  Add(Counter,13547329,210,70)
+  {
+   Max=360
+   Step=3
+   link(onNext,15834536:doRotate,[])
+  }
+  Add(GL_Disk,4975387,98,70)
+  {
+   InRadius=1.49
+   OutRadius=1.5
+   Slices=30
+   Stacks=1
+   link(onDraw,305284:doRotate,[])
+  }
+  Add(GL_Rotate,305284,154,70)
+  {
+   Angle=90
+   Y=1
+   link(onRotate,13547329:doNext,[])
+  }
+END_SDK
+Add(MultiElement,1731160,427,224)
+{
+ link(onEvent1,6435113:doWork1,[])
+}
+BEGIN_SDK
+Pos(0,0)
+  Add(EditMulti,13416492,3,3)
+  {
+   EventCount=1
+   WorkCount=1
+   Width=482
+   Height=151
+   link(doWork1,11196606:doPushMatrix,[(26,9)(26,83)])
+  }
+  Add(GL_Sphere,12678019,378,77)
+  {
+   Radius=0.05
+   Slices=10
+   link(onDraw,16242413:doPopMatrix,[])
+  }
+  Add(Gl_Translate,6506827,329,77)
+  {
+   Z=1.5
+   link(onTranslate,12678019:doDraw,[])
+  }
+  Add(GL_Rotate,15834536,280,77)
+  {
+   X=1
+   link(onRotate,6506827:doTranslate,[])
+  }
+  Add(GL_GTools,11196606,35,77)
+  {
+   Point(doPushMatrix)
+   link(onEvent,5771332:doRotate,[])
+  }
+  Add(GL_GTools,16242413,434,77)
+  {
+   Point(doPopMatrix)
+   link(onEvent,13416492:onEvent1,[(475,83)(475,9)])
+  }
+  Add(Counter,13547329,231,77)
+  {
+   Max=360
+   Step=3
+   Default=120
+   link(onNext,15834536:doRotate,[])
+  }
+  Add(GL_Rotate,5771332,84,77)
+  {
+   Angle=120
+   Y=1
+   link(onRotate,4975387:doDraw,[])
+  }
+  Add(GL_Disk,4975387,126,77)
+  {
+   InRadius=1.49
+   OutRadius=1.5
+   Slices=30
+   Stacks=1
+   link(onDraw,8300552:doRotate,[])
+  }
+  Add(GL_Rotate,8300552,175,77)
+  {
+   Angle=90
+   Y=1
+   link(onRotate,13547329:doNext,[])
+  }
+END_SDK
+Add(MultiElement,6435113,483,224)
+{
+ link(onEvent1,6434525:doTranslate,[])
+}
+BEGIN_SDK
+Pos(0,0)
+  Add(EditMulti,13416492,3,3)
+  {
+   EventCount=1
+   WorkCount=1
+   Width=510
+   Height=172
+   link(doWork1,11196606:doPushMatrix,[(26,9)(26,83)])
+  }
+  Add(GL_Sphere,12678019,385,77)
+  {
+   Radius=0.05
+   Slices=10
+   link(onDraw,16242413:doPopMatrix,[])
+  }
+  Add(Gl_Translate,6506827,336,77)
+  {
+   Z=1.5
+   link(onTranslate,12678019:doDraw,[])
+  }
+  Add(GL_Rotate,15834536,287,77)
+  {
+   X=1
+   link(onRotate,6506827:doTranslate,[])
+  }
+  Add(GL_GTools,11196606,35,77)
+  {
+   Point(doPushMatrix)
+   link(onEvent,5771332:doRotate,[])
+  }
+  Add(GL_GTools,16242413,441,77)
+  {
+   Point(doPopMatrix)
+   link(onEvent,13416492:onEvent1,[(482,83)(482,9)])
+  }
+  Add(Counter,13547329,238,77)
+  {
+   Max=360
+   Step=3
+   Default=240
+   link(onNext,15834536:doRotate,[])
+  }
+  Add(GL_Rotate,5771332,84,77)
+  {
+   Angle=240
+   Y=1
+   link(onRotate,4975387:doDraw,[])
+  }
+  Add(GL_Disk,4975387,140,77)
+  {
+   InRadius=1.49
+   OutRadius=1.5
+   Slices=30
+   Stacks=1
+   link(onDraw,305284:doRotate,[])
+  }
+  Add(GL_Rotate,305284,189,77)
+  {
+   Angle=90
+   Y=1
+   link(onRotate,13547329:doNext,[])
+  }
+END_SDK
+Add(Counter,8759509,595,224)
+{
+ Max=360
+ Step=2
+ link(onNext,98498:doRotate,[])
+}
+Add(GL_Rotate,98498,644,224)
+{
+ Y=1
+ link(onRotate,4101734:doTranslate,[])
+}
+Add(GL_Rotate,16361112,252,224)
+{
+ X=1
+ Y=1
+ Z=1
+ link(onRotate,10714674:doWork1,[(355,230)(299,230)])
+}
+Add(Gl_Translate,4101734,700,224)
+{
+ X=-1.3
+ Z=0.1
+ link(onTranslate,3060881:doDraw,[(752,230)(752,198)(235,198)(235,125)])
+}
+Add(Memory,14771766,315,154)
+{
+ Default=Integer(358)
+}
+Add(Memory,6043289,371,154)
+{
+ Default=Integer(412)
+}
+Add(Counter,1729843,203,224)
+{
+ Max=360
+ link(onNext,16361112:doRotate,[])
+}
+Add(GL_Light,6976573,497,112)
+{
+}
+Add(GL_Options,16663485,294,112)
+{
+ Flag=2
+ link(onEvent,1571481:doEnabled,[])
+}
+Add(GL_Options,1571481,350,112)
+{
+ link(onEvent,15984634:doEnabled,[])
+}
+Add(GL_Options,15984634,399,112)
+{
+ Flag=1
+ link(onEvent,4593655:doInit,[])
+}
+Add(GL_Perspective,3410847,245,154)
+{
+ Fovy=30
+}

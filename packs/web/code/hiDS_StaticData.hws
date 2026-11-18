@@ -1,0 +1,62 @@
+func init()
+  fvar(old, dt, i, c)
+  old = block.select(BLK_HEAD)
+  c = Columns
+  println(col, ' = array(', _arr.join(c, ','),');')
+  dt = Data
+  for(i = 0; i < count(dt); i++)
+    dt[i] = 'array(' + replace(dt[i], "|", '","') + ')'
+  end
+  println(stdata, ' = array(', _arr.join(dt, ','),');')
+  block.select(old)
+end
+
+func ds_select(id, args)
+  fvar(s)
+  if(_arr.mt_count(args) == 2)
+    s = _arr.mt_pop(args)  
+    println(i + '_' + code(id) + ' = ' + s + ';')
+    println(c + '_' + code(id) + ' = min(' + args + ', ' + _arr.count(Data) + ' - ' + s + ');')
+  else
+    println(i + '_' + code(id) + ' = 0;')
+    println(c + '_' + code(id) + ' = ' + _arr.count(Data) + ';')
+  end
+  if(isset(BLK_FUNC))
+    println('global ' + col + ',' + stdata + ';')
+  end
+end
+
+func ds_insert(id)
+  // not support
+end
+
+func ds_update(id)
+  // not support
+end
+
+func ds_delete(id)
+  // not support
+end
+
+func ds_fetch(id)
+  fvar(j, c)
+  println('$f' + code(id) + ' = array();')
+  c = Columns
+  for(j = 0; j < count(c); j++)
+    println('$f' + code(id) + '[' + c[j] + '] = ' + stdata + '[' + i + '_' + code(id) + '][' + j + '];')
+  end
+  println(i + '_' + code(id) + '++;')
+  println('$f' + code(id) + '["id"] = "";')
+end
+
+func ds_allcount(id)
+  return(_arr.count(Data))
+end
+
+func ds_count(id)
+  return(c + '_' + code(id))
+end
+
+func ds_use(state)
+  return(state == 0)
+end

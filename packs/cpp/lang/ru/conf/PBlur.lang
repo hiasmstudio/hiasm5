@@ -1,0 +1,8 @@
+Blur the picture=Размытие картинки
+Default blur level=Степень размытия по-умолчанию
+Image Blur Algorithm=Алгоритм размытия изображения
+Blurs an image=Выполняет размытие изображения
+The event occurs after the blur operation is performed and outputs the resulting image ARG(Bitmap) to the stream.=Событие происходит после выполнения операции размытия и выдаёт в поток полученную картинку ARG(Bitmap)
+Specifies the image for the blur operation=Определяет картинку для операции размытия
+Blur degree=Степень размытия
+Contains a blurry picture=Содержит размытую картинку

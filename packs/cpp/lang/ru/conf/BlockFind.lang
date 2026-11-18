@@ -1,0 +1,12 @@
+Finding text between two lines or characters=Поиск текста между двумя строками или символами
+Determines whether to insert start and end block characters into the found string=Определяет, вставлять ли символы начала и конца блока в найденную строку
+Defines the action on the found block. True - the found block is deleted if the ReplaceStr field is empty, or replaced otherwise. False - do nothing=Определяет действие над найденным блоком. True - найденный блок удаляется при пустом поле ReplaceStr, или заменяется в противном случае. False - ничего не делать
+Defines block start characters=Определяет символы начала блока
+Specifies end-of-block characters=Определяет символы конца блока
+Starts searching for blocks in a string=Начинает поиск блоков в строке
+Stops search/replace until replacement can be performed=Останавливает поиск/замену до возможного проведения замены
+The event occurs every time the next block is found and outputs the found block to the stream=Событие происходит всякий раз при нахождении очередного блока и выдает в поток найденный блок
+The event occurs whenever the search is completed=Событие происходит всякий раз при завершении поиска
+The event occurs whenever a block cannot be found=Событие происходит всякий раз при невозможности найти блок
+Specifies the string in which blocks are searched=Задаёт строку, в которой ищутся блоки
+When replacing a block, this field is checked for equality 0, and if it is not equal to 0, then the block is replaced with the string ReplaceStr, otherwise not=При замене блока это поле проверяется на равенство 0, и если оно не равно 0, то блок заменяется на строку ReplaceStr, иначе - нет

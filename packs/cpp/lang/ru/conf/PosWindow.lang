@@ -1,0 +1,10 @@
+Changing the window position=Изменение положения окна
+Left indent=Отступ слева
+Top margin=Отступ сверху
+Sets the window's left margin=Устанавливает отступ окна слева
+Sets the window's offset from the top=Устанавливает отступ окна от верха
+Specifies the ID of the window whose position is to be changed=Определяет идентификатор окна, чью позицию нужно изменить
+Defines the left margin of the window=Определяет отступ окна слева
+Defines the window's offset from the top=Определяет отступ окна от верха
+Contains the left margin of the window=Содержит отступ окна слева
+Contains window top margin=Содержит отступ окна сверху

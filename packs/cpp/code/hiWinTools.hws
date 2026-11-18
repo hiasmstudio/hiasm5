@@ -1,0 +1,54 @@
+func Guard()
+  println('#if !defined(_WIN32)')
+  println('#error "WinTools is a Windows-only element"')
+  println('#endif')
+end
+
+func Handle(value)
+  return('reinterpret_cast<HWND>(static_cast<intptr_t>(', value, '))')
+end
+
+func doVisible(_data)
+  Guard()
+  println('ShowWindow(', Handle(_data), ', SW_SHOW);')
+end
+
+func doPopup(_data)
+  Guard()
+  println('SetWindowPos(', Handle(_data), ', HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);')
+end
+
+func doActive(_data)
+  Guard()
+  println('SetForegroundWindow(', Handle(_data), ');')
+end
+
+func doClose(_data)
+  Guard()
+  println('PostMessageA(', Handle(_data), ', WM_CLOSE, 0, 0);')
+end
+
+func doQuit(_data)
+  Guard()
+  println('DestroyWindow(', Handle(_data), ');')
+end
+
+func doEnable(_data)
+  Guard()
+  println('EnableWindow(', Handle(), TRUE);')
+end
+
+func doMinimize(_data)
+  Guard()
+  println('ShowWindow(', Handle(_data), ', SW_MINIMIZE);')
+end
+
+func doMaximize(_data)
+  Guard()
+  println('ShowWindow(', Handle(_data), ', SW_MAXIMIZE);')
+end
+
+func doNormal(_data)
+  Guard()
+  println('ShowWindow(', Handle(_data), ', SW_RESTORE);')
+end

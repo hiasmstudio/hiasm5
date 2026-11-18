@@ -1,0 +1,17 @@
+Screensaver management=Управление скринсейвером
+Default screensaver file=Файл скринсейвера по-умолчанию
+Default interval in seconds=Интервал в секундах по-умолчанию
+Applying changes. Default - dynamic change of the screensaver. UpdateRegistry - dynamically changing the screensaver with an entry to the registry=Применение изменений. Default - динамичсекое изменение скринсейвера. UpdateRegistry - динамичсекое изменение скринсейвера с записью в реестр
+Launches the screensaver=Запускает скринсейвер
+Installs a screensaver file from FileSCR=Устанавливает файл скринсейвера из FileSCR
+Disables screensaver=Отключает скринсейвер
+Includes screensaver=Включает скринсейвер
+Disables screensaver password=Отключает пароль на скринсейвер
+Includes screensaver password=Включает пароль на скринсейвер
+Sets the interval before starting the screensaver from Interval=Устанавливает интервал до запуска скринсейвера из Interval
+Contains the current interval in seconds=Содержит текущий интервал в секундах
+Contains the current screensaver file=Содержит текущий файл скринсейвера
+Contains 1 if the screensaver is enabled, and 0 otherwise=Содержит 1, если скринсейвер включен, и 0 - в противном случае
+Contains 1 if the password is enabled, and 0 otherwise=Содержит 1, если пароль включён, и 0 - в противном случае
+Screensaver file=Файл скринсейвера
+Interval in seconds before the screensaver starts=Интервал в секундах до запуска скринсейвера

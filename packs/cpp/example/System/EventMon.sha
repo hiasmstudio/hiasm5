@@ -1,0 +1,89 @@
+Make(cpp)
+Pos(0,0)
+Add(MainForm,1252954,96,133)
+{
+ Left=20
+ Top=105
+ Width=281
+ Height=324
+ Font=[Arial,8,0,0]
+ link(onCreate,4947052:doFor,[])
+}
+Add(Timer,2306475,96,231)
+{
+ Interval=100
+ link(onTimer,14638577:doFor,[])
+}
+Add(IndexToChanel,7231194,334,168)
+{
+ link(onEvent1,3119796:doString,[])
+ link(onEvent2,6779728:doString,[])
+}
+Add(For,4947052,173,168)
+{
+ Start=1
+ End=255
+ link(onEvent,8222756:##add,[])
+}
+Add(MultiElementEx,8222756,257,168)
+{
+ Mode=1
+ link(onChange,7231194:doEvent,[])
+}
+BEGIN_SDK
+Pos(0,0)
+  Add(EditMultiEx,862236,3,3)
+  {
+   WorkCount='##add','##select'
+   EventCount='onChange'
+   Width=237
+   Height=95
+   link(##select,5597960:doReadKey,[(30,16)(30,55)])
+  }
+  Add(Keyboard,5597960,77,49)
+  {
+   link(onReadKey,11976760:doData,[])
+  }
+  Add(ChangeMon,11976760,140,49)
+  {
+   Data=Integer(0)
+   link(onData,862236:onChange,[(209,55)(209,9)])
+  }
+END_SDK
+Add(HubEx,12963278,481,168)
+{
+ link(onEvent,11772306:doAdd,[])
+}
+Add(FormatStr,3119796,404,168)
+{
+ DataCount=1
+ Mask="Pressed %1"
+ link(onFString,12963278:doWork1,[(485,174)])
+ link(Str1,5668970:Var2,[])
+}
+Add(FormatStr,6779728,446,175)
+{
+ DataCount=1
+ Mask="Released %1"
+ link(onFString,12963278:doWork2,[])
+ link(Str1,5668970:Var3,[(452,156)])
+}
+Add(GetDataEx,5668970,397,147)
+{
+ link(Data,14638577:Position,[(410,141)(315,141)(315,273)(214,273)])
+}
+Add(ListBox,11772306,495,175)
+{
+ Left=5
+ Top=10
+ Width=260
+ Height=275
+ Font=[Arial,8,0,0]
+ SelectAdd=0
+}
+Add(For,14638577,208,231)
+{
+ Start=1
+ End=255
+ link(onEvent,8222756:##select,[(248,237)(248,181)])
+}

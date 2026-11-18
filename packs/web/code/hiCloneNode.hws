@@ -1,0 +1,23 @@
+section java
+
+func create(_data)
+  return(Node && '.cloneNode(' && code(lower(SubTrees)) && ')')
+end
+
+func doCloneNode(_data)
+  if(linked(Result))
+    println(nd, ' = ', create(_data), ';')
+    event(onCloneNode, nd)
+  else
+    event(onCloneNode, create(_data))
+  end
+end
+
+func Result()
+  if(linked(doCloneNode))
+    return(nd)
+  else
+    return(create(_data))
+  end
+end
+

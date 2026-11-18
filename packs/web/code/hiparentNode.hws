@@ -1,0 +1,22 @@
+section java
+
+func create(_data)
+  return(Node && '.parentNode')
+end
+
+func doGetParentNode(_data)
+  if(linked(Parent))
+    println(pn, ' = ', create(_data), ';')
+    event(onGetParentNode, pn)
+  else
+    event(onGetParentNode, create(_data))
+  end
+end
+
+func Parent(_data)
+  if(linked(doGetParentNode))
+    return(pn)
+  else
+    return(create(_data))
+  end
+end

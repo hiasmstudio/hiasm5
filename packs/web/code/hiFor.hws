@@ -1,0 +1,52 @@
+func doFor:java
+  fvar(step_code,end_num,start_num)
+  
+  end_num = End         
+  start_num = Start
+  if(Step = 1)
+    step_code = '++'
+  elseif(Step = 0-1)
+    step_code = '--'
+  else
+    step_code = ' += ' + Step
+  end
+  
+  if(Step < 0)
+    println('for(' + issec("java")?'var ':'', i, ' = ', start_num, ' - 1; ', i, ' >= ', end_num, '; ', i, step_code, ') {')
+  else
+    println('for(' + issec("java")?'var ':'', i, ' = ', start_num, '; ', i, ' < ', end_num, '; ', i, step_code, ') {')
+  end
+  block.inclvl()
+  event(onEvent, i)
+  block.declvl()
+  println('}')
+
+  event(onStop)
+end
+
+func doStop:java
+  println('break;')
+end
+
+func Position:java
+  return(i)
+end
+
+section html
+
+func doFor
+  var(i,_end_)
+  _end_ = End
+  for(i = Start; (Step > 0) ? (i < _end_) : (i > _end_) ; i += Step)
+    event(onEvent,i)
+  end
+  event(onStop)
+end
+
+func doStop
+  i = _end_
+end
+
+func Position
+  return(i)
+end

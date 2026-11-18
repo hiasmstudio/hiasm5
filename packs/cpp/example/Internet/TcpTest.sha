@@ -1,0 +1,125 @@
+Make(cpp)
+Add(MainForm,6678,70,224)
+{
+ Left=312
+ Top=322
+ Height=145
+}
+Add(Message,20231,238,224)
+{
+ Message="Client disconnect!"
+ Caption="Server"
+}
+Add(Button,85596,336,133)
+{
+ Left=200
+ Top=40
+ Font=[Arial,8,0,0,1]
+ Caption="close"
+ link(onClick,96010:doClose,[])
+}
+Add(TCP_Client,96010,427,126)
+{
+ Port=180
+ IP="127.0.0.1"
+ link(onRead,14313:doAdd,[])
+ link(onConnect,36990:doMessage,[(486,139)(486,188)])
+ link(onDisconnect,90966:doMessage,[(478,146)(478,230)])
+}
+Add(Button,7637,70,91)
+{
+ Left=20
+ Top=15
+ Font=[Arial,8,0,0,1]
+ Caption="open"
+ link(onClick,20680:doOpen,[(132,97)(132,132)])
+}
+Add(Button,53265,70,133)
+{
+ Left=20
+ Top=40
+ Font=[Arial,8,0,0,1]
+ Caption="close"
+ link(onClick,20680:doClose,[])
+}
+Add(Button,24613,70,175)
+{
+ Left=20
+ Top=65
+ Font=[Arial,8,0,0,1]
+ Caption="send"
+ Data=String(Hello!)
+ link(onClick,20680:doSend,[(132,181)(132,146)])
+}
+Add(ListBox,92252,238,126)
+{
+ Left=85
+ Top=15
+ Width=100
+ Height=70
+ Font=[Arial,8,0,0,1]
+}
+Add(Button,98765,336,175)
+{
+ Left=200
+ Top=65
+ Font=[Arial,8,0,0,1]
+ Caption="send"
+ Data=String(I am Client!!)
+ link(onClick,96010:doSend,[(398,181)(398,146)])
+}
+Add(ListBox,14313,497,126)
+{
+ Left=265
+ Top=15
+ Width=110
+ Height=70
+ Font=[Arial,8,0,0,1]
+}
+Add(Button,67336,336,91)
+{
+ Left=200
+ Top=15
+ Font=[Arial,8,0,0,1]
+ Caption="open"
+ link(onClick,96010:doOpen,[(398,97)(398,132)])
+}
+Add(Message,4920,238,182)
+{
+ Message="Client connect!"
+ Caption="Server"
+}
+Add(Message,90966,497,224)
+{
+ Message="I'am disconnect!"
+ Caption="Client"
+}
+Add(Message,36990,497,182)
+{
+ Message="I'am connected!"
+ Caption="Client"
+}
+Add(Timer,92181,70,273)
+{
+ link(onTimer,76512:doStrCat,[])
+}
+Add(Label,82216,238,273)
+{
+ Left=85
+ Top=90
+ Width=100
+ Font=[Arial,8,0,0,1]
+}
+Add(TCP_Server,20680,161,126)
+{
+ Port=180
+ link(onRead,92252:doAdd,[])
+ link(onConnect,4920:doMessage,[(219,139)(219,188)])
+ link(onDisconnect,20231:doMessage,[(212,146)(212,230)])
+}
+Add(StrCat,76512,154,273)
+{
+ Str1="Clients:"
+ link(onStrCat,82216:doText,[])
+ link(Str2,20680:Count,[])
+}

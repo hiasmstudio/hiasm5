@@ -1,0 +1,11 @@
+Scroll bar=Полоса прокрутки
+Item color=Цвет элемента
+Arrow color=Цвет стрелок
+Maximum value of the Position property=Максимальное значение св-ва Position
+Minimum value of the Position property=Минимальное значение св-ва Position
+Start position of the slider=Начальная позиция ползунка
+Slider orientation on the form=Ориентация ползунка на форме
+Move - the onPosition event occurs every time the slider position changes, Up - only when the slider is released=Move - событие onPosition происходит при каждом изменении положения ползунка, Up - только при отпускании ползунка
+Sets the position of the slider=Устанавливает позицию ползунка
+The event occurs whenever the slider is moved=Событие происходит всякий раз при перемещении ползунка
+Returns the value of the Position property=Возвращает значение свойства Position

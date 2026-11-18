@@ -1,0 +1,56 @@
+﻿*Запуск 100 блокнотов(кнопка Запуск) и их закрытие(кнопка Закрыть)#13#10Версия для русских Windows
+Make(cpp)
+Pos(0,0)
+Add(If_else,47740,170,50)
+{
+ Op2=String(Безымянный - Блокнот)
+ link(onTrue,96158:doData,[(212,56)(212,96)(90,96)(90,140)])
+}
+Add(MainForm,89572,265,230)
+{
+ Left=312
+ Top=284
+ Width=131
+ Height=111
+ Caption="Блокнот"
+ BorderStyle=3
+ TaskBar=1
+}
+Add(Button,64409,35,189)
+{
+ Left=20
+ Top=15
+ Width=75
+ Caption="Запуск"
+ link(onClick,22408:doFor,[])
+}
+Add(DoData,96158,100,134)
+{
+ link(onEventData,18473:doClose,[])
+ link(Data,81892:Handle,[])
+}
+Add(WinExec,63913,155,189)
+{
+ FileName="notepad.exe"
+}
+Add(WinEnum,81892,100,50)
+{
+ link(onFindWindow,47740:doCompare,[])
+}
+Add(For,22408,100,189)
+{
+ Start=1
+ End=100
+ link(onEvent,63913:doExec,[])
+}
+Add(WinTools,18473,170,113)
+{
+}
+Add(Button,43711,45,50)
+{
+ Left=20
+ Top=45
+ Width=75
+ Caption="Закрыть"
+ link(onClick,81892:doEnum,[])
+}

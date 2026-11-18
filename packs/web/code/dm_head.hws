@@ -1,0 +1,35 @@
+  fvar(oldSite, oldScope)
+  if(isset(_SITE_))
+    oldSite = _SITE_
+    oldScope = _SCOPE_
+  else
+    gvar(_SITE_, _SCOPE_)
+  end
+  
+  if(not isset(_PRINT_SC_))
+    gvar(_PRINT_SC_)
+    fvar(old)
+    old = block.select(BLK_HEAD)
+    println('$one_print_sc = 0;')
+    println('function print_sc(){')
+    println('  global $one_print_sc;')
+    println('  if($one_print_sc) return;')
+    println('  $one_print_sc = 1;')
+    println('?>')
+    println('<script language="javascript">')
+    println('function sendCommand(id, form, cmd, a) {')
+    println('  document.getElementById("id" + form).value = id;')
+    println('  var frm = document.getElementById("mform" + form);')
+    println('  frm.action += "&cmd=" + cmd;')
+    println('  if(a == 0) frm.action += "#dt_" + form + "_" + id;')
+    println('  frm.submit();')
+    println('  return true;')
+    println('}')
+    println('</script>')
+    println('<?php')
+    println('}')
+    block.select(old)    
+  end
+  
+  println('print_sc();')
+  _SITE_ = code(_id_)

@@ -1,0 +1,79 @@
+Make(cpp)
+Add(PlotSeriesMarker,9665008,224,294)
+{
+ Grapher="Plotter"
+ FrameStyle=5
+ BgStyle=1
+ HAlign=1
+ Series="Values"
+ link(QueryText,38789:GetData,[])
+}
+Add(MainForm,15386222,70,154)
+{
+ Left=20
+ Top=105
+ Width=501
+ Height=412
+ Caption="Series markers"
+ link(onCreate,14310219:doFor,[])
+}
+Add(For,14310219,126,168)
+{
+ Start=1
+ End=10
+ link(onEvent,7049018:doAdd,[])
+ link(onStop,9665008:doSetText,[(191,181)(191,300)])
+}
+Add(Plotter,10574215,182,112)
+{
+ Left=5
+ Top=40
+ Width=475
+ Height=340
+ Align=5
+ Name="Plotter"
+ GridColor=16777215
+}
+Add(PlotAxis,4986410,273,168)
+{
+ Grapher="Plotter"
+ Name="X1"
+ Color=0
+ Style=2
+}
+Add(PlotHistogram,7049018,224,168)
+{
+ Grapher="Plotter"
+ Color=8421504
+ Step=3
+ Name="Values"
+ BgColor=65280
+ Offset=2
+ Axis="X1"
+ Point(ValuesY)
+}
+Add(PlotMarker,4841519,322,168)
+{
+ Grapher="Plotter"
+ Style=5
+ FrameStyle=5
+ BgStyle=1
+ HAlign=1
+ VAlign=2
+ X=15
+ Text="Linear function"
+}
+Add(EventFromData,38789,224,245)
+{
+ link(onEvent,2755786:doRead,[])
+}
+Add(ArrayRW,2755786,273,245)
+{
+ link(onRead,6431954:doStrCat,[])
+ link(Array,7049018:ValuesY,[(279,223)(230,223)])
+}
+Add(StrCat,6431954,322,245)
+{
+ Str1="V = "
+ link(onStrCat,38789:doData,[(366,251)(366,239)(212,239)(212,251)])
+}

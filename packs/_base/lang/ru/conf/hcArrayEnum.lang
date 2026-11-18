@@ -1,0 +1,8 @@
+Enumerates all array items=Перебор всех элементов массива
+Begins enumerate array items=Начинает перебор элементов массива
+Stop enumerate array=Останавливает перебор элементов
+Event emit every time after received next array item and give it in thread=Выдает в поток очередной элемент массива
+Event emit every time after end of enumerating array=Событие происходит после завершения перебора элементов массива
+Contain current array item after calling the event onItem=Содержит текущий элемент массива после вызова события onItem
+Contain index of current array item after calling the event onItem=Содержит индекс текущего элемента массива после вызова события onItem
+Array who need to enumerate=Массив, элементы которого требуется перебрать

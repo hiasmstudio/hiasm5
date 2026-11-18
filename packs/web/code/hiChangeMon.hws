@@ -1,0 +1,19 @@
+func Init:java
+  fvar(old)
+  
+  old = block.select((isset(BLK_FUNC) and isndef(Extern)) ? BLK_FUNC : BLK_HEAD)
+  println(issec("php") ? '' : 'var ', val, ' = ', Default, ';')
+  block.select(old)
+end
+
+func doData(_data):java
+  fvar(dt)
+  dt = Data 
+  println('if(', val, ' != ', dt, ') {')
+  block.inclvl()
+    println(val, ' = ', dt, ';') 
+    event(onData, val)
+  block.declvl()
+  println('}')    
+end
+

@@ -1,0 +1,6 @@
+Copy=Копирование
+Structured Storage Management=Управление структуированным хранилищем
+Copies an element from one storage location to another ARG(InPath, InCopyToPath)=Копирует элемент из одного места хранилища в другое ARG(InPath, InCopyToPath)
+The event occurs every time an element is successfully copied to the store=Событие происходит всякий раз после успешного копирования элемента в хранилище
+Path to storage element=Путь к элементу хранилища
+Path to the storage for copying the element=Путь в хранилище для копирования элемента

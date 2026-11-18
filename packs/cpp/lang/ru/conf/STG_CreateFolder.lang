@@ -1,0 +1,5 @@
+Creating a folder=Создание папки
+Structured Storage Management=Управление структуированным хранилищем
+Creates a folder in the storage ARG(InPath)=Создает папку в хранилище ARG(InPath)
+The event occurs every time a folder is successfully created in the repository=Событие происходит всякий раз после успешного создания папки в хранилище
+Path to the new folder in the repository=Путь к новой папке в хранилище

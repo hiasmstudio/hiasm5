@@ -1,0 +1,55 @@
+func IgnorEmpty()
+  if(get('IgnorEmpty') == "True")
+    return(1)
+  else
+    return(0)
+  end
+end
+
+func doPush(_data)
+  println('{')
+  block.inclvl()
+  println('const std::string hiasm_push', _id_, ' = hiasm_text(', _data, ');')
+  println('hiasm_str_list(', _id_, ').push_back(hiasm_push', _id_, ');')
+  println('hiasm_str_state(', _id_, ') = hiasm_push', _id_, ';')
+  event(onPush, 'hiasm_str_state(' && _id_ && ')')
+  block.declvl()
+  println('}')
+end
+
+func doPop(_data)
+  println('{')
+  block.inclvl()
+  println('std::vector<std::string> &hiasm_stack', _id_, ' = hiasm_str_list(', _id_, ');')
+  println('if(hiasm_stack', _id_, '.empty()) {')
+  block.inclvl()
+  if(IgnorEmpty() == 1)
+    event(onEmpty)
+  else
+    println('hiasm_str_state(', _id_, ') = std::string(', cstr(get('Default')), ');')
+    event(onPop, 'hiasm_str_state(' && _id_ && ')')
+  end
+  block.declvl()
+  println('} else {')
+  block.inclvl()
+  println('hiasm_str_state(', _id_, ') = hiasm_stack', _id_, '.back();')
+  println('hiasm_stack', _id_, '.pop_back();')
+  event(onPop, 'hiasm_str_state(' && _id_ && ')')
+  block.declvl()
+  println('}')
+  block.declvl()
+  println('}')
+end
+
+func doClear(_data)
+  println('hiasm_str_list(', _id_, ').clear();')
+  println('hiasm_str_state(', _id_, ') = std::string(', cstr(get('Default')), ');')
+end
+
+func Value()
+  return('(hiasm_str_state(' && _id_ && ').empty() ? std::string(' && cstr(get('Default')) && ') : hiasm_str_state(' && _id_ && '))')
+end
+
+func Peek()
+  return('[]() { std::vector<std::string> &st = hiasm_str_list(' && _id_ && '); if(st.empty()) return std::string(' && cstr(get('Default')) && '); return st.back(); }()')
+end

@@ -1,0 +1,95 @@
+﻿*Выключение компьютера по таймеру
+Make(cpp)
+Add(MainForm,86883,90,190)
+{
+ Left=317
+ Top=252
+ Width=307
+ Height=141
+ Caption="Turn off"
+ BorderStyle=3
+ TaskBar=1
+ SavePosName="MyProject"
+}
+Add(Timer,22536,190,110)
+{
+ Point(doInterval)
+ link(onTimer,61894:doCompare,[])
+}
+Add(Time,59445,276,40)
+{
+}
+Add(If_else,61894,240,110)
+{
+ link(onTrue,59694:doCompare,[])
+ link(Op1,59445:Hours,[(246,91)(289,91)])
+ link(Op2,35539:Position,[(253,100)(171,100)])
+}
+Add(Label,50680,15,65)
+{
+ Left=5
+ Top=55
+ Width=35
+ Height=21
+ Font=[Arial,8,0,0,1]
+ Caption="Minute"
+}
+Add(ScrollBar,35539,165,40)
+{
+ Left=45
+ Top=35
+ Width=230
+ Height=15
+ Max=23
+ link(onPosition,32233:doText,[])
+}
+Add(Hub,4418,335,110)
+{
+ link(onEvent1,65381:doShutdown,[])
+ link(onEvent2,22536:doInterval,[(376,123)(376,154)(177,154)(177,130)])
+}
+Add(Label,32233,215,40)
+{
+ Left=280
+ Top=35
+ Width=15
+ Height=21
+ Font=[Arial,8,0,0,1]
+ Caption="0"
+}
+Add(If_else,59694,290,110)
+{
+ link(onTrue,4418:doEvent1,[])
+ link(Op1,59445:Minute,[])
+ link(Op2,3173:Position,[(303,91)(336,91)])
+}
+Add(ScrollBar,3173,330,40)
+{
+ Left=45
+ Top=55
+ Width=230
+ Height=15
+ Max=59
+ link(onPosition,26920:doText,[])
+}
+Add(Label,26920,380,40)
+{
+ Left=280
+ Top=55
+ Width=15
+ Height=21
+ Font=[Arial,8,0,0,1]
+ Caption="0"
+}
+Add(Label,15520,15,30)
+{
+ Left=5
+ Top=35
+ Width=35
+ Height=21
+ Font=[Arial,8,0,0,1]
+ Caption="Hours"
+}
+Add(ExitWindows,65381,397,103)
+{
+}

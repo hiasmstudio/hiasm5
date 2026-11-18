@@ -1,0 +1,9 @@
+Drawing=Рисование
+Default X coordinate of element=Координата X элемента по-умолчанию
+Default Y coordinate of element=Координата Y элемента по-умолчанию
+Graphics output object: Bitmap - picture, Handle - window or Windows control, Context - device context=Объект вывода графики: Bitmap - картинка, Handle - окно или элемент управления Windows, Context - контекст устройства
+Draws an element at (X,Y) coordinates=Отрисовывает элемент по координатам (X,Y)
+The event occurs every time after the element is rendered=Событие происходит всякий раз после отрисовки элемента
+The graphic output object on which you want to draw the element=Объект вывода графики, на которой требуется отрисовать элемент
+X coordinate of element=Координата X элемента
+Element Y coordinate=Координата Y элемента

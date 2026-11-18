@@ -1,0 +1,9 @@
+Scroll bar=Панель прокрутки
+Minimum value of the properties 'Position'=Минимальное значение св-ва Position
+Maximum value of the properties 'Position'=Максимальное значение св-ва Position
+Initial value of slider=Начальная позиция ползунка
+Orientation of slider on the form=Ориентация ползунка на форме
+Setup position of the slider=Устанавливает позицию ползунка
+Event emit every time after move slider and gives his position in the thread=Событие происходит всякий раз при перемещении ползунка и выдает его позицию в поток
+Contains current position of the slider=Возвращает текущую позицию ползунка
+Defines position of the slider=Определяет позицию ползунка

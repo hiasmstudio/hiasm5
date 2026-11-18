@@ -1,0 +1,542 @@
+Make(cpp)
+Add(MainForm,2953706,49,21)
+{
+ Height=268
+ Caption="Windows tweaker"
+ link(onCreate,11401075:doData,[])
+}
+Add(CtrlPalette,14130078,119,84)
+{
+ Top=5
+ Height=65
+ Color=-16777196
+ Layout="vert"
+ SelectedFont=[MS Sans Serif,8,0,16777215,1]
+ Caption="System"
+ CFont=[MS Sans Serif,8,1,8388608,1]
+ BColor=-16777200
+ Padding=0
+ ItemHeight=20
+ Strings=#7:Autorun|5:Other|6:Item 3|
+ IconsManager="icons"
+ IndexManager="indexer"
+ BoxDrawManager="dbox"
+ link(onClick,13662550:doWork2,[])
+ link(onChangeState,15460692:doWork1,[(172,97)])
+}
+Add(IconsManager,11519614,259,189)
+{
+ Name="icons"
+ Icons=['Icon'=[ZIP7E03000078DA63606004420101062029C190C1CCC020C6C0C0A001C440210605068838083830331001A222A30C0D0C21088FB2736DC97B130DB77A0A6C75E580A339161CC92A1CE82A6BA3F6862A6EF594586A039405990F11079A7F2CD372AD23C714902EA8E263A55E7B0325804681157340DC03570F3773ADA744B60648F6DEAA2920C35D39B25510EEC7540FD2E2C8017576A426507D3221F57070AD2F7B6FAC21D016881682EA415AA6155F9B54BCD4552248818318F5D080EACADE9B6A88AC7E8AAB628F0907C1F882AB07F92E5613189EC51A1C53706804AA872306DA000E816A0E9E6C22157BF91E63E058CBC0B294482D41A1C7FEFFFF0F522FD043BC15205BB0813FF60C0C0FF819181A807983C5928181C7168881622D407C00883F00E5FE3042D4016D65F8570F618330880D00EC7069E6],'Icon'=[ZIP7E03000078DAAD90BD0E014114853F516855A2A3E4115464CA2D955A8D44A954526EE205B655AA44A5E735249BD0F989464270E5CAD8EC3014CEEEDCDC3DF73B3B3B0B19B9F279A416E964A1005464894519F51F6A64F9AB2635C686B0FA72E431E5582D5ACFA905A4D137487523625AE9D47552BC3553BC6CEDF262DADD95D4E6D3F7248F1005C5B01D28FCE9BC4985BDAE31A6DD34BFFC5581A3615FEFAF118567E3487AA9FE48125679222EEC8FBC859311D7F49CCB3FFDA36E37382C613580ED1CD653EDF739B8D6E15282D348993886CD117667CD3DD61D161374E7],'Icon'=[ZIP7E03000078DA63606004420101062029C190C1CCC020C6C0C0A001C440210605068838083830330C02C05CC60E4744AA97586220B5D99878F5B22BAD14763A10AF5E719DB3DA7E5F3CEA91DD0C449A3B83F58EC7A209A2A9F77DDAE0F1B0DAE166B1F5953C20323A9DA2BB3F5271AD13D06D628BB431D587BEED40D602540FB402E82AF91DB6987EE7A91042585DC006D46271311BC8404638FD52C0E6FEA00AA8058F1A34F54087B9DEAB205E7DD0EB56A016E2D5137433EDC0FFFF10FCC71E151F6046C5E8F2307D00BB155D48]]
+}
+Add(IndexManager,5668550,308,189)
+{
+ Name="indexer"
+ Index=['0'=0,'0'=1,'0'=2]
+}
+Add(VBoxLayout,4731862,189,98)
+{
+ Name="vert"
+ Space=5
+ Layout="horz"
+}
+Add(CtrlPalette,5091757,119,140)
+{
+ Left=-5
+ Top=75
+ Width=105
+ Height=70
+ Color=-16777196
+ Layout="vert"
+ SelectedFont=[MS Sans Serif,8,0,16777215,1]
+ Caption="Palette demo"
+ CFont=[MS Sans Serif,8,1,8388608,1]
+ BColor=-16777200
+ Padding=0
+ ItemHeight=20
+ Strings=#6:Item 1|6:Item 2|6:Item 3|
+ IconsManager="icons"
+ IndexManager="indexer"
+ BoxDrawManager="dbox"
+ link(onClick,9017227:doWork2,[])
+ link(onChangeState,15460692:doWork2,[])
+}
+Add(HubEx,15460692,168,140)
+{
+ link(onEvent,5085834:doResize,[])
+}
+Add(CtrlPalette,7642075,119,196)
+{
+ Top=150
+ Height=85
+ Color=-16777196
+ Layout="vert"
+ SelectedFont=[MS Sans Serif,8,4,16711680,1]
+ Caption="Palette demo"
+ CFont=[MS Sans Serif,8,1,8388608,1]
+ BColor=-16777200
+ Strings=#6:Item 1|6:Item 2|6:Item 3|
+ IconsManager="icons"
+ IndexManager="indexer"
+ link(onClick,9017227:doWork3,[(179,202)])
+ link(onChangeState,15460692:doWork3,[(172,209)])
+}
+Add(HubEx,13662550,175,77)
+{
+ link(onEvent,15774177:doWork1,[])
+}
+Add(HubEx,9017227,175,133)
+{
+ Angle=3
+ link(onEvent,13662550:doWork3,[])
+}
+Add(HBoxLayout,5085834,189,147)
+{
+ Name="horz"
+ Space=5
+}
+Add(BoxDrawManager,2856264,357,189)
+{
+ Name="dbox"
+ Gradient=1
+ Gutter=1
+ StyleBack=1
+ AddSize=0
+ LightColor=-16777201
+ ColorFrame=-16777196
+}
+Add(ChildPanel,15774177,238,84)
+{
+ @Hint=#7:Pannels|
+}
+BEGIN_SDK
+  Add(EditMulti,14695361,21,21)
+  {
+   WorkCount=1
+   Height=277
+   link(doWork1,65811:doEvent1,[(63,27)(63,62)])
+  }
+  Add(Panel,13698643,35,126)
+  {
+   Left=105
+   Top=5
+   Width=282
+   Height=231
+   Layout="parent.horz"
+   WidthScale=100
+   BevelInner=1
+  }
+  Add(ChildPanel,4805467,161,56)
+  {
+   @Hint=#7:Autorun|
+  }
+  BEGIN_SDK
+    Add(EditMulti,8285485,21,21)
+    {
+     WorkCount=1
+     Width=405
+     Height=459
+     link(doWork1,6414682:doCase,[(35,27)(35,62)])
+    }
+    Add(Panel,5770553,140,105)
+    {
+     Left=35
+     Top=105
+     Width=355
+     Height=217
+     Align=5
+     BevelInner=0
+     Point(doBringToFront)
+    }
+    Add(CheckBox,2031479,273,63)
+    {
+     Left=20
+     Top=10
+     Width=320
+     Caption="Disables Autoplay on drives of unknown type"
+     Point(onClick)
+     link(onClick,6507941:doWork1,[(319,76)])
+    }
+    Add(CheckBox,7843659,273,105)
+    {
+     Left=19
+     Top=35
+     Width=320
+     Caption="(unknow)"
+     Point(onClick)
+     link(onClick,6507941:doWork2,[])
+    }
+    Add(CheckBox,2084544,273,147)
+    {
+     Left=20
+     Top=60
+     Width=320
+     Caption="Disables Autoplay on removable drives"
+     Point(onClick)
+     link(onClick,16536808:doWork2,[])
+    }
+    Add(CheckBox,9645487,273,189)
+    {
+     Left=20
+     Top=85
+     Width=320
+     Caption="Disables Autoplay on fixed drives"
+     Point(onClick)
+     link(onClick,3769452:doWork2,[])
+    }
+    Add(CheckBox,10641547,273,231)
+    {
+     Left=20
+     Top=110
+     Width=320
+     Caption="Disables Autoplay on network drives"
+     Point(onClick)
+     link(onClick,1210884:doWork2,[])
+    }
+    Add(CheckBox,1107931,273,273)
+    {
+     Left=20
+     Top=135
+     Width=320
+     Caption="Disables Autoplay on CD-ROM drives"
+     Point(onClick)
+     link(onClick,13925901:doWork2,[])
+    }
+    Add(CheckBox,11291011,273,315)
+    {
+     Left=20
+     Top=160
+     Width=320
+     Caption="Disables Autoplay on RAM disks"
+     Point(onClick)
+     link(onClick,12778142:doWork2,[])
+    }
+    Add(CheckBox,1127211,273,357)
+    {
+     Left=20
+     Top=185
+     Width=320
+     Caption="Disables Autoplay on drives of unknown type"
+     Point(onClick)
+     link(onClick,1377126:doWork2,[])
+    }
+    Add(Case,6414682,49,56)
+    {
+     Value=String(Autorun)
+     link(onTrue,6259625:doEvent1,[])
+    }
+    Add(Hub,6259625,98,63)
+    {
+     link(onEvent1,8518732:doRead,[])
+     link(onEvent2,5770553:doBringToFront,[(126,76)(126,118)])
+    }
+    Add(Registry,8518732,140,63)
+    {
+     HKey=2
+     Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer"
+     Value="NoDriveTypeAutoRun"
+     DataType=0
+     link(onRead,6162412:doBits,[])
+    }
+    Add(IntToBits,6162412,196,63)
+    {
+     Data_0=Integer(0)
+     Data_1=Integer(1)
+     link(onBit1,2031479:doCheck,[])
+     link(onBit2,7843659:doCheck,[(250,76)(250,111)])
+     link(onBit3,2084544:doCheck,[(250,83)(250,153)])
+     link(onBit4,9645487:doCheck,[(250,90)(250,195)])
+     link(onBit5,10641547:doCheck,[(250,97)(250,237)])
+     link(onBit6,1107931:doCheck,[(250,104)(250,279)])
+     link(onBit7,11291011:doCheck,[(250,111)(250,321)])
+     link(onBit8,1127211:doCheck,[(250,118)(250,363)])
+    }
+    Add(BitsToInt,3441746,343,413)
+    {
+     Count=8
+     link(onNumber,8518732:doWrite,[(413,419)(413,454)(130,454)(130,76)])
+     link(Bit1,2031479:Checked,[(349,101)(279,101)])
+     link(Bit2,7843659:Checked,[(356,143)(279,143)])
+     link(Bit3,2084544:Checked,[(363,186)(279,186)])
+     link(Bit4,9645487:Checked,[(370,228)(279,228)])
+     link(Bit5,10641547:Checked,[(377,269)(279,269)])
+     link(Bit6,1107931:Checked,[(384,311)(279,311)])
+     link(Bit7,11291011:Checked,[(391,352)(279,352)])
+     link(Bit8,1127211:Checked,[(398,398)(279,398)])
+    }
+    Add(HubEx,6507941,315,105)
+    {
+     Angle=1
+     link(onEvent,16536808:doWork1,[])
+    }
+    Add(HubEx,16536808,315,147)
+    {
+     Angle=1
+     link(onEvent,3769452:doWork1,[])
+    }
+    Add(HubEx,3769452,315,189)
+    {
+     Angle=1
+     link(onEvent,1210884:doWork1,[])
+    }
+    Add(HubEx,1210884,315,231)
+    {
+     Angle=1
+     link(onEvent,13925901:doWork1,[])
+    }
+    Add(HubEx,13925901,315,273)
+    {
+     Angle=1
+     link(onEvent,12778142:doWork1,[])
+    }
+    Add(HubEx,12778142,315,315)
+    {
+     Angle=1
+     link(onEvent,1377126:doWork1,[])
+    }
+    Add(HubEx,1377126,315,357)
+    {
+     Angle=1
+     link(onEvent,3441746:doNumber,[(319,419)])
+    }
+  END_SDK
+  Add(Hub,65811,105,56)
+  {
+   OutCount=5
+   link(onEvent1,4805467:doWork1,[])
+   link(onEvent2,8721466:doWork1,[(140,69)(140,104)])
+   link(onEvent3,14923081:doWork1,[(140,76)(140,146)])
+   link(onEvent4,7012287:doWork1,[(140,83)(140,188)])
+   link(onEvent5,770701:doWork1,[(140,90)(140,230)])
+  }
+  Add(ChildPanel,8721466,161,98)
+  {
+   @Hint=#7:Autorun|
+  }
+  BEGIN_SDK
+    Add(EditMulti,8285485,21,21)
+    {
+     WorkCount=1
+     Width=405
+     Height=354
+     link(doWork1,6414682:doCase,[(35,27)(35,62)])
+    }
+    Add(Panel,5770553,140,329)
+    {
+     Left=35
+     Top=105
+     Width=355
+     Height=217
+     Align=5
+     BevelInner=0
+     Point(doBringToFront)
+    }
+    Add(CheckBox,2031479,189,63)
+    {
+     Left=20
+     Top=10
+     Width=320
+     Caption="Turn off welcome screen"
+     Point(onClick)
+     link(onClick,8518732:doWrite,[(232,76)(232,55)(128,55)(128,76)])
+    }
+    Add(Case,6414682,49,56)
+    {
+     Value=String(Other)
+     link(onTrue,6259625:doEvent1,[])
+    }
+    Add(Hub,6259625,98,63)
+    {
+     OutCount=4
+     link(onEvent1,8518732:doRead,[])
+     link(onEvent2,14130516:doRead,[(126,76)(126,118)])
+     link(onEvent3,13703104:doRead,[(126,83)(126,174)])
+     link(onEvent4,5770553:doBringToFront,[(126,90)(126,342)])
+    }
+    Add(Registry,8518732,140,63)
+    {
+     HKey=2
+     Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer"
+     Value="NoWelcomeScreen"
+     DataType=0
+     link(onRead,2031479:doCheck,[])
+    }
+    Add(Registry,14130516,140,112)
+    {
+     HKey=1
+     Key="Control Panel\Keyboard"
+     Value="InitialKeyboardIndicators"
+     link(onRead,2883348:doCompare,[])
+    }
+    Add(CheckBox,1674957,287,112)
+    {
+     Left=20
+     Top=35
+     Width=320
+     Caption="Turn on Num Lock at system startup"
+     Point(onClick)
+     link(onClick,16354650:doOperation,[(327,125)(327,118)])
+    }
+    Add(If_else,2883348,189,112)
+    {
+     Op2=Integer(2)
+     link(onTrue,1251419:doWork2,[(229,118)(229,125)])
+     link(onFalse,1251419:doWork1,[(229,125)(229,118)])
+    }
+    Add(ChanelToIndex,1251419,238,112)
+    {
+     link(onIndex,1674957:doCheck,[])
+    }
+    Add(Math,16354650,336,112)
+    {
+     OpType=2
+     Op2=2
+     link(onResult,14130516:doWrite,[(383,118)(383,152)(128,152)(128,125)])
+    }
+    Add(CheckBox,16017333,189,168)
+    {
+     Left=20
+     Top=60
+     Width=320
+     Caption="Do not check low disk space"
+     Point(onClick)
+     link(onClick,13703104:doWrite,[(232,181)(232,160)(128,160)(128,181)])
+    }
+    Add(Registry,13703104,140,168)
+    {
+     HKey=1
+     Key="Software\Microsoft\Windows\CurrentVersion\Policies\Explorer"
+     Value="NoLowDiskSpaceChecks"
+     DataType=0
+     link(onRead,16017333:doCheck,[])
+    }
+  END_SDK
+  Add(ChildPanel,14923081,161,140)
+  {
+   @Hint=#7:Autorun|
+  }
+  BEGIN_SDK
+    Add(EditMulti,8285485,21,21)
+    {
+     WorkCount=1
+     Width=405
+     Height=354
+     link(doWork1,6414682:doCase,[(35,27)(35,62)])
+    }
+    Add(Panel,5770553,140,329)
+    {
+     Left=35
+     Top=105
+     Width=355
+     Height=217
+     Align=5
+     BevelInner=0
+     Point(doBringToFront)
+    }
+    Add(Case,6414682,49,56)
+    {
+     Value=String(Item 3)
+     link(onTrue,6259625:doEvent1,[])
+    }
+    Add(Hub,6259625,98,63)
+    {
+     OutCount=4
+     link(onEvent4,5770553:doBringToFront,[(126,90)(126,342)])
+    }
+    Add(Label,13441703,147,63)
+    {
+     Left=115
+     Top=85
+     Width=60
+     Height=17
+     Caption="Item 3 page"
+    }
+  END_SDK
+  Add(ChildPanel,7012287,161,182)
+  {
+   @Hint=#7:Autorun|
+  }
+  BEGIN_SDK
+    Add(EditMulti,8285485,21,21)
+    {
+     WorkCount=1
+     Width=405
+     Height=354
+     link(doWork1,6414682:doCase,[(35,27)(35,62)])
+    }
+    Add(Panel,5770553,140,329)
+    {
+     Left=35
+     Top=105
+     Width=355
+     Height=217
+     Align=5
+     BevelInner=0
+     Point(doBringToFront)
+    }
+    Add(Case,6414682,49,56)
+    {
+     Value=String(Item 1)
+     link(onTrue,6259625:doEvent1,[])
+    }
+    Add(Hub,6259625,98,63)
+    {
+     OutCount=4
+     link(onEvent4,5770553:doBringToFront,[(126,90)(126,342)])
+    }
+    Add(Label,13441703,147,63)
+    {
+     Left=115
+     Top=85
+     Width=60
+     Height=17
+     Caption="Item 1 page"
+    }
+  END_SDK
+  Add(ChildPanel,770701,161,224)
+  {
+   @Hint=#7:Autorun|
+  }
+  BEGIN_SDK
+    Add(EditMulti,8285485,21,21)
+    {
+     WorkCount=1
+     Width=405
+     Height=354
+     link(doWork1,6414682:doCase,[(35,27)(35,62)])
+    }
+    Add(Panel,5770553,140,329)
+    {
+     Left=35
+     Top=105
+     Width=355
+     Height=217
+     Align=5
+     BevelInner=0
+     Point(doBringToFront)
+    }
+    Add(Case,6414682,49,56)
+    {
+     Value=String(Item 2)
+     link(onTrue,6259625:doEvent1,[])
+    }
+    Add(Hub,6259625,98,63)
+    {
+     OutCount=4
+     link(onEvent4,5770553:doBringToFront,[(126,90)(126,342)])
+    }
+    Add(Label,13441703,147,63)
+    {
+     Left=115
+     Top=85
+     Width=60
+     Height=17
+     Caption="Item 2 page"
+    }
+  END_SDK
+END_SDK
+Add(DoData,11401075,119,35)
+{
+ Data=String(Autorun)
+ link(onEventData,13662550:doWork1,[(179,41)])
+}

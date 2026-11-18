@@ -1,0 +1,4 @@
+func doInfo
+  println('phpinfo(', Module, ');')
+  event(onInfo)
+end

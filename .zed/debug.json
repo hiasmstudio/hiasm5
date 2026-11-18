@@ -1,0 +1,4 @@
+[
+    {"label": "HiAsm GTK4 (Debug)", "adapter": "GDB", "request": "launch", "program": "$ZED_WORKTREE_ROOT/build/Windows_MinGW-x64-GTK4-Debug/hiasm.exe", "cwd": "$ZED_WORKTREE_ROOT/build/Windows_MinGW-x64-GTK4-Debug", "args": [], "gdb_path": "C:/msys64/ucrt64/bin/gdb.exe", "env": {"PATH": "C:/msys64/ucrt64/bin;C:/msys64/usr/bin", "XDG_DATA_DIRS": "C:/msys64/ucrt64/share;C:/msys64/usr/share"}, "build": "HiAsm: build GTK4 Debug"},
+    {"label": "HiAsm GTK3 (Debug)", "adapter": "GDB", "request": "launch", "program": "$ZED_WORKTREE_ROOT/build/Windows_MinGW-x64-Debug/hiasm.exe", "cwd": "$ZED_WORKTREE_ROOT/build/Windows_MinGW-x64-Debug", "args": [], "gdb_path": "C:/msys64/ucrt64/bin/gdb.exe", "env": {"PATH": "C:/msys64/ucrt64/bin;C:/msys64/usr/bin", "XDG_DATA_DIRS": "C:/msys64/ucrt64/share;C:/msys64/usr/share"}, "build": "HiAsm: build GTK3 Debug"}
+]

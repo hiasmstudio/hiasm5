@@ -1,0 +1,9 @@
+Creating an audio stream from a file=Создание звукового потока из файла
+MP3, MP2, MP1, OGG, WAV, AIFF file name=Имя файла формата MP3, MP2, MP1, OGG, WAV, AIFF
+Audio stream parameters=Параметры звукового потока
+Audio stream name=Имя звукового потока
+Creates an audio stream from the specified file=Создает звуковой поток по указанному файлу
+Destroys the sound stream=Уничтожает звуковой поток
+The event occurs every time a sound stream is created=Событие происходит всякий раз после создания звукового потока
+The event occurs every time after the audio stream has finished playing=Событие происходит всякий раз после окончания проигрывания звукового потока
+The event occurs whenever an error occurs during the creation of an audio stream and produces its code ARG(Error)=Событие происходит всякий раз при возникновении ошибки в процессе создания звукового потока и выдает ее код ARG(Error)

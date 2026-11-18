@@ -1,0 +1,15 @@
+  fvar(_old_)
+  _old_ = block.select(BLK_FUNC)
+  if(not block.empty())
+    println('')
+  end
+  block.select(_old_)
+  block.copyto(BLK_FUNC)
+  block.delete(block.select(BLK_FUNC))
+  block.copyto(func_old_blk_body)
+  block.delete(block.select(func_old_blk_body))
+  if(func_old_blk_func)
+    BLK_FUNC = func_old_blk_func
+  else 
+    free(BLK_FUNC)
+  end

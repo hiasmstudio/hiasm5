@@ -1,0 +1,6 @@
+Channel management=Управление каналами
+Pause=Пауза
+Continue playback=Продолжение воспроизведения
+Stop playback=Остановка воспроизведения
+The event occurs in case of an error and outputs its number to the stream=Событие происходит в случае ошибки и выдаёт её номер в поток
+Defines the channel ID=Определяет идентификатор канала

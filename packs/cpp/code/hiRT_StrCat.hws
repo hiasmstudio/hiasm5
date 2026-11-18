@@ -1,0 +1,7 @@
+func doStrCat(_data)
+  event(onStrCat, Str1 && Str2)
+end
+
+func Result()
+  return(Str1 && Str2)
+end

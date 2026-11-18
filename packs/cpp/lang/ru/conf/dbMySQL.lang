@@ -1,0 +1,11 @@
+Defines the MySQL server address=Определяет адрес MySQL сервера
+Defines the login for accessing MySQL=Определяет логин для доступа к MySQL
+Defines a password for accessing MySQL=Определяет пароль для доступа к MySQL
+Specifies the database name=Определяет имя базы данных
+Sets the character set for the current connection=Устанавливает набор символов для текущего соединения
+Connects to a MySQL database=Осуществляет соединение с базой данных MySQL
+Closes the connection=Закрывает соединение
+Selects a database for further work with it=Выбирает базу данных для дальнейшей работы с ней
+Contains the database identifier after establishing a connection to it=Содержит идентификатор базы данных после установки соединения с ней
+Contains the name of the default character set for the current connection=Содержит имя набора символов по-умолчанию для текущего соединения
+The event occurs whenever an error occurs in the operation of the component=Событие происходит всякий раз при возникновении ошибки в работе компонента

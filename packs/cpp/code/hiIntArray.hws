@@ -1,0 +1,5 @@
+func Array()
+  fvar(items)
+  items = Numbers.join(',')
+  return('std::vector<int>{' && items && '}')
+end

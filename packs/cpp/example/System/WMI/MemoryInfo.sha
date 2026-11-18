@@ -1,0 +1,65 @@
+Make(cpp)
+Add(MainForm,1388320,147,105)
+{
+ Left=20
+ Top=105
+ Width=871
+ Height=337
+}
+Add(MemoryInfo,4724626,259,168)
+{
+ Point(DataWidth)
+ Point(FormFactor)
+ Point(Manufacturer)
+ Point(MemoryType)
+ Point(Model)
+ Point(Speed)
+ Point(Tag)
+ Point(SerialNumber)
+ Point(Version)
+ link(onInfo,13388512:doString,[(365,174)(365,206)(247,206)(247,237)])
+}
+Add(StringTable,3646190,462,154)
+{
+ Left=10
+ Top=10
+ Width=845
+ Height=235
+ Columns=#4:Name|9:BankLabel|8:Capacity|5:Speed|9:DataWidth|10:FormFactor|12:Manufacturer|10:MemoryType|5:Model|3:Tag|12:SerialNumber|7:Version|
+}
+Add(Button,7760478,147,161)
+{
+ Left=410
+ Top=265
+ link(onClick,13907702:doEvent1,[])
+}
+Add(Hub,13907702,196,161)
+{
+ link(onEvent1,3646190:doClear,[])
+ link(onEvent2,4724626:doInfo,[])
+}
+Add(FormatStr,13388512,259,231)
+{
+ DataCount=12
+ Mask="%1;%2;%3;%4;%5;%6;%7;%8;%9;%10;%11;%12"
+ link(onFString,3646190:doAdd,[(401,237)(401,160)])
+ link(Str1,4724626:Name,[(265,215)(272,215)])
+ link(Str2,4724626:BankLabel,[(272,215)(265,215)])
+ link(Str3,4724626:Capacity,[])
+ link(Str4,4724626:Speed,[(286,215)(328,215)])
+ link(Str5,4724626:DataWidth,[])
+ link(Str6,4724626:FormFactor,[])
+ link(Str7,4724626:Manufacturer,[])
+ link(Str8,4724626:MemoryType,[])
+ link(Str9,4724626:Model,[])
+ link(Str10,4724626:Tag,[(328,215)(335,215)])
+ link(Str11,4724626:SerialNumber,[(335,215)(342,215)])
+ link(Str12,4724626:Version,[(342,215)(349,215)])
+}
+Add(InfoTip,10664306,203,75)
+{
+ Info=#28:Пример применения компонента|15: WMI MemoryInfo|
+ Font=[MS Sans Serif,8,1,0,1]
+ Width=218
+ Height=39
+}

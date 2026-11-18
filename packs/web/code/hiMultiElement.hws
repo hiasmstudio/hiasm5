@@ -1,0 +1,92 @@
+func doWork(_data, index):java,html
+  fvar(f)
+  if(isdef(Name))
+    f = 'multi_call' + code(_id_) + '('
+  else
+    f = code(Name) + '('
+  end
+  
+  if(isset(call_event))
+    fvar(i)
+    // при повторном вызове пропускаем формирование тела ф-ции
+    for(i = 1; i <= _data_count_; i++)
+      f &&= (i > 1) ? ',' : '' && point("Data" + i)
+    end 
+    f &&= ')'
+    if(call_event)
+      event("onEvent" + call_event, f)
+    else
+      println(f,';')
+    end  
+  else  
+    if(CodeType = 1)
+      sys.selectElement(cgt.el_get_child_id(0))
+      event("doWork" + (index + 1), _data)
+      sys.selectElement(cgt.el_get_parent_id())
+    else
+      var(call_event, ret)
+      fvar(old, pref, i, dt)
+
+      pref = issec("php") ? '$arg' : 'arg'
+      old = block.select(block.reggen())
+      // ----- формируем заголовок
+      print('function ', f)
+      for(i = 1; i <= _data_count_; i++)
+        print( (i > 1) ? ',' : '' + pref + i )
+      end 
+      println(') {')
+      block.inclvl()
+      include("func_head")
+      // ----- формируем список внешних переменных
+      if(_var_count_ and issec("php"))
+        print('global ')
+        for(i = 1; i <= _var_count_; i++)
+          print( (i > 1) ? ',' : '' + pref + i + '_var' + code(_id_) )
+        end     
+        println(';')
+      end
+      // ----- формируем тело
+      call_event = 0
+      sys.selectElement(cgt.el_get_child_id(0))
+      event("doWork" + (index + 1), dt)
+      // ----- сохраняем значения внешних переменных
+      for(i = 1; i <= _data_count_; i++)
+        println(pref + i + '_var' + code(_id_), ' = ', point("Var" + i), ';')
+      end
+      sys.selectElement(cgt.el_get_parent_id())
+      // ----- вставка возвращаемого значения
+//      if(ret)
+//        println(ret)
+//      end
+      include("func_tail")
+      block.declvl()
+      println('}')
+      block.copyto(BLK_HEAD)
+      block.delete(block.select(old))
+    
+      // ----- формируем вызов ф-ции
+      for(i = 1; i <= _data_count_; i++)
+        f &&= (i > 1) ? ',' : '' && point("Data" + i)
+        if(dt = "" and cgt.pt_get_rlink_point(cgt.pt_arr_data(i-1)) = 0)
+          dt = pref + i
+        end
+      end 
+      f &&= ')'
+
+      if(call_event)
+        event("onEvent" + call_event, f)
+      else
+        println(f,';')
+      end
+    end
+  end
+end
+
+func Var(_data, index):java,html
+  if(CodeType = 1)
+    sys.selectElement(cgt.el_get_child_id(0))
+    return( point("Var" + (index + 1)) )
+  else
+    return( issec("php") ? '$arg' : 'arg' + (index + 1) + '_var' + code(_id_) )
+  end  
+end

@@ -1,0 +1,8 @@
+Sorting Arrays=Сортировка массивов
+Array type=Тип массива
+Case sensitivity for String type=Чувствительность к регистру символов для типа String
+Sorts the elements in the array ARG(Array)=Сортирует элементы в массиве ARG(Array)
+The event occurs every time the elements are sorted=Событие происходит всякий раз по окончанию сортировки элементов
+An array in which to sort the elements=Массив, в котором необходимо отсортировать элементы
+Contains a sorted array. Read-only=Содержит отсортированный массив. Доступен только для чтения
+Contains the number of elements in a sorted array=Содержит количество элементов в отсортированном массиве

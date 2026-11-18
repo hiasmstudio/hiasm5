@@ -1,0 +1,74 @@
+*¬ключение осей текущих координат курсора мыши на графике
+Make(cpp)
+Add(MainForm,16184661,84,161)
+{
+ Left=20
+ Top=105
+ Width=501
+ Height=412
+ Caption="Mouse plotter"
+ link(onCreate,14310219:doFor,[])
+}
+Add(For,14310219,140,175)
+{
+ End=10
+ link(onEvent,7547227:doAdd,[])
+}
+Add(Plotter,10574215,196,119)
+{
+ Left=5
+ Top=40
+ Width=475
+ Height=340
+ Align=5
+ Name="Plotter"
+ GridColor=16777215
+}
+Add(PlotLines,7547227,196,175)
+{
+ Grapher="Plotter"
+ Step=1
+ Name="line"
+}
+Add(PlotAxis,4986410,294,91)
+{
+ Grapher="Plotter"
+ Name="X"
+ Color=0
+}
+Add(PlotAxis,7393577,343,91)
+{
+ Grapher="Plotter"
+ Name="Y"
+ Color=0
+ Angle=90
+}
+Add(InfoTip,5177955,280,70)
+{
+ Info=#9:main axis|
+ Width=113
+ Height=67
+}
+Add(PlotMouseValues,3049079,287,175)
+{
+ Grapher="Plotter"
+ link(onMouseMove,12434518:doEvent1,[])
+}
+Add(PlotAxis,8414170,371,175)
+{
+ Grapher="Plotter"
+ Color=16711680
+ Style=2
+}
+Add(PlotAxis,4375686,371,224)
+{
+ Grapher="Plotter"
+ Color=16711680
+ Style=2
+ Angle=90
+}
+Add(Hub,12434518,336,189)
+{
+ link(onEvent1,8414170:doAxis,[(360,195)(360,181)])
+ link(onEvent2,4375686:doAxis,[(360,202)(360,230)])
+}

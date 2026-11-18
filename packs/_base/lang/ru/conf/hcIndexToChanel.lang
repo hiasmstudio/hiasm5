@@ -1,0 +1,6 @@
+Call event by index from thread=Вызывает событие по индексу в потоке
+Defines number of events for element=Задает число событий компонента
+Data by default, issued in the thread of events onEvent=Данные по умолчанию, выдаваемые в поток событиями onEvent
+Call one of event onEvent by index (top index equal 0). If index more than number of points, then do nothing=Вызывает одно из событий onEvent в соответствии с его индексом (верхний индекс равен 0). Если индекс больше, чем кол-во точек onEvent, то ничего не происходит
+Index of called event=Номер (индекс) вызываемого события
+Data issued in the thread of events onEvent=Данные, выдаваемые в поток событиями onEvent

@@ -1,0 +1,5 @@
+Envelope of the sound stream=Огибающая звукового потока
+Number of samples=Количество выборок
+Calculates the envelope of the audio stream ARG(Stream)=Вычисляет огибающую звукового потока ARG(Stream)
+The event occurs whenever the audio stream envelope is calculated and returns the result of the operation ARG(Stream)=Событие происходит всякий раз после вычисления огибающей звукового потока и возвращает результат операции ARG(Stream)
+Sound stream=Звуковой поток

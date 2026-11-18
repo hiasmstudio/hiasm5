@@ -1,0 +1,11 @@
+Working with disks=Работа с дисками
+Default drive=Диск по-умолчанию
+Dimension in which the value is returned=Размерность, в которой возвращается значение
+Sets the drive label Drive=Устанавливает метку диска Drive
+Safely disconnect your device=Безопасное отключение устройства
+Lists the logical drives on the system=Перечисляет логические диски в системе
+The event occurs every time a new disk is found in the system and outputs information about it to the stream ARG(Drive, Type, Label, Serial, FileSystem)=Событие происходит всякий раз после нахождения очередного диска в системе и выдает в поток информацию о нем ARG(Drive, Type, Label, Serial, FileSystem)
+Contains the disk size (integer values only)=Содержит размер диска (только целые значения)
+Contains free space=Содержит свободное место
+Contains occupied space=Содержит занятое место
+Disk=Диск

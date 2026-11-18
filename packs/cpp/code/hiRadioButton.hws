@@ -1,0 +1,34 @@
+func doStart
+  println('{')
+  fvar(active)
+  active = 0
+  switch(d('Checked'))
+    case 0: active = 1
+  end
+  println('GtkWidget *radio = gtk_check_button_new_with_label(', Caption, ');')
+  println('hiasm_set_color(radio, ', cstr(d('Color')), ');')
+  println('hiasm_set_font(radio, ', cstr(d('Font')), ');')
+  switch(get('Transparent'))
+    case "True": println('hiasm_set_background(radio, "transparent");')
+  end
+  println('hiasm_radio_join(GTK_CHECK_BUTTON(radio));')
+  println('gtk_check_button_set_active(GTK_CHECK_BUTTON(radio), ', active, ' ? TRUE : FALSE);')
+  println('hiasm_place("RadioButton', _id_, '", radio, ', Left, ', ', Top, ');')
+  if(linked(onSelect))
+    println('g_signal_connect(radio, "toggled", G_CALLBACK(+[](GtkCheckButton *button, gpointer) {')
+  println('if(!hiasm_form_ready) return;')
+    block.inclvl()
+    event(onSelect, 'gtk_check_button_get_active(button) ? 1 : 0')
+    block.declvl()
+    println('}), NULL);')
+  end
+  println('}')
+end
+
+func Selected()
+  return('gtk_check_button_get_active(GTK_CHECK_BUTTON(hiasm_widget("RadioButton' && _id_ && '").get())) ? 1 : 0')
+end
+
+func doSelect(_data)
+  println('gtk_check_button_set_active(GTK_CHECK_BUTTON(hiasm_widget("RadioButton', _id_, '").get()), TRUE);')
+end

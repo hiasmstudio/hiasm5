@@ -1,0 +1,10 @@
+Actions on strings in MTStrTbl=Действия над строками в MTStrTbl
+AddRow - adds a row, InsertRow - inserts a row, ReplaceRow - replaces a row, DeleteRow - deletes a row, IconRowIdx - replaces an icon in a row with an icon from the list, ColorsRow - sets the row text color and row color, GetIconRowIdx - gets the icon index for the row, GetColorsRow - gets the text color index, text color and row color, UpRow - moves the row up, DownRow - moves a row down=AddRow - добавляет строку, InsertRow - вставляет строку, ReplaceRow - заменяет строку, DeleteRow - удаляет строку, IconRowIdx - заменяет иконку в строке на иконку из списка, ColorsRow - устанавливает цвет текста строки и цвет строки, GetIconRowIdx - получает индекс иконки для строки, GetColorsRow - получает индекс цвета текста, цвет текста и цвет строки, UpRow - сдвигает строку вверх, DownRow - сдвигает строку вниз
+Default row index for DeleteRow, IconRowIdx, ColorsRow, GetIconRowIdx, GetColorsRow, UpRow, DownRow modes=Индекс строки по-умолчанию для режимов DeleteRow, IconRowIdx, ColorsRow, GetIconRowIdx, GetColorsRow, UpRow, DownRow
+Managing the MTStrTbl element=Управление элементом MTStrTbl
+Performs various actions on table rows according to the Action parameter=Выполняет различные действия над строками таблицы согласно параметра Action
+The event occurs whenever the list of table rows is changed=Событие происходит всякий раз при изменении списка строк таблицы
+Outputs the results of various operations on strings to a stream. (GetIconRowIdx, GetColorsRow)=Выдаёт результат различных операций над строками в поток. (GetIconRowIdx, GetColorsRow)
+Contains the number of rows in the table=Содержит количество строк в таблице
+Contains the index of the last row in the table=Содержит индекс последней строки в таблице
+Row index for DeleteRow, IconRowIdx, ColorsRow, GetIconRowIdx, GetColorsRow, UpRow, DownRow modes=Индекс строки для режимов DeleteRow, IconRowIdx, ColorsRow, GetIconRowIdx, GetColorsRow, UpRow, DownRow

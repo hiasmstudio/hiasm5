@@ -1,0 +1,9 @@
+  if(isset(Class))
+    print(" class=\"" & Class & "\"")
+  end 
+  if(isset(Style))
+    print(" style=\"" & Style & "\"")
+  end
+  if(isset(Title))
+    print(" title=\"" & Title & "\"")
+  end

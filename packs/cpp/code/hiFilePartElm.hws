@@ -1,0 +1,22 @@
+func Source(value)
+  if(linked('FileName'))
+    return(d('FileName'))
+  end
+  if(len(value) > 0)
+    return(value)
+  end
+  return('""')
+end
+
+func Expr(value)
+  return('[](const std::string &text, int mode) { std::filesystem::path path(text); switch(mode) { case 0: return path.parent_path().string(); case 1: return path.filename().string(); case 2: return path.stem().string(); case 3: return path.extension().string(); case 4: { std::string ext = path.extension().string(); return ext.empty() ? ext : ext.substr(1); } default: return path.lexically_normal().string(); } }(' && Source(value) && ', ' && get('Mode') && ')')
+end
+
+func doPart(_data)
+  println('hiasm_str_state(', _id_, ') = ', Expr(_data), ';')
+  event(onPart, 'hiasm_str_state(' && _id_ && ')')
+end
+
+func Part()
+  return('hiasm_str_state(' && _id_ && ')')
+end

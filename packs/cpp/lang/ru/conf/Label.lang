@@ -1,0 +1,12 @@
+Label=Надпись
+Caption transparency=Прозрачность надписи
+Sets the initial text of the caption=Задаёт начальный текст надписи
+Determines the behavior of the caption when the text changes. True - its size is set equal to the text length, False - its size does not change regardless of the text length=Определяет поведение надписи при изменении текста. True - её размер устанавливается равным длине текста, False - её размер не изменяется независимо от длины текста
+Align text in an element: left (set by default), right, and center=Выравнивание текста в элементе: по левому краю (задано по-умолчанию), по правому краю и по центру
+The color of an element when the mouse pointer hovers over it. The option is disabled with a value of 0 or clBlack=Цвет элемента при проведении по нему указателя мыши. Опция отключается при значении 0 или clBlack
+Whether to underline an element's text when hovering over it with the mouse pointer=Подчёркивать ли текст элемента при проведении по нему указателя мыши
+Defines the behavior of the onClick event. True - output the contents of the Caption property, False - output NULL=Определяет поведение события onClick. True - выдавать содержимое свойства Caption, False - выдавать NULL
+Sets the caption text=Устанавливает текст надписи
+The event occurs every time you click on the caption (see Data)=Событие происходит всякий раз при клике на надписи (см. Data)
+Stores the text of the caption=Хранит текст надписи
+Defines the text of the caption=Определяет текст надписи

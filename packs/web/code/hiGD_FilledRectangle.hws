@@ -1,0 +1,17 @@
+func doFilledRectangle(_data)  
+  fvar(p1, p2)
+  p1 = Point1
+  p2 = Point2
+  if(count(p1) != 2 or count(p2) != 2)
+    error("неверный формат координат")
+  else
+    if(isdef(Type))
+      print('imagefilledrectangle')
+    else
+      print('imagerectangle')
+    end
+    println('(', HImage, ',', p1[0], ',', p1[1], ',', p2[0], ',', p2[1], ',', Color, ');')
+    event(onFilledRectangle, _data)
+  end
+end
+

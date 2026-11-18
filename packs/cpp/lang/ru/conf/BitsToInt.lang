@@ -1,0 +1,4 @@
+Bits to number=Перевод битов в число
+Constructs a number from bits=Составляет число из битов
+The event occurs every time after a number is compiled from its bits and outputs the resulting number to the stream=Событие происходит всякий раз после составления числа по его битам и выдает в поток полученное число
+Contains a number derived from bits (calling doNumber is optional)=Содержит число, полученное из бит (вызов doNumber не обязателен)

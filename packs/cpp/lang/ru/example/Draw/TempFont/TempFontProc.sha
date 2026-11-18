@@ -1,0 +1,716 @@
+Make(cpp)
+Pos(69,4)
+Add(Font,5530815,582,549)
+{
+ Point(CharSet)
+ link(onFont,15724663:doEvent1,[])
+ link(Size,5214580:Value,[])
+ link(Name,12010636:Var1,[(602,516)])
+ link(Style,13148181:Value,[(609,523)(553,523)])
+ link(CharSet,10437356:Value,[(616,523)(651,523)])
+}
+Add(Label,5393139,743,542)
+{
+ Width=638
+ Height=56
+ Align=2
+ Color=15793151
+ Caption=""
+ AutoSize=1
+ Alignment=2
+ Point(doFont)
+ link(Text,12010636:Var2,[])
+}
+Add(Memory,5214580,582,479)
+{
+ Default=Integer(20)
+}
+Add(Hub,15724663,638,549)
+{
+ link(onEvent1,5393139:doFont,[])
+ link(onEvent2,5393139:doText,[(689,562)(689,548)])
+}
+Add(MainForm,15628132,15,479)
+{
+ Left=20
+ Top=105
+ Width=644
+ Height=452
+ Caption="TempFontProc"
+ BorderStyle=4
+ Position=1
+ Point(onClose)
+ link(onCreate,15577960:doEvent1,[])
+ link(onClose,4491505:doWork,[(59,506)(59,555)])
+}
+Add(Button,7737293,-20,150)
+{
+ Left=115
+ Top=400
+ TabOrder=-1
+ Caption="UnInstall"
+ link(onClick,10604020:doMessage,[])
+}
+Add(ArrayEnum,15521414,204,542)
+{
+ link(onItem,737265:doEvent1,[])
+ link(onEndEnum,4770313:doEvent1,[(245,555)(245,730)])
+ link(Array,7031867:Var2,[])
+}
+Add(TempFontProc,15228922,323,87)
+{
+ Point(TempFName)
+ Point(doUninstallByFileName)
+ link(onInstall,12972009:doCompare,[])
+ link(Index,5158241:Var3,[(343,61)(771,61)(771,145)])
+ link(TempFName,11141075:Item,[(350,70)(581,70)(581,278)(644,278)])
+}
+Add(StringTable,10705740,708,80)
+{
+ Left=5
+ Top=245
+ Width=350
+ Height=150
+ Columns=#12:FileName=100|12:FontName=225|
+ Redaction=1
+ Flat=1
+ Point(Matrix)
+ Point(onMouseMove)
+ Point(Index)
+ link(onClick,3018767:doEvent1,[])
+}
+Add(Button,13352358,-20,52)
+{
+ Left=10
+ Top=400
+ Width=100
+ TabOrder=-1
+ Caption="InstallFromFile"
+ link(onClick,15350093:doEvent1,[])
+}
+Add(ODialog,6607378,92,52)
+{
+ Filter="Font files (*.fon;*.fnt;*.ttf;*ttc;*.fot;*.otf)|*.fon;*.fnt;*.ttf;*ttc;*.fot;*.otf|All files (*.*)|*.*"
+ FileName=""
+ Select=1
+ link(onExecute,1744444:doEvent1,[])
+}
+Add(Hub,1744444,155,52)
+{
+ link(onEvent1,6490957:doWork2,[])
+ link(onEvent2,15228922:doInstall,[(210,65)(210,93)])
+}
+Add(Application,2705997,253,52)
+{
+ Wait=1
+}
+Add(If_else,12972009,379,87)
+{
+ Type=2
+ Op2=Integer(0)
+ link(onTrue,15766106:doEvent1,[(455,93)(455,93)])
+ link(onFalse,5219593:doCompare,[(420,100)(420,219)])
+}
+Add(Hub,15766106,498,87)
+{
+ InCount=3
+ OutCount=3
+ link(onEvent1,10705740:doClear,[])
+ link(onEvent2,13184731:doClear,[(560,100)(560,121)])
+ link(onEvent3,2448052:doFor,[(542,107)(542,180)(269,180)(269,233)])
+}
+Add(Message,10604020,43,150)
+{
+ Message="Удалить выбранный временный шрифт?"
+ Type=1
+ Icon=3
+ Point(onOK)
+ link(onOK,84979:doEvent1,[])
+}
+Add(Button,168970,-20,192)
+{
+ Left=290
+ Top=400
+ TabOrder=-1
+ Caption="Clear"
+ link(onClick,14668811:doMessage,[])
+}
+Add(Message,14668811,43,192)
+{
+ Message="Удалить все временные шрифты?"
+ Type=1
+ Icon=3
+ Point(onOK)
+ link(onOK,10898160:doEvent1,[])
+}
+Add(Hub,84979,92,157)
+{
+ OutCount=3
+ link(onEvent1,4657236:doWork2,[(140,163)(140,107)])
+ link(onEvent2,10142716:doWork2,[(143,170)(143,170)])
+ link(onEvent3,15577960:doEvent3,[(137,177)(137,419)(70,419)(70,513)])
+}
+Add(Hub,10898160,92,199)
+{
+ OutCount=7
+ link(onEvent1,9754073:doWork2,[(150,205)(150,240)])
+ link(onEvent2,6490957:doWork3,[(222,212)])
+ link(onEvent3,15228922:doClear,[(192,219)(192,114)])
+ link(onEvent4,15766106:doEvent3,[(231,226)(231,107)])
+ link(onEvent5,9754073:doWork1,[(160,233)(160,233)])
+ link(onEvent6,15577960:doEvent2,[(144,240)(144,428)(78,428)(78,506)])
+ link(onEvent7,3320519:doMessage,[(150,247)(150,275)])
+}
+Add(MatrixRW,1352660,722,164)
+{
+ X=1
+ link(onRead,13639132:doEvent1,[])
+ link(Matrix,10705740:Matrix,[])
+ link(Y,5158241:Var2,[(749,156)(749,156)])
+}
+Add(GetDataEx,12010636,736,507)
+{
+ link(Data,6251451:Value,[(749,459)(749,459)])
+}
+Add(Message,7558801,92,94)
+{
+ Message="Загрузка завершена"
+ Icon=4
+}
+Add(Hub,15350093,36,52)
+{
+ link(onEvent1,6607378:doExecute,[])
+ link(onEvent2,7558801:doMessage,[(80,65)(80,100)])
+}
+Add(ChildForm,15220227,225,227)
+{
+}
+BEGIN_SDK
+  Add(EditMulti,1255389,21,21)
+  {
+   WorkCount=1
+   link(doWork1,1739829:doVisible,[(49,27)(49,118)])
+  }
+  Add(MainForm,1739829,77,84)
+  {
+   Left=35
+   Top=105
+   Width=236
+   Height=45
+   Visible=1
+   BorderStyle=6
+   Position=1
+   Point(doVisible)
+  }
+  Add(Label,13808493,147,91)
+  {
+   Width=230
+   Height=39
+   Align=5
+   Font=[MS Sans Serif,24,1,8388608,1]
+   Caption="Ждите!"
+   AutoSize=1
+   Alignment=2
+  }
+END_SDK
+Add(HubEx,6490957,218,45)
+{
+ link(onEvent,2705997:doProcessMessages,[(237,58)(237,58)])
+}
+Add(Message,3320519,176,269)
+{
+ Message="Удаление завершено"
+ Icon=4
+}
+Add(If_else,5219593,435,213)
+{
+ Type=1
+ Op2=Integer(0)
+ link(onTrue,7674553:doString,[])
+}
+Add(Message,5702051,533,213)
+{
+ Icon=4
+}
+Add(FormatStr,7674553,484,213)
+{
+ DataCount=1
+ Mask="Файл с именем %1 уже есть в списке"
+ link(onFString,5702051:doMessage,[])
+ link(Str1,15228922:FontName,[(490,166)(343,166)])
+}
+Add(StringTable,15583572,344,542)
+{
+ Left=5
+ Top=90
+ Width=625
+ Height=150
+ Columns=#14:Имя шрифта=240|9:Стиль=100|18:Набор символов=100|12:Код Стиля=80|13:Код Набора=80|
+ Redaction=1
+ Flat=1
+ Point(doSelect)
+ Point(doEnsureVisible)
+ Point(Matrix)
+ link(onClick,10293162:doEvent1,[])
+}
+Add(Hub,15577960,85,493)
+{
+ InCount=4
+ OutCount=7
+ link(onEvent1,3088008:doClear,[(164,499)(164,422)])
+ link(onEvent2,8994161:doClear,[(173,506)(173,436)])
+ link(onEvent3,6501125:doWork2,[])
+ link(onEvent4,6842844:doWork2,[])
+ link(onEvent5,15518260:doClear,[(171,527)(171,849)])
+ link(onEvent6,4837186:doClear,[(515,534)(515,653)])
+ link(onEvent7,15521414:doEnum,[(161,541)(161,548)])
+}
+Add(Hub,737265,253,542)
+{
+ OutCount=3
+ link(onEvent1,1928280:doWork2,[])
+ link(onEvent2,9123490:doOperation,[(297,555)(297,632)])
+ link(onEvent3,14132464:doRead,[(293,562)(293,884)])
+}
+Add(MatrixRW,15952061,358,626)
+{
+ X=4
+ link(onRead,6157408:doCase,[])
+ link(Matrix,5981715:Var2,[])
+}
+Add(ComboBox,4837186,631,640)
+{
+ Left=275
+ Top=65
+ Width=160
+ Height=21
+ Text=""
+ Sort=0
+ Point(doSelectString)
+ Point(Index)
+ Point(doSelect)
+ link(onClick,4682458:doSplit,[(677,653)(677,711)(629,711)(629,723)])
+}
+Add(Math,9123490,309,626)
+{
+ OpType=1
+ Op2=1
+ ResultType=0
+ link(onResult,15952061:doRead,[])
+ link(Op1,15583572:Count,[(315,607)(350,607)])
+}
+Add(If_else,12995925,554,689)
+{
+ Type=1
+ Op2=Integer(0)
+ link(onTrue,16617052:doWork2,[])
+ link(Op1,4837186:Index,[(560,677)(606,677)(606,711)(651,711)])
+}
+Add(Hub,12977054,505,682)
+{
+ link(onEvent1,4837186:doSelectString,[])
+ link(onEvent2,12995925:doCompare,[(549,695)(549,695)])
+}
+Add(MatrixRW,2169055,379,682)
+{
+ X=2
+ link(onRead,931687:doString,[(426,688)(426,688)])
+ link(Matrix,13748901:Var2,[])
+ link(Y,6689904:Var2,[(406,678)(406,678)])
+}
+Add(GetDataEx,5981715,351,598)
+{
+ link(Data,15583572:Matrix,[])
+}
+Add(FormatStr,931687,456,682)
+{
+ Mask="%1 - %2"
+ link(onFString,12977054:doEvent1,[])
+ link(Str1,14977711:Value,[])
+}
+Add(Memory,14977711,456,626)
+{
+ link(onData,2169055:doRead,[(502,632)(502,671)(367,671)(367,688)])
+}
+Add(Case,6157408,407,626)
+{
+ Value=String(1)
+ link(onNextCase,14977711:doValue,[])
+}
+Add(StrPart,4682458,638,717)
+{
+ Char=" "
+ link(onPart,5950309:doEvent1,[(678,730)(678,730)])
+ link(Str,4837186:String,[(644,709)(644,709)])
+}
+Add(Memory,8994161,211,423)
+{
+ Default=String(1)
+}
+Add(Hub,5950309,687,724)
+{
+ link(onEvent1,8994161:doValue,[(783,730)(783,376)(174,376)(174,429)])
+ link(onEvent2,16206739:doEvent1,[(749,737)(749,737)])
+}
+Add(HubEx,6501125,141,500)
+{
+ link(onEvent,9065357:doReReadFonts,[(189,513)(189,478)])
+}
+Add(HubEx,6842844,155,507)
+{
+ link(onEvent,15583572:doClear,[(323,520)(323,555)])
+}
+Add(ArrayEnum,2706867,225,591)
+{
+ link(onItem,1928280:doWork3,[(306,597)])
+ link(Array,7031867:Var3,[(231,530)])
+}
+Add(GetDataEx,7031867,197,521)
+{
+ link(Data,9065357:FontsArray,[(210,518)(210,518)])
+}
+Add(HubEx,1928280,302,535)
+{
+ link(onEvent,15583572:doAdd,[])
+}
+Add(DoData,6378225,456,724)
+{
+ Data=String(1 - Все наборы)
+ link(onEventData,16617052:doWork3,[(614,730)])
+}
+Add(HubEx,16617052,610,682)
+{
+ Angle=3
+ link(onEvent,4837186:doAdd,[(614,646)])
+}
+Add(Memory,3088008,253,409)
+{
+ Default=String()
+}
+Add(MatrixRW,3042457,498,437)
+{
+ X=3
+ link(onRead,13148181:doValue,[])
+ link(Matrix,7686829:Var2,[])
+ link(Y,428843:Var2,[(525,429)(525,429)])
+}
+Add(MatrixRW,8431272,596,437)
+{
+ X=4
+ link(onRead,10437356:doValue,[])
+ link(Matrix,10716269:Var2,[(602,426)(602,426)])
+ link(Y,8578621:Var2,[])
+}
+Add(Memory,13148181,547,437)
+{
+ link(onData,8431272:doRead,[])
+}
+Add(Memory,10437356,645,437)
+{
+ link(onData,8590240:doRead,[])
+}
+Add(MatrixRW,8590240,694,437)
+{
+ X=2
+ link(onRead,6251451:doValue,[])
+ link(Matrix,10716269:Var3,[(700,411)])
+ link(X,9925412:Value,[])
+ link(Y,8578621:Var3,[(721,418)])
+}
+Add(Memory,6251451,743,437)
+{
+}
+Add(Memory,9925412,708,381)
+{
+ Default=Integer(0)
+}
+Add(MatrixRW,14437426,330,297)
+{
+ link(onRead,1945248:doValue,[])
+ link(Matrix,8197476:Var2,[])
+ link(X,8225885:Value,[])
+ link(Y,4475956:Var2,[])
+}
+Add(For,2448052,281,227)
+{
+ IncludeEnd=1
+ link(onEvent,14437426:doRead,[(321,233)(321,303)])
+ link(End,15228922:Count,[(294,200)(329,200)])
+}
+Add(Memory,8225885,344,227)
+{
+ Default=Integer(0)
+}
+Add(MatrixRW,1037038,526,304)
+{
+ X=1
+ link(onRead,7062321:doEvent1,[])
+ link(Matrix,8197476:Var3,[(532,250)])
+ link(Y,4475956:Var3,[(553,278)])
+}
+Add(FilePart,6771162,428,297)
+{
+ NameWOExt=1
+ link(onName,10256846:doValue,[])
+}
+Add(Memory,10256846,477,304)
+{
+ link(onData,1037038:doRead,[])
+}
+Add(GetDataEx,4475956,344,269)
+{
+ Angle=3
+ link(Data,2448052:Position,[(287,278)])
+}
+Add(GetDataEx,8197476,323,241)
+{
+ link(Data,15228922:Matrix,[])
+}
+Add(FormatStr,14744922,624,304)
+{
+ Mask="%1;%2"
+ link(onFString,10705740:doAdd,[(686,310)(686,86)])
+ link(Str1,10256846:Value,[(630,292)(564,292)(564,346)(483,346)])
+}
+Add(GetDataEx,13748901,372,598)
+{
+ Angle=3
+ link(Data,5981715:Var3,[])
+}
+Add(GetDataEx,10716269,589,402)
+{
+ Angle=3
+ link(Data,7686829:Var3,[(553,411)(553,411)])
+}
+Add(GetDataEx,7686829,491,402)
+{
+ Angle=3
+ link(Data,7987769:Var3,[(451,411)(451,607)])
+}
+Add(Memory,734351,442,437)
+{
+ link(onData,3042457:doRead,[])
+}
+Add(GetDataEx,428843,512,409)
+{
+ Angle=3
+ link(Data,734351:Value,[(488,418)(488,481)(448,481)])
+}
+Add(GetDataEx,8578621,610,409)
+{
+ Angle=3
+ link(Data,428843:Var3,[])
+}
+Add(Hub,10293162,386,542)
+{
+ link(onEvent1,734351:doValue,[(430,548)(430,443)])
+ link(onEvent2,1834187:doData,[])
+}
+Add(DoData,1834187,533,549)
+{
+ link(onEventData,5530815:doFont,[])
+}
+Add(ComboBox,15518260,582,836)
+{
+ Left=5
+ Top=65
+ Width=265
+ Height=21
+ Text=""
+ Sort=0
+ Point(Index)
+ Point(doSelectString)
+ Point(doSelect)
+ link(onClick,10770049:doData,[(626,849)(626,909)(577,909)(577,933)])
+}
+Add(MatrixRW,14132464,393,878)
+{
+ X=4
+ link(onRead,7189716:doEvent1,[])
+ link(Matrix,7987769:Var2,[(399,727)(399,727)])
+ link(X,15770152:Value,[])
+ link(Y,6689904:Var3,[(420,670)])
+}
+Add(If_else,3819841,505,885)
+{
+ Type=1
+ Op2=Integer(0)
+ link(onTrue,9289784:doWork3,[(558,891)])
+ link(Op1,15518260:Index,[(511,873)(553,873)(553,907)(602,907)])
+}
+Add(Memory,15770152,407,829)
+{
+ Default=Integer(0)
+}
+Add(GetDataEx,7987769,386,598)
+{
+ Angle=3
+ link(Data,13748901:Var3,[])
+}
+Add(GetDataEx,6689904,393,661)
+{
+ Angle=3
+ link(Data,9123490:Result,[(315,670)])
+}
+Add(Hub,7189716,456,878)
+{
+ InCount=2
+ link(onEvent1,3886090:doWork2,[])
+ link(onEvent2,3819841:doCompare,[])
+}
+Add(Hub,4770313,330,724)
+{
+ OutCount=3
+ link(onEvent1,6378225:doData,[])
+ link(onEvent2,2637679:doData,[(433,737)(433,765)])
+ link(onEvent3,5432360:doData,[(409,744)(409,800)])
+}
+Add(DoData,5432360,456,794)
+{
+ Data=String(0)
+ link(onEventData,12396327:doEvent1,[])
+}
+Add(Hub,12396327,505,794)
+{
+ link(onEvent1,4837186:doSelect,[(621,800)(621,695)])
+ link(onEvent2,15518260:doSelect,[(570,807)(570,891)])
+}
+Add(Hub,3852309,638,927)
+{
+ link(onEvent1,10852572:doCase,[(682,933)(682,912)])
+ link(onEvent2,16206739:doEvent2,[(755,940)(755,744)])
+}
+Add(DoData,10770049,589,927)
+{
+ link(onEventData,3852309:doEvent1,[])
+ link(Data,15518260:String,[])
+}
+Add(DoData,2637679,456,759)
+{
+ Data=String(Все шрифты)
+ link(onEventData,9289784:doWork1,[(558,765)])
+}
+Add(HubEx,9289784,554,829)
+{
+ link(onEvent,15518260:doAdd,[(569,842)(569,842)])
+}
+Add(Case,10852572,694,906)
+{
+ Value=String(Все шрифты)
+ DataOnTrue=String()
+ link(onNextCase,1977470:doWork2,[])
+ link(onTrue,1977470:doWork3,[(740,917)])
+}
+Add(Hub,16206739,778,731)
+{
+ InCount=3
+ OutCount=3
+ link(onEvent1,6501125:doWork3,[(836,737)(836,984)(145,984)])
+ link(onEvent2,6842844:doWork3,[(828,744)(828,975)(159,975)])
+ link(onEvent3,2706867:doEnum,[(820,751)(820,967)(213,967)(213,597)])
+}
+Add(HubEx,1977470,736,899)
+{
+ link(onEvent,16342136:doWork3,[(748,912)(748,994)(180,994)])
+}
+Add(HubEx,16342136,176,402)
+{
+ link(onEvent,3088008:doValue,[(233,415)(233,415)])
+}
+Add(Hub,13639132,764,164)
+{
+ OutCount=3
+ link(onEvent1,16342136:doWork1,[(813,170)(813,401)(180,401)])
+ link(onEvent2,8434502:doWork1,[(831,177)])
+ link(onEvent3,16206739:doEvent3,[(804,184)(804,751)])
+}
+Add(Hub,7062321,575,304)
+{
+ OutCount=4
+ link(onEvent1,14744922:doString,[])
+ link(onEvent2,13184731:doAdd,[(615,317)(615,114)])
+ link(onEvent3,7189716:doEvent2,[(619,324)(619,608)(444,608)(444,891)])
+ link(onEvent4,8434502:doWork2,[(717,331)(717,331)])
+}
+Add(HubEx,3886090,540,871)
+{
+ link(onEvent,15518260:doSelectString,[])
+}
+Add(HubEx,8434502,827,318)
+{
+ Angle=1
+ link(onEvent,3886090:doWork1,[(831,625)(544,625)])
+}
+Add(ChanelToIndex,9754073,176,227)
+{
+ link(onIndex,15220227:doWork1,[])
+}
+Add(FontsList,9065357,204,472)
+{
+ link(NameFilter,3088008:Value,[(210,460)(259,460)])
+ link(CharSetFilter,8994161:Value,[(217,467)(217,467)])
+}
+Add(StrList,13184731,624,108)
+{
+ link(Str,1945248:Value,[(630,75)(468,75)(468,346)(385,346)])
+}
+Add(Memory,1945248,379,297)
+{
+ link(onData,6771162:doPart,[])
+}
+Add(ArrayRW,11141075,638,234)
+{
+ link(Array,13184731:Array,[])
+}
+Add(Hub,3018767,764,80)
+{
+ link(onEvent1,11141075:doRead,[(807,86)(807,49)(605,49)(605,240)])
+ link(onEvent2,1352660:doRead,[(808,93)(808,131)(710,131)(710,170)])
+}
+Add(Button,16083609,-20,269)
+{
+ Left=175
+ Top=400
+ Width=110
+ TabOrder=-1
+ Caption="UnInstallByFileName"
+ link(onClick,8453506:doMessage,[(26,275)(26,275)])
+}
+Add(Message,8453506,43,269)
+{
+ Message="Удалить выбранный временный шрифт?"
+ Type=1
+ Icon=3
+ Point(onOK)
+ link(onOK,152615:doEvent1,[])
+}
+Add(Hub,152615,92,276)
+{
+ OutCount=3
+ link(onEvent1,4657236:doWork3,[(159,282)])
+ link(onEvent2,10142716:doWork3,[(166,289)])
+ link(onEvent3,15577960:doEvent4,[(131,296)(131,409)(63,409)(63,520)])
+}
+Add(HubEx,4657236,155,94)
+{
+ link(onEvent,15228922:doUninstall,[(244,107)(244,107)])
+}
+Add(HubEx,10142716,162,157)
+{
+ link(onEvent,15766106:doEvent2,[(335,170)(335,100)])
+}
+Add(LineBreakEx,4162975,134,24)
+{
+ Caption="ProcMess"
+ Type=1
+ link(OnEvent,6490957:doWork1,[(222,30)])
+}
+Add(LineBreakEx,4491505,71,549)
+{
+ Caption="ProcMess"
+}
+Add(GetDataEx,5158241,736,136)
+{
+ Angle=3
+ link(Data,10705740:Index,[(735,145)])
+}

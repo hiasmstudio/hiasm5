@@ -1,0 +1,9 @@
+Looping through all elements of an array of multidimensional streams=Перебор всех элементов массива многомерных потоков
+Direction of enumeration of elements Inc - from first to last, Dec - from last to first=Направление перебора элементов Inc - от первого до последнего, Dec - от последнего к первому
+True - after doStop the onBreak event is called, but onEndEnum is not called=True - после doStop вызывается событие onBreak, а onEndEnum - не вызывается
+Starts iterating over array elements=Начинает перебор элементов массива
+Stops iterating over elements=Останавливает перебор элементов
+Outputs the next array element to the stream=Выдает в поток очередной элемент массива
+An array whose elements need to be iterated=Массив, элементы которого требуется перебрать
+Contains the current array element after the onItem event is called=Содержит текущий элемент массива после вызова события onItem
+Contains the index of the current array element after the onItem event is called=Содержит индекс текущего элемента массива после вызова события onItem

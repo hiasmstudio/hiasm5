@@ -1,0 +1,8 @@
+Color management MTStrTbl=Управление цветом MTStrTbl
+Background color=Цвет фона
+Line text color=Цвет текста строки
+Line color=Цвет строки
+Fill color for transparent areas of an icon when displayed in a column header=Цвет заполнения прозрачных областей иконки при выводе в заголовок столбца
+Managing the MTStrTbl element=Управление элементом MTStrTbl
+The event occurs whenever any property changes=Событие происходит всякий раз при изменении любого свойства
+Contains the main colors of the table, like MT elements=Содержит главные цвета таблицы, как элементы MT

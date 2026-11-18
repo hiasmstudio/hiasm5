@@ -1,0 +1,7 @@
+Removing a Mail.ru agent group=Удаление группы Mail.ru агента
+Defines Mail.ru agent to delete a contact on the server=Определяет Mail.ru agent для удаления контакта на сервере
+Deletes a group on the Mail.ru server=Удаляет группу на сервере Mail.ru
+The event occurs every time after a group is deleted on the Mail.ru server and outputs it to the ARG(Name, ID) stream=Событие происходит всякий раз после удаления группы на сервере Mail.ru и выдает его в поток ARG(Name, ID)
+The event occurs every time an error occurs when deleting a group on the Mail.ru server and outputs it to the ARG(Name, ID, Code) stream=Событие происходит всякий раз после возникновения ошибки при удалении группы на сервере Mail.ru и выдает ее в поток ARG(Name, ID, Code)
+Name of the group to be deleted=Имя удаляемой группы
+ID of the group to be deleted=Идентификатор удаляемой группы

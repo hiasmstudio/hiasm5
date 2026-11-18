@@ -1,0 +1,35 @@
+func doStart
+  println('{')
+  fvar(align, valign)
+  align = 0.0
+  valign = 0.5
+  switch(d('Alignment'))
+    case 1: align = 1.0
+    case 2: align = 0.5
+    case 3: align = 0.0
+  end
+  println('GtkWidget *widget = gtk_label_new(', cstr(d('Caption')), ');')
+  println('hiasm_set_color(widget, ', cstr(d('Color')), ');')
+  println('hiasm_set_font(widget, ', cstr(d('Font')), ');')
+  println('gtk_label_set_xalign(GTK_LABEL(widget), ', align, ');')
+  println('gtk_label_set_yalign(GTK_LABEL(widget), ', valign, ');')
+  if(linked(onClick))
+    println('gtk_widget_set_can_target(widget, TRUE);')
+  end
+  println('hiasm_place("hcTplLabel', _id_, '", widget, ', Left, ', ', Top, ');')
+  if(linked(onClick))
+    println('GtkGesture *gesture = gtk_gesture_click_new();')
+    println('g_signal_connect(gesture, "pressed", G_CALLBACK(+[](GtkGestureClick *, int, double, double, gpointer) {')
+    println('if(!hiasm_form_ready) return;')
+    block.inclvl()
+    event(onClick)
+    block.declvl()
+    println('}), NULL);')
+    println('gtk_widget_add_controller(widget, GTK_EVENT_CONTROLLER(gesture));')
+  end
+  println('}')
+end
+
+func Caption()
+  return('std::string(gtk_label_get_text(GTK_LABEL(hiasm_widget("hcTplLabel' && _id_ && '").get())))')
+end

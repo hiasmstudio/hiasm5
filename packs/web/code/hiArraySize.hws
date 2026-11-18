@@ -1,0 +1,45 @@
+func doGetSize(_data)
+  if(linked(Size))
+    println(_size, ' = count(', Array, ');')
+    event(onGetSize, _size)
+  else 
+    event(onGetSize, 'count(' && Array && ')')
+  end
+end
+
+func Size()
+  if(linked(doGetSize))
+    return(_size)
+  else
+    return('count(' && Array && ')')
+  end
+end
+
+section java
+
+func doGetSize(_data)
+  if(linked(Size))
+    println(_size, ' = ', Array, '.length;')
+    event(onGetSize, _size)
+  else 
+    event(onGetSize, Array && '.length')
+  end
+end
+
+func Size()
+  if(linked(doGetSize))
+    return(_size)
+  else
+    return(Array && '.length')
+  end
+end
+
+section html
+
+func doGetSize(_data)
+  event(onGetSize, _arr.count(Array)) 
+end
+
+func Size()
+  return(_arr.count(Array))
+end

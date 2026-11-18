@@ -1,0 +1,5 @@
+Mixing RGBA Color Values=Смешивание значений цвета в формате RGBA
+The sfactor parameter specifies the influence of the source on the resulting color=Параметр sfactor задаёт влияние источника (source), на результирующий цвет
+The dfactor parameter specifies the influence of the color values stored in the frame buffer (destination).=Параметр dfactor задаёт влияние значений цвета, хранящихся в буфере кадра (destination).
+Sets blending parameters=Задаёт параметры смешивания
+Event occurs after setting blending parameters=Событие происходит после установки параметров смешивания

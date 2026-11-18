@@ -1,0 +1,6 @@
+String constructor=Конструктор строки
+String mask=Маска строки
+Arguments=Аргументы
+Constructs a string given a mask and given arguments=Конструирует строку по маске и заданным аргументам
+The event occurs every time a string is constructed and outputs the result to the stream=Событие происходит всякий раз после конструирования строки и выдает результат в поток
+Contains the result of string construction=Содержит результат конструирования строки

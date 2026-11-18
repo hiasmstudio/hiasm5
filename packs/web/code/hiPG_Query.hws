@@ -1,0 +1,58 @@
+func doQuery(_data)
+  fvar(pg)
+  if(PostgreSQL == 0)
+    pg = '$pg_conn'
+    fvar(old)
+    if(isset(BLK_FUNC))
+      old = block.select(BLK_FUNC)    
+      println('global ' + pg + ';')
+      block.select(old)
+    end
+  else
+    pg = sys.event(PostgreSQL, 'get_id')
+  end
+  
+  if(isndef(Args))
+    print(res, ' = pg_query_params(')
+  else
+    print(res, ' = pg_query(')
+  end
+  
+  print(pg, ',', Query)
+  
+  if(isndef(Args))
+    fvar(a, i)
+    a = Args
+    i = 0
+    print(', array(')
+    while(i < _arr.count(a))
+      if(i)
+        print(',')
+      end
+      print(point(a[i]))
+      i++
+    end
+    print(')') 
+  end
+  println(');')
+  println('if(' + res + ') {')
+  block.inclvl()
+    event(onQuery, res)
+  block.declvl()
+  println('}')
+  if(linked(onError))
+    println('else {')
+    block.inclvl()
+      event(onError, 'pg_last_error()')
+    block.declvl()
+    println('}')
+  end
+end
+
+func Result()
+  return(res)
+end
+
+func LastOID()
+  return('pg_last_oid(' && res && ')')
+end

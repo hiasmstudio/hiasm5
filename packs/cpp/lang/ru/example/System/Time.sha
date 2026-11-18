@@ -1,0 +1,60 @@
+*Демонстрация возможностей изменения стилей у формы
+Pos(0,0)
+Add(MainForm,74591,321,189)
+{
+ Left=448
+ Top=363
+ Width=55
+ Height=20
+ BorderStyle=6
+ DragForm=0
+ link(onCreate,66511:doEvent2,[(362,230)(362,256)(46,256)(46,111)])
+}
+Add(Message,82402,322,147)
+{
+ Message="This program make by HiAsm3"
+ Caption="About box"
+ Icon=4
+}
+Add(Time,44177,105,35)
+{
+ Format="h:m:s"
+}
+Add(DoData,49508,105,98)
+{
+ link(onEventData,51747:doText,[])
+ link(Data,44177:FormatTime,[])
+}
+Add(MoveWindow,70151,210,105)
+{
+ link(Handle,74591:Handle,[(216,95)(281,95)(281,251)(327,251)])
+}
+Add(Hub,66511,56,98)
+{
+ InCount=2
+ OutCount=1
+ link(onEvent1,49508:doData,[])
+}
+Add(PopupMenu,56358,210,147)
+{
+ Menu='About','-','Exit'
+ link(onClick,21369:doEvent,[])
+}
+Add(IndexToChanel,21369,266,147)
+{
+ Count=3
+ link(onEvent1,82402:doMessage,[])
+ link(onEvent3,74591:doClose,[(306,167)(306,216)])
+}
+Add(Timer,45619,7,98)
+{
+ link(onTimer,66511:doEvent1,[])
+}
+Add(Label,51747,154,98)
+{
+ Font=[Arial,8,0,0]
+ Point(onMouseDown)
+ Point(onMouseUp)
+ link(onMouseDown,70151:doMove,[])
+ link(onMouseUp,56358:doPopupHere,[(198,118)(198,160)])
+}

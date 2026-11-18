@@ -1,0 +1,16 @@
+Data recovery using RS codes (255,223,16)=Восстановление данных RS-кодами (255,223,16)
+Data block size (1..223)=Размер блока данных (1..223)
+Placeholder character value (0..255)=Значение символа заполнителя (0..255)
+Gets the checksum block ARG(DataEncode)=Получает блок контрольных сумм ARG(DataEncode)
+Recovers data ARG(DataDecode, ChkSumDecode)=Восстанавливает данные ARG(DataDecode, ChkSumDecode)
+The event occurs every time after receiving a block of checksums and outputs the result to the ARG(ChkSumBlock, DataBlock, Remaind) stream=Событие происходит всякий раз после окончания получения блока контрольных сумм и выдает результат в поток ARG(ChkSumBlock, DataBlock, Remaind)
+The event occurs every time after a data block has been restored and outputs the result to the ARG(RepairDataBlock) stream=Событие происходит всякий раз после окончания восстановления блока данных и выдает результат в поток ARG(RepairDataBlock)
+The event occurs every time after the completion of any operation and issues a completion code to the ARG(Info, CountErrors) stream=Событие происходит всякий раз после окончании какой-либо операции и выдает код завершения в поток ARG(Info, CountErrors)
+Contains the current data block=Содержит текущий блок данных
+Contains the current remaining data for which the checksum block has not been received=Содержит текущие оставшиеся данные, для которых не получен блок контрольных сумм
+Contains the current block of checksums=Содержит текущий блок контрольных сумм
+Contains the currently restored data block=Содержит текущий восстановленный блок данных
+Contains the current number of bugs corrected=Содержит текущее исправленное количество ошибок
+Data for obtaining a block of checksums=Данные для получения блока контрольных сумм
+Data to recover=Данные для восстановления
+Checksum block for recovery=Блок контрольных сумм для восстановления

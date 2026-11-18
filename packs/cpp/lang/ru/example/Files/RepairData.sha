@@ -1,0 +1,483 @@
+Make(delphi)
+ver(4.04 build 185)
+Add(MainForm,7786457,70,126)
+{
+ Width=531
+ Height=682
+ Caption="Correction Errors"
+ Position=1
+}
+Add(Button,13514000,70,49)
+{
+ Left=230
+ Top=300
+ TabOrder=-1
+ Caption="Encode"
+ link(onClick,6676169:doEvent1,[])
+}
+Add(Button,5887242,70,665)
+{
+ Left=230
+ Top=615
+ TabOrder=-1
+ Caption="Repair"
+ link(onClick,7958494:doEvent1,[])
+}
+Add(Label,15501990,70,168)
+{
+ Left=5
+ Top=10
+ Width=506
+ Height=17
+ Font=[MS Sans Serif,8,1,128,1]
+ Caption="Пример восстановления данных RS-кодами (255,223,16)"
+ AutoSize=1
+ Alignment=2
+}
+Add(Memo,10056829,441,133)
+{
+ Left=5
+ Top=35
+ Width=500
+ Height=115
+ ScrollBars=2
+}
+Add(Memo,10335671,399,560)
+{
+ Left=5
+ Top=325
+ Width=500
+ Height=115
+ ScrollBars=2
+}
+Add(MT_MultiData,3328707,623,322)
+{
+ Count=3
+ link(onData1,9821982:doConvert,[])
+ link(onData3,3639316:doWork1,[(667,342)(667,244)(536,244)])
+}
+Add(Memo,13816342,854,371)
+{
+ Left=5
+ Top=180
+ Width=500
+ Height=115
+ ScrollBars=2
+}
+Add(Memo,4823845,791,931)
+{
+ Left=5
+ Top=470
+ Width=500
+ Height=115
+ ScrollBars=2
+}
+Add(RSRepair,15853410,574,322)
+{
+ LengthDataBlock=16
+ link(onEncode,3328707:doSeparateMT,[])
+ link(DataEncode,11508506:Value,[])
+}
+Add(Edit,15489254,441,196)
+{
+ Left=85
+ Top=155
+ Width=420
+ Cursor=1
+ TabOrder=-1
+ Text=""
+ link(onChange,9456235:doValue,[])
+}
+Add(StreamConvertor,12260171,770,392)
+{
+ Mode=4
+ link(onResult,13816342:doText,[])
+ link(Data,12859364:Var2,[])
+}
+Add(Trim,10918612,665,882)
+{
+ Char="/0"
+ link(onTrim,4929824:doStrCat,[])
+}
+Add(Label,9877906,574,196)
+{
+ Left=10
+ Top=157
+ Width=68
+ Height=17
+ Caption="Hash-сумма:"
+}
+Add(For,10582294,161,84)
+{
+ End=1000
+ IncludeEnd=1
+ link(onEvent,7843528:doRandom,[])
+ link(onStop,151074:doEvent1,[(202,97)(202,160)])
+}
+Add(Random,7843528,210,84)
+{
+ Min=65
+ Max=90
+ link(onRandom,10419292:doConvert,[])
+}
+Add(Convertor,10419292,252,84)
+{
+ Mode=4
+ link(onResult,2971160:doStrCat,[])
+}
+Add(StrCat,2971160,322,84)
+{
+ @Hint=#14:Исходный текст|
+ Point(doClear)
+ link(Str1,13773089:Var3,[(328,72)(293,72)])
+ AddHint(59,-29,97,13,@Hint)
+}
+Add(DoData,6025316,322,154)
+{
+ link(onEventData,10056829:doText,[])
+ link(Data,10470422:Var2,[])
+}
+Add(GetDataEx,10470422,322,119)
+{
+ link(Data,2971160:Result,[])
+}
+Add(Hashsum,11782037,350,196)
+{
+ link(onResult,15489254:doText,[])
+ link(Data,2016084:Var2,[])
+}
+Add(Hub,151074,224,154)
+{
+ OutCount=10
+ link(onEvent1,6025316:doData,[])
+ link(onEvent2,11782037:doHashsum,[(314,167)(314,202)])
+ link(onEvent3,2125050:doClear,[(307,174)(307,237)])
+ link(onEvent4,3210389:doData,[(299,181)(299,272)])
+ link(onEvent5,15394860:doLength,[(292,188)(292,328)])
+ link(onEvent6,274058:doData,[(284,195)(284,370)])
+ link(onEvent7,12260171:doConvert,[(277,202)(277,398)])
+ link(onEvent8,10534850:doData,[(269,209)(269,447)])
+ link(onEvent10,12325829:doColor,[(254,223)(254,482)])
+}
+Add(StrList,12204539,252,504)
+{
+ Point(doSort)
+}
+Add(Str_Enum,8801596,203,504)
+{
+ Delimiter=""
+ link(onEnum,12204539:doAdd,[])
+ link(String,13773089:Var1,[(209,124)])
+}
+Add(GetDataEx,2016084,350,119)
+{
+ Angle=3
+ link(Data,10470422:Var3,[])
+}
+Add(Replace,16043533,252,581)
+{
+ SubStr="\r\n"
+ link(onReplace,13391362:doModify,[])
+ link(Str,12204539:Text,[])
+}
+Add(DoData,3210389,476,266)
+{
+ link(onEventData,3639316:doWork2,[])
+ link(Data,10292018:Var3,[(482,124)])
+}
+Add(Memory,11508506,574,266)
+{
+}
+Add(MathParse,1895094,476,322)
+{
+ DataCount=1
+ MathStr="(%1 div 16) + ((%1 mod 16) > 0) "
+ ResultType=0
+ link(onResult,14509548:doFor,[])
+}
+Add(For,14509548,525,322)
+{
+ Start=1
+ InData=0
+ link(onEvent,15853410:doEncode,[])
+}
+Add(HubEx,3639316,532,266)
+{
+ link(onEvent,11508506:doValue,[])
+}
+Add(Length,15394860,371,322)
+{
+ link(onLength,1895094:doCalc,[])
+ link(Str,10292018:Var2,[])
+}
+Add(StreamCopy,16601694,735,322)
+{
+ Count=32
+ link(Dest,9310729:Var2,[])
+}
+Add(MemoryStream,2125050,735,224)
+{
+ @Hint=#19:Блок восстановления|
+ Point(doPosition)
+ AddHint(37,-35,126,13,@Hint)
+}
+Add(StreamConvertor,9821982,686,322)
+{
+ Mode=7
+ link(onResult,16601694:doCopy,[])
+}
+Add(GetDataEx,10292018,371,119)
+{
+ Angle=3
+ link(Data,2016084:Var3,[])
+}
+Add(DoData,274058,623,364)
+{
+ Data=Integer(0)
+ link(onEventData,2125050:doPosition,[(674,370)(674,244)])
+}
+Add(GetDataEx,9310729,735,273)
+{
+ link(Data,2125050:Stream,[])
+}
+Add(FileStream,11302156,854,441)
+{
+ FileName="repair.blk"
+ Mode=1
+ AutoCopy=0
+ Point(doCopyFromStream)
+}
+Add(DoData,10534850,798,441)
+{
+ link(onEventData,11302156:doCopyFromStream,[(842,447)(842,461)])
+ link(Data,12859364:Var3,[(804,278)])
+}
+Add(GetDataEx,12859364,770,273)
+{
+ Angle=3
+ link(Data,9310729:Var3,[])
+}
+Add(Hub,4189555,147,504)
+{
+ OutCount=3
+ link(onEvent1,8801596:doEnum,[])
+ link(onEvent2,12204539:doSort,[(186,517)(186,552)])
+ link(onEvent3,16043533:doReplace,[(178,524)(178,587)])
+}
+Add(Button,10738095,70,504)
+{
+ Left=230
+ Top=445
+ TabOrder=-1
+ Caption="Sort"
+ link(onClick,4189555:doEvent1,[])
+}
+Add(GetDataEx,13773089,287,119)
+{
+ Angle=1
+ link(Data,10470422:Var1,[])
+}
+Add(Memory,13419807,350,581)
+{
+ link(onData,10335671:doText,[])
+}
+Add(Hub,6676169,119,49)
+{
+ link(onEvent1,2971160:doClear,[(308,55)(308,97)])
+ link(onEvent2,10582294:doFor,[(144,62)(144,90)])
+}
+Add(StrCase,13391362,301,581)
+{
+ link(onModify,13419807:doValue,[])
+}
+Add(FileStream,12255990,392,672)
+{
+ FileName="repair.blk"
+ Point(doCopyFromStream)
+ Point(doPosition)
+}
+Add(Hub,7958494,147,665)
+{
+ OutCount=8
+ link(onEvent1,4929824:doClear,[(723,671)(723,895)])
+ link(onEvent2,12255990:doOpen,[])
+ link(onEvent3,16604440:doData,[(255,685)(255,699)])
+ link(onEvent4,9741709:doConvert,[(185,692)(185,636)])
+ link(onEvent5,4793480:doCalc,[(200,699)(200,762)])
+ link(onEvent6,12255990:doClose,[(263,706)(263,685)])
+ link(onEvent7,7980241:doHashsum,[(193,713)(193,1000)])
+ link(onEvent8,7200348:doCompare,[(185,720)(185,1070)])
+}
+Add(DoData,16604440,273,693)
+{
+ Data=Integer(0)
+ link(onEventData,12255990:doPosition,[])
+}
+Add(StreamCopy,12111548,385,784)
+{
+ Count=32
+ link(onCopy,2595110:doConvert,[])
+ link(Dest,2000988:Var1,[(391,740)])
+ link(Source,12255990:Stream,[])
+}
+Add(MathParse,4793480,224,756)
+{
+ DataCount=1
+ MathStr="(%1 div 32) + ((%1 mod 32) > 0) "
+ ResultType=0
+ link(onResult,8303976:doFor,[])
+ link(X1,12255990:Size,[(230,730)(405,730)])
+}
+Add(For,8303976,273,756)
+{
+ Start=1
+ InData=0
+ link(onEvent,11084085:doEvent1,[])
+ link(onStop,6886688:doData,[(320,769)(320,958)])
+}
+Add(StreamConvertor,9741709,350,630)
+{
+ Mode=7
+ link(onResult,12162441:doCopy,[])
+ link(Data,13419807:Value,[])
+}
+Add(MemoryStream,12162441,532,630)
+{
+ Point(doPosition)
+ link(onCopy,12162441:doPosition,[(576,636)(576,620)(520,620)(520,650)])
+}
+Add(MemoryStream,6219037,448,672)
+{
+}
+Add(Hub,11084085,329,756)
+{
+ OutCount=5
+ link(onEvent1,6219037:doClear,[(432,762)(432,685)])
+ link(onEvent2,14517423:doClear,[])
+ link(onEvent3,12111548:doCopy,[(370,776)(370,790)])
+ link(onEvent4,15517856:doCopy,[(363,783)(363,832)])
+ link(onEvent5,6974142:doDecode,[(355,790)(355,888)])
+}
+Add(MemoryStream,14517423,497,756)
+{
+}
+Add(StreamConvertor,2595110,448,784)
+{
+ Mode=6
+ link(onResult,9255735:doValue,[])
+ link(Data,2000988:Var2,[])
+}
+Add(GetDataEx,2000988,448,735)
+{
+ link(Data,6219037:Stream,[])
+}
+Add(StreamCopy,15517856,497,826)
+{
+ Count=16
+ link(onCopy,14806474:doConvert,[])
+ link(Dest,15846047:Var2,[])
+ link(Source,12162441:Stream,[(510,810)(538,810)])
+}
+Add(StreamConvertor,14806474,553,826)
+{
+ Mode=6
+ link(onResult,9305115:doValue,[])
+ link(Data,15846047:Var3,[(559,803)])
+}
+Add(RSRepair,6974142,616,875)
+{
+ LengthDataBlock=16
+ link(onDecode,10918612:doTrim,[])
+ link(DataDecode,9305115:Value,[])
+ link(ChkSumDecode,9255735:Value,[])
+}
+Add(Memory,9255735,630,784)
+{
+}
+Add(Memory,9305115,623,826)
+{
+}
+Add(StrCat,4929824,735,882)
+{
+ @Hint=#21:Восстановленный текст|
+ Point(doClear)
+ link(Str1,16437922:Var3,[(741,870)(706,870)])
+ AddHint(59,-29,138,13,@Hint)
+}
+Add(DoData,6886688,735,952)
+{
+ link(onEventData,4823845:doText,[])
+ link(Data,5654420:Var2,[])
+}
+Add(GetDataEx,5654420,735,924)
+{
+ link(Data,4929824:Result,[])
+}
+Add(GetDataEx,15846047,497,798)
+{
+ link(Data,14517423:Stream,[])
+}
+Add(Edit,14521922,854,994)
+{
+ Left=85
+ Top=590
+ Width=420
+ Cursor=1
+ TabOrder=-1
+ Text=""
+ Point(doColor)
+}
+Add(Label,8945889,854,945)
+{
+ Left=10
+ Top=592
+ Width=68
+ Height=17
+ Caption="Hash-сумма:"
+}
+Add(Hashsum,7980241,700,994)
+{
+ link(onResult,14521922:doText,[])
+ link(Data,16437922:Var2,[])
+}
+Add(GetDataEx,16437922,700,924)
+{
+ Angle=1
+ link(Data,5654420:Var1,[])
+}
+Add(GlobalVar,9456235,497,196)
+{
+ @Color=11206655
+ Name="Hash1"
+}
+Add(GlobalVar,9531101,700,1029)
+{
+ @Color=11206655
+ Name="Hash1"
+}
+Add(SelectColor,12325829,714,476)
+{
+ Color=-16777211
+ link(onColor,9622693:doWork1,[(837,482)])
+}
+Add(SelectColor,7285712,791,1008)
+{
+ Color=65280
+ link(onColor,9622693:doWork2,[])
+}
+Add(SelectColor,5222488,791,1071)
+{
+ Color=255
+ link(onColor,9622693:doWork3,[(837,1077)])
+}
+Add(HubEx,9622693,833,1008)
+{
+ link(onEvent,14521922:doColor,[])
+}
+Add(If_else,7200348,700,1064)
+{
+ link(onTrue,7285712:doColor,[(769,1070)(769,1014)])
+ link(onFalse,5222488:doColor,[])
+ link(Op1,9531101:Var,[])
+ link(Op2,14521922:Text,[(713,1051)(860,1051)])
+}

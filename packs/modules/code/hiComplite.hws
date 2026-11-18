@@ -1,0 +1,41 @@
+section cpp
+
+func doDeclare(_data)
+  fvar(old, old_var, mb, s)
+  
+  old_var = BLK_FUNC
+  BLK_FUNC = block.reggen()
+  
+  mb = block.reggen() 
+  old = block.select(mb)
+  event(onDeclare)
+  
+  block.select(BLK_HEAD)
+  println('extern "C" __declspec(dllexport) int buildCompliteProc(TBuildCompliteRec &params)') 
+  lng.begin()
+    block.select(BLK_FUNC)
+    if(not block.empty())
+      block.select(BLK_HEAD)
+      block.copyhere(BLK_FUNC)
+    end
+    block.delete(BLK_FUNC)
+    BLK_FUNC = old_var
+    block.select(BLK_HEAD)
+  
+    block.copyhere(mb)    
+    block.delete(mb)
+    println('return CG_SUCCESS;')
+  lng.end()
+  println('')
+  
+  block.select(old)
+end
+
+func prjFilename()
+  return('string(params.prjFilename)')
+end
+
+func appFilename()
+  return('string(params.appFilename)')
+end
+

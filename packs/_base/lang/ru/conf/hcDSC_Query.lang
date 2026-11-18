@@ -1,0 +1,7 @@
+Query to data source=Запрос к источнику данных
+Text of query on SQL language=Текст запроса на языке SQL
+Manager of data source=Менеджер источника данных
+Execute SQL string in data source=Выполняет строку запроса на языке SQL
+Event emit every time after execute query in data source and give in thread obtained rows ARG(Data)=Событие происходит после выполнения запроса к источнику данных и выдает в поток полученные результаты ARG(Data)
+Event emit every time after execute query in data source and gives the column's names in thread ARG(Fields)=Выдает в поток имена столбцов ARG(Fields)
+Event emit every time after error and give her text in thread=Событие происходит в случае ошибки и выдает её описание в поток

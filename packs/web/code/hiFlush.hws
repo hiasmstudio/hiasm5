@@ -1,0 +1,5 @@
+func doFlush(_data)
+  println('flush();')
+  event(onFlush)
+end
+

@@ -1,0 +1,6 @@
+Audio stream averaging=Усреднение звукового потока
+Averaging level - the number of neighboring samples for which the average value is calculated=Уровень усреднения - количество соседних сэмплов, по которым расчитывается среднее значение
+Averaging mode: Samples - calculation of the average value for several consecutive samples, Blur - calculation of the average value for each sample depending on the values of the samples coming before and after it=Режим усреднения: Samples - расчет среднего значения для нескольких подряд идущих сэмплов, Blur - расчет среднего значения для каждого сэмпла в зависимости от значений сэмплов идущих до него и после
+Performs stream averaging ARG(Stream)=Производит усреднение потока ARG(Stream)
+The event occurs every time after data averaging and outputs from the stream ARG(Stream)=Событие происходит всякий после усреднения данных и выдает из в поток ARG(Stream)
+Sound stream=Звуковой поток

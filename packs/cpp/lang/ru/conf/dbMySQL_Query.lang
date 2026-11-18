@@ -1,0 +1,12 @@
+Query to MySQL database=Запрос к MySQL базе данных
+Sets the Blob index of the data field in the fetch request=Задаёт индекс Blob поля данных в запросе на выборку
+Performs a query against a MySQL database=Выполняет запрос к базе данных MySQL
+The event occurs whenever a database query is successfully completed=Событие происходит всякий раз при успешном выполнении запроса к базе данных
+The event occurs whenever there is an error in a database query=Событие происходит всякий раз при ошибке в запросе к базе данных
+Contains the result of a query in the form of a matrix=Содержит результат выполнения запроса в виде матрицы
+Contains an array of field names=Содержит массив имен полей
+Contains the number of rows of the query result=Содержит количество строк результата запроса
+Contains the number of request fields=Содержит количество полей запроса
+Contains the data identifier for working with it=Содержит идентификатор данных для работы с ними
+MySQL Database ID=Идентификатор базы данных MySQL
+Request text=Текст запроса

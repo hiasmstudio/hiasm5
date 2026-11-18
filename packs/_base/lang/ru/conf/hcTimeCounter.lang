@@ -1,0 +1,5 @@
+Time counter=Счётчик времени
+Saves current value of time=Запоминает текущее значение времени
+Calculate difference between the current and saved time value=Вычисляет разницу между текущим и сохранённым временем
+Event emit every time after saving current time=Событие происходит всякий раз после сохранения текущего времени
+Event emit every time after return time difference and give it to thread=Событие происходит всякий раз после получения разницы времени и выдаёт её в поток

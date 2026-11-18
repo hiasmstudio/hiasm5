@@ -1,0 +1,9 @@
+include('tag_maker')
+
+section html
+
+func doPrint
+  include('tag_header')
+  //... other tags ...
+  include('tag_footer')
+end

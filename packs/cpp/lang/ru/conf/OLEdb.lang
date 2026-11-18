@@ -1,0 +1,7 @@
+OLE Database=База данных OLE
+Database connection string=Строка подключения к базе данных
+Connects to the database=Осуществляет соединение с базой данных
+Closes the connection to the database=Закрывает соединение с базой данных
+The event occurs every time after a successful connection and issues the database ID to the stream=Событие происходит всякий раз после успешного соединения и выдает идентификатор БД в поток
+The event occurs every time an error occurs and outputs its code to the stream=Событие происходит всякий раз после возникновения ошибки и выдает её код в поток
+DB ID=Идентификатор БД

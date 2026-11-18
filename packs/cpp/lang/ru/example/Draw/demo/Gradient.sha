@@ -1,0 +1,126 @@
+*Отрисовка градиента
+Make(cpp)
+Add(MainForm,8140,308,210)
+{
+ Left=312
+ Top=234
+ Font=[Arial,8,0,0,1]
+ Caption="Gradient"
+}
+Add(GetDataEx,13443232,238,245)
+{
+ link(Data,8614467:Width,[])
+}
+Add(GetDataEx,6938020,231,301)
+{
+ link(Data,8614467:Bitmap,[])
+}
+Add(MultiElementEx,2935633,308,322)
+{
+ @Hint=#7:Надпись|
+ link(X1,13443232:Var3,[(314,254)])
+ link(X11,6969773:Var3,[(321,247)])
+ link(Data,6938020:Var3,[(328,310)])
+}
+BEGIN_SDK
+  Add(EditMultiEx,6943894,21,21)
+  {
+   WorkCount=#8:doEvent1|
+   DataCount=#2:X1|3:X11|4:Data|
+   Width=307
+   Height=179
+   VOffset=28
+   HOffset=105
+   link(doEvent1,6501264:doEvent1,[])
+  }
+  Add(Img_Text,2789688,112,140)
+  {
+   Font=[Arial,48,1,8421504,204]
+   Text="Gradient"
+   Point(X)
+   Point(Y)
+   link(onDraw,955889:doDraw,[])
+   link(Bitmap,429324:Var2,[])
+   link(X,13490198:Result,[])
+   link(Y,1785390:Result,[(139,110)(230,110)])
+  }
+  Add(Img_Text,955889,161,140)
+  {
+   Font=[Arial,48,1,0,204]
+   Text="Gradient"
+   Point(X)
+   Point(Y)
+   link(Bitmap,429324:Var3,[(167,121)])
+   link(X,1242992:Result,[])
+   link(Y,2883150:Result,[(188,124)(279,124)])
+  }
+  Add(Math,1242992,175,49)
+  {
+   OpType=1
+   Op2=1
+   ResultType=0
+   link(onResult,1785390:doCalc,[])
+  }
+  Add(Math,2883150,273,49)
+  {
+   OpType=1
+   Op2=1
+   ResultType=0
+  }
+  Add(MathParse,13490198,126,49)
+  {
+   MathStr="(%1 - %2) div 2 + 1"
+   ResultType=0
+   link(onResult,1242992:doOperation,[])
+   link(X1,6943894:X1,[])
+   link(X2,2789688:TextWidth,[(139,41)(91,41)(91,184)(118,184)])
+  }
+  Add(MathParse,1785390,224,49)
+  {
+   MathStr="(%1 - %2) div 2 + 1"
+   ResultType=0
+   link(onResult,2883150:doOperation,[])
+   link(X1,6943894:X11,[(230,35)(139,35)])
+   link(X2,2789688:TextHeight,[(237,37)(314,37)(314,185)(125,185)])
+  }
+  Add(Hub,6501264,49,49)
+  {
+   link(onEvent1,13490198:doCalc,[])
+   link(onEvent2,2789688:doDraw,[(97,62)(97,146)])
+  }
+  Add(GetDataEx,429324,105,112)
+  {
+   link(Data,6943894:Data,[(118,31)(146,31)])
+  }
+END_SDK
+Add(PointXY,14612526,245,266)
+{
+ link(X,13443232:Var2,[])
+ link(Y,6969773:Var2,[])
+}
+Add(GetDataEx,6969773,245,238)
+{
+ link(Data,8614467:Height,[])
+}
+Add(PaintBox,8614467,238,210)
+{
+ Top=130
+ Width=392
+ Height=136
+ Align=5
+ Point(Width)
+ Point(Height)
+ Point(onResize)
+ link(onBeforeDraw,12088867:doDraw,[(281,216)(281,189)(226,189)(226,328)])
+}
+Add(Img_Gradient,12088867,238,322)
+{
+ GradientStyle=12
+ InversGrad=0
+ StartColor=65280
+ EndColor=12032
+ Point(Point2)
+ link(onDraw,2935633:doEvent1,[])
+ link(Bitmap,6938020:Var2,[])
+ link(Point2,14612526:Point,[])
+}

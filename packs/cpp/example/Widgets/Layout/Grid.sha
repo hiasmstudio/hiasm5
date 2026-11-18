@@ -1,0 +1,39 @@
+Make(cpp)
+Add(MainForm,2953706,21,105)
+{
+}
+Add(GridLayout,1300770,175,140)
+{
+ Name="grid"
+ Space=3
+ Padding=10
+ Rows=2
+ Cols=2
+}
+Add(Memo,5337696,133,84)
+{
+ Left=130
+ Top=80
+ Layout="grid"
+ WidthScale=100
+ HeightScale=100
+}
+Add(Memo,2305003,217,84)
+{
+ Left=230
+ Top=90
+ Width=105
+ Layout="grid"
+}
+Add(Memo,8897606,133,182)
+{
+ Left=140
+ Top=175
+ Layout="grid"
+}
+Add(Memo,5187906,217,182)
+{
+ Left=220
+ Top=190
+ Layout="grid"
+}

@@ -1,0 +1,5 @@
+Accessing data by index=Доступ к данным по индексу
+Number of data access points=Количество точек доступа к данным
+Sets the number of the active channel (the first channel has index 0)=Устанавливает номер активного канала (первый канал имеет индекс 0)
+The event occurs whenever the active channel number is set, returning this number to the stream=Событие происходит всякий раз после установки номера активного канала, возвращая этот номер в поток
+Contains active channel data=Содержит данные активного канала

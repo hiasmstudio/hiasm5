@@ -1,0 +1,14 @@
+Converter from one quantity to another=Конвертер одной величины в другую
+IntToStr - number->string, StrToInt - string->number, RealToInt - fractional->integer, CharToInt - symbol->number, IntToChar - number->symbol, HexToInt - hexadecimal->integer, IntToHex - integer->hexadecimal, BinToInt - binary->integer, IntToBin - integer->binary, RealToStr - fractional->string, StrToReal - string->fractional, IntToRom - number->Roman numerals, RomToInt - Roman numerals->number, StrToTri - string->string of triads, StrToWrd - string->number expression, NumToFStr - number->format string, VKeyToChar - virtual code keys->symbol of current layout=IntToStr - число->строка,StrToInt - строка->число,RealToInt - дробное->целое,CharToInt - символ->число, IntToChar - число->символ, HexToInt - шестнадцатиричное->целое, IntToHex - целое->шестнадцатеричное, BinToInt - двоичное->целое, IntToBin - целое->двоичное, RealToStr - дробное->строка, StrToReal - строка->дробное,IntToRom - число->римские цифры, RomToInt - римские цифры->число, StrToTri - строка->строка триад, StrToWrd - строка->кол-е выражение, NumToFStr - число->форматная строка, VKeyToChar - код виртуальной клавиши->символ текущей раскладки
+Number of digits in the resulting string for the IntToHex, IntToBin and IntToStr methods=Количество знакомест в результирующей строке для методов IntToHex, IntToBin и IntToStr
+A padding character for insignificant digits for the IntToStr method. If the field is empty, no padding occurs=Символ-заполнитель незначащих знакомест для метода IntToStr. При пустом поле заполнение не происходит
+Placeholder padding direction=Направление заполнения символом-заполнителем
+Word for unit for StrToWrd method=Слово для единицы для метода StrToWrd
+Word for two for the StrToWrd method=Слово для двойки для метода StrToWrd
+Word for five for the StrToWrd method (for example - 5 points)=Слово для пятерки для метода StrToWrd (например - 5 точек)
+Total number of characters of the result=Общее число знаков результата
+Number of decimal places. If equal to -1, then the number is output in exponential form=Число десятичных знаков. Если равно -1, то число выводится в экспоненциальном виде
+Converts input data according to the Mode parameter=Конвертирует входные данные согласно параметру Mode
+Outputs the result of an operation to a stream=Выдаёт результат операции в поток
+Data to convert=Данные для преобразования
+Conversion result=Результат конвертирования

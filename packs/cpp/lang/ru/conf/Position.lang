@@ -1,0 +1,11 @@
+Returns the position of occurrence of one string within another=Возвращает позицию вхождения одной строки в другую
+Contains a default string whose occurrence position must be found=Содержит строку по-умолчанию, позицию вхождения которой необходимо найти
+Contains the default search starting position=Содержит начальную позицию поиска по умолчанию
+True - the onSearch event occurs if the row is not found. False - the onSearch event does not occur if the row is not found=True - событие onSearch происходит, если строка не найдена. False - событие onSearch не происходит, если строка не найдена
+Indicates a cyclic search for all occurrences of the Target string in the Str string (i.e., with each subsequent search, the occurrence is searched not with StartPos, but with Position).=Указывает на циклический поиск всех вхождений строки Target в строку Str (т.е., при каждом следующем поиске, вхождение ищется не со StartPos, а с Position).
+Searches for the Target string in the Str string, starting from the StartPos position, and outputs the position of the found string to the stream=Производит поиск строки Target в строке Str, начиная с позиции StartPos, и выдаёт в поток позицию найденной строки
+The event occurs whenever the search is completed=Событие происходит всякий раз при завершении поиска
+Stores the position of the found occurrence of the string Target in the string Str=Хранит позицию найденного вхождения строки Target в строке Str
+Specifies the string to be searched for=Определяет строку, в которой производится поиск
+Specifies the string whose occurrence position is to be found=Определяет строку, позицию вхождения которой необходимо найти
+Defines the starting position of the search=Определяет начальную позицию поиска

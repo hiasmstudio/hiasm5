@@ -1,0 +1,16 @@
+func doRegister(_data)
+  println('$_SESSION[', Name, '] = array();')
+  event(onRegister)
+end
+
+func doUnregister(_data)
+  println('unset($_SESSION[', Name, ']);')
+end
+
+func doWriteClose(_data)
+  println('session_write_close();')
+end
+
+func IsRegistered(_data)
+  return('isset($_SESSION[' && Name && '])')
+end 

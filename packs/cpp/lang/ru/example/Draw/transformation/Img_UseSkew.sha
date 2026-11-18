@@ -1,0 +1,426 @@
+Make(cpp)
+Add(MainForm,4560334,49,378)
+{
+ Width=808
+ Height=502
+ Position=1
+ link(onCreate,6860766:doData,[])
+}
+Add(PaintBox,15950500,245,161)
+{
+ Top=175
+ Width=882
+ Height=359
+ Color=32768
+ Layout="ver_02"
+ HeightScale=100
+ ClearBeforeDraw=0
+ link(onBeforeDraw,11367752:doDraw,[(285,167)(285,279)])
+}
+Add(Img_Rectangle,4572090,357,273)
+{
+ Point2AsOffset=0
+ Color=12639424
+ BgColor=8388736
+ Point(Point1)
+ Point(Point2)
+ Point(Transform)
+ link(onDraw,13865183:doDraw,[])
+ link(Bitmap,6414417:Var2,[])
+ link(Point1,13568439:getVar,[])
+ link(Point2,1941505:getVar,[])
+ link(Transform,2495837:Var1,[(391,257)])
+}
+Add(GetDataEx,12540350,294,203)
+{
+ Angle=3
+ link(Data,15950500:Bitmap,[(251,208)])
+}
+Add(Img_Rectangle,11367752,294,273)
+{
+ Point2AsOffset=0
+ Style=7
+ Color=16777215
+ Point(Point1)
+ Point(Point2)
+ link(onDraw,4572090:doDraw,[])
+ link(Bitmap,12540350:Var2,[])
+ link(Point1,10626233:getVar,[])
+ link(Point2,15465188:getVar,[])
+}
+Add(ScrollBar,14706639,462,77)
+{
+ Left=365
+ Top=50
+ Width=405
+ Layout="gor_02"
+ WidthScale=100
+ Min=-200
+ link(onPosition,904991:doOperation,[])
+}
+Add(Math,904991,511,77)
+{
+ OpType=3
+ Op2=10
+ link(onResult,12568787:doEvent1,[])
+}
+Add(ScrollBar,5395127,462,119)
+{
+ Left=365
+ Top=80
+ Width=405
+ Layout="gor_03"
+ WidthScale=100
+ Min=-200
+ link(onPosition,8218903:doOperation,[])
+}
+Add(Math,8218903,518,119)
+{
+ OpType=3
+ Op2=10
+ link(onResult,3462026:doEvent1,[])
+}
+Add(HubEx,14819192,595,91)
+{
+ Angle=3
+ link(onEvent,146509:doWork1,[(599,63)(228,63)])
+}
+Add(HBoxLayout,16202855,868,28)
+{
+ Name="gor_01"
+ Layout="ver_01"
+}
+Add(Hub,1100385,196,357)
+{
+ link(onEvent1,3961820:doMode,[(432,363)(432,174)])
+ link(onEvent2,146509:doWork3,[(228,370)])
+}
+Add(HubEx,146509,224,161)
+{
+ link(onEvent,15950500:doRefresh,[])
+}
+Add(LayoutSpacer,1348814,910,28)
+{
+ Left=805
+ Top=15
+ Height=15
+ Layout="gor_01"
+ WidthScale=100
+}
+Add(HBoxLayout,11737305,868,70)
+{
+ Name="gor_02"
+ Padding=2
+ Layout="ver_01"
+}
+Add(Hub,12568787,560,77)
+{
+ link(onEvent1,14819192:doWork2,[(543,83)(543,97)])
+ link(onEvent2,7225363:doStrCat,[])
+}
+Add(Hub,3462026,560,119)
+{
+ link(onEvent1,14819192:doWork3,[(599,125)])
+ link(onEvent2,10055645:doStrCat,[])
+}
+Add(Label,16736062,637,84)
+{
+ Left=330
+ Top=50
+ Width=40
+ Layout="gor_02"
+ Caption="x: 0"
+ AutoSize=1
+}
+Add(StrCat,7225363,588,84)
+{
+ Str1="x: "
+ link(onStrCat,16736062:doText,[])
+}
+Add(Label,16385465,637,126)
+{
+ Left=325
+ Top=80
+ Width=40
+ Layout="gor_03"
+ Caption="y: 0"
+ AutoSize=1
+}
+Add(StrCat,10055645,588,126)
+{
+ Str1="y: "
+ link(onStrCat,16385465:doText,[])
+}
+Add(HBoxLayout,7788548,868,112)
+{
+ Name="gor_03"
+ Padding=2
+ Layout="ver_01"
+}
+Add(Label,3890185,105,28)
+{
+ Left=15
+ Top=50
+ Height=17
+ Layout="gor_10"
+ Caption="слева:"
+ AutoSize=1
+}
+Add(Edit,16279673,105,154)
+{
+ Left=55
+ Top=50
+ Layout="gor_10"
+ Text="350"
+ DataType=2
+ link(onChange,1750075:doWork1,[(151,160)])
+}
+Add(Label,13979721,105,77)
+{
+ Left=15
+ Top=75
+ Height=17
+ Layout="gor_11"
+ Caption="сверху:"
+ AutoSize=1
+}
+Add(Edit,10008463,112,196)
+{
+ Left=55
+ Top=75
+ Layout="gor_11"
+ Text="160"
+ DataType=2
+ link(onChange,1750075:doWork2,[])
+}
+Add(Label,14871794,161,28)
+{
+ Left=115
+ Top=50
+ Height=17
+ Layout="gor_10"
+ Caption="ширина:"
+ AutoSize=1
+}
+Add(Edit,1703155,161,119)
+{
+ Left=165
+ Top=50
+ Layout="gor_10"
+ Text="100"
+ DataType=2
+ link(onChange,7524583:doWork1,[(207,125)])
+}
+Add(Label,4175453,161,77)
+{
+ Left=115
+ Top=75
+ Height=17
+ Layout="gor_11"
+ Caption="высота: "
+ AutoSize=1
+}
+Add(Edit,13628516,168,161)
+{
+ Left=165
+ Top=75
+ Layout="gor_11"
+ Text="70"
+ DataType=2
+ link(onChange,7524583:doWork2,[])
+}
+Add(HBoxLayout,5838153,763,70)
+{
+ Name="gor_10"
+ Space=2
+ Layout="ver_10"
+}
+Add(HBoxLayout,13328277,763,112)
+{
+ Name="gor_11"
+ Space=2
+ Layout="ver_10"
+}
+Add(VBoxLayout,16736310,819,252)
+{
+ Name="ver_02"
+}
+Add(HBoxLayout,4174417,812,91)
+{
+ Name="gor_20"
+ Space=22
+ Layout="ver_02"
+}
+Add(VBoxLayout,16724346,763,196)
+{
+ Name="ver_10"
+ Padding=4
+ Layout="gor_20"
+}
+Add(LayoutSpacer,12660061,763,28)
+{
+ Left=20
+ Top=10
+ Width=195
+ Height=25
+ Layout="ver_10"
+ HeightScale=50
+}
+Add(LayoutSpacer,4974896,763,154)
+{
+ Left=15
+ Top=100
+ Width=200
+ Height=15
+ Layout="ver_10"
+ HeightScale=50
+}
+Add(VBoxLayout,16662525,868,196)
+{
+ Name="ver_01"
+ WidthScale=100
+ Layout="gor_20"
+}
+Add(PointXY,5846594,105,259)
+{
+ link(X,15591438:Var2,[])
+ link(Y,7682532:Var2,[])
+}
+Add(PointXY,7582050,161,210)
+{
+ link(X,1703155:Text,[])
+ link(Y,13628516:Text,[])
+}
+Add(LineBreakEx,1640916,105,301)
+{
+ Caption="p1"
+ Type=3
+ link(_Data,5846594:Point,[])
+}
+Add(LineBreakEx,12961841,161,252)
+{
+ Caption="p2"
+ Type=3
+ link(_Data,7582050:Point,[])
+}
+Add(LineBreakEx,10626233,308,224)
+{
+ Caption="p1"
+ Type=2
+}
+Add(LineBreakEx,15465188,315,238)
+{
+ Caption="p2"
+ Type=2
+}
+Add(LineBreakEx,13568439,371,224)
+{
+ Caption="p1"
+ Type=2
+}
+Add(LineBreakEx,1941505,378,238)
+{
+ Caption="p2"
+ Type=2
+}
+Add(LayoutSpacer,14423463,868,154)
+{
+ Left=430
+ Top=105
+ Height=65
+ Layout="ver_01"
+}
+Add(HubEx,7524583,203,161)
+{
+ link(onEvent,146509:doWork2,[])
+}
+Add(HubEx,1750075,147,196)
+{
+ link(onEvent,7524583:doWork3,[(207,202)])
+}
+Add(ListBox,5804276,147,350)
+{
+ Left=255
+ Top=20
+ Width=120
+ Height=70
+ Color=-16777201
+ WinStyle=2
+ Layout="gor_20"
+ Strings=#5:Центр|18:Верхний левый угол|19:Верхний правый угол|18:Нижний правый угол|17:Нижний левый угол|
+ Point(doSelect)
+ link(onClick,1100385:doEvent1,[])
+}
+Add(DoData,6860766,98,392)
+{
+ Data=Integer(0)
+ link(onEventData,5804276:doSelect,[])
+ AddHint(4,-21,21,13,Data)
+}
+Add(GetDataEx,15591438,105,245)
+{
+ link(Data,16279673:Text,[])
+}
+Add(GetDataEx,7682532,112,231)
+{
+ link(Data,10008463:Text,[])
+}
+Add(LineBreakEx,12730127,462,217)
+{
+ Caption="p1"
+ Type=2
+}
+Add(LineBreakEx,11510785,469,231)
+{
+ Caption="p2"
+ Type=2
+}
+Add(Img_Text,13865183,462,273)
+{
+ X=200
+ Y=200
+ Font=[Microsoft Sans Serif,14,0,0,204]
+ Text="HiAsm"
+ Point(Transform)
+ link(onDraw,8093621:doDraw,[])
+ link(Bitmap,10020778:Var2,[])
+ link(Transform,2495837:Var2,[])
+}
+Add(GetDataEx,6414417,357,203)
+{
+ Angle=3
+ link(Data,12540350:Var3,[])
+}
+Add(GetDataEx,2495837,476,252)
+{
+ Angle=1
+ link(Data,8503541:Var1,[])
+}
+Add(Img_Bmp,8093621,546,273)
+{
+ X=50
+ Y=50
+ Point(Transform)
+ link(Bitmap,10020778:Var3,[(552,208)])
+ link(SourceBitmap,3467665:Bitmap,[])
+ link(Transform,8503541:Var3,[(566,257)])
+}
+Add(Bitmap,3467665,553,217)
+{
+ Picture=[ZIP3604000078DA73F235636100033320D600620128666450804840E591C1FFFFFF69860D0D8F41F152302649AF2512367C0EC54B49D74B861920F5C9C9B8CC40D57F2E9B81A1DA92030583F462D50F360353FFF729020CE79219E018A477CE1C5C6E58CAC0E0C500C7C8663C07D2308CD50C605C30547320B01703863B407A416E80F903D96E86391C088CA61FD90C905E109FA35880C1E95831AA3E3CFA6166C0D8E4E847C683453F2E4C8C7E4298D23C0A0093A1E9B6]
+}
+Add(GetDataEx,10020778,462,203)
+{
+ Angle=3
+ link(Data,6414417:Var3,[])
+}
+Add(GetDataEx,8503541,504,252)
+{
+ link(Data,3961820:Transform,[])
+}
+Add(Img_UseSkew,3961820,504,168)
+{
+ Point(doMode)
+ link(X,904991:Result,[])
+ link(Y,8218903:Result,[])
+}

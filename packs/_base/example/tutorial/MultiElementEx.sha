@@ -1,0 +1,18 @@
+Make(cpp)
+Add(InfoTip,900,24,18)
+{
+ @Width=680
+ @Height=145
+ Info=#23:Динамические экземпляры|0:|152:Аналог операций add, select, delete и clear: каждый экземпляр содержит собственное состояние. Это C++-учебный аналог, не сериализация контейнера Delphi.|
+ HAlign=0
+ Margin=12
+}
+Add(Entry,1,42,196)
+{
+ link(onStart,2:doExecute,[])
+}
+Add(Code,2,196,196)
+{
+ Code=#49:struct Instance { int handle; int counter = 0; };|32:std::vector<Instance> instances;|19:int nextHandle = 1;|93:auto add = [&]() { instances.push_back({nextHandle++, 0}); return instances.back().handle; };|131:auto select = [&](int handle) -> Instance* { for(auto& item : instances) if(item.handle == handle) return &item; return nullptr; };|40:const int first = add(), second = add();|27:select(first)->counter = 7;|28:select(second)->counter = 3;|102:std::cout << "independent: " << select(first)->counter << "," << select(second)->counter << std::endl;|118:for (auto it = instances.begin(); it != instances.end(); ++it) if(it->handle == first) { instances.erase(it); break; }|115:std::cout << "count after delete: " << instances.size() << ", remaining: " << select(second)->counter << std::endl;|18:instances.clear();|68:std::cout << "count after clear: " << instances.size() << std::endl;|
+ Expression=input
+}

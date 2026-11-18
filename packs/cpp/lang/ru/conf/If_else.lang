@@ -1,0 +1,9 @@
+Calling an event based on a condition=Вызов события по условию
+Defines the type of operand comparison=Определяет тип сравнения операндов
+Operand 1 by default=Операнд 1 по-умолчанию
+Operand 2 by default=Операнд 2 по-умолчанию
+Compares the first operand with the second. The comparison type is determined by the Type parameter=Сравнивает первый операнд со вторым. Тип сравнения определяется параметром Type
+The event occurs whenever a comparison condition is met=Событие происходит всякий раз при выполнении условия сравнения
+The event occurs whenever the comparison condition is not met=Событие происходит всякий раз при невыполнении условия сравнения
+Operand 1=Операнд 1
+Operand 2=Операнд 2

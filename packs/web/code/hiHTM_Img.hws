@@ -1,0 +1,21 @@
+include('tag_maker')
+
+section html
+
+func doPrint
+  include('tag_header')
+  if(isset(Src))
+    s &= " src=\"" & Src & "\""
+  end
+  include('tag_footer')
+end
+  
+section java
+
+func doSrc(data)
+  print('document.getElementById(', Id, ').src', ' = ', data, ';')
+end
+
+func curSrc
+  return('document.all.' + code(Id) + '.src')
+end

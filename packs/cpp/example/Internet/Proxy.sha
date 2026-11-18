@@ -1,0 +1,91 @@
+Make(cpp)
+Add(MainForm,16576675,21,105)
+{
+ Left=20
+ Top=105
+ Font=[Arial,8,0,0,1]
+ Caption="Easy proxy server"
+}
+Add(Proxy,16288863,182,77)
+{
+ link(onURL,9963129:doAdd,[])
+ link(Port,14731775:Text,[(195,65)(188,65)])
+}
+Add(Button,7652413,105,77)
+{
+ Left=5
+ Top=10
+ Font=[Arial,8,0,0,1]
+ Layout="horz"
+ Caption="Start"
+ link(onClick,16288863:doOpen,[])
+}
+Add(Button,11242905,105,119)
+{
+ Left=115
+ Top=10
+ Font=[Arial,8,0,0,1]
+ Layout="horz"
+ Caption="Stop"
+ link(onClick,16288863:doClose,[(163,125)(163,90)])
+}
+Add(Memo,9963129,238,77)
+{
+ Left=5
+ Top=35
+ Width=385
+ Height=240
+ Font=[Arial,8,0,0,1]
+ Layout="vert"
+ HeightScale=100
+ AddType=1
+ ScrollBars=3
+}
+Add(Label,2186566,238,161)
+{
+ Left=325
+ Top=10
+ Width=56
+ Height=18
+ Font=[Arial,8,0,0,1]
+ Layout="horz"
+ Caption="Threads: 0"
+}
+Add(Timer,6758364,105,161)
+{
+ link(onTimer,7858615:doStrCat,[])
+}
+Add(Edit,14731775,182,21)
+{
+ Left=70
+ Top=10
+ Width=35
+ Layout="horz"
+ Text="101"
+}
+Add(StrCat,7858615,175,161)
+{
+ Str1="Threads: "
+ link(onStrCat,2186566:doText,[])
+ link(Str2,16288863:Count,[])
+}
+Add(LayoutSpacer,7368644,238,21)
+{
+ Left=175
+ Top=10
+ Width=140
+ Height=20
+ Layout="horz"
+ WidthScale=100
+}
+Add(HBoxLayout,5989194,315,112)
+{
+ Name="horz"
+ Space=3
+ Padding=3
+ Layout="vert"
+}
+Add(VBoxLayout,5955388,315,161)
+{
+ Name="vert"
+}

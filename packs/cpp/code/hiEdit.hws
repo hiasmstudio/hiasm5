@@ -1,0 +1,84 @@
+func Arg(value)
+  if(len(value) > 0)
+    return(value)
+  else
+    return('""')
+  end
+end
+
+func doStart
+  println('{')
+  fvar(align)
+  switch(Alignment)
+    case 1: align = '1.0'
+    case 2: align = '0.5'
+    default: align = '0.0'
+  end
+  println('GtkWidget *source = gtk_entry_new();')
+  println('hiasm_set_background(source, ', cstr(d('Color')), ');')
+  println('hiasm_set_font(source, ', cstr(d('Font')), ');')
+  switch(get('Ctl3D'))
+    case 0: println('hiasm_set_border(source);')
+  end
+  println('gtk_entry_set_alignment(GTK_ENTRY(source), ', align, ');')
+  println('gtk_entry_set_max_length(GTK_ENTRY(source), ', d('MaxLength'), ');')
+  switch(d('DataType'))
+    case "IntegerNumber": println('gtk_entry_set_input_purpose(GTK_ENTRY(source), GTK_INPUT_PURPOSE_DIGITS);')
+    case "FloatNumber": println('gtk_entry_set_input_purpose(GTK_ENTRY(source), GTK_INPUT_PURPOSE_NUMBER);')
+  end
+  switch(d('Password'))
+    case "True": println('gtk_entry_set_visibility(GTK_ENTRY(source), FALSE);')
+  end
+  switch(d('ReadOnly'))
+    case "True": println('gtk_editable_set_editable(GTK_EDITABLE(source), FALSE);')
+  end
+  println('gtk_widget_set_size_request(source, ', Width, ', ', Height, ');')
+  println('gtk_editable_set_text(GTK_EDITABLE(source), "");')
+  println('gtk_editable_set_text(GTK_EDITABLE(source), ', Text, ');')
+  println('hiasm_place("Edit', _id_, '", source, ', Left, ', ', Top, ');')
+  if(linked(onChange))
+    println('g_signal_connect(source, "changed", G_CALLBACK(+[](GtkEditable *editable, gpointer) {')
+  println('if(!hiasm_form_ready) return;')
+    block.inclvl()
+    event(onChange, 'std::string(gtk_editable_get_text(editable))')
+    block.declvl()
+    println('}), NULL);')
+  end
+  if(linked(onEnter))
+    println('g_signal_connect(source, "activate", G_CALLBACK(+[](GtkEntry *entry, gpointer) {')
+  println('if(!hiasm_form_ready) return;')
+    block.inclvl()
+    event(onEnter, 'std::string(gtk_editable_get_text(GTK_EDITABLE(entry)))')
+    switch(d('ClearAfterEnter'))
+      case "True": println('gtk_editable_set_text(GTK_EDITABLE(entry), "");')
+    end
+    block.declvl()
+    println('}), NULL);')
+  end
+  println('}')
+end
+
+func doText(_data)
+  println('gtk_editable_set_text(GTK_EDITABLE(hiasm_widget("Edit', _id_, '").get()), hiasm_text(', Arg(_data), ').c_str());')
+end
+
+func doText2(_data)
+  println('gtk_editable_set_text(GTK_EDITABLE(hiasm_widget("Edit', _id_, '").get()), hiasm_text(', Arg(_data), ').c_str());')
+end
+
+func Text()
+  return('std::string(gtk_editable_get_text(GTK_EDITABLE(hiasm_widget("Edit' && _id_ && '").get())))')
+end
+
+func doPosition(_data)
+  println('gtk_editable_set_position(GTK_EDITABLE(hiasm_widget("Edit', _id_, '").get()), static_cast<int>(', _data, '));')
+end
+
+func doSelectAll(_data)
+  println('gtk_editable_select_region(GTK_EDITABLE(hiasm_widget("Edit', _id_, '").get()), 0, -1);')
+end
+
+func Position()
+  return('gtk_editable_get_position(GTK_EDITABLE(hiasm_widget("Edit' && _id_ && '").get()))')
+end
+

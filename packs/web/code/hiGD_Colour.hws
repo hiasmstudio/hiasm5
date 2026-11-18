@@ -1,0 +1,20 @@
+func create(_data)
+  return('ImageColorAllocate(' && HImage && ', ' && Red && ', ' && Green && ', ' && Blue && ')')
+end
+
+func doCreateColor(_data)
+  if(linked(Color))
+    println(_color, ' = ', create(_data), ';')
+    event(onCreateColor, _color)
+  else
+    event(onCreateColor, create(_data))
+  end
+end
+
+func Color(_data)
+  if(linked(doCreateColor))
+    return(_color)
+  else
+    return(create(_data))
+  end
+end

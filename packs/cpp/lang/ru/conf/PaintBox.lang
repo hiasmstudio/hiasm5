@@ -1,0 +1,8 @@
+Drawing Component=Компонент для рисования
+Capture the mouse by a component when you left-click on it=Захват мыши компонентом при нажатии на нем левой кнопки
+When set to True, the internal buffer before the onBeforeDraw event will be automatically filled with Color=При установке в True внутренний буфер перед событием onBeforeDraw будет автоматически закрашен цветом Color
+Displays the contents of the internal buffer on the screen=Отображает содержимое внутреннего буфера на экране
+Clears internal buffer=Очищает внутренний буфер
+The event occurs every time before the contents of the internal buffer are drawn to the screen=Событие происходит всякий раз перед отрисовкой содержимого внутреннего буфера на экране
+The event occurs every time the mouse button is clicked on the image=Событие происходит всякий раз при нажатии кнопки мыши на картинке
+Contains a picture=Содержит картинку

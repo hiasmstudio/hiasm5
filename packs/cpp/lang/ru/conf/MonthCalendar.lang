@@ -1,0 +1,7 @@
+Monthly calendar=Месячный календарь
+Year=Год
+month=Месяц
+Holidays=Праздничные дни
+Return the days of the previous and next month that are included in a given week=Выдавать дни предыдущего и следующего месяца, которые входят в данную неделю
+Lists all days of the specified year and month=Перечисляет все дни указанного года и месяца
+The event occurs every time after receiving the next day of the specified year and month and outputs its attributes to the stream ARG(Day, DayOfWeek, Type)=Событие происходит вякий раз после получения очередного дня указанного года и месяца и выдает в поток его аттрибуты ARG(Day, DayOfWeek, Type)

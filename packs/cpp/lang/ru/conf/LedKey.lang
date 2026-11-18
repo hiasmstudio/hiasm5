@@ -1,0 +1,15 @@
+Key switch control=Управление клавишами переключателями
+Switches the mode of the NumLock key=Переключает режим клавиши NumLock
+Toggles CapsLock key mode=Переключает режим клавиши CapsLock
+Toggles the ScrollLock key mode=Переключает режим клавиши ScrollLock
+Turns off all 3 LED keys=Выключает все 3 клавиши со светодиодами
+Includes all 3 keys with LEDs=Включает все 3 клавиши со светодиодами
+Enables NumLock key mode=Включает режим клавиши NumLock
+Enables CapsLock key mode=Включает режим клавиши CapsLock
+Enables ScrollLock key mode=Включает режим клавиши ScrollLock
+Turns off NumLock key mode=Выключает режим клавиши NumLock
+Turns off CapsLock key mode=Выключает режим клавиши CapsLock
+Turns off ScrollLock key mode=Выключает режим клавиши ScrollLock
+Contains the NumLock value=Содержит значение NumLock
+Contains the CapsLock value=Содержит значение CapsLock
+Contains the ScrollLock value=Содержит значение ScrollLock

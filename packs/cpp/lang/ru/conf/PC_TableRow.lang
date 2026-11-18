@@ -1,0 +1,8 @@
+Cell management=Управление ячейками
+Defines the table name=Определяет имя таблицы
+Defines a document template=Определяет шаблон документа
+Adds a row to the table=Добавляет строку в таблицу
+Removes a cell from the table (-1 removes all cells) ARG(Index)=Удаляет ячейку из таблицы (при -1 удаляются все ячейки) ARG(Index)
+The event occurs every time a row is added to the table and outputs its index to the ARG(Index) stream=Событие происходит всякий раз после добавления строки в таблицу и выдает ее индекс в поток ARG(Index)
+Contains the index of the last row added=Содержит индекс последней добавленной строки
+Defines an object to change the text in it=Определяет объект для изменения текста в нем

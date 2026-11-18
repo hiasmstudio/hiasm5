@@ -1,0 +1,28 @@
+include('tag_maker')
+
+section html
+
+func doPrint
+  include('tag_header')
+  //... other tags ...
+  include('tag_footer')
+  event(onAfterPrint)
+end
+
+section java
+
+func doHTML(data)
+  if(isdef(Id))
+    println(Object, '.innerHTML = ', data, ';')
+  else
+    println('document.getElementById(', Id, ').innerHTML = ', data, ';')
+  end
+end
+
+func innerHTML
+  if(isdef(Id))
+    return(Object && '.innerHTML')
+  else
+    return('document.getElementById(' && Id && ').innerHTML')
+  end
+end

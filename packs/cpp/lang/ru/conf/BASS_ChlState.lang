@@ -1,0 +1,6 @@
+Channel State=Состояние канала
+Checks channel status=Проверяет состояние канала
+The event occurs every time after checking the channel state and issues the code to the stream: 0 - stopped, 1 - playing, 3 - pause=Событие происходит всякий раз после проверки состояния канала и выдаёт в поток код: 0 - остановлен, 1 - проигрывается, 3 - пауза
+The event occurs in case of an error and outputs its number to the stream=Событие происходит в случае ошибки и выдаёт её номер в поток
+Contains the state of the channel (no doCheck call required)=Содержит состояние канала (вызов doCheck не требуется)
+Defines the channel ID=Определяет идентификатор канала

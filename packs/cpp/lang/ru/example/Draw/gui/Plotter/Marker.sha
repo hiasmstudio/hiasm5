@@ -1,0 +1,64 @@
+*Использование маркера на графике
+Make(cpp)
+Add(MainForm,16184661,84,161)
+{
+ Left=20
+ Top=105
+ Width=501
+ Height=412
+ Caption="Plot marker"
+ link(onCreate,14310219:doFor,[])
+}
+Add(For,14310219,140,175)
+{
+ End=10
+ link(onEvent,7547227:doAdd,[])
+}
+Add(Plotter,10574215,196,119)
+{
+ Left=5
+ Top=40
+ Width=475
+ Height=340
+ Align=5
+ Name="Plotter"
+ GridColor=16777215
+}
+Add(PlotLines,7547227,196,175)
+{
+ Grapher="Plotter"
+ Step=1
+ Name="line"
+}
+Add(PlotAxis,4986410,294,91)
+{
+ Grapher="Plotter"
+ Name="X"
+ Color=0
+}
+Add(PlotAxis,7393577,343,91)
+{
+ Grapher="Plotter"
+ Name="Y"
+ Color=0
+ Angle=90
+}
+Add(InfoTip,5177955,280,70)
+{
+ Info=#9:main axis|
+ Width=113
+ Height=67
+}
+Add(PlotMarker,9042698,357,175)
+{
+ Grapher="Plotter"
+ Color=8388608
+ Style=2
+ HAlign=2
+ VAlign=2
+ X=3
+ Y=3
+ AxisX="X"
+ AxisY="Y"
+ Text="Point (3; 3)"
+}

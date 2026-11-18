@@ -1,0 +1,13 @@
+Search in a text file=Поиск в текстовом файле
+Full path to the default text file=Полный путь к текстовому файлу по-умолчанию
+Default search text=Текст для поиска по-умолчанию
+True - case sensitive, False - case insensitive.=True - с учётом регистра, False - без учета регистра.
+Searches for text in lines of a text file. If search text is not specified, then all lines are read line by line ARG(FileNAme, Text)=Производит поиск текста в строках текстового файла. Если текст для поиска не задан, то производится построчное чтение всех строк ARG(FileNAme, Text)
+Abort search=Прерывание поиска
+The event occurs every time the text is not found in the next line, outputting this line to the stream ARG(String)=Событие происходит всякий раз при ненахождении текста в очередной строке, выдавая эту строку в поток ARG(String)
+The event occurs every time text is found in the next line, outputting this line to the ARG(String) stream=Событие происходит всякий раз при нахождении текста в очередной строке, выдавая эту строку в поток ARG(String)
+The event occurs every time the search ends=Событие происходит всякий раз по окончанию поиска
+Full path to the text file=Полный путь к текстовому файлу
+Search text=Текст для поиска
+Contains the current line=Содержит текущую строку
+Contains the current line number=Содержит номер текущей строки

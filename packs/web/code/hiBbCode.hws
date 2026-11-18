@@ -1,0 +1,142 @@
+func printTag1(tag, src, dest)
+  if(tag)
+    println('$tx = preg_replace(' + replace(src, '¦', tag) + ', ' + dest + ', $tx);')
+  end
+end
+
+func printTag2(tag, src, dest)
+  if(tag)
+    println('$tx = str_replace(' + replace(src, '¦', tag) + ', ' + dest + ', $tx);')
+  end
+end
+
+func doBbCodeCreate(_data)
+  fvar(old)
+  old = block.select(BLK_HEAD)
+  println('function ' + code(Name) + '($text) {')
+  block.inclvl()
+    println('$tarray = explode("\r", " ".htmlspecialchars($text));')
+    println('$_text = "";')
+    println('$code = 0;')
+    if(TableTag)
+      println('$table = 0;')
+      println('$inc = 0;')
+      println('$cs = 0;')
+    end
+    println('for($i = 0; $i < count($tarray); $i++) {')
+    println('  $tx = $tarray[$i];')
+    println('  if (strpos($tx,"[' + code(CodeTag) + ']")) {')
+    println('    $code++;')
+    println('    $tx = str_replace("[' + code(CodeTag) + ']", "<div class=' + code(CodeClass) + '>", $tx);')
+    println('  }')
+    println('  if ($code > 0) {')
+    println('    $tx = str_replace("  ","&nbsp;&nbsp;",$tx);')
+    println('    if (strpos($tx," ") === 1)')
+    println('      $tx = "&nbsp;".$tx;')
+    println('    $tx .= "<br>";')
+    println('  }')
+    println('  else {')
+    if(TableTag)
+      println('    if (strpos($tx,"[' + code(TableTag) + '"))')
+      println('      $table++;')
+      println('    if (strpos($tx,"[/' + code(TableTag) + ']"))')
+      println('      $table--;')
+    end
+    
+    printTag1(Bold, "#\[¦\](.*?)\[/¦\]#is", "<b>\\\\1</b>")
+    printTag1(Italic, "#\[¦\](.*?)\[/¦\]#is", "<i>\\\\1</i>")
+    printTag1(Underline, "#\[¦\](.*?)\[/¦\]#is", "<u>\\\\1</u>")
+    
+    printTag2(Line, "[¦]", "<hr>")
+    printTag2(Tab, "[¦]", "&nbsp;&nbsp;")
+
+    printTag2(SimpleList, "[¦]", "<ul>")
+    printTag2(SimpleList, "[/¦]", "</ul>")
+    printTag2(NumericList, "[¦]", "<ol>")
+    printTag2(NumericList, "[/¦]", "</ol>")
+    printTag2(Item, "[¦]", "<li>")
+                
+//    $tx = preg_replace("/\[form=(.*?)\]/si", "<form action=\\1 method=get>", $tx);
+//    $tx = preg_replace("#\[itext=(.*?)\](.*?)\[/itext\]#is", "<input type=text name=\\1 value=\\2>", $tx);
+//    $tx = preg_replace("/\[isubmit=(.*?)\]/si", "<input type=submit value=\\1>", $tx);
+//    $tx = str_replace("[/form]", "</form>", $tx);
+
+    printTag2(IP, "[¦]", 'getenv("REMOTE_ADDR")')
+    
+    printTag1(Image, "#\[¦\]([a-zA-Z\.\/\-:]+)\[/¦\]#is", "<img src=\\\\1>")
+    printTag1(QuoteTag, "/\[¦=(.*?)\]/si", "<fieldset class=" + QuoteClass + "><legend><b>\\\\1</b> " + TitleText + "</legend>")
+    printTag2(QuoteTag, "[¦]", "<fieldset class=" + QuoteClass + ">")
+    printTag2(QuoteTag, "[/¦]", "</fieldset>")
+    
+    printTag1(Anchor, "/\[¦=(.*?)\]/si", "<a name=\\\\1> </a>")
+    printTag1(GoTo, "#\[¦=(.*?)\](.*?)\[/¦\]#is", "<a href=#\\\\1>\\\\2</a>")
+    
+//    ("#\[img=(.*?) align=(.*?)\](.*?)\[/img\]#is", "<div style=\"FLOAT: \\2; padding: 5px\"><table class=code><tr><td align=center><img src=\\3></td></tr><tr><td height=0 bgcolor=gray></td></tr><tr><td align=center><font size=-2>\\1</font></td></tr></table></div>", $tx);
+    
+    printTag1(Color, "#\[¦=(.*?)\](.*?)\[/¦\]#is", "<font color=\\\\1>\\\\2</font>")
+    printTag1(Size, "#\[¦=(.*?)\](.*?)\[/¦\]#is", "<font size=\\\\1>\\\\2</font>")
+    
+//    $tx = preg_replace("/\=== (.*?) ===/si", "<table width=100% border=0><tr><td align=center class=title_1>\\1</td></tr></table>", $tx);
+    //$tx = preg_replace("/\== (.*?) ==/si", "<table width=100% border=0><tr><td align=center class=title_2>\\1</td></tr></table>", $tx);
+//    $tx = preg_replace("/\== (.*?) ==/si", "<div style=\"font-size: 14; font-weight: bold\" align=center>\\1</div>", $tx);
+//    $tx = preg_replace("/>> (.*?) <</si", "<center>\\1</center>", $tx);
+    
+    if(TableTag)
+      printTag2(TableTag, "[¦]", "<table class=" + TableClass + " cellpadding=2 cellspacing=1>")
+      printTag1(TableTag, "#\[¦=(.*?)\]#is", "<table class=" + TableClass + " cellpadding=2 cellspacing=1 align=\\\\1>")
+      printTag2(TableTag, "[/¦]", "</table>")
+      println('    if ($table > 0) {')
+      println('      if (strpos($tx,"||") !== false) {')
+      println('        $tx = "<tr class=' + code(HeaderClass) + '><td>".$tx."</td></tr>";')
+      println('        $old = strlen($tx);')
+      println('        $tx = str_replace(' + Header + ', "</td><td>", $tx);')
+      println('        $cs = (strlen($tx) - $old)/(16 - 2) + 1;')
+      println('        $inc++;')
+      println('      }')
+      println('      else if (strpos($tx,' + Row + ') !== false) {')
+      println('        $tx = "<tr class=' + code(replace(RowClass, "*", '".($inc % 2)."')) + '><td>".$tx."</td></tr>";')
+      println('        $old = strlen($tx);')
+      println('        $tx = str_replace(' + Row + ', "</td><td>", $tx);')
+      println('        $cs = (strlen($tx) - $old)/(9 - 1) + 1;')
+      println('        $inc++;')
+      println('      }')
+      println('      else if ($cs) {')
+   	  println('        $tx = "<tr class=' + code(replace(RowClass, "*", '".($inc % 2)."')) + '><td colspan=$cs>".$tx."</td></tr>";')
+      println('        $inc++;')
+      println('      }')
+      println('    }')
+      println('    else $cs = 0;')
+    end
+    printTag1(Url, "#\[¦\]([\w]+?://[^ \\\"\\n\\r\\t<]*?)\[/¦\]#is","<a target=_blank href=\\\\1>\\\\1</a>")
+    printTag1(Url, "#\[¦\]((www|ftp)\.[^ \\\"\\n\\r\\t<]*?)\[/¦\]#is","<a target=_blank href=http://\\\\1>\\\\1</a>")
+    printTag1(Url, "#\[¦=((www|ftp)\.[^ \\\"\\n\\r\\t<]*?)\](.*?)\[/¦\]#is","<a target=_blank href=http://\\\\1>\\\\3</a>")
+    //      printTag1("#\[burl=((www|ftp)\.[^ \"\n\r\t<]*?)\](.*?)\[/burl\]#is","<a target=_blank href=http://\\1 class=page>\\3</a>", $tx);
+        
+    printTag1(Tag, "#\[¦=(.*?)\]#is", "[\\\\1]")
+
+    if(TableName)      
+      println('$r = mysql_query("SELECT * FROM ' + code(TableName) + '");')
+      println('for($j = 0; $j < mysql_num_rows($r); $j++) {')
+      println('  $tx = str_replace(mysql_result($r,$j,' + CodeField + '),"<img src=' + code(Path) + '".mysql_result($r,$j,' + UrlField + ').">",$tx);')
+      println('}')
+    end
+    
+    if(TableTag)
+      println('if ($table <= 0)')
+      println('  $tx .= "<br>";')
+    end
+    println('}')
+    println('if (strpos($tx,"[/' + code(CodeTag) + ']")) {')
+    println('  $code--;')
+    printTag2(CodeTag, "[/¦]", "</div>")
+    println('}')
+    println('$_text .= $tx;')
+    println('}')
+    println('return $_text;')
+  block.declvl()
+  println('}')
+  block.select(old)
+  
+  event(onBbCodeCreate, _data_)
+end
+

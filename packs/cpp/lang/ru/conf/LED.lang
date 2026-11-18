@@ -1,0 +1,14 @@
+LED=Светодиод
+If lsCircle, then the LED is round, otherwise - square=Если lsCircle, то светодиод круглый, иначе - квадратный
+Show highlight=Отображать блик
+LED color=Цвет горящего светодиода
+Dim LED color=Цвет потухшего светодиода
+LED highlight color=Цвет блика светодиода
+Initial state=Начальное состояние
+Changes state (turns on if turned off and vice versa)=Меняет состояние (включает, если выключен и наоборот)
+Turns off the LED=Выключает светодиод
+Turns on the LED=Включает светодиод
+Places the element below all other form elements=Помещает элемент под всеми другими элементами формы
+The event occurs when the state changes and outputs 1 to the stream if the diode is turned on, and 0 if it is turned off=Событие происходит при смене состояния и выдаёт в поток 1, если диод включился, и 0 - если выключился
+The event occurs whenever the mouse button is clicked on the component=Событие происходит всякий раз при нажатии кнопки мыши на компоненте
+Current state (contains 1 if the LED is on, and 0 if it is off)=Текущее состояние (содержит 1, если светодиод включен, и 0 - если выключен)

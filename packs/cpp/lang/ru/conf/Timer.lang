@@ -1,0 +1,10 @@
+Generates an onTimer event after a specified period of time=Генерирует событие onTimer через заданный промежуток времени
+Interval (in milliseconds) between timer iterations=Интервал (в миллисекундах) между итерациями таймера
+True - the timer runs after the program starts, False - the timer is disabled=True - таймер работает после запуска программы, False - таймер отключен
+The timer will automatically turn off after the specified number of times. If equal to 0, then this field is ignored and the timer will run continuously. When the timer starts, the counter is reset.=Таймер автоматически отключится через указанное число срабатываний. Если равно 0, то это поле игнорируется и таймер буде работать постоянно. При запуске таймера счетчик устанавливается заново.
+Reaction to a timer event that occurs BEFORE the end of the onTimer/onStop events (which is possible when the windows message handler is launched by these events). Ignore - ignore (without changing the counter for AutoStop), Defer - defer calling the event until the end of previous calls=Реакция на событие таймера, происходящее ДО окончания событий onTimer/onStop (что возможно при запуске обработчика сообщений windows этими событиями). Ignore - проигнорировать (не меняя счетчика для AutoStop), Defer - отложить вызов события до окончания предыдущих вызовов
+Includes timer=Включает таймер
+Turns off the timer=Выключает таймер
+The event occurs every time the next iteration of the timer (see Interval)=Событие происходит всякий раз при очередной итерации таймера (см. Interval)
+The event occurs once and immediately after the timer stops=Событие происходит один раз и сразу же после остановки таймера
+Contains 1 if the timer is running, or 0 otherwise=Содержит 1, если таймер запущен, или 0 - в противном случае

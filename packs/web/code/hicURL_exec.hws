@@ -1,0 +1,43 @@
+func doExec(_data)
+	// TODO
+	fvar(s)
+	s = 'curl_exec('+cURLID+');'
+	
+	if (linked(onExec) or linked(onError))
+		println (result, ' = ', s)
+		if (linked(onExec))
+			println ('if (', result, ' !== FALSE)')
+			println ('{')
+			block.inclvl()
+			event(onExec, result)
+			block.declvl()
+			println('}')
+			if (linked (onError))
+				println('else')
+				println('{')
+				block.inclvl()
+				event(onError, 'curl_errno('+cURLID+')')
+				block.declvl()
+				println('}')
+			end
+		else
+			println ('if (', result, ' === FALSE)')
+			println ('{')
+			block.inclvl()
+			event(onError, 'curl_errno('+cURLID+')')
+			block.declvl()
+			println('}')			
+		end
+	else
+		println (s + ';')
+	end
+end
+
+func ErrorNo()
+	return('curl_errno('+cURLID+')')
+end
+
+func Error()
+	return('curl_error('+cURLID+')')
+end
+

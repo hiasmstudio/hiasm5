@@ -1,0 +1,76 @@
+section java
+
+func Init()
+  if(cgt.get_point_id("TimerCode") = 0) 
+  
+   var(tfunc)
+   fvar(old,s)
+
+   tfunc = isdef(AutoStop) ? 'setInterval' : 'setTimeout' + '("' + timer + '()",' && Interval && ');'
+
+   old = block.select(block.reggen())
+   if(linked(doStop) or cgt.el_link_is())
+     println('var ', id, ' = 0;')
+   end  
+   if(isndef(AutoStop))
+     println('var ', var_auto,' = 0;')
+   end   
+   println('function ' + timer + '(_data_){')
+   block.inclvl()
+   include("func_head")
+   if(isndef(AutoStop))
+     println(var_auto,'--;')
+     println('if(',var_auto,' > 0)')
+     block.inclvl()
+     if(linked(doStop))
+       print(id, ' = ')
+     end
+     println(tfunc)
+     block.declvl()
+     if(linked(onStop))
+       println('else {')
+       block.inclvl()
+       event(onStop)
+       block.declvl()
+       println('}')
+     end
+   end
+   if(isdef(IgnoreData))
+     event(onTimer)
+   else
+     event(onTimer, '_data_')
+   end
+   include("func_tail")
+   block.declvl()
+   println('}')
+   block.copyto(BLK_HEAD)
+   block.delete(block.select(old))
+  end
+end
+
+func doTimer(_data)   
+   if(isndef(AutoStop))
+     println(var_auto,' = ',  AutoStop, ';')
+   end
+
+   if(linked(doStop) or cgt.el_link_is())
+     print(id, ' = ')
+   end
+   if(cgt.get_point_id("TimerCode") > 0)
+     println(isdef(AutoStop) ? 'setInterval' : 'setTimeout', '(', TimerCode, ',' && Interval && ');')
+   else
+     println(isdef(AutoStop) ? 'setInterval' : 'setTimeout' + '(', str(timer + '(') & _data_ & ")", ',' && Interval && ');')
+   end
+end
+
+func doStop
+   if(isdef(AutoStop))
+     println('clearInterval(', id, ');')
+   else
+     println('clearTimeout(', id, ');')
+   end
+end
+
+func doAutoStop(data)
+   println(var_auto, ' = ', data, ';') 
+end

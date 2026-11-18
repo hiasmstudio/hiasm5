@@ -1,0 +1,5 @@
+func doAdd(_data)
+  println('sys.addpack(', CodeName, ',', Name, ',', Info, ',', Ext, ');')
+  event(onAdd)
+end
+

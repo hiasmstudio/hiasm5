@@ -1,0 +1,14 @@
+Search text between two strings=Поиск текста между двумя строками или символами
+Defines include symbols of beginning and end block in found string=Определяет, вставлять ли символы начала и конца блока в найденную строку
+Defines event on the block found. True - found block replace on string "ReplaceStr", else nothing do=Определяет действие над найденным блоком. True - найденный блок удаляется при пустом поле ReplaceStr, или заменяется в противном случае. False - ничего не делать
+Defines string which will replace the found block (use only for Delete=True)=Содержит строку, на которую будет заменен найденный блок (используется только при Delete = True)
+True - allow custom replacement of the found block, using on external point "Replace"=True - Разрешает пользовательскую замену найденного блока, используя внешнее поле Replace (используется только при Delete = True)
+Defines symbols of beginning block=Определяет символы начала блока
+Defines symbols of end block=Определяет символы конца блока
+Begin search blocks in the string=Начинает поиск блоков в строке
+Stop the search=Останавливает поиск/замену до возможного проведения замены
+Event emit every time after found block and gives it in thread=Событие происходит всякий раз при нахождении очередного блока и выдает в поток найденный блок
+Event emit every time after end of the search=Событие происходит всякий раз при завершении поиска
+Event emit every time after failed search=Событие происходит всякий раз при невозможности найти блок
+Defines string in which need find the blocks=Задаёт строку, в которой ищутся блоки
+When replace block this point is checked for equality 0, and if it is not equal to 0, the block is replaced by the string ReplaceStr, otherwise - no=При замене блока это поле проверяется на равенство 0, и если оно не равно 0, то блок заменяется на строку ReplaceStr, иначе - нет

@@ -1,0 +1,9 @@
+Managing Database Tables=Управление таблицами баз данных
+Receives a list of tables from the specified database on the server and issues them one by one to the stream (if the DBName is empty, the request is addressed to the current database)=Получает список таблиц из указанной базы данных на сервере и выдает их по очереди в поток (при пустом имени DBName запрос адресуется к текущей базе)
+Deletes a table with all the data in it=Удаляет таблицу со всеми данными в ней
+Clears a table without removing its structure=Очищает таблицу без удаления её структуры
+The event occurs when the next table name is received=Событие происходит при получении имени очередной таблицы
+The event occurs in the event of a MySQL error and outputs its number to the stream=Событие происходит в случае ошибки работы MySQL и выдает её номер в поток
+Defines the database ID=Определяет идентификатор базы данных
+Database name (doEnum method only)=Имя базы данных (только для метода doEnum)
+Table name=Имя таблицы

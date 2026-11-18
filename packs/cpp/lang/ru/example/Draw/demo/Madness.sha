@@ -1,0 +1,147 @@
+*Кривая Миллера#13#10-----------------------#13#10Автор: MAV#13#10
+Make(cpp)
+Add(MainForm,5232304,77,98)
+{
+ Width=800
+ Height=600
+ Color=0
+ Position=1
+ Point(Handle)
+ Point(onPaint)
+ Point(doPicture)
+ link(onCreate,12264902:doStart,[(116,118)(116,174)(65,174)(65,188)])
+}
+Add(MathParse,1320664,357,98)
+{
+ DataCount=1
+ MathStr=""
+ Point(doMathStr)
+ link(onResult,11018812:doCalc,[])
+ link(X1,13170476:Var2,[(363,87)(335,87)])
+}
+Add(Img_Point,4080144,385,161)
+{
+ DrawSource=1
+ Color=16711935
+ Point(X)
+ Point(Y)
+ Point(Color)
+ link(Bitmap,5532989:Var3,[(391,149)])
+ link(X,1320664:Result,[(398,145)(363,145)])
+ link(Y,11018812:Result,[])
+ link(Color,15637219:Item,[(412,149)(425,149)(425,311)(391,311)])
+}
+Add(Math,7127396,315,98)
+{
+ Op2=0.003141593
+ link(onResult,1320664:doCalc,[])
+ link(Op1,13170476:Var1,[(321,72)])
+}
+Add(For,735409,259,98)
+{
+ End=2000
+ link(onEvent,7127396:doOperation,[])
+}
+Add(GetDataEx,13170476,322,63)
+{
+ link(Data,7127396:Result,[(335,58)(306,58)(306,138)(321,138)])
+}
+Add(For,4392070,217,98)
+{
+ End=100
+ link(onEvent,735409:doFor,[])
+ link(onStop,13721318:doSleepMks,[(253,111)(253,141)(58,141)(58,230)])
+}
+Add(MathParse,11018812,399,98)
+{
+ DataCount=1
+ MathStr=""
+ Point(doMathStr)
+ link(onResult,4080144:doDraw,[(443,104)(443,136)(373,136)(373,167)])
+ link(X1,13170476:Var3,[(405,72)])
+}
+Add(StrList,12148496,259,154)
+{
+ @Hint=#1:X|
+ Strings=#47:(sin(0.99 * %1) - 0.7 * cos(3.01 * %1))*220+395|46:(sin(0.99 * %1) - 0.1 * tg(3.01 * %1))*220+395|47:(sin(0.99 * %1) - 0.7 * sin(3.01 * %1))*220+395|47:(cos(0.99 * %1) - 0.8 * cos(3.01 * %1))*220+395|47:(cos(0.99 * %1) - 0.7 * cos(3.01 * %1))*220+395|46:(sin(0.99 * %1) - 0.1 * tg(3.01 * %1))*220+395|
+}
+Add(StrList,6633011,308,154)
+{
+ @Hint=#1:Y|
+ Strings=#48:(cos(1.01 * %1) + 0.1 * sin(15.03 * %1))*190+285|48:(sin(1.01 * %1) + 0.45 * sin(1.01 * %1))*190+285|48:(sin(1.01 * %1) + 0.1 * sin(15.03 * %1))*190+285|47:(tg(1.01 * %1) + 0.2 * ctg(15.03 * %1))*190+285|48:(cos(1.01 * %1) + 0.1 * cos(15.03 * %1))*190+285|48:(ctg(1.01 * %1) + 0.1 * sin(15.03 * %1))*190+285|
+}
+Add(StrList,13463013,385,203)
+{
+ Strings=#8:16732672|7:3438579|8:16745184|7:2731728|7:3468991|3:255|
+}
+Add(ArrayRW,10077079,259,217)
+{
+ link(onRead,1320664:doMathStr,[(351,223)(351,111)])
+ link(Array,12148496:Array,[(265,208)(279,208)])
+}
+Add(ArrayRW,16716907,301,245)
+{
+ link(onRead,11018812:doMathStr,[(366,251)(366,111)])
+ link(Array,6633011:Array,[(307,208)(328,208)])
+}
+Add(ArrayRW,15637219,385,266)
+{
+ link(Array,13463013:Array,[(391,257)(405,257)])
+}
+Add(Hub,1404153,203,217)
+{
+ OutCount=4
+ link(onEvent1,10077079:doRead,[])
+ link(onEvent2,16716907:doRead,[(244,230)(244,251)])
+ link(onEvent3,15637219:doRead,[(227,237)(227,272)])
+ link(onEvent4,4392070:doFor,[(236,244)(236,174)(205,174)(205,104)])
+}
+Add(Counter,2748034,147,217)
+{
+ Max=5
+ Default=-1
+ link(onNext,1404153:doEvent1,[])
+}
+Add(Hub,13391172,119,210)
+{
+ InCount=2
+ link(onEvent1,1959568:doCreate,[(138,216)(138,279)])
+ link(onEvent2,2748034:doNext,[])
+}
+Add(Thread,12264902,77,182)
+{
+ Delay=0
+ FastStop=0
+ link(onExec,13391172:doEvent1,[(114,188)(114,216)])
+}
+Add(Sleep,13721318,77,224)
+{
+ Delay=3000000
+ link(onSleep,13391172:doEvent2,[(114,230)(114,223)])
+}
+Add(Bitmap,1959568,147,259)
+{
+ HWidth=800
+ HHeight=600
+ FillColor=657930
+ Point(doCreate)
+ Point(onCreate)
+ link(onCreate,15481996:doData,[(186,265)(186,296)(135,296)(135,307)])
+}
+Add(DoData,15481996,147,301)
+{
+ link(onEventData,11649559:doDraw,[])
+ link(Data,1959568:Bitmap,[])
+}
+Add(Img_Bmp,11649559,189,301)
+{
+ DrawSource=1
+ Point(X)
+ Point(Y)
+ link(Bitmap,5532989:Var2,[])
+}
+Add(GetDataEx,5532989,182,140)
+{
+ Angle=3
+ link(Data,5232304:Handle,[(83,149)])
+}

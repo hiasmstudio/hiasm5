@@ -1,0 +1,12 @@
+func doData(_data)
+  println('auto hiasm_efd_', _id_, ' = ', _data, ';')
+  event(onEvent)
+end
+
+func GetData()
+  if(linked('doData'))
+    return('hiasm_efd_' && _id_)
+  else
+    return(Data)
+  end
+end

@@ -1,0 +1,11 @@
+Transformation of the region=Трансформация региона
+Transformation type: Scaling - scaling, Skew - bevel, FlipHor - horizontal mirroring, FlipVer - vertical mirroring, FlipHorVer - horizontal and vertical mirroring=Тип трансформации: Scaling - маштабирование, Skew - скос, FlipHor - зеркальное отображение по горизонтали, FlipVer - зеркальное отображение по вертикали, FlipHorVer - зеркальное отображение по горизонтали и вертикали
+X-Axis Coefficient (Scaling and Skew)=Коэффициент по оси X (Scaling (маштабирование) и Skew (скос))
+Y-axis coefficient (Scaling and Skew)=Коэффициент по оси Y (Scaling (маштабирование) и Skew (скос))
+Transformation method=Способ трансформации
+Transforms the region=Трансформирует регион
+Transforms a region using data from the ARG(eM11,eM12,eM21,eM22,eDx,eDy) stream=Трансформирует регион по данным из потока ARG(eM11,eM12,eM21,eM22,eDx,eDy)
+Deletes a region (zeroes Result)=Удаляет регион (обнуляет Result)
+The event occurs every time after the transformation of the region ARG(Region)=Событие происходит всякий раз после трансформации региона ARG(Region)
+Contains the region after transformation=Содержит регион после трансформации
+Region for transformation=Регион для трансформации

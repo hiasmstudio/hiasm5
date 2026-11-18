@@ -1,0 +1,91 @@
+*Переименование файлов по маске с индексом
+Pos(0,0)
+Add(MainForm,64878,14,175)
+{
+ Left=388
+ Top=351
+ Width=248
+ Height=66
+ Font=[MS Sans Serif,8,0,0]
+ Caption="File list"
+ BorderStyle=3
+ TaskBar=1
+}
+Add(StrCat,90902,329,175)
+{
+ link(onStrCat,60336:doMove,[])
+ link(Str1,20055:Value,[])
+}
+Add(Memory,20717,392,70)
+{
+ @Hint='Имя исходного файла'
+}
+Add(StrCat,64560,224,175)
+{
+ link(onStrCat,24587:doStrCat,[])
+ link(Str1,34144:Count,[])
+}
+Add(FilePart,74126,126,84)
+{
+ ExtPoint=0
+ link(onPath,20055:doValue,[])
+ link(onName,34144:doNext,[(196,97)(196,125)])
+ link(onExt,38059:doModify,[(171,104)(171,181)])
+}
+Add(Memory,20055,329,84)
+{
+ @Hint='Путь к файлу'
+}
+Add(Hub,39009,70,70)
+{
+ link(onEvent1,20717:doValue,[])
+ link(onEvent2,74126:doPart,[(116,83)(116,90)])
+}
+Add(FileTools,60336,392,175)
+{
+ link(FileName,20717:Value,[])
+}
+Add(StrCat,24587,280,175)
+{
+ link(onStrCat,90902:doStrCat,[])
+ link(Str1,91859:Text,[])
+}
+Add(Label,14849,14,119)
+{
+ Left=5
+ Top=15
+ Font=[Arial,8,0,0]
+ Caption="Mask"
+}
+Add(Edit,91859,280,119)
+{
+ Left=60
+ Top=10
+ Width=165
+ Height=21
+ Font=[Arial,8,0,0]
+ Text=""
+ @Hint='Общая часть'
+}
+Add(InfoTip,98029,161,161)
+{
+ Info='Соединяем все части имени файла'
+ Font=[Times New Roman,9,0,0]
+ VAlign=2
+ Width=225
+ Height=67
+}
+Add(Counter,34144,224,119)
+{
+ @Hint='Счетчик файлов'
+}
+Add(StrCase,38059,175,175)
+{
+ @Hint='Расширение файла'
+ link(onModify,64560:doStrCat,[])
+}
+Add(DropFile,64529,14,70)
+{
+ link(onDropFile,39009:doEvent1,[])
+ link(onEndDrop,34144:doReset,[(61,83)(61,139)])
+}

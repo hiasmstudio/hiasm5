@@ -1,0 +1,11 @@
+Shift picture=Сдвиг картинки
+Shear direction=Направление сдвига
+Default shift pixels=Количество пикселей сдвига по-умолчанию
+Fill color of voids when shifting the image=Цвет заливки пустот при сдвиге картинки
+Loads the image for shifting from the stream or Bitmap field and the image for filling voids from the ToShiftBmp field=Загружает картинку для сдвига из потока или поля Bitmap и картинку для заполнения пустот из поля ToShiftBmp
+Shifts the image by N pixels=Сдвигает картинку на N пикселей
+The event occurs after the image shift operation is performed and outputs it to the ARG(Bitmap) stream=Событие происходит после выполнения операции сдвига картинки и выдает ее в поток ARG(Bitmap)
+Defines the source image to be shifted=Определяет исходную картинку для сдвига
+Defines an image to fill voids during shearing (if there is no image, the voids are filled with BackgroundColor)=Определяет картинку для заполнения пустот при сдвиге (при отсутствии картинки пустоты заливаются цветом BackgroundColor)
+Number of shift pixels=Количество пикселей сдвига
+Contains a shifted image=Содержит сдвинутую картинку
