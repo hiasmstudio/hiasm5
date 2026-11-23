@@ -1,0 +1,33 @@
+func doCase(_data):cpp
+  fvar(id)
+  
+  id = cgt.pt_get_parent(cgt.pt_get_link_point(cgt.get_point_id('doCase')))
+  if(cgt.el_get_class_name(id) != "Case")
+    println('switch (', Data, ') {')
+  end
+  block.inclvl()
+   println('case ', Value, ':')
+   block.inclvl()
+    event(onTrue)
+    println('break;')
+   block.declvl() 
+  block.declvl()
+  
+  if (linked(onNextCase))
+   id = cgt.pt_get_parent(cgt.pt_get_link_point(cgt.get_point_id(onNextCase)))
+   if(cgt.el_get_class_name(id) = "Case")
+     event(onNextCase, _data_)
+   else
+     block.inclvl()
+      println('default:')
+      block.inclvl()
+       event(onNextCase, _data_)
+      block.declvl()
+     block.declvl()
+     println('}')
+   end 
+  else
+    println('}')
+  end
+end
+

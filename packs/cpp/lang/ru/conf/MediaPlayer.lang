@@ -1,0 +1,13 @@
+Playing WAV, MP3, WMA and AVI files=Проигрывание WAV, MP3, WMA и AVI файлов
+Contains the name of the file being played by default=Содержит имя проигрываемого файла по-умолчанию
+Scaling the video playback area: None - do not scale, Center - align to the center, Full - stretch to cover the entire window=Масштабирование области проигрывания видео: None - не масштабировать, Center - выровнять по центру, Full - растянуть на все окно
+Plays a media file (see FileName)=Проигрывает медиа-файл (см. FileName)
+Stops playing a file=Останавливает проигрывание файла
+Enables Pause=Включает Паузу
+Sets the file playback position=Устанавливает позицию проигрывания файла
+Stops playing a file and frees the resources occupied by it=Останавливает воспроизведение файла и освобождает ресурсы, занятые им
+The event occurs every time the file is played (excluding forced stop using the Stop and Pause methods)=Событие происходит всякий раз при окончании проигрывания файла (исключая принудительную остановку методами Stop и Pause)
+Contains the position of the current file playback location (in milliseconds)=Содержит позицию текущего места проигрывания файла (в миллисекундах)
+Contains the length of the file being played (in milliseconds)=Содержит длину проигрываемого файла (в миллисекундах)
+Specifies the name of the file being played=Определяет имя проигрываемого файла
+ID of the window or control to display the video image=Идентификатор окна или элемента управления для вывода видео изображения

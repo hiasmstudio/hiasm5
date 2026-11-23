@@ -1,0 +1,7 @@
+Reading a value from a USB device line=Чтение значения из линии USB устройства
+Line number from 1 to 24 (if 0, reading will be performed for all lines at once)=Номер линии от 1 до 24 (при 0 считывание будет произведено для всех линий сразу)
+USB device=Устройство USB
+Reads the voltage level on a given device line: 0 - low level, 1 - high level=Считыват уровень напряжения на заданной линии устройства: 0 - низкий уровень, 1 - высокий уровень
+The event occurs every time after a value is successfully read from the ARG([Line,] Value) line=Событие происходит всякий раз после успешного чтения значения с линии ARG([Line,] Value)
+The event occurs whenever a read from the line fails (occurs when the line is configured as output)=Событие происходит всякий раз после неудачного чтения из линии (возникает тогда, когда линия сконфигурирована на выход)
+Line number from 1 to 24=Номер линии от 1 до 24

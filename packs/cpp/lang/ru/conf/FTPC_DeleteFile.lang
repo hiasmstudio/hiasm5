@@ -1,0 +1,8 @@
+Deleting FTP files=Удаление файлов FTP
+Default file name on FTP server to delete=Имя файла на FTP-сервере для удаления по умолчанию
+Issuing error events: Global - to the onGlobalError output of the FTP_Client component, Local - to the onError output of the current component, Global+Local - to the onGlobalError and onError outputs=Выдача событий ошибки: Global - на выход onGlobalError компонента FTP_Client, Local - на выход onError текущего компонента, Global+Local - на выходы onGlobalError и onError
+Managing the FTP_Client Element=Управление элементом FTP_Client
+Deletes a file on the FTP server ARG(RemoteName)=Удаляет файл на FTP-сервере ARG(RemoteName)
+The event occurs every time a file is deleted on the FTP server ARG(RemoteName)=Событие происходит всякий раз после удаления файла на FTP-сервере ARG(RemoteName)
+The event occurs every time after a component operation error and outputs its number to the stream ARG(Error)=Событие происходит всякий раз после ошибки работы компонента и выдает её номер в поток ARG(Error)
+File name on the FTP server to delete=Имя файла на FTP-сервере для удаления

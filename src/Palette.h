@@ -11,6 +11,7 @@
 #include "share.h"
 #include "Pack.h"
 #include "StringList.h"
+#include "SvnClient.h"
 
 class PaletteItem;
 class Palette;
@@ -64,8 +65,8 @@ class PaletteItem {
 
 		void invalidate();
 
-		virtual void save(StringList &list);
-		virtual void load(StringList &list);
+		virtual void save(HStringList &list);
+		virtual void load(HStringList &list);
 };
 
 class PaletteItemTab : public PaletteItem {
@@ -84,8 +85,8 @@ class PaletteItemTab : public PaletteItem {
 
 		void draw(DrawContext dc);
 
-		void save(StringList &list) { if(opened) list << name; PaletteItem::save(list); }
-		void load(StringList &list) { if(list.indexOf(name) != -1) open(); PaletteItem::load(list); }
+		void save(HStringList &list) { if(opened) list << name; PaletteItem::save(list); }
+		void load(HStringList &list) { if(list.indexOf(name) != -1) open(); PaletteItem::load(list); }
 };
 
 class PaletteItemGroup : public PaletteItem {
@@ -99,8 +100,8 @@ class PaletteItemGroup : public PaletteItem {
 
 		void draw(DrawContext dc);
 
-		void save(StringList &list) { if(opened) list << name; PaletteItem::save(list); }
-		void load(StringList &list) { if(list.indexOf(name) != -1) open(); PaletteItem::load(list);  }
+		void save(HStringList &list) { if(opened) list << name; PaletteItem::save(list); }
+		void load(HStringList &list) { if(list.indexOf(name) != -1) open(); PaletteItem::load(list);  }
 };
 
 class PaletteItemButton : public PaletteItem {
@@ -148,11 +149,20 @@ class PaletteHint : public Window {
     Provides tools for adding elements to the package currently open schema
 */
 
+#ifdef HIASM_GTK4
+class Palette : public HDrawingArea {
+#else
 class Palette : public DrawingArea {
+#endif
 	private:
 		PaletteItemRoot *items;
 		int downButton;
-		Gtk::Menu *palTabMenu;
+		Menu *palTabMenu;
+		Menu *palElementMenu;
+		ustring menuElement;
+		SvnClient svn;
+		bool commandAvailable(const ustring &command) const;
+		int layout_width;
 	protected:
 		guint32 eventTime;			// need for popup menu...
 		PaletteItemButton *selected;
@@ -164,6 +174,7 @@ class Palette : public DrawingArea {
 		void closeAll();
 
 		void on_tab_menu_popup(PaletteItemTab *tab);
+		void on_element_menu_popup(PaletteItemButton *item);
 
 		virtual bool on_draw (const ::Cairo::RefPtr< ::Cairo::Context >& cr);
 		virtual bool on_expose_event(GdkEventExpose* event);
@@ -172,12 +183,19 @@ class Palette : public DrawingArea {
 		virtual bool on_motion_notify_event(GdkEventMotion* event);
 		virtual bool on_leave_notify_event(GdkEventCrossing* event);
 
+#ifdef HIASM_GTK4
+		void on_map() override;
+		void size_allocate_vfunc(int width, int height, int baseline) override;
+#else
 		void on_size_allocate(Allocation &alloc);
+#endif
 	public:
 		PaletteHint hint;
 		Event on_element_select;	/**< do then user select element from palette */
+		std::function<void(const ustring&)> on_open_file;
 		Pack *pack;					/**< package of which shows the elements */
 		PaletteItemTab *currentTab;	/**< contains pointer to active tab */
+		int layoutWidth() const { return layout_width > 0 ? layout_width : get_width(); }
 
 		Palette();
 		virtual ~Palette();
@@ -214,6 +232,8 @@ class Palette : public DrawingArea {
 		 * @param name group name
 		 */
 		void addGroup(const ustring &name);
+		bool processCommand(const ustring &command);
+		void updateCommands();
 };
 
 #endif /* PALETTE_H_ */

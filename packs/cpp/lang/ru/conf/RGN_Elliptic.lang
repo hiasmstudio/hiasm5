@@ -1,0 +1,8 @@
+Elliptical region=Эллиптический регион
+Coordinates of the upper left corner of the region=Координаты левого верхнего угла региона
+Coordinates of the lower right corner of the region=Координаты нижнего правого угла региона
+Count the coordinates of the second point relative to the first (i.e. the second point is the length and height of the figure)=Отсчитывать координаты второй точки относительно первой (т.е. вторая точка это длина и высота фигуры)
+Creates a rectangular region=Создает регион прямоугольной формы
+Deletes a region (zeroes Result)=Удаляет регион (обнуляет Result)
+The event occurs every time a region is created and outputs it to the ARG(Region) stream=Событие происходит всякий раз после создания региона и выдает его в поток ARG(Region)
+Contains the created region=Содержит созданный регион

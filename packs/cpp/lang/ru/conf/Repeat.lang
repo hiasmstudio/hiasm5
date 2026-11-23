@@ -1,0 +1,10 @@
+Conditional loop=Условный цикл
+Defines the type of operand comparison=Определяет тип сравнения операндов
+Operand 1 by default=Операнд 1 по-умолчанию
+Operand 2 by default=Операнд 2 по-умолчанию
+Condition checking time: Before - before the iteration and the loop is executed while the condition is true, After - after the iteration and the loop ends if the condition is true=Время проверки условия: Before - перед итерацией и цикл выполняется, пока условие истинно, After - после итерации и цикл завершается, если условие истинно
+Starts a loop=Запускает цикл
+Premature stop of the cycle=Преждевременная остановка цикла
+The event occurs every time the loop iterates=Событие происходит всякий раз при итерации цикла
+Operand 1=Операнд 1
+Operand 2=Операнд 2

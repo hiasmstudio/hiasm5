@@ -1,0 +1,14 @@
+include('qtTVT')
+
+func doSaveTree(_data)
+  println('if (auto *tree = ', TVTree(), ') {')
+  println('  QSaveFile file(qt_text(', TVFileName(_data), '));')
+  println('  const auto bytes = tree->saveText(qt_tvt_delimiter(qt_text(', cstr(get('Delimiter')), '))).toUtf8();')
+  println('  if (file.open(QIODevice::WriteOnly) && file.write(bytes) == bytes.size()) file.commit();')
+  println('}')
+  if(not isnull(_data) and len(_data) > 0)
+    event(onSaveTree, _data)
+  else
+    event(onSaveTree)
+  end
+end

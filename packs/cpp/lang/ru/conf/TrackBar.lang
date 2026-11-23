@@ -1,0 +1,16 @@
+TrackBar=ТрекБар
+Tooltip with the value of the current slider position=Всплывающая подсказка со значением текущей позиции ползунка
+Maximum value of the Position property=Максимальное значение св-ва Position
+Minimum value of the Position property=Минимальное значение св-ва Position
+The number of ticks after which the marker is placed=Количество тиков, через которое ставится маркер
+Start position of the slider=Начальная позиция ползунка
+Slider orientation on the form=Ориентация ползунка на форме
+Slider tick type=Вид тиков ползунка
+TrackBar Size=Размер ТрекБара
+"Page" size (number of offset ticks when reacting to PgUp/PgDn)=Размер "страницы" (количество тиков смещения при реакции на PgUp/PgDn)
+Sets the position of the slider=Устанавливает позицию ползунка
+Sets the position of the slider, but does not fire the onPosition event=Устанавливает позицию ползунка, но не вызывает событие onPosition
+The event occurs whenever the slider is moved=Событие происходит всякий раз при перемещении ползунка
+The event occurs every time before you start dragging the slider=Событие происходит всякий раз перед началом перетаскивания ползунка
+The event occurs every time the slider is dragged=Событие происходит всякий раз после окончания перетаскивания ползунка
+Contains the value of the Position property=Содержит значение свойства Position

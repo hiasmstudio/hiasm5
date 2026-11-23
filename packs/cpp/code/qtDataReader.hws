@@ -1,0 +1,25 @@
+func Reader()
+  return('dynamic_cast<HiasmDataReader *>(form.findChild<QObject *>(QStringLiteral("DataReader' && _id_ && '")))')
+end
+
+func Source()
+  return('dynamic_cast<HiasmStaticData *>(form.findChild<QObject *>(qt_text(' && cstr(get('qtDataSource')) && ')))')
+end
+
+func doStart
+  println('{ auto *reader = new HiasmDataReader(&form);')
+  println('reader->setObjectName(QStringLiteral("DataReader', _id_, '"));')
+  println('reader->column = qt_text(', cstr(get('Column')), '); }')
+end
+
+func doColumn(_data)
+  if(len(_data) > 0)
+    println(Reader(), '->column = qt_text(', _data, ');')
+  else
+    println(Reader(), '->column.clear();')
+  end
+end
+
+func Item()
+  return(Reader() && '->item')
+end

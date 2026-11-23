@@ -1,0 +1,216 @@
+Make(cpp)
+Add(StrList,15029241,133,84)
+{
+ Strings=#11:10,10,50,50|12:60,10,110,50|13:120,10,160,50|13:30,70,200,120|0:|
+}
+Add(MainForm,7388304,84,133)
+{
+ Width=541
+ Height=494
+ BorderStyle=1
+ Position=1
+ link(onCreate,15541185:doEnum,[])
+}
+Add(PaintBox,1138819,560,231)
+{
+ Left=55
+ Top=30
+ Width=400
+ Height=400
+ Color=32768
+ ClearBeforeDraw=0
+ Point(Handle)
+ link(onBeforeDraw,10421485:doDraw,[(800,237)(800,509)(548,509)(548,440)])
+}
+Add(ScrollBar,15060521,91,427)
+{
+ Left=55
+ Top=440
+ Width=400
+ Max=300
+ Position=150
+ link(onPosition,8483980:doEvent2,[])
+}
+Add(PointXY,8149711,210,266)
+{
+ link(X,15060521:Position,[(216,256)(160,256)(160,471)(97,471)])
+ link(Y,12367597:Position,[(223,244)(141,244)(141,394)(97,394)])
+}
+Add(GetDataEx,12142669,210,301)
+{
+ link(Data,8149711:Point,[])
+}
+Add(Hub,8483980,175,420)
+{
+ InCount=2
+ link(onEvent1,1094976:doCreateElliptic,[(199,426)(199,377)])
+ link(onEvent2,13364343:doWork3,[(543,433)])
+}
+Add(HubEx,13364343,539,329)
+{
+ Angle=3
+ link(onEvent,1138819:doRefresh,[(543,237)])
+}
+Add(RGN_Collision,11551034,259,364)
+{
+ FindStop=1
+ Point(onCollision)
+ link(onTrue,14999517:doEvent1,[(298,370)(298,328)])
+ link(onFalse,8002695:doData,[])
+ link(Region2,1094976:Result,[(272,352)(249,352)(249,415)(216,415)])
+ link(Array,5571269:Array,[])
+}
+Add(Hub,14999517,343,322)
+{
+ link(onEvent1,11130858:doStr,[(375,328)(375,258)])
+ link(onEvent2,13364343:doWork2,[])
+}
+Add(ScrollBar,12367597,91,350)
+{
+ Left=465
+ Top=30
+ Width=20
+ Height=400
+ Max=300
+ Position=150
+ Kind=1
+ link(onPosition,8483980:doEvent1,[(149,356)(149,426)])
+}
+Add(RGN_Array,5571269,273,147)
+{
+}
+Add(ArrayEnum,15541185,147,147)
+{
+ link(onItem,2303038:doString,[])
+ link(Array,11760570:Var2,[])
+}
+Add(RGN_Script,3073298,231,147)
+{
+ link(onCreateRgn,5571269:doAdd,[])
+}
+Add(Label,1159469,483,252)
+{
+ Left=60
+ Top=5
+ Width=380
+ Height=20
+ Caption="нет столкновения"
+}
+Add(MT_String,11130858,392,252)
+{
+ link(onResult,11272870:doStrCat,[])
+}
+Add(ArrayEnum,13392447,609,434)
+{
+ link(onItem,7836344:doEvent1,[])
+ link(Array,11760570:Var3,[(615,138)])
+}
+Add(GetDataEx,11760570,147,133)
+{
+ link(Data,15029241:Array,[])
+}
+Add(Img_Rectangle,15976287,686,441)
+{
+ Style=1
+ BgColor=8421376
+ Point(Point1)
+ Point(Point2)
+ link(onDraw,3123584:doDraw,[])
+ link(Bitmap,9733278:Var2,[])
+ link(Point1,6813680:Var2,[])
+ link(Point2,16768595:Var1,[(713,384)])
+}
+Add(MultiStrPart,6849805,700,280)
+{
+ Char=","
+ Count=4
+}
+Add(Hub,7836344,651,434)
+{
+ link(onEvent1,6849805:doSplit,[(672,440)(672,286)])
+ link(onEvent2,15976287:doDraw,[])
+}
+Add(GetDataEx,13542755,560,413)
+{
+ link(Data,1138819:Bitmap,[])
+}
+Add(PointXY,12606045,700,343)
+{
+ link(X,15245051:Var2,[])
+ link(Y,6323883:Var2,[])
+}
+Add(PointXY,76147,714,343)
+{
+ link(X,6849805:Part3,[])
+ link(Y,6849805:Part4,[])
+}
+Add(HubEx,12267083,469,252)
+{
+ link(onEvent,1159469:doText,[])
+}
+Add(DoData,8002695,308,371)
+{
+ Data=String(нет столкновения)
+ link(onEventData,12267083:doWork3,[(473,377)])
+ AddHint(42,14,116,13,Data)
+}
+Add(FormatStr,2303038,189,147)
+{
+ DataCount=1
+ Mask="rect(%1)"
+ link(onFString,3073298:doCreateRgn,[])
+}
+Add(StrCat,11272870,434,252)
+{
+ Str1="красный круг столкнулся с прямоугольник(ом/ами): "
+ link(onStrCat,12267083:doWork2,[])
+}
+Add(Img_TextInRect,3123584,742,441)
+{
+ AlignHorizon=2
+ Alignvertical=2
+ link(Bitmap,9733278:Var3,[(748,418)])
+ link(Text,13392447:Index,[(755,429)(732,429)(732,478)(622,478)])
+ link(Point1,6813680:Var3,[(762,404)])
+ link(Point2,16768595:Var3,[(769,384)])
+}
+Add(RGN_Elliptic,1094976,210,371)
+{
+ Point2=3276850
+ Point2AsOffset=0
+ link(onCreateElliptic,11551034:doEnum,[])
+ link(Point1,12142669:Var2,[])
+}
+Add(Img_Ellipse,10421485,560,434)
+{
+ Point2=3276850
+ Point2AsOffset=0
+ Style=1
+ Outline=0
+ BgColor=255
+ Point(Point1)
+ link(onDraw,13392447:doEnum,[])
+ link(Bitmap,13542755:Var2,[])
+ link(Point1,12142669:Var3,[(580,306)])
+}
+Add(GetDataEx,15245051,700,329)
+{
+ link(Data,6849805:Part1,[])
+}
+Add(GetDataEx,6323883,707,322)
+{
+ link(Data,6849805:Part2,[])
+}
+Add(GetDataEx,9733278,686,413)
+{
+ Angle=3
+ link(Data,13542755:Var3,[])
+}
+Add(GetDataEx,6813680,700,399)
+{
+ link(Data,12606045:Point,[])
+}
+Add(GetDataEx,16768595,714,379)
+{
+ link(Data,76147:Point,[])
+}

@@ -93,6 +93,7 @@ typedef ConfMethods ConfDefMethods;
 class Pack;
 class ElementConfig {
 	private:
+		ustring propertyGroup;
 		bool load(const ustring &file_name);
 
 		// parse ini sections
@@ -103,6 +104,7 @@ class ElementConfig {
 		void parseMethod(char *buf);
 		void inheritFrom(char *buf);
 	public:
+		bool valid = false;
 		ustring name;		/**< element name (Button, Label, Hub, ...) */
 		ustring cClass;		/**< element class (Element, MultiElement, DPElement, ...) */
 		ustring sub;		/**< name of child element */
@@ -115,6 +117,7 @@ class ElementConfig {
 		ustring view;		/**< name of property who display text instead of icon */
 		int viewFontHeight;
 		ustring editClassName;	/**< class name use in FormEditor */
+		std::map<std::string, std::string> editProps;	/**< [Edit] FormEditor name -> element property (Caption=Caption) */
 		ConfPropertys prop;		/**< list of properties element */
 		ConfMethods mtd;		/**< list of methods element */
 		ConfDefMethods def;		/**< list of hidden element methods */
@@ -127,6 +130,7 @@ class ElementConfig {
 		Pack *pack;				/**< pointer to parent pack */
 
 		ElementConfig(Pack *pack, const ustring &file_name);
+		~ElementConfig();
 
 		/**
 		 * Duplicate properties from another source

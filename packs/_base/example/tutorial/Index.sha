@@ -1,0 +1,17 @@
+Make(cpp)
+Add(InfoTip,900,24,18)
+{
+ @Width=680
+ @Height=145
+ Info=#22:Указатель учебных схем|0:|140:Откройте файлы из этого списка через Файл / Открыть. Уроки используют C++, приветствие ru/intro.sha и en/intro.sha остаётся документом Core.|
+ HAlign=0
+ Margin=12
+}
+Add(Entry,1,42,196)
+{
+ link(onStart,2:doPrint,[])
+}
+Add(Print,2,196,196)
+{
+ Text=#121:Intro, Hub, Check, EventFromData, GlobalVar, CableHelp, Element, MultiElementEx, MultiThread, Stack, Types, Informer, DLL|
+}

@@ -1,0 +1,68 @@
+func doStart
+  if(is_qt_project())
+    qtStart()
+  else
+    gtkStart()
+  end
+end
+
+func qtStart
+  println('{')
+  println('auto *label = new HiasmClickable<QLabel>(widgetParent);')
+  println('label->setObjectName(QStringLiteral("Label', _id_, '"));')
+  println('label->setTextFormat(Qt::PlainText);')
+  println('label->setToolTip(qt_text(', cstr(d('Hint')), '));')
+  println('label->setText(qt_text(', cstr(d('Caption')), '));')
+  println('label->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+  switch(get('Alignment'))
+    case 'taRight': println('label->setAlignment(Qt::AlignRight | Qt::AlignVCenter);')
+    case 'taCenter': println('label->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);')
+  end
+  if(linked(onClick))
+    println('label->clicked = [&form, label] {')
+    block.inclvl()
+    if(get('CaptionOnClick') == 'True')
+      event(onClick, 'label->text()')
+    else
+      event(onClick)
+    end
+    block.declvl()
+    println('};')
+  end
+  if(get('AutoSize') == 'True')
+    println('label->setProperty("hiasmAutoSize", true);')
+    println('label->adjustSize();')
+  end
+  println('}')
+end
+
+func doText(_data)
+  if(is_qt_project())
+    println('if(auto *label = qt_widget<QLabel>(form, "Label', _id_, '")) {')
+    println('  label->setText(qt_text(', cstr(d('Text')), '));')
+    println('  if(label->property("hiasmAutoSize").toBool()) label->adjustSize();')
+    println('}')
+  end
+end
+
+func Caption()
+  if(is_qt_project())
+    return('qt_widget<QLabel>(form, "Label' && _id_ && '")->text()')
+  end
+end
+
+func gtkStart
+  println('{')
+  fvar(align)
+  switch(Alignment)
+    case 1: align = '1.0'
+    case 2: align = '0.5'
+    default: align = '0.0'
+  end
+  println('GtkWidget *label = gtk_label_new(', cstr(d('Caption')), ');')
+  println('hiasm_set_color(label, ', cstr(d('Color')), ');')
+  println('hiasm_set_font(label, ', cstr(d('Font')), ');')
+  println('gtk_label_set_xalign(GTK_LABEL(label), ', align, ');')
+  println('hiasm_place("Label', _id_, '", label, ', Left, ', ', Top, ');')
+  println('}')
+end

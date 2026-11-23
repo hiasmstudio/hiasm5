@@ -1,0 +1,8 @@
+Combines many regions=Комбинирует много регионов
+Number of combinable regions=Количество комбинируемых регионов
+Region merging mode: AND - intersection, OR - union, XOR - union of regions, excluding any intersecting sections, DIFF - those parts of Region1 that are not parts of Region2 are merged, COPY - A copy of the region identified by the value of the Region1 parameter is created=Режим объединения областей: AND - пересечение, OR - объединение, XOR - объединение областей, за исключением любых пересекающихся участков, DIFF - объединяются те части области Region1, которые не являются частями области Region2, COPY - Создается копия области, идентифицируемой значением параметра Region1
+Combines many regions into one=Комбинирует много регионов в один
+Removes the region result of the combination (zeroes the Result)=Удаляет регион результат комбинирования (обнуляет Result)
+The event occurs whenever regions are combined and outputs the result to the ARG(Region) stream=Событие происходит всякий раз после комбинирования регионов и выдает результат в поток ARG(Region)
+Contains the result of the combination=Содержит результат комбинирования
+Contains the index of the combination result (0 - error, 1 - empty region, 2 - simple (rectangular) region, 3 - complex (multiple rectangle) region)=Содержит индекс результата комбинирования (0 - ошибка, 1 - регион пуст, 2 - простой (прямоугольный) регион, 3 - сложный (из нескольких прямоугольников) регион)

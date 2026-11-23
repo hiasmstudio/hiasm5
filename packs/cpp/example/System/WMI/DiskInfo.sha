@@ -1,0 +1,564 @@
+Make(cpp)
+Pos(2,0)
+Add(Label,14040014,621,378)
+{
+ Left=225
+ Top=40
+ Width=220
+ Height=20
+ Font=[MS Sans Serif,10,1,128,1]
+ Caption=""
+ AutoSize=1
+ Alignment=2
+ link(Text,4443739:Var3,[(627,289)])
+}
+Add(DoData,2736509,201,497)
+{
+ Data=Integer(1)
+ link(onEventData,14983151:doEvent1,[])
+}
+Add(MainForm,12231298,96,168)
+{
+ Left=20
+ Top=105
+ Width=460
+ Height=330
+ Caption="DiskInfo"
+ Icon=[ZIPBE08000078DAED968953535714C63FAAAD74B5ABDD2BDDEDBED0D64A698502094B90CD40033440580A1220348184B085C5B084AD50F602B508844D1643D8211011771C1570C3A1C862591C1D460767EAA4873AE3D2C1F10FA8E7CD7B6FDEF9EEBBEF9EF3FBE6CE03F4E83030005DF5A1D407D601D84027A560821BF9E590ADC68A31DBDD8DB9DE5E8CB7B662B8B1113D252568CACEC66055156AB3B290101282CEB232644444A0213F1F61BEBE28DABE1DD17C3EFC5D5D21A2E7A97DFBB033331331C1C108F1F242908707A48181E0D3DDDFDD1D49120952A3A2E0646383BF4E9CC09F870E81CFE3C1DECA0A5B6D6DC1303141415A1AC4F43ECFCD0D63478F42121A8ABAF272A8EBEBA1AAAB4325AD81696E8E1DC5C5484B4A02DBD111BB944ACC8C8F43D3D10133535374A8D5F0F7F383D1A64D485728C0A735F8787B43A7D3E1FAF5EBB876ED1A96969670F5EA555CB972058B8B8BB87CF9322E5EBC88858505CCCFCF636E6E0EB3B3B3B870E102666666303D3D8DA9A9294C4E4EE2FCF9F3989898C0387DF3DCB973181B1BC3D9B36771E6CC199C3E7D1AA74E9DC2C99327313A3A8A9191110C0F0FE3F8F1E33876EC188E524D4343433872E4080E1F3E8C43D48383070FE2C08103D8BF7F3F060707B177EF5E0C0C0CA0BFBF1F7D7D7DE8252E3D3D3DE826465D5D5DE8ECEC4407D5DADEDE8EB6B636B4123335D5DCD2D202954A85E6E666343535A19138363434A08EFA565B5B8B9A9A1A5457574349FDAA22AE959595A8A8A84039F5B7B4B414C5D4D3A2A222141414209F18E7E5E521373717393939C8262F64910F32896F464606D2D3D391929282E4E464241107B95C8EC4C444C4C7C7232E2E0E32990CB1B1B188898941747434A2887B646424A4522924E403B1588CF0F07008854284126381408010F25830B1E793A7028959404000FC88A38F8F0FBC891F8FBCE245BEF2F4F48407798ACBE5C29D7CC5E170E0E2E202676767B0D96C383939C1CECE0E2C160B36E4356B6B6B5891C7984C26180C062C2C2C604E1E3233338329F9C5847C676C6C0C232323181A1AE2FF167BEEC7AD50147574EDFEFDAE6ABD2AF383475FEF6BAD57ACA0A6ABAA921C9C373CFFCADA170DBB77EFB87388A2A4B980E7D4B9EDD7B7D66BB5DAC75F78AEBFBDE1975B6ACDAE58CE564E42EDCE948FDE6EABFEA3B2E2CB97D719F4AA6E4CA2682C0C76700E2A54A68A84E28D9F905E9A9F55A07EF6E1A73E6C57CAF7E4247838FAC497E78983459268A1ACA9FD5FBD44AB7DE341BD877AE40AEF5471EE6F7181A1E1D2700E839DCD8DC8A953162FEB5AFD550F689223E585DB83838462918F2D8365E7E0C476F98123DCF8F526F557DA27D6ACD6244B450141A2303F47330BCB2D6E3CEF1FBDFC4302B7493E7FEFE3779F7CE9B14734F20841D84FAE5BEC58B66C778EB5A9B1D177DF5BD9334DBEFDECB5A7BFF8F4CD675AE4224FDB2D962E327706D39E657153FF6633F3D577B21232A840DF20DFCD31659AD69228F6EDBAE5FB89375BC80D15B8F8A6DDA63B060885FF69FFCF6122AEF9B26E239445DC05A04810C41789EEDBFCF6D0DD2B96D6EB74E3AB743ADAD2FF06D65F02566996FF2556DE4EF428BF96C6C4EAB046A7BBB4F99ED3FF03C9B53EA6]
+ Position=1
+}
+Add(DiskInfo,11024629,292,245)
+{
+ Point(FullSize)
+ Point(OccupiedSpace)
+ Point(FreeSpace)
+ Point(FileSystem)
+ Point(DriveType)
+ Point(ClusterSize)
+ Point(SerialNumber)
+ Point(Computer)
+ Point(Query)
+ Point(onErr)
+ link(onInfo,10708507:doEvent,[])
+ link(Computer,3528370:Var2,[])
+ link(Query,16238760:Value,[(305,212)(347,212)])
+ link(onErr,6379849:doString,[(416,258)(416,314)])
+}
+Add(ArrayEnum,121070,208,287)
+{
+ link(onItem,10583997:doWork2,[(252,293)(252,251)])
+ link(onEndEnum,8174383:doWork2,[(283,300)(283,202)])
+ link(Array,12582439:Var1,[(214,275)(264,275)(264,373)])
+}
+Add(ComboBox,6494590,789,245)
+{
+ Left=5
+ Top=5
+ Width=220
+ Height=21
+ Font=[Courier New,10,0,0,204]
+ Text=""
+ link(onClick,317701:In,[])
+}
+Add(Hub,14810477,138,224)
+{
+ OutCount=7
+ link(onEvent1,16238760:doClear,[(256,230)(256,139)])
+ link(onEvent2,12263196:In,[])
+ link(onEvent3,8174383:doWork1,[(256,244)(256,195)])
+ link(onEvent4,11024629:doArrayId,[(231,251)(231,258)])
+ link(onEvent5,121070:doEnum,[(189,258)(189,293)])
+ link(onEvent6,10073731:doString,[(242,265)(242,454)])
+ link(onEvent7,2736509:doData,[(189,272)(189,503)])
+}
+Add(FormatStr,8936651,691,245)
+{
+ Mask="%1   %2"
+ link(onFString,6494590:doAdd,[])
+ link(Str1,4443739:Var2,[(697,233)(469,233)(469,319)(298,319)])
+}
+Add(DoData,13733074,516,245)
+{
+ link(onEventData,15869881:doCompare,[])
+ link(Data,16753412:Var2,[(522,233)(389,233)(389,333)(312,333)])
+}
+Add(If_else,15869881,565,245)
+{
+ Type=5
+ link(onTrue,2729710:doWork2,[])
+ link(onFalse,15902297:doData,[(613,258)(613,272)])
+}
+Add(DoData,15902297,628,266)
+{
+ link(onEventData,2729710:doWork3,[(674,272)])
+ link(Data,16599487:Var2,[(634,254)(442,254)(442,326)(305,326)])
+}
+Add(HubEx,2729710,670,238)
+{
+ link(onEvent,8936651:doString,[])
+}
+Add(LineBreak,13726492,733,252)
+{
+ Caption="Clear"
+ link(Out,6494590:doClear,[])
+ Primary=[12263196,-525,-21]
+}
+Add(IndexToChanel,10708507,439,245)
+{
+ Point(Index)
+ link(onEvent1,13733074:doData,[])
+ link(onEvent2,12658047:doEvent1,[(504,258)(504,384)])
+ link(Index,7093031:Value,[])
+}
+Add(Memory,7093031,439,189)
+{
+ Default=Integer(0)
+}
+Add(ChanelToIndex,8174383,341,189)
+{
+ link(onIndex,7093031:doValue,[])
+}
+Add(Label,9305742,628,385)
+{
+ Left=225
+ Top=65
+ Width=220
+ Height=20
+ Font=[MS Sans Serif,10,1,128,1]
+ Caption=""
+ AutoSize=1
+ Alignment=2
+ link(Text,11024629:DriveType,[(634,331)(354,331)])
+}
+Add(Label,11692499,138,168)
+{
+ Left=25
+ Top=195
+ Width=200
+ Height=20
+ Font=[MS Sans Serif,10,1,8388608,1]
+ Caption="Занятый объем тома:"
+ AutoSize=1
+}
+Add(Label,6536995,145,175)
+{
+ Left=25
+ Top=140
+ Width=200
+ Height=20
+ Font=[MS Sans Serif,10,1,8388608,1]
+ Caption="Размер кластера диска:"
+ AutoSize=1
+}
+Add(ArrayRW,4968581,313,399)
+{
+ Point(Count)
+ link(onRead,10583997:doWork3,[(357,405)(357,331)(261,331)])
+ link(Array,12582439:Var2,[])
+}
+Add(GetDataEx,12582439,306,364)
+{
+ link(Data,11024629:IdArray,[])
+}
+Add(LineBreak,9089386,243,399)
+{
+ Caption="Read"
+ link(Out,4968581:doRead,[])
+ Primary=[317701,595,-147]
+}
+Add(HubEx,10583997,257,238)
+{
+ link(onEvent,11024629:doInfo,[])
+}
+Add(Hub,14983151,257,497)
+{
+ OutCount=7
+ link(onEvent1,13909598:doCheck,[])
+ link(onEvent2,21241:doCheck,[])
+ link(onEvent3,6143749:doCheck,[])
+ link(onEvent4,11107390:doCheck,[])
+ link(onEvent5,15922890:doCheck,[])
+ link(onEvent6,7789128:doCheck,[])
+ link(onEvent7,15586705:doCheck,[])
+}
+Add(Label,3075365,635,392)
+{
+ Left=225
+ Top=90
+ Width=220
+ Height=20
+ Font=[MS Sans Serif,10,1,128,1]
+ Caption=""
+ AutoSize=1
+ Alignment=2
+ link(Text,16599487:Var3,[(641,303)])
+}
+Add(GetDataEx,4443739,285,280)
+{
+ link(Data,11024629:DeviceID,[])
+}
+Add(GetDataEx,16599487,292,294)
+{
+ link(Data,11024629:Description,[])
+}
+Add(Label,6481346,642,399)
+{
+ Left=225
+ Top=115
+ Width=220
+ Height=20
+ Font=[MS Sans Serif,10,1,128,1]
+ Caption=""
+ AutoSize=1
+ Alignment=2
+ link(Text,11024629:FileSystem,[(648,338)(347,338)])
+}
+Add(Label,6735970,649,406)
+{
+ Left=225
+ Top=140
+ Width=220
+ Height=20
+ Font=[MS Sans Serif,10,1,128,1]
+ Caption=""
+ AutoSize=1
+ Alignment=2
+ link(Text,11024629:ClusterSize,[(655,342)(361,342)])
+}
+Add(Label,9301907,656,413)
+{
+ Left=225
+ Top=165
+ Width=220
+ Height=20
+ Font=[MS Sans Serif,10,1,128,1]
+ Caption=""
+ AutoSize=1
+ Alignment=2
+ link(Text,11024629:FullSize,[(662,345)(326,345)])
+}
+Add(Label,15304430,663,420)
+{
+ Left=225
+ Top=195
+ Width=220
+ Height=20
+ Font=[MS Sans Serif,10,1,128,1]
+ Caption=""
+ AutoSize=1
+ Alignment=2
+ link(Text,11024629:OccupiedSpace,[(669,348)(333,348)])
+}
+Add(Label,4447297,670,427)
+{
+ Left=225
+ Top=220
+ Width=220
+ Height=20
+ Font=[MS Sans Serif,10,1,128,1]
+ Caption=""
+ AutoSize=1
+ Alignment=2
+ link(Text,11024629:FreeSpace,[(676,352)(340,352)])
+}
+Add(Label,16250058,677,434)
+{
+ Left=225
+ Top=245
+ Width=220
+ Height=20
+ Font=[MS Sans Serif,10,1,128,1]
+ Caption=""
+ AutoSize=1
+ Alignment=2
+ link(Text,16753412:Var3,[(683,317)])
+}
+Add(GetDataEx,16753412,299,308)
+{
+ link(Data,11024629:VolumeName,[])
+}
+Add(FormatStr,10073731,313,448)
+{
+ Mask="DiskInfo   Найдено дисков - %2"
+ link(onFString,3675219:In,[])
+ link(Str2,4968581:Count,[])
+}
+Add(LineBreak,10762470,26,168)
+{
+ Caption="Caption"
+ link(Out,12231298:doCaption,[])
+ Primary=[3675219,336,280]
+}
+Add(InfoTip,10664306,208,63)
+{
+ Info=#28:Пример применения компонента|13: WMI DiskInfo|
+ Font=[MS Sans Serif,8,1,0,1]
+ Width=218
+ Height=39
+}
+Add(Edit,5537120,292,147)
+{
+ Left=230
+ Top=5
+ Width=135
+ Hint="Сетевое имя компьютера"
+ Text=""
+}
+Add(Button,15348209,96,224)
+{
+ Left=370
+ Top=5
+ Width=75
+ Font=[MS Sans Serif,8,1,0,1]
+ TabOrder=-1
+ Caption="StartScan"
+ link(onClick,14810477:doEvent1,[])
+}
+Add(Memory,16238760,341,126)
+{
+ Default=String(Description,VolumeName)
+}
+Add(FormatStr,6379849,460,308)
+{
+ Mask="Компьютер %1 недоступен"
+ link(onFString,294324:doMessage,[])
+ link(Str1,3528370:Var3,[(466,233)])
+}
+Add(Message,294324,516,308)
+{
+ Caption="Внимание!"
+ Icon=3
+}
+Add(GetDataEx,3528370,285,224)
+{
+ link(Data,5537120:Text,[])
+}
+Add(Label,9177727,152,182)
+{
+ Left=25
+ Top=40
+ Width=200
+ Height=20
+ Font=[MS Sans Serif,10,1,8388608,1]
+ Caption="Идентификатор диска:"
+ AutoSize=1
+}
+Add(CheckBox,13909598,306,497)
+{
+ Left=5
+ Top=65
+ Width=220
+ Font=[MS Sans Serif,10,1,8388608,1]
+ TabOrder=-1
+ Caption="Тип диска:"
+ link(onCheck,3503330:doEvent,[])
+}
+Add(CheckBox,21241,313,504)
+{
+ Left=5
+ Top=90
+ Width=220
+ Font=[MS Sans Serif,10,1,8388608,1]
+ TabOrder=-1
+ Caption="Описание диска:"
+ link(onCheck,5715063:doEvent,[])
+}
+Add(CheckBox,6143749,320,511)
+{
+ Left=5
+ Top=115
+ Width=220
+ Font=[MS Sans Serif,10,1,8388608,1]
+ TabOrder=-1
+ Caption="Файловая система:"
+ link(onCheck,7083314:doEvent,[])
+}
+Add(CheckBox,11107390,327,518)
+{
+ Left=5
+ Top=165
+ Width=220
+ Font=[MS Sans Serif,10,1,8388608,1]
+ TabOrder=-1
+ Caption="Полный объем тома:"
+ link(onCheck,13287211:doEvent,[])
+}
+Add(CheckBox,15922890,334,525)
+{
+ Left=5
+ Top=220
+ Width=220
+ Font=[MS Sans Serif,10,1,8388608,1]
+ TabOrder=-1
+ Caption="Свободный объем тома:"
+ link(onCheck,7522477:doEvent,[])
+}
+Add(CheckBox,7789128,341,532)
+{
+ Left=5
+ Top=245
+ Width=220
+ Font=[MS Sans Serif,10,1,8388608,1]
+ TabOrder=-1
+ Caption="Метка тома:"
+ link(onCheck,10431257:doEvent,[])
+}
+Add(CheckBox,15586705,348,539)
+{
+ Left=5
+ Top=270
+ Width=220
+ Font=[MS Sans Serif,10,1,8388608,1]
+ TabOrder=-1
+ Caption="Серийный номер тома:"
+ link(onCheck,11971776:doEvent,[])
+}
+Add(Hub,12658047,537,378)
+{
+ OutCount=10
+ link(onEvent1,14040014:doText,[])
+ link(onEvent2,9305742:doText,[])
+ link(onEvent3,3075365:doText,[])
+ link(onEvent4,6481346:doText,[])
+ link(onEvent5,6735970:doText,[])
+ link(onEvent6,9301907:doText,[])
+ link(onEvent7,15304430:doText,[])
+ link(onEvent8,4447297:doText,[])
+ link(onEvent9,16250058:doText,[])
+ link(onEvent10,8830919:doText,[])
+}
+Add(IndexToChanel,3503330,397,497)
+{
+ link(onEvent1,14087527:doValue,[])
+ link(onEvent2,14087527:doClear,[])
+}
+Add(Memory,14087527,446,497)
+{
+ Default=String(DriveType,)
+ link(onData,15750678:doWork,[])
+}
+Add(IndexToChanel,5715063,404,504)
+{
+ link(onEvent1,6286856:doValue,[])
+ link(onEvent2,6286856:doClear,[])
+}
+Add(Memory,6286856,453,504)
+{
+ Default=String(Description,)
+ link(onData,9867126:doWork,[(525,510)(525,517)])
+}
+Add(IndexToChanel,7083314,411,511)
+{
+ link(onEvent1,7523752:doValue,[])
+ link(onEvent2,7523752:doClear,[])
+}
+Add(Memory,7523752,460,511)
+{
+ Default=String(FileSystem,)
+ link(onData,12436524:doWork,[(528,517)(528,531)])
+}
+Add(IndexToChanel,13287211,418,518)
+{
+ link(onEvent1,2685629:doValue,[])
+ link(onEvent2,2685629:doClear,[])
+}
+Add(Memory,2685629,467,518)
+{
+ Default=String(Size,)
+ link(onData,5978097:doWork,[(532,524)(532,545)])
+}
+Add(IndexToChanel,7522477,425,525)
+{
+ link(onEvent1,5984961:doValue,[])
+ link(onEvent2,5984961:doClear,[])
+}
+Add(Memory,5984961,474,525)
+{
+ Default=String(FreeSpace,)
+ link(onData,11244739:doWork,[(536,531)(536,559)])
+}
+Add(IndexToChanel,10431257,432,532)
+{
+ link(onEvent1,12710545:doValue,[])
+ link(onEvent2,12710545:doClear,[])
+}
+Add(Memory,12710545,481,532)
+{
+ Default=String(VolumeName,)
+ link(onData,1985039:doWork,[(539,538)(539,573)])
+}
+Add(IndexToChanel,11971776,439,539)
+{
+ link(onEvent1,4048847:doValue,[])
+ link(onEvent2,4048847:doClear,[])
+}
+Add(Memory,4048847,488,539)
+{
+ Default=String(VolumeSerialNumber,)
+ link(onData,3832987:doWork,[(542,545)(542,587)])
+}
+Add(FormatStr,11614155,446,609)
+{
+ DataCount=7
+ Mask="%1%2%3%4%5%6%7"
+ link(onFString,13417864:In,[])
+ link(Str1,14087527:Value,[])
+ link(Str2,6286856:Value,[])
+ link(Str3,7523752:Value,[])
+ link(Str4,2685629:Value,[])
+ link(Str5,5984961:Value,[])
+ link(Str6,12710545:Value,[])
+ link(Str7,4048847:Value,[])
+}
+Add(LineBreak,6700565,278,126)
+{
+ Caption="Query"
+ link(Out,16238760:doValue,[])
+ Primary=[13417864,287,483]
+}
+Add(LineBreakEx,15750678,565,497)
+{
+ Caption="FString"
+}
+Add(LineBreakEx,12436524,565,525)
+{
+ Caption="FString"
+}
+Add(LineBreakEx,1985039,565,567)
+{
+ Caption="FString"
+}
+Add(LineBreakEx,11244739,565,553)
+{
+ Caption="FString"
+}
+Add(LineBreakEx,3832987,565,581)
+{
+ Caption="FString"
+}
+Add(LineBreakEx,9867126,565,511)
+{
+ Caption="FString"
+}
+Add(LineBreakEx,5978097,565,539)
+{
+ Caption="FString"
+}
+Add(LineBreakEx,15648090,369,609)
+{
+ Caption="FString"
+ Type=1
+ link(OnEvent,11614155:doString,[])
+}
+Add(Label,8830919,684,441)
+{
+ Left=225
+ Top=270
+ Width=220
+ Height=20
+ Font=[MS Sans Serif,10,1,128,1]
+ Caption=""
+ AutoSize=1
+ Alignment=2
+ link(Text,11024629:SerialNumber,[(690,359)(368,359)])
+}

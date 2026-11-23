@@ -1,0 +1,6 @@
+Surface normal=Нормаль к поверхности
+Normal vector direction along the X axis=Направление вектора нормали по оси X
+Direction of the normal vector along the Y axis=Направление вектора нормали по оси Y
+Direction of the normal vector along the Z axis=Направление вектора нормали по оси Z
+Specifies the position of the normal=Задает положение нормали
+The event occurs after the normal vector is set=Событие происходит после установки вектора нормали

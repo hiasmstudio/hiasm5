@@ -1,0 +1,107 @@
+*Пример программы с нормальным и модальным дочерними окнами.
+Make(cpp)
+Add(MainForm,89319,14,140)
+{
+ Left=312
+ Top=284
+ Width=392
+ Height=126
+ Caption="Iam main form!!!"
+ TaskBar=1
+}
+Add(Button,75927,133,140)
+{
+ Left=70
+ Top=20
+ Width=75
+ Font=[Arial,8,0,0,1]
+ Caption="Form1"
+ link(onClick,30931:doWork1,[])
+}
+Add(InfoTip,81819,105,105)
+{
+ Info=#28:Вызов обычной дочерней формы|
+ Font=[Arial,8,0,8388608,1]
+ Width=155
+ Height=81
+}
+Add(Button,43937,133,224)
+{
+ Left=70
+ Top=45
+ Width=75
+ Font=[Arial,8,0,0,1]
+ Caption="Form2"
+ link(onClick,84780:doWork1,[])
+}
+Add(InfoTip,68877,105,21)
+{
+ Info=#108:Этот пример поможет Вам понять основы работы с дочерними формами, а именно как их вызывать из главной формы.|
+ Font=[Times New Roman,11,1,0,1]
+ Frame=1
+ Width=295
+ Height=53
+}
+Add(InfoTip,66228,105,196)
+{
+ Info=#21:Вызов модальной формы|
+ Font=[Arial,8,0,8388608,1]
+ Width=155
+ Height=81
+}
+Add(ChildForm,30931,196,140)
+{
+ @Hint=#14:Дочерняя форма|
+}
+BEGIN_SDK
+  Add(EditMulti,49448,3,3)
+  {
+   WorkCount=1
+   Width=115
+   Height=115
+   link(doWork1,74041:doVisible,[(30,9)(30,59)])
+  }
+  Add(MainForm,74041,55,25)
+  {
+   Left=593
+   Top=130
+   Width=371
+   Height=191
+   Caption="Iam child form!!!"
+   TaskBar=1
+   Visible=1
+   Point(doVisible)
+  }
+END_SDK
+Add(InfoTip,80048,301,168)
+{
+ Info=#110:Для доступа к св-ам дочерней формы выделите компонент и нажмите кнопку "Стрелка вправо" на панели инструментов|
+ Font=[Times New Roman,9,2,255,1]
+ Transparent=1
+ Width=239
+ Height=53
+}
+Add(ChildForm,84780,196,224)
+{
+ @Hint=#24:Дочерняя модальная форма|
+}
+BEGIN_SDK
+  Add(EditMulti,80930,3,3)
+  {
+   WorkCount=1
+   Width=140
+   Height=100
+   link(doWork1,63272:doShowModal,[(29,9)(29,56)])
+  }
+  Add(MainForm,63272,55,15)
+  {
+   Left=596
+   Top=293
+   Height=200
+   Caption="Iam modal child form!!"
+   TaskBar=1
+   Visible=1
+   Point(doVisible)
+   Point(doShowModal)
+  }
+END_SDK

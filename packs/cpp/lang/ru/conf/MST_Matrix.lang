@@ -1,0 +1,11 @@
+String matrix MTStrTbl=Матрица строк MTStrTbl
+The default X coordinate of the matrix. If the X parameter is negative, the entire line will be output=Координата X матрицы по-умолчанию. При отрицательном параметре X - будет выдаваться вся строка
+Default Y coordinate of the matrix. If the Y parameter is negative, the entire column will be displayed=Координата Y матрицы по-умолчанию. При отрицательном параметре Y - будет выдаваться весь столбец
+Managing the MTStrTbl element=Управление элементом MTStrTbl
+Reads element(s) of a row matrix by coordinates=Читает элемент(ы) матрицы строк по координатам
+Reads the element(s) of a matrix of rows with checked flags by coordinates=Читает элемент(ы) матрицы строк с установленными флажками по координатам
+Reads the selected element(s) of the row matrix by coordinates=Читает выбранные элемент(ы) матрицы строк по координатам
+Outputs row matrix elements to the stream when called by the doEMatrix, doChkEMatrix and doSelEMatrix methods=Выдает в поток элементы матрицы строк при вызове методами doEMatrix, doChkEMatrix и doSelEMatrix
+Row Matrix=Матрица строк
+X coordinate of the matrix. If the X parameter is negative, the entire line is output=Координата X матрицы. При отрицательном параметре X - выдается вся строка
+Y coordinate of the matrix. If the Y parameter is negative, the entire column is displayed=Координата Y матрицы. При отрицательном параметре Y - выдается весь столбец

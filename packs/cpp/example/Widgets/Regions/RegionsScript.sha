@@ -1,0 +1,29 @@
+*Простой пример создания региона произвольной формы на основе RGN_Script#13#10--------------------------------------------------------#13#10Автор: Nic#13#10E-Mail: nic@savelovo.net
+Make(cpp)
+Add(MainForm,2953706,77,70)
+{
+ Left=100
+ Top=100
+ Caption="RGN"
+ Point(Handle)
+ Point(onMouseDown)
+ link(onCreate,14225697:doCreateRgn,[])
+ link(onMouseDown,8802136:doMove,[(117,97)(117,139)])
+}
+Add(RGN_Script,14225697,126,84)
+{
+ Script=#62:poly(0,0,50,0,50,30,300,30,340,0,340,25,300,50,25,50,0,25,0,0)|22:ellipse(50,50,100,100)|23:ellipse(150,50,200,100)|23:ellipse(250,50,300,100)|18:rect(340,0,400,25)|
+ link(onCreateRgn,4847611:doSetRegion,[(169,90)(169,175)(65,175)(65,139)])
+}
+Add(RGN_SetToWindow,4847611,77,133)
+{
+ link(Handle,3390064:Var2,[])
+}
+Add(MoveWindow,8802136,126,133)
+{
+ link(Handle,3390064:Var3,[(132,121)])
+}
+Add(GetDataEx,3390064,70,112)
+{
+ link(Data,2953706:Handle,[])
+}

@@ -1,0 +1,7 @@
+Receiving and sending messages to the server=Прием и отправка сообщения на сервер
+Jabber client=Клиент Jabber
+Jabber user ID=Идентификатор пользователя Jabber
+Message text=Текст сообщения
+Sends a message to the Jabber server ARG(JID, Text)=Отправляет сообщение на сервер Jabber ARG(JID, Text)
+The event occurs every time a message is sent and returns its text to the ARG(Text) stream=Событие происходит всякий раз после отправки сообщения и возвращает его текст в поток ARG(Text)
+The event occurs whenever a message is received from the server and outputs it to the ARG(From, Text) stream=Событие происходит всякий раз при получении сообщения с сервера и выдает его в поток ARG(From, Text)

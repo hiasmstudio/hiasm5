@@ -1,0 +1,81 @@
+func Target()
+  return('qt_widget<HiasmImage>(form, "AlphaImage' && _id_ && '")')
+end
+
+func doStart
+  println('{')
+  println('auto *image = new HiasmImage(widgetParent);')
+  println('image->setObjectName(QStringLiteral("AlphaImage', _id_, '"));')
+  println('image->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+  println('image->autoSize = ', get('AutoSize') == 'True', ';')
+  println('image->useSourceAlpha = ', get('AlphaMode') == 'True', ';')
+  println('image->alpha = ', AlphaBlendValue, ';')
+  switch(get('ViewStyle'))
+    case 'Center': println('image->viewStyle = 0;')
+    case 'Stretch': println('image->viewStyle = 1;')
+    case 'Mosaic': println('image->viewStyle = 3;')
+    case 'None': println('image->viewStyle = 4;')
+    case 'ScaleMax': println('image->viewStyle = 5;')
+  end
+  println('image->setAutoFillBackground(true);')
+  println('auto palette = image->palette();')
+  println('palette.setColor(QPalette::Window, qt_led_color(qt_text(', cstr(d('Color')), '), palette.color(QPalette::Window)));')
+  println('image->setPalette(palette);')
+  println('image->setBitmap(qt_bitmap(qt_text(', cstr(d('Picture')), ')));')
+  if(linked(onClick))
+    println('image->clicked = [&form] {')
+    event(onClick)
+    println('};')
+  end
+  println('}')
+end
+
+func doLoad(_data)
+  fvar(value)
+  value = _data
+  if(linked('AlphaBitmap'))
+    value = d('AlphaBitmap')
+  end
+  if(len(value) > 0)
+    println('if (const QImage bitmap = ', value, '; !bitmap.isNull()) ', Target(), '->setBitmap(bitmap);')
+  end
+end
+
+func doClear(_data)
+  println(Target(), '->setBitmap(QImage());')
+end
+
+func doRefresh(_data)
+  println(Target(), '->update();')
+end
+
+func doViewStyle(_data)
+  if(len(_data) > 0)
+    println('{ auto *image = ', Target(), '; const int style = qt_text(', _data, ').toInt();')
+    println('if (style >= 0 && style <= 5) { image->viewStyle = style; image->update(); } }')
+  end
+end
+
+func doAlphaBlendValue(_data)
+  if(len(_data) > 0)
+    println('{ auto *image = ', Target(), '; image->alpha = qBound(0, qt_text(', _data, ').toInt(), 255); image->update(); }')
+  end
+end
+
+func doAlphaMode(_data)
+  if(len(_data) > 0)
+    println('{ auto *image = ', Target(), '; image->useSourceAlpha = qt_flag(qt_text(', _data, ')); image->update(); }')
+  end
+end
+
+func ImageBitmap()
+  return(Target() && '->bitmap')
+end
+
+func ImageWidth()
+  return(Target() && '->bitmap.width()')
+end
+
+func ImageHeight()
+  return(Target() && '->bitmap.height()')
+end

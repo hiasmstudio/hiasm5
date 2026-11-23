@@ -1,0 +1,10 @@
+Extended character array=Расширенный массив символов
+Loads a string into component memory=Загружает строку в память компонента
+Gets a string from component memory=Получает строку из памяти компонента
+Clears component memory=Очищает память компонента
+The event occurs every time a row is loaded=Событие происходит всякий раз после загрузки строки
+Outputs the string obtained by the doGetStr method to the stream=Выдает в поток строку, полученную методом doGetStr
+Contains the number of array elements=Содержит кол-во элементов массива
+Provides access to a character array=Предоставляет доступ к массиву символов
+Contains a string from the component's memory=Содержит строку из памяти компонента
+String to load into the component=Строка для загрузки в компонент

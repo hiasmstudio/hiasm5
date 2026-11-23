@@ -1,0 +1,83 @@
+- [ ] В пакет `Core` добавь и поправь нынешние элементы из пакета Core из HiAsm 4.
+  - [ ] Поправь эти элементы по аналогичным в пакете Delphi из HiAsm 4.
+- [ ] Сделай добавление и работу пакетов из HiAsm 4 по путям в конфиге `packs/hiasm4/paths.ini`, для запуска в Linux нужен Wine (см. ниже "Настройщик Wine").
+  - [ ] Реализовать отдельный x86 CodeGen bridge и подключение внешнего Delphi formedit; Wine не заменяет этот протокол.
+    - [x] Этап 1: 32-битный хост `src/hiasm4_cgbridge` (FPC 3.2.2, `-DHIASM_BUILD_CGBRIDGE=ON`) выполняет настоящие `CodeGen.dll` и `make_exe.dll` HiAsm 4 над снимком схемы из `src/SdkSerializer.cpp`; `cgbridge_test` проверяет `Project.dpr`, `hi<Имя>.pas` и CP1251 (Windows, 2026-11-05). План: `MARKDOWN/X86_CODEGEN_BRIDGE_PLAN.md`.
+    - [x] Этап 2: ресурсы (`allres.rc`, GoRC) и компиляция компилятором из `Int/hiasm.db` во временной копии каталога `code` (`src/LegacyBuild.cpp`); `cgbridge_test` собирает и запускает MainForm, проверяет окно «Тест» и пользовательскую иконку (Windows, 2026-11-05).
+    - [x] Этап 3 x86 CodeGen bridge (2026-11-14): IDE собирает и запускает legacy-схемы через `ProjectBuilder` (`buildLegacyScheme` в `src/ProjectBuilder.cpp`). Результат `build/<Имя>.exe` рядом со схемой; расширение и make-DLL берутся из `Int/hiasm.db`. `cgbridge_test` собирает и запускает `Example/Info.sha` (кнопка, сообщение, подсказки) и через мост, и через `ProjectBuilder` (окно «Eorm»).
+    - [x] Исправлено при проверке примеров (2026-11-14): `IS_EDIT` только у элементов с `[Edit]`; имена точек `doStart%Precision%` в формате HiAsm 4 (`doStart0`); разбор `%свойство%` в конфиге; legacy-элементы с `Sub=` получают динамические точки, списки дают именованные точки.
+    - [x] Qt IDE подключена к x86-мосту на Windows. `qt_legacy_build` проверяет сборку и запуск `Info`, `SpeedTest`, `ReplaceChars` и `TechSpeedReport` через IDE, CLI-сборку с кириллицей в пути и сохранность файлов установки HiAsm 4.
+    - [ ] Проверить результаты работы `ReplaceChars` и замеров FTCG, а также сборку и запуск через Wine под Linux.
+- [ ] Изучи RTCG (https://github.com/hiasmstudio/RTCG), сделай базовый пакет, кроссплатформенный, на C++17 GCC (под Windows поставлятся с LLVM-MinGW с Qt6.9, при сборки установщика в `packs/cpp/compiler/` файлы можешь взять в `C:\Qt\6.9.3\llvm-mingw_64\`) аналогичный Delphi-пакету из HiAsm 4 по наполнению, назови его "Приложение на C++".
+  - [x] Изучи структуру файлов C:\Program Files (x86)\HiAsm.
+    - [x] Структура описана: 11 897 файлов, 211.5 МБ. Пакеты в `Elements\` (15), `compiler\` (272), `Int\` (294), `Help\`, `Tutorial\`, `Plug\`, `SVN\`. Разделы 1 и 3 в `MARKDOWN/HIASM4_RESEARCH.md`.
+    - [x] Использовать Ghidra (C:\Program Files\Ghidra\ghidraRun.bat и MCP C:\Users\Admin\AppData\Roaming\Bionic\MCP\GhidraMCP) или настроить REA (https://github.com/morluto/rea) для изучения C:\Program Files (x86)\HiAsm\HiAsm.exe (написана на Delphi).
+      - [x] HiAsm.exe загружен в Ghidra. Найдены `AddElement`, `DeleteElement`, `ElementExists`, `EnumElements`, `GetElementInfo` (0x54BD3C–0x54BD74) и загрузчик `.sha` `FUN_0056B468`. REA не использовался. Раздел 5 в `HIASM4_RESEARCH.md`.
+    - [x] Пересены примеры схем из `C:\Program Files (x86)\HiAsm\Elements\delphi\Example` в `packs/cpp/example`, были заменены Make с Delphi на Cpp и убраны минимальные версии билдов. После по этом схемам надо будет проверять все перенесённые элементы из пакета Delphi.
+  - [ ] Портируй в пакет C++ в раздел `Widgets` подразделы и их элементы из разделов `WinControls` и `WinManControls` пакета Delphi из HiAsm 4 и поправь существующие.
+    - [x] В `Widgets` добавлены 11 подразделов в порядке Delphi. `qt_native_projects` проверяет порядок подразделов в каталоге и сборку схем с обновлёнными виджетами.
+    - [x] Qt-бэкенд поддерживает `RadioButton`, `TrackBar`, `ProgressBar`, `ScrollBar`, `UpDown`, `ComboBox`, `ListBox`, `Memo`, `LED`, `ChildGroupBox` и стандартный режим `ChildFormEx` / `ChildPanelEx`.
+    - [x] `qt_native_projects` собирает примеры `FontBox`, `DatePicker` и `StatusBarQt`, а также схемы с BMP из сохранённой схемы Delphi в `BitBtn` и передачей BMP из `Image` в `Image`.
+    - [x] `qt_native_projects` проверяет сборку `ColorBox`, `DriveBox` и `PaintBox`, сборку примера `TabControlQt` с `VisualShape`, а также запуск схем с `ChildScrollBox`, `TabControl`, `GProgressBar` и автоостановкой `Timer`. Последовательный прогон Qt Debug прошёл целиком (16 тестов).
+    - [x] `qt_native_projects` проверяет сборку примера `PopupMenuQtRtCg`, подключение сохранённых значков к `ComboBox` и `ListBox` через `IconsManager` и `IndexManager`, загрузку и сохранение ICO и импорт значков из DLL через `WorkIconsManager` на Windows.
+    - [x] `PageControl` сохраняет отдельную схему для каждого класса страницы. Проверены сборка примера `PageControlPolymorphQt`, операции с вкладками и навигация по вложенным схемам в редакторе.
+    - [x] `HBoxLayout`, `VBoxLayout`, `GridLayout`, `ToolBarLayout` и `LayoutSpacer` подключены к Qt-генератору. `qt_native_projects` собирает `BoxLayoutsQt`, `GridLayoutQt` и `ToolBarLayoutQt`.
+    - [x] `ToolBar` читает сохранённые кнопки, подписи, подсказки и BMP. `qt_native_projects` собирает `ToolBarQt` и запускает вариант со значком из схемы Delphi.
+    - [x] `TreeView` добавлен в палитру. `qt_native_projects` собирает `TreeViewQt`, запускает схему и сверяет сохранённый текст дерева с исходными ветвями.
+    - [x] `TreeViewEx` добавлен в палитру. Сквозная проверка сверяет добавление дочернего узла, вставку после заданного узла и сохранение префиксов значков Delphi.
+    - [x] `StringTable` добавлен в палитру. `qt_native_projects` собирает `StringTableQt`, загружает таблицу, сортирует числа и проверяет сохранённые данные и ширины столбцов.
+    - [x] Пример `StringTableMTQt` передаёт пять значений `onMT_GetCol` в отдельные ячейки через `doMT_Add`. Проверены сборка, запуск и сохранение выбранной строки.
+    - [x] `StringTableMT` зарегистрирован в подразделе «Расширенные» после проверки изменения ширины столбца через `doMT_WidthCol` в собранной схеме.
+    - [x] Сквозной тест `StringTableMT` создаёт столбец из определения `doMT_AddCols`, считывает его метаданные и проверяет сохранённую строку.
+    - [x] `HilightMemo` добавлен в палитру после сборки и запуска `HilightMemoQt`. Тест проверяет генерацию начальных и динамически добавляемых правил подсветки.
+    - [x] `DS_StaticData`, `MReadWrite` и `MEnumerator` добавлены в подраздел «Experiments». Сквозной тест `StaticDataQt` проверяет запись в именованный источник, чтение изменённой ячейки и перечисление строк.
+    - [x] `MListBox` добавлен в подраздел «Experiments». `MListBoxQt` собирается и запускается, тест проверяет привязку источника и полей подписи и значения.
+    - [x] `DS_UserData` добавлен в подраздел «Experiments». `UserDataQt` проверяет `onInit`, чтение второго столбца при передаче строки через `Memo.Array` и сохранение результата по `onClose`.
+    - [x] `CtrlPalette` добавлен в `Widgets`. Сквозной тест `CtrlPaletteQt` заменяет список, добавляет пункт и сверяет сохранённый файл.
+    - [x] `BoxDrawManager` добавлен в «Менеджеры». Сквозной тест собирает и запускает `CtrlPaletteQt` с именованным менеджером и переключением `doGradient`.
+    - [x] `PopupMenuEx` добавлен в «Расширенные». Сквозной тест отключает вложенный пункт через MT-вход и сверяет индексы доступных пунктов.
+    - [x] `MenuEx` добавлен в «Расширенные». `qt_native_projects` собирает `MenuExQt`, запускает схему со строкой меню и сверяет индексы доступных пунктов после изменения через MT-вход.
+    - [x] `MenuEx` и `PopupMenuEx` собираются и запускаются с индексированным BMP из сохранённой схемы Delphi. Проверены передача BMP генератором и сохранение индексов доступных пунктов.
+    - [x] `qt_native_projects` подтвердил установку состояния вложенного пункта через MT и переключение доступности по индексу в `MenuEx` и `PopupMenuEx`.
+    - [x] В Qt-панели свойств убрано чередование фона строк, для перечислений `True`/`False` используются списки и выделяется помеченное в пакете главное свойство. `qt_scheme_editor` проверяет открытие редактора данных кнопкой в строке и двойным кликом, валидацию и сохранение `Integer`.
+    - [x] «Редактор строк» открывается двойным кликом по элементу с главным свойством `Strings` и кнопкой `…` рядом с `[Список]`. `qt_scheme_editor` проверяет подсветку Delphi, сохранение Unicode и пустых строк, отмену диалога и `Undo`.
+    - [x] «Редактор строк» доступен для обычных текстовых свойств, включая `Hint`, и системного описания `@Hint`. `qt_scheme_editor` проверяет сохранение и повторное открытие многострочной подсказки, `qt_native_projects` проверяет её генерацию для Qt-кнопки.
+    - [x] Окна «Иконка» и «Редактор картинок» открываются из свойств. `qt_scheme_editor` проверяет вставку, поворот, повторное открытие, отмену и Undo.
+    - [x] `PlotPoints` перенесён в «Графопостроитель». `qt_native_projects` собирает `PlotPointsQt` и проверяет экспорт точечного графика в BMP.
+    - [ ] Для `ToolBar` перенести составные данные точек `doCheck` и `onTBDropDown`.
+    - [ ] Довести `TreeViewEx`: массивы значков и флажков, матрица, события редактирования и адаптация `TreeViewEx_As_DirView`.
+    - [ ] Для `StringTable` перенести внешний компаратор, событие начала редактирования, живую матрицу и массив строк. Адаптировать оригинальный `UseStrTable`.
+    - [ ] Для расширенных меню сверить отображение значков, оформить меню в стиле XP и перенести оставшиеся точки. Адаптировать исходный `MenuEx.sha`.
+    - [ ] Сверить оформление `BoxDrawManager` с Delphi. Перенести фон, полосу значков и остальные настройки отрисовки.
+    - [ ] Для `CtrlPalette` проверить оформление, события при ручном выборе и адаптировать исходный пример `Palette`.
+    - [ ] Для `DS_UserData` проверить обращения к поставщикам строк, которым нужен индекс текущей строки Delphi, и совместимость типизированных MT-значений.
+    - [ ] Довести `HilightMemo`: автодополнение, закладки, поиск, замена и остальные точки редактора. Адаптировать исходный пример `HilightMemo`.
+    - [ ] Довести `StringTableMT`: файлы и потоки Delphi, значки и цвета строк, матричные операции, поиск и остальные MT-точки.
+    - [x] В палитру добавлены `CheckBoxRush`, `RadioButtonRush`, `ButtonRush`, `ProgressBarRush`, `TrackBarRush` и `ChildPanelRush`. `qt_native_projects` собирает `RushProgressQt` и запускает схему с передачей события через вложенную `PanelRush`.
+    - [ ] Проверить визуальное соответствие Rush, перенести MT-точки `doSetTheme` и адаптировать оригинальный пример `RushControls`.
+    - [ ] Довести `PageControl`: произвольные связи через `EditPolyMulti`, точки с дескрипторами и динамические точки `PagePanel`.
+    - [ ] Перенести составные операции `WorkIconsManager` (`doMT_*`) и обработчики проверки файлов. Сверить поведение загрузки и сохранения отдельного значка при передаче индекса.
+    - [ ] Довести совместимость перенесённых элементов. `ColorBox` возвращает снимок массива цветов, а `DriveBox` пока не поддерживает `BoxDrawManager`. Для исходных примеров `StatusBar` и `TreeViewEx_As_DirView` требуется перенос их зависимостей.
+    - [ ] Добавить в активный каталог `Widgets` оставшиеся 48 из 131 элемента Delphi (сверка с `WinControls` и `WinManControls` на 2026-11-23). Остальные 83 уже есть в каталоге, а пробелы их совместимости отмечены выше.
+      - [ ] Основные элементы (2) — `WebBrowser`, `Flash`.
+      - [ ] Динамические элементы (2) — `ChildFormPoly`, `ChildPanelPoly`.
+      - [ ] Дерево кортежей (12) — `TreeViewTrain`, `TVT_AddNode`, `TVT_ChangeNode`, `TVT_DeleteNode`, `TVT_FirstNode`, `TVT_ItemPath`, `TVT_SelectNode`, `TVT_GetNode`, `TVT_SaveTree`, `TVT_LoadTree`, `TVT_DataSource`, `TVT_EnumNodes`.
+      - [ ] Строковая таблица MT (21) — `MTStrTbl`, `MST_DrawManager`, `MST_Clear`, `MST_DB`, `MST_RowAction`, `MST_ColAction`, `MST_ArrayRows`, `MST_ArrayCols`, `MST_Matrix`, `MST_CheckBoxes`, `MST_SortInCol`, `MST_FindText`, `MST_SelectRow`, `MST_Selected`, `MST_SetColors`, `MST_HTML`, `MST_Save`, `MST_Load`, `MST_UseEditCtrl`, `MST_EditEnd`, `MST_Virtual`.
+      - [ ] Графопостроитель (7) — `PlotHistogram`, `PlotAxis`, `PlotMarker`, `PlotStream`, `PlotDiffSeries`, `PlotMouseValues`, `PlotSeriesMarker`.
+      - [ ] Центр команд (4) — `CommandCenter`, `CMD_PopupMenu`, `CMD_State`, `CMD_ToolBar`.
+    - [ ] Адаптировать связанные примеры и проверить сборку и запуск на Qt. Сверить визуальные свойства и сложные точки уже зарегистрированных виджетов с Delphi.
+  - [ ] Типы проектов при создании схемы: «Приложение на Qt6.9» (MainForm), консольное (Console), фоновый процесс (Service или Daemon), динамическая библиотека .so/.dll (Library), Windows DLL, плагин HiAsm, COM-объект для расширения Проводника (ShellExtension), сервис Windows, приложение для Панели управления (`.cpl`), простая форма  (из Core). Новые входы — `conf/<Имя>.ini`, `code/hi<Имя>.hws`, строки группы RTCG в `elements.sql`, шаблоны `new/<Имя>.sha` и регистрация в `packs/cpp/cpp_package.sql`. Проверка `tests/cpp_entries_test.cpp` собирает все пять g++ и сверяет точки входа экспорта. Ограничения: Windows-only типы по умолчанию собираются для Windows, на Linux-цели компилятор останавливается `#error`; «плагин HiAsm» — библиотека с контрактом ABI 1 (`hiasm_plugin_info`/`hiasm_plugin_run`), загрузчика плагинов в IDE пока нет; список диалога «Новый проект» фильтрует её в `src/ProjectManager.cpp`, а новый проект по умолчанию должен открывается как `MainForm` (`src/WindowManager.cpp`).
+- [ ] Native web пакет (`packs/web`, RTCG) должен давать тот же вывод, что оригинальный web-кодогенератор HiAsm 4.
+  - [x] Сверка на 16 примерах `packs/web/example` (2026-11-13): оригинальный генератор через мост (`--result`) даёт полный вывод на всех 16.
+  - [x] Сегфолт RTCG: `sys.curelement()` возвращал EID, `el_get_class_name` принимает указатель. Теперь указатель, как у FTCG (`src/RTCG/Objects.cpp`).
+  - [x] Синтаксис `event(имя:секция, аргументы)`: парсер принимает `:секция` в аргументе вызова (`argSection`), `map_event` выполняет обработчик в этой секции через `cgUseSection` и восстанавливает прежнюю (`src/RTCG/Parser.cpp`, `IntFunc.cpp`).
+  - [x] Исправлено по пути: встроенный `delete` был заглушкой (`RET_EMPTY`), из-за этого теги выводились как `<empty`; `&=` терял дописываемый текст (`TComAndEqNode`); `&&=` не разбирался (токен `TokComDAndEq`); отступ — два пробела на уровень, как у FTCG (`lsize = 2`).
+  - [x] После исправлений 7 из 16 примеров совпадают с оригиналом после нормализации (кодировка CP1251/UTF-8, концы строк, строка версии). Все 16 доходят до конца без ошибок.
+  - [x] `Script not found: hiSys.hws` безвреден: `TElementRunner::createTools` продолжает работу, потому что `sys` встроен (`Runner.cpp:95`).
+  - [ ] Остались расхождения в JS-коде внутри `java`-секции: строковые значения выводятся без кавычек (`getElementById(root)`, `alert(…)`), у вызова `appendChild` теряются аргументы (`document.createElement("input")`), в `DOM`/`Text` лишний перевод строки внутри атрибута. Вероятная причина: значения собираются как части массива и превращаются в код уже вне секции, где переключена кавычка.
+  - [ ] Не разобраны крупные расхождения в `tutorial/Step1/Chapter_8` (60 строк), `PHP/cURL_demo` (17) и `tutorial/Step2/Chapter_3–4` (13–16).
+- [ ] Проверь основные исходники программы на соответствие требованиям C++17 и сделай улучшения.
+- [ ] Получить рабочие скриншоты и подтвердить мышью основные сценарии. Подробности: `UI_AUTOMATION_REPORT.md`.
+- [ ] Подтвердить первый прогон GitHub Actions после публикации Qt-исходников и workflow.
+- [ ] Проверить установку и удаление на чистой Windows.
+  - [x] Собран `build/HiAsm_Setup_GTK4.exe` с комплектом LLVM-MinGW и Qt 6.9.3 для пакета C++. Комплект проверен отдельно с изолированным `PATH`.

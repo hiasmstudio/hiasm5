@@ -1,0 +1,62 @@
+func Arg(value)
+  if(len(value) > 0)
+    return(value)
+  else
+    return('""')
+  end
+end
+
+func doStart
+  println('{')
+  println('GtkWidget *widget = gtk_text_view_new();')
+  println('GtkWidget *scroll = gtk_scrolled_window_new();')
+  switch(get('ReadOnly'))
+    case 0: println('gtk_text_view_set_editable(GTK_TEXT_VIEW(widget), FALSE);')
+  end
+  println('gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scroll), widget);')
+  println('hiasm_text_set(GTK_TEXT_VIEW(widget), ', cstr(Strings), ');')
+  println('hiasm_place_scroll("hcTplMemo', _id_, '", scroll, widget, ', Left, ', ', Top, ');')
+  if(linked(onChange))
+    println('g_signal_connect(gtk_text_view_get_buffer(GTK_TEXT_VIEW(widget)), "changed", G_CALLBACK(+[](GtkTextBuffer *, gpointer user_data) {')
+    println('if(!hiasm_form_ready) return;')
+    block.inclvl()
+    println('if(hiasm_view_text(GTK_TEXT_VIEW(user_data)).empty()) return;')
+    event(onChange, 'hiasm_view_text(GTK_TEXT_VIEW(user_data))')
+    block.declvl()
+    println('}), widget);')
+  end
+  println('}')
+end
+
+func doAdd(_data)
+  println('hiasm_text_add(GTK_TEXT_VIEW(hiasm_widget("hcTplMemo', _id_, '").get()), hiasm_text(', Arg(_data), ').c_str(), 0);')
+end
+
+func doText(_data)
+  println('hiasm_text_set(GTK_TEXT_VIEW(hiasm_widget("hcTplMemo', _id_, '").get()), hiasm_text(', Arg(_data), ').c_str());')
+end
+
+func doClear(_data)
+  println('hiasm_text_set(GTK_TEXT_VIEW(hiasm_widget("hcTplMemo', _id_, '").get()), "");')
+end
+
+func doSetSelect(_data)
+  println('hiasm_text_replace_selection(GTK_TEXT_VIEW(hiasm_widget("hcTplMemo', _id_, '").get()), hiasm_text(', Arg(_data), ').c_str());')
+end
+
+func doLoad(_data)
+  println('hiasm_text_set(GTK_TEXT_VIEW(hiasm_widget("hcTplMemo', _id_, '").get()), hiasm_read_file(', cstr(get('FileName')), ').c_str());')
+end
+
+func doSave(_data)
+  println('hiasm_write_file(', cstr(get('FileName')), ', hiasm_view_text(GTK_TEXT_VIEW(hiasm_widget("hcTplMemo', _id_, '").get())));')
+end
+
+func Text()
+  return('hiasm_view_text(hiasm_text_view("hcTplMemo' && _id_ && '"))')
+end
+
+func Count()
+  return('hiasm_view_lines(hiasm_text_view("hcTplMemo' && _id_ && '"))')
+end
+

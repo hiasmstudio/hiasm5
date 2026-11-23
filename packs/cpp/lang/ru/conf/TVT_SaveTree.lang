@@ -1,0 +1,7 @@
+Saving the tree=Сохранение дерева
+Tree to save=Дерево для сохранения
+File Format=Формат файла
+File name=Имя файла
+Data separator in MT stream=Разделитель данных в МТ потоке
+Saves the contents of the element tree to the file ARG(FileName)=Сохраняет содержимое дерева элементов в файле ARG(FileName)
+The event occurs every time the element tree is saved=Событие происходит всякий раз после сохранения дерева элементов

@@ -1,0 +1,8 @@
+Creating a Digital Signature=Создание цифровой подписи
+Hash algorithm of data for digital signature=Хеш-алгоритм данных для цифровой подписи
+Begins the process of creating a digital signature ARG(Data, KeyPairs)=Начинает процесс создания цифровой подписи ARG(Data, KeyPairs)
+The event occurs every time after the creation of a digital signature is completed and outputs the result to the ARG(Signature) stream=Событие происходит всякий раз после окончания создания цифровой подписи и выдает результат в поток ARG(Signature)
+The event occurs as a result of an error and issues an error code to the ARG(Error) stream=Событие происходит в результате ошибки и выдает код ошибки в поток ARG(Error)
+Contains a digital signature=Содержит цифровую подпись
+Data for creating a digital signature=Данные для создания цифровой подписи
+Key pair for creating a digital signature=Ключевая пара для создания цифровой подписи

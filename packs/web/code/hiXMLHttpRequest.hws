@@ -1,0 +1,101 @@
+section java
+
+func doOpen(_data)
+  fvar(old, _url, _cnt)
+  
+  _url = URL  
+  _cnt = Content
+  
+  old = block.select(block.reggen())
+  println('function processReqChange_', code(_id_), '() {')
+  block.inclvl()
+  include('func_head')
+  event(onReadyStateChange)
+  if(linked(onQuerySuccess))
+    println('if(', req, '.readyState == 4 && ', req, '.status == 200) {')
+    block.inclvl()
+    event(onQuerySuccess, req && '.responseText')
+    block.declvl()
+    println('}')    
+  end
+  include('func_tail')
+  block.declvl()
+  println('}')
+  block.copyto(BLK_HEAD)
+  block.delete(block.select(old))
+  
+  // для "родного" XMLHttpRequest
+  println('if(window.XMLHttpRequest) {')
+  block.inclvl()
+  println(req, ' = new XMLHttpRequest();')
+  println(req, '.onreadystatechange = processReqChange_', code(_id_), ';')
+  println(req, '.open(', str(Method), ',', _url, ', true);')
+  if(isdef(OpenAndSend))
+    if(isndef(Method))
+      println(req, '.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");')
+    end
+    println(req, '.send(', isdef(Method) ? 'null' : _cnt, ');')
+  end
+  block.declvl()
+
+  // для версии с ActiveX
+  println('} else if (window.ActiveXObject) {')
+  block.inclvl()
+  println(req, ' = new ActiveXObject("Microsoft.XMLHTTP");')
+  println('if (', req, ') {')
+    block.inclvl()
+    println(req, '.onreadystatechange = processReqChange_', code(_id_), ';')
+    println(req, '.open(', str(Method), ',', _url, ', true);')
+    if(isdef(OpenAndSend))
+      if(isndef(Method))
+        println(req, '.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");')
+      end
+      println(req, '.send(', isdef(Method) ? '' : _cnt, ');')
+    end
+    block.declvl()
+    println('}')
+  block.declvl()  
+  println('}')
+  event(onOpen)
+end
+
+func doSend(_data)
+  fvar(_cnt)
+  _cnt = Content
+  if(isndef(Method))
+    println(req, '.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");')
+  end
+  println('if(window.XMLHttpRequest)')
+  block.inclvl()
+  println(req, '.send(', isdef(Method) ? 'null' : _cnt, ');')
+  block.declvl()
+  println('else if (window.ActiveXObject)')
+  block.inclvl()
+  println(req, '.send(', isdef(Method) ? '' : _cnt, ');')
+  block.declvl()
+end
+
+func doAbort(_data)
+  println(req, '.abort();')
+end
+
+func ReadyState()
+  return(req && '.readyState')
+end
+
+func Status()
+  return(req && '.status')
+end
+
+func ResponseText()
+  return(req && '.responseText')
+end
+
+func ResponseXML()
+  return(req && '.responseXML')
+end
+
+func StatusText()
+  return(req && '.statusText')
+end
+

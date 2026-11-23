@@ -1,0 +1,420 @@
+Make(cpp)
+Add(Message,12393418,385,182)
+{
+ Caption="Error"
+ Icon=1
+}
+Add(StrCat,13951091,336,182)
+{
+ Str1="Error opening file name: "
+ link(onStrCat,12393418:doMessage,[])
+}
+Add(MainForm,7272375,42,168)
+{
+ Width=403
+ Height=225
+ Caption="BASS test equalizer effect"
+ Point(Handle)
+ link(onCreate,4252681:doInit,[])
+}
+Add(BASS_Init,4252681,119,182)
+{
+ link(onInit,10183901:doCheck,[])
+ link(onError,11232751:doMessage,[(163,195)(163,237)])
+ link(Handle,7272375:Handle,[(139,170)(93,170)(93,212)(48,212)])
+}
+Add(BASS_Version,10183901,175,182)
+{
+ link(onCheckFailed,109118:doMessage,[(219,195)(219,237)])
+}
+Add(Message,11232751,175,231)
+{
+ Message="Error BASS initialization"
+ Caption="Error"
+ Icon=1
+}
+Add(Message,109118,231,231)
+{
+ Message="Incorrect version of BASS library "
+ Caption="Error"
+ Icon=1
+}
+Add(BASS_StreamCreateFile,2073512,273,140)
+{
+ Name="MainSound"
+ link(onCreate,3883412:doPlay,[])
+ link(onError,13951091:doStrCat,[(322,160)(322,188)])
+ link(FileName,12373576:Text,[])
+}
+Add(Edit,12373576,273,91)
+{
+ Left=65
+ Top=15
+ Width=300
+ Text=""
+}
+Add(Button,13708268,175,140)
+{
+ Left=5
+ Top=15
+ Caption="Play"
+ link(onClick,2073512:doCreate,[])
+}
+Add(Button,13089460,175,91)
+{
+ Left=365
+ Top=15
+ Width=20
+ Caption="..."
+ link(onClick,4225408:doExecute,[])
+}
+Add(ODialog,4225408,224,91)
+{
+ link(onExecute,12373576:doText,[])
+}
+Add(BASS_ChannelFX_Eq,9020875,560,70)
+{
+ Channel="MainSound"
+ Center=125
+ Bandwidth=16
+}
+Add(BASS_ChannelPlay,3883412,336,140)
+{
+ Channel="MainSound"
+}
+Add(ScrollBarEx,3663733,462,70)
+{
+ Left=25
+ Top=70
+ Width=15
+ Height=100
+ Max=15
+ Min=-15
+ Kind=1
+ link(onPosition,15826144:doEvent1,[])
+}
+Add(Label,4455329,462,28)
+{
+ Left=15
+ Top=50
+ Width=35
+ Height=12
+ Caption="125Hz"
+}
+Add(Label,15573584,609,77)
+{
+ Left=30
+ Top=175
+ Width=10
+ Height=17
+ Caption="0"
+}
+Add(Hub,15826144,511,70)
+{
+ link(onEvent1,9020875:doSet,[])
+ link(onEvent2,15573584:doText,[])
+}
+Add(BASS_ChannelFX_Eq,10309475,560,154)
+{
+ Channel="MainSound"
+ Center=1000
+ Bandwidth=16
+}
+Add(ScrollBarEx,10748022,462,154)
+{
+ Left=65
+ Top=70
+ Width=15
+ Height=100
+ Max=15
+ Min=-15
+ Kind=1
+ link(onPosition,15142066:doEvent1,[])
+}
+Add(Label,13855849,462,112)
+{
+ Left=60
+ Top=50
+ Width=29
+ Height=17
+ Caption="1kHz"
+}
+Add(Label,13281549,609,161)
+{
+ Left=70
+ Top=175
+ Width=10
+ Height=17
+ Caption="0"
+}
+Add(Hub,15142066,511,154)
+{
+ link(onEvent1,10309475:doSet,[])
+ link(onEvent2,13281549:doText,[])
+}
+Add(BASS_ChannelFX_Eq,15040623,560,238)
+{
+ Channel="MainSound"
+ Center=3000
+ Bandwidth=16
+}
+Add(ScrollBarEx,7442191,462,238)
+{
+ Left=105
+ Top=70
+ Width=15
+ Height=100
+ Max=15
+ Min=-15
+ Kind=1
+ link(onPosition,3889380:doEvent1,[])
+}
+Add(Label,14922821,462,196)
+{
+ Left=100
+ Top=50
+ Width=29
+ Height=17
+ Caption="3kHz"
+}
+Add(Label,12978871,609,245)
+{
+ Left=110
+ Top=175
+ Width=10
+ Height=17
+ Caption="0"
+}
+Add(Hub,3889380,511,238)
+{
+ link(onEvent1,15040623:doSet,[])
+ link(onEvent2,12978871:doText,[])
+}
+Add(BASS_ChannelFX_Eq,13092235,560,322)
+{
+ Channel="MainSound"
+ Center=5000
+ Bandwidth=16
+}
+Add(ScrollBarEx,6844832,462,322)
+{
+ Left=145
+ Top=70
+ Width=15
+ Height=100
+ Max=15
+ Min=-15
+ Kind=1
+ link(onPosition,3870305:doEvent1,[])
+}
+Add(Label,3530284,462,280)
+{
+ Left=140
+ Top=50
+ Width=29
+ Height=17
+ Caption="5kHz"
+}
+Add(Label,16637343,609,329)
+{
+ Left=150
+ Top=175
+ Width=10
+ Height=17
+ Caption="0"
+}
+Add(Hub,3870305,511,322)
+{
+ link(onEvent1,13092235:doSet,[])
+ link(onEvent2,16637343:doText,[])
+}
+Add(BASS_ChannelFX_Eq,13046718,560,406)
+{
+ Channel="MainSound"
+ Center=7000
+ Bandwidth=16
+}
+Add(ScrollBarEx,16111218,462,406)
+{
+ Left=185
+ Top=70
+ Width=15
+ Height=100
+ Max=15
+ Min=-15
+ Kind=1
+ link(onPosition,4135563:doEvent1,[])
+}
+Add(Label,13532011,462,364)
+{
+ Left=180
+ Top=50
+ Width=29
+ Height=17
+ Caption="7kHz"
+}
+Add(Label,7059853,609,413)
+{
+ Left=190
+ Top=175
+ Width=10
+ Height=17
+ Caption="0"
+}
+Add(Hub,4135563,511,406)
+{
+ link(onEvent1,13046718:doSet,[])
+ link(onEvent2,7059853:doText,[])
+}
+Add(BASS_ChannelFX_Eq,10036004,560,488)
+{
+ Channel="MainSound"
+ Center=9000
+ Bandwidth=16
+}
+Add(ScrollBarEx,16355412,462,488)
+{
+ Left=225
+ Top=70
+ Width=15
+ Height=100
+ Max=15
+ Min=-15
+ Kind=1
+ link(onPosition,12697630:doEvent1,[])
+}
+Add(Label,11914571,462,446)
+{
+ Left=220
+ Top=50
+ Width=29
+ Height=17
+ Caption="9kHz"
+}
+Add(Label,11769139,609,495)
+{
+ Left=230
+ Top=175
+ Width=10
+ Height=17
+ Caption="0"
+}
+Add(Hub,12697630,511,488)
+{
+ link(onEvent1,10036004:doSet,[])
+ link(onEvent2,11769139:doText,[])
+}
+Add(BASS_ChannelFX_Eq,6715303,560,570)
+{
+ Channel="MainSound"
+ Center=11000
+ Bandwidth=16
+}
+Add(ScrollBarEx,1131032,462,570)
+{
+ Left=265
+ Top=70
+ Width=15
+ Height=100
+ Max=15
+ Min=-15
+ Kind=1
+ link(onPosition,6608367:doEvent1,[])
+}
+Add(Label,16535075,462,528)
+{
+ Left=260
+ Top=50
+ Width=35
+ Height=17
+ Caption="11kHz"
+}
+Add(Label,6705532,609,577)
+{
+ Left=270
+ Top=175
+ Width=10
+ Height=17
+ Caption="0"
+}
+Add(Hub,6608367,511,570)
+{
+ link(onEvent1,6715303:doSet,[])
+ link(onEvent2,6705532:doText,[])
+}
+Add(BASS_ChannelFX_Eq,4488879,560,659)
+{
+ Channel="MainSound"
+ Center=13000
+ Bandwidth=16
+}
+Add(ScrollBarEx,13776646,462,659)
+{
+ Left=305
+ Top=70
+ Width=15
+ Height=100
+ Max=15
+ Min=-15
+ Kind=1
+ link(onPosition,15012876:doEvent1,[])
+}
+Add(Label,2113435,462,617)
+{
+ Left=300
+ Top=50
+ Width=35
+ Height=17
+ Caption="13kHz"
+}
+Add(Label,10691832,609,666)
+{
+ Left=310
+ Top=175
+ Width=10
+ Height=17
+ Caption="0"
+}
+Add(Hub,15012876,511,659)
+{
+ link(onEvent1,4488879:doSet,[])
+ link(onEvent2,10691832:doText,[])
+}
+Add(BASS_ChannelFX_Eq,12784840,560,748)
+{
+ Channel="MainSound"
+ Center=15000
+ Bandwidth=16
+}
+Add(ScrollBarEx,10359574,462,748)
+{
+ Left=345
+ Top=70
+ Width=15
+ Height=100
+ Max=15
+ Min=-15
+ Kind=1
+ link(onPosition,14183317:doEvent1,[])
+}
+Add(Label,14319566,462,706)
+{
+ Left=340
+ Top=50
+ Width=35
+ Height=17
+ Caption="15kHz"
+}
+Add(Label,14858604,609,755)
+{
+ Left=350
+ Top=175
+ Width=10
+ Height=17
+ Caption="0"
+}
+Add(Hub,14183317,511,748)
+{
+ link(onEvent1,12784840:doSet,[])
+ link(onEvent2,14858604:doText,[])
+}

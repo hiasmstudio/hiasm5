@@ -1,0 +1,12 @@
+Text=Текст
+Text style=Стиль текста
+Text thickness=Толщина текста
+Amount of detail in the output text=Величина детализации выводимого текста
+Font=Шрифт
+Index in display list array=Индекс в массиве дисплейных списков
+Initializes and builds a 3D model from text=Инициализирут и строит из текста 3D модель
+Renders text=Отрисовывает текст
+Removes resources used when creating text=Удаляет ресурсы, занятые при создании текста
+The event occurs after the text is initialized=Событие происходит после инициализации текста
+The event occurs after the text is drawn=Событие происходит после отрисовки текста
+Output Device ID=Идентификатор устройства вывода

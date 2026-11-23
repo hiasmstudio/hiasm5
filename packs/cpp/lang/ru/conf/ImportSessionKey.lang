@@ -1,0 +1,7 @@
+Importing a session key=Импорт сессионного ключа
+Begins the process of importing and obtaining the session key ARG(KeyPair, ExchangeKey)=Начинает процесс импортирования и получения сессионного ключа ARG(KeyPair, ExchangeKey)
+The event occurs every time after the import process has completed and the session key has been obtained and outputs the result to the ARG(SessionKey) stream=Событие происходит всякий раз после окончания процесса импортирования и получения сессионного ключа и выдает результат в поток ARG(SessionKey)
+The event occurs as a result of an error and issues an error code to the ARG(Error) stream=Событие происходит в результате ошибки и выдает код ошибки в поток ARG(Error)
+Contains the session key=Содержит сессионный ключ
+Key pair to obtain the session key=Ключевая пара для получения сессионного ключа
+Exchange key=Ключ обмена

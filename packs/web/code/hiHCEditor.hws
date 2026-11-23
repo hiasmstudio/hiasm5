@@ -1,0 +1,19 @@
+func doWork(_data, index):java,html
+  sys.selectElement(cgt.el_get_parent_id())
+  event(cgt.pt_get_name_byid(cgt.pt_arr_event(index)), _data)
+end
+
+func GetVar(_data, index):java,html
+  fvar(ptname)  
+  sys.selectElement(cgt.el_get_parent_id())
+  ptname = cgt.pt_get_name_byid(cgt.pt_arr_data(index)) 
+  if(_section = 1)
+    return(point(ptname):php)
+  elseif(_section = 2)
+    return(point(ptname):java)
+  elseif(_section = 3)
+    return(point(ptname):html)
+  else
+    error("Unknonw language")
+  end 
+end

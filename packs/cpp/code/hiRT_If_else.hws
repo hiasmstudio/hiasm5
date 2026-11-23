@@ -1,0 +1,43 @@
+func doCompare(_data)
+  fvar(op, od)
+  switch(Type)
+    case "=": op = ' == '
+    case "<>": op = ' != '
+    case "<": op = ' < '
+    case ">": op = ' > '
+    case "<=": op = ' <= '
+    case ">=": op = ' >= '
+    default: op = Type
+  end
+  od = isndef(OutData) ? "" : _data_
+  if(isdef(Type) and isnset(Op2) and isdef(Op2))
+    println('if(', Op1, ') {')
+  else
+    println('if(', Op1, op, Op2, ') {')
+  end
+  block.inclvl()
+  event(onTrue, od)
+  block.declvl()
+  println('}')
+  if(linked(onFalse))
+    println('else {')
+    block.inclvl()
+    event(onFalse, od)
+    block.declvl()
+    println('}')
+  end
+end
+
+func Result()
+  fvar(op)
+  switch(Type)
+    case "=": op = ' == '
+    case "<>": op = ' != '
+    case "<": op = ' < '
+    case ">": op = ' > '
+    case "<=": op = ' <= '
+    case ">=": op = ' >= '
+    default: op = Type
+  end
+  return('(' && Op1 && op && Op2 && ')')
+end

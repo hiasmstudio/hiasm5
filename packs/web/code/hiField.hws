@@ -1,0 +1,9 @@
+func doWrite(_data):java
+  println(Object, '.', code(Name), ' = ', Data, ';')
+  event(onWrite, _data)
+end
+
+func Value():java
+  return(Object && '.' && code(Name))
+end
+

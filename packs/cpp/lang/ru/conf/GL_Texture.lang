@@ -1,0 +1,9 @@
+Texture=Текстура
+Whether to use display list for texture mapping=Использовать ли дисплейный список для наложения текстуры
+List index=Индекс списка
+Texture filtering=Фильтрация текстур
+Loads the texture into the video card memory=Загружает текстуру в память видеокарты
+Sets the current texture to be used=Устанавливает в качестве используемой текстуры текущую
+The event occurs every time a texture is loaded=Событие происходит всякий раз после загрузки текстуры
+The event occurs every time a texture is selected as the current one=Событие происходит всякий раз после выбора текстуры в качестве текущей
+Defines the image for loading the texture=Определяет картинку для загрузки текстуры

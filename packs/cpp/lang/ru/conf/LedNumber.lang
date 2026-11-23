@@ -1,0 +1,14 @@
+Digital scoreboard=Цифровое табло
+Align text horizontally in an element=Выравнивание текста в элементе по горизонтали
+Text displayed on the display=Текст выводимый на табло
+Show inactive segments=Показать неактивные сегменты
+On\Off the mode of changing the background color when hovering the mouse=Вкл\Выкл режим изменения цвета фона при наведении мыши
+Element colors=Цвета элементов
+Background color=Цвет фона
+Active segment color=Цвет активного сегмента
+The background color of an element when the mouse is hovered over it=Цвет фона элемента при проведении по нему мыши
+The color of the active segment of an element when the mouse is hovered over it=Цвет активного сегмента элемента при проведении по нему мыши
+Displays text from a stream or Text field on the display (only characters - 1234567890 "-" "." "_" ":" are displayed)=Выводит текст из потока или поля Text на табло (выводятся только символы - 1234567890   "-"   "."   "_"   ":")
+The event occurs every time you click on an element=Сoбытиe пpoиcxoдит вcякий paз пpи клике на элементе
+Contains the text of the caption=Содержит тeкcт нaдпиcи
+Text to be displayed on the display=Текст для вывода на табло

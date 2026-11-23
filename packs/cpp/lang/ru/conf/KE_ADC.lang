@@ -1,0 +1,7 @@
+Reading the ADC result=Считывание результата АЦП
+Defines the sampling rate of the ADC=Определяет частоту опроса АЦП
+Defines the format of the ADC return value: Direct - direct discrete value from 0 to 1023, Voltage - voltage from 0 to 5V=Определяет формат возвращаемого значения АЦП: Direct - непосредственное дискретное значение от 0 до 1023, Voltage - напряжение от 0 до 5V
+USB device=Устройство USB
+Gets the current ADC value=Получает текущее значение АЦП
+Sets the ADC automatic polling frequency from 0 (off) to 400Hz ARG(Freq)=Устанавливает частоту автоматического опроса АЦП от 0 (выключено) до 400Гц ARG(Freq)
+The event occurs every time after receiving the current ADC value and outputs it to the ARG(Value) stream=Событие происходит всякий раз после получения текущего значения АЦП и выдает его в поток ARG(Value)

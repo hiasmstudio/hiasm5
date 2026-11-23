@@ -1,0 +1,36 @@
+func onEvent(_data, index):java,html
+  sys.selectElement(cgt.el_get_parent_id())
+  if(CodeType = 1)
+    event("onEvent" + (index + 1), _data)
+  else
+    fvar(id,cn)
+    
+    id = cgt.pt_get_rlink_point(cgt.pt_arr_event(index))
+    if(id)
+      cn = cgt.el_get_class_name(cgt.pt_get_parent(id))
+      if(cn = "MultiElement")  // нужно проверить еще CodeType = 0
+        event("onEvent" + (index + 1), _data)
+      else
+        id = 0
+      end
+    end 
+         
+    if(not id)
+      ret = 'return(' && _data && ');'
+      println(ret)
+    
+      if(call_event = 0)
+       call_event = index + 1
+      end
+    end
+  end
+end
+
+func Data(_data, index):java,html
+  sys.selectElement(cgt.el_get_parent_id())
+  if(CodeType = 1)
+    return( point("Data" + (index + 1)) )
+  else
+    return( issec("php") ? '$arg' : 'arg' + (index + 1) )
+  end
+end

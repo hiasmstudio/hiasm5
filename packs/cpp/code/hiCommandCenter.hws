@@ -1,0 +1,22 @@
+func doStart
+  println('{')
+  println('auto *center = new HiasmCommandCenter(&form);')
+  println('center->setObjectName(QStringLiteral("CommandCenter', _id_, '"));')
+  println('center->load(qt_text(', cstr(get('Commands')), '));')
+  if(linked(onRefresh))
+    println('center->onRefresh = [&form] {')
+    event(onRefresh)
+    println('};')
+  end
+  if(linked(onAction))
+    println('center->onAction = [&form](const QString &commandName', _id_, ') {')
+    event(onAction, 'commandName' && _id_)
+    println('};')
+  end
+  println('}')
+end
+
+func doRefresh(_data)
+  println('qt_command_bind(form);')
+  println('if (auto *center = qt_command_center(form, QStringLiteral("CommandCenter', _id_, '"))) center->refresh();')
+end

@@ -1,0 +1,11 @@
+Panel=Панель
+Panel caption text=Текст надписи на панели
+Border type=Тип границы
+Border Width=Ширина границы
+Outer Frame Type=Тип внешней рамки
+Inner frame type=Тип внутренней рамки
+Frame width=Ширина рамки
+Aligning text in a panel=Выравнивание текста на панели
+Capture the mouse by a component when you left-click on it=Захват мыши компонентом при нажатии на нем левой кнопки
+The event occurs whenever the mouse button is pressed on the panel=Событие происходит всякий раз при нажатии кнопки мыши на панели
+Sets the caption on the panel=Задаёт надпись на панели

@@ -155,6 +155,17 @@ class CursorList {
 			this->display = display;
 
 			cursors = new Glib::RefPtr<Gdk::Cursor>[CURSOR_COUNT];
+#ifdef HIASM_GTK4
+			cursors[CURSOR_DEFAULT] = compat_cursor_create("default");
+			cursors[CURSOR_HAND] = compat_cursor_create("pointer");
+			cursors[CURSOR_V_DOUBLE] = compat_cursor_create("sb_v_double_arrow");
+			cursors[CURSOR_H_DOUBLE] = compat_cursor_create("sb_h_double_arrow");
+			cursors[CURSOR_TL_CORNER] = compat_cursor_create("nw-resize");
+			cursors[CURSOR_TR_CORNER] = compat_cursor_create("ne-resize");
+			cursors[CURSOR_BL_CORNER] = compat_cursor_create("sw-resize");
+			cursors[CURSOR_BR_CORNER] = compat_cursor_create("se-resize");
+			cursors[CURSOR_MOVE] = compat_cursor_create("move");
+#else
 			cursors[CURSOR_DEFAULT] = Gdk::Cursor::create(Gdk::ARROW);
 			cursors[CURSOR_HAND] = Gdk::Cursor::create(Gdk::HAND2);
 			cursors[CURSOR_V_DOUBLE] = Gdk::Cursor::create(Gdk::SB_V_DOUBLE_ARROW);
@@ -164,20 +175,21 @@ class CursorList {
 			cursors[CURSOR_BL_CORNER] = Gdk::Cursor::create(Gdk::BOTTOM_LEFT_CORNER);
 			cursors[CURSOR_BR_CORNER] = Gdk::Cursor::create(Gdk::BOTTOM_RIGHT_CORNER);
 			cursors[CURSOR_MOVE] = Gdk::Cursor::create(Gdk::FLEUR);
+#endif
 
 			std::cout << "list..." << std::endl;
 			char buf[128];
 			for(int i = CURSOR_MOVE_LINE_POINT; i < CURSOR_COUNT; i++) {
 				const CursorInfo *inf = &curInfo[i-CURSOR_MOVE_LINE_POINT];
-				sprintf(buf, "%s"CURSORS_PATH"%s.png", dataDir.c_str(), inf->name);
-				cursors[i] = Gdk::Cursor::create(display, Gdk::Pixbuf::create_from_file(buf), inf->x, inf->y);
+				sprintf(buf, "%s" CURSORS_PATH"%s.png", dataDir.c_str(), inf->name);
+				cursors[i] = compat_cursor_create_from_pixbuf(display, Gdk::Pixbuf::create_from_file(buf), inf->x, inf->y);
 			}
 		}
 		inline Glib::RefPtr<Gdk::Cursor> cursor(CursorListType type) { return cursors[type]; }
 		void setCustom(CursorListType type, Glib::RefPtr<Gdk::Pixbuf> pix) {
 //			delete cursors[type];
 			int i = type-CURSOR_MOVE_LINE_POINT;
-			cursors[type] = Gdk::Cursor::create(display, pix, curInfo[i].x, curInfo[i].y);
+			cursors[type] = compat_cursor_create_from_pixbuf(display, pix, curInfo[i].x, curInfo[i].y);
 		}
 };
 
@@ -191,6 +203,8 @@ extern CursorList *curList;
 
 #ifdef GL_SDK
 class SDK_Editor : public GL::DrawingArea, public CallBack {
+#elif defined(HIASM_GTK4)
+class SDK_Editor : public HDrawingArea, public CallBack {
 #else
 class SDK_Editor : public DrawingArea, public CallBack {
 #endif
@@ -315,20 +329,28 @@ class SDK_Editor : public DrawingArea, public CallBack {
 
 		Event on_change_scheme;			/**< emit after scheme is change */
 
+		Event on_enter_request;			/**< double click on a MultiElement: the window enters its scheme (data is Element*) */
+
 		SDK_Editor();
 		~SDK_Editor();
 
 		virtual bool on_draw (const ::Cairo::RefPtr< ::Cairo::Context >& cr);
-		virtual bool on_expose_event(GdkEventExpose* event);
-		virtual void on_realize();
 #ifdef GL_SDK
+		virtual void on_realize();
 		virtual bool on_configure_event(GdkEventConfigure* event);
 		virtual void on_idle();
 #endif
 		virtual bool on_button_press_event(GdkEventButton* event);
 		virtual bool on_button_release_event(GdkEventButton* event);
 		virtual bool on_motion_notify_event(GdkEventMotion* event);
+#ifdef HIASM_GTK4
+		virtual bool on_scroll_event(GdkEventScroll* event);
+#endif
 		bool load(const ustring& file_name);
+        // Takes ownership after a complete snapshot has been parsed.
+        void replaceScheme(MSDK *replacement, const std::vector<int> &path, const std::vector<int> &selected);
+        bool operationActive() const { return mouse.cur_operation != MS_NO_OPERATION; }
+		void setLinkHintsVisible(bool visible);
 
 		/**
 		 * Begins one of the operations using the mouse
@@ -374,9 +396,20 @@ class SDK_Editor : public DrawingArea, public CallBack {
 		 */
 		void enterSDK(Element *element);
 		/**
+		 * Double click at a point of the scheme: a MultiElement under the pointer is selected and the window is asked to enter it
+		 * @param x, y pointer position in scheme coordinates (zoom applied)
+		 * @return true if an element with an inner scheme was found
+		 */
+		bool requestEnterAt(gdouble x, gdouble y);
+		/**
 		 * Return to parent SDK from MultiElement
 		 */
 		void leaveSDK();
+		/**
+		 * Return from nested schemes up to an enclosing scheme (the root or a parent of the current one)
+		 * @param target scheme to show
+		 */
+		void leaveSDKTo(SDK *target);
 
 		/**
 		 * Call after scheme is change

@@ -1,0 +1,82 @@
+func String(value)
+  if(linked('String'))
+    return(d('String'))
+  end
+  if(len(value) > 0)
+    return(value)
+  end
+  return('"')
+end
+
+func Reverse()
+  if(get('Direct') == 1)
+    return(1)
+  else
+    return(0)
+  end
+end
+
+func OnlyFull()
+  if(get('OnlyDivGroup') == "True")
+    return(1)
+  else
+    return(0)
+  end
+end
+
+func doEnum(_data)
+  println('{')
+  block.inclvl()
+  println('const std::string hiasm_text', _id_, ' = std::string(', String(_data), ');')
+  println('const std::string hiasm_delim', _id_, ' = std::string(', cstr(get('Delimiter')), ');')
+  println('const int hiasm_step', _id_, ' = ', get('Step'), ';')
+  println('std::vector<std::string> hiasm_parts', _id_, ';')
+  println('if(hiasm_delim', _id_, '.empty()) {')
+  block.inclvl()
+  println('for(std::size_t hiasm_i', _id_, ' = 0; hiasm_i', _id_, ' < hiasm_text', _id_, '.size(); hiasm_i', _id_, ' += static_cast<std::size_t>(hiasm_step', _id_, ' > 0 ? hiasm_step', _id_, ' : 1)) hiasm_parts', _id_, '.push_back(hiasm_text', _id_, '.substr(hiasm_i', _id_, ', static_cast<std::size_t>(hiasm_step', _id_, ' > 0 ? hiasm_step', _id_, ' : 1)));')
+  block.declvl()
+  println('} else {')
+  block.inclvl()
+  println('std::size_t hiasm_pos', _id_, ' = 0;')
+  println('while(hiasm_pos', _id_, ' <= hiasm_text', _id_, '.size()) {')
+  block.inclvl()
+  println('const std::size_t hiasm_found', _id_, ' = hiasm_text', _id_, '.find(hiasm_delim', _id_, ', hiasm_pos', _id_, ');')
+  println('hiasm_parts', _id_, '.push_back(hiasm_text', _id_, '.substr(hiasm_pos', _id_, ', hiasm_found', _id_, ' == std::string::npos ? std::string::npos : hiasm_found', _id_, ' - hiasm_pos', _id_, '));')
+  println('if(hiasm_found', _id_, ' == std::string::npos) break;')
+  println('hiasm_pos', _id_, ' = hiasm_found', _id_, ' + hiasm_delim', _id_, '.size();')
+  block.declvl()
+  println('}')
+  block.declvl()
+  println('}')
+  println('int hiasm_from', _id_, ' = ', get('From'), ' - 1;')
+  println('int hiasm_to', _id_, ' = ', get('To'), ';')
+  println('if(hiasm_from', _id_, ' < 0) hiasm_from', _id_, ' = 0;')
+  println('if(hiasm_to', _id_, ' < 0 || hiasm_to', _id_, ' > static_cast<int>(hiasm_parts', _id_, '.size())) hiasm_to', _id_, ' = static_cast<int>(hiasm_parts', _id_, '.size());')
+  println('const int hiasm_rev', _id_, ' = ', Reverse(), ';')
+  println('const int hiasm_only', _id_, ' = ', OnlyFull(), ';')
+  println('for(int hiasm_i', _id_, ' = 0; hiasm_i', _id_, ' < hiasm_to', _id_, ' - hiasm_from', _id_, '; ++hiasm_i', _id_, ') {')
+  block.inclvl()
+  println('const int hiasm_idx', _id_, ' = hiasm_rev', _id_, ' ? hiasm_to', _id_, ' - 1 - hiasm_i', _id_, ' : hiasm_from', _id_, ' + hiasm_i', _id_, ';')
+  println('if(hiasm_idx', _id_, ' < 0 || hiasm_idx', _id_, ' >= static_cast<int>(hiasm_parts', _id_, '.size())) continue;')
+  println('if(hiasm_only', _id_, ' && hiasm_delim', _id_, '.empty() && static_cast<int>(hiasm_parts', _id_, '[hiasm_idx', _id_, '].size()) != hiasm_step', _id_, ') continue;')
+  println('hiasm_str_state(', _id_, ' * 10 + 1) = hiasm_parts', _id_, '[hiasm_idx', _id_, '];')
+  println('hiasm_int_state(', _id_, ' * 10 + 2, 0) = hiasm_i', _id_, ' + 1;')
+  event(onEnum, 'hiasm_parts' && _id_ && '[hiasm_idx' && _id_ && ']')
+  block.declvl()
+  println('}')
+  event(onEndEnum)
+  block.declvl()
+  println('}')
+end
+
+func doStop(_data)
+  println('break;')
+end
+
+func NumSubStr()
+  return('hiasm_int_state(' && _id_ && ' * 10 + 2, 0)')
+end
+
+func Part()
+  return('hiasm_str_state(' && _id_ && ' * 10 + 1)')
+end

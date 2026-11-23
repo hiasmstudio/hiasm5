@@ -1,0 +1,11 @@
+Appending a string with another string to a given length=Дополнение строки другой строкой до заданной длины
+The default string to which the addition occurs=Строка по-умолчанию, к которой происходит дополнение
+Default line to add=Строка для добавления по-умолчанию
+Specified default length of the resulting string=Заданная длина результирующей строки по-умолчанию
+Add type (Left - adds on the left, Right - adds on the right, Both - adds on both sides, Mirror - adds on both sides, mirroring the right)=Тип добавления (Left - добавляет слева, Right - добавляет справа, Both - добавляет с двух сторон, Mirror - добавляет с двух сторон, отзеркалив правую)
+Pads a string with another string to the specified length according to the PadType property=Дополняет строку другой строкой до заданной длины согласно свойства PadType
+The event occurs whenever a string is appended with another string=Событие происходит всякий раз при дополнение строки другой строкой
+Contains the result of the operation=Содержит результат операции
+The line to which the addition occurs=Строка, к которой происходит дополнение
+Line to add=Строка для добавления
+Specified length of the resulting string=Заданная длина результирующей строки

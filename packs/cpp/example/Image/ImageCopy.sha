@@ -1,0 +1,105 @@
+Make(cpp)
+Add(MainForm,4010987,392,294)
+{
+ Left=20
+ Top=105
+ Width=349
+ Height=324
+ Position=1
+}
+Add(Bitmap,10684491,336,63)
+{
+}
+Add(FormatStr,15972595,343,294)
+{
+ DataCount=1
+ Mask="[%1 usec]"
+ link(onFString,4010987:doCaption,[])
+}
+Add(LineBreak,6144410,140,280)
+{
+ Caption="StartTimer1"
+ link(Out,10307360:doStart,[(218,286)(218,293)])
+ Primary=[13674256,119,-175]
+}
+Add(ODialog,5049552,203,56)
+{
+ Filter="BMP, GIF, JPG, JPEG, ICO, WMF, EMF, PNG, XBM, TIFF files (*.bmp;*.gif;*.ico;*wmf;*.emf;*.xbm;*.tiff;*.png;*.jpg;*.jpeg)|.bmp;*.gif;*.ico;*wmf;*.emf;*.xbm;*.tiff;*.png;*.jpg;*.jpeg|All files (*.*)|*.*"
+ StartDir=""
+ FileName=""
+ link(onExecute,4434340:doLoad,[])
+}
+Add(TimeCounter,10307360,231,287)
+{
+ Precision=1
+ link(onStop,15972595:doString,[])
+}
+Add(LineBreak,9716050,140,294)
+{
+ Caption="StopTimer1"
+ link(Out,10307360:doStop,[])
+ Primary=[5699922,119,-168]
+}
+Add(ImageLoader,4434340,266,56)
+{
+ DrawSource=2
+ link(onLoad,4434340:doDraw,[(310,62)(310,40)(254,40)(254,69)])
+ link(onDraw,10684491:doLoad,[])
+}
+Add(Image,4508876,336,168)
+{
+ Left=10
+ Top=10
+ Width=320
+ Height=240
+ Color=16777215
+ Point(Handle)
+ link(Bitmap,10184848:Result,[])
+}
+Add(Memory,12662142,336,231)
+{
+}
+Add(Button,12188803,140,112)
+{
+ Left=175
+ Top=260
+ TabOrder=-1
+ Caption="Copy"
+ link(onClick,10249444:doEvent1,[])
+}
+Add(Button,16657660,140,56)
+{
+ Left=115
+ Top=260
+ Font=[Arial,8,0,0,1]
+ TabOrder=-1
+ Caption="Load"
+ link(onClick,5049552:doExecute,[])
+}
+Add(Hub,10249444,203,112)
+{
+ OutCount=4
+ link(onEvent1,13674256:In,[(247,118)(247,111)])
+ link(onEvent2,10184848:doCopy,[])
+ link(onEvent3,5699922:In,[])
+ link(onEvent4,4508876:doLoad,[(285,139)(285,174)])
+}
+Add(Math,16409974,287,231)
+{
+ ResultType=0
+ link(onResult,12662142:doValue,[])
+ link(Op2,12662142:Value,[(300,219)(321,219)(321,275)(342,275)])
+}
+Add(Img_Copy,10184848,336,119)
+{
+ Width=800
+ Height=600
+ Point(Result)
+ link(Source,10684491:Bitmap,[])
+}
+Add(Math,5493787,287,294)
+{
+ OpType=3
+ Op2=10
+ link(Op1,16409974:Result,[])
+}

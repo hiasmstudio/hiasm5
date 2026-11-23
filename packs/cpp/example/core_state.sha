@@ -1,0 +1,135 @@
+Make(cpp)
+Add(Entry,1,28,28)
+{
+ link(onStart,2:doEvent1,[])
+}
+Add(Hub,2,126,28)
+{
+ OutCount=3
+ link(onEvent1,3:doData,[])
+ link(onEvent2,6:doEvent1,[])
+ link(onEvent3,10:doEvent1,[])
+}
+Add(Data,3,224,28)
+{
+ Data=String(Stored 世界)
+ link(onEventData,4:doValue,[])
+}
+Add(Memory,4,322,28)
+{
+ Default=String(Default)
+ link(onData,23:doWork1,[])
+}
+Add(Write,5,420,28)
+{
+}
+Add(Hub,6,126,126)
+{
+ OutCount=3
+ link(onEvent1,7:doWrite,[])
+ link(onEvent2,4:doClear,[])
+ link(onEvent3,8:doFor,[])
+}
+Add(Write,7,224,126)
+{
+ link(Data,25:Var1,[])
+}
+Add(For,8,322,126)
+{
+ End=5
+ IncludeEnd=1
+ link(onEvent,9:doNext,[])
+}
+Add(Counter,9,420,126)
+{
+ Max=3
+ link(onNext,23:doWork2,[])
+}
+Add(Hub,10,126,224)
+{
+ OutCount=3
+ link(onEvent1,11:doOperation,[])
+ link(onEvent2,14:doOperation,[])
+ link(onEvent3,15:doFor,[])
+}
+Add(Math,11,224,224)
+{
+ Op2=2
+ link(Op1,9:Count,[])
+ link(onResult,12:doValue,[])
+}
+Add(Memory,12,322,224)
+{
+ link(onData,23:doWork3,[])
+}
+Add(Write,13,420,224)
+{
+ link(Data,26:Var1,[])
+}
+Add(Math,14,224,322)
+{
+ Op1=1
+ OpType=3
+ link(onError,16:doPrint,[])
+}
+Add(For,15,322,322)
+{
+ Start=3
+ End=0
+ Step=-1
+ link(onEvent,17:doEvent1,[])
+ link(onStop,18:doEvent1,[])
+}
+Add(Print,16,420,322)
+{
+ Text=division by zero
+}
+Add(Hub,17,322,420)
+{
+ link(onEvent1,24:doWork1,[])
+ link(onEvent2,15:doStop,[])
+}
+Add(Hub,18,518,28)
+{
+ OutCount=3
+ link(onEvent1,13:doWrite,[])
+ link(onEvent2,19:doCompare,[])
+ link(onEvent3,22:doWrite,[])
+}
+Add(If,19,616,28)
+{
+ Right=3
+ link(Left,26:Var2,[])
+ link(onTrue,20:doStrCat,[])
+ link(onFalse,21:doPrint,[])
+}
+Add(StrCat,20,714,28)
+{
+ Str2= checked
+ link(Str1,25:Var2,[])
+ link(onStrCat,24:doWork2,[])
+}
+Add(Print,21,714,126)
+{
+ Text=wrong branch
+}
+Add(Write,22,616,224)
+{
+ link(Data,20:Result,[])
+}
+Add(HubEx,23,420,420)
+{
+ link(onEvent,24:doWork3,[])
+}
+Add(HubEx,24,518,420)
+{
+ link(onEvent,5:doWrite,[])
+}
+Add(GetDataEx,25,224,518)
+{
+ link(Data,4:Value,[])
+}
+Add(GetDataEx,26,322,518)
+{
+ link(Data,11:Result,[])
+}

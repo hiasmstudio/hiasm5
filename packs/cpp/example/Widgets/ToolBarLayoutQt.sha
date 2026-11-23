@@ -1,0 +1,34 @@
+Make(cpp)
+Add(MainForm,1,28,28)
+{
+ Backend=1
+ Caption="Wrapping toolbar"
+ Width=285
+ Height=150
+}
+Add(ToolBarLayout,2,140,28)
+{
+ Name="tools"
+ Padding=12
+ Space=8
+ AutoSize=0
+}
+Add(Button,3,224,84)
+{
+ Layout="tools"
+ Width=90
+ Caption="First"
+}
+Add(Button,4,224,140)
+{
+ Layout="tools"
+ Width=90
+ Caption="Second"
+}
+Add(Button,5,224,196)
+{
+ Layout="tools"
+ Width=90
+ Caption="Close"
+ link(onClick,1:doClose,[])
+}

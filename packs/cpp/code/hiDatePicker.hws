@@ -1,0 +1,172 @@
+func doStart
+  println('{')
+  block.inclvl()
+  println('auto *picker = new QDateTimeEdit(widgetParent);')
+  println('picker->setObjectName(QStringLiteral("DatePicker', _id_, '"));')
+  println('picker->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+  println('picker->setToolTip(qt_text(', cstr(get('Hint')), '));')
+  println('picker->setEnabled(', get('Enabled') == 'True', ');')
+  println('picker->setVisible(', get('Visible') == 'True', ');')
+  // Store local wall-clock fields without DST normalization inside the editor.
+  println('const auto now = QDateTime::currentDateTime();')
+  println('picker->setTimeZone(QTimeZone::UTC);')
+  println('picker->setDateTimeRange(QDate(1601, 1, 1).startOfDay(QTimeZone::UTC), QDate(9999, 12, 31).endOfDay(QTimeZone::UTC));')
+  if(get('Time') == 'True')
+    println('picker->setDisplayFormat(picker->locale().timeFormat(QLocale::LongFormat).remove(QRegularExpression(QStringLiteral("t+$"))).trimmed());')
+  elseif(get('DateFormat') == 0)
+    println('picker->setDisplayFormat(picker->locale().dateFormat(QLocale::ShortFormat));')
+  else
+    println('picker->setDisplayFormat(picker->locale().dateFormat(QLocale::LongFormat));')
+  end
+  println('picker->setDateTime(QDateTime(now.date(), now.time(), QTimeZone::UTC));')
+  if(get('Time') != 'True' and get('DateMode') == 0)
+    println('picker->setCalendarPopup(true);')
+    if(get('Style') != 0 or get('AlignPicker') == 1 or linked(onDropDown) or linked(onCloseUp))
+      calendarSetup()
+    end
+  end
+  if(linked(onChange))
+    println('QObject::connect(picker, &QDateTimeEdit::dateTimeChanged, &form, [&form](const QDateTime &value) {')
+    block.inclvl()
+    event(onChange, KolDate('value'))
+    block.declvl()
+    println('});')
+  end
+  block.declvl()
+  println('}')
+end
+
+func calendarSetup
+  println('auto *calendar = picker->calendarWidget();')
+  if(get('Style') != 0)
+    println('auto colors = calendar->palette();')
+    println('colors.setColor(QPalette::Window, qt_led_color(qt_text(', cstr(get('Color')), '), colors.color(QPalette::Base)));')
+    println('colors.setColor(QPalette::Base, qt_led_color(qt_text(', cstr(get('MonthBkColor')), '), Qt::white));')
+    println('colors.setColor(QPalette::Disabled, QPalette::Text, qt_led_color(qt_text(', cstr(get('TrailingColor')), '), Qt::blue));')
+    println('const auto fontSpec = qt_text(', cstr(get('Font')), ');')
+    println('if (fontSpec.startsWith(QChar(91)) && fontSpec.endsWith(QChar(93))) {')
+    println('  const auto fields = fontSpec.mid(1, fontSpec.size() - 2).split(QChar(44));')
+    println('  if (fields.size() >= 4) {')
+    println('    const auto textColor = qt_led_color(fields.at(3), colors.color(QPalette::Text));')
+    println('    colors.setColor(QPalette::Active, QPalette::Text, textColor);')
+    println('    colors.setColor(QPalette::Inactive, QPalette::Text, textColor);')
+    println('  }')
+    println('}')
+    println('calendar->setPalette(colors);')
+    println('calendar->setStyleSheet(QStringLiteral("#qt_calendar_navigationbar { background-color: %1; } #qt_calendar_navigationbar QToolButton { color: %2; }").arg(')
+    println('    qt_led_color(qt_text(', cstr(get('TitleBkColor')), '), Qt::blue).name(),')
+    println('    qt_led_color(qt_text(', cstr(get('TitleTextColor')), '), Qt::white).name()));')
+  end
+  if(get('AlignPicker') == 1 or linked(onDropDown) or linked(onCloseUp))
+    println('auto *popup = calendar->window();')
+    println('class CalendarEvents final : public QObject {')
+    println('public:')
+    println('  using QObject::QObject;')
+    println('  std::function<void(QWidget *, QEvent::Type)> changed;')
+    println('protected:')
+    println('  bool eventFilter(QObject *watched, QEvent *event) override {')
+    println('    if (event->type() == QEvent::Show || event->type() == QEvent::Hide)')
+    println('      changed(static_cast<QWidget *>(watched), event->type());')
+    println('    return false;')
+    println('  }')
+    println('};')
+    println('auto *events = new CalendarEvents(popup);')
+    println('events->changed = [&form, picker](QWidget *window, QEvent::Type type) {')
+    block.inclvl()
+    println('if (type == QEvent::Show) {')
+    block.inclvl()
+    if(get('AlignPicker') == 1)
+      println('const QRect bounds = picker->screen()->availableGeometry();')
+      println('const int right = picker->mapToGlobal(QPoint(picker->width(), 0)).x();')
+      println('window->move(qBound(bounds.left(), right - window->width(), qMax(bounds.left(), bounds.right() + 1 - window->width())), window->y());')
+    end
+    if(linked(onDropDown))
+      event(onDropDown)
+    end
+    block.declvl()
+    if(linked(onCloseUp))
+      println('} else {')
+      block.inclvl()
+      event(onCloseUp)
+      block.declvl()
+    end
+    println('}')
+    block.declvl()
+    println('};')
+    println('popup->installEventFilter(events);')
+  end
+end
+
+func Picker()
+  return('qt_widget<QDateTimeEdit>(form, "DatePicker' && _id_ && '")')
+end
+
+// HiAsm 4's KOL serial uses day 1 for 0001-01-01. Its fraction is local wall time.
+func KolDate(value)
+  return('([](const QDateTime &dt) { return 1 + QDate(1, 1, 1).daysTo(dt.date()) + dt.time().msecsSinceStartOfDay() / 86400000.0; }(' && value && '))')
+end
+
+func doSetDate(_data)
+  fvar(value)
+  if(linked('Data'))
+    value = get('Data')
+  else
+    value = _data
+  end
+  println('{')
+  block.inclvl()
+  println('const double serial = [](auto value) {')
+  println('  if constexpr (std::is_arithmetic_v<decltype(value)>) return double(value);')
+  println('  else return qt_text(value).toDouble();')
+  println('}(', cstr(value), ');')
+  println('const QDate epoch(1, 1, 1);')
+  println('const auto first = epoch.daysTo(QDate(1601, 1, 1)) + 1;')
+  println('const auto last = epoch.daysTo(QDate(9999, 12, 31)) + 1;')
+  println('if (serial >= first && serial < last + 1) {')
+  block.inclvl()
+  println('const auto day = static_cast<qint64>(serial);')
+  println('const int millis = qRound((serial - day) * 86400000.0);')
+  println('if (millis < 86400000) {')
+  block.inclvl()
+  println('auto *target = ', Picker(), ';')
+  println('const QSignalBlocker blocker(target);')
+  println('target->setDateTime(QDateTime(epoch.addDays(day - 1), QTime::fromMSecsSinceStartOfDay(millis), QTimeZone::UTC));')
+  block.declvl()
+  println('}')
+  block.declvl()
+  println('}')
+  if(get('SetDateOnChange') == 'True' and linked(onChange))
+    // The explicit Delphi notification is payload-free, even if the date was unchanged.
+    event(onChange)
+  end
+  block.declvl()
+  println('}')
+end
+
+func DateTime()
+  return(KolDate(Picker() && '->dateTime()'))
+end
+
+func CurrentDateTime()
+  return(KolDate('QDateTime::currentDateTime()'))
+end
+
+func DateInt()
+  return('static_cast<int>(' && DateTime() && ')')
+end
+
+func CurrentDateInt()
+  return('static_cast<int>(' && CurrentDateTime() && ')')
+end
+
+func doVisible(_data)
+  println(Picker(), '->setVisible(qt_flag(qt_text(', cstr(_data), ')));')
+end
+
+func doEnabled(_data)
+  println(Picker(), '->setEnabled(qt_flag(qt_text(', cstr(_data), ')));')
+end
+
+func doHint(_data)
+  println(Picker(), '->setToolTip(qt_text(', cstr(_data), '));')
+end

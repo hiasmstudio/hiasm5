@@ -1,0 +1,9 @@
+Font settings manager=Менеджер параметров шрифта
+Element font=Шрифт элемента
+Element Control=Управление элементом
+Sets the font of an element from a stream=Устанавливает шрифт элемента из потока
+Contains the element's font size=Содержит размер шрифта элемента
+Contains the element's font color=Содержит цвет шрифта элемента
+Contains the name of the element's font=Содержит имя шрифта элемента
+Contains the element's font style=Содержит стиль шрифта элемента
+Contains the element's font character set=Содержит набор символов шрифта элемента

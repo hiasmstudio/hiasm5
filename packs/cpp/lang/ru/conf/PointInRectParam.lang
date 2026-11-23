@@ -1,0 +1,12 @@
+Checking whether a point falls into rectangular coordinates using a list=Проверка попадания точки в прямоугольные координаты по списку
+Defines a list of default search rectangular coordinates=Определяет список прямоугольных координат поиска по умолчанию
+List element separator=Разделитель элементов списка
+Count the coordinates of the second point relative to the first (i.e. the second point is the length and height of the figure)=Отсчитывать координаты второй точки относительно первой (т.е. вторая точка это длина и высота фигуры)
+Checks whether a point is inside a rectangle with coordinates according to the list ARG(X, Y, Parameters)=Проверяет нахождение точки внутри прямоугольника с координатами по списку ARG(X, Y, Parameters)
+The event occurs whenever a point is found inside the rectangle, outputting the coordinate string index ARG(IdxParam) to the stream.=Событие происходит всякий раз при нахождении точки внутри прямоугольника, выдавая в поток индекс строки координат ARG(IdxParam)
+The event occurs whenever a point does not fall inside the rectangle=Событие происходит всякий раз при непопадании точки внутрь прямоугольника
+X coordinate of the desired point=Координата X искомой точки
+Y coordinate of the desired point=Координата Y искомой точки
+Defines a list of search rectangular coordinates=Определяет список прямоугольных координат поиска
+Contains the coordinate string index of the last point hit=Содержит индекс строки координат последнего попадания точки
+Contains a list of rectangular search coordinates separated by characters 10 and 13=Содержит список прямоугольных координат поиска, разделенных символами 10 и 13

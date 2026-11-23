@@ -1,0 +1,1104 @@
+*граф оболочка к мощному архиватору Rk (консольный)#13#10для работы строго необходим этот архиватор в папке с программой#13#10_____________________#13#10автор: angekok
+Pos(305,0)
+Add(MainForm,73015,254,77)
+{
+ Left=163
+ Top=162
+ Width=327
+ Height=274
+ Align=0
+ Color=-16777201
+ AlphaBlendValue=255
+ Caption=Compressor
+ BorderStyle=2
+ WindowsState=0
+ Icon=[0000010001002020000001000800A808000016000000280000002000000040000000010008000000000000000000000000000000000000000000000000000000000066999900868686003E3B4500B2B2B200A4A0A00099999900C0C0C000CCCCCC00D7D7D700DDDDDD0066666600E3E3E30077777700F8F8F80099CCCC00F1F1F10041383800373031009696960000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000FFFFFF00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000713000D00000002000000000000000000000000000000000000000000000007070200020000000D000000000000000000000000000000000000000000120D070702000F0002000200000002000000000000000000000000000000000000020710020200020200020000000200000000000000000000000000000000000702100A09010D0202000F0002000D001100020000000000000000000000020D0702040A09090901020D00020200020000000D00000000000000000000070D020702070A0909000804010D0D0D000F000D000200000002000000000D0707020D0A0A020909080000000804010D0D000D0D000200000002000000000207070E02020D0909080900080800000707010D0D0D000F000D00020000000002070E0A0A0A0909090908000808070707070404010D0D000D0D000200000000020E0A0A0A0A09090808000007080807040000040404010D0D0B000F00000000020C0A0A0A09090809080000080707070004070005040405010D0B000B000000000202040A090009080800080708070400070400040404050505010B0B00000000000001020A040000080007070700000000000404000000050505060100000000000000000202090400000807000704000404040004050500050606000000000000000000000001020807070400070400040400040505000506060000000000000000000000000000020204070400000405000405050005050600000000000000000000000000000000000102040404050005040500050606000000000000000000000000000000000000000002020404050005000505050000000000000000000000000000000000000000000000010204050005050500000000000000000000000000000000000000000000000000030202040505000000000000000000000000000000000000000000000000000000000001020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFBFFFFFFF1FFFFFFC1BFFFFF811FFFFF001BFFFE0011FFFE0001BFF800001FF000001BE0000011C0000001C0000001C0000000C0000000C0000000E0000000F0000000FE000001FF000003FFE00007FFF0000FFFFE001FFFFF003FFFFFC07FFFFFF0FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF]
+ ShowType=0
+ TaskBar=0
+ DragForm=1
+}
+Add(MultiElement,48029,-115,196)
+{
+ @Hint=микросхема формирования построчной строки
+ link(Data1,18268:Var2,[(-109,160)(-68,160)])
+}
+BEGIN_SDK
+Pos(0,0)
+  Add(EditMulti,84424,3,3)
+  {
+   EventCount=0
+   WorkCount=2
+   DataCount=1
+   VarCount=1
+   Width=447
+   Height=340
+   link(doWork1,33991:doStrCat,[(39,9)(39,90)])
+   link(doWork2,9839:doClear,[(144,16)(144,132)])
+   link(Var1,15555:Data2,[(9,247)(250,247)])
+  }
+  Add(Memory,88155,174,56)
+  {
+   Default=Null()
+  }
+  Add(Memory,9839,286,119)
+  {
+   Default=Null()
+  }
+  Add(GetData,15555,237,189)
+  {
+   Count=2
+   link(Data,9839:Value,[(243,170)(292,170)])
+  }
+  Add(StrCat,33991,76,84)
+  {
+   Str1=
+   Str2=
+   link(onStrCat,5319:doEvent1,[(116,90)(116,97)])
+   link(Str1,84424:Data1,[(81,7)(81,7)])
+   link(Str2,58050:Value,[(89,69)(131,69)])
+  }
+  Add(Hub,5319,125,91)
+  {
+   InCount=1
+   OutCount=2
+   link(onEvent1,88155:doValue,[(169,97)(169,62)])
+   link(onEvent2,91644:doStrCat,[(162,104)(162,125)])
+  }
+  Add(StrCat,91644,167,119)
+  {
+   Str1=
+   Str2=
+   link(onStrCat,9839:doValue,[])
+   link(Str1,15555:Data1,[(173,95)(221,95)(221,239)(243,239)])
+   link(Str2,88155:Value,[])
+  }
+  Add(Memory,58050,125,21)
+  {
+   Default=String( )
+  }
+END_SDK
+Add(Button,13162,-305,7)
+{
+ Left=0
+ Top=0
+ Width=100
+ Height=20
+ Align=0
+ TabOrder=0
+ Caption=добавить фаил
+ Data=Null()
+ link(onClick,19035:doExecute,[])
+}
+Add(Button,83630,14,38)
+{
+ Left=0
+ Top=100
+ Width=100
+ Height=20
+ Align=0
+ TabOrder=0
+ Caption=новый архив
+ Data=Null()
+ link(onClick,25044:doEvent1,[(52,47)(52,47)])
+}
+Add(Label,53574,132,568)
+{
+ Left=0
+ Top=225
+ Width=200
+ Height=20
+ Align=0
+ Color=-16777201
+ Caption=Label
+ AutoSize=0
+ Alignment=0
+}
+Add(Memory,54131,80,272)
+{
+ Default=String()
+}
+Add(DoData,78110,3,293)
+{
+ Data=Null()
+ link(onEventData,90924:doSave,[(61,299)(61,202)])
+ link(Data,29083:Value,[])
+}
+Add(MultiElement,18268,-81,91)
+{
+ @Hint=мошнейщий концентратор-маршрутизатор
+ link(Data1,87573:String,[(-75,81)(-128,81)(-128,125)(-180,125)])
+ link(Data2,48029:Var1,[(-68,68)(-125,68)(-125,238)(-109,238)])
+}
+BEGIN_SDK
+Pos(0,32)
+  Add(EditMulti,51522,3,3)
+  {
+   EventCount=1
+   WorkCount=1
+   DataCount=2
+   VarCount=8
+   Width=391
+   Height=410
+   link(doWork1,25273:doEvent1,[(78,9)(78,36)])
+   link(Var1,11288:Data1,[(9,261)(237,261)])
+   link(Var2,21194:Data1,[(16,203)(90,203)])
+   link(Var3,21194:Data2,[(23,347)(97,347)])
+   link(Var4,90670:Data1,[(30,211)(132,211)])
+   link(Var5,90670:Data2,[(37,216)(139,216)])
+   link(Var6,4269:Data1,[(44,224)(174,224)])
+   link(Var7,4269:Data2,[(51,299)(181,299)])
+   link(Var8,11288:Data2,[(58,269)(244,269)])
+  }
+  Add(GetData,21194,84,153)
+  {
+   Count=2
+   link(Data,69560:Data2,[(90,143)(76,143)(76,196)(48,196)])
+  }
+  Add(GetData,90670,126,153)
+  {
+   Count=2
+   link(Data,51522:Data2,[(132,78)(16,78)])
+  }
+  Add(GetData,83959,259,30)
+  {
+   Count=2
+   link(Data,29451:Value,[(265,24)(254,24)(254,83)(216,83)])
+  }
+  Add(GetData,4269,168,153)
+  {
+   Count=2
+   link(Data,83959:Data1,[(174,108)(265,108)])
+  }
+  Add(GetData,11288,231,220)
+  {
+   Count=2
+   link(Data,69560:Data1,[(237,199)(41,199)])
+  }
+  Add(DoData,79243,266,93)
+  {
+   Data=Null()
+   link(onEventData,51522:onEvent1,[(335,99)(335,9)])
+   link(Data,83959:Data2,[(272,87)(272,87)])
+  }
+  Add(Hub,25273,154,30)
+  {
+   InCount=1
+   OutCount=2
+   link(onEvent1,29451:doValue,[])
+   link(onEvent2,79243:doData,[(201,43)(201,99)])
+  }
+  Add(Memory,29451,210,30)
+  {
+   Default=String(test)
+  }
+  Add(GetData,69560,35,154)
+  {
+   Count=2
+   link(Data,51522:Data1,[(41,90)(9,90)])
+  }
+END_SDK
+Add(GetData,35497,303,204)
+{
+ Count=2
+}
+Add(IndexToChanel,11303,-88,301)
+{
+ Count=7
+ Data=Null()
+ link(onEvent2,21694:doWork3,[(-14,314)(-14,216)])
+ link(onEvent3,25840:doData,[(-2,321)(-2,320)])
+ link(onEvent4,2070:doWork1,[(-46,328)(-46,265)(-182,265)(-182,202)])
+ link(onEvent5,2070:doWork2,[(-46,335)(-46,265)(-182,265)(-182,209)])
+ link(onEvent6,78110:doData,[(-27,342)(-27,299)])
+ link(onEvent7,51414:doFor,[(-46,349)(-46,277)(-252,277)(-252,293)])
+}
+Add(DoData,64775,-242,336)
+{
+ Data=Null()
+ link(onEventData,51834:doEvent,[])
+ link(Data,51414:Position,[])
+}
+Add(Button,53287,-214,7)
+{
+ Left=0
+ Top=20
+ Width=100
+ Height=20
+ Align=0
+ TabOrder=0
+ Caption=название архива
+ Data=Null()
+ link(onClick,59213:doExecute,[])
+}
+Add(DoData,25840,52,314)
+{
+ Data=Null()
+ link(onEventData,33258:doEvent3,[(94,320)(94,205)(-266,205)(-266,83)])
+ link(Data,54131:Value,[(58,306)(86,306)])
+}
+Add(Hub,39109,-256,154)
+{
+ InCount=3
+ OutCount=1
+ link(onEvent1,87573:doClear,[(-216,160)(-216,76)])
+}
+Add(Hub,19140,-81,382)
+{
+ InCount=2
+ OutCount=1
+ link(onEvent1,21694:doWork2,[(-21,388)(-21,209)])
+}
+Add(Button,57881,-294,457)
+{
+ Left=0
+ Top=80
+ Width=100
+ Height=20
+ Align=0
+ TabOrder=0
+ Caption=открыть архив
+ Data=Null()
+ link(onClick,61315:doExecute,[])
+}
+Add(MultiElement,24126,-53,196)
+{
+ @Hint=микросхема комманды создания архива
+ link(Data1,18268:Var4,[(-47,170)(-54,170)])
+ link(Data2,18268:Var6,[(-40,160)(-40,160)])
+}
+BEGIN_SDK
+Pos(0,0)
+  Add(EditMulti,63422,3,3)
+  {
+   EventCount=1
+   WorkCount=2
+   DataCount=2
+   VarCount=1
+   Width=503
+   Height=326
+   link(doWork1,32160:doStrCat,[(70,9)(70,62)])
+   link(Var1,61486:Value,[(9,310)(466,310)])
+  }
+  Add(StrCat,89353,299,182)
+  {
+   Str1=
+   Str2=
+   link(onStrCat,63558:doEvent1,[(340,188)(340,222)(241,222)(241,245)])
+   link(Str1,59680:Value,[(305,163)(410,163)])
+   link(Str2,66981:Value,[(312,147)(466,147)])
+  }
+  Add(Hub,63558,251,239)
+  {
+   InCount=1
+   OutCount=2
+   link(onEvent1,36019:doValue,[(304,245)(304,235)(364,235)(364,188)])
+   link(onEvent2,92848:doStrCat,[(298,252)(298,272)])
+  }
+  Add(StrCat,92848,313,266)
+  {
+   Str1=
+   Str2=
+   link(onStrCat,60672:doEvent1,[(353,272)(353,251)])
+   link(Str1,36019:Value,[(319,226)(396,226)])
+   link(Str2,63422:Data1,[(326,152)(9,152)])
+  }
+  Add(Memory,60544,138,7)
+  {
+   Default=String(-c -I5 -B9999 -mx3 )
+  }
+  Add(StrCat,32160,138,56)
+  {
+   Str1=
+   Str2=
+   link(onStrCat,33905:doEvent1,[(182,62)(182,118)])
+   link(Str1,60544:Value,[(144,48)(144,62)])
+   link(Str2,63422:Data2,[(151,47)(16,47)])
+  }
+  Add(Memory,59680,404,112)
+  {
+   Default=String()
+  }
+  Add(Memory,61486,460,259)
+  {
+   Default=String()
+  }
+  Add(Memory,36019,390,182)
+  {
+   Default=String()
+  }
+  Add(Hub,60672,362,245)
+  {
+   InCount=1
+   OutCount=2
+   link(onEvent1,61486:doValue,[(427,251)(427,265)])
+   link(onEvent2,63422:onEvent1,[(443,258)(443,224)(470,224)(470,9)])
+  }
+  Add(Memory,66981,460,105)
+  {
+   Default=String( )
+  }
+  Add(Hub,33905,300,112)
+  {
+   InCount=1
+   OutCount=2
+   link(onEvent1,59680:doValue,[])
+   link(onEvent2,89353:doStrCat,[(358,125)(358,157)(289,157)(289,188)])
+  }
+END_SDK
+Add(DropFile,77338,-298,84)
+{
+ link(onDropFile,33258:doEvent2,[(-261,97)(-261,76)])
+}
+Add(Hub,36144,-112,457)
+{
+ InCount=1
+ OutCount=2
+ link(onEvent1,42631:doValue,[])
+ link(onEvent2,35005:doWork1,[(-71,470)(-71,529)])
+}
+Add(SDialog,59213,-130,7)
+{
+ Filter=All
+ Title=Save Dialog
+ link(onExecute,18268:doWork1,[(-89,13)(-89,97)])
+}
+Add(Button,1384,36,73)
+{
+ Left=0
+ Top=120
+ Width=100
+ Height=20
+ Align=0
+ TabOrder=0
+ Caption=извлечь фаил
+ Data=Null()
+ link(onClick,72352:doWork1,[(126,79)(126,266)])
+}
+Add(MultiElement,2070,-172,196)
+{
+ @Hint=раздаточный счётчик
+ link(onEvent1,87573:doSelect,[(-130,202)(-130,157)(-213,157)(-213,111)])
+ link(onEvent2,48029:doWork1,[(-128,209)(-128,202)])
+ link(onEvent3,21694:doWork1,[(-67,216)(-67,202)])
+ link(onEvent4,19140:doEvent1,[(-111,223)(-111,388)])
+ link(Data1,87573:Count,[(-166,150)(-194,150)])
+}
+BEGIN_SDK
+Pos(0,0)
+  Add(EditMulti,23073,3,3)
+  {
+   EventCount=4
+   WorkCount=2
+   DataCount=1
+   VarCount=0
+   Width=300
+   Height=200
+   link(doWork1,68395:doOperation,[(35,9)(35,62)])
+   link(doWork2,35477:doFor,[(26,16)(26,118)])
+  }
+  Add(Hub,37841,189,112)
+  {
+   InCount=1
+   OutCount=4
+   link(onEvent1,23073:onEvent1,[(237,118)(237,9)])
+   link(onEvent2,23073:onEvent2,[(254,125)(254,16)])
+   link(onEvent3,23073:onEvent3,[(273,132)(273,23)])
+   link(onEvent4,23073:onEvent4,[(288,139)(288,30)])
+  }
+  Add(For,35477,49,112)
+  {
+   Start=0
+   End=10
+   Step=1
+   link(onEvent,37841:doEvent1,[])
+   link(End,58791:Value,[(62,100)(118,100)])
+  }
+  Add(Memory,58791,112,56)
+  {
+   Default=Integer(0)
+  }
+  Add(Math,68395,56,56)
+  {
+   OpType=1
+   Op1=[0]
+   Op2=[1]
+   ResultType=0
+   link(onResult,58791:doValue,[])
+   link(Op1,23073:Data1,[(62,30)(9,30)])
+  }
+END_SDK
+Add(DoData,49033,94,347)
+{
+ Data=Null()
+ link(onEventData,5739:doEvent2,[(136,353)(136,407)(71,407)(71,448)])
+ link(Data,19854:Value,[(100,325)(128,325)])
+}
+Add(MultiElement,21694,7,196)
+{
+ @Hint=микросхема формирования основного списка и имени файла контекста
+ link(onEvent1,90924:doAdd,[(63,202)(63,167)])
+ link(onEvent2,64065:doEvent1,[(52,209)(52,237)])
+ link(Data1,18268:Var3,[(13,160)(-61,160)])
+ link(Data2,18268:Var7,[(20,151)(-33,151)])
+}
+BEGIN_SDK
+Pos(0,0)
+  Add(EditMulti,86768,3,3)
+  {
+   EventCount=2
+   WorkCount=3
+   DataCount=2
+   VarCount=1
+   Width=447
+   Height=347
+   link(doWork1,79122:doPart,[(52,9)(52,83)])
+   link(doWork2,87870:doStrCat,[(36,17)(72,17)(72,209)])
+   link(doWork3,35798:doStrCat,[(41,23)(41,265)])
+   link(Var1,18644:Data2,[(9,312)(150,312)(150,234)(97,234)])
+  }
+  Add(GetData,18644,84,175)
+  {
+   Count=2
+   link(Data,33745:Value,[(90,163)(86,163)])
+  }
+  Add(Memory,46752,185,84)
+  {
+   Default=String(.)
+  }
+  Add(StrCat,35798,80,259)
+  {
+   Str1=
+   Str2=
+   link(onStrCat,86768:onEvent2,[(398,265)(398,16)])
+   link(Str1,86768:Data2,[(86,232)(16,232)])
+   link(Str2,18644:Data1,[(93,233)(90,233)])
+  }
+  Add(Memory,95582,308,105)
+  {
+   Default=String()
+  }
+  Add(StrCat,27350,252,189)
+  {
+   Str1=
+   Str2=
+   link(onStrCat,86768:onEvent1,[(367,195)(367,9)])
+   link(Str1,54699:Value,[(258,167)(258,167)])
+   link(Str2,95582:Value,[(265,163)(314,163)])
+  }
+  Add(FilePart,79122,87,77)
+  {
+   ExtPoint=1
+   NameWOExt=0
+   link(onName,32173:doValue,[])
+   link(onExt,95582:doValue,[(131,97)(131,56)(289,56)(289,111)])
+   link(FileName,86768:Data1,[(93,40)(9,40)])
+  }
+  Add(Memory,54699,252,112)
+  {
+   Default=String()
+  }
+  Add(StrCat,87870,157,203)
+  {
+   Str1=
+   Str2=
+   link(onStrCat,83213:doEvent1,[(196,209)(196,139)])
+   link(Str1,32173:Value,[(163,160)(149,160)])
+   link(Str2,46752:Value,[(170,125)(191,125)])
+  }
+  Add(Hub,83213,203,133)
+  {
+   InCount=1
+   OutCount=2
+   link(onEvent1,54699:doValue,[(243,139)(243,118)])
+   link(onEvent2,27350:doStrCat,[(243,146)(243,195)])
+  }
+  Add(Memory,33745,80,119)
+  {
+   Default=String(.rkf)
+  }
+  Add(Memory,32173,143,84)
+  {
+   Default=String()
+  }
+END_SDK
+Add(Hub,33258,-256,63)
+{
+ InCount=3
+ OutCount=1
+ link(onEvent1,87573:doAdd,[(-216,69)(-216,69)])
+}
+Add(StrList,90924,87,161)
+{
+ FileName=
+ Strings=
+}
+Add(MultiElement,4370,205,310)
+{
+ @Hint=микросхема распаковки всех файлов
+ link(Data1,61455:Data4,[(211,300)(254,300)(254,361)(295,361)])
+}
+BEGIN_SDK
+Pos(0,0)
+  Add(EditMulti,55581,3,3)
+  {
+   EventCount=0
+   WorkCount=1
+   DataCount=1
+   VarCount=0
+   Width=405
+   Height=333
+   link(doWork1,44548:doFor,[(47,9)(47,137)])
+  }
+  Add(For,44548,91,131)
+  {
+   Start=0
+   End=1
+   Step=1
+   link(onEvent,14241:doData,[(147,137)(147,171)(81,171)(81,186)])
+  }
+  Add(Hub,34319,147,62)
+  {
+   InCount=1
+   OutCount=2
+   link(onEvent1,28284:doValue,[])
+   link(onEvent2,92495:doStrCat,[(183,75)(183,114)])
+  }
+  Add(DoData,14241,91,180)
+  {
+   Data=Null()
+   link(onEventData,81136:doEvent,[])
+   link(Data,44548:Position,[])
+  }
+  Add(StrCat,92495,188,108)
+  {
+   Str1=
+   Str2=
+   link(onStrCat,92359:doValue,[(235,114)(235,115)])
+   link(Str1,28284:Value,[(194,103)(194,95)])
+   link(Str2,691:Value,[(201,100)(257,100)])
+  }
+  Add(Memory,92359,244,109)
+  {
+   Default=String()
+  }
+  Add(Memory,691,251,59)
+  {
+   Default=String( )
+  }
+  Add(Memory,28284,188,62)
+  {
+   Default=Null()
+  }
+  Add(StrCat,59098,104,62)
+  {
+   Str1=
+   Str2=
+   link(onStrCat,34319:doEvent1,[(144,68)(144,68)])
+   link(Str1,85926:Value,[(110,54)(75,54)])
+   link(Str2,55581:Data1,[(117,33)(9,33)])
+  }
+  Add(IndexToChanel,81136,140,180)
+  {
+   Count=2
+   Data=Null()
+   link(onEvent1,59098:doStrCat,[(183,186)(183,125)(94,125)(94,68)])
+   link(onEvent2,42422:doExec,[])
+  }
+  Add(WinExec,42422,189,187)
+  {
+   Param=
+   FileName=rk.exe
+   Mode=1
+   link(Params,92359:Value,[(202,168)(250,168)])
+  }
+  Add(Memory,85926,69,13)
+  {
+   Default=String(-e -O )
+  }
+END_SDK
+Add(Button,39281,-305,301)
+{
+ Left=0
+ Top=180
+ Width=100
+ Height=20
+ Align=0
+ TabOrder=0
+ Caption=1450kb
+ Data=Integer(3)
+}
+Add(MultiElement,72352,158,260)
+{
+ @Hint=микросхема распаковки выделенного файла
+ link(Data1,61455:Data2,[(164,250)(241,250)(241,352)(281,352)])
+ link(Data2,18268:Var1,[(171,192)(-75,192)])
+}
+BEGIN_SDK
+Pos(0,0)
+  Add(EditMulti,9732,3,3)
+  {
+   EventCount=0
+   WorkCount=1
+   DataCount=2
+   VarCount=0
+   Width=524
+   Height=347
+   link(doWork1,43309:doFor,[(6,9)(6,183)])
+  }
+  Add(Memory,71029,339,173)
+  {
+   Default=String()
+  }
+  Add(Memory,15593,213,100)
+  {
+   Default=Null()
+  }
+  Add(WinExec,48736,181,265)
+  {
+   Param=
+   FileName=rk.exe
+   Mode=1
+   link(Params,34074:Value,[(194,255)(231,255)(231,302)(354,302)])
+  }
+  Add(Hub,39446,143,100)
+  {
+   InCount=1
+   OutCount=2
+   link(onEvent1,15593:doValue,[])
+   link(onEvent2,24827:doStrCat,[(189,113)(189,176)])
+  }
+  Add(StrCat,93088,271,257)
+  {
+   Str1=
+   Str2=
+   link(onStrCat,34074:doValue,[])
+   link(Str1,71029:Value,[(277,212)(345,212)])
+   link(Str2,9732:Data2,[(284,153)(16,153)])
+  }
+  Add(Memory,34074,348,257)
+  {
+   Default=Null()
+  }
+  Add(IndexToChanel,27836,122,219)
+  {
+   Count=2
+   Data=Null()
+   link(onEvent1,86861:doStrCat,[(163,225)(163,158)(80,158)(80,106)])
+   link(onEvent2,48736:doExec,[(170,232)(170,271)])
+  }
+  Add(Memory,75060,278,96)
+  {
+   Default=String( )
+  }
+  Add(For,43309,80,177)
+  {
+   Start=0
+   End=1
+   Step=1
+   link(onEvent,86443:doData,[(122,183)(122,214)(70,214)(70,225)])
+  }
+  Add(DoData,86443,80,219)
+  {
+   Data=Null()
+   link(onEventData,27836:doEvent,[])
+   link(Data,43309:Position,[])
+  }
+  Add(StrCat,86861,97,100)
+  {
+   Str1=
+   Str2=
+   link(onStrCat,39446:doEvent1,[(143,106)(136,106)])
+   link(Str1,88357:Value,[(103,93)(128,93)])
+   link(Str2,9732:Data1,[(110,11)(9,11)])
+  }
+  Add(StrCat,24827,213,170)
+  {
+   Str1=
+   Str2=
+   link(onStrCat,86022:doEvent1,[(256,176)(256,179)])
+   link(Str1,15593:Value,[])
+   link(Str2,75060:Value,[(226,149)(284,149)])
+  }
+  Add(Hub,86022,261,173)
+  {
+   InCount=1
+   OutCount=2
+   link(onEvent1,71029:doValue,[(330,179)(330,179)])
+   link(onEvent2,93088:doStrCat,[(322,186)(322,237)(250,237)(250,263)])
+  }
+  Add(Memory,88357,122,51)
+  {
+   Default=String(-e -O )
+  }
+END_SDK
+Add(DoData,17041,143,497)
+{
+ Data=Null()
+ link(onEventData,27940:doEvent2,[(190,503)(190,426)])
+ link(Data,76520:Value,[])
+}
+Add(For,51414,-242,287)
+{
+ Start=0
+ End=3
+ Step=1
+ link(onEvent,64775:doData,[(-186,293)(-186,327)(-252,327)(-252,342)])
+}
+Add(Memory,42631,-63,457)
+{
+ Default=Null()
+}
+Add(ODialog,19035,-263,7)
+{
+ Filter=All
+ Title=Open Dialog
+ link(onExecute,33258:doEvent1,[(-221,13)(-221,51)(-266,51)(-266,69)])
+}
+Add(Button,7185,-305,217)
+{
+ Left=0
+ Top=60
+ Width=100
+ Height=20
+ Align=0
+ TabOrder=0
+ Caption=упаковать
+ Data=Integer(1)
+ link(onClick,55712:doEvent1,[(-254,223)(-261,223)])
+}
+Add(ODialog,61315,-249,457)
+{
+ Filter=rk arhives|*.rk
+ Title=Open Dialog
+ link(onExecute,36144:doEvent1,[])
+}
+Add(IndexToChanel,51834,-193,336)
+{
+ Count=4
+ Data=Null()
+ link(onEvent2,24126:doWork1,[(-107,349)(-107,202)])
+ link(onEvent3,95912:doExec,[])
+ link(onEvent4,49033:doData,[(-34,363)(-34,353)])
+}
+Add(ListBox,87573,-207,63)
+{
+ Left=100
+ Top=0
+ Width=200
+ Height=220
+ Align=0
+ TabOrder=0
+ Color=-16777211
+ Ctl3D=0
+ FileName=
+ Strings=
+ AddType=0
+ DataType=0
+}
+Add(Button,18261,-298,154)
+{
+ Left=0
+ Top=40
+ Width=100
+ Height=20
+ Align=0
+ TabOrder=0
+ Caption=очистить + список
+ Data=Null()
+ link(onClick,39109:doEvent1,[])
+}
+Add(GetData,61455,268,301)
+{
+ Count=4
+ link(Data,42631:Value,[(274,291)(195,291)(195,497)(-57,497)])
+}
+Add(DoData,28786,-137,301)
+{
+ Data=Null()
+ link(onEventData,11303:doEvent,[])
+ link(Data,31241:Position,[])
+}
+Add(Hub,55712,-256,217)
+{
+ InCount=1
+ OutCount=2
+ link(onEvent1,31241:doFor,[(-175,223)(-175,258)])
+ link(onEvent2,24126:doWork2,[(-139,230)(-139,209)])
+}
+Add(Memory,29083,3,244)
+{
+ Default=String()
+}
+Add(Hub,64065,66,231)
+{
+ InCount=1
+ OutCount=3
+ link(onEvent1,19854:doValue,[(110,237)(110,276)])
+ link(onEvent2,54131:doValue,[(108,244)(108,267)(70,267)(70,278)])
+ link(onEvent3,29083:doValue,[(108,251)(108,221)(-7,221)(-7,250)])
+}
+Add(Hub,25044,80,41)
+{
+ InCount=1
+ OutCount=3
+ link(onEvent1,39109:doEvent2,[(122,47)(122,113)(-266,113)(-266,167)])
+ link(onEvent2,96353:doEvent1,[(141,54)(141,103)])
+}
+Add(Button,1104,144,310)
+{
+ Left=0
+ Top=140
+ Width=100
+ Height=20
+ Align=0
+ TabOrder=0
+ Caption=распаковать всё
+ Data=Null()
+ link(onClick,4370:doWork1,[])
+}
+Add(Button,12404,-305,259)
+{
+ Left=0
+ Top=160
+ Width=100
+ Height=20
+ Align=0
+ TabOrder=0
+ Caption=SFX
+ Data=Integer(2)
+}
+Add(For,31241,-137,252)
+{
+ Start=0
+ End=6
+ Step=1
+ link(onEvent,28786:doData,[(-81,258)(-81,292)(-147,292)(-147,307)])
+}
+Add(Memory,19854,122,270)
+{
+ Default=String()
+}
+Add(Hub,96353,171,97)
+{
+ InCount=1
+ OutCount=2
+ link(onEvent1,90924:doClear,[(213,103)(213,145)(77,145)(77,174)])
+ link(onEvent2,48029:doWork2,[(225,110)(225,164)(-125,164)(-125,209)])
+}
+Add(WinExec,95912,-11,350)
+{
+ Param=
+ FileName=rk.exe
+ Mode=1
+ link(Params,24126:Var1,[(2,289)(-47,289)])
+}
+Add(Hub,27940,206,413)
+{
+ InCount=2
+ OutCount=1
+ link(onEvent1,87573:doLoad,[(248,419)(248,264)(-217,264)(-217,97)])
+}
+Add(Memory,76520,143,434)
+{
+ Default=Null()
+}
+Add(MultiElement,35005,8,523)
+{
+ @Hint=микросхема пост загрузки контекста
+ link(onEvent1,5739:doEvent1,[(60,529)(60,441)])
+ link(onEvent2,53574:doText,[(86,536)(86,574)])
+ link(Data1,61455:Data1,[(14,511)(274,511)])
+ link(Data2,21694:Var1,[(21,488)(13,488)])
+ link(Data3,61455:Data3,[(28,491)(288,491)])
+}
+BEGIN_SDK
+Pos(0,0)
+  Add(EditMulti,87208,3,3)
+  {
+   EventCount=2
+   WorkCount=1
+   DataCount=3
+   VarCount=0
+   Width=580
+   Height=382
+   link(doWork1,85332:doFor,[(337,105)(337,86)(1,86)(1,47)])
+  }
+  Add(Hub,91501,237,251)
+  {
+   InCount=1
+   OutCount=2
+   link(onEvent1,1771:doValue,[])
+   link(onEvent2,39670:doData,[(279,264)(279,223)(103,223)(103,169)])
+  }
+  Add(Memory,86646,328,27)
+  {
+   Default=String()
+  }
+  Add(Memory,75900,615,321)
+  {
+   Default=Null()
+  }
+  Add(StrCat,19386,221,83)
+  {
+   Str1=
+   Str2=
+   link(onStrCat,18127:doEvent1,[])
+   link(Str1,54977:Value,[(227,73)(213,73)(213,152)(178,152)])
+   link(Str2,87208:Data2,[(234,59)(459,59)(459,127)(335,127)])
+  }
+  Add(FilePart,1635,144,19)
+  {
+   ExtPoint=1
+   NameWOExt=0
+   link(onPath,86646:doValue,[(252,25)(252,33)])
+   link(onName,54977:doValue,[(186,32)(186,80)(162,80)(162,116)])
+   link(FileName,87208:Data1,[(150,9)(251,9)(251,109)(333,109)])
+  }
+  Add(Memory,63954,405,192)
+  {
+   Default=String( )
+  }
+  Add(For,85332,11,41)
+  {
+   Start=0
+   End=3
+   Step=1
+   link(onEvent,36525:doData,[(53,47)(53,85)(1,85)(1,103)])
+  }
+  Add(Memory,1771,300,251)
+  {
+   Default=Null()
+  }
+  Add(Memory,38016,340,83)
+  {
+   Default=String()
+  }
+  Add(Hub,40855,412,255)
+  {
+   InCount=1
+   OutCount=2
+   link(onEvent1,91851:doValue,[(463,261)(463,261)])
+   link(onEvent2,96293:doStrCat,[(463,268)(463,327)])
+  }
+  Add(Memory,91851,482,255)
+  {
+   Default=Null()
+  }
+  Add(Hub,48563,305,193)
+  {
+   InCount=1
+   OutCount=2
+   link(onEvent1,60859:doValue,[(359,199)(352,199)])
+   link(onEvent2,85697:doStrCat,[(352,206)(352,261)])
+  }
+  Add(GetData,24029,340,132)
+  {
+   Count=2
+   link(Data,38016:Value,[(346,124)(346,124)])
+  }
+  Add(Hub,36337,545,321)
+  {
+   InCount=1
+   OutCount=2
+   link(onEvent1,75900:doValue,[(596,327)(596,327)])
+   link(onEvent2,87208:onEvent2,[(742,334)(742,112)])
+  }
+  Add(StrCat,85697,363,255)
+  {
+   Str1=
+   Str2=
+   link(onStrCat,40855:doEvent1,[])
+   link(Str1,60859:Value,[(369,240)(369,240)])
+   link(Str2,63954:Value,[(376,240)(411,240)])
+  }
+  Add(Memory,60859,363,193)
+  {
+   Default=Null()
+  }
+  Add(StrCat,96293,482,321)
+  {
+   Str1=
+   Str2=
+   link(onStrCat,36337:doEvent1,[(529,327)(529,327)])
+   link(Str1,91851:Value,[(488,304)(488,304)])
+   link(Str2,24029:Data2,[(495,243)(353,243)])
+  }
+  Add(WinExec,52598,608,372)
+  {
+   Param=
+   FileName=rk.exe
+   Mode=1
+   link(Params,75900:Value,[(621,363)(621,363)])
+  }
+  Add(DoData,36525,11,97)
+  {
+   Data=Null()
+   link(onEventData,34708:doEvent,[])
+   link(Data,85332:Position,[])
+  }
+  Add(StrCat,92142,249,193)
+  {
+   Str1=
+   Str2=
+   link(onStrCat,48563:doEvent1,[(293,199)(293,199)])
+   link(Str1,33066:Value,[])
+   link(Str2,87208:Data3,[(262,146)(347,146)])
+  }
+  Add(Hub,18127,277,83)
+  {
+   InCount=1
+   OutCount=2
+   link(onEvent1,38016:doValue,[])
+   link(onEvent2,92142:doStrCat,[(319,96)(319,154)(225,154)(225,199)])
+  }
+  Add(IndexToChanel,34708,67,97)
+  {
+   Count=4
+   Data=Null()
+   link(onEvent1,1635:doPart,[(121,103)(121,25)])
+   link(onEvent2,19386:doStrCat,[(160,110)(160,89)])
+   link(onEvent3,52598:doExec,[(353,117)(353,378)])
+   link(onEvent4,52199:doStrCat,[(140,124)(140,257)])
+  }
+  Add(StrCat,52199,181,251)
+  {
+   Str1=
+   Str2=
+   link(onStrCat,91501:doEvent1,[])
+   link(Str1,86646:Value,[(187,178)(334,178)])
+   link(Str2,24029:Data1,[(194,208)(346,208)])
+  }
+  Add(DoData,39670,113,163)
+  {
+   Data=String()
+   link(onEventData,87208:onEvent1,[(526,169)(526,105)])
+   link(Data,1771:Value,[(119,153)(91,153)(91,295)(306,295)])
+  }
+  Add(Memory,54977,172,110)
+  {
+   Default=String()
+  }
+  Add(Memory,33066,249,128)
+  {
+   Default=String(-e )
+  }
+END_SDK
+Add(Hub,5739,81,435)
+{
+ InCount=2
+ OutCount=2
+ link(onEvent1,27940:doEvent1,[(124,441)(124,424)])
+ link(onEvent2,76520:doValue,[(131,448)(131,440)])
+}
+Add(Button,20173,-172,497)
+{
+ Left=0
+ Top=200
+ Width=100
+ Height=20
+ Align=0
+ TabOrder=0
+ Caption=содержимое
+ Data=Null()
+ link(onClick,17041:doData,[(-37,503)(-37,503)])
+}

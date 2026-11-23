@@ -220,13 +220,18 @@ class PropertyFlagsItem : public PropertyEnum {
 		inline int bit() { return flag_value; }
 };
 
+#ifdef HIASM_GTK4
+class PropEditor : public HFixed {
+#else
 class PropEditor : public Fixed {
+#endif
 	private:
 		friend class PropertyItem;
 
 		Entry *edit;
 		int select_y;
 		int downButton;
+		int old_width;
 		TreeView *tree;
 		EventBox *comboPanel;
 		TreeView *stock;

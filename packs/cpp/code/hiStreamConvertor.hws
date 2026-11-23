@@ -1,0 +1,52 @@
+func Data(value)
+  if(linked('Data'))
+    return(d('Data'))
+  end
+  if(len(value) > 0)
+    return(value)
+  end
+  return('""')
+end
+
+func HEX(text)
+  return('[](const std::string &s) { static const char digits[] = "0123456789ABCDEF"; std::string out; for(unsigned char c : s) { out += digits[c >> 4]; out += digits[c & 0x0F]; } return out; }(' && text && ')')
+end
+
+func UNHEX(text)
+  return('[](const std::string &s) { std::string out; for(std::size_t i = 0; i + 1 < s.size(); i += 2) { auto digit = [](char c) { return static_cast<int>(c >= 48 && c <= 57 ? c - 48 : (c >= 65 && c <= 70 ? c - 55 : (c >= 97 && c <= 102 ? c - 87 : 0))); }; out += static_cast<char>((digit(s[i]) << 4) | digit(s[i + 1])); } return out; }(' && text && ')')
+end
+
+func ASCII(text)
+  return('[](const std::string &s, const std::string &symbol) { const std::string mark = symbol.empty() ? std::string(".") : symbol; std::string out; for(unsigned char c : s) out += (c >= 32 && c < 127) ? std::string(1, static_cast<char>(c)) : mark; return out; }(' && text && ', ' && cstr(get('Symbol')) && ')')
+end
+
+func Expr(value)
+  fvar(mode, text)
+  mode = get('Mode')
+  text = 'std::string(' && Data(value) && ')'
+  switch(mode)
+    case 0: return(HEX(text))
+    case 1: return(UNHEX(text))
+    case 2: return(HEX(text))
+    case 3: return(UNHEX(text))
+    case 4: return(ASCII(text))
+    case 5: return(ASCII(text))
+    case 6: return(text)
+    case 7: return(text)
+    default: return(text)
+  end
+end
+
+func doConvert(_data)
+  println('hiasm_str_state(', _id_, ') = ', Expr(_data), ';')
+  println('hiasm_int_state(', _id_, ', 0) = static_cast<int>(hiasm_str_state(', _id_, ').size());')
+  event(onResult, 'hiasm_str_state(' && _id_ && ')')
+end
+
+func Position()
+  return('hiasm_int_state(' && _id_ && ')')
+end
+
+func CheckSum()
+  return('[](const std::string &s) { unsigned sum = 0; for(unsigned char c : s) sum += c; return static_cast<int>(sum & 0xFF); }(hiasm_str_state(' && _id_ && '))')
+end

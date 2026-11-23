@@ -1,0 +1,19 @@
+func Init
+  if(isndef(Strings))
+    fvar(s, old)
+
+    s = Strings
+    if(_arr.count(s))
+      s = _arr.join(s, ',') 
+    else
+      s = ''
+    end
+    old = block.select(BLK_HEAD)
+    println(arr, ' = new Array(', s, ');')
+    block.select(old)
+  end
+end
+
+func Array()
+  return(arr)
+end

@@ -1,0 +1,132 @@
+*ѕростейший графический редактор с одним инструментом - карандашом. #13#10ќднако его исключительна€ особенность состоит в том, что он сетевой, т.е. все пользователи в сети могут видеть, что рисуют другие.
+Make(cpp)
+Add(PaintBox,14040495,196,77)
+{
+ Left=75
+ Width=316
+ Height=276
+ Point(MouseX)
+ Point(MouseY)
+ Point(onMouseDown)
+ Point(onMouseMove)
+ link(onMouseDown,16737198:doWork2,[])
+ link(onMouseMove,4064:doCase,[(240,97)(240,146)])
+}
+Add(MainForm,25664,28,378)
+{
+ Left=313
+ Top=234
+ Width=399
+ Height=301
+ Caption="Network Painter"
+ BorderStyle=3
+ link(onCreate,80370:doEvent1,[])
+}
+Add(UDP,13499273,462,294)
+{
+ LocalPort=105
+ RemotePort=106
+ RemoteIP="127.0.0.1"
+ AutoConnect=0
+ ReceiveMode=1
+}
+Add(PointXY,26249,203,140)
+{
+ link(X,14040495:MouseX,[])
+ link(Y,14040495:MouseY,[])
+}
+Add(Hub,35425,329,259)
+{
+ link(onEvent1,17203:doString,[])
+ link(onEvent2,16737198:doWork3,[(373,272)(373,184)(319,184)])
+}
+Add(DoData,83944,336,84)
+{
+ link(onEventData,2309:doValue,[])
+ link(Data,10380942:Var1,[(342,72)(177,72)(177,191)])
+}
+Add(HubEx,16737198,315,77)
+{
+ link(onEvent,83944:doData,[])
+}
+Add(Memory,2309,399,84)
+{
+}
+Add(Button,75658,21,84)
+{
+ Left=5
+ Top=15
+ Font=[Arial,8,0,0,1]
+ TabOrder=-1
+ Caption="Clear"
+ link(onClick,4804926:doEvent1,[])
+}
+Add(GetDataEx,10380942,196,182)
+{
+ link(Data,26249:Point,[])
+}
+Add(Case,4064,259,140)
+{
+ Value=Integer(0)
+ link(onTrue,35425:doEvent1,[(310,153)(310,265)])
+}
+Add(StrPart,8853,231,399)
+{
+ Char=":"
+ link(onSplit,21655:doEvent1,[])
+ link(onPart,78702:doValue,[(285,412)(285,356)])
+}
+Add(FormatStr,17203,392,259)
+{
+ Mask="%1:%2"
+ link(onFString,13499273:doSend,[(443,265)(443,307)])
+ link(Str1,10380942:Var3,[(398,191)])
+ link(Str2,2309:Value,[])
+}
+Add(Img_Line,62527,343,399)
+{
+ Point(Point2)
+ link(Bitmap,14040495:Bitmap,[(349,377)(202,377)])
+ link(Point2,78702:Value,[])
+}
+Add(Memory,78702,350,350)
+{
+}
+Add(Hub,80370,84,392)
+{
+ link(onEvent1,13499273:doOpen,[(137,398)(137,300)])
+ link(onEvent2,3632778:doOpen,[])
+}
+Add(UDP,3632778,147,399)
+{
+ LocalPort=106
+ link(onReceive,8853:doSplit,[])
+}
+Add(LineBreak,6843469,119,63)
+{
+ Caption="ref"
+ link(Out,10064163:doWork1,[(158,69)])
+ Primary=[10,231,392]
+}
+Add(InfoTip,62549,91,14)
+{
+ Info=#78:Network Painter - программа дл€ групового рисовани€ картинок в локальной сети.|
+ Font=[Microsoft Sans Serif,12,1,0,1]
+ Frame=1
+ Width=477
+ Height=39
+}
+Add(Hub,21655,294,399)
+{
+ link(onEvent1,62527:doDraw,[])
+ link(onEvent2,10:In,[(338,412)(338,461)])
+}
+Add(Hub,4804926,77,84)
+{
+ link(onEvent1,14040495:doClear,[])
+ link(onEvent2,10064163:doWork3,[(158,97)])
+}
+Add(HubEx,10064163,154,70)
+{
+ link(onEvent,14040495:doRefresh,[])
+}

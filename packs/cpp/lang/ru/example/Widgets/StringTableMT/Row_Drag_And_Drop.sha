@@ -1,0 +1,194 @@
+*Пример работы StringTableMT в режиме перетаскивания строк
+Make(cpp)
+Add(MainForm,1258690,154,77)
+{
+ Left=20
+ Top=105
+ Width=270
+ Height=336
+ Caption="Row Drag & Drop"
+ Position=1
+ link(onCreate,6872127:doFor,[(194,97)(194,83)])
+}
+Add(InfoTip,9880794,259,322)
+{
+ Info=#11:обмен строк|
+ Width=316
+ Height=179
+}
+Add(StringTableMT,6306378,245,133)
+{
+ Width=158
+ Height=302
+ Align=5
+ Columns=#7:col1=80|7:col2=80|7:col3=80|
+ IconsCheck=[]
+ MiscIcons=[]
+ Icons=[]
+ Point(onMouseMove)
+ Point(doSelect)
+ Point(ItemAtPos)
+ Point(Strings)
+ link(onMouseMove,3648294:doValue,[(297,146)(297,186)(185,186)(185,265)])
+}
+Add(DoData,13568737,259,259)
+{
+ link(onEventData,5768264:doCompare,[])
+ link(Data,6306378:ItemAtPos,[])
+}
+Add(FormatStr,4149970,259,77)
+{
+ Mask="%1;%1;%1"
+ link(onFString,6306378:doAdd,[(301,83)(301,123)(233,123)(233,139)])
+}
+Add(Hub,11912948,399,350)
+{
+ link(onEvent1,2884913:doIndex,[])
+ link(onEvent2,7436775:doIndex,[])
+}
+Add(For,6872127,217,77)
+{
+ End=99
+ link(onEvent,4149970:doString,[])
+}
+Add(GetDataEx,9634341,511,329)
+{
+ link(Data,1654082:Value,[])
+}
+Add(Hub,6203200,280,434)
+{
+ OutCount=6
+ link(onEvent1,622569:doWork1,[(327,440)(327,356)])
+ link(onEvent2,5698933:doRead,[])
+ link(onEvent3,622569:doWork2,[(335,454)(335,363)])
+ link(onEvent4,5698933:doWrite,[(380,461)(380,454)])
+ link(onEvent5,8545878:doWrite,[(494,468)(494,454)])
+ link(onEvent6,11241663:In,[(327,475)(327,482)])
+}
+Add(If_else,1872767,217,434)
+{
+ Op2=Integer(0)
+ link(onTrue,6203200:doEvent1,[])
+ link(Op1,3648294:Value,[])
+}
+Add(Memory,3648294,217,259)
+{
+ Default=Integer(-1)
+ link(onData,13568737:doData,[])
+}
+Add(ArrayRW,5698933,441,441)
+{
+ link(onRead,8545878:doRead,[])
+ link(Array,2828166:Var2,[])
+ link(Index,2884913:Var,[])
+ link(Value,5698933:Item,[(461,429)(482,429)(482,486)(447,486)])
+}
+Add(ChanelToIndex,622569,350,350)
+{
+ link(onIndex,11912948:doEvent1,[])
+}
+Add(ArrayRW,8545878,511,441)
+{
+ link(Array,2828166:Var3,[(517,422)])
+ link(Index,7436775:Var,[])
+ link(Value,8545878:Item,[(531,429)(551,429)(551,488)(517,488)])
+}
+Add(InfoTip,7099717,196,224)
+{
+ Info=#33:расчет номера строки под курсором|
+ Width=197
+ Height=81
+}
+Add(GetDataEx,16501480,441,322)
+{
+ link(Data,13510008:Var2,[])
+}
+Add(If_else,1533851,413,259)
+{
+ Type=5
+ link(onTrue,12194190:doEvent1,[])
+ link(Op2,13510008:Var1,[(426,247)])
+}
+Add(Memory,3468807,518,203)
+{
+}
+Add(Memory,1654082,518,259)
+{
+ Point(Data)
+ link(Data,2954423:Var2,[])
+}
+Add(GetDataEx,2954423,511,238)
+{
+ link(Data,3468807:Value,[])
+}
+Add(GetDataEx,13510008,441,238)
+{
+ Angle=1
+ link(Data,2954423:Var1,[])
+}
+Add(Hub,12194190,462,259)
+{
+ OutCount=3
+ link(onEvent1,1654082:doValue,[])
+ link(onEvent2,3468807:doValue,[(506,272)(506,209)])
+ link(onEvent3,1872767:doCompare,[(506,279)(506,314)(202,314)(202,440)])
+}
+Add(PointHint,10757899,553,210)
+{
+ Info=#14:новое значение|
+ Width=92
+ Height=18
+ PColor(Event,16711935)
+}
+Add(PointHint,5900623,553,266)
+{
+ Info=#15:старое значение|
+ Width=92
+ Height=18
+}
+Add(InfoTip,5874213,406,175)
+{
+ Info=#62:мониторинг изменения потока с сохранением предыдущего значения|
+ Width=246
+ Height=130
+}
+Add(GetDataEx,2828166,434,413)
+{
+ Angle=3
+ link(Data,14910958:Var,[(405,422)])
+}
+Add(LineBreak,1380110,175,168)
+{
+ Caption="doSelect"
+ link(Out,6306378:doSelect,[])
+ Primary=[11241663,161,308]
+}
+Add(GetIndexData,2884913,448,350)
+{
+ link(Data1,16501480:Var2,[])
+ link(Data2,9634341:Var1,[(461,338)])
+}
+Add(GetIndexData,7436775,518,357)
+{
+ link(Data1,9634341:Var2,[])
+ link(Data2,16501480:Var3,[(531,331)])
+}
+Add(LineBreak,5043296,266,203)
+{
+ Caption="Strings"
+ Type=1
+ link(Data,6306378:Strings,[])
+ Primary=[14910958,133,196]
+}
+Add(If_else,5768264,304,259)
+{
+ Type=4
+ Op2=Integer(0)
+ link(onTrue,1960610:doCompare,[])
+}
+Add(If_else,1960610,346,259)
+{
+ Type=1
+ link(onTrue,1533851:doCompare,[])
+ link(Op2,6306378:Count,[(359,247)(251,247)])
+}

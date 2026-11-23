@@ -1,0 +1,8 @@
+func doSelect(_data):any
+  event(onSelect, block.select(Name) )
+end
+
+func Current():any
+  return(block.cur())
+end
+

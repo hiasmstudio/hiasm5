@@ -1,0 +1,5 @@
+func doReg(_data):any
+  block.reg(Name)
+  event(onReg)
+end
+

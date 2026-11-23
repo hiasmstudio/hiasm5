@@ -1,0 +1,4 @@
+XML console for exchanging packets with the server=XML консоль обмена пакетами с сервером
+Jabber client=Клиент Jabber
+The event occurs every time a packet is sent to the server and outputs it to the ARG(Text) stream=Событие происходит всякий раз при посылке пакета на сервер и выдает его в поток ARG(Text)
+The event occurs whenever a packet is received from the server and outputs it to the ARG(Text) stream=Событие происходит всякий раз при получении пакета с сервера и выдает его в поток ARG(Text)

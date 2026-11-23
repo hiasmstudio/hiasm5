@@ -1,0 +1,6 @@
+Getting the SID of the file owner=Получение SID владельца файла
+Gets the SID of the file owner from its PSD=Получает SID владельца файла по его PSD
+The event occurs whenever the owner of a file is obtained and outputs its SID to the stream=Событие происходит всякий раз после получения владельца файла и выдает его SID в поток
+The event occurs whenever an error occurs while retrieving owner information=Событие происходит всякий раз при возникновении ошибки в процессе получения информации о владельце
+Contains the file owner ID=Содержит идентификатор владельца файла
+Security Settings Information=Информация о настройках безопасности

@@ -1,0 +1,61 @@
+section java
+
+func init()
+  if(not isset(SEL_TEXT))
+    gvar(SEL_TEXT)
+    fvar(old)
+    old = block.select(BLK_HEAD)
+    println('function selectText(obj) {')
+    block.inclvl()
+      println('if(document.selection) { // IE, Opera')
+      block.inclvl()
+        println('return document.selection.createRange().text')
+      block.declvl()
+      println('} else {')
+      block.inclvl()
+        println('sel = document.getSelection();')
+        println('return (sel ? sel : obj.value.substr(obj.selectionStart,obj.selectionEnd - obj.selectionStart))')
+      block.declvl()
+      println('}')
+    block.declvl()
+    println('}')
+
+    println('function setSelectText(obj, text) {')
+    block.inclvl()
+      println('if(document.selection) { // IE, Opera')
+      block.inclvl()
+        println('document.selection.createRange().text = text')
+      block.declvl()
+      println('} else {')
+      block.inclvl()
+        println('b = obj.value.substr(0, obj.selectionStart)')
+        println('a = obj.value.substr(obj.selectionEnd)')
+        println('obj.value = b + text + a') 
+      block.declvl()
+      println('}')
+    block.declvl()
+    println('}')    
+    block.select(old)
+  end
+end
+
+func doText(_data)
+  fvar(s, _obj)
+
+  _obj = Id
+  s = isdef(IdAsObject) ? ('document.getElementById(' && _obj && ')') : _obj
+  println('setSelectText(' && s && ',' && Text && ')')
+  event(onText)
+end
+
+func SelectText()
+  fvar(s, _obj)
+
+  _obj = Id
+  s = isdef(IdAsObject) ? ('document.getElementById(' && _obj && ')') : _obj
+  return('selectText(' && s && ')')
+end
+
+func GlobalSelect()
+  return('(document.selection ? document.selection.createRange().text : document.getSelection())')
+end

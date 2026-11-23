@@ -1,0 +1,16 @@
+Shows dialogue with text=Показывает диалог с текстом
+Contains the text of the default output message=Содержит текст выводимого сообщения по-умолчанию
+Contains the message header=Содержит заголовок сообщения
+Specifies a set of buttons in a message=Задаёт набор кнопок в сообщении
+Sets the icon next to the message=Задаёт иконку возле сообщения
+Displays a message (see Message)=Выводит сообщение (см. Message)
+The event occurs every time after a message is called and outputs the code of the pressed key to the stream=Событие происходит всякий раз после вызова сообщения и выдаёт в поток код нажатой клавиши
+The event occurs whenever the <OK> key is pressed in response to a message=Событие происходит всякий раз после нажатия клавиши <OK> в ответ на сообщение
+The event occurs whenever the <CANCEL> key is pressed in response to a message=Событие происходит всякий раз после нажатия клавиши <CANCEL> в ответ на сообщение
+The event occurs whenever the <ABORT> key is pressed in response to a message=Событие происходит всякий раз после нажатия клавиши <ABORT> в ответ на сообщение
+The event occurs whenever the <RETRY> key is pressed in response to a message=Событие происходит всякий раз после нажатия клавиши <RETRY> в ответ на сообщение
+The event occurs whenever the <IGNORE> key is pressed in response to a message=Событие происходит всякий раз после нажатия клавиши <IGNORE> в ответ на сообщение
+The event occurs whenever the <YES> key is pressed in response to a message=Событие происходит всякий раз после нажатия клавиши <YES> в ответ на сообщение
+The event occurs whenever the <NO> key is pressed in response to a message=Событие происходит всякий раз после нажатия клавиши <NO> в ответ на сообщение
+Defines the message text=Определяет текст сообщения
+Defines the message header=Определяет заголовок сообщения

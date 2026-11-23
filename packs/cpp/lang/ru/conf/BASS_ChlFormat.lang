@@ -1,0 +1,7 @@
+Converting the playback position format from bytes to seconds and vice versa=Преобразование формата позиции проигрывания из байтов в секунды и наоборот
+Converts the channel playback position data format=Преобразует формат данных позиции проигрывания канала
+The event occurs every time after a conversion and outputs the result to the stream=Событие происходит всякий раз после преобразования и выдаёт в поток результат
+The event occurs in case of an error and outputs its number to the stream=Событие происходит в случае ошибки и выдаёт её номер в поток
+Contains the result of the transformation()=Содержит результат преобразования ()
+Defines the channel ID=Определяет идентификатор канала
+Defines the data to transform=Определяет данные для преобразования

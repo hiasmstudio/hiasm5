@@ -1,0 +1,7 @@
+Getting an element in a tree by its ID=Получение элемента в дереве по его ID
+Tree to search for an element in it=Дерево для поиска в нем элемента
+Searches for an element with the specified ID ARG(ID)=Ищет элемент с указанным ID ARG(ID)
+The event occurs every time after a successful search for an element and outputs it to the ARG(Node) stream=Событие происходит всякий раз после успешного поиска элемента и выдает его в поток ARG(Node)
+The event occurs every time an element is found unsuccessfully and outputs its ID to the ARG(ID) stream=Событие происходит всякий раз после неудачного поиска элемента и выдает его ID в поток ARG(ID)
+Contains the found element=Содержит найденный элемент
+ID of the element you are looking for=ID искомого элемента

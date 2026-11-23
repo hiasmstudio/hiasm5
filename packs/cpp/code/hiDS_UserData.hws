@@ -1,0 +1,34 @@
+func doStart
+  fvar(sourceName, countExpr, columnsExpr, rowExpr)
+  sourceName = 'userData' && _id_
+  countExpr = '0'
+  columnsExpr = '""'
+  rowExpr = '""'
+  if(linked('Count'))
+    countExpr = d('Count')
+  end
+  if(linked('Columns'))
+    columnsExpr = d('Columns')
+  end
+  if(linked('Row'))
+    rowExpr = d('Row')
+  end
+  println('{ auto *', sourceName, ' = new HiasmStaticData(&form);')
+  println(sourceName, '->setObjectName(QStringLiteral("DS_UserData', _id_, '"));')
+  println(sourceName, '->open = [&form, ', sourceName, '] {')
+  println('const int userRowCount', _id_, ' = qMax(0, qt_text(', countExpr, ').toInt());')
+  event(onInit)
+  println(sourceName, '->load(qt_text(', columnsExpr, '), QString());')
+  println('for (int userRow', _id_, ' = 0; userRow', _id_, ' < userRowCount', _id_, '; ++userRow', _id_, ') {')
+  println('  QStringList cells;')
+  println('  if (!', sourceName, '->columns.isEmpty()) cells = qt_data_cells(', rowExpr, ');')
+  println('  cells.resize(', sourceName, '->columns.size());')
+  println('  ', sourceName, '->rows.append(std::move(cells));')
+  println('} };')
+  if(linked(onClose))
+    println(sourceName, '->close = [&form] {')
+    event(onClose)
+    println('};')
+  end
+  println('}')
+end

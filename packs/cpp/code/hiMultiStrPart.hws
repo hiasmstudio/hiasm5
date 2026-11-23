@@ -1,0 +1,67 @@
+func Char()
+  return(cstr(get('Char')))
+end
+
+func Item(index)
+  return('hiasm_str_state(' && _id_ && ' * 100 + ' && index && ')')
+end
+
+func Remainder()
+  return(Item(0))
+end
+
+func DirectSplit(_data)
+  if(get('Direct') == 1)
+    return('[](const std::string &s, const std::string &d) { std::vector<std::string> out; auto base = hiasm_str_split(s, d); if(!base.empty()) out.push_back(base.back()); for(std::size_t i = base.size() - 1; i > 0; --i) out.push_back(base[i - 1]); return out; }(std::string(' && _data && '), std::string(' && Char() && '))')
+  else
+    return('hiasm_str_split(std::string(' && _data && '), std::string(' && Char() && '))')
+  end
+end
+
+func doSplit(_data)
+  println('{')
+  block.inclvl()
+  println('const auto hiasm_parts', _id_, ' = ', DirectSplit(_data), ';')
+  println('auto &hiasm_mem', _id_, ' = hiasm_str_list(', _id_, ');')
+  println('hiasm_mem', _id_, '.clear();')
+  println('const int hiasm_from', _id_, ' = std::max(0, ', get('From'), ');')
+  println('const std::size_t hiasm_total', _id_, ' = hiasm_parts', _id_, '.size();')
+  println('const std::size_t hiasm_last', _id_, ' = std::min(hiasm_parts', _id_, '.size(), static_cast<std::size_t>(hiasm_from', _id_, ' + std::max(1, ', get('Count'), ')));')
+  println('std::string hiasm_rest', _id_, ';')
+  println('for(std::size_t hiasm_i', _id_, ' = 0; hiasm_i', _id_, ' < hiasm_parts', _id_, '.size(); ++hiasm_i', _id_, ') {')
+  block.inclvl()
+  println('if(hiasm_i', _id_, ' >= static_cast<std::size_t>(hiasm_from', _id_, ') && hiasm_i', _id_, ' < hiasm_last', _id_, ') {')
+  block.inclvl()
+  println('hiasm_mem', _id_, '.push_back(hiasm_parts', _id_, '[hiasm_i', _id_, ']);')
+  block.declvl()
+  println('} else {')
+  block.inclvl()
+  println('if(!hiasm_rest', _id_, '.empty()) hiasm_rest', _id_, ' += std::string(', Char(), ');')
+  println('hiasm_rest', _id_, ' += hiasm_parts', _id_, '[hiasm_i', _id_, '];')
+  block.declvl()
+  println('}')
+  block.declvl()
+  println('}')
+  println('hiasm_str_state(', _id_, ' * 100) = hiasm_rest', _id_, ';')
+  println('for(std::size_t hiasm_i', _id_, ' = 0; hiasm_i', _id_, ' < hiasm_mem', _id_, '.size(); ++hiasm_i', _id_, ') hiasm_str_state(', _id_, ' * 100 + 1 + static_cast<int>(hiasm_i', _id_, ')) = hiasm_mem', _id_, '[hiasm_i', _id_, '];')
+  event(onSplit, 'hiasm_str_state(' && _id_ && ' * 100)')
+  block.declvl()
+  println('}')
+end
+
+func Part(_index)
+  fvar(i)
+  i = 1
+  while(i <= get('Count'))
+    if(_index == (i - 1))
+      return(Item(i))
+    end
+    i = i + 1
+  end
+  return('std::string()')
+end
+
+func doClear(_data)
+  println('hiasm_str_list(', _id_, ').clear();')
+  println('hiasm_str_state(', _id_, ' * 100) = std::string(', Char(), ');')
+end

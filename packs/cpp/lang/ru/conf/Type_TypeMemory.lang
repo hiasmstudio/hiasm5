@@ -1,0 +1,7 @@
+Completely copies the type into the component's memory=Полностью копирует тип в память компонента
+Copies the type into the component's memory=Копирует тип в память компонента
+Completely removes a type from the component's memory=Полностью удаляет тип из памяти компонента
+The event occurs after the type is copied into the component's memory=Событие происходит после копирования типа в память компонента
+The event occurs when an error occurs and outputs its code to the streamARG(err_code,info)=Событие происходит при возникновении ошибки и выдает ее код в потокARG(err_code,info)
+Defines the type to be copied into memory=Определяет тип для копирования в память
+Contains copied type=Содержит скопированный тип

@@ -87,6 +87,8 @@ class SDK {
 		 * @param y top offset
 		 */
 		Element *add(const ustring &name, gdouble x, gdouble y);
+        // Refuse replacements that would drop user properties, hints, or connections.
+        bool replaceElement(int id, const ustring &name, ustring &error);
 		/**
 		 * Draw SDK
 		 * @param dc cairo context for drawing operation
@@ -212,6 +214,7 @@ class MSDK : public SDK {
 		ustring info;		/**< user information about this scheme */
 		ustring fileName;	/**< name of loaded file */
 		SDK_Lib sdkLib;		/**< list of linked elements */
+		bool showLinkHints = true; /**< editor view state; never serialized */
 
 		Event on_run_state;	/**< emit when call run() or stop() methods */
 
@@ -230,6 +233,9 @@ class MSDK : public SDK {
 		 * @return true if done, false - error
 		 */
 		bool loadFromFile(const ustring &file_name);
+        // Core documents without an internal form entry are editor lessons.
+        bool isCoreDocument() const;
+        bool isInstalledCoreScheme() const;
 		/**
 		 * Get dir of current project
 		 * @return path to project dir

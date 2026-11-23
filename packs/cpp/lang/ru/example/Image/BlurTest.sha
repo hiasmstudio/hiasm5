@@ -1,0 +1,122 @@
+*Демонстрация работы графических фильтров Blur и Negative.#13#10(для быстрого теста нажмите кнопку Print Screen)
+Make(cpp)
+Add(MainForm,71085,28,161)
+{
+ Left=96
+ Top=87
+ Width=764
+ Height=457
+ Caption="Filters test"
+}
+Add(HubEx,16714778,140,105)
+{
+ link(onEvent,4434340:doLoad,[])
+}
+Add(ClipboardHook,92140,175,161)
+{
+ link(onBitmap,37620:doEvent2,[(215,174)(215,132)])
+}
+Add(ODialog,5049552,91,112)
+{
+ Filter="*.bmp|*.bmp"
+ link(onExecute,16714778:doWork2,[])
+}
+Add(Image,85720,406,210)
+{
+ Left=5
+ Top=5
+ Width=370
+ Height=370
+}
+Add(If_else,40540,301,119)
+{
+ Op2=Integer(1)
+ link(onTrue,47516:doBlur,[(344,125)(344,83)])
+ link(onFalse,53798:doCompare,[])
+ link(Op1,62002:Selected,[])
+}
+Add(Button,53888,28,112)
+{
+ Left=335
+ Top=390
+ Width=95
+ Height=35
+ Font=[Arial,8,0,0,1]
+ TabOrder=-1
+ Caption="Open"
+ link(onClick,5049552:doExecute,[])
+}
+Add(Hub,37620,238,119)
+{
+ InCount=2
+ link(onEvent1,40540:doCompare,[])
+ link(onEvent2,85720:doLoad,[(288,132)(288,216)])
+}
+Add(PBlur,47516,406,77)
+{
+ Step=1
+ link(onBlur,25708:doEvent1,[(453,83)(453,125)])
+}
+Add(DropFile,97222,91,161)
+{
+ link(onDropFile,16714778:doWork3,[(144,167)])
+}
+Add(RadioButton,31483,406,35)
+{
+ Left=135
+ Top=380
+ Width=125
+ Font=[Arial,8,0,0,1]
+ Caption="Резкость(Sharpened)"
+}
+Add(Hub,25708,469,119)
+{
+ InCount=3
+ OutCount=1
+ link(onEvent1,26014:doLoad,[])
+}
+Add(Sharpened,43563,406,168)
+{
+ link(onResult,25708:doEvent3,[(453,174)(453,139)])
+}
+Add(RadioButton,62002,301,35)
+{
+ Left=10
+ Top=380
+ Width=110
+ Font=[Arial,8,0,0,1]
+ Selected=0
+ Caption="Размытие(Blur)"
+}
+Add(If_else,53798,350,126)
+{
+ Op2=Integer(1)
+ link(onTrue,48478:doNegative,[])
+ link(onFalse,43563:doSharpened,[(394,139)(394,174)])
+ link(Op1,85640:Selected,[])
+}
+Add(RadioButton,85640,350,35)
+{
+ Left=10
+ Top=400
+ Width=115
+ Font=[Arial,8,0,0,1]
+ Caption="Негатив(Negative)"
+}
+Add(Negative,48478,406,126)
+{
+ link(onResult,25708:doEvent2,[])
+}
+Add(Image,26014,525,119)
+{
+ Left=380
+ Top=5
+ Width=370
+ Height=370
+}
+Add(ImageLoader,4434340,175,112)
+{
+ DrawSource=2
+ link(onLoad,4434340:doDraw,[(219,118)(219,96)(163,96)(163,125)])
+ link(onDraw,37620:doEvent1,[])
+}

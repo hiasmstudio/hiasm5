@@ -1,0 +1,179 @@
+*Работа с двоичными файлами
+Make(cpp)
+Add(MainForm,1225,21,105)
+{
+ Left=382
+ Top=309
+ Width=261
+ Height=151
+}
+Add(Button,64489,98,105)
+{
+ Left=25
+ Top=40
+ Hint="Записать данные в файл"
+ Font=[Times New Roman,9,0,0,1]
+ Caption="save"
+ link(onClick,20656:doEvent1,[])
+}
+Add(CheckBox,74296,364,238)
+{
+ Left=165
+ Top=55
+ Width=15
+ Font=[Times New Roman,9,0,0,1]
+ Caption=""
+}
+Add(CheckBox,31342,364,49)
+{
+ Left=165
+ Top=15
+ Width=15
+ Font=[Times New Roman,9,0,0,1]
+ Caption=""
+}
+Add(CheckBox,31969,252,49)
+{
+ Left=125
+ Top=15
+ Width=15
+ Font=[Times New Roman,9,0,0,1]
+ Caption=""
+}
+Add(CheckBox,41729,308,49)
+{
+ Left=145
+ Top=15
+ Width=15
+ Font=[Times New Roman,9,0,0,1]
+ Caption=""
+}
+Add(CheckBox,54880,252,147)
+{
+ Left=125
+ Top=35
+ Width=15
+ Font=[Times New Roman,9,0,0,1]
+ Caption=""
+}
+Add(CheckBox,592,308,147)
+{
+ Left=145
+ Top=35
+ Width=15
+ Font=[Times New Roman,9,0,0,1]
+ Caption=""
+}
+Add(CheckBox,90429,364,147)
+{
+ Left=165
+ Top=35
+ Width=15
+ Font=[Times New Roman,9,0,0,1]
+ Caption=""
+}
+Add(CheckBox,88167,308,238)
+{
+ Left=145
+ Top=55
+ Width=15
+ Font=[Times New Roman,9,0,0,1]
+ Caption=""
+}
+Add(CheckBox,3042,252,238)
+{
+ Left=125
+ Top=55
+ Width=15
+ Font=[Times New Roman,9,0,0,1]
+ Caption=""
+}
+Add(Button,36255,420,70)
+{
+ Left=25
+ Top=60
+ Hint="Закрыть файл"
+ Font=[Times New Roman,9,0,0,1]
+ Caption="close"
+ link(onClick,54924:doClose,[])
+}
+Add(MathParse,58977,301,105)
+{
+ @Hint=#38:Формирование двоичного числа от 0 до 7|
+ DataCount=3
+ MathStr="%1 +  %2*2 + %3*4"
+ ResultType=0
+ link(onResult,5035:doEvent1,[])
+ link(X1,31969:Checked,[(307,93)(258,93)])
+ link(X2,41729:Checked,[])
+ link(X3,31342:Checked,[(321,93)(370,93)])
+}
+Add(Hub,20656,161,105)
+{
+ OutCount=3
+ link(onEvent1,58977:doCalc,[])
+ link(onEvent2,29733:doCalc,[(235,118)(235,202)])
+ link(onEvent3,25707:doCalc,[(220,125)(220,307)])
+}
+Add(Hub,5035,455,105)
+{
+ InCount=3
+ OutCount=1
+ link(onEvent1,15383:doOperation,[])
+}
+Add(MathParse,25707,301,301)
+{
+ @Hint=#38:Формирование двоичного числа от 0 до 7|
+ DataCount=3
+ MathStr="%1 +  %2*2 + %3*4"
+ ResultType=0
+ link(onResult,5035:doEvent3,[(415,307)(415,125)])
+ link(X1,3042:Checked,[(307,286)(258,286)])
+ link(X2,88167:Checked,[])
+ link(X3,74296:Checked,[(321,286)(370,286)])
+}
+Add(MathParse,29733,301,196)
+{
+ @Hint=#38:Формирование двоичного числа от 0 до 7|
+ DataCount=3
+ MathStr="%1 +  %2*2 + %3*4"
+ ResultType=0
+ link(onResult,5035:doEvent2,[(403,202)(403,118)])
+ link(X1,54880:Checked,[(307,188)(258,188)])
+ link(X2,592:Checked,[])
+ link(X3,90429:Checked,[(321,188)(370,188)])
+}
+Add(DataToFile,86012,574,105)
+{
+ link(Stream,54924:Stream,[])
+}
+Add(Edit,67751,574,14)
+{
+ Left=25
+ Top=100
+ Width=215
+ Height=21
+ Font=[Times New Roman,9,0,0,1]
+ Text="c:\\test.txt"
+}
+Add(Button,16503,420,21)
+{
+ Left=25
+ Top=20
+ Hint="Открыть файл для записи"
+ Font=[Times New Roman,9,0,0,1]
+ Caption="open"
+ link(onClick,54924:doOpen,[(527,27)(527,69)])
+}
+Add(FileStream,54924,574,63)
+{
+ Mode=1
+ link(FileName,67751:Text,[])
+}
+Add(Math,15383,504,105)
+{
+ @Hint=#56:Перевод числа для возможности просмотра файла в блокноте|
+ Op2=48
+ ResultType=0
+ link(onResult,86012:doPut,[])
+}

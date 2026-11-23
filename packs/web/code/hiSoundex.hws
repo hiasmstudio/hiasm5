@@ -1,0 +1,17 @@
+func doSoundex(_data)
+  if(linked(Result))
+    println(rslt, ' = soundex(', Value, ');')
+    event(onSoundex, rslt)
+  else
+    event(onSoundex, 'soundex(' && Value && ')')
+  end 
+end
+
+func Result()
+  if(linked(doSoundex))
+    return(rslt)
+  else
+    return('soundex(' && Value && ')')
+  end
+end
+

@@ -1,0 +1,7 @@
+Interface element=Элемент интерфейса
+Dynamic resizing of an element on a form during program execution=Динамическое изменение размеров элемента на форме во время выполнения программы
+Determines the appearance of the splitter (or lack thereof)=Определяет внешний вид cплиттера (или его отсутствие)
+Splitter size=Размер Splitter-а
+Splitter color=Цвет Splitter-а
+Minimum size resulting from reduction=Минимальный размер, получающийся при уменьшении
+Minimum size remaining in the parent window when enlarged=Минимальный размер, остающийся в родительском окне при увеличении

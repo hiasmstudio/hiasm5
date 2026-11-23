@@ -1,0 +1,18 @@
+func doRead(_data)
+  fvar(s)
+  s = Array && '[' && Index && ']'
+  if(linked(Item))
+    println(arr_val, ' = ', s, ';')
+    event(onRead, arr_val)
+  else
+    event(onRead, s)
+  end
+end
+
+func Item
+  if(linked(doRead))
+    return(arr_val)
+  else
+    return(Array && '[' && Index && ']')
+  end
+end

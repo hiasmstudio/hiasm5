@@ -1,0 +1,790 @@
+*ѕример работы StringTableMT с внешними  контролами в режиме TabGtrid
+Make(cpp)
+Add(MainForm,14059777,28,98)
+{
+ Left=10
+ Top=10
+ Width=420
+ Height=265
+ Ctl3D=0
+ Caption="Example"
+ Position=1
+ link(onCreate,8724013:doValue,[])
+}
+Add(LineBreakEx,6197563,511,497)
+{
+ Caption="Cell"
+ Type=2
+}
+Add(MultiElementEx,14516440,609,371)
+{
+ link(onEvent,8747443:doWork,[])
+}
+BEGIN_SDK
+  Add(EditMultiEx,6305113,21,21)
+  {
+   WorkCount=#7:doEvent|
+   EventCount=#7:onEvent|
+   Width=167
+   Height=123
+   link(doEvent,6241665:doEvent,[(35,27)(35,83)])
+  }
+  Add(IndexToChanel,6241665,49,77)
+  {
+   link(onEvent1,6822189:doData,[(89,83)(89,55)])
+   link(onEvent2,8827569:doData,[])
+  }
+  Add(DoData,6822189,98,49)
+  {
+   Data=String(False)
+   link(onEventData,6076615:doWork1,[(144,55)])
+  }
+  Add(HubEx,6076615,140,77)
+  {
+   link(onEvent,6305113:onEvent,[(169,90)(169,27)])
+  }
+  Add(DoData,8827569,98,84)
+  {
+   Data=String(True)
+   link(onEventData,6076615:doWork2,[])
+  }
+END_SDK
+Add(MultiElementEx,866868,511,560)
+{
+ link(OutData,5354186:doData,[(555,566)(555,548)(499,548)(499,531)])
+ link(hLeft,3501412:doLeft,[])
+ link(hTop,3501412:doTop,[])
+ link(hWidth,3501412:doWidth,[])
+ link(Visible,3501412:doVisible,[])
+ link(BringToFront,3501412:doBringToFront,[])
+ link(SetData,12464873:doData,[(562,629)(562,636)])
+ link(SetTableFocus,2092162:doWork,[(559,636)(559,671)])
+}
+BEGIN_SDK
+  Add(EditMultiEx,13264431,21,21)
+  {
+   WorkCount=#7:MT_Data|5:KeyUp|7:EscCell|7:onEnter|
+   EventCount=#7:OutData|5:hLeft|4:hTop|6:hWidth|7:hHeight|7:Visible|8:SetFocus|12:BringToFront|8:Position|7:SetData|13:SetTableFocus|
+   Width=391
+   Height=277
+   link(MT_Data,6220925:doEvent1,[(56,27)(56,41)])
+   link(KeyUp,1777653:doCase,[(75,34)(75,237)])
+   link(EscCell,13101722:doWork2,[(48,41)(48,202)])
+   link(onEnter,15492628:doEvent1,[(59,48)(59,174)])
+  }
+  Add(MT_Get,2382797,203,112)
+  {
+   link(onData,4670381:doGet,[(247,118)(247,136)(191,136)(191,153)])
+   link(onGet,13264431:hWidth,[(280,125)(280,48)])
+  }
+  Add(MT_Get,4670381,203,147)
+  {
+   link(onGet,13264431:hHeight,[(323,160)(323,55)])
+  }
+  Add(MT_Get,12566475,203,77)
+  {
+   link(onData,2382797:doGet,[(247,83)(247,101)(191,101)(191,118)])
+   link(onGet,13264431:hTop,[(280,90)(280,41)])
+  }
+  Add(MT_Get,528165,203,42)
+  {
+   link(onData,12566475:doGet,[(247,48)(247,66)(191,66)(191,83)])
+   link(onGet,13264431:hLeft,[(280,55)(280,34)])
+  }
+  Add(Hub,6220925,91,35)
+  {
+   OutCount=5
+   link(onEvent1,13264431:OutData,[(250,41)(250,27)])
+   link(onEvent2,528165:doGet,[])
+   link(onEvent3,13264431:SetFocus,[(267,55)(267,69)])
+   link(onEvent4,13264431:BringToFront,[(267,62)(267,76)])
+   link(onEvent5,11234906:doData,[])
+  }
+  Add(Case,1777653,203,231)
+  {
+   Value=Integer(27)
+   DataOnTrue=Integer(0)
+   link(onTrue,7950987:doEvent1,[])
+  }
+  Add(DoData,14327129,203,196)
+  {
+   Data=Integer(0)
+   link(onEventData,16696880:doWork2,[])
+  }
+  Add(Hub,7950987,259,238)
+  {
+   link(onEvent1,16696880:doWork3,[(354,244)])
+   link(onEvent2,13264431:SetTableFocus,[(379,251)(379,97)])
+  }
+  Add(HubEx,16696880,350,189)
+  {
+   Angle=3
+   link(onEvent,13264431:Visible,[(354,62)])
+  }
+  Add(HubEx,13101722,154,189)
+  {
+   link(onEvent,14327129:doData,[])
+  }
+  Add(DoData,11234906,144,63)
+  {
+   Data=Integer(0)
+   link(onEventData,13264431:Position,[(294,69)(294,83)])
+  }
+  Add(Hub,15492628,98,168)
+  {
+   link(onEvent1,13264431:SetData,[(271,174)(271,90)])
+   link(onEvent2,13101722:doWork1,[(158,181)])
+  }
+END_SDK
+Add(LineBreakEx,3516870,560,175)
+{
+ Caption="SetFocus"
+}
+Add(Edit,8944797,560,84)
+{
+ Left=10
+ Top=260
+ Width=85
+ Color=-16777192
+ Font=[MS Sans Serif,12,1,0,1]
+ Visible=1
+ Ctl3D=1
+ Text=""
+ Point(doLeft)
+ Point(doTop)
+ Point(doWidth)
+ Point(doHeight)
+ Point(doVisible)
+ Point(doSetFocus)
+ Point(doBringToFront)
+ Point(onKeyUp)
+ Point(doPosition)
+ link(onEnter,10463855:onEnter,[(604,97)(604,107)(492,107)(492,118)])
+ link(Str,1347128:getVar,[])
+ link(onKeyUp,10463855:KeyUp,[(604,104)(604,92)(492,92)(492,104)])
+}
+Add(MultiElementEx,457242,511,301)
+{
+ link(onEvent2,645625:doCaption,[(555,307)(555,391)])
+ link(onIndex,645625:doCheck,[(555,314)(555,342)])
+ link(Data,1964947:getVar,[])
+}
+BEGIN_SDK
+  Add(EditMultiEx,8409850,21,21)
+  {
+   WorkCount=#6:doData|
+   EventCount=#8:onEvent2|7:onIndex|
+   DataCount=#4:Data|
+   Height=95
+   link(doData,11024678:doData,[(35,27)(35,55)])
+  }
+  Add(Hub,11564246,91,49)
+  {
+   link(onEvent1,13220328:doCase,[])
+   link(onEvent2,8409850:onEvent2,[(222,62)(222,27)])
+  }
+  Add(HubEx,9756245,224,56)
+  {
+   link(onEvent,9026172:doWork1,[])
+  }
+  Add(ChanelToIndex,9026172,245,63)
+  {
+   link(onIndex,8409850:onIndex,[(299,69)(299,34)])
+  }
+  Add(DoData,11024678,49,49)
+  {
+   link(onEventData,11564246:doEvent1,[])
+   link(Data,8409850:Data,[(55,35)(27,35)])
+  }
+  Add(Case,13220328,140,49)
+  {
+   Value=String(False)
+   link(onNextCase,13489195:doCase,[])
+   link(onTrue,9756245:doWork2,[(188,62)(188,69)])
+  }
+  Add(Case,13489195,182,49)
+  {
+   Value=String(True)
+   link(onNextCase,9756245:doWork1,[(228,55)])
+   link(onTrue,9026172:doWork2,[(223,62)(223,76)])
+  }
+END_SDK
+Add(LineBreakEx,1417514,623,630)
+{
+ Caption="SetData"
+}
+Add(StringTableMT,14706494,161,210)
+{
+ Left=10
+ Top=10
+ Width=390
+ Height=190
+ Font=[MS Sans Serif,12,1,0,1]
+ Columns=#5:Check|8:Edit=132|5:Combo|
+ Flat=1
+ TabGrid=0
+ TabGridFrame=0
+ TableWBreak=0
+ Gradient=0
+ HeaderDragDrop=0
+ TextColor=128
+ GradientColor=-16777213
+ IconsCheck=[]
+ MiscIcons=[]
+ Icons=[]
+ StringsStrLst=#29:True;sdfsdf utyuyt popo;aaaaa|18:False;fzsdfzs;bbbb|17:False;sdfszz;cccc|17:True;sdfszz;ddddd|17:True;sdfszz;eeeee|18:False;sdfszz;fffff|18:False;fzsdfzs;gggg|17:False;sdfszz;hhhh|18:True;fzsdfzs;iiiii|18:True;sdfszz;jjjjjj|
+ AutoTblStrLst=0
+ Point(Index)
+ Point(SubItem)
+ Point(Cell)
+ Point(doTabGrid)
+ Point(doTabGridFrame)
+ Point(doGradient)
+ Point(doSingleString)
+ Point(doGradientColor)
+ Point(GenColors_MT)
+ Point(onMT_CellClick)
+ Point(Matrix)
+ Point(doSetFocus)
+ Point(onEscCell)
+ link(onMT_CellClick,3579290:doEvent,[])
+ link(onEscCell,5492443:doWork,[(224,230)(224,258)])
+}
+Add(LineBreakEx,2038226,84,420)
+{
+ Caption="SetData"
+ Type=1
+ link(OnEvent,7574571:doWrite,[])
+}
+Add(InfoTip,7316469,378,238)
+{
+ Info=#0:|8:CheckBox|
+ Font=[MS Sans Serif,12,1,16711680,1]
+ Frame=3
+ Width=351
+ Height=221
+}
+Add(MultiElementEx,10463855,504,91)
+{
+ link(OutData,8944797:doText2,[])
+ link(hLeft,8944797:doLeft,[])
+ link(hTop,8944797:doTop,[])
+ link(hWidth,8944797:doWidth,[])
+ link(hHeight,8944797:doHeight,[])
+ link(Visible,8944797:doVisible,[])
+ link(SetFocus,8944797:doSetFocus,[])
+ link(BringToFront,8944797:doBringToFront,[])
+ link(Position,8944797:doPosition,[])
+ link(SetData,12048896:doWork,[(548,160)(548,167)])
+ link(SetTableFocus,3516870:doWork,[(548,167)(548,181)])
+ link(NextEscCell,14836581:doWork,[(548,174)(548,195)])
+}
+BEGIN_SDK
+  Add(EditMultiEx,13264431,21,21)
+  {
+   WorkCount=#7:MT_Data|5:KeyUp|7:EscCell|7:onEnter|
+   EventCount=#7:OutData|5:hLeft|4:hTop|6:hWidth|7:hHeight|7:Visible|8:SetFocus|12:BringToFront|8:Position|7:SetData|13:SetTableFocus|11:NextEscCell|
+   Width=391
+   Height=270
+   link(MT_Data,6220925:doEvent1,[(56,27)(56,41)])
+   link(KeyUp,1777653:doCase,[(75,34)(75,237)])
+   link(EscCell,16665400:doEvent1,[(59,41)(59,139)])
+   link(onEnter,15492628:doEvent1,[(59,48)(59,195)])
+  }
+  Add(MT_Get,2382797,203,112)
+  {
+   link(onData,4670381:doGet,[(247,118)(247,136)(191,136)(191,153)])
+   link(onGet,13264431:hWidth,[(280,125)(280,48)])
+  }
+  Add(MT_Get,4670381,203,147)
+  {
+   link(onGet,13264431:hHeight,[(323,160)(323,55)])
+  }
+  Add(MT_Get,12566475,203,77)
+  {
+   link(onData,2382797:doGet,[(247,83)(247,101)(191,101)(191,118)])
+   link(onGet,13264431:hTop,[(280,90)(280,41)])
+  }
+  Add(MT_Get,528165,203,42)
+  {
+   link(onData,12566475:doGet,[(247,48)(247,66)(191,66)(191,83)])
+   link(onGet,13264431:hLeft,[(280,55)(280,34)])
+  }
+  Add(Hub,6220925,91,35)
+  {
+   OutCount=5
+   link(onEvent1,13264431:OutData,[(250,41)(250,27)])
+   link(onEvent2,528165:doGet,[])
+   link(onEvent3,13264431:SetFocus,[(267,55)(267,69)])
+   link(onEvent4,13264431:BringToFront,[(267,62)(267,76)])
+   link(onEvent5,11234906:doData,[])
+  }
+  Add(Case,1777653,203,231)
+  {
+   Value=Integer(27)
+   DataOnTrue=Integer(0)
+   link(onTrue,7950987:doEvent1,[])
+  }
+  Add(DoData,14327129,203,196)
+  {
+   Data=Integer(0)
+   link(onEventData,16696880:doWork2,[])
+  }
+  Add(Hub,7950987,259,238)
+  {
+   link(onEvent1,16696880:doWork3,[(354,244)])
+   link(onEvent2,13264431:SetTableFocus,[(368,251)(368,97)])
+  }
+  Add(HubEx,16696880,350,189)
+  {
+   Angle=3
+   link(onEvent,13264431:Visible,[(354,62)])
+  }
+  Add(HubEx,14640009,168,189)
+  {
+   link(onEvent,14327129:doData,[])
+  }
+  Add(DoData,11234906,144,63)
+  {
+   Data=Integer(0)
+   link(onEventData,13264431:Position,[(294,69)(294,83)])
+  }
+  Add(Hub,15492628,98,189)
+  {
+   link(onEvent1,13264431:SetData,[(271,195)(271,90)])
+   link(onEvent2,14640009:doWork2,[])
+  }
+  Add(Hub,16665400,98,133)
+  {
+   link(onEvent1,14640009:doWork1,[(172,139)])
+   link(onEvent2,13264431:NextEscCell,[(271,146)(271,104)])
+  }
+END_SDK
+Add(Button,10475814,28,161)
+{
+ Left=5
+ Top=205
+ Width=75
+ TabOrder=-1
+ Caption="TabGrid"
+ link(onClick,7450025:doSwitch,[])
+}
+Add(Button,11010609,28,196)
+{
+ Left=85
+ Top=205
+ Width=75
+ TabOrder=-1
+ Caption="TabGridFrame"
+ link(onClick,14006697:doSwitch,[])
+}
+Add(Switch,14006697,77,196)
+{
+ DataOn=Integer(1)
+ DataOff=Integer(0)
+ Default=0
+ link(onSwitch,14706494:doTabGridFrame,[(135,202)(135,258)])
+}
+Add(Switch,7450025,77,161)
+{
+ DataOn=Integer(1)
+ DataOff=Integer(0)
+ Default=0
+ link(onSwitch,14706494:doTabGrid,[(135,167)(135,251)])
+}
+Add(Button,4383596,28,231)
+{
+ Left=165
+ Top=205
+ Width=75
+ TabOrder=-1
+ Caption="Gradient"
+ link(onClick,11428156:doSwitch,[])
+}
+Add(Switch,11428156,77,231)
+{
+ DataOn=Integer(1)
+ DataOff=Integer(0)
+ Default=0
+ link(onSwitch,14706494:doGradient,[(135,237)(135,265)])
+}
+Add(Button,8533939,28,266)
+{
+ Left=325
+ Top=205
+ Width=75
+ TabOrder=-1
+ Caption="SingleString"
+ link(onClick,1406174:doSwitch,[])
+}
+Add(Switch,1406174,77,266)
+{
+ DataOn=Integer(1)
+ DataOff=Integer(0)
+ link(onSwitch,14706494:doSingleString,[])
+}
+Add(Button,6758889,28,301)
+{
+ Left=245
+ Top=205
+ Width=75
+ TabOrder=-1
+ Caption="GradientColor"
+ link(onClick,5994120:doOpen,[])
+}
+Add(MT_MultiMem,8724013,77,112)
+{
+ Count=5
+ Point(Data)
+ link(Data,14041054:getVar,[])
+}
+Add(ColorDialog,5994120,105,301)
+{
+ link(onSelect,14706494:doGradientColor,[(143,307)(143,279)])
+ link(Color,8724013:Value5,[])
+}
+Add(LineBreakEx,1964947,511,273)
+{
+ Caption="Cell"
+ Type=2
+}
+Add(LineBreakEx,5492443,280,252)
+{
+ Caption="EscCell"
+}
+Add(LineBreakEx,1347128,560,56)
+{
+ Caption="Cell"
+ Type=2
+}
+Add(LineBreakEx,16159683,189,343)
+{
+ Caption="Cell"
+ Type=3
+ link(_Data,14706494:Cell,[])
+}
+Add(DoData,12464873,574,630)
+{
+ link(onEventData,1417514:doWork,[])
+ link(Data,3501412:String,[])
+}
+Add(CheckBox,645625,567,336)
+{
+ Left=10
+ Top=260
+ Width=85
+ Color=-16777192
+ Font=[MS Sans Serif,12,1,0,1]
+ TabOrder=-1
+ Point(doLeft)
+ Point(doTop)
+ Point(doWidth)
+ Point(doHeight)
+ Point(doVisible)
+ Point(doBringToFront)
+ Point(onKeyUp)
+ Point(doCaption)
+ link(onCheck,3938954:onEnter,[(611,342)(611,352)(499,352)(499,363)])
+ link(onKeyUp,3938954:KeyUp,[(611,349)(611,337)(499,337)(499,349)])
+}
+Add(LineBreakEx,8747443,658,371)
+{
+ Caption="SetData"
+}
+Add(LineBreakEx,14041054,77,84)
+{
+ Caption="Gen_Colors"
+ Type=2
+}
+Add(DoData,5354186,511,525)
+{
+ link(onEventData,3501412:doSelectString,[(555,531)(555,608)])
+ link(Data,6197563:getVar,[])
+}
+Add(LineBreakEx,3442475,196,364)
+{
+ Caption="Gen_Colors"
+ Type=3
+ link(_Data,14706494:GenColors_MT,[])
+}
+Add(LineBreakEx,15842762,280,210)
+{
+ Caption="MT_Data_1"
+}
+Add(MatrixRW,7574571,154,413)
+{
+ link(Matrix,14706494:Matrix,[(160,351)(209,351)])
+ link(X,2230359:getVar,[])
+ link(Y,14706494:Index,[])
+}
+Add(MultiElementEx,3938954,511,336)
+{
+ link(OutData,457242:doData,[(555,342)(555,324)(499,324)(499,307)])
+ link(hLeft,645625:doLeft,[])
+ link(hTop,645625:doTop,[])
+ link(hWidth,645625:doWidth,[])
+ link(hHeight,645625:doHeight,[])
+ link(Visible,645625:doVisible,[])
+ link(BringToFront,645625:doBringToFront,[(555,391)(555,384)])
+ link(SetData,14516440:doEvent,[(578,405)(578,377)])
+ link(SetTableFocus,4165332:doWork,[])
+ link(NextEscCell,6367634:doWork,[(555,419)(555,426)])
+}
+BEGIN_SDK
+  Add(EditMultiEx,13264431,21,21)
+  {
+   WorkCount=#7:MT_Data|5:KeyUp|7:EscCell|7:onEnter|
+   EventCount=#7:OutData|5:hLeft|4:hTop|6:hWidth|7:hHeight|7:Visible|8:SetFocus|12:BringToFront|8:Position|7:SetData|13:SetTableFocus|11:NextEscCell|
+   Width=391
+   Height=263
+   link(MT_Data,6220925:doEvent1,[(56,27)(56,41)])
+   link(KeyUp,1777653:doCase,[(75,34)(75,237)])
+   link(EscCell,341937:doEvent1,[(59,41)(59,139)])
+   link(onEnter,15492628:doEvent1,[(59,48)(59,195)])
+  }
+  Add(MT_Get,2382797,203,112)
+  {
+   link(onData,4670381:doGet,[(247,118)(247,136)(191,136)(191,153)])
+   link(onGet,8134628:doOperation,[])
+  }
+  Add(MT_Get,4670381,203,147)
+  {
+   link(onGet,14006946:doOperation,[])
+  }
+  Add(MT_Get,12566475,203,77)
+  {
+   link(onData,2382797:doGet,[(247,83)(247,101)(191,101)(191,118)])
+   link(onGet,16197283:doOperation,[])
+  }
+  Add(MT_Get,528165,203,42)
+  {
+   link(onData,12566475:doGet,[(247,48)(247,66)(191,66)(191,83)])
+   link(onGet,3620842:doOperation,[])
+  }
+  Add(Hub,6220925,91,35)
+  {
+   OutCount=5
+   link(onEvent1,13264431:OutData,[(250,41)(250,27)])
+   link(onEvent2,528165:doGet,[])
+   link(onEvent3,13264431:SetFocus,[(267,55)(267,69)])
+   link(onEvent4,13264431:BringToFront,[(267,62)(267,76)])
+   link(onEvent5,11234906:doData,[])
+  }
+  Add(Case,1777653,203,231)
+  {
+   Value=Integer(27)
+   DataOnTrue=Integer(0)
+   link(onTrue,7950987:doEvent1,[])
+  }
+  Add(DoData,14327129,203,196)
+  {
+   Data=Integer(0)
+   link(onEventData,16696880:doWork2,[])
+  }
+  Add(Hub,7950987,259,238)
+  {
+   link(onEvent1,16696880:doWork3,[(354,244)])
+   link(onEvent2,13264431:SetTableFocus,[(379,251)(379,97)])
+  }
+  Add(HubEx,16696880,350,189)
+  {
+   Angle=3
+   link(onEvent,13264431:Visible,[(354,62)])
+  }
+  Add(HubEx,9909078,168,189)
+  {
+   link(onEvent,14327129:doData,[])
+  }
+  Add(DoData,11234906,144,63)
+  {
+   Data=Integer(0)
+   link(onEventData,13264431:Position,[(294,69)(294,83)])
+  }
+  Add(Hub,15492628,98,189)
+  {
+   link(onEvent1,13264431:SetData,[(271,195)(271,90)])
+   link(onEvent2,9909078:doWork2,[])
+  }
+  Add(Hub,341937,98,133)
+  {
+   link(onEvent1,9909078:doWork1,[(172,139)])
+   link(onEvent2,13264431:NextEscCell,[(271,146)(271,104)])
+  }
+  Add(Math,3620842,256,49)
+  {
+   Op2=2
+   ResultType=0
+   link(onResult,13264431:hLeft,[(350,55)(350,34)])
+  }
+  Add(Math,16197283,256,84)
+  {
+   Op2=2
+   ResultType=0
+   link(onResult,13264431:hTop,[(350,90)(350,41)])
+  }
+  Add(Math,8134628,256,119)
+  {
+   OpType=1
+   Op2=4
+   ResultType=0
+   link(onResult,13264431:hWidth,[(350,125)(350,48)])
+  }
+  Add(Math,14006946,256,154)
+  {
+   OpType=1
+   Op2=4
+   ResultType=0
+   link(onResult,13264431:hHeight,[(350,160)(350,55)])
+  }
+END_SDK
+Add(LineBreakEx,3167286,231,182)
+{
+ Caption="SubItem"
+ Type=2
+}
+Add(LineBreakEx,1084485,28,336)
+{
+ Caption="SetFocus"
+ Type=1
+ link(OnEvent,14706494:doSetFocus,[(146,342)(146,286)])
+}
+Add(LineBreakEx,4165332,567,406)
+{
+ Caption="SetFocus"
+}
+Add(MT_IndexToChanel,3579290,231,217)
+{
+ Count=3
+ Point(Index)
+ link(onEvent1,15842762:doWork,[(271,223)(271,216)])
+ link(onEvent2,13130107:doWork,[])
+ link(onEvent3,11948546:doWork,[(271,237)(271,244)])
+ link(Index,3167286:getVar,[])
+}
+Add(LineBreakEx,12048896,560,161)
+{
+ Caption="SetData"
+}
+Add(ComboBox,3501412,567,525)
+{
+ Left=10
+ Top=260
+ Width=150
+ Height=21
+ Color=-16777192
+ Font=[MS Sans Serif,12,1,0,1]
+ Visible=1
+ Ctl3D=0
+ Strings=#5:aaaaa|4:bbbb|4:cccc|5:ddddd|5:eeeee|5:fffff|4:gggg|4:hhhh|5:iiiii|6:jjjjjj|
+ Text=""
+ ReadOnly=0
+ Point(doLeft)
+ Point(doTop)
+ Point(doWidth)
+ Point(doHeight)
+ Point(doVisible)
+ Point(onKeyUp)
+ Point(doSelectString)
+ Point(doBringToFront)
+ link(onClick,866868:onEnter,[(611,538)(611,562)(499,562)(499,587)])
+ link(onKeyUp,866868:KeyUp,[(611,545)(611,559)(499,559)(499,573)])
+}
+Add(LineBreakEx,14836581,560,189)
+{
+ Caption="NexrEscCell_1"
+}
+Add(LineBreakEx,6296065,392,350)
+{
+ Caption="NexrEscCell_1"
+ Type=1
+ link(OnEvent,3938954:EscCell,[])
+}
+Add(LineBreakEx,6367634,567,420)
+{
+ Caption="NexrEscCell_2"
+}
+Add(LineBreakEx,5588180,392,574)
+{
+ Caption="NexrEscCell_2"
+ Type=1
+ link(OnEvent,866868:EscCell,[])
+}
+Add(LineBreakEx,16750978,392,105)
+{
+ Caption="EscCell"
+ Type=1
+ link(OnEvent,10463855:EscCell,[])
+}
+Add(LineBreakEx,14840706,182,322)
+{
+ Caption="SubItem"
+ Type=3
+ link(_Data,14706494:SubItem,[])
+}
+Add(InfoTip,9605650,378,14)
+{
+ Info=#0:|4:Edit|
+ Font=[MS Sans Serif,12,1,255,1]
+ Frame=3
+ Width=351
+ Height=221
+}
+Add(LineBreakEx,2230359,168,385)
+{
+ Caption="SubItem"
+ Type=2
+}
+Add(LineBreakEx,2092162,574,665)
+{
+ Caption="SetFocus"
+}
+Add(InfoTip,14064710,378,462)
+{
+ Info=#0:|8:ComboBox|
+ Font=[MS Sans Serif,12,1,8421376,1]
+ Frame=3
+ Width=351
+ Height=228
+}
+Add(LineBreakEx,3854175,392,336)
+{
+ Caption="MT_Data_1"
+ Type=1
+ link(OnEvent,3938954:MT_Data,[])
+}
+Add(LineBreakEx,13130107,280,224)
+{
+ Caption="MT_Data_2"
+}
+Add(LineBreakEx,11523854,392,91)
+{
+ Caption="MT_Data_2"
+ Type=1
+ link(OnEvent,10463855:MT_Data,[])
+}
+Add(LineBreakEx,11948546,280,238)
+{
+ Caption="MT_Data_3"
+}
+Add(LineBreakEx,10628137,392,560)
+{
+ Caption="MT_Data_3"
+ Type=1
+ link(OnEvent,866868:MT_Data,[])
+}
+Add(InfoTip,13356219,14,14)
+{
+ Info=#0:|13:StringTableMT|32:режим: TabGrid с EditControl-ами|
+ Font=[MS Sans Serif,12,1,8388608,1]
+ Frame=3
+ Width=358
+ Height=445
+}
+Add(InfoTip,6538180,14,462)
+{
+ Info=#0:|329:в режиме TabGrid с EditControl-ами работают стрелки клавиатуры или выбор пункта мышью. ¬ход в режим редактировани€ -- либо Enter, либо F2, либо двойной клик мышью. ¬ыход -- либо ESC, либо любой Scroll, либо выбор любой другой €чейки мышью без применени€ редакции. ¬ режиме Edit, дл€ применени€ изменений, необходимо нажать Enter.|
+ Font=[MS Sans Serif,12,1,32768,1]
+ Frame=3
+ Width=358
+ Height=228
+}

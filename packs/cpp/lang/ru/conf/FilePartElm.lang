@@ -1,0 +1,6 @@
+File name split element=Элемент разделения полного имeни файла
+FilePath - get the path to the file, FileName - get the file name with extension, FileNameWOExt - get the file name without extension, FileExt - get the file extension with a dot, FileExtWOPoint - get the file extension without the dot, FileShort - get the short full file name=FilePath - получить путь к файлу, FileName - получить имя файла с расширением, FileNameWOExt - получить имя файла без расширения, FileExt - получить расширение файла с точкой, FileExtWOPoint - получить расширение файла без точки, FileShort - получить короткое полное имя файла
+Splits the full filename=Разбивает полное имя файла
+Outputs the result of splitting the full file name into the stream=Выдает в поток результат разделения полного имени файла
+Full file name=Полное имя файла
+Contains the result of splitting the full filename=Содержит результат разделения полного имени файла

@@ -1,0 +1,108 @@
+func init()
+  if(not isset(_FILE_TOOLS_))
+    gvar(_FILE_TOOLS_)
+    fvar(old)
+    old = block.select(BLK_HEAD)
+    println('function getNumFiles($path, $od) {')
+    println('  $c = 0;')
+    println('  $h = opendir($path);')
+    println('  while (false !== ($f = readdir($h)))')
+    println('    if($f != "." && $f != ".." && ($od == 0 && is_file($path."/".$f) || $od == 1 && is_dir($path."/".$f))) $c++;') 
+    println('  closedir($h);')
+    println('  return $c;')
+    println('}')
+    
+    println('function getFile($h, $path, $od) {')
+    println('  $f = readdir($h);') 
+    println('  if($f === false || $f != "." && $f != ".." && ($od == 0 && is_file($path."/".$f) || $od == 1 && is_dir($path."/".$f)))')
+    println('    return $f;')
+    println('  else return getFile($h, $path, $od);')
+    println('}')
+    
+    if(DataSet _and_ 2)
+      block.mergefrom(sys.codedir() + 'chmod_to_str.php')
+    end
+    block.select(old)
+  end
+end
+
+func ds_select(id, args)
+  fvar(s)
+  println(d + '_' + code(id) + ' = opendir(' + Path + ');')
+
+  println(c + '_' + code(id) + ' = getNumFiles(' + Path + ',' + OutData + ');')
+  if(_arr.mt_count(args) == 2)
+    s = _arr.mt_pop(args)
+    println('$c = ' + s + ';')
+    println('while($c--) getFile(' + d + '_' + code(id) + ',' + Path + ',' + OutData + ');')
+    println(c + '_' + code(id) + ' = min(' + args + ', ' + c + '_' + code(id) + ' - ' + s + ');')
+  else
+  end
+end
+
+func ds_insert(id)
+  // not support
+end
+
+func ds_update(id)
+  println('rename(' + Path + '.$_POST["id"], ' + Path + '.$_POST[' + ("name" + id) + ']);')
+  if(DataSet _and_ 2)
+    switch(ChmodFormat)
+      case 0:
+        println('chmod(' + Path + '.$_POST["id"], $_POST[' + ("chmod" + id) + ']);')
+      case 1:
+        println('chmod(' + Path + '.$_POST["id"], octdec($_POST[' + ("chmod" + id) + ']));')
+      case 2:
+        println('chmod(' + Path + '.$_POST["id"], str_to_chmod($_POST[' + ("chmod" + id) + ']));')
+    end
+  end
+
+  if(DataSet _and_ 4)
+    println('$h = fopen(' + Path + '.$_POST["id"], "w");')
+    println('fwrite($h, $_POST[' + ("data" + id) + ']);')
+    println('fclose($h);')
+  end
+end
+
+func ds_delete(id)
+  println('unlink(' + Path + '.$_POST["id"]);')
+end
+
+func ds_fetch(id)
+  fvar(f)
+  f = '$f' + code(id) 
+  println(f + ' = array();')
+  println('$fn = getFile(' + d + '_' + code(id) + ',' + Path + ',' + OutData + ');')
+  println(f + '["name"] = $fn;')
+  if(DataSet _and_ 1)
+    println(f + '["size"] = filesize(' + Path + '.$fn);')
+  end
+  if(DataSet _and_ 2)
+    switch(ChmodFormat)
+      case 0:
+        println(f + '["chmod"] = fileperms(' + Path + '.$fn);')
+      case 1:
+        println(f + '["chmod"] = substr(decoct(fileperms(' + Path + '.$fn)), -4);')
+      case 2:
+        println(f + '["chmod"] = chmod_to_str(' + Path + '.$fn);')
+    end
+  end
+  if(DataSet _and_ 4)
+    println('$h = fopen(' + Path + '.$fn, "r");')
+    println(f + '["data"] = fread($h, filesize(' + Path + '.$fn));')
+    println('fclose($h);')
+  end
+  println(f + '["id"] = $fn;')
+end
+
+func ds_allcount(id)
+  return('getNumFiles(' + Path + ',' + OutData +  ')')
+end
+
+func ds_count(id)
+  return(c + '_' + code(id))
+end
+
+func ds_use(state)
+  return(state != 1)
+end

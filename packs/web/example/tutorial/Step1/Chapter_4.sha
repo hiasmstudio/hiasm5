@@ -1,0 +1,171 @@
+*Chapter 4: HTML приложение с использованием стилей к отдельным элементам
+Make(web)
+Add(HtmlEntryPoint,16563582,21,105)
+{
+ link(onStart,8284333:doPrint,[])
+}
+Add(HTM_Html,8284333,77,105)
+{
+ link(onPrint,6847978:doEvent,[])
+}
+Add(Hub,6847978,133,105)
+{
+ link(onEvent1,2288322:doPrint,[])
+ link(onEvent2,763948:doPrint,[(177,118)(177,209)])
+}
+Add(HTM_Head,2288322,189,105)
+{
+ link(onPrint,13151932:doEvent,[])
+}
+Add(HTM_Body,763948,189,203)
+{
+ link(onPrint,4749107:doPrint,[])
+}
+Add(HTM_Title,10304836,301,105)
+{
+ link(onPrint,3973328:doPrint,[])
+}
+Add(VisualText,3973328,357,105)
+{
+ Lines=#50:Chapter 4: HTML приложение с использованием стилей|
+ Width=291
+ Point(doPrint)
+}
+Add(VisualText,13714669,301,203)
+{
+ Lines=#113:Теперь добавим стили для отдельных элементов нашего приложения: для текста сообщения и для одной ячейки в таблице|
+ Width=347
+ Height=32
+ Point(doPrint)
+}
+Add(HTM_Table,2786676,189,266)
+{
+ CellSpacing="1"
+ CellPadding="1"
+ link(onPrint,15520730:doEvent,[])
+}
+Add(Hub,15520730,245,266)
+{
+ link(onEvent1,16623277:doPrint,[])
+ link(onEvent2,15943196:doPrint,[(289,279)(289,370)])
+}
+Add(HTM_Tr,16623277,301,266)
+{
+ link(onPrint,7237345:doEvent,[])
+}
+Add(Hub,7237345,357,266)
+{
+ link(onEvent1,6478890:doPrint,[])
+ link(onEvent2,16051756:doPrint,[(401,279)(401,321)])
+}
+Add(HTM_Td,6478890,413,266)
+{
+ Class="cell"
+ link(onPrint,8097816:doPrint,[])
+}
+Add(HTM_Td,16051756,413,315)
+{
+ link(onPrint,3584666:doPrint,[])
+}
+Add(HTM_Tr,15943196,301,364)
+{
+ link(onPrint,11043647:doEvent,[])
+}
+Add(Hub,11043647,357,364)
+{
+ link(onEvent1,5644336:doPrint,[])
+ link(onEvent2,14309692:doPrint,[(401,377)(401,419)])
+}
+Add(HTM_Td,5644336,413,364)
+{
+ link(onPrint,12746793:doPrint,[])
+}
+Add(HTM_Td,14309692,413,413)
+{
+ link(onPrint,1587462:doPrint,[])
+}
+Add(VisualText,8097816,469,266)
+{
+ Lines=#11:Колонка 1.1|
+ Width=70
+ Point(doPrint)
+}
+Add(VisualText,3584666,469,315)
+{
+ Lines=#11:Колонка 1.2|
+ Width=70
+ Height=17
+ Point(doPrint)
+}
+Add(VisualText,12746793,469,364)
+{
+ Lines=#11:Колонка 2.1|
+ Width=70
+ Point(doPrint)
+}
+Add(VisualText,1587462,469,413)
+{
+ Lines=#11:Колонка 2.2|
+ Width=70
+ Point(doPrint)
+}
+Add(Hub,13151932,245,105)
+{
+ link(onEvent1,10304836:doPrint,[])
+ link(onEvent2,8768063:doPrint,[(289,118)(289,160)])
+}
+Add(HTM_Style,8768063,301,154)
+{
+ link(onPrint,208528:doPrint,[])
+}
+Add(CSS,208528,357,154)
+{
+ Tag="table"
+ BorderColor="gray"
+ BorderWidth="1px"
+ BorderStyle=3
+ BgColor="silver"
+ link(onPrint,6191608:doPrint,[])
+}
+Add(CSS,6191608,413,154)
+{
+ Tag="tr"
+ BgColor="#dddddd"
+ link(onPrint,8273219:doPrint,[])
+}
+Add(InfoTip,9564197,7,406)
+{
+ Info=#6:Важно!|
+ Font=[MS Sans Serif,12,1,255,1]
+ Transparent=1
+ Width=365
+ Height=123
+}
+Add(InfoTip,5292217,14,427)
+{
+ Info=#415:  В том случае, когда стиль нужно задать для одного единственного элемента документа можно использовать соответствующий атрибут, который есть у любого тега: Style. Однако в этом случае от вас потребуется знание синтаксиса CSS и контроль за правильностью ввода ключевых слов ложится так же на вас. Чтобы не писать стили вручную используйте нижнюю точку элемента CSS с названием Style и такуюже точку у элемента тега.|
+ Frame=1
+ HAlign=0
+ Width=351
+ Height=95
+}
+Add(HTM_Span,4749107,245,203)
+{
+ Class="text"
+ link(onPrint,13714669:doPrint,[])
+ link(onAfterPrint,2786676:doPrint,[(287,216)(287,250)(179,250)(179,272)])
+}
+Add(CSS,8273219,469,154)
+{
+ Name="text"
+ Color="blue"
+ FontSize="14px"
+ BgColor="#eeeeee"
+ link(onPrint,5892395:doPrint,[])
+}
+Add(CSS,5892395,525,154)
+{
+ Name="cell"
+ Color="red"
+ FontWeight="bold"
+}

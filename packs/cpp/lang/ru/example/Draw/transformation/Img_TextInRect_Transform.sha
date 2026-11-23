@@ -1,0 +1,240 @@
+Make(cpp)
+Add(MainForm,4459688,294,119)
+{
+ Width=808
+ Height=502
+ Position=1
+}
+Add(PaintBox,15950500,301,182)
+{
+ Top=175
+ Width=882
+ Height=359
+ Color=32768
+ Layout="ver_01"
+ HeightScale=100
+ ClearBeforeDraw=0
+ link(onBeforeDraw,2043283:doDraw,[(345,188)(345,251)(289,251)(289,314)])
+}
+Add(HubEx,146509,273,182)
+{
+ link(onEvent,15950500:doRefresh,[])
+}
+Add(Label,3890185,161,42)
+{
+ Left=15
+ Top=50
+ Height=17
+ Layout="gor_10"
+ Caption="слева:"
+ AutoSize=1
+}
+Add(Edit,16279673,161,175)
+{
+ Left=55
+ Top=50
+ Layout="gor_10"
+ Text="350"
+ DataType=2
+ link(onChange,1750075:doWork1,[(207,181)])
+}
+Add(Label,13979721,161,84)
+{
+ Left=15
+ Top=75
+ Height=17
+ Layout="gor_11"
+ Caption="сверху:"
+ AutoSize=1
+}
+Add(Edit,10008463,168,217)
+{
+ Left=55
+ Top=75
+ Layout="gor_11"
+ Text="160"
+ DataType=2
+ link(onChange,1750075:doWork2,[])
+}
+Add(Label,14871794,217,42)
+{
+ Left=115
+ Top=50
+ Height=17
+ Layout="gor_10"
+ Caption="ширина:"
+ AutoSize=1
+}
+Add(Edit,1703155,217,140)
+{
+ Left=165
+ Top=50
+ Layout="gor_10"
+ Text="100"
+ DataType=2
+ link(onChange,7524583:doWork1,[(263,146)])
+}
+Add(Label,4175453,217,84)
+{
+ Left=115
+ Top=75
+ Height=17
+ Layout="gor_11"
+ Caption="высота: "
+ AutoSize=1
+}
+Add(Edit,13628516,224,182)
+{
+ Left=165
+ Top=75
+ Layout="gor_11"
+ Text="50"
+ DataType=2
+ link(onChange,7524583:doWork2,[])
+}
+Add(HBoxLayout,5838153,602,77)
+{
+ Name="gor_10"
+ Space=2
+ Layout="ver_01"
+}
+Add(HBoxLayout,13328277,602,119)
+{
+ Name="gor_11"
+ Space=2
+ Layout="ver_01"
+}
+Add(VBoxLayout,16736310,602,161)
+{
+ Name="ver_01"
+}
+Add(PointXY,5846594,161,266)
+{
+ link(X,16279673:Text,[])
+ link(Y,10008463:Text,[])
+}
+Add(PointXY,7582050,217,231)
+{
+ link(X,1703155:Text,[])
+ link(Y,13628516:Text,[])
+}
+Add(LineBreakEx,1640916,161,308)
+{
+ Caption="p1"
+ Type=3
+ link(_Data,5846594:Point,[])
+}
+Add(LineBreakEx,12961841,217,308)
+{
+ Caption="p2"
+ Type=3
+ link(_Data,7582050:Point,[])
+}
+Add(LineBreakEx,10626233,364,245)
+{
+ Caption="p1"
+ Type=2
+}
+Add(LineBreakEx,15465188,371,259)
+{
+ Caption="p2"
+ Type=2
+}
+Add(HubEx,7524583,259,182)
+{
+ link(onEvent,146509:doWork2,[])
+}
+Add(HubEx,1750075,203,217)
+{
+ link(onEvent,7524583:doWork3,[(263,223)])
+}
+Add(ScrollBar,15237750,483,77)
+{
+ Left=305
+ Top=60
+ Width=260
+ Layout="gor_10"
+ Max=360
+ link(onPosition,146509:doWork1,[(529,83)(529,72)(277,72)])
+}
+Add(Img_TextInRect,7285812,350,308)
+{
+ Point2AsOffset=0
+ Font=[Microsoft Sans Serif,8,0,0,204]
+ Text="HiAsm\r\nThe\r\nBest"
+ AlignHorizon=2
+ Alignvertical=2
+ Point(Transform)
+ link(onTextRect,2252061:doEvent1,[])
+ link(Bitmap,7518094:Var2,[])
+ link(Point1,10626233:getVar,[])
+ link(Point2,15465188:getVar,[])
+ link(Transform,2918547:Transform,[(384,288)(482,288)])
+}
+Add(Img_UseRotate,2918547,476,175)
+{
+ link(Angle,15237750:Position,[])
+}
+Add(Img_Rectangle,3337089,518,441)
+{
+ Style=1
+ Color=15780518
+ BgColor=15780518
+ Point(Point1)
+ Point(Point2)
+ link(Bitmap,7518094:Var3,[(524,226)])
+ link(Point1,3700614:Point,[])
+ link(Point2,8039463:Point,[(545,425)(573,425)])
+}
+Add(Hub,2252061,406,315)
+{
+ link(onEvent1,11536707:doValue,[])
+ link(onEvent2,4015603:doData,[(448,328)(448,447)])
+}
+Add(MT_MultiMem,11536707,553,315)
+{
+ Count=4
+}
+Add(PointXY,3700614,532,378)
+{
+ link(X,11536707:Value1,[(538,362)(559,362)])
+ link(Y,11536707:Value2,[(545,369)(566,369)])
+}
+Add(PointXY,8039463,567,378)
+{
+ link(X,11536707:Value3,[])
+ link(Y,11536707:Value4,[])
+}
+Add(DoData,4015603,469,441)
+{
+ link(onEventData,3337089:doDraw,[])
+}
+Add(GetDataEx,7518094,350,221)
+{
+ Angle=3
+ link(Data,314186:Var3,[])
+}
+Add(Img_Rectangle,2043283,301,308)
+{
+ Point2AsOffset=0
+ Point(Point1)
+ Point(Point2)
+ link(onDraw,7285812:doDraw,[])
+ link(Bitmap,314186:Var2,[])
+ link(Point1,13514238:getVar,[])
+ link(Point2,13273654:getVar,[])
+}
+Add(GetDataEx,314186,301,221)
+{
+ link(Data,15950500:Bitmap,[])
+}
+Add(LineBreakEx,13514238,315,266)
+{
+ Caption="p1"
+ Type=2
+}
+Add(LineBreakEx,13273654,322,280)
+{
+ Caption="p2"
+ Type=2
+}

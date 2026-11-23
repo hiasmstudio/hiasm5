@@ -1,0 +1,76 @@
+func Source(value)
+  if(value)
+    return(value)
+  else
+    return(cstr(get('String')))
+  end
+end
+
+func NameValue(value)
+  if(value)
+    return(value)
+  else
+    return(cstr(get('Name')))
+  end
+end
+
+func doExpand(_data)
+  println('hiasm_str_state(', _id_, ') = [](std::string value) { std::string out; std::size_t i = 0; while(i < value.size()) { if(value[i] == static_cast<char>(37)) { std::size_t e = value.find(static_cast<char>(37), i + 1); if(e != std::string::npos) { std::string name = value.substr(i + 1, e - i - 1); const char *v = std::getenv(name.c_str()); if(v) { out += v; i = e + 1; continue; } } } if(value[i] == static_cast<char>(36) && i + 1 < value.size() && value[i + 1] == static_cast<char>(123)) { std::size_t e = value.find(static_cast<char>(125), i + 2); if(e != std::string::npos) { std::string name = value.substr(i + 2, e - i - 2); const char *v = std::getenv(name.c_str()); if(v) { out += v; i = e + 1; continue; } } } out += value[i++]; } return out; }(', Source(_data), ');')
+  event(onExpand, 'hiasm_str_state(' && _id_ && ')')
+end
+
+func doGet(_data)
+  println('hiasm_str_state(', _id_, ') = [](const std::string &name) { const char *value = std::getenv(name.c_str()); return value ? std::string(value) : std::string(); }(', NameValue(_data), ');')
+  event(onGet, 'hiasm_str_state(' && _id_ && ')')
+end
+
+func doSet(_data)
+  println('{')
+  block.inclvl()
+  println('const std::string hiasm_envname', _id_, ' = ', NameValue(_data), ';')
+  println('const std::string hiasm_envvalue', _id_, ' = ', cstr(get('Value')), ';')
+  println('#if defined(_WIN32)')
+  println('_putenv_s(hiasm_envname', _id_, '.c_str(), hiasm_envvalue', _id_, '.c_str());')
+  println('#else')
+  println('setenv(hiasm_envname', _id_, '.c_str(), hiasm_envvalue', _id_, '.c_str(), 1);')
+  println('#endif')
+  block.declvl()
+  println('}')
+end
+
+func doDelete(_data)
+  println('{')
+  block.inclvl()
+  println('const std::string hiasm_envname', _id_, ' = ', NameValue(_data), ';')
+  println('#if defined(_WIN32)')
+  println('_putenv_s(hiasm_envname', _id_, '.c_str(), "");')
+  println('#else')
+  println('unsetenv(hiasm_envname', _id_, '.c_str());')
+  println('#endif')
+  block.declvl()
+  println('}')
+end
+
+func doEnum(_data)
+  println('{')
+  block.inclvl()
+  println('#if defined(_WIN32)')
+  println('extern char **_environ;')
+  println('char **hiasm_env', _id_, ' = _environ;')
+  println('#else')
+  println('extern char **environ;')
+  println('char **hiasm_env', _id_, ' = environ;')
+  println('#endif')
+  println('for(char **hiasm_it', _id_, ' = hiasm_env', _id_, '; hiasm_it', _id_, ' && *hiasm_it', _id_, '; ++hiasm_it', _id_, ') {')
+  block.inclvl()
+  event(onEnum, '*hiasm_it' && _id_)
+  block.declvl()
+  println('}')
+  event(onEndEnum)
+  block.declvl()
+  println('}')
+end
+
+func Result()
+  return('hiasm_str_state(' && _id_ && ')')
+end

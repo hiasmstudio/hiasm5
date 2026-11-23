@@ -1,0 +1,14 @@
+func Array()
+  fvar(items, parts, i)
+  parts = split(Strings, "\n")
+  items = ''
+  i = 0
+  while(i < parts.size())
+    if(i > 0)
+      items = items && ','
+    end
+    items = items && '"' && code(parts.get(i)) && '"'
+    i = i + 1
+  end
+  return('std::vector<std::string>{' && items && '}')
+end

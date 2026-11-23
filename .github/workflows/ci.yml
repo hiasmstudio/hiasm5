@@ -1,0 +1,103 @@
+name: Windows Qt CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  windows:
+    name: Windows x64 / ${{ matrix.configuration }}
+    runs-on: windows-2022
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      matrix:
+        configuration: [Debug, Release]
+    defaults:
+      run:
+        shell: pwsh
+    env:
+      QT_QPA_PLATFORM: offscreen
+
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c # v6.0.0
+        with:
+          python-version: '3.13'
+
+      - name: Install Qt 6.9.3
+        uses: jurplel/install-qt-action@d325aaf2a8baeeda41ad0b5d39f84a6af9bcf005 # v4.3.0
+        with:
+          version: '6.9.3'
+          host: windows
+          target: desktop
+          arch: win64_llvm_mingw
+          aqtversion: '==3.3.0'
+          setup-python: false
+          cache: true
+
+      - name: Prepare LLVM-MinGW and build tools
+        run: |
+          $archiveName = 'llvm-mingw-20231128-ucrt-x86_64'
+          $archive = Join-Path $env:RUNNER_TEMP "$archiveName.zip"
+          $url = "https://github.com/mstorsjo/llvm-mingw/releases/download/20231128/$archiveName.zip"
+          curl.exe --fail --silent --show-error --location --retry 3 --output $archive $url
+          if ($LASTEXITCODE -ne 0) { throw 'LLVM-MinGW download failed' }
+          $expected = '7A344DAFA6942DE2C1F4643B3EB5C5CE5317FBAB671A887E4D39F326B331798F'
+          if ((Get-FileHash -LiteralPath $archive -Algorithm SHA256).Hash -ne $expected) {
+              throw 'LLVM-MinGW SHA-256 mismatch'
+          }
+          Expand-Archive -LiteralPath $archive -DestinationPath $env:RUNNER_TEMP
+          $compilerBin = Join-Path $env:RUNNER_TEMP "$archiveName/bin"
+          $cmake = (Get-Command cmake.exe -CommandType Application -ErrorAction Stop).Source
+          $ninja = (Get-Command ninja.exe -CommandType Application -ErrorAction Stop).Source
+          if (!(Test-Path -LiteralPath "$compilerBin/clang++.exe" -PathType Leaf)) { throw 'Missing clang++' }
+          if (!(Test-Path -LiteralPath "$env:QT_ROOT_DIR/bin/windeployqt.exe" -PathType Leaf)) { throw 'Missing Qt SDK' }
+          "HIASM_QT_DIR=$env:QT_ROOT_DIR" >> $env:GITHUB_ENV
+          "HIASM_QT_COMPILER_DIR=$compilerBin" >> $env:GITHUB_ENV
+          "HIASM_CMAKE=$cmake" >> $env:GITHUB_ENV
+          "HIASM_NINJA=$ninja" >> $env:GITHUB_ENV
+
+      - name: Validate package databases
+        if: matrix.configuration == 'Debug'
+        run: ./tools/validate_databases.ps1 -Python python
+
+      - name: Build and test
+        env:
+          HIASM_CONFIGURATION: ${{ matrix.configuration }}
+        run: ./tools/build_qt_windows.ps1 -Configuration $env:HIASM_CONFIGURATION -BuildDir build/ci
+
+      - name: Verify portable Release install
+        if: matrix.configuration == 'Release'
+        run: ./tools/test_portable_windows.ps1 -BuildDir build/ci -InstallDir build/ci-portable -StartupRuns 1
+
+      - name: Upload portable Release
+        if: matrix.configuration == 'Release'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: hiasm-windows-x64-portable
+          path: build/ci-portable/
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Upload CMake and CTest logs
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: diagnostics-${{ matrix.configuration }}
+          path: |
+            build/ci/CMakeFiles/CMakeConfigureLog.yaml
+            build/ci/Testing/Temporary/*.log
+          if-no-files-found: ignore
+          retention-days: 7

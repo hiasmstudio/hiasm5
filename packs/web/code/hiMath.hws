@@ -1,0 +1,36 @@
+func doOperation:java
+  fvar(s)
+   
+  s = '(' && Op1 && OpType && Op2 && ')'
+  if(not isset(_math_))
+    var(_math_)
+  end
+  if(linked(Result))
+    println(res, ' = ', s, ';')
+    event(onResult, res)
+  else
+    event(onResult, s)
+  end
+end
+
+func doClear:java
+  print(res, ' = ', Default, ';')
+end
+
+func Result:java
+  if(linked(doOperation) or linked(doClear))
+    if(not isset(_math_))
+      var(_math_)
+      fvar(old)
+      old = block.select((isset(BLK_FUNC) and isndef(Extern)) ? BLK_FUNC : BLK_HEAD)
+      println(issec("php") ? '' : 'var ', res, ' = ', Default, ';')
+      block.select(old)
+    end
+    return(res)
+  else
+    return('(' && Op1 && OpType && Op2 && ')')
+  end
+end
+
+// todo:
+//  сделать оптимизацию для случая, когда Op1 соединен с Result

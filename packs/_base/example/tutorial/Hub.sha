@@ -1,0 +1,32 @@
+Make(cpp)
+Add(InfoTip,900,24,18)
+{
+ @Width=680
+ @Height=145
+ Info=#20:Разветвитель событий|0:|116:Хаб последовательно вызывает три действия. Порядок проводов onEvent1, onEvent2 и onEvent3 определяет порядок вывода.|
+ HAlign=0
+ Margin=12
+}
+Add(Entry,1,42,196)
+{
+ link(onStart,2:doEvent1,[])
+}
+Add(Hub,2,168,196)
+{
+ OutCount=3
+ link(onEvent1,3:doPrint,[])
+ link(onEvent2,4:doPrint,[])
+ link(onEvent3,5:doPrint,[])
+}
+Add(Print,3,322,196)
+{
+ Text=first
+}
+Add(Print,4,322,280)
+{
+ Text=second
+}
+Add(Print,5,322,364)
+{
+ Text=third
+}

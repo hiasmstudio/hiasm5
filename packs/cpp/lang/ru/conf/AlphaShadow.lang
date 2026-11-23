@@ -1,0 +1,15 @@
+Getting an Alpha picture with a shadow=Получение Alpha-картинки с тенью
+Horizontal shadow offset in pixels by default=Горизонтальное смещение тени в пикселях по-умолчанию
+Vertical shadow offset in pixels by default=Вертикальное смещение тени в пикселях по-умолчанию
+Default transparency color of the original image=Цвет прозрачности исходной картинки по-умолчанию
+Default shadow blur depth. If set to 0, no shadow is created=Глубина размытия тени по-умолчанию. При значении 0, тень не создается
+Default shadow transparency (from 0 to 255)=Степень прозрачности тени по-умолчанию (от 0 до 255)
+Gets an Alpha image with a shadow ARG(Bitmap, X, Y, TransparentColor, DeepBlur, AlphaValue)=Получает Alpha-картинку с тенью ARG(Bitmap, X, Y, TransparentColor, DeepBlur, AlphaValue)
+The event occurs after receiving an Alpha image with a shadow and outputs the result to the ARG(AlphaBitmap) stream=Событие происходит после получения Alpha-картинки с тенью и выдаёт результат в поток ARG(AlphaBitmap)
+Picture to get Alpha picture with shadow=Картинка для получения Alpha-картинки с тенью
+Horizontal shadow offset in pixels=Горизонтальное смещение тени в пикселях
+Vertical shadow offset in pixels=Вертикальное смещение тени в пикселях
+Transparency color of the original image=Цвет прозрачности исходной картинки
+Shadow Blur Depth=Глубина размытия тени
+Shadow transparency level=Степень прозрачности тени
+Contains Alpha picture with shadow=Содержит Alpha-картинку с тенью

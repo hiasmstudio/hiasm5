@@ -1,0 +1,26 @@
+func Expr(value)
+  return('[](std::string value) { const std::string from = ' && SubStr && '; const std::string to = ' && DestStr && '; std::size_t p = 0; while((p = value.find(from, p)) != std::string::npos) { value.replace(p, from.size(), to); p += to.size(); } return value; }(' && value && ')')
+end
+
+func Source(value)
+  if(len(value) > 0)
+    return(value)
+  else
+    return(SrcStr)
+  end
+end
+
+func doReplace(_data)
+  fvar(src)
+  src = Source(_data)
+  println('auto hiasm_rtrep', _id_, ' = ', Expr(src), ';')
+  event(onReplace, 'hiasm_rtrep' && _id_)
+end
+
+func Result()
+  if(linked('doReplace'))
+    return('hiasm_rtrep' && _id_)
+  else
+    return(Expr(SrcStr))
+  end
+end

@@ -1,0 +1,232 @@
+*Chapter 3: Динамическая вставка тегов HTML
+Make(web)
+Add(HtmlEntryPoint,16563582,21,105)
+{
+ link(onStart,8284333:doPrint,[])
+}
+Add(HTM_Html,8284333,77,105)
+{
+ link(onPrint,6847978:doEvent,[])
+}
+Add(Hub,6847978,133,105)
+{
+ link(onEvent1,2288322:doPrint,[])
+ link(onEvent2,763948:doPrint,[(177,118)(177,209)])
+}
+Add(HTM_Head,2288322,189,105)
+{
+ link(onPrint,6907110:doEvent,[])
+}
+Add(HTM_Body,763948,189,203)
+{
+ link(onPrint,315774:doEvent,[])
+}
+Add(HTM_Title,10304836,301,105)
+{
+ link(onPrint,3973328:doPrint,[])
+}
+Add(VisualText,3973328,357,105)
+{
+ Lines=#42:Chapter 3: Динамическая вставка тегов HTML|
+ Width=242
+ Point(doPrint)
+}
+Add(VisualText,13714669,301,203)
+{
+ Lines=#87:В этом примере демонстрируется возможность вывода различных тегов HTML в тело документа|
+ Width=298
+ Height=32
+ Point(doPrint)
+}
+Add(InfoTip,9564197,21,245)
+{
+ Info=#6:Важно!|
+ Font=[MS Sans Serif,12,1,255,1]
+ Transparent=1
+ Width=260
+ Height=200
+}
+Add(InfoTip,5292217,28,266)
+{
+ Info=#518:  Поскольку в структуре объектов JavaScript все теги имеют свои уникальные Id, то получить доступ к ним можно из любого места скрипта по их имени. В связи с этим вызов метода doHTML у двух различных элементов div, но с одинаковым Id будет адресован к одному и тому же физическому объекту JavaScript. Учитывая эту особенность JavaScript вы можете тянуть все связи к одному методу doHTML одного единственного элемента или сделать несколько элементов div с одинаковым полем Id - результат в любом случае будет одинаковым.|
+ Frame=1
+ HAlign=0
+ Width=246
+ Height=172
+}
+Add(HTM_A,9543757,301,294)
+{
+ Href="#"
+ Point(onClick)
+ link(onPrint,8456779:doEcho,[])
+ link(onClick,13061444:doWork1,[])
+}
+Add(HTM_Div,14857281,301,245)
+{
+ Id="add"
+ Point(doHTML)
+}
+Add(Echo,2186489,413,350)
+{
+ Message="тег table"
+}
+Add(Hub,315774,245,203)
+{
+ OutCount=4
+ link(onEvent1,13714669:doPrint,[])
+ link(onEvent2,14857281:doPrint,[(289,216)(289,251)])
+ link(onEvent3,9543757:doPrint,[(289,223)(289,300)])
+ link(onEvent4,14895253:doPrint,[(289,230)(289,356)])
+}
+Add(Hub,6907110,245,105)
+{
+ link(onEvent1,10304836:doPrint,[])
+ link(onEvent2,607266:doPrint,[(289,118)(289,160)])
+}
+Add(HTM_Style,607266,301,154)
+{
+ link(onPrint,2647888:doPrint,[])
+}
+Add(CSS,2647888,357,154)
+{
+ Tag="div"
+ BorderColor="gray"
+ BorderWidth="1px"
+ BorderStyle=3
+ BgColor="lightgray"
+ Width="auto"
+ Height="20px"
+ VerticalAlign="center"
+}
+Add(Echo,8456779,413,294)
+{
+ Message="тег div"
+}
+Add(HTM_A,14895253,301,350)
+{
+ Href="#"
+ Point(onClick)
+ link(onPrint,2186489:doEcho,[])
+ link(onClick,442407:doWork1,[])
+}
+Add(MultiElement,13061444,357,301)
+{
+ link(onEvent1,6007010:doWork2,[(399,307)])
+ link(Data1,2858186:Var2,[])
+}
+BEGIN_SDK
+  Add(EditMulti,1460707,6,6)
+  {
+   EventCount=1
+   WorkCount=1
+   DataCount=1
+   link(doWork1,4737224:doPrint,[(27,12)(27,62)])
+  }
+  Add(HTML_Collector,4737224,49,56)
+  {
+   link(onPrint,16189218:doStrCat,[])
+  }
+  BEGIN_SDK
+    Add(HCEditor,11351551,6,6)
+    {
+     VarCount=#28:Body=Содержит тело документа|47:Head=Содержит заголовок документа(если он есть)|
+     link(doPrint,11655787:doPrint,[(20,12)(20,48)])
+    }
+    Add(HTM_Div,11655787,35,42)
+    {
+     Style="border: solid 1px red;"
+     link(onPrint,16090395:doEcho,[])
+    }
+    Add(Echo,16090395,91,42)
+    {
+     Message="div"
+    }
+  END_SDK
+  Add(StrCat,16189218,105,56)
+  {
+   link(onStrCat,1460707:onEvent1,[(221,62)(221,12)])
+   link(Str1,1460707:Data1,[(111,31)(12,31)])
+  }
+END_SDK
+Add(MultiElement,442407,357,357)
+{
+ link(onEvent1,6007010:doWork3,[(403,363)])
+ link(Data1,2858186:Var1,[(363,342)(343,342)(343,292)])
+}
+BEGIN_SDK
+  Add(EditMulti,1460707,6,6)
+  {
+   EventCount=1
+   WorkCount=1
+   DataCount=1
+   link(doWork1,12157368:doPrint,[(27,12)(27,62)])
+  }
+  Add(HTML_Collector,12157368,49,56)
+  {
+   link(onPrint,16189218:doStrCat,[])
+  }
+  BEGIN_SDK
+    Add(HCEditor,11351551,6,6)
+    {
+     VarCount=#28:Body=Содержит тело документа|47:Head=Содержит заголовок документа(если он есть)|
+     link(doPrint,4864600:doPrint,[(24,12)(24,48)])
+    }
+    Add(HTM_Table,4864600,42,42)
+    {
+     link(onPrint,12034097:doPrint,[])
+    }
+    Add(HTM_Tr,12034097,98,42)
+    {
+     link(onPrint,15894485:doEvent,[])
+    }
+    Add(Hub,15894485,154,42)
+    {
+     OutCount=3
+     link(onEvent1,9187834:doPrint,[])
+     link(onEvent2,16124022:doPrint,[(194,55)(194,104)])
+     link(onEvent3,2612150:doPrint,[(194,62)(194,160)])
+    }
+    Add(HTM_Td,9187834,203,42)
+    {
+     link(onPrint,5863964:doEcho,[])
+    }
+    Add(HTM_Td,16124022,203,98)
+    {
+     link(onPrint,9869518:doEcho,[])
+    }
+    Add(HTM_Td,2612150,203,154)
+    {
+     link(onPrint,3548110:doEcho,[])
+    }
+    Add(Echo,5863964,259,42)
+    {
+     Message="колонка 1"
+    }
+    Add(Echo,9869518,259,98)
+    {
+     Message="колонка 2"
+    }
+    Add(Echo,3548110,259,154)
+    {
+     Message="колонка 3"
+    }
+  END_SDK
+  Add(StrCat,16189218,105,56)
+  {
+   link(onStrCat,1460707:onEvent1,[(221,62)(221,12)])
+   link(Str1,1460707:Data1,[(111,31)(12,31)])
+  }
+END_SDK
+Add(HubEx,6007010,399,294)
+{
+ Angle=3
+ link(onEvent,7166738:doInnerHTML,[(403,283)(347,283)(347,251)])
+}
+Add(GetDataEx,2858186,350,283)
+{
+ link(Data,7166738:InnerHTML,[])
+}
+Add(TAG_InnerHTML,7166738,357,245)
+{
+ Id="add"
+}

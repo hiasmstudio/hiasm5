@@ -1,0 +1,12 @@
+Setting output parameters according to the list=Установка параметров выходов согласно списка
+Output Settings=Параметры установки выходов
+Separator character. If there is no character, the parameter string is parsed character-by-character=Символ-разделитель. При отсутствии символа происходит посимвольный разбор строки параметров
+Number of output points=Кол-во выходных точек
+Output data type. When the type is Integer, a space as a parameter does not trigger the output.=Тип данных на выходе. При типе Integer, пробел в качестве параметра, не вызывает срабатывания выхода
+Index of parameter string in default parameter list=Индекс строки параметра в списке параметров по умолчанию
+Sets output parameters according to the list of parameters by index ARG(Parametrs, Index)=Устанавливает парметры выходов согласно списка параметров по индексу ARG(Parametrs, Index)
+Direct control of outputs using a string of parameters from the stream ARG(ParamStr)=Прямое управление выходами по строке парметров из потока ARG(ParamStr)
+Sets output parameters according to the internal list of parameters by index from the stream ARG(Index)=Устанавливает парметры выходов согласно внутреннего списка параметров по индексу из потока ARG(Index)
+Sets output parameters according to the list of parameters from the Parameters point by index from the stream ARG(Index)=Устанавливает парметры выходов согласно списка параметров из точки Parameters по индексу из потока ARG(Index)
+Defines a list of parameters=Определяет список параметров
+Index of a parameter string in a parameter list=Индекс строки параметра в списке параметров

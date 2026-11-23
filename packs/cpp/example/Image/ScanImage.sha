@@ -1,0 +1,84 @@
+*Пример сканирования изображения#13#10_________#13#10Автор: tsdima
+Make(cpp)
+Add(MainForm,3621793,21,105)
+{
+ Left=20
+ Top=105
+ Width=564
+ Height=694
+}
+Add(TWAIN,8903113,210,126)
+{
+ Point(ShowUI)
+ link(onScan,4902926:doLoad,[])
+ link(ShowUI,5167142:Checked,[])
+}
+Add(Image,4902926,280,126)
+{
+ Left=10
+ Top=10
+ Width=530
+ Height=615
+ ViewStyle=1
+ Point(doRefresh)
+}
+Add(Hub,7369506,280,210)
+{
+ OutCount=3
+ link(onEvent1,12094264:doValue,[(344,216)(344,153)])
+ link(onEvent2,7535356:doData,[])
+ link(onEvent3,10524663:doSave,[(344,230)(344,258)(401,258)(401,216)])
+}
+Add(Button,3863548,140,133)
+{
+ Left=95
+ Top=635
+ TabOrder=-1
+ Caption="Scan"
+ link(onClick,8903113:doScan,[])
+}
+Add(Jpeg,10524663,427,203)
+{
+ Quality=600
+ Point(FileName)
+ Point(doLoadFromBitmap)
+ link(FileName,12094264:Value,[])
+}
+Add(DoData,7535356,357,217)
+{
+ link(onEventData,10524663:doLoadFromBitmap,[])
+ link(Data,8903113:Bitmap,[(363,182)(216,182)])
+}
+Add(Memory,12094264,427,147)
+{
+}
+Add(Button,2601431,140,210)
+{
+ Left=165
+ Top=635
+ TabOrder=-1
+ Caption="Save"
+ link(onClick,7859753:doExecute,[])
+}
+Add(SDialog,7859753,210,210)
+{
+ Filter="JPEG Image Files (*.jpg)|*.jpg"
+ Title="Save Image"
+ link(onExecute,7369506:doEvent1,[])
+}
+Add(CheckBox,5167142,210,63)
+{
+ Left=260
+ Top=635
+ Width=90
+ Height=15
+ Caption="Show UI"
+}
+Add(Button,13830328,140,56)
+{
+ Left=20
+ Top=635
+ TabOrder=-1
+ Caption="Select"
+ link(onClick,8903113:doSelectSource,[(191,62)(191,132)])
+}

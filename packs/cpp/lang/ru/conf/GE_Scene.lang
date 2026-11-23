@@ -1,0 +1,6 @@
+Scene=Сцена
+Scene name=Имя сцены
+Rendering the scene ARG(Bitmap)=Отрисовка сцены ARG(Bitmap)
+Runs one game loop=Выполняет один цикл игры
+The event occurs every time the scene is rendered=Событие происходит всякий раз после отрисовки сцены
+The picture on which you want to draw the scene=Картинка, на которой требуется отрисовать сцену

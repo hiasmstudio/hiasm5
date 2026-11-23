@@ -1,0 +1,10 @@
+Moving a sprite=Перемещение спрайта
+Sprite to be moved=Спрайт, который требуется переместить
+Indent from left edge=Отступ от левого края
+Right margin=Отступ от правого края
+Moves the sprite to the specified game scene coordinates ARG(X,Y)=Перемещает спрайт в указанные координаты игровой сцены ARG(X,Y)
+The event occurs every time the sprite is moved=Событие происходит всякий раз после перемещения спрайта
+Contains indentation from the left edge=Содержит отступ от левого края
+Contains indentation from the right edge=Содержит отступ от правого края
+Contains the increment value of the X coordinate=Содержит велечину приращения координаты X
+Contains the Y coordinate increment value=Содержит велечину приращения координаты Y

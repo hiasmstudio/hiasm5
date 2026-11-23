@@ -1,0 +1,5 @@
+Enumerating Key Containers=Перечисление контейнеров ключей
+Starts listing all key containers in the system=Начинает перечисление всех контейнеров ключей в системе
+The event occurs every time the next key container is found and outputs its name to the ARG(ContainerName) stream=Событие происходит всякий раз при нахождении очередного контейнера ключей и выдает его имя в поток ARG(ContainerName)
+The event occurs as a result of an error and issues an error code to the ARG(Error) stream=Событие происходит в результате ошибки и выдает код ошибки в поток ARG(Error)
+Contains the name of the current key container=Содержит имя текущего контейнера ключей

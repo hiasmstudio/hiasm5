@@ -1,0 +1,83 @@
+func doWinInfo(_data)
+  println('#if !defined(_WIN32)')
+  println('#error "WinInfo is a Windows-only element"')
+  println('#endif')
+  println('{')
+  block.inclvl()
+  println('HWND hiasm_wnd', _id_, ' = reinterpret_cast<HWND>(static_cast<intptr_t>(', _data, '));')
+  println('char hiasm_cls', _id_, '[256] = {0};')
+  println('char hiasm_cap', _id_, '[512] = {0};')
+  println('GetClassNameA(hiasm_wnd', _id_, ', hiasm_cls', _id_, ', 256);')
+  println('GetWindowTextA(hiasm_wnd', _id_, ', hiasm_cap', _id_, ', 512);')
+  println('hiasm_str_state(', _id_, ' * 10 + 1) = std::string(hiasm_cls', _id_, ');')
+  println('hiasm_str_state(', _id_, ' * 10 + 2) = std::string(hiasm_cap', _id_, ');')
+  println('RECT hiasm_rect', _id_, ' = {0, 0, 0, 0};')
+  println('RECT hiasm_client', _id_, ' = {0, 0, 0, 0};')
+  println('GetWindowRect(hiasm_wnd', _id_, ', &hiasm_rect', _id_, ');')
+  println('GetClientRect(hiasm_wnd', _id_, ', &hiasm_client', _id_, ');')
+  println('POINT hiasm_origin', _id_, ' = {0, 0};')
+  println('ClientToScreen(hiasm_wnd', _id_, ', &hiasm_origin', _id_, ');')
+  println('hiasm_int_state(', _id_, ' * 10 + 3, 0) = hiasm_rect', _id_, '.left;')
+  println('hiasm_int_state(', _id_, ' * 10 + 4, 0) = hiasm_rect', _id_, '.top;')
+  println('hiasm_int_state(', _id_, ' * 10 + 5, 0) = hiasm_rect', _id_, '.right - hiasm_rect', _id_, '.left;')
+  println('hiasm_int_state(', _id_, ' * 10 + 6, 0) = hiasm_rect', _id_, '.bottom - hiasm_rect', _id_, '.top;')
+  println('hiasm_int_state(', _id_, ' * 10 + 7, 0) = hiasm_origin', _id_, '.x;')
+  println('hiasm_int_state(', _id_, ' * 10 + 8, 0) = hiasm_origin', _id_, '.y;')
+  println('hiasm_int_state(', _id_, ' * 10 + 9, 0) = hiasm_client', _id_, '.right;')
+  println('hiasm_int_state(', _id_, ' * 10 + 10, 0) = hiasm_client', _id_, '.bottom;')
+  event(onWinInfo)
+  block.declvl()
+  println('}')
+end
+
+func ClassName()
+  return('hiasm_str_state(' && _id_ && ' * 10 + 1)')
+end
+
+func Caption()
+  return('hiasm_str_state(' && _id_ && ' * 10 + 2)')
+end
+
+func LanguageName()
+  return('std::string()')
+end
+
+func Left()
+  return('hiasm_int_state(' && _id_ && ' * 10 + 3, 0)')
+end
+
+func Top()
+  return('hiasm_int_state(' && _id_ && ' * 10 + 4, 0)')
+end
+
+func Width()
+  return('hiasm_int_state(' && _id_ && ' * 10 + 5, 0)')
+end
+
+func Height()
+  return('hiasm_int_state(' && _id_ && ' * 10 + 6, 0)')
+end
+
+func ClientLeft()
+  return('hiasm_int_state(' && _id_ && ' * 10 + 7, 0)')
+end
+
+func ClientTop()
+  return('hiasm_int_state(' && _id_ && ' * 10 + 8, 0)')
+end
+
+func ClientWidth()
+  return('hiasm_int_state(' && _id_ && ' * 10 + 9, 0)')
+end
+
+func ClientHeight()
+  return('hiasm_int_state(' && _id_ && ' * 10 + 10, 0)')
+end
+
+func Context()
+  return('0')
+end
+
+func ThreadID()
+  return('0')
+end

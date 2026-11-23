@@ -1,0 +1,9 @@
+Database Query=Запрос к базе данных
+Contains the request text=Содержит текст запроса
+Executes a query string in SQL language=Выполняет строку запроса на языке SQL
+The event occurs after a database query has been executed and outputs the resulting results to the stream.=Событие происходит после выполнения запроса к базе данных и выдает в поток полученные результаты
+Outputs column names to stream=Выдает в поток имена столбцов
+The event occurs in case of an error and outputs its description to the stream=Событие происходит в случае ошибки и выдает её описание в поток
+Returns the last ID added to the database=Возвращает последний добавленный ID в базу данных
+SQLite Database ID=Идентификатор базы данных SQLite
+Query text in SQL language=Текст запроса на языке SQL

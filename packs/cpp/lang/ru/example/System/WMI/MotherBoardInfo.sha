@@ -1,0 +1,86 @@
+Make(cpp)
+Add(MainForm,12231298,91,147)
+{
+ Left=20
+ Top=105
+ Width=790
+ Height=314
+ Caption="MotherBoardInfo"
+ Icon=[ZIP7E03000078DABD92B10DC32014442F62015751CA9429D9006F0265B6F81E0165113AB7C912A919C5394C11446284AC2867FE09DD7F2083000EFC8601F413AE0A3802B8B018E18C9C278D0A3FD2D8A18A8F318AC86D7E96EEBD0F2170E29C2B796BEDCA4392DE4E2C2FFC334F91372631A5B779E6D568FF0F73ACFBD27B7991FB62D8EDDF9F2DAD750F2F1B6ADE673D78A0ADFB69E8936F8B27DAF79217EAA1724D457DCBEA5ED20B75E217E3]
+ Position=1
+}
+Add(FormatStr,10954712,217,273)
+{
+ DataCount=7
+ Mask="%1;%5;%2;%3;%4;%6;%7"
+ link(onFString,15910474:doAdd,[(306,279)(306,202)])
+ link(Str1,1571907:Name,[])
+ link(Str2,1571907:Manufacturer,[])
+ link(Str3,1571907:Model,[])
+ link(Str4,1571907:Product,[])
+ link(Str5,1571907:Tag,[])
+ link(Str6,1571907:SerialNumber,[])
+ link(Str7,1571907:Version,[])
+}
+Add(Button,2409350,91,203)
+{
+ Left=335
+ Top=256
+ Width=117
+ TabOrder=-1
+ DefaultBtn=0
+ link(onClick,12553811:doEvent1,[])
+}
+Add(StringTable,15910474,406,196)
+{
+ Width=782
+ Height=246
+ Columns=#4:Name|4:Tag |12:Manufacturer|5:Model|7:Product|12:SerialNumber|7:Version|
+ Point(doAddColumn)
+}
+Add(MotherBoardInfo,1571907,217,210)
+{
+ Point(onErr)
+ Point(Tag)
+ Point(SerialNumber)
+ Point(Version)
+ Point(Query)
+ Point(Computer)
+ link(onInfo,10954712:doString,[(281,216)(281,248)(205,248)(205,279)])
+ link(onErr,6379849:doString,[(309,223)(309,256)])
+ link(Computer,10874049:Var2,[])
+}
+Add(Hub,12553811,154,203)
+{
+ link(onEvent1,15910474:doClear,[])
+ link(onEvent2,1571907:doInfo,[])
+}
+Add(Edit,4694230,224,147)
+{
+ Left=165
+ Top=255
+ Width=155
+ Text=""
+}
+Add(FormatStr,6379849,348,250)
+{
+ Mask="Компьютер %1 недоступен"
+ link(onFString,294324:doMessage,[])
+ link(Str1,10874049:Var3,[(354,198)])
+}
+Add(Message,294324,404,250)
+{
+ Caption="Внимание!"
+ Icon=3
+}
+Add(GetDataEx,10874049,217,189)
+{
+ link(Data,4694230:Text,[])
+}
+Add(InfoTip,10664306,161,68)
+{
+ Info=#28:Пример применения компонента|20: WMI MotherBoardInfo|
+ Font=[MS Sans Serif,8,1,0,1]
+ Width=218
+ Height=39
+}

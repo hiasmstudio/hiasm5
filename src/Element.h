@@ -85,6 +85,8 @@ struct ObjectType {
 	};
 	ObjectType() {
 		type = SDK_OBJ_NONE;
+		obj1 = nullptr;
+		obj2 = nullptr;
 	}
 	ObjectType(Element *obj) {
 		element = obj;
@@ -198,6 +200,8 @@ class LinkHints : public std::list<LinkHint*> {
     Provides information about system colors
 */
 
+#include "ThemeColors.h"
+
 struct SysColors {
 	bool load;
 	Gdk::RGBA btnFace;
@@ -208,9 +212,9 @@ struct SysColors {
 	void init(Widget *w) {
 		Glib::RefPtr<Gtk::StyleContext> s = w->get_style_context();
 		
-		btnFace.set("#e5ddcf"); // = s->get_background_color(Gtk::STATE_FLAG_NORMAL);
-		btnLight.set("#ffffff"); //= s->get_color(Gtk::STATE_FLAG_NORMAL);
-		btnDark.set("#b2aa9c"); //= s->get_color(Gtk::STATE_FLAG_NORMAL);
+		btnFace = themeBackground(s);
+		btnLight = themeBase(s);
+		btnDark = themeMix(btnFace, themeText(s), 0.35);
 		load = true;
 	}
 };
@@ -577,6 +581,7 @@ class Element {
 		 * @return true if set
 		 */
 		inline bool isFreeze() { return flag & ELEMENT_FLG_IS_FREEZE; }
+		int groupId();
 		/**
 		 * Check flag ELEMENT_FLG_IS_NODELETE and ELEMENT_FLG_IS_PARENT
 		 * @return true if set

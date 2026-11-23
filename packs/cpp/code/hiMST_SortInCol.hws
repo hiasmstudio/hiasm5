@@ -1,0 +1,30 @@
+include('qtMstClient')
+
+func doStart()
+  println('{ auto *state = new QObject(&form);')
+  println('state->setObjectName(QStringLiteral("MST_SortInCol', _id_, '"));')
+  println('state->setProperty("descending", ', get('MethodSort') == 1, '); }')
+end
+
+func SortState()
+  return('form.findChild<QObject *>(QStringLiteral("MST_SortInCol' && _id_ && '"))')
+end
+
+func doMethodSort(_data)
+  println(SortState(), '->setProperty("descending", ', MstInt(_data), ' == 1);')
+end
+
+func Sort(_data, numeric)
+  MstBegin()
+  println('if (', MstLocal(), '->sortMst(', MstInt(_data), ', ', SortState(), '->property("descending").toBool(), ', numeric, ')) {')
+  event(onChange)
+  println('} }')
+end
+
+func doSort(_data)
+  Sort(_data, 'false')
+end
+
+func doSortDigit(_data)
+  Sort(_data, 'true')
+end

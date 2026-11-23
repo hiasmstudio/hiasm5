@@ -1,0 +1,11 @@
+Channel visualization=Визуализация канала
+Background color=Цвет фона
+X Pin Offset=Смещение вывода по X
+Column color=Цвет столбика
+Column display mode=Режим отображения столбиков
+Sample length (256/512 samples)=Длина выборки (256/512 отсчетов)
+Background cleaning=Очистка фона
+Drawing the channel state=Отрисовка состояния канала
+Defines the identifier of the picture on which the diagram is to be drawn (Bitmap points)=Определяет идентификатор картинки, на которой требуется отрисовать диаграмму (точки Bitmap)
+Defines the ID of the channel whose status is to be displayed (does not apply to BASS_SmpXXX components)=Определяет идентификатор канала, чьё состояние требуется отобразить (не применимо к компонентам BASS_SmpXXX)
+Defines the background image=Определяет фоновую картинку

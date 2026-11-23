@@ -1,0 +1,86 @@
+func doStart
+  if(is_qt_project())
+    qtStart()
+  else
+    gtkStart()
+  end
+end
+
+func qtStart
+  println('{')
+  println('auto *check = new QCheckBox(qt_text(', cstr(d('Caption')), '), widgetParent);')
+  println('check->setObjectName(QStringLiteral("CheckBox', _id_, '"));')
+  println('check->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+  if(get('Checked') == 0)
+    println('check->setChecked(true);')
+  end
+  if(linked(onCheck))
+    println('QObject::connect(check, &QCheckBox::toggled, &form, [&form](bool checked) {')
+    block.inclvl()
+    event(onCheck, '(checked ? 1 : 0)')
+    block.declvl()
+    println('});')
+  end
+  if(linked(onClick))
+    println('QObject::connect(check, &QCheckBox::clicked, &form, [&form] {')
+    block.inclvl()
+    event(onClick)
+    block.declvl()
+    println('});')
+  end
+  println('}')
+end
+
+func gtkStart
+  println('{')
+  fvar(active)
+  active = 0
+  switch(d('Checked'))
+    case 0: active = 1
+  end
+  println('GtkWidget *check = gtk_check_button_new_with_label(', Caption, ');')
+  println('hiasm_set_color(check, ', cstr(d('Color')), ');')
+  println('hiasm_set_font(check, ', cstr(d('Font')), ');')
+  switch(get('Transparent'))
+    case "True": println('hiasm_set_background(check, "transparent");')
+  end
+  println('gtk_check_button_set_active(GTK_CHECK_BUTTON(check), ', active, ' ? TRUE : FALSE);')
+  println('hiasm_place("CheckBox', _id_, '", check, ', Left, ', ', Top, ');')
+  if(linked(onCheck))
+    println('g_signal_connect(check, "toggled", G_CALLBACK(+[](GtkCheckButton *button, gpointer) {')
+  println('if(!hiasm_form_ready) return;')
+    block.inclvl()
+    event(onCheck, 'gtk_check_button_get_active(button) ? 1 : 0')
+    block.declvl()
+    println('}), NULL);')
+  end
+  if(linked(onClick))
+    println('g_signal_connect(check, "clicked", G_CALLBACK(+[](GtkButton *, gpointer) {')
+  println('if(!hiasm_form_ready) return;')
+    block.inclvl()
+    event(onClick)
+    block.declvl()
+    println('}), NULL);')
+  end
+  println('}')
+end
+
+func Checked()
+  if(is_qt_project())
+    return('(qt_widget<QCheckBox>(form, "CheckBox' && _id_ && '")->isChecked() ? 1 : 0)')
+  else
+    return('gtk_check_button_get_active(GTK_CHECK_BUTTON(hiasm_widget("CheckBox' && _id_ && '").get())) ? 1 : 0')
+  end
+end
+
+func doCheck(_data)
+  if(is_qt_project())
+    if(len(_data) > 0)
+      println('qt_widget<QCheckBox>(form, "CheckBox', _id_, '")->setChecked(qt_flag(qt_text(', _data, ')));')
+    else
+      println('qt_widget<QCheckBox>(form, "CheckBox', _id_, '")->setChecked(false);')
+    end
+  else
+    println('gtk_check_button_set_active(GTK_CHECK_BUTTON(hiasm_widget("CheckBox', _id_, '").get()), (', _data, ') ? TRUE : FALSE);')
+  end
+end

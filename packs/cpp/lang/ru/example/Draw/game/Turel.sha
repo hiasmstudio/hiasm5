@@ -1,0 +1,1332 @@
+*Защита города от ядерней атаки безумного компьютера
+Make(cpp)
+Add(InfoTip,10533524,854,49)
+{
+ Info=#4:Ядро|
+ Font=[MS Sans Serif,8,1,0,1]
+ Transparent=1
+ Width=211
+ Height=88
+}
+Add(MainForm,2953706,91,336)
+{
+ Width=408
+ Height=324
+ Caption="Air attack"
+ Point(onKeyDown)
+ link(onCreate,7998593:doEvent1,[(139,356)(139,419)])
+ link(onKeyDown,11673471:doCase,[])
+}
+Add(PaintBox,14123559,287,245)
+{
+ Width=400
+ Height=300
+ Align=5
+ Color=16777215
+ Point(Height)
+ Point(Width)
+ link(onBeforeDraw,14480266:doDraw,[])
+}
+Add(Timer,52160,203,168)
+{
+ Interval=10
+ link(onTimer,7171892:doEvent1,[])
+}
+Add(Img_Ellipse,7751732,371,245)
+{
+ @Color=37596
+ Point2=327685
+ Point2AsOffset=0
+ Point(Point1)
+ link(onDraw,16612605:doDraw,[])
+ link(Bitmap,14271418:Var2,[])
+ link(Point1,1098937:Point,[])
+}
+Add(PointXY,1098937,385,189)
+{
+ @Color=37596
+ link(X,3015888:Var1,[(391,145)])
+ link(Y,7788035:Var1,[(398,152)])
+}
+Add(Math,2064923,497,168)
+{
+ @Color=13955327
+ link(onResult,9657996:doEvent1,[])
+ link(Op1,3015888:Var2,[])
+ link(Op2,323660:Var,[])
+}
+Add(Math,8664133,588,168)
+{
+ @Color=13955327
+ link(onResult,6105272:doEvent1,[])
+ link(Op1,3902591:Var2,[])
+ link(Op2,11250792:Var2,[])
+}
+Add(Hub,9657996,539,168)
+{
+ @Color=13955327
+ link(onEvent1,8664133:doOperation,[])
+ link(onEvent2,3024912:doValue,[(561,181)(561,62)(487,62)(487,76)])
+}
+Add(Hub,7171892,252,168)
+{
+ OutCount=3
+ link(onEvent1,16583304:doEvent1,[])
+ link(onEvent2,14123559:doRefresh,[(273,181)(273,251)])
+}
+Add(GetDataEx,3015888,497,140)
+{
+ link(Data,3024912:Var,[])
+}
+Add(GetDataEx,3902591,588,147)
+{
+ link(Data,10690012:Var,[])
+}
+Add(Math,11855824,672,168)
+{
+ @Color=13955327
+ link(onResult,15834278:doEvent1,[])
+ link(Op1,8164902:Var,[])
+ link(Op2,11250792:Var3,[(685,152)])
+}
+Add(Hub,6105272,630,168)
+{
+ @Color=13955327
+ link(onEvent1,11855824:doOperation,[])
+ link(onEvent2,10690012:doValue,[(656,181)(656,61)(577,61)(577,76)])
+}
+Add(GetDataEx,11250792,595,147)
+{
+ link(Data,8783828:Var,[])
+}
+Add(Hub,16583304,441,168)
+{
+ OutCount=3
+ link(onEvent1,2064923:doOperation,[])
+ link(onEvent2,2665391:doCompare,[(507,181)(507,258)])
+ link(onEvent3,12930534:doEvent1,[(487,188)(487,461)])
+}
+Add(If_else,2665391,518,252)
+{
+ @Color=7063295
+ Type=2
+ link(onTrue,882778:doWork2,[])
+ link(onFalse,10879136:doCompare,[(558,265)(558,328)])
+ link(Op1,7788035:Var2,[])
+ link(Op2,10295533:Var3,[(531,229)])
+}
+Add(GetDataEx,7788035,518,147)
+{
+ Angle=1
+ link(Data,3902591:Var1,[])
+}
+Add(Case,4067470,266,357)
+{
+ @Hint=#5:space|
+ Value=Integer(32)
+ link(onTrue,9553849:doCompare,[])
+ AddHint(-12,-24,44,13,@Hint)
+}
+Add(If_else,9553849,343,364)
+{
+ @Color=7039999
+ link(onTrue,3827745:doEvent1,[])
+ link(Op1,7639607:Var,[])
+}
+Add(GlobalVar,8783828,595,105)
+{
+ @Color=13955327
+ Name="ky"
+}
+Add(GlobalVar,14071213,714,252)
+{
+ @Color=7063295
+ Name="ky"
+}
+Add(DoData,2264465,637,252)
+{
+ @Color=7063295
+ Data=Integer(0)
+ link(onEventData,6566883:doEvent1,[])
+}
+Add(GlobalVar,7639607,343,329)
+{
+ @Color=7039999
+ Name="ky"
+ Data=Real(0)
+}
+Add(Hub,6566883,686,252)
+{
+ @Color=7063295
+ OutCount=3
+ link(onEvent1,14071213:doValue,[])
+ link(onEvent2,8510031:doValue,[(707,265)(707,286)])
+ link(onEvent3,12169729:doData,[(707,272)(707,314)])
+}
+Add(GlobalVar,323660,504,105)
+{
+ @Color=13955327
+ Name="kx"
+}
+Add(GlobalVar,8510031,714,280)
+{
+ @Color=7063295
+ Name="kx"
+}
+Add(Hub,3827745,392,364)
+{
+ @Color=7039999
+ OutCount=5
+ link(onEvent1,5492291:doCalc,[])
+ link(onEvent2,11844442:doCalc,[(416,377)(416,419)])
+ link(onEvent3,9080193:doOperation,[(413,384)(413,468)])
+ link(onEvent4,14958815:doOperation,[(413,391)(413,517)])
+ link(onEvent5,4795146:doBeep,[(413,398)(413,559)])
+}
+Add(GlobalVar,3024912,497,70)
+{
+ @Color=13955327
+ Name="x"
+}
+Add(GlobalVar,10690012,588,70)
+{
+ @Color=13955327
+ Name="y"
+ Data=Integer(1000)
+}
+Add(GlobalVar,7440780,469,462)
+{
+ @Color=7039999
+ Name="x"
+}
+Add(Math,14958815,420,511)
+{
+ @Color=7039999
+ OpType=1
+ Op2=1
+ link(onResult,14430107:doValue,[])
+ link(Op1,5633320:Var2,[])
+}
+Add(GlobalVar,14430107,469,511)
+{
+ @Color=7039999
+ Name="y"
+}
+Add(GetDataEx,7055845,392,287)
+{
+ Angle=3
+ link(Data,14123559:Height,[(300,292)])
+}
+Add(If_else,10879136,567,322)
+{
+ @Color=7063295
+ Type=1
+ link(onTrue,2212004:doWork3,[(620,328)])
+ link(onFalse,4686103:doCompare,[])
+ link(Op1,6419290:Var3,[(573,299)])
+ link(Op2,6690644:Var2,[])
+}
+Add(GetDataEx,8329049,301,294)
+{
+ link(Data,14123559:Width,[])
+}
+Add(GlobalVar,381531,574,287)
+{
+ @Color=7063295
+ Name="x"
+}
+Add(HubEx,882778,616,252)
+{
+ link(onEvent,2264465:doData,[])
+}
+Add(If_else,4686103,623,329)
+{
+ @Color=7063295
+ Type=1
+ Op2=Real(0)
+ link(onTrue,1285742:doWork2,[])
+ link(Op1,6690644:Var3,[(629,313)])
+}
+Add(GetDataEx,6690644,574,308)
+{
+ link(Data,381531:Var,[])
+}
+Add(HubEx,2212004,616,287)
+{
+ Angle=3
+ link(onEvent,882778:doWork3,[])
+}
+Add(GlobalVar,10573752,266,420)
+{
+ @Color=11645439
+ Name="a"
+ link(onValue,3864129:doEvent1,[(318,426)(318,504)(199,504)(199,517)])
+}
+Add(Case,13485488,210,357)
+{
+ @Hint=#4:left|
+ Value=Integer(37)
+ link(onNextCase,4067470:doCase,[])
+ link(onTrue,261775:doOperation,[(249,370)(249,461)])
+ AddHint(-5,-25,29,13,@Hint)
+}
+Add(Math,261775,266,455)
+{
+ @Color=11645439
+ OpType=1
+ Op2=1
+ link(onResult,16447912:doWork1,[(310,461)(310,440)])
+ link(Op1,7286567:Var2,[])
+}
+Add(Case,11673471,154,357)
+{
+ @Hint=#5:right|
+ Value=Integer(39)
+ link(onNextCase,13485488:doCase,[])
+ link(onTrue,913473:doOperation,[(198,370)(198,468)])
+ AddHint(-9,-24,35,13,@Hint)
+}
+Add(Math,913473,210,462)
+{
+ @Color=11645439
+ Op2=1
+ link(onResult,16447912:doWork3,[(256,468)])
+ link(Op1,7286567:Var1,[(216,446)])
+}
+Add(GetDataEx,7286567,266,441)
+{
+ link(Data,10573752:Var,[])
+}
+Add(HubEx,16447912,252,434)
+{
+ Angle=3
+ link(onEvent,11132078:doWork3,[])
+}
+Add(MathParse,5492291,420,364)
+{
+ @Color=7039999
+ DataCount=1
+ MathStr="-7*cos(%1/180*pi)"
+ link(onResult,7639607:doValue,[(464,370)(464,352)(331,352)(331,335)])
+ link(X1,9000911:Var2,[])
+}
+Add(GlobalVar,5219758,420,329)
+{
+ @Color=7039999
+ Name="a"
+}
+Add(Math,9080193,420,462)
+{
+ @Color=7039999
+ OpType=3
+ Op2=2
+ link(onResult,7440780:doValue,[])
+ link(Op1,8329049:Var2,[(426,453)(307,453)])
+}
+Add(MathParse,11844442,427,413)
+{
+ @Color=7039999
+ DataCount=1
+ MathStr="7*sin(%1/180*pi)"
+ link(onResult,7432911:doValue,[])
+ link(X1,9000911:Var3,[(433,355)])
+}
+Add(GetDataEx,9000911,420,350)
+{
+ link(Data,5219758:Var,[])
+}
+Add(GlobalVar,7432911,476,413)
+{
+ @Color=7039999
+ Name="kx"
+ Data=Real(0)
+}
+Add(GlobalVar,2664308,763,308)
+{
+ @Color=7063295
+ Name="x"
+}
+Add(DoData,12169729,714,308)
+{
+ @Color=7063295
+ Data=Integer(-5)
+ link(onEventData,2664308:doValue,[])
+}
+Add(MultiElementEx,16612605,413,245)
+{
+ @Hint=#5:Turel|
+ @Color=220
+ link(onDraw,6021864:doDraw,[])
+ link(Bitmap,10474586:Var2,[])
+ link(Width,6419290:Var1,[(426,239)(454,239)])
+ link(Height,10295533:Var2,[])
+ AddHint(-8,61,39,13,@Hint)
+}
+BEGIN_SDK
+  Add(EditMultiEx,3657695,21,21)
+  {
+   WorkCount=#6:doDraw|
+   EventCount=#6:onDraw|
+   DataCount=#6:Bitmap|5:Width|6:Height|
+   Width=503
+   Height=221
+   link(doDraw,12114245:doOperation,[(25,27)(25,132)])
+  }
+  Add(Img_Line,5349943,245,126)
+  {
+   Size=10
+   Color=8421504
+   Point(Point1)
+   Point(Point2)
+   link(onDraw,4713714:doOperation,[])
+   link(Bitmap,12839251:Var2,[])
+   link(Point1,1191317:Point,[])
+   link(Point2,7420833:Point,[(265,114)(286,114)(286,222)(104,222)])
+  }
+  Add(PointXY,7420833,98,182)
+  {
+   link(X,6652687:Result,[])
+   link(Y,12705359:Result,[(111,170)(202,170)])
+  }
+  Add(Math,12114245,49,126)
+  {
+   OpType=3
+   Op2=2
+   link(onResult,6652687:doCalc,[])
+   link(Op1,3657695:Width,[(55,50)(34,50)])
+  }
+  Add(GetDataEx,2585933,203,35)
+  {
+   Angle=3
+   link(Data,3657695:Height,[(41,40)])
+  }
+  Add(FastMathParse,12705359,196,126)
+  {
+   MathStr="%2 - 15*%1"
+   link(onResult,5349943:doDraw,[])
+   link(X1,6193986:Var,[])
+   link(X2,2585933:Var2,[])
+  }
+  Add(FastMathParse,6652687,98,126)
+  {
+   MathStr="%2 + 15 * %1"
+   Point(onError)
+   link(onResult,12705359:doCalc,[])
+   link(X1,9339216:Var,[])
+  }
+  Add(GlobalVar,9339216,98,84)
+  {
+   Name="ax"
+  }
+  Add(GlobalVar,6193986,196,84)
+  {
+   Name="ay"
+  }
+  Add(PointXY,1191317,252,63)
+  {
+   link(X,3946504:Var2,[])
+   link(Y,12841810:Var2,[])
+  }
+  Add(Img_Ellipse,7117811,399,126)
+  {
+   Point2=1966110
+   Point2AsOffset=0
+   BgColor=12632256
+   Style=1
+   Point(Point1)
+   link(onDraw,3657695:onDraw,[(446,132)(446,27)])
+   link(Bitmap,12839251:Var3,[(405,75)])
+   link(Point1,14826229:Point,[])
+  }
+  Add(GetDataEx,12839251,245,70)
+  {
+   Angle=3
+   link(Data,3657695:Bitmap,[(27,75)])
+  }
+  Add(PointXY,14826229,413,77)
+  {
+   link(X,4713714:Result,[(419,65)(342,65)(342,170)(307,170)])
+   link(Y,13587753:Result,[(426,65)(457,65)(457,170)(356,170)])
+  }
+  Add(Math,4713714,301,126)
+  {
+   OpType=1
+   Op2=15
+   link(onResult,13587753:doOperation,[])
+   link(Op1,3946504:Var3,[(307,47)])
+  }
+  Add(GetDataEx,3946504,252,42)
+  {
+   Angle=3
+   link(Data,12114245:Result,[(91,47)(91,170)(55,170)])
+  }
+  Add(Math,13587753,350,126)
+  {
+   OpType=1
+   Op2=15
+   link(onResult,7117811:doDraw,[])
+   link(Op1,12841810:Var3,[(356,40)])
+  }
+  Add(GetDataEx,12841810,259,35)
+  {
+   Angle=3
+   link(Data,2585933:Var3,[])
+  }
+END_SDK
+Add(GetDataEx,10295533,427,224)
+{
+ Angle=3
+ link(Data,7055845:Var1,[(398,229)])
+}
+Add(GetDataEx,6419290,448,294)
+{
+ Angle=3
+ link(Data,8329049:Var3,[])
+}
+Add(GetDataEx,14271418,371,231)
+{
+ Angle=3
+ link(Data,4436092:Var3,[])
+}
+Add(MathParse,204309,238,511)
+{
+ @Color=11645439
+ DataCount=1
+ MathStr="sin(%1/180*pi)"
+ link(onResult,16032877:doValue,[])
+}
+Add(MathParse,14408444,238,553)
+{
+ @Color=11645439
+ DataCount=1
+ MathStr="cos(%1/180*pi)"
+ link(onResult,858222:doValue,[])
+}
+Add(Hub,3864129,210,511)
+{
+ @Color=11645439
+ link(onEvent1,204309:doCalc,[])
+ link(onEvent2,14408444:doCalc,[(231,524)(231,559)])
+}
+Add(GlobalVar,16032877,287,511)
+{
+ @Color=11645439
+ Name="ax"
+}
+Add(GlobalVar,858222,287,553)
+{
+ @Color=11645439
+ Name="ay"
+}
+Add(MultiElementEx,6021864,462,245)
+{
+ @Hint=#6:Rocket|
+ @Color=14417920
+ link(onDraw,16234337:doEvent1,[(506,251)(506,482)])
+ link(Bitmap,1519353:Var2,[])
+ AddHint(-5,61,50,13,@Hint)
+}
+BEGIN_SDK
+  Add(EditMultiEx,3466677,21,21)
+  {
+   WorkCount=#6:doDraw|
+   EventCount=#6:onDraw|
+   DataCount=#6:Bitmap|
+   Width=307
+   Height=207
+   link(doDraw,4719714:doEvent1,[(31,27)(31,83)])
+  }
+  Add(GlobalVar,6550121,182,119)
+  {
+   Name="tx"
+  }
+  Add(GlobalVar,4052945,189,140)
+  {
+   Name="ty"
+  }
+  Add(Img_Bmp,16687648,168,175)
+  {
+   Transparent=0
+   TransparentColor=16711935
+   Point(X)
+   Point(Y)
+   link(onDraw,3466677:onDraw,[(263,181)(263,27)])
+   link(Bitmap,3466677:Bitmap,[(174,120)(27,120)])
+   link(SourceBitmap,5885430:Var,[])
+   link(X,6550121:Var,[])
+   link(Y,4052945:Var,[])
+  }
+  Add(Bitmap,12089973,175,28)
+  {
+   Picture=[ZIPB602000078DA73F2DDC6C400066640AC01C45C402C02C48C0C1260F106A83C32F8CFF01F8EB089204B3600E94B971850049125A1F2484AC0344212029094C0E421E0C081030D0D0DC84E83C91F80810618A0BA3C72A060C88378201F349C3AC5004418EE8348C2E5214A50E591CDC790873B11EE38FAFB0F3B03EA7E8CF481244F5CFAC18A1818008C6109F4]
+  }
+  Add(Counter,12177569,77,77)
+  {
+   Max=10
+   link(onNext,13890600:doOperation,[])
+  }
+  Add(GetIndexData,5885430,175,77)
+  {
+   link(Data1,12089973:Bitmap,[])
+   link(Data2,489298:Bitmap,[(188,69)(223,69)])
+  }
+  Add(Hub,4719714,42,77)
+  {
+   link(onEvent1,12177569:doNext,[])
+   link(onEvent2,16687648:doDraw,[(64,90)(64,181)])
+  }
+  Add(Bitmap,489298,217,28)
+  {
+   Picture=[ZIPB602000078DABD92BB0D80300C440D25350523300103D0B393A7A24E9D320B05E763735152224EB612FB59D119715EF74C5987E42EB948AE92136DB9CF95A322458B510721CB1902354D8495C3483E5F580423CA8B9C73CC8CD6943B15AB3EE7F8513A9EAAB4017B4F129DBF028D979196E3FB1D378B66EEFFFDC697EABFFB3F80B36E5F1FD73273AB8641F400708011F4]
+  }
+  Add(Math,13890600,126,77)
+  {
+   OpType=3
+   Op2=10
+   link(onResult,5885430:doIndex,[])
+  }
+END_SDK
+Add(GetDataEx,10474586,413,231)
+{
+ Angle=3
+ link(Data,14271418:Var3,[])
+}
+Add(GlobalVar,4052945,756,133)
+{
+ @Color=16766164
+ Name="ty"
+}
+Add(Math,973404,756,168)
+{
+ @Color=16766164
+ Op2=0.5
+ link(onResult,4052945:doValue,[(800,174)(800,156)(744,156)(744,139)])
+ link(Op1,4052945:Var,[])
+}
+Add(Hub,15834278,714,168)
+{
+ @Color=13955327
+ link(onEvent1,973404:doOperation,[])
+ link(onEvent2,8783828:doValue,[(737,181)(737,92)(583,92)(583,111)])
+}
+Add(PointInRect,10765307,567,455)
+{
+ @Color=16757169
+ Point2AsOffset=0
+ link(onTrue,14047511:doEvent1,[])
+ link(Point,16475161:Point,[])
+ link(RPoint1,8082233:Point,[(580,447)(615,447)])
+ link(RPoint2,14251455:Point,[(587,447)(657,447)])
+}
+Add(PointXY,16475161,567,406)
+{
+ @Color=16757169
+ link(X,12066292:Var,[])
+ link(Y,12340623:Var,[])
+}
+Add(GlobalVar,12066292,567,364)
+{
+ @Color=16757169
+ Name="x"
+}
+Add(GlobalVar,12340623,574,378)
+{
+ @Color=16757169
+ Name="y"
+}
+Add(PointXY,8082233,609,406)
+{
+ @Color=16757169
+ link(X,11669855:Var,[])
+ link(Y,5559955:Var,[])
+}
+Add(PointXY,14251455,651,406)
+{
+ @Color=16757169
+ X=10
+ Y=20
+}
+Add(GlobalVar,11669855,609,364)
+{
+ @Color=16757169
+ Name="tx"
+}
+Add(GlobalVar,5559955,616,378)
+{
+ @Color=16757169
+ Name="ty"
+}
+Add(GlobalVar,5645325,693,497)
+{
+ @Color=16757169
+ Name="ty"
+ link(onValue,8523665:doRandom,[])
+}
+Add(Hub,14047511,609,455)
+{
+ @Color=16757169
+ link(onEvent1,11629022:doCrash,[])
+ link(onEvent2,10769329:doWork1,[(634,468)])
+}
+Add(DoData,11230751,644,497)
+{
+ @Color=16757169
+ Data=Integer(-20)
+ link(onEventData,5645325:doValue,[])
+}
+Add(GlobalVar,15839849,784,497)
+{
+ @Color=16757169
+ Name="tx"
+ link(onValue,1285742:doWork1,[(826,503)(826,335)])
+}
+Add(Random,8523665,735,497)
+{
+ @Color=16757169
+ Min=2
+ Max=388
+ link(onRandom,15839849:doValue,[])
+}
+Add(MultiElementEx,11629022,672,455)
+{
+ @Hint=#14:Destroy rocket|
+ @Color=16757169
+ link(Bitmap,7694251:Var2,[])
+ AddHint(40,-35,84,13,@Hint)
+}
+BEGIN_SDK
+  Add(EditMultiEx,10504154,21,21)
+  {
+   WorkCount=#7:doCrash|9:doProcess|
+   DataCount=#6:Bitmap|
+   link(doCrash,9823956:doFor,[(35,27)(35,97)])
+   link(doProcess,11366707:doCompare,[(28,34)(28,160)])
+  }
+  Add(For,9823956,84,91)
+  {
+   End=100
+   IncludeEnd=1
+   link(onEvent,1677988:##add,[])
+   link(onStop,1526330:doStart,[(128,104)(128,48)])
+  }
+  Add(MultiElementEx,1677988,238,91)
+  {
+   @Hint=#12:Rocket parts|
+   Mode=1
+   link(Bitmap,10504154:Bitmap,[(244,25)(27,25)])
+  }
+  BEGIN_SDK
+    Add(EditMultiEx,15920662,21,21)
+    {
+     WorkCount=#5:##add|8:##select|7:##clear|
+     VarCount=#7:##count|
+     DataCount=#6:Bitmap|
+     Width=370
+     Height=326
+     Point(##add)
+     Point(##select)
+     Point(##clear)
+     Point(##count)
+     link(##add,1678201:doEvent1,[(39,27)(39,48)])
+     link(##select,5056625:doEvent1,[(34,34)(34,237)])
+    }
+    Add(MathParse,204309,196,42)
+    {
+     MathStr="%2*sin(%1/180*pi)/10"
+     link(X2,12480111:Var1,[(209,30)(153,30)])
+    }
+    Add(MathParse,14408444,203,91)
+    {
+     MathStr="%2*cos(%1/180*pi)/10"
+     link(onResult,4003794:doWork2,[])
+     link(X2,12480111:Var3,[(216,82)])
+    }
+    Add(Hub,3864129,168,42)
+    {
+     link(onEvent1,204309:doCalc,[])
+     link(onEvent2,14408444:doCalc,[(189,55)(189,97)])
+    }
+    Add(Random,15315644,126,42)
+    {
+     Max=359
+     link(onRandom,3864129:doEvent1,[])
+    }
+    Add(Memory,15384806,168,126)
+    {
+    }
+    Add(Memory,7412826,259,161)
+    {
+    }
+    Add(Hub,1678201,49,42)
+    {
+     OutCount=3
+     link(onEvent1,6867595:doRandom,[])
+     link(onEvent2,12675014:doData,[(76,55)(76,132)])
+     link(onEvent3,14749797:doData,[(69,62)(69,167)])
+    }
+    Add(DoData,12675014,119,126)
+    {
+     link(onEventData,7949725:doWork2,[])
+     link(Data,1283949:Var,[])
+    }
+    Add(GlobalVar,1283949,119,98)
+    {
+     Name="tx"
+    }
+    Add(DoData,14749797,210,161)
+    {
+     link(onEventData,10927361:doWork2,[])
+     link(Data,389821:Var,[])
+    }
+    Add(GlobalVar,389821,210,133)
+    {
+     Name="ty"
+    }
+    Add(Math,6162954,168,231)
+    {
+     link(onResult,15349879:doEvent1,[])
+     link(Op1,15384806:Value,[])
+     link(Op2,204309:Result,[(181,212)(202,212)])
+    }
+    Add(Hub,5056625,133,231)
+    {
+     OutCount=3
+     link(onEvent1,6162954:doOperation,[])
+     link(onEvent2,12537656:doNext,[(159,244)(159,276)(51,276)(51,307)])
+    }
+    Add(Math,12820967,259,231)
+    {
+     link(onResult,11465342:doEvent1,[])
+     link(Op1,7412826:Value,[])
+     link(Op2,15886378:Var2,[])
+    }
+    Add(Hub,15349879,217,231)
+    {
+     link(onEvent1,12820967:doOperation,[])
+     link(onEvent2,7949725:doWork3,[(243,244)(243,270)(158,270)])
+    }
+    Add(HubEx,7949725,154,126)
+    {
+     link(onEvent,15384806:doValue,[])
+    }
+    Add(HubEx,10927361,245,161)
+    {
+     link(onEvent,7412826:doValue,[])
+    }
+    Add(Img_Point,10225580,161,301)
+    {
+     Size=2
+     Point(X)
+     Point(Y)
+     Point(Color)
+     link(Bitmap,15920662:Bitmap,[(167,275)(27,275)])
+     link(X,6162954:Result,[])
+     link(Y,12820967:Result,[(181,275)(265,275)])
+     link(Color,10108156:Color,[(188,289)(201,289)(201,341)(118,341)])
+    }
+    Add(Hub,11465342,301,231)
+    {
+     link(onEvent1,3565729:doOperation,[])
+     link(onEvent2,10927361:doWork3,[(324,244)(324,271)(249,271)])
+    }
+    Add(Math,3565729,336,231)
+    {
+     link(onResult,4003794:doWork3,[(380,237)(380,128)(249,128)])
+     link(Op1,15886378:Var3,[(342,215)])
+     link(Op2,11162956:Var,[])
+    }
+    Add(GlobalVar,11162956,343,196)
+    {
+     Name="g"
+    }
+    Add(Memory,3752451,266,91)
+    {
+    }
+    Add(GetDataEx,15886378,266,210)
+    {
+     link(Data,3752451:Value,[])
+    }
+    Add(HubEx,4003794,245,91)
+    {
+     link(onEvent,3752451:doValue,[])
+    }
+    Add(Random,6867595,84,42)
+    {
+     Min=1
+     Max=20
+     link(onRandom,15315644:doRandom,[])
+    }
+    Add(GetDataEx,12480111,147,77)
+    {
+     Angle=3
+     link(Data,6867595:Random,[(90,82)])
+    }
+    Add(Counter,12537656,63,301)
+    {
+     Max=255
+     Step=3
+     link(onNext,10108156:doRGB,[])
+    }
+    Add(RGB,10108156,112,301)
+    {
+     link(onRGB,10225580:doDraw,[])
+     link(G,12537656:Count,[(125,289)(104,289)(104,342)(69,342)])
+    }
+  END_SDK
+  Add(Counter,7543259,84,154)
+  {
+   link(onNext,11228840:doCompare,[])
+  }
+  Add(If_else,11228840,133,154)
+  {
+   Type=1
+   Op2=Integer(100)
+   link(onTrue,9532591:doFor,[])
+   link(onFalse,1677988:##clear,[(174,167)(174,111)])
+  }
+  Add(For,9532591,182,154)
+  {
+   End=100
+   link(onEvent,1677988:##select,[(226,160)(226,104)])
+  }
+  Add(If_else,11366707,35,154)
+  {
+   Op2=Integer(100)
+   link(onTrue,7543259:doNext,[])
+   link(Op1,1677988:##count,[(41,138)(244,138)])
+  }
+  Add(Beep,4795146,224,42)
+  {
+   Freq=0
+   Duration=10
+  }
+  Add(For,16379642,182,42)
+  {
+   Start=100
+   End=400
+   Step=20
+   IncludeEnd=1
+   link(onEvent,4795146:doBeep,[])
+  }
+  Add(Thread,1526330,140,42)
+  {
+   Delay=0
+   FastStop=0
+   link(onExec,16379642:doFor,[])
+  }
+END_SDK
+Add(GlobalVar,8164902,672,126)
+{
+ @Color=13955327
+ Name="g"
+ Data=Real(0.1)
+}
+Add(GetDataEx,1519353,462,231)
+{
+ Angle=3
+ link(Data,10474586:Var3,[])
+}
+Add(HubEx,1285742,658,329)
+{
+ Angle=3
+ link(onEvent,2212004:doWork1,[(662,293)])
+}
+Add(Hub,12930534,539,455)
+{
+ link(onEvent1,10765307:doCheck,[])
+ link(onEvent2,7147228:doCompare,[(560,468)(560,545)])
+}
+Add(If_else,7147228,567,539)
+{
+ @Color=16739179
+ Type=2
+ link(onTrue,8521824:doEvent1,[])
+ link(Op1,13205917:Var,[])
+ link(Op2,5633320:Var3,[(580,502)])
+}
+Add(GlobalVar,13205917,567,511)
+{
+ @Color=16739179
+ Name="ty"
+}
+Add(GetDataEx,5633320,420,497)
+{
+ Angle=3
+ link(Data,7055845:Var2,[(398,502)])
+}
+Add(HubEx,10769329,630,497)
+{
+ link(onEvent,11230751:doData,[])
+}
+Add(Hub,7998593,154,413)
+{
+ OutCount=5
+ link(onEvent1,14588232:doRandomize,[])
+ link(onEvent2,11132078:doWork2,[])
+ link(onEvent3,12111679:doWork1,[(184,433)(184,593)(634,593)(634,552)])
+ link(onEvent4,4124664:doData,[(178,440)(178,457)(77,457)(77,118)])
+ link(onEvent5,5648452:doStart,[(180,447)(180,615)])
+}
+Add(Random,14588232,210,406)
+{
+}
+Add(HubEx,11132078,252,420)
+{
+ link(onEvent,10573752:doValue,[])
+}
+Add(HubEx,12111679,630,546)
+{
+ Angle=3
+ link(onEvent,10769329:doWork3,[])
+}
+Add(Img_Bmp,14480266,329,245)
+{
+ link(onDraw,7751732:doDraw,[])
+ link(Bitmap,4436092:Var2,[])
+ link(SourceBitmap,15654109:Bitmap,[])
+}
+Add(GetDataEx,4436092,329,231)
+{
+ Angle=3
+ link(Data,14123559:Bitmap,[(265,236)(265,289)(293,289)])
+}
+Add(Jpeg,8934617,294,112)
+{
+ Point(doBitmap)
+ link(onBitmap,15654109:doLoad,[])
+}
+Add(Bitmap,15654109,336,112)
+{
+}
+Add(DoData,4124664,224,112)
+{
+ Data=String(back.jpg)
+ link(onEventData,11171476:doEvent1,[])
+}
+Add(Hub,11171476,266,112)
+{
+ link(onEvent1,8934617:doLoad,[])
+ link(onEvent2,8934617:doBitmap,[(287,125)(287,132)])
+}
+Add(Beep,4795146,420,553)
+{
+ @Color=7039999
+ Freq=100
+ Duration=20
+}
+Add(Hub,8521824,609,539)
+{
+ @Color=16739179
+ link(onEvent1,6301101:doBuum,[])
+ link(onEvent2,12111679:doWork2,[])
+}
+Add(GlobalVar,4400328,868,70)
+{
+ @Color=13955327
+}
+Add(GlobalVar,9801265,868,91)
+{
+ @Color=7063295
+}
+Add(LinkTip,12406280,889,70)
+{
+ Link="Изменение положения=multi://2064923"
+ Font=[MS Sans Serif,8,0,16711680,1]
+}
+Add(LinkTip,16593002,889,91)
+{
+ Link="Вылет за пределы радара=multi://2665391"
+ Font=[MS Sans Serif,8,0,16711680,1]
+}
+Add(GlobalVar,11657233,868,112)
+{
+ @Color=37596
+}
+Add(LinkTip,15142597,889,112)
+{
+ Link="Отрисовка=multi://7751732"
+ Font=[MS Sans Serif,8,0,16711680,1]
+}
+Add(InfoTip,3246735,854,147)
+{
+ Info=#6:Турель|
+ Font=[MS Sans Serif,8,1,0,1]
+ Transparent=1
+ Width=211
+ Height=88
+}
+Add(GlobalVar,7594198,868,168)
+{
+ @Color=11645439
+}
+Add(GlobalVar,12351709,868,189)
+{
+ @Color=7039999
+}
+Add(LinkTip,2919477,889,168)
+{
+ Link="Разворот=multi://913473"
+ Font=[MS Sans Serif,8,0,16711680,1]
+}
+Add(LinkTip,1918193,889,189)
+{
+ Link="Выстрел=multi://9553849"
+ Font=[MS Sans Serif,8,0,16711680,1]
+}
+Add(GlobalVar,1353902,868,210)
+{
+ @Color=220
+}
+Add(LinkTip,447427,889,210)
+{
+ Link="Отрисовка=multi://16612605"
+ Font=[MS Sans Serif,8,0,16711680,1]
+}
+Add(InfoTip,8869151,854,245)
+{
+ Info=#10:Боеголовка|
+ Font=[MS Sans Serif,8,1,0,1]
+ Transparent=1
+ Width=211
+ Height=109
+}
+Add(GlobalVar,2620848,868,266)
+{
+ @Color=16766164
+}
+Add(GlobalVar,7012700,868,287)
+{
+ @Color=16757169
+}
+Add(LinkTip,4587484,889,266)
+{
+ Link="Падение=multi://973404"
+ Font=[MS Sans Serif,8,0,16711680,1]
+}
+Add(LinkTip,2827534,889,287)
+{
+ Link="Проверка на поражение=multi://10765307"
+ Font=[MS Sans Serif,8,0,16711680,1]
+}
+Add(GlobalVar,6852234,868,308)
+{
+ @Color=16739179
+}
+Add(LinkTip,924558,889,308)
+{
+ Link="Взрыв города=multi://7147228"
+ Font=[MS Sans Serif,8,0,16711680,1]
+}
+Add(GlobalVar,15114374,868,329)
+{
+ @Color=14417920
+}
+Add(LinkTip,5414094,889,329)
+{
+ Link="Отрисовка=multi://6021864"
+ Font=[MS Sans Serif,8,0,16711680,1]
+}
+Add(MultiElementEx,6301101,700,539)
+{
+ @Hint=#5:Buum!|
+ @Color=16730184
+ link(Bitmap,7694251:Var3,[(706,446)])
+ AddHint(-7,41,45,13,@Hint)
+}
+BEGIN_SDK
+  Add(EditMultiEx,9935676,21,21)
+  {
+   WorkCount=#6:doBuum|6:doDraw|
+   DataCount=#6:Bitmap|
+   Width=412
+   Height=431
+   link(doBuum,1347238:doEvent1,[(56,27)(56,97)])
+   link(doDraw,3838378:doCompare,[(34,34)(34,293)])
+  }
+  Add(Beep,4535148,238,91)
+  {
+   Freq=0
+   Duration=10
+  }
+  Add(IntegerArray,16063034,182,42)
+  {
+   IntArray=['0'=100,'0'=200,'0'=300,'0'=400,'0'=500,'0'=400,'0'=300,'0'=200,'0'=100,'0'=200,'0'=300,'0'=400,'0'=300,'0'=200,'0'=100,'0'=200,'0'=300,'0'=200,'0'=100,'0'=200,'0'=100,'0'=50,'0'=25]
+  }
+  Add(ArrayEnum,12290354,182,91)
+  {
+   link(onItem,4535148:doBeep,[])
+   link(Array,16063034:Array,[])
+  }
+  Add(Thread,4286569,133,91)
+  {
+   Delay=0
+   FastStop=0
+   link(onExec,12290354:doEnum,[])
+  }
+  Add(Hub,1347238,91,91)
+  {
+   link(onEvent1,4286569:doStart,[])
+   link(onEvent2,12675014:doData,[(119,104)(119,167)])
+  }
+  Add(Counter,10541246,147,287)
+  {
+   Max=50
+   Step=2
+   link(onNext,942141:doEvent1,[])
+  }
+  Add(If_else,3838378,84,287)
+  {
+   Type=2
+   Op2=Integer(0)
+   link(onTrue,3703712:doWork2,[])
+   link(Op1,10663924:Var1,[(90,271)])
+  }
+  Add(Img_Ellipse,8150666,224,399)
+  {
+   Color=51914
+   BgColor=65535
+   Style=1
+   Point(Point1)
+   Point(Point2)
+   link(Bitmap,9935676:Bitmap,[(230,389)(27,389)])
+   link(Point1,12812910:Point,[(244,387)(230,387)])
+   link(Point2,13336984:Point,[(251,387)(335,387)])
+  }
+  Add(Memory,15384806,182,161)
+  {
+   link(onData,14749797:doData,[])
+  }
+  Add(Memory,7412826,280,161)
+  {
+   link(onData,3703712:doWork1,[(324,167)(324,229)(130,229)])
+  }
+  Add(DoData,12675014,133,161)
+  {
+   link(onEventData,15384806:doValue,[])
+   link(Data,1283949:Var,[])
+  }
+  Add(DoData,14749797,231,161)
+  {
+   link(onEventData,7412826:doValue,[])
+   link(Data,389821:Var,[])
+  }
+  Add(GlobalVar,389821,231,133)
+  {
+   Name="ty"
+  }
+  Add(GlobalVar,1283949,133,133)
+  {
+   Name="tx"
+  }
+  Add(Hub,942141,189,287)
+  {
+   OutCount=3
+   link(onEvent1,10796893:doCalc,[])
+   link(onEvent2,973877:doCalc,[])
+   link(onEvent3,8150666:doDraw,[(213,307)(213,405)])
+  }
+  Add(FastMathParse,10796893,224,287)
+  {
+   MathStr="%1 - %2 / 2"
+   link(onResult,15679390:doCalc,[])
+   link(X1,15384806:Value,[(230,240)(188,240)])
+  }
+  Add(FastMathParse,973877,280,294)
+  {
+   MathStr="%1 - %2 / 2"
+   link(onResult,3568015:doCalc,[])
+   link(X1,7412826:Value,[])
+  }
+  Add(PointXY,12812910,224,343)
+  {
+   link(X,10796893:Result,[])
+   link(Y,973877:Result,[(237,335)(286,335)])
+  }
+  Add(FastMathParse,15679390,329,287)
+  {
+   MathStr="%1 + %2"
+   link(X2,6893623:Var2,[])
+  }
+  Add(GetDataEx,10663924,133,266)
+  {
+   Angle=2
+   link(Data,10541246:Count,[(139,331)(153,331)])
+  }
+  Add(PointXY,13336984,329,343)
+  {
+   link(X,15679390:Result,[])
+   link(Y,3568015:Result,[(342,335)(384,335)])
+  }
+  Add(FastMathParse,3568015,378,294)
+  {
+   MathStr="%1 + %2"
+   link(X2,6893623:Var3,[(391,271)])
+  }
+  Add(GetDataEx,6893623,336,266)
+  {
+   Angle=3
+   link(Data,10663924:Var3,[])
+  }
+  Add(HubEx,3703712,126,287)
+  {
+   link(onEvent,10541246:doNext,[])
+  }
+END_SDK
+Add(Hub,16234337,644,476)
+{
+ link(onEvent1,11629022:doProcess,[(665,482)(665,468)])
+ link(onEvent2,6301101:doDraw,[(683,489)(683,552)])
+}
+Add(GetDataEx,7694251,672,441)
+{
+ link(Data,1519353:Var3,[(678,236)])
+}
+Add(InfoTip,4869299,77,28)
+{
+ Info=#279:В 2023 году супер компьютер фирмы IBM неожиданно обретает разум и захватывает управление ядерными ракетами в нескольких государствах на планете. Воспользовавшись захваченным арсеналом компьютер немедленно отправляет ракеты в страны, управление над которыми он не смог получить...|
+ Transparent=1
+ HAlign=0
+ Width=365
+ Height=75
+ Margin=5
+}
+Add(Beep,9263035,364,609)
+{
+ @Color=11645439
+ Freq=50
+ Duration=20
+}
+Add(Keyboard,16186046,266,609)
+{
+ @Color=11645439
+ Key=37
+ link(onReadKey,1578754:doWork2,[])
+}
+Add(If_else,1667838,322,609)
+{
+ @Color=11645439
+ Op2=Integer(1)
+ link(onTrue,9263035:doBeep,[])
+}
+Add(Keyboard,1128931,266,616)
+{
+ @Color=11645439
+ Key=39
+ link(onReadKey,1578754:doWork3,[(312,622)])
+}
+Add(Hub,643218,238,609)
+{
+ @Color=11645439
+ link(onEvent1,16186046:doReadKey,[])
+ link(onEvent2,1128931:doReadKey,[])
+}
+Add(HubEx,1578754,308,609)
+{
+ link(onEvent,1667838:doCompare,[])
+}
+Add(Thread,5648452,196,609)
+{
+ @Color=11645439
+ Delay=100
+ link(onExec,643218:doEvent1,[])
+}

@@ -1,0 +1,390 @@
+Make(cpp)
+Add(Hub,12174927,147,119)
+{
+ OutCount=5
+ link(onEvent1,12470231:doClear,[(389,125)(389,195)])
+ link(onEvent2,4703078:doClear,[(257,132)(257,139)])
+ link(onEvent3,5523932:doWork,[(202,139)(202,153)])
+ link(onEvent4,11253226:doEnum,[(196,146)(196,188)])
+ link(onEvent5,12721186:doData,[(188,153)(188,202)])
+}
+Add(MainForm,5039042,21,105)
+{
+ Left=20
+ Top=105
+ Width=677
+ Height=332
+ Caption="Записная книжка"
+ Icon=[000001000200101000000000000068030000260000002020000000000000A80C00008E030000280000001000000020000000010018000000000040030000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004A4A4A4A4A4A000000ACACAC0000000000000000000000000000000000000000000000000000000000004A4A4A4A4A4A4A4A4A252525F2F2F2E0E0E08282820000000000000000000000000000000000000000000000004A4A4A4A4A4A4A4A4A4A4A4A000000F2F2F2CECECE9898984343430000000000003A3A3A6161611616160000000000000000000000004A4A4A000000F2F2F2F2F2F2B9B9B96A6A6A0808084F4F4F929292BABABAAAAAAA595959000000000000000000000000000000000000F2F2F2DDDDDD989898000000424242BCBCBCEAEAEAF6F6F6F6F6F68C8C8C1B1B1B000000000000000000000000F2F2F2F2F2F2CBCBCB2727276A6A6AA8A8A84A4A4AEAEAEAEAEAEAF0F0F0C9C9C9545454000000000000000000000000F2F2F2F2F2F2767676272727E1E1E1E4E4E4AFAFAF4A4A4AB0C9D6B2D7E9F0F0F07B7B7B000000000000000000F2F2F2F2F2F2E0E0E0181818BBBBBBF0F0F0E9E9E9E5E5E5BFBFBF4A4A4A006EA7B2D7E9C9C9C9000000000000000000F2F2F2F2F2F2E9E9E94A4A4AF0F0F0E0E0E0E8E8E8ECECECE2E2E2898989000000006EA77B9FB2000000000000F2F2F2F2F2F2F2F2F2F2F2F2B5B5B54A4A4AF0F0F0E6E6E6E9E9E9E4E4E4000000000000000000000000000000000000F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2B5B5B54A4A4AEAEAEAE8E8E8000000000000000000000000000000000000000000000000B5B5B5F2F2F2F2F2F2F2F2F2F2F2F2B5B5B54A4A4A4A4A4A000000000000000000000000000000000000000000000000000000000000B5B5B5F2F2F2F2F2F2F2F2F2000000000000000000000000000000000000000000000000000000000000000000000000000000000000B5B5B5797979000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000F9FFFFFFE0FFFFFF8067FFFF0003FFFFC001FFFFE001FFFFC000FFFFC000FFFF8000FFFF8000FFFF0009FFFF001FFFFF001FFFFFC03FFFFFF07FFFFFFCFFFFFF2800000020000000400000000100180000000000800C0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004A4A4A4A4A4A000000F2F2F2F2F2F20000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004A4A4A4A4A4A4A4A4A4A4A4A000000F2F2F2F2F2F2CECECE0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004A4A4A4A4A4A4A4A4A4A4A4A4A4A4A000000F2F2F2F2F2F2F2F2F2CECECEC2C2C20000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004A4A4A4A4A4A4A4A4A4A4A4A4A4A4A4A4A4A4A4A4A000000F2F2F2F2F2F2F2F2F2CECECEB6B6B69292920000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004A4A4A4A4A4A4A4A4A4A4A4A4A4A4A4A4A4A4A4A4A000000F2F2F2F2F2F2F2F2F2F2F2F2C2C2C29E9E9E9292928686860000000000000000000000000000000000000000000000004F4F4F0000000000000000000000000000000000000000000000004A4A4A4A4A4A4A4A4A4A4A4A4A4A4A4A4A4A000000F2F2F2F2F2F2F2F2F2CECECEB6B6B69E9E9E929292868686000000000000000000000000000000565656929292BEBEBE7777775B5B5B0000000000000000000000000000000000000000000000000000004A4A4A4A4A4A4A4A4A000000F2F2F2F2F2F2F2F2F2F2F2F2CECECEB6B6B69292928686860000000000000000005656565656569E9E9EBEBEBEBEBEBEBEBEBE7777779393930000000000000000000000000000000000000000000000000000000000000000004A4A4A000000F2F2F2F2F2F2F2F2F2F2F2F2C2C2C29E9E9E9292920000000C0C0C161616575757929292AAAAAAAAAAAAB6B6B6B6B6B6B6B6B6BFBFBF6565656C6C6C000000000000000000000000000000000000000000000000000000000000000000F2F2F2F2F2F2F2F2F2F2F2F2CECECEB6B6B69292920000000000002424242A2A2A929292CECECECECECEF6F6F6F6F6F6F6F6F6F6F6F6F6F6F68A8A8A939393000000000000000000000000000000000000000000000000000000000000000000F2F2F2F2F2F2F2F2F2F2F2F2C2C2C2B6B6B66262620000000000005151516C6C6CACACACE5E5E5F1F1F1F5F5F5F6F6F6F6F6F6F6F6F6F6F6F6AEAEAE6565656C6C6C000000000000000000000000000000000000000000000000000000F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2B6B6B69E9E9E000000000000616161B6B6B6737373696969B6B6B6E9E9E9F5F5F5DFDFDFDFDFDFF6F6F6DFDFDFF6F6F68A8A8A939393000000000000000000000000000000000000000000000000000000F2F2F2F2F2F2F2F2F2F2F2F2CECECEB6B6B6000000000000636363E5E5E5B6B6B6C3C3C3737373A6A6A6DBDBDBF0F0F0F6F6F6F6F6F6F6F6F6F6F6F6F6F6F6AEAEAE6565655B5B5B000000000000000000000000000000000000000000F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2C2C2C2626262000000000000B6B6B6F0F0F0F0F0F0C6C6C6BEBEBE808080B6B6B6ECECECF5F5F5DFDFDFF6F6F6DFDFDFDFDFDFF6F6F68A8A8A515151000000000000000000000000000000000000000000F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2B6B6B60000000000009E9E9EF0F0F0F0F0F0F1F1F1EBEBEBD0D0D0AEAEAE939393B6B6B6EEEEEE0062960092DCF6F6F6F6F6F6F6F6F6AEAEAE6565655B5B5B000000000000000000000000000000F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2CECECE626262000000636363E5E5E5F0F0F0F0F0F0EDEDEDD5D5D5EEEEEEE9E9E9CECECE868686DCDCDC0062960062960092DCDFDFDFF6F6F6F6F6F68A8A8A515151000000000000000000000000000000F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2CECECE000000000000B6B6B6F0F0F0F0F0F0F0F0F0F2F2F2F0F0F0F0F0F0D0D0D0E9E9E9BFBFBF868686E5E5E50062960062960092DCF6F6F6F6F6F6AEAEAE8A8A8A000000000000000000000000F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2CECECE000000A0A0A0F0F0F0F0F0F0EDEDEDD3D3D3F0F0F0F0F0F0ECECECEEEEEEEEEEEEE3E3E3A2A2A2B6B6B6EFEFEF0062960062960092DCF6F6F6F6F6F6AEAEAE000000000000000000000000F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2000000B2B2B2F0F0F0F0F0F0D3D3D3F0F0F0F0F0F0D3D3D3E9E9E9F0F0F0D0D0D0E7E7E7CECECE0000000000000000000062960062960092DC000000000000000000000000000000F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2000000AEAEAEF0F0F0F0F0F0F0F0F0D3D3D3EAEAEAF0F0F0D3D3D3EEEEEEE7E7E7000000000000000000000000000000000000000000000000000000000000000000000000F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2000000BEBEBEF0F0F0F0F0F0ECECECF0F0F0F0F0F0F2F2F2EFEFEFCECECE000000000000000000000000000000000000000000000000000000000000000000F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2000000BEBEBEF0F0F0F0F0F0F0F0F0D3D3D3F0F0F0F0F0F0000000000000000000000000000000000000000000000000000000000000000000000000F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2000000BEBEBEDADADAF0F0F0F0F0F0F0F0F0CECECE000000000000000000000000000000000000000000000000000000000000000000000000000000000000F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2000000BEBEBEBEBEBEF0F0F0F0F0F0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F20000009A9A9A9A9A9ACECECE000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2F2000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000F2F2F2F2F2F2F2F2F2F2F2F2000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000F2F2F2F2F2F2000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000FFFFFFFFFFE7FFFFFF03FFFFFC01FFFFF000FFFFC0007C3F8000301FC000000FF000000FFC000007FC000007FC000003F8000003F8000001F0000001F0000000E0000000E0000000C0000000C0000001800001C7800001FF000003FF000003FF800007FFE00007FFF8000FFFFE007FFFFF80FFFFFFE0FFFFFFF9FFFFFFFFFFFF]
+}
+Add(InfoTip,14089446,287,7)
+{
+ Info=#38:Пример работы с данными из XML-файла с|32:помощью объектной модели XML DOM|46:Записная книжка (данные в XML-файле book.xml).|
+ Width=274
+ Height=53
+}
+Add(StrList,4703078,336,126)
+{
+}
+Add(VBJScript,5523932,210,147)
+{
+ WorkPoints=#6:doWork|
+ EventPoints=#7:onEvent|
+ VarPoints=#5:Count|
+ Language=1
+ Script=#4://js|69:/*******************************************************************/|69:/* Имя: XMLDOM                                                     */|69:/* Язык: JScript                                                   */|69:/* Описание: Записная книжка (данные в XML-файле book.xml).        */|69:/*           Вывод всех записей с сортировкой по фамилии с         */|69:/*           помощью объектной модели XML DOM                      */|69:/*******************************************************************/|22://Объявляем переменные|4:var |28:  WshShell,     //Объект WSH|37:  outTable,     //Выходная переменная|40:  PathBook,     //Путь к файлу с данными|44:  NomRec,       //Счетчик количества записей|62:  PersonRec,    //Объект для хранения данных об одном человеке|56:  PersonArr;    //Массив для хранения объектов PersonRec|0:|28://Конструктор объекта Person|60:function Person(LastName,Name,Phone,Street,House,App,Note) {|35:  this.LastName=LastName; //Фамилия|31:  this.Name=Name;         //Имя|35:  this.Phone=Phone;       //Телефон|33:  this.Street=Street;     //Улица|31:  this.House=House;       //Дом|36:  this.App=App;           //Квартира|38:  this.Note=Note;         //Примечание|3:  }|0:|51://Определение значения тега tgName XML-элемента obj|33:function GetTagVal(obj, tgName) {|13:var ElemList;|58:  //Создаем коллекцию дочерних для obj элементов, которые |26:  //задаются тегом tgName |44:  ElemList=obj.getElementsByTagName(tgName);|52:  //Проверяем, есть ли в коллекции ElemList элементы|24:  if (ElemList.length>0)|64:    //Возвращаем значение первого встретившегося элемента tgName|33:    return ElemList.item(0).text;|6:  else|15:    return ""; |3:  }|0:|36://Заполнение нового элемента массива|31:function PersonToArray(XNode) {|52:  //Создаем новый экземпляр PersonRec объекта Person|25:  PersonRec=new Person();|36:  //Заполняем поля объекта PersonRec|49:  PersonRec.LastName=GetTagVal(XNode,"LastName");|41:  PersonRec.Name=GetTagVal(XNode,"Name");|43:  PersonRec.Phone=GetTagVal(XNode,"Phone");|45:  PersonRec.Street=GetTagVal(XNode,"Street");|43:  PersonRec.House=GetTagVal(XNode,"House");|39:  PersonRec.App=GetTagVal(XNode,"App");|41:  PersonRec.Note=GetTagVal(XNode,"Note");|40:  //Сохраняем объект PersonRec в массиве|40:  PersonArr[PersonArr.length]=PersonRec;|3:  }|0:|34://Создание массива объектов Person|24:function FileToArray() {|24:var XML,Root,CurrNode,i;|28:  //Создаем массив PersonArr|24:  PersonArr=new Array();|26:  //Создаем объект XML DOM|47:  XML = new ActiveXObject("Msxml.DOMDocument");|35:  //Загружаем XML-документ из файла|21:  XML.load(PathBook);|68:  //Сохраняем в переменной Root ссылку на корневой элемент документа|27:  Root=XML.documentElement;|63:  //Перебираем все дочерние элементы первого уровня вложенности|26:  //для корневого элемента|46:  for (i=1; i<=Root.childNodes.length-1;i++) {|53:    //Выделяем в коллекции XML-элементов i-й элемент |37:    CurrNode=Root.childNodes.item(i);|54:    //Добавляем новый элемент в массив объектов Person|28:    PersonToArray(CurrNode);|5:    }|3:  }|0:|55://Запись данных из объекта Person в выходную переменную|31:function PrintPerson(PersRec) {|34:  outTable+=PersRec.LastName+"\t";|30:  outTable+=PersRec.Name+"\t";|31:  outTable+=PersRec.Phone+"\t";|32:  outTable+=PersRec.Street+"\t";|31:  outTable+=PersRec.House+"\t";|29:  outTable+=PersRec.App+"\t";|32:  outTable+=PersRec.Note+"\r\n";|11:  NomRec++;|3:  }|0:|66://Сортировка массива и вывод его содержимого в выходную переменную|28:function ListPersonArray() {|6:var i;|33:  //Сортировка массива по фамилии|31:  PersonArr.sort(SortLastName);|44:  //Цикл по всем элементам массива PersonArr|39:  for (i=0;i<=PersonArr.length-1;i++) {|45:    //Запись информации в выходную переменную|30:    PrintPerson(PersonArr[i]);|5:    }|3:  }|0:|43://Функция для сортировки массива по фамилии|36:function SortLastName(Pers1,Pers2) {|36:  if (Pers1.LastName<Pers2.LastName)|14:    return -1;|7:  else |39:    if (Pers1.LastName==Pers2.LastName)|15:      return 0;|8:    else|15:      return 1;|3:  }|0:|78://Вывод содержимого файла с данными                                           |21:function ListFile() {|39:  //Считывание данных из файла в массив|16:  FileToArray();|54:  //Запись информации из массива в выходную переменную|21:  ListPersonArray(); |3:  }|0:|28://Основная запускная функция|17:function Main() {|27:  //Создаем объект WshShell|48:  WshShell = new ActiveXObject("WScript.Shell");|27:  //Определяем путь к файлу|53:  PathBook=WshShell.CurrentDirectory+"\\"+"book.xml";|30:  //Чтение XML файла с данными|13:  ListFile();|34:  //Просмотр содержимого в Таблице|24:  sys.onEvent(outTable);|3:  }|0:|65:/*******************  Начало  **********************************/|27:function doWork(Data,Index)|1:{|12:outTable="";|9:NomRec=0;|7:Main();|1:}|0:|28:function GetVar(Data, Index)|1:{|26:  return PersonArr.length;|1:}|68:/*************  Конец *********************************************/|
+ UseName=0
+ link(onEvent,4703078:doText,[])
+}
+Add(ArrayEnum,11253226,350,182)
+{
+ link(onItem,12470231:doAdd,[])
+ link(Array,4703078:Array,[])
+}
+Add(StringTable,12470231,399,182)
+{
+ Top=42
+ Width=669
+ Height=263
+ Align=4
+ Columns=#7:Фамилия|3:Имя|7:Телефон|5:Улица|3:Дом|8:Квартира|10:Примечание|
+ StrDelimiter="	"
+ Grid=0
+}
+Add(Button,12263451,91,119)
+{
+ Left=10
+ Top=10
+ Caption="Show"
+ link(onClick,15894993:doWork2,[])
+}
+Add(DoData,12721186,210,196)
+{
+ link(onEventData,16276031:doStrCat,[])
+ link(Data,5523932:Count,[])
+}
+Add(StrCat,16276031,259,196)
+{
+ Str1="Количество записей: "
+ link(onStrCat,15092803:doText,[])
+}
+Add(Label,15092803,308,196)
+{
+ Left=210
+ Top=10
+ Width=175
+ Caption=""
+ Alignment=1
+}
+Add(VBJScript,7074764,154,301)
+{
+ WorkPoints=#6:doWork|
+ EventPoints=#7:onEvent|
+ DataPoints=#2:D1|2:D2|2:D3|2:D4|2:D5|2:D6|2:D7|
+ Language=1
+ Script=#4://js|69:/*******************************************************************/|69:/* Имя: AddRecord                                                  */|69:/* Язык: JScript                                                   */|69:/* Описание: Записная книжка (данные в XML-файле book.xml).        */|69:/*           Вставка новых элементов в XML-файл                    */|69:/*******************************************************************/|22://Объявляем переменные|3:var|28:  WshShell,     //Объект WSH|40:  PathBook,     //Путь к файлу с данными|36:  XMLDoc,       //XML-файл с данными|44:  NomRec=0,     //Счетчик количества записей|62:  PersonRec,    //Объект для хранения данных об одном человеке|56:  PersonArr;    //Массив для хранения объектов PersonRec|46://Инициализируем константы для диалоговых окон|65:var vbYesNo=4,vbQuestion=32,vbInformation=64,vbYes=6,vbOkOnly=0; |0:|0:|28://Конструктор объекта Person|60:function Person(LastName,Name,Phone,Street,House,App,Note) {|35:  this.LastName=LastName; //Фамилия|31:  this.Name=Name;         //Имя|35:  this.Phone=Phone;       //Телефон|33:  this.Street=Street;     //Улица|31:  this.House=House;       //Дом|36:  this.App=App;           //Квартира|38:  this.Note=Note;         //Примечание|3:  }|0:|36://Заполнение полей объекта PersonRec|26:function MakePersonRec() {|46:  //Создаем экземпляр PersonRec объекта Person|25:  PersonRec=new Person();|36:  //Заполняем поля объекта PersonRec|44:  PersonRec.LastName=sys.D1;       //Фамилия|40:  PersonRec.Name=sys.D2;           //Имя|44:  PersonRec.Phone=sys.D3;          //Телефон|42:  PersonRec.Street=sys.D4;         //Улица|40:  PersonRec.House=sys.D5;          //Дом|45:  PersonRec.App=sys.D6;            //Квартира|47:  PersonRec.Note=sys.D7;           //Примечание|3:  }|0:|0:|52://Сохранение данных из объекта PersonRec в XML-файле|32:function RecordToFile(PersRec) {|22://Объявляем переменные|17:var Root,NewElem;|0:|30:  //Создаем объект DOMDocument|50:  XMLDoc = new ActiveXObject("Msxml.DOMDocument");|22:  //Загружаем XML-файл|24:  XMLDoc.load(PathBook);|0:|59:  //Сохраняем в переменной Root ссылку на корневой элемент |13:  //документа|30:  Root=XMLDoc.documentElement;|0:|30:  //Создаем XML-элемент Person|41:  NewElem=XMLDoc.createElement("Person");|38:  //Добавляем новый элемент в XML-файл|28:  Root.appendChild(NewElem);|0:|63:  //Сохраняем в переменной Root ссылку на последний добавленный|19:  //элемент Person |22:  Root=Root.lastChild;|0:|28:  //Создаем элемент LastName|43:  NewElem=XMLDoc.createElement("LastName");|63:  //Добавляем новый элемент в XML-файл (внутри элемента Person)|28:  Root.appendChild(NewElem);|56:  //Подставляем в качестве содержимого элемента LastName|42:  //значение поля LastName объекта PersRec|39:  Root.lastChild.text=PersRec.LastName;|0:|24:  //Создаем элемент Name|39:  NewElem=XMLDoc.createElement("Name");|63:  //Добавляем новый элемент в XML-файл (внутри элемента Person)|28:  Root.appendChild(NewElem);|52:  //Подставляем в качестве содержимого элемента Name|38:  //значение поля Name объекта PersRec|35:  Root.lastChild.text=PersRec.Name;|0:|25:  //Создаем элемент Phone|40:  NewElem=XMLDoc.createElement("Phone");|63:  //Добавляем новый элемент в XML-файл (внутри элемента Person)|28:  Root.appendChild(NewElem);|53:  //Подставляем в качестве содержимого элемента Phone|39:  //значение поля Phone объекта PersRec|36:  Root.lastChild.text=PersRec.Phone;|0:|26:  //Создаем элемент Street|41:  NewElem=XMLDoc.createElement("Street");|63:  //Добавляем новый элемент в XML-файл (внутри элемента Person)|28:  Root.appendChild(NewElem);|54:  //Подставляем в качестве содержимого элемента Street|40:  //значение поля Street объекта PersRec|37:  Root.lastChild.text=PersRec.Street;|0:|25:  //Создаем элемент House|40:  NewElem=XMLDoc.createElement("House");|63:  //Добавляем новый элемент в XML-файл (внутри элемента Person)|28:  Root.appendChild(NewElem);|53:  //Подставляем в качестве содержимого элемента House|39:  //значение поля House объекта PersRec|36:  Root.lastChild.text=PersRec.House;|0:|23:  //Создаем элемент App|38:  NewElem=XMLDoc.createElement("App");|63:  //Добавляем новый элемент в XML-файл (внутри элемента Person)|28:  Root.appendChild(NewElem);|51:  //Подставляем в качестве содержимого элемента App|39:  //значение поля House объекта PersRec|34:  Root.lastChild.text=PersRec.App;|0:|24:  //Создаем элемент Note|39:  NewElem=XMLDoc.createElement("Note");|63:  //Добавляем новый элемент в XML-файл (внутри элемента Person)|28:  Root.appendChild(NewElem);|51:  //Подставляем в качестве содержимого элемента App|39:  //значение поля House объекта PersRec|35:  Root.lastChild.text=PersRec.Note;|0:|43:  //Сохраняем содержимое XML-файла на диске|24:  XMLDoc.save(PathBook);|3:  }|0:|34://Добавление новой записи в книжку|22:function AddRecord() {|36:  //Заполняем поля объекта PersonRec|18:  MakePersonRec();|52:  //Сохраняем данные из объекта PersonRec в XML-файл|26:  RecordToFile(PersonRec);|3:  }|0:|28://Основная запускная функция|17:function Main() {|8:var Res;|27:  //Создаем объект WshShell|48:  WshShell = new ActiveXObject("WScript.Shell");|27:  //Определяем путь к файлу|53:  PathBook=WshShell.CurrentDirectory+"\\"+"book.xml";|35:  //Запрос на создание нового ключа|59:  Res=WshShell.Popup("Добавить запись в \n"+PathBook+"?",0,|46:    "Работа с XML-файлом",vbQuestion+vbYesNo);|38:  if (Res==vbYes) { //Нажата кнопка Да|37:    //Добавляем новую запись в книжку|16:    AddRecord();|33:    //Выводим информацию на экран|61:    WshShell.Popup("Новая запись\n\n"+PersonRec.LastName+" "+|47:      PersonRec.Name+"\n"+PersonRec.Phone+"\n"+|69:      PersonRec.Street+", "+PersonRec.House+"-"+PersonRec.App+"\n\n"+|37:      "добавлена в файл "+PathBook,0,|52:      "Работа с XML-файлом",vbInformation+vbOkOnly);|5:    }|19:  sys.onEvent("0");|3:  }|0:|65:/*******************  Начало  **********************************/|27:function doWork(Data,Index)|1:{|7:Main();|1:}|68:/*************  Конец *********************************************/|
+ UseName=0
+ link(onEvent,1464368:doEvent1,[])
+ link(D1,6522157:Var1,[])
+ link(D2,6522157:Var2,[])
+ link(D3,6522157:Var3,[])
+ link(D4,6522157:Var4,[])
+ link(D5,6522157:Var5,[])
+ link(D6,6522157:Var6,[])
+ link(D7,6522157:Var7,[])
+}
+Add(ChildForm,6522157,154,252)
+{
+ link(onEvent1,44631:doCompare,[])
+}
+BEGIN_SDK
+  Add(EditMulti,10559478,3,3)
+  {
+   EventCount=1
+   WorkCount=1
+   VarCount=7
+   Width=399
+   Height=389
+   link(doWork1,4522807:doCompare,[])
+   link(Var1,5655512:Text,[(160,226)])
+   link(Var2,9607550:Text,[(195,247)])
+   link(Var3,2080591:Text,[(230,268)])
+   link(Var4,11531335:Text,[(265,289)])
+   link(Var5,8053908:Text,[(293,310)])
+   link(Var6,4909914:Text,[(321,331)])
+   link(Var7,11585420:Text,[(356,352)])
+  }
+  Add(MainForm,8939820,112,7)
+  {
+   Left=35
+   Top=105
+   Width=306
+   Height=251
+   Visible=1
+   Point(doVisible)
+  }
+  Add(Edit,5655512,154,28)
+  {
+   Left=130
+   Top=25
+   Width=150
+   Text="Фамилия"
+  }
+  Add(Edit,9607550,189,70)
+  {
+   Left=130
+   Top=45
+   Width=150
+   TabOrder=1
+   Text="Имя"
+  }
+  Add(Edit,2080591,224,112)
+  {
+   Left=130
+   Top=65
+   Width=150
+   TabOrder=2
+   Text="Телефон"
+  }
+  Add(Edit,11531335,259,154)
+  {
+   Left=130
+   Top=85
+   Width=150
+   TabOrder=3
+   Text="Улица"
+  }
+  Add(Edit,8053908,287,196)
+  {
+   Left=130
+   Top=105
+   Width=150
+   TabOrder=4
+   Text="Дом"
+  }
+  Add(Edit,4909914,315,238)
+  {
+   Left=130
+   Top=125
+   Width=150
+   TabOrder=5
+   Text="Квартира"
+  }
+  Add(Edit,11585420,350,280)
+  {
+   Left=130
+   Top=145
+   Width=150
+   TabOrder=6
+   Text="Примечание"
+  }
+  Add(Label,919593,14,28)
+  {
+   Left=10
+   Top=25
+   Width=56
+   Height=17
+   Caption="Фамилия:"
+  }
+  Add(Label,8428909,14,70)
+  {
+   Left=10
+   Top=45
+   Width=29
+   Height=17
+   Caption="Имя:"
+  }
+  Add(Label,14807752,14,112)
+  {
+   Left=10
+   Top=65
+   Width=52
+   Height=17
+   Caption="Телефон:"
+  }
+  Add(Label,13419684,14,154)
+  {
+   Left=10
+   Top=85
+   Width=39
+   Height=17
+   Caption="Улица:"
+  }
+  Add(Label,4059475,14,196)
+  {
+   Left=10
+   Top=105
+   Width=30
+   Height=17
+   Caption="Дом:"
+  }
+  Add(Label,14336432,14,238)
+  {
+   Left=10
+   Top=125
+   Width=55
+   Height=17
+   Caption="Квартира:"
+  }
+  Add(Label,13326405,14,280)
+  {
+   Left=10
+   Top=145
+   Width=70
+   Height=17
+   Caption="Примечание:"
+  }
+  Add(Button,13272033,322,14)
+  {
+   Left=65
+   Top=185
+   Caption="OK"
+   Data=Integer(1)
+   link(onClick,12989068:doWork2,[])
+  }
+  Add(Button,8250856,322,49)
+  {
+   Left=150
+   Top=185
+   Caption="Cancel"
+   Data=Integer(0)
+   link(onClick,12989068:doWork3,[(368,55)])
+  }
+  Add(HubEx,12989068,364,7)
+  {
+   link(onEvent,10559478:onEvent1,[])
+  }
+  Add(If_else,4522807,70,28)
+  {
+   Op2=Integer(0)
+   link(onTrue,8939820:doClose,[])
+   link(onFalse,8939820:doVisible,[])
+  }
+END_SDK
+Add(Button,11421432,91,252)
+{
+ Left=75
+ Top=10
+ Caption="Add"
+ Data=Integer(1)
+ link(onClick,13005793:doWork2,[])
+}
+Add(HubEx,15894993,131,112)
+{
+ link(onEvent,12174927:doEvent1,[])
+}
+Add(If_else,44631,224,252)
+{
+ Op2=Integer(1)
+ link(onTrue,7074764:doWork,[(266,258)(266,295)(146,295)(146,307)])
+ link(onFalse,13005793:doWork1,[(261,265)(261,233)(144,233)])
+}
+Add(Hub,1464368,217,301)
+{
+ link(onEvent1,13005793:doWork3,[(237,307)(237,290)(144,290)])
+ link(onEvent2,15894993:doWork3,[(237,314)(237,339)(135,339)])
+}
+Add(HubEx,13005793,140,245)
+{
+ link(onEvent,6522157:doWork1,[])
+}
+Add(VBJScript,9290393,161,413)
+{
+ WorkPoints=#6:doWork|
+ EventPoints=#7:onEvent|
+ DataPoints=#2:D1|
+ Language=1
+ Script=#4://js|69:/*******************************************************************/|69:/* Имя: DeleteRecord                                               */|69:/* Язык: JScript                                                   */|69:/* Описание: Записная книжка (данные в XML-файле book.xml).        */|69:/*           Поиск и удаление элементов в XML-файле                */|69:/*******************************************************************/|22://Объявляем переменные|3:var|28:  WshShell,     //Объект WSH|53:  LastName,     //Фамилия для поиска удаляемой записи|40:  PathBook,     //Путь к файлу с данными|36:  XMLDoc,       //XML-файл с данными|44:  NomRec=0,     //Счетчик количества записей|62:  PersonRec,    //Объект для хранения данных об одном человеке|56:  PersonArr;    //Массив для хранения объектов PersonRec|46://Инициализируем константы для диалоговых окон|65:var vbYesNo=4,vbQuestion=32,vbInformation=64,vbYes=6,vbOkOnly=0; |0:|49://Поиск фамилии в записной книжке и удаление всех|40://реквизитов, относящихся к этой фамилии|29:function FindAndDelRecord() {|35:var Root,sSelect,i,Parent,NodeList;|0:|30:  //Создаем объект DOMDocument|50:  XMLDoc = new ActiveXObject("Msxml.DOMDocument");|22:  //Загружаем XML-файл|24:  XMLDoc.load(PathBook);|0:|59:  //Сохраняем в переменной Root ссылку на корневой элемент |13:  //документа|30:  Root=XMLDoc.documentElement;|0:|39:  //Формируем строку для поиска фамилии|51:  sSelect="Person/LastName[text()='"+LastName+"']";|55:  //Создаем коллекцию NodeList всех элементов LastName,|63:  //значение которых совпадает со значением переменной LastName|55:  NodeList=XMLDoc.documentElement.selectNodes(sSelect);|52:  if (NodeList.length==0) //Коллекция NodeList пуста|42:    //Выводим диалоговое окно с сообщением|39:    WshShell.Popup("Фамилия "+LastName+|41:      " не найдена в записной книжке!",0,|52:      "Работа с XML-файлом",vbInformation+vbOkOnly);|38:  else  {  //Требуемая фамилия найдена|47:    //Цикл по всем найденным элементам LastName|40:    for (i=0;i<=NodeList.length-1;i++) {|63:      //Определяем родительский элемент (Person) для найденного|25:      //элемента LastName|41:      Parent=NodeList.item(i).parentNode;|71:      //Удаляем элемент Person вместе со всеми его дочерними элементами|31:      Root.removeChild(Parent);|44:      //Выводим диалоговое окно с сообщением|41:      WshShell.Popup("Запись удалена!",0,|54:        "Работа с XML-файлом",vbInformation+vbOkOnly);|7:      }|45:    //Сохраняем содержимое XML-файла на диске|26:    XMLDoc.save(PathBook);|5:    }|3:  }|0:|28://Основная запускная функция|17:function Main() {|8:var Res;|27:  //Создаем объект WshShell|48:  WshShell = new ActiveXObject("WScript.Shell");|27:  //Определяем путь к файлу|53:  PathBook=WshShell.CurrentDirectory+"\\"+"book.xml";|39:  //Фамилия для поиска удаляемой записи|20:  LastName = sys.D1;|29:  //Запрос на удаление записи|49:  Res=WshShell.Popup("Удалить фамилию "+LastName+|28:    " из \n"+PathBook+"?",0,|46:    "Работа с XML-файлом",vbQuestion+vbYesNo);|38:  if (Res==vbYes) { //Нажата кнопка Да|59:    //Ищем в книжке нужную фамилию и удаляем относящуюся к |16:    //ней запись|23:    FindAndDelRecord();|5:    }|19:  sys.onEvent("0");|3:  }|0:|65:/*******************  Начало  **********************************/|27:function doWork(Data,Index)|1:{|7:Main();|1:}|68:/*************  Конец *********************************************/|
+ UseName=0
+ link(onEvent,15246983:doEvent1,[])
+ link(D1,7811465:Var1,[])
+}
+Add(ChildForm,7811465,161,364)
+{
+ link(onEvent1,1339305:doCompare,[])
+}
+BEGIN_SDK
+  Add(EditMulti,10559478,3,3)
+  {
+   EventCount=1
+   WorkCount=1
+   VarCount=1
+   Width=287
+   Height=123
+   link(doWork1,4522807:doCompare,[])
+   link(Var1,5655512:Text,[])
+  }
+  Add(MainForm,8939820,91,7)
+  {
+   Left=35
+   Top=105
+   Width=306
+   Height=126
+   Visible=1
+   Point(doVisible)
+  }
+  Add(Edit,5655512,154,28)
+  {
+   Left=130
+   Top=25
+   Width=150
+   Text="Фамилия"
+  }
+  Add(HubEx,12989068,252,7)
+  {
+   link(onEvent,10559478:onEvent1,[])
+  }
+  Add(Button,8250856,210,49)
+  {
+   Left=150
+   Top=60
+   Caption="Cancel"
+   Data=Integer(0)
+   link(onClick,12989068:doWork3,[(256,55)])
+  }
+  Add(Button,13272033,210,14)
+  {
+   Left=65
+   Top=60
+   Caption="OK"
+   Data=Integer(1)
+   link(onClick,12989068:doWork2,[])
+  }
+  Add(Label,919593,154,70)
+  {
+   Left=10
+   Top=25
+   Width=119
+   Height=17
+   Caption="Фамилия удаляемого:"
+  }
+  Add(If_else,4522807,42,28)
+  {
+   Op2=Integer(0)
+   link(onTrue,8939820:doClose,[])
+   link(onFalse,8939820:doVisible,[])
+  }
+END_SDK
+Add(If_else,1339305,224,364)
+{
+ Op2=Integer(1)
+ link(onTrue,9290393:doWork,[(269,370)(269,401)(151,401)(151,419)])
+ link(onFalse,16475326:doWork1,[(264,377)(264,351)(144,351)])
+}
+Add(Button,11562694,91,364)
+{
+ Left=140
+ Top=10
+ Caption="Delete"
+ Data=Integer(1)
+ link(onClick,16475326:doWork2,[])
+}
+Add(HubEx,16475326,140,357)
+{
+ link(onEvent,7811465:doWork1,[(155,370)(155,370)])
+}
+Add(Hub,15246983,203,413)
+{
+ link(onEvent1,16475326:doWork3,[(223,419)(223,409)(144,409)])
+ link(onEvent2,15894993:doWork1,[(298,426)(298,104)(135,104)])
+}

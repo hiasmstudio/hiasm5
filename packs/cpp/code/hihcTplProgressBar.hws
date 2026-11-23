@@ -1,0 +1,34 @@
+func Arg(value)
+  if(len(value) > 0)
+    return(value)
+  else
+    return('0')
+  end
+end
+
+func doStart
+  println('{')
+  println('GtkWidget *widget = gtk_progress_bar_new();')
+  switch(d('Orientation'))
+    case 2: println('gtk_orientable_set_orientation(GTK_ORIENTABLE(widget), GTK_ORIENTATION_VERTICAL);')
+    case 3: println('gtk_orientable_set_orientation(GTK_ORIENTABLE(widget), GTK_ORIENTATION_VERTICAL);')
+  end
+  switch(d('Text'))
+    case "": println('gtk_progress_bar_set_show_text(GTK_PROGRESS_BAR(widget), FALSE);')
+    default:
+      println('gtk_progress_bar_set_show_text(GTK_PROGRESS_BAR(widget), TRUE);')
+      println('gtk_progress_bar_set_text(GTK_PROGRESS_BAR(widget), ', cstr(d('Text')), ');')
+  end
+  println('hiasm_place("hcTplProgressBar', _id_, '", widget, ', Left, ', ', Top, ');')
+  println('}')
+end
+
+func doValue(_data)
+  println('gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(hiasm_widget("hcTplProgressBar', _id_, '").get()), static_cast<double>(', Arg(_data), '));')
+  event(onValue, _data)
+end
+
+func Value()
+  return('hiasm_progress_fraction_of(GTK_PROGRESS_BAR(hiasm_widget("hcTplProgressBar' && _id_ && '").get()))')
+end
+

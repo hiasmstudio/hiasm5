@@ -1,0 +1,32 @@
+func doCreate(_data)
+  println('{')
+  block.inclvl()
+  println('std::string hiasm_name', _id_, ' = std::string(', cstr(get('Prefix')), ');')
+  println('hiasm_name', _id_, ' += std::to_string(std::chrono::steady_clock::now().time_since_epoch().count());')
+  println('const std::string hiasm_ext', _id_, ' = std::string(', cstr(get('Extention')), ');')
+  println('if(!hiasm_ext', _id_, '.empty()) hiasm_name', _id_, ' += std::string(".") + hiasm_ext', _id_, ';')
+  println('const std::filesystem::path hiasm_path', _id_, ' = std::filesystem::temp_directory_path() / hiasm_name', _id_, ';')
+  println('std::ofstream(hiasm_path', _id_, ').close();')
+  println('hiasm_str_state(', _id_, ') = hiasm_path', _id_, '.string();')
+  event(onCreate, 'hiasm_str_state(' && _id_ && ')')
+  block.declvl()
+  println('}')
+end
+
+func doDelete(_data)
+  println('{')
+  block.inclvl()
+  println('std::error_code hiasm_ec', _id_, ';')
+  println('std::filesystem::remove(std::filesystem::path(hiasm_str_state(', _id_, ')), hiasm_ec', _id_, ');')
+  println('hiasm_str_state(', _id_, ').clear();')
+  block.declvl()
+  println('}')
+end
+
+func TempFName()
+  return('hiasm_str_state(' && _id_ && ')')
+end
+
+func TempFolder()
+  return('std::filesystem::temp_directory_path().string()')
+end

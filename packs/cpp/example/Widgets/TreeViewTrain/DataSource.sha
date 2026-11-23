@@ -1,0 +1,556 @@
+*Простейший органайзер для небольших текстовых сообщений
+Make(cpp)
+Add(MainForm,2953706,161,98)
+{
+ Width=481
+ Height=319
+ Caption="Notes"
+}
+Add(TVT_DataSource,9063052,798,343)
+{
+ TreeView="maintree"
+ DataSource="tree"
+ TableName="groups"
+ Columns=#2:id|4:name|4:icon|6:parent|4:info|
+ AddHint(-4,-86,30,65,Columns)
+}
+Add(DS_SQLite,7942392,742,301)
+{
+ Name="tree"
+}
+Add(TreeViewTrain,4303500,210,147)
+{
+ Top=25
+ Width=155
+ Height=270
+ Align=1
+ Name="maintree"
+ ModeSp=3
+ IconsManager="icons"
+ CaptionIndex=1
+ ParentIDIndex=3
+ IconIndex=2
+ Numeric=0
+ UseHashMap=0
+ Point(NextID)
+ link(onClick,11085286:doSeparateMT,[])
+}
+Add(Memo,8042122,336,280)
+{
+ Left=250
+ Top=100
+ Width=135
+ Height=100
+ Align=5
+ ScrollBars=3
+ link(onChange,14550988:doChangeNode,[])
+}
+Add(IconsManager,506766,161,147)
+{
+ Name="icons"
+ Icons=['Group'=[ZIP7E05000078DAED90310E824010453F71C1856DA88CA5A5DCC233587202134B2F60614969E915388417B0B43476949496E3EC0C6437315CC0F0C923BCCF4F3600247C9525F86E71488115802DC31536D0DE679720647C3E59D8A6C4BAAD50770DAAF689FDA39757F58B70EC08979E70FD106E44A0999999BF21FB8D89E3DD59C992A35E1479AE85F16BF6B16077E243115C8BC8A588F79CC11DDB783E9B71ACBAF6A7BB94FB54D7E2D15A0AD6E873649D4D85FF01BD11384FB108DC49F1F902076123BB],'Item'=[ZIP7E03000078DACD51BB12C140143D26855665CC9841A9E30FF8134A7FE1F125FC83469A68A3A06086C6234321C64C34695D7777131B89A07493BB73E7EC3977EF03C8F097CB81CF023A0690075065670815285C58D3C0DF9865595F18370A820B69D0A5F86D4CB223CC48136C89BC25B36D09166118E1733C9592A4F1D3B62697CF7EEDE405127ED14D481C82A9C9ADF5BE3F5FB6367B8130EED04BD9FC7331E3805F3F7983C58A47C4A740C66117D14622F94B323F93DB2AFFE435FF738C335D7FC9F5EBC78FF5C7E6A36C24911DA5AE6C2BA764CA5E4C99396DFED1FD3A927620BDEBB49525E53F5A0A9FBAC0BDA1FC5A645A56F9C150DE838EC33BC1133AE10F414BBEF1]]
+}
+Add(MT_MultiData,11085286,259,147)
+{
+ Count=5
+ link(onData1,10857542:doFirstNode,[])
+ link(onData3,10307622:doEvent1,[(321,167)(321,223)])
+ link(onData5,8042122:doText,[(309,181)(309,307)])
+}
+Add(GetDataEx,161182,623,196)
+{
+ Angle=3
+ link(Data,7215305:Var3,[])
+}
+Add(ToolBar,16316461,497,217)
+{
+ Width=473
+ Height=25
+ Align=2
+ Caption=0
+ Buttons=['=Add root group'=[ZIP3604000078DAAD922193C2301085F766F8019595E0AEF20C3F00D9190C127B1259598BAC8CACADAC44D6562291B5959191615F935CD20037C05D66BE493AE97BD97DC966BB5ED034D6CC2793583E686936EC7E38B4D67F266B2FF4751A68C5F3BBFA7A9074949AF27E9C7CD2A6FFE119FDAE1BA9E6B5608A41CD083D7FD3B7BCAE14233D731F79B747E841CB3D08D68BC823F481C73D3DF6A61C5C0DEA712D711FD0E14C57432395E181BEEDD46DFE36B72CCA1E7EA8837245A23733E8CE660EF5A821CCEB60FDE051349AD29DD7677B4DA5B8D587381FEC3BDD866BC8CFDEC7E97B7BF7F0B958D0B3B07DBBFF4B7CABB97E65DF1F3C00D6699403C0FFC9515352995EEA93CF11EF3FCC2EBE6368BF4B7F6E51F9F35F21ACFB3FB8022C6564E9],'=Add child group'=[ZIP3604000078DA73F235636100033320D600620128666450804840E591C1FFFFFFA98635D75E2319A3EB9F03A4B39F63C751F750312EFD53BE4370CB7B08C665064C3FB27B90F513320359FF1C2CF613328358FDB8CC20453F363348753F32C6A71F66064C2DA1F847D6076323EBC5E56EF47807E1A073EF51CC07F171B91B9B7E52DC8DCD0C64BDA4E41D6CEEA666DEC4850170CA6B53],'=Add text item'=[ZIP3604000078DA73F235636100033320D600620128666450804840E591C1FFFFFFF16262D4E0D34BAC3DB8F4EFDFBF9F68FD0C1F90D8AF50ED6778895D1D363318EE01F129A8FE0F50FA2454FC030137DC05E2FD40BC004D3F887F0062064EBD403782ED41D22BFFE22B83FE93F708334EFD47F10B8AFE8740BC0B556FFCF5FB0C8DE72E33C4DFB80F11DF055187E1E70F50B76F41E83700DADB74FE0A380E4034186C4184037A58A0DB2F07B51FA4370166FF4E4CFB51E2EC14AAFFE55E7E6530784C9CFFB1863F0C2C848ADF239C86C0669C84FA650B943E4538FE31D2DF43A89E07103E31E90F9F9964E52102FA01E5934A83],'-'=[],'=Remove node'=[ZIP3604000078DA73F235636100033320D600620128666450804840E591C1FFFFFF070D26C53DE86A29F51329E1824B9E18FDC4988DCB0C62FD87CD0C52C3061BA0244C298D0F72DD4E8AFF09D987CF0C62DD4AC86C62FD49ADBC0B00D9365139],'-'=[],'=Open data base'=[ZIP3604000078DA8D922D0F83301086BB64627212B9B9ED0F90CC2297CC4C6227919358241259CB4F40D62291486C2512D9DD958FDCE0283479D21E77EF4BAF6DF0F28FC20E1FB801E78183B8F489214F8731C6E2C57217633DC5CBCAFDCC3C3C595A24ACA37A9BBB54E2F4CD17FA5877D623D60E1A2382A259E8AF79251EAAB6FAA475001E816A17FAA0D0D6238738EBDCBC9516A1AA260FD4635F38A75DDF838BB0041F98A93E19F4916AA67D75CC3D21D88399EBA1B767A9A7B3DC03D54BE82B6560DF8AFC7F03181BA64F7AB76B63F4C0B3E7FE436321242A7A3E7D4CF3E841E1F63E7930FA659D64BE0FB90D3DADE5E235FFB57D70F563FC03A73D1FF4],'=Save data base'=[ZIP3604000078DACD90AD0EC32010806FC91E608F30395BD3A4B6B2C94C5FA18F50393B5959C92B2091582472128B9D434CB03B5A9A8A9690345946F209B8FBEE87FA5E9E219C12B9219799135CA7C01C5F1FEFFD5FF0A82A604D03ACAE4108B1092B8A09CA43A22B9F3DE8AE0BD03B670C54DF8341E7FDF1E09C036BEDE2C7BC3D5F53BFB605390C608C596AE4FA5629E0B807C71968EE5823D7375A831EC73007E73CD478E15B8E9FCB9E4F3BA748F914A73D53C41A295FE1FF6D91EB1FED2FA5FC797FBA536C6FF708E5ACDDA37C017AD94051],''=[]]
+ link(onClick,4740543:doEvent,[])
+}
+Add(IndexToChanel,4740543,546,217)
+{
+ Count=8
+ link(onEvent1,13547906:doWork2,[])
+ link(onEvent2,10291642:doData,[])
+ link(onEvent3,1854496:doWork1,[])
+ link(onEvent5,16630134:doDeleteNode,[])
+ link(onEvent7,7148402:doExecute,[(598,265)(598,307)])
+ link(onEvent8,14674938:doSave,[(593,272)(593,370)])
+}
+Add(IndexToChanel,5533314,434,217)
+{
+ Data=Integer(1)
+ link(onEvent1,16332223:doWork2,[])
+ link(onEvent2,5002552:doWork2,[])
+}
+Add(TVT_FirstNode,10857542,329,147)
+{
+ TreeView="maintree"
+ link(onFirstNode,7499192:doWork1,[])
+ link(onEmpty,7499192:doWork2,[])
+}
+Add(IndexToChanel,14480143,434,147)
+{
+ Data=Integer(3)
+ link(onEvent1,5002552:doWork1,[(480,153)])
+ link(onEvent2,16332223:doWork1,[(473,160)])
+}
+Add(ChanelToIndex,7499192,378,147)
+{
+ Count=2
+ link(onIndex,14480143:doEvent,[])
+}
+Add(HubEx,5002552,476,217)
+{
+ link(onEvent,16316461:doDisable,[])
+}
+Add(HubEx,16332223,469,210)
+{
+ link(onEvent,16316461:doEnable,[])
+}
+Add(ODialog,7148402,609,301)
+{
+ Filter="Data base(*.db)|*db|All|*.*"
+ Title="Open my data base"
+ FileName=""
+ link(onExecute,1277274:doEvent1,[])
+}
+Add(ChildForm,12086823,672,217)
+{
+ @Hint=#9:New group|
+ FirstUsage=0
+ link(Data1,10621616:Var2,[])
+ link(Data2,3083161:Var2,[])
+ AddHint(68,-43,67,13,@Hint)
+}
+BEGIN_SDK
+  Add(EditMulti,5662795,21,21)
+  {
+   WorkCount=1
+   DataCount=2
+   Width=461
+   Height=207
+   link(doWork1,12127803:doEvent1,[(31,27)(31,153)])
+  }
+  Add(MainForm,16090444,317,126)
+  {
+   Left=35
+   Top=105
+   Width=320
+   Height=111
+   Visible=1
+   Caption="New group"
+   Point(doShowModal)
+   Point(onKeyDown)
+   link(onKeyDown,9658204:doCase,[])
+  }
+  Add(Edit,11862416,203,112)
+  {
+   Left=10
+   Top=25
+   Width=290
+   Layout="vert"
+   Text=""
+  }
+  Add(Label,5805651,98,105)
+  {
+   Left=10
+   Top=5
+   Width=88
+   Height=17
+   Layout="vert"
+   Caption="Enter group name"
+  }
+  Add(Button,5951651,147,175)
+  {
+   Left=245
+   Top=55
+   Layout="horz"
+   Caption="OK"
+   link(onClick,12998461:doWork2,[])
+  }
+  Add(Button,2334922,252,112)
+  {
+   Left=180
+   Top=55
+   Layout="horz"
+   Caption="Cancel"
+   link(onClick,13221756:doWork2,[])
+  }
+  Add(LayoutSpacer,6316143,364,56)
+  {
+   Left=10
+   Top=58
+   Width=160
+   Height=15
+   Layout="horz"
+   WidthScale=100
+  }
+  Add(TVT_AddNode,6550180,252,175)
+  {
+   TreeView="parent.maintree"
+   link(onAddNode,7616098:doWork3,[(305,181)])
+  }
+  Add(MT_AddData,9095285,196,175)
+  {
+   Count=5
+   InputMT=0
+   link(onAdd,6550180:doAddNode,[])
+   link(Data1,5662795:Data1,[(202,50)(27,50)])
+   link(Data2,11862416:Text,[])
+   link(Data3,2618654:Value,[])
+   link(Data4,9958661:Value,[])
+   link(Data5,8417143:Value,[])
+  }
+  Add(Memory,2618654,210,28)
+  {
+   Default=Integer(0)
+  }
+  Add(Memory,9958661,217,63)
+  {
+   Default=Integer(0)
+  }
+  Add(Memory,8417143,224,70)
+  {
+   Default=String()
+  }
+  Add(HubEx,7616098,301,140)
+  {
+   link(onEvent,16090444:doClose,[])
+  }
+  Add(HBoxLayout,245374,315,56)
+  {
+   Name="horz"
+   Space=3
+   Padding=3
+   Layout="vert"
+  }
+  Add(VBoxLayout,383670,147,105)
+  {
+   Name="vert"
+   Space=3
+   Padding=3
+  }
+  Add(Case,9658204,364,147)
+  {
+   Value=Integer(27)
+   link(onNextCase,16253796:doCase,[])
+   link(onTrue,13221756:doWork3,[(404,160)(404,118)])
+  }
+  Add(HubEx,13221756,301,105)
+  {
+   Angle=1
+   link(onEvent,7616098:doWork1,[])
+  }
+  Add(Case,16253796,413,147)
+  {
+   Value=Integer(13)
+   link(onTrue,12998461:doWork3,[(471,160)(471,211)(186,211)])
+  }
+  Add(HubEx,12998461,182,168)
+  {
+   link(onEvent,9095285:doAdd,[])
+  }
+  Add(If_else,4922391,98,63)
+  {
+   Op2=Integer(1)
+   link(onTrue,11647639:doData,[])
+  }
+  Add(Hub,12127803,49,147)
+  {
+   link(onEvent1,4922391:doCompare,[(77,153)(77,69)])
+   link(onEvent2,16090444:doShowModal,[])
+  }
+  Add(DoData,11647639,147,63)
+  {
+   link(onEventData,9958661:doValue,[])
+   link(Data,5662795:Data2,[(153,42)(34,42)])
+  }
+END_SDK
+Add(ChildForm,1854496,714,231)
+{
+ @Hint=#8:New item|
+ FirstUsage=0
+ link(Data1,10621616:Var3,[(720,198)])
+ link(Data2,3083161:Var3,[(727,205)])
+ AddHint(49,-25,59,13,@Hint)
+}
+BEGIN_SDK
+  Add(EditMulti,5662795,21,21)
+  {
+   WorkCount=1
+   DataCount=2
+   Width=461
+   Height=207
+   link(doWork1,16090444:doShowModal,[(47,27)(47,153)])
+  }
+  Add(MainForm,16090444,317,119)
+  {
+   Left=35
+   Top=105
+   Width=320
+   Height=111
+   Visible=1
+   Caption="New item"
+   Point(doShowModal)
+   Point(onKeyDown)
+   link(onKeyDown,9658204:doCase,[])
+  }
+  Add(Edit,11862416,203,105)
+  {
+   Left=10
+   Top=25
+   Width=290
+   Layout="vert"
+   Text=""
+  }
+  Add(Label,5805651,98,105)
+  {
+   Left=10
+   Top=5
+   Width=80
+   Height=17
+   Layout="vert"
+   Caption="Enter item name"
+  }
+  Add(Button,5951651,147,168)
+  {
+   Left=245
+   Top=55
+   Layout="horz"
+   Caption="OK"
+   link(onClick,12998461:doWork2,[])
+  }
+  Add(Button,2334922,252,105)
+  {
+   Left=180
+   Top=55
+   Layout="horz"
+   Caption="Cancel"
+   link(onClick,13221756:doWork2,[])
+  }
+  Add(LayoutSpacer,6316143,98,168)
+  {
+   Left=10
+   Top=58
+   Width=160
+   Height=15
+   Layout="horz"
+   WidthScale=100
+  }
+  Add(TVT_AddNode,6550180,252,168)
+  {
+   TreeView="parent.maintree"
+   link(onAddNode,7616098:doWork3,[(305,174)])
+  }
+  Add(MT_AddData,9095285,196,168)
+  {
+   Count=5
+   InputMT=3
+   link(onAdd,6550180:doAddNode,[])
+   link(Data1,5662795:Data1,[(202,43)(27,43)])
+   link(Data2,11862416:Text,[])
+   link(Data3,9958661:Value,[])
+   link(Data4,5662795:Data2,[(223,35)(34,35)])
+   link(Data5,8417143:Value,[])
+  }
+  Add(Memory,9958661,210,49)
+  {
+   Default=Integer(1)
+  }
+  Add(Memory,8417143,224,63)
+  {
+   Default=String()
+  }
+  Add(HubEx,7616098,301,133)
+  {
+   link(onEvent,16090444:doClose,[])
+  }
+  Add(HBoxLayout,245374,49,168)
+  {
+   Name="horz"
+   Space=3
+   Padding=3
+   Layout="vert"
+  }
+  Add(VBoxLayout,383670,147,105)
+  {
+   Name="vert"
+   Space=3
+   Padding=3
+  }
+  Add(Case,9658204,371,140)
+  {
+   Value=Integer(27)
+   link(onNextCase,16253796:doCase,[])
+   link(onTrue,13221756:doWork3,[(415,153)(415,111)])
+  }
+  Add(HubEx,13221756,301,98)
+  {
+   Angle=1
+   link(onEvent,7616098:doWork1,[])
+  }
+  Add(Case,16253796,427,140)
+  {
+   Value=Integer(13)
+   link(onTrue,12998461:doWork3,[(471,153)(471,204)(186,204)])
+  }
+  Add(HubEx,12998461,182,161)
+  {
+   link(onEvent,9095285:doAdd,[])
+  }
+END_SDK
+Add(GetDataEx,10621616,665,189)
+{
+ Angle=3
+ link(Data,4303500:NextID,[(223,198)])
+}
+Add(MultiElementEx,14550988,392,280)
+{
+ @Hint=#11:Change text|
+ link(ID,7215305:Var2,[])
+ AddHint(44,47,72,13,@Hint)
+}
+BEGIN_SDK
+  Add(EditMultiEx,87308,21,21)
+  {
+   WorkCount=#12:doChangeNode|
+   DataCount=#2:ID|
+   Width=195
+   Height=151
+   link(doChangeNode,15030355:doAdd,[(63,27)(63,118)])
+  }
+  Add(MT_AddData,15030355,91,112)
+  {
+   Count=5
+   InputMT=3
+   link(onAdd,4634637:doChangeNode,[])
+   link(Data1,87308:ID,[(97,66)(27,66)])
+   link(Data2,5247036:Value,[])
+   link(Data3,1669740:Var2,[])
+   link(Data4,1669740:Var3,[(118,100)])
+  }
+  Add(Memory,5247036,98,35)
+  {
+  }
+  Add(Memory,5209902,105,42)
+  {
+   Default=Integer(0)
+  }
+  Add(GetDataEx,1669740,98,91)
+  {
+   link(Data,5209902:Value,[])
+  }
+  Add(TVT_ChangeNode,4634637,147,112)
+  {
+   TreeView="parent.maintree"
+  }
+END_SDK
+Add(GetDataEx,7215305,385,196)
+{
+ Angle=3
+ link(Data,4303500:Select,[(216,205)])
+}
+Add(Memory,8824546,693,301)
+{
+ link(onData,7942392:doOpen,[])
+}
+Add(MultiElementEx,14674938,693,364)
+{
+ @Hint=#14:Save data base|
+ link(onOpenSave,10751464:doWork3,[(740,370)(740,341)(683,341)])
+ link(onSave,9063052:doSave,[(780,377)(780,356)])
+ link(FileName,8824546:Value,[])
+ AddHint(49,36,90,13,@Hint)
+}
+BEGIN_SDK
+  Add(EditMultiEx,8390861,21,21)
+  {
+   WorkCount=#6:doSave|
+   EventCount=#10:onOpenSave|6:onSave|
+   DataCount=#8:FileName|
+   Height=109
+   link(doSave,9996057:doCompare,[(31,27)(31,83)])
+  }
+  Add(If_else,9996057,49,77)
+  {
+   Op1=String()
+   link(onTrue,11518817:doExecute,[])
+   link(onFalse,3894936:doWork2,[(97,90)(97,34)])
+   link(Op2,8390861:FileName,[(62,49)(27,49)])
+  }
+  Add(SDialog,11518817,105,77)
+  {
+   Filter="Data base(*.db)|*db|All|*.*"
+   Title="Save my data base"
+   FileName="mybase.db"
+   link(onExecute,4647372:doEvent1,[])
+  }
+  Add(DS_SQLite,7942392,210,77)
+  {
+   Name="new_tree"
+   link(onOpen,1201215:doExec,[])
+  }
+  Add(DSC_Exec,1201215,259,77)
+  {
+   SQL="CREATE TABLE groups(id INTEGER PRIMARY KEY AUTOINCREMENT, name varchar(64), icon int, parent int, info text)"
+   DSManager="new_tree"
+   link(onExec,7942392:doClose,[(303,83)(303,116)(202,116)(202,90)])
+  }
+  Add(Hub,4647372,154,77)
+  {
+   OutCount=3
+   link(onEvent1,7942392:doOpen,[])
+   link(onEvent2,8390861:onOpenSave,[(178,90)(178,27)])
+   link(onEvent3,3894936:doWork3,[(186,97)])
+  }
+  Add(HubEx,3894936,182,21)
+  {
+   link(onEvent,8390861:onSave,[])
+  }
+END_SDK
+Add(HubEx,10751464,679,294)
+{
+ link(onEvent,8824546:doValue,[])
+}
+Add(Hub,1277274,651,301)
+{
+ link(onEvent1,10751464:doWork2,[])
+ link(onEvent2,9063052:doLoad,[(676,314)(676,349)])
+}
+Add(HubEx,13547906,623,210)
+{
+ link(onEvent,12086823:doWork1,[])
+}
+Add(DoData,10291642,588,224)
+{
+ Data=Integer(1)
+ link(onEventData,13547906:doWork3,[(627,230)])
+}
+Add(TVT_DeleteNode,16630134,630,245)
+{
+ @Hint=#11:Remove item|
+ TreeView="maintree"
+ link(Data,161182:Var2,[])
+ AddHint(63,28,77,13,@Hint)
+}
+Add(GetDataEx,3083161,672,196)
+{
+ Angle=3
+ link(Data,161182:Var3,[])
+}
+Add(IndexToChanel,113590,434,252)
+{
+ Data=Integer(2)
+ link(onEvent1,16332223:doWork3,[(473,258)])
+ link(onEvent2,5002552:doWork3,[(480,265)])
+}
+Add(Hub,10307622,406,217)
+{
+ link(onEvent1,5533314:doEvent,[])
+ link(onEvent2,113590:doEvent,[(427,230)(427,258)])
+}

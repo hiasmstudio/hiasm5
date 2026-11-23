@@ -10,21 +10,33 @@
 
 #include "share.h"
 #include "SDK.h"
+#include <string>
+#include <vector>
 
 class ProjectBuilder {
 	private:
-		void buildIneternal(MSDK *sdk, const ustring &name);
-		void buildWithCodeGen(MSDK *sdk, const ustring &name);
+		bool buildIneternal(MSDK *sdk, const ustring &name);
+		bool buildWithCodeGen(MSDK *sdk, const ustring &name);
 
-		ustring getOutputProjectName(MSDK *sdk);
+		GPid process = 0;
+		guint childWatch = 0;
+		std::vector<std::string> crossStopCommand;
+		ustring crossPidFile, crossStopFile;
+		void clearCrossRun();
 	public:
 		ProjectBuilder();
+		~ProjectBuilder();
+		Event on_run_state;
+		bool isRunning() const { return process != 0; }
+		void stop();
+		// Used by build, run and callers locating the generated artifact.
+		ustring getOutputProjectName(MSDK *sdk);
 
 		/**
 		 * Build spheme
 		 * @param sdk pointer to scheme
 		 */
-		void build(MSDK *sdk);
+		bool build(MSDK *sdk);
 		/**
 		 * Run project
 		 * @param sdk pointer to scheme

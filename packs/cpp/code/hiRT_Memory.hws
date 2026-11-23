@@ -1,0 +1,12 @@
+func doValue(_data)
+  println('auto hiasm_mem_', _id_, ' = ', Data, ';')
+  event(onData, 'hiasm_mem_' && _id_)
+end
+
+func Value()
+  if(linked(doValue))
+    return('hiasm_mem_' && _id_)
+  else
+    return(Default)
+  end
+end

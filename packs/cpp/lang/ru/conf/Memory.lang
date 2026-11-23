@@ -1,0 +1,7 @@
+Remembers data from a stream=Запоминает данные из потока
+Stores data by default=Хранит данные по-умолчанию
+Stores data in memory=Запоминает данные в памяти
+Sets the memory cell to its initial state (i.e. equals it to the default value)=Устанавливает ячейку памяти в исходное состояние (т.е. приравнивает её значению по-умолчанию)
+The event occurs every time the data is changed, releasing it back to the stream=Событие происходит всякий раз после изменения данных, выдавая их обратно в поток
+Contains data from a memory cell=Содержит данные из ячейки памяти
+Data to be stored by the doValue method=Данные для запоминания методом doValue

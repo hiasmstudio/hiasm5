@@ -1,0 +1,26 @@
+func doStart
+  println('QTimer::singleShot(0, &form, [&form] {')
+  println('  const auto targets = qt_text(', cstr(get('qtHintTargets')), ').split(QChar(44), Qt::SkipEmptyParts);')
+  println('  for (const auto &name : targets) {')
+  println('    if (auto *target = qt_widget<QWidget>(form, name.toLatin1().constData())) {')
+  println('      auto *hint = new HiasmHint(target);')
+  println('      hint->custom = true;')
+  if(linked(onShow))
+    println('      hint->shown = [&form](const QString &text) {')
+    event(onShow, 'text')
+    println('      };')
+  end
+  if(linked(onChangeHint))
+    println('      hint->changed = [&form](const QString &text) {')
+    event(onChangeHint, 'text')
+    println('      };')
+  end
+  if(linked(onHide))
+    println('      hint->hidden = [&form] {')
+    event(onHide)
+    println('      };')
+  end
+  println('    }')
+  println('  }')
+  println('});')
+end

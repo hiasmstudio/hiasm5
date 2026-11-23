@@ -1,0 +1,199 @@
+Make(cpp)
+Add(MainForm,11367671,133,238)
+{
+ Left=20
+ Top=105
+ Width=459
+ Height=281
+ Ctl3D=0
+ Caption="ImageLoader -- BMP, GIF, JPG, JPEG, ICO, WMF, EMF, PNG, XBM, TIFF"
+ BorderStyle=4
+ Position=1
+}
+Add(Button,12242450,133,280)
+{
+ Left=195
+ Top=225
+ Width=70
+ Height=25
+ TabOrder=-1
+ Caption="Load Files"
+ link(onClick,13268199:doEvent1,[])
+}
+Add(Repeat,5895942,448,413)
+{
+ Op1=Integer(1)
+ link(onRepeat,5295562:doProcessMessages,[])
+ link(Op2,1836674:Busy,[])
+}
+Add(Image,9768314,455,210)
+{
+ @Hint=#1:1|
+ Left=10
+ Top=10
+ Width=140
+ Height=100
+ Color=16777215
+ TabOrder=-1
+ Point(Handle)
+}
+Add(ImageLoader,1836674,455,364)
+{
+ DrawSource=1
+ Point2AsOffset=0
+ link(onLoad,1836674:doDraw,[(498,370)(498,342)(443,342)(443,377)])
+ link(onDraw,14245188:doCapture,[])
+ link(Bitmap,5283587:Var2,[])
+}
+Add(Application,5295562,511,413)
+{
+ Wait=1
+}
+Add(Image,5295338,462,217)
+{
+ @Hint=#1:2|
+ Left=155
+ Top=10
+ Width=140
+ Height=100
+ Color=16777215
+ TabOrder=-1
+ Point(Handle)
+}
+Add(Hub,13268199,182,280)
+{
+ OutCount=3
+ link(onEvent1,5281720:doEvent1,[(226,286)(226,223)])
+ link(onEvent2,9232864:doReset,[(226,293)(226,314)])
+ link(onEvent3,6607378:doExecute,[])
+}
+Add(ODialog,6607378,238,294)
+{
+ Filter="BMP, GIF, JPG, JPEG, ICO, WMF, EMF, PNG, XBM, TIFF files (*.bmp;*.gif;*.ico;*wmf;*.emf;*.xbm;*.tiff;*.png;*.jpg;*.jpeg)|.bmp;*.gif;*.ico;*wmf;*.emf;*.xbm;*.tiff;*.png;*.jpg;*.jpeg|All files (*.*)|*.*"
+ FileName=""
+ Select=1
+ link(onExecute,10171142:doEvent1,[])
+}
+Add(Counter,9232864,350,294)
+{
+ Min=-1
+ Max=5
+ Default=-1
+ link(onNext,8588083:doIndex,[])
+}
+Add(LineBreakEx,14472841,266,168)
+{
+ Caption="LoadBmp"
+ Type=1
+ link(OnEvent,5198947:doEvent,[])
+}
+Add(Hub,5281720,350,217)
+{
+ OutCount=6
+ link(onEvent1,9768314:doClear,[])
+ link(onEvent2,5295338:doClear,[])
+ link(onEvent3,10722084:doClear,[])
+ link(onEvent4,4148320:doClear,[])
+ link(onEvent5,8735878:doClear,[])
+ link(onEvent6,14742910:doClear,[])
+}
+Add(GetIndexData,8588083,462,294)
+{
+ Count=6
+ link(Data1,9768314:Handle,[])
+ link(Data2,5295338:Handle,[])
+ link(Data3,10722084:Handle,[])
+ link(Data4,4148320:Handle,[])
+ link(Data5,8735878:Handle,[])
+ link(Data6,14742910:Handle,[])
+}
+Add(Image,10722084,469,224)
+{
+ @Hint=#1:3|
+ Left=300
+ Top=10
+ Width=140
+ Height=100
+ Color=16777215
+ TabOrder=-1
+ Point(Handle)
+}
+Add(Image,4148320,476,231)
+{
+ @Hint=#1:4|
+ Left=10
+ Top=115
+ Width=140
+ Height=100
+ Color=16777215
+ TabOrder=-1
+ Point(Handle)
+}
+Add(Image,8735878,483,238)
+{
+ @Hint=#1:5|
+ Left=155
+ Top=115
+ Width=140
+ Height=100
+ Color=16777215
+ TabOrder=-1
+ Point(Handle)
+}
+Add(Image,14742910,490,245)
+{
+ @Hint=#1:6|
+ Left=300
+ Top=115
+ Width=140
+ Height=100
+ Color=16777215
+ TabOrder=-1
+ Point(Handle)
+}
+Add(Hub,10171142,287,294)
+{
+ link(onEvent1,9232864:doNext,[])
+ link(onEvent2,10771975:doEvent1,[(335,307)(335,370)])
+}
+Add(IndexToChanel,5198947,350,168)
+{
+ Count=6
+ Point(Index)
+ link(onEvent1,9768314:doLoad,[(418,174)(418,216)])
+ link(onEvent2,5295338:doLoad,[(422,181)(422,223)])
+ link(onEvent3,10722084:doLoad,[(426,188)(426,230)])
+ link(onEvent4,4148320:doLoad,[(429,195)(429,237)])
+ link(onEvent5,8735878:doLoad,[(432,202)(432,244)])
+ link(onEvent6,14742910:doLoad,[(436,209)(436,251)])
+ link(Index,8973991:getVar,[])
+}
+Add(Hub,10771975,350,364)
+{
+ link(onEvent1,1836674:doLoad,[])
+ link(onEvent2,5895942:doRepeat,[(415,377)(415,419)])
+}
+Add(ScreenShort,14245188,511,371)
+{
+ link(Handle,5283587:Var3,[(517,352)])
+ link(onCapture,6345020:doWork,[])
+}
+Add(GetDataEx,5283587,455,343)
+{
+ link(Data,8588083:Var,[])
+}
+Add(LineBreakEx,15524595,350,343)
+{
+ Caption="Idx"
+ Type=3
+ link(_Data,9232864:Count,[])
+}
+Add(LineBreakEx,8973991,350,140)
+{
+ Caption="Idx"
+ Type=2
+}
+Add(LineBreakEx,6345020,560,371)
+{
+ Caption="LoadBmp"
+}

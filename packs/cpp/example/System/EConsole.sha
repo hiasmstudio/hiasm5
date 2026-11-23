@@ -1,0 +1,59 @@
+Make(cpp)
+Pos(0,0)
+Add(Console,3544674,84,112)
+{
+ Title="Test"
+ Point(doTextAttribute)
+ link(onStart,6143440:doEvent1,[])
+ link(Point,15851547:Point,[])
+}
+Add(Events,9665279,210,182)
+{
+ Name="Event1"
+ link(onCreate,1546022:doWait,[])
+}
+Add(WaitObject,1546022,280,182)
+{
+ link(ObjHandle,9665279:ObjHandle,[(286,172)(261,172)(261,224)(216,224)])
+}
+Add(Thread,346107,210,112)
+{
+ link(onExec,8210296:doEvent1,[])
+}
+Add(Hub,6143440,140,112)
+{
+ OutCount=3
+ link(onEvent1,346107:doStart,[])
+ link(onEvent3,9665279:doCreate,[(191,132)(191,188)])
+}
+Add(PointHint,15963654,91,203)
+{
+ Info=#7:doClose|
+ Height=18
+ link(Event,9665279:doSet,[(167,212)(167,195)])
+}
+Add(PointXY,15851547,84,42)
+{
+ X=50
+ Y=5
+}
+Add(Hub,8210296,259,112)
+{
+ OutCount=3
+ link(onEvent1,3544674:doPosition,[(301,118)(301,102)(62,102)(62,125)])
+ link(onEvent2,15843468:doData,[])
+ link(onEvent3,14349336:doData,[(301,132)(301,152)(25,152)(25,167)])
+}
+Add(DoData,15843468,336,119)
+{
+ link(onEventData,3544674:doWrite,[(378,125)(378,89)(74,89)(74,118)])
+ link(Data,15776334:FormatTime,[])
+}
+Add(Time,15776334,336,49)
+{
+}
+Add(DoData,14349336,35,161)
+{
+ Data=Integer(3)
+ link(onEventData,3544674:doTextAttribute,[(75,167)(75,132)])
+}

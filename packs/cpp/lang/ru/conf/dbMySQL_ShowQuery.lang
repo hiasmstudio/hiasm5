@@ -1,0 +1,5 @@
+Showing the result of a query in a row table=Показ результата запроса в таблице строк
+Outputs the result of a database query into a table=Выводит результат запроса к базе данных в таблицу
+Row Matrix=Матрица строк
+Array of field names=Массив имён полей
+Row table ID=Идентификатор таблицы строк

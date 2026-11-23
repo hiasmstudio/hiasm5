@@ -1,0 +1,8 @@
+Query to OLE database=Запрос к OLE базе данных
+Request text=Текст запроса
+Performs a query on the database, producing the query result=Выполняет запрос к базе данных с получением результата запроса
+Performs a database query without returning a result=Выполняет запрос к базе данных без получения результата
+The event occurs after a database query has been executed and outputs the resulting results to the stream.=Событие происходит после выполнения запроса к базе данных и выдает в поток полученные результаты
+Outputs column names to stream=Выдает в поток имена столбцов
+The event occurs every time an error occurs and outputs its code to the stream=Событие происходит всякий раз после возникновения ошибки и выдает её код в поток
+Defines the session ID=Определяет идентификатор сессисс

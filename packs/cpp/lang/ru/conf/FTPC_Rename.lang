@@ -1,0 +1,10 @@
+Renaming FTP files and folders=Переименование файлов и папок FTP
+Default file or folder name on the FTP server to rename=Имя файла или папки на FTP-сервере для переименования по умолчанию
+New file or folder name on the FTP server to rename by default=Новое имя файла или папки на FTP-сервере для переименования по умолчанию
+Issuing error events: Global - to the onGlobalError output of the FTP_Client component, Local - to the onError output of the current component, Global+Local - to the onGlobalError and onError outputs=Выдача событий ошибки: Global - на выход onGlobalError компонента FTP_Client, Local - на выход onError текущего компонента, Global+Local - на выходы onGlobalError и onError
+Managing the FTP_Client Element=Управление элементом FTP_Client
+Renames a file or folder on the FTP server ARG(RemoteName, NewRemoteName)=Переименовывает файл или папку на FTP-сервере ARG(RemoteName, NewRemoteName)
+The event occurs every time a file or folder is renamed on the FTP server, outputting the new name ARG(NewRemoteName) to the stream.=Событие происходит всякий раз после переименования файла или папки на FTP-сервере, выдавая в поток новое имя ARG(NewRemoteName)
+The event occurs every time after a component operation error and outputs its number to the stream ARG(Error)=Событие происходит всякий раз после ошибки работы компонента и выдает её номер в поток ARG(Error)
+Name of the file or folder on the FTP server to rename=Имя файла или папки на FTP-сервере для переименования
+New file or folder name on the FTP server to rename=Новое имя файла или папки на FTP-сервере для переименования

@@ -1,0 +1,5 @@
+Custom Tooltip Manager=Пользовательский менеджер подсказки
+Element name=Имя элемента
+The event occurs every time the hint value changes and outputs it to the stream=Событие происходит всякий раз после изменения значения подсказки и выдает её в поток
+The event occurs every time an element requests to show a tooltip and outputs its text to the stream=Событие происходит всякий раз при запросе элемента на показ подсказки и выдает её текст в поток
+The event occurs whenever there is a need to hide the tooltip=Событие происходит всякий раз при необходимости скрыть подсказку

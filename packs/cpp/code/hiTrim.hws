@@ -1,0 +1,45 @@
+func Source(value)
+  if(len(value) > 0)
+    return(value)
+  else
+    return(cstr(get('Text')))
+  end
+end
+
+func Chars()
+  if(len(get('Char')) > 0)
+    return(cstr(get('Char')))
+  else
+    return('" "')
+  end
+end
+
+func ModeIndex()
+  switch(get('Mode'))
+    case "TrimLeft": return(1)
+    case "TrimRight": return(2)
+    case "TrimStrBoth": return(3)
+    case "TrimStrLeft": return(4)
+    case "TrimStrRight": return(5)
+    case "NormalCenter": return(6)
+    case "NormalText": return(7)
+    default: return(0)
+  end
+end
+
+func Expr(value)
+  return('[](std::string text, const std::string &chars, int mode) { if(mode == 0 || mode == 1 || mode == 2) { if(mode != 2) { std::size_t p = 0; while(p < text.size() && chars.find(text[p]) != std::string::npos) ++p; text.erase(0, p); } if(mode != 1) { while(!text.empty() && chars.find(text.back()) != std::string::npos) text.pop_back(); } } else if(mode == 3 || mode == 4 || mode == 5) { if(!chars.empty()) { if(mode != 5) { while(text.size() >= chars.size() && text.compare(0, chars.size(), chars) == 0) text.erase(0, chars.size()); } if(mode != 4) { while(text.size() >= chars.size() && text.compare(text.size() - chars.size(), chars.size(), chars) == 0) text.erase(text.size() - chars.size()); } } } else if(mode == 6) { std::string out; for(char c : text) { if(chars.find(c) != std::string::npos && !out.empty() && out.back() == c) continue; out += c; } text = out; } else if(mode == 7) { std::string out; bool space = false; for(char c : text) { unsigned char u = static_cast<unsigned char>(c); if(u <= 32) { space = true; continue; } if(space && !out.empty()) out += static_cast<char>(32); space = false; out += c; } text = out; } return text; }(' && value && ', ' && Chars() && ', ' && ModeIndex() && ')')
+end
+
+func doTrim(_data)
+  println('auto hiasm_trim', _id_, ' = ', Expr(Source(_data)), ';')
+  event(onTrim, 'hiasm_trim' && _id_)
+end
+
+func Result()
+  if(linked('doTrim'))
+    return('hiasm_trim' && _id_)
+  else
+    return(Expr(cstr(get('Text'))))
+  end
+end

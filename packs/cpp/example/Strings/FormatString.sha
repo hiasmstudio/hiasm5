@@ -1,0 +1,83 @@
+*Быстрое формирование строки из нескольких подстрок
+Make(cpp)
+Pos(0,0)
+Add(MainForm,12195,216,209)
+{
+ Left=378
+ Top=329
+ Width=268
+ Height=111
+ Caption=""
+ BorderStyle=5
+ TaskBar=1
+ link(onCreate,8372:doEvent4,[(279,250)(279,126)])
+}
+Add(Edit,1805,158,106)
+{
+ Left=30
+ Top=30
+ Width=230
+ Height=21
+ Font=[Arial,8,0,0,1]
+ Text="world"
+ link(onChange,8372:doEvent2,[])
+}
+Add(Label,95712,41,144)
+{
+ Left=5
+ Top=35
+ Width=20
+ Font=[Arial,8,0,0,1]
+ Caption="S2"
+}
+Add(FormatStr,53288,151,209)
+{
+ DataCount=3
+ Mask="S1(%1) + S2(%2) = S3(%3)"
+ link(onFString,12195:doCaption,[])
+ link(Str1,66186:Text,[(157,170)(107,170)])
+ link(Str2,1805:Text,[])
+ link(Str3,50914:Text,[(171,177)(232,177)])
+}
+Add(Edit,66186,101,99)
+{
+ Left=30
+ Top=5
+ Width=230
+ Height=21
+ Font=[Arial,8,0,0,1]
+ Text="Hello"
+ link(onChange,8372:doEvent1,[])
+}
+Add(Edit,50914,226,113)
+{
+ Left=30
+ Top=55
+ Width=230
+ Height=21
+ Font=[Arial,8,0,0,1]
+ Text="!!!"
+ link(onChange,8372:doEvent3,[])
+}
+Add(Label,90821,41,104)
+{
+ Left=5
+ Top=10
+ Width=20
+ Font=[Arial,8,0,0,1]
+ Caption="S1"
+}
+Add(Hub,8372,311,99)
+{
+ InCount=4
+ OutCount=1
+ link(onEvent1,53288:doString,[(353,105)(353,295)(142,295)(142,215)])
+}
+Add(Label,59001,41,184)
+{
+ Left=5
+ Top=60
+ Width=20
+ Font=[Arial,8,0,0,1]
+ Caption="S3"
+}

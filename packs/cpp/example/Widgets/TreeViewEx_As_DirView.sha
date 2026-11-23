@@ -1,0 +1,613 @@
+*Пример построения простого DirViewer'a на базе TteeView'a (индексный вариант)
+Make(cpp)
+Add(MainForm,5825262,49,210)
+{
+ Left=20
+ Top=105
+ Width=300
+ Height=330
+ Caption="DirViewer"
+ Icon=[ZIP5E07000078DA636060044209090610C9E0C1CEC020C6C0C0A001C4402106030688380828B033D0057C220B609A738B743050E6F0E52F6288E86008696208A866F02E0522F2CCF1587563C597DFF3DFFC9AFAF457CFDD9F0C5EC5449A93860A20E6808C7AFB6BDAD35F0CBE15C49B83E99E84BD0F812866D703E1DCB9E49913B2F98EDDE22B70EDC487339A3964C7179A3964C717D6F0198D2F3C414A6A7CE10A52F2CCC10C52F2CCC10C5252CDC115A4F42FC78613F8FFFF3FC3030666AA6390B9200C000B316494]
+ Position=1
+ Point(Width)
+ Point(onResize)
+ link(onCreate,8486820:doWork2,[])
+}
+Add(TreeViewEx,3737069,525,259)
+{
+ Top=21
+ Width=292
+ Height=275
+ Align=5
+ IconByIndex=0
+ Tooltips=0
+ TrackSelect=0
+ SingleExpand=0
+ AlwaysUseIcons=0
+ IconsState=[]
+ Icons=[]
+ Point(Parent)
+ Point(ItemChild)
+ Point(onExpand)
+ Point(onItemPath)
+ Point(Index)
+ Point(ItemAtPos)
+ Point(doAddIcon)
+ Point(doSelect)
+ Point(doItemBold)
+ Point(doItemHasChild)
+ Point(doItemPath)
+ Point(onMouseMove)
+ Point(onDblClick)
+ Point(doClearIcons)
+ Point(onKeyDown)
+ Point(doExpandToggle)
+ link(Parent,15040543:Var2,[])
+ link(onExpand,11288433:doEvent1,[(599,279)(599,237)])
+ link(onItemPath,12122035:doStrCat,[(575,286)(575,492)(104,492)(104,342)])
+ link(onMouseMove,14157585:doData,[(592,293)(592,391)])
+ link(onDblClick,8438000:doData,[(584,300)(584,454)])
+ link(onKeyDown,3546240:doCase,[])
+}
+Add(DriveBox,2404730,119,175)
+{
+ Width=292
+ Height=21
+ Align=2
+ Point(Disk)
+ link(onSelect,8486820:doWork1,[(161,181)(161,169)(102,169)])
+}
+Add(MultiElementEx,5044051,308,308)
+{
+ @Hint=#20:DirsEnum & FilesEnum|
+ link(AddIcon,3737069:doAddIcon,[(348,314)(348,300)])
+ link(Add,3737069:doAdd,[(349,321)(349,360)(478,360)(478,265)])
+ link(HasChild,6802099:Input,[])
+ link(IconID,3737069:Count,[(314,283)(391,283)(391,399)(531,399)])
+}
+BEGIN_SDK
+  Add(EditMultiEx,419251,21,21)
+  {
+   WorkCount=#9:StartScan|8:NextScan|
+   EventCount=#7:AddIcon|3:Add|8:HasChild|
+   DataCount=#6:IconID|
+   Width=566
+   Height=214
+   link(StartScan,14212249:doEvent1,[(42,27)(42,69)])
+   link(NextScan,14212249:doEvent2,[(36,34)(36,76)])
+  }
+  Add(Hub,14212249,63,63)
+  {
+   InCount=2
+   OutCount=3
+   link(onEvent1,4422196:doClear,[(112,69)(112,83)])
+   link(onEvent2,1303342:doValue,[])
+   link(onEvent3,15919893:doSearch,[(107,83)(107,125)])
+  }
+  Add(FileSearch,2495974,175,70)
+  {
+   SubDir=1
+   Include=1
+   link(onSearch,15548175:doWork2,[])
+  }
+  Add(FilePart,6620814,350,133)
+  {
+   NameWOExt=1
+   link(onName,10394312:doString,[])
+  }
+  Add(DirTools,5804522,210,182)
+  {
+   Point(doExists)
+   link(onOK,15405862:doEvent,[])
+  }
+  Add(FileAttributes,5650910,350,63)
+  {
+   Point(doGetFileIcon)
+   Point(onGetFileIcon)
+   link(onGetFileIcon,5469774:doCase,[])
+  }
+  Add(HubEx,15548175,217,63)
+  {
+   link(onEvent,4422196:doAdd,[])
+  }
+  Add(ArrayEnum,13184658,252,126)
+  {
+   PColor(Array,16711935)
+   link(onItem,3378621:doEvent1,[])
+   link(Array,4422196:Array,[])
+  }
+  Add(FileSearch,15919893,119,119)
+  {
+   SubDir=1
+   link(onSearch,15548175:doWork3,[(221,125)])
+   link(onEndSearch,13184658:doEnum,[])
+   link(Dir,1303342:Value,[])
+  }
+  Add(Hub,3378621,294,126)
+  {
+   OutCount=3
+   link(onEvent1,5650910:doGetFileIcon,[(338,132)(338,90)])
+   link(onEvent2,6620814:doPart,[])
+   link(onEvent3,5804522:doExists,[(337,146)(337,170)(198,170)(198,209)])
+  }
+  Add(StrList,4422196,238,70)
+  {
+  }
+  Add(IndexToChanel,15405862,259,182)
+  {
+   Count=3
+   Point(Data)
+   link(onEvent2,419251:HasChild,[(549,195)(549,41)])
+   link(Data,13184658:Index,[])
+  }
+  Add(Memory,1303342,126,70)
+  {
+   link(onData,2495974:doSearch,[])
+  }
+  Add(Case,5469774,413,70)
+  {
+   link(onNextCase,14771119:doWork2,[])
+   link(onTrue,14068554:doData,[(461,83)(461,97)])
+  }
+  Add(Icon,13308325,476,42)
+  {
+   Icon=[ZIP7E03000078DA63606004420101062029C190C1CCC020C6C0C0A001C44021060506883808383033E0001F3F7EBCF6FCF975BCE0EEDDBB70F51F4E2D4B2304A64D9B86AC7E665A1A7E0404C8EAFFBF3983059D99F9FFCC198869E8EA2F6EFC7F1C8CD64EB0AEF4929ABD4165D2DCFFFDD9FF1F6DC4AA3EA23ACC33DBD335C5618DA3266BCF1AAE1D4FB9AEFCE73EF109680256F57F6BA341A6ED9CFFC2CB42B1348F6BDD75A07A2002099E3983A97EDFF4D8FFD5C1FF0FADFB9619E0176929B0FC84C6E2598ABBCF01D563353F636BF8FB42B7FFCBBB801695879BF29604729D6CE27A3315977AA0BF78526FAB26AF92F4DFC620B45038CB996B770DD7B3E9405D58D5FFFBF7CFA8FBA548C3FFC4B5FFB9DC6F98C65B732E29E4BAD5CFF5661650B6B1B111533DD00AFEF2FF491BFF73457D3609AB03722108A21E08D0D5FFBF92BB698FDFE22F0E93AF02D9FF3E3E86472E50F1810307E0EA81F1F80F1B00AA04796DA6315031904B503DD05860D00315031330727A3E3373265604540F4CC6C88A0F30FEFF4F16660662F6FFFF010A9DBA61]
+  }
+  Add(DoData,14068554,476,91)
+  {
+   link(onEventData,14771119:doWork3,[(529,97)])
+   link(Data,13308325:Icon,[])
+  }
+  Add(FormatStr,10394312,399,140)
+  {
+   Mask="<%1,%1>%2"
+   link(onFString,419251:Add,[(539,146)(539,34)])
+   link(Str1,419251:IconID,[(405,36)(27,36)])
+  }
+  Add(HubEx,14771119,525,63)
+  {
+   Angle=3
+   link(onEvent,419251:AddIcon,[(529,27)])
+  }
+END_SDK
+Add(GetDataEx,15040543,539,217)
+{
+ link(Data,6423053:Value,[])
+}
+Add(HubEx,8486820,98,217)
+{
+ link(onEvent,11830678:doStrCat,[])
+}
+Add(Hub,12511354,462,308)
+{
+ InCount=2
+ link(onEvent1,3737069:doItemBold,[])
+ link(onEvent2,3737069:doItemHasChild,[])
+}
+Add(InfoTip,13232380,28,28)
+{
+ Info=#0:|77:Пример построения простого DirViewer'a на базе TteeView'a (индексный вариант)|0:|65:Файлы можно запустить в связанном приложении двойным кликом мыша.|67:Открыть или закрыть папку можно по Enter или одиночным кликом мыша.|91:В данном примере включен режим SingleExpand, открывающий только одну папку текущего уровня.|86:Чтобы в этом режиме открыть несколько папок, удерживайте перед открытием клавишу CTRL.|
+ Font=[MS Sans Serif,8,1,8388608,1]
+ Frame=3
+ Width=785
+ Height=508
+}
+Add(If_else,2566118,259,315)
+{
+ Type=1
+ Op2=Integer(0)
+ link(onTrue,5044051:NextScan,[])
+ link(Op1,3737069:ItemChild,[(265,287)(386,287)(386,406)(545,406)])
+}
+Add(MathParse,777062,420,315)
+{
+ MathStr="%1 + %2 + 1"
+ link(onResult,12511354:doEvent2,[])
+ link(X1,15040543:Var1,[(426,226)])
+}
+Add(MultiElementEx,6802099,378,308)
+{
+ @Hint=#10:Commutator|
+ link(_out1,12511354:doEvent1,[])
+ link(_out2,777062:doCalc,[])
+}
+BEGIN_SDK
+  Add(EditMultiEx,11080506,21,21)
+  {
+   WorkCount=#5:_idx1|5:_idx2|5:Input|
+   EventCount=#5:_out1|5:_out2|
+   Width=167
+   Height=123
+   link(_idx1,11461508:doWork1,[(37,27)(37,41)])
+   link(_idx2,11461508:doWork2,[(37,34)(37,48)])
+   link(Input,14974258:doEvent,[(32,41)(32,90)])
+  }
+  Add(Icon,11583444,56,84)
+  {
+   @Hint=#5:#main|
+   Icon=[ZIP5E07000078DA636060044209090610C9E0C1CEC020C6C0C0A001C4402106030688380828B0330C7BF01F8CA86208E54651CB1C6AF96B84004AC20AAE9792B8FB8F0351987EA8E2AF51305AFE0CA3F4F31F0E7E02310314FFFC8F0EE603C518EC817E9067F83FFF3D50FE3350F00FB20AECFA01C8378636]
+  }
+  Add(ChanelToIndex,11461508,54,35)
+  {
+   link(onIndex,1447374:doValue,[])
+  }
+  Add(Memory,1447374,110,35)
+  {
+   Default=Integer(0)
+  }
+  Add(IndexToChanel,14974258,110,84)
+  {
+   Point(Index)
+   link(onEvent1,11080506:_out1,[(165,90)(165,27)])
+   link(onEvent2,11080506:_out2,[(165,97)(165,34)])
+   link(Index,1447374:Value,[])
+  }
+END_SDK
+Add(StrCat,11830678,119,224)
+{
+ Str2="\\"
+ link(onStrCat,7680307:doEvent1,[])
+ link(Str1,2404730:Disk,[])
+}
+Add(StrCat,12122035,119,336)
+{
+ link(onStrCat,1828097:doTrim,[])
+ link(Str1,11830678:Result,[])
+}
+Add(Hub,7680307,168,224)
+{
+ OutCount=5
+ link(onEvent1,6802099:_idx1,[(362,230)(362,314)])
+ link(onEvent2,3737069:doClear,[(507,237)(507,272)])
+ link(onEvent3,3737069:doClearIcons,[(501,244)(501,335)])
+ link(onEvent4,6423053:doClear,[(235,251)(235,188)])
+ link(onEvent5,5044051:StartScan,[(235,258)(235,314)])
+}
+Add(Memory,6423053,546,175)
+{
+ Default=Integer(-1)
+}
+Add(Hub,2210388,693,238)
+{
+ InCount=2
+ OutCount=4
+ link(onEvent1,6802099:_idx2,[(748,244)(748,150)(369,150)(369,321)])
+ link(onEvent2,3737069:doSelect,[(754,251)(754,156)(513,156)(513,307)])
+ link(onEvent3,6423053:doValue,[(760,258)(760,168)(534,168)(534,181)])
+ link(onEvent4,8730631:doWork1,[(760,265)])
+}
+Add(MultiElementEx,11861650,161,399)
+{
+ @Hint=#19:RunFile & StatusBar|
+ link(onEvent,6492827:doText,[])
+ link(Data,1828097:Result,[])
+}
+BEGIN_SDK
+  Add(EditMultiEx,5574627,21,21)
+  {
+   WorkCount=#8:doExists|9:doExists1|
+   EventCount=#7:onEvent|
+   VarCount=#5:Value|
+   DataCount=#4:Data|
+   Width=524
+   Height=249
+   link(doExists,7031950:doExists,[(39,27)(39,111)])
+   link(doExists1,2911413:doExists,[(33,34)(33,160)])
+   link(Value,6061146:Value,[(27,249)(482,249)])
+  }
+  Add(Memory,6061146,476,147)
+  {
+  }
+  Add(Memory,11245289,245,140)
+  {
+   Default=String(Файл : )
+   link(onData,3019581:doEvent1,[])
+  }
+  Add(DirTools,7031950,56,84)
+  {
+   Point(doExists)
+   link(onOK,3639075:doEvent,[])
+   link(Source,11307465:Var2,[])
+  }
+  Add(IndexToChanel,3639075,105,84)
+  {
+   Count=3
+   Point(Data)
+   link(onEvent3,12696810:doShellExec,[])
+  }
+  Add(WinExec,12696810,154,91)
+  {
+   link(FileName,15190173:Var2,[])
+  }
+  Add(DirTools,2911413,84,133)
+  {
+   Point(doExists)
+   link(onOK,9961549:doEvent,[])
+   link(Source,12546755:Var2,[])
+  }
+  Add(IndexToChanel,9961549,133,133)
+  {
+   Count=3
+   Data=String(Папка: )
+   Point(Data)
+   link(onEvent2,7179707:doEvent1,[])
+   link(onEvent3,7179707:doEvent11,[])
+  }
+  Add(FilePart,6620814,357,196)
+  {
+   NameWOExt=1
+   link(onName,8876051:doWork2,[])
+   link(FileName,907058:Var3,[(363,58)])
+  }
+  Add(GetDataEx,12546755,77,49)
+  {
+   Angle=3
+   link(Data,11307465:Var3,[])
+  }
+  Add(GetDataEx,15190173,147,49)
+  {
+   Angle=3
+   link(Data,12546755:Var3,[])
+  }
+  Add(HubEx,8876051,399,196)
+  {
+   link(onEvent,5574627:onEvent,[(525,209)(525,27)])
+  }
+  Add(Hub,3019581,294,140)
+  {
+   OutCount=5
+   link(onEvent1,897687:doWork1,[(408,146)(408,153)])
+   link(onEvent2,8876051:doWork1,[(403,153)])
+   link(onEvent3,897687:doWork2,[])
+   link(onEvent4,6620814:doPart,[(339,167)(339,202)])
+   link(onEvent5,897687:doWork3,[(410,174)(410,167)])
+  }
+  Add(GetDataEx,11307465,49,49)
+  {
+   link(Data,5574627:Data,[(62,37)(27,37)])
+  }
+  Add(ChanelToIndex,897687,427,147)
+  {
+   Count=3
+   link(onIndex,6061146:doValue,[])
+  }
+  Add(MultiElementEx,7179707,189,140)
+  {
+   @Hint=#9:Mb, Kb, b|
+   link(onEvent1,11245289:doValue,[])
+   link(onEvent11,11245289:doClear,[])
+   link(onStrCat,8876051:doWork3,[(234,160)(234,237)(403,237)])
+   link(FileName,907058:Var2,[])
+  }
+  BEGIN_SDK
+    Add(EditMultiEx,4557491,21,21)
+    {
+     WorkCount=#8:doEvent1|9:doEvent11|
+     EventCount=#8:onEvent1|9:onEvent11|8:onStrCat|
+     DataCount=#8:FileName|
+     Width=391
+     Height=375
+     link(doEvent1,14372407:doEvent1,[(35,27)(35,55)])
+     link(doEvent11,888890:doEvent1,[(35,34)(35,125)])
+    }
+    Add(FileAttributes,4792155,147,126)
+    {
+     Point(FileSize)
+     link(FileName,4557491:FileName,[(153,74)(27,74)])
+    }
+    Add(Math,3125564,224,238)
+    {
+     OpType=3
+     Op2=10
+     link(onResult,16137630:doStrCat,[])
+    }
+    Add(Math,4272,168,238)
+    {
+     OpType=3
+     Op2=102.4
+     ResultType=0
+     link(onResult,3125564:doOperation,[])
+     link(Op1,13536958:Var2,[])
+    }
+    Add(If_else,11572141,119,238)
+    {
+     Type=2
+     Op2=Integer(1024)
+     link(onTrue,4272:doOperation,[])
+     link(onFalse,12430836:doStrCat,[(161,251)(161,293)])
+     link(Op1,12945973:Var2,[])
+    }
+    Add(GetDataEx,13536958,161,161)
+    {
+     link(Data,4792155:FileSize,[])
+    }
+    Add(If_else,16195498,98,189)
+    {
+     Type=2
+     Op2=Integer(1048576)
+     link(onTrue,11025981:doOperation,[])
+     link(onFalse,11572141:doCompare,[(142,202)(142,223)(107,223)(107,244)])
+     link(Op1,12945973:Var1,[(104,170)])
+    }
+    Add(Math,6497418,224,189)
+    {
+     OpType=3
+     Op2=10
+     link(onResult,845934:doStrCat,[])
+    }
+    Add(Math,11025981,147,189)
+    {
+     OpType=3
+     Op2=104857.6
+     ResultType=0
+     link(onResult,6497418:doOperation,[])
+     link(Op1,1971549:Var2,[])
+    }
+    Add(GetDataEx,1971549,140,161)
+    {
+     Angle=1
+     link(Data,13536958:Var1,[])
+    }
+    Add(GetDataEx,12945973,112,161)
+    {
+     Angle=1
+     link(Data,1971549:Var1,[])
+    }
+    Add(StrCat,845934,287,189)
+    {
+     Str2=" Mb"
+     link(onStrCat,14405886:doWork2,[])
+    }
+    Add(StrCat,16137630,287,238)
+    {
+     Str2=" Kb"
+     link(onStrCat,4997310:doWork2,[])
+    }
+    Add(StrCat,12430836,287,287)
+    {
+     Str2=" b"
+     link(onStrCat,15992411:doWork2,[])
+     link(Str1,13536958:Var3,[(293,170)])
+    }
+    Add(DoData,15407520,287,329)
+    {
+     Data=String()
+     link(onEventData,15992411:doWork3,[(361,335)])
+    }
+    Add(Hub,888890,49,119)
+    {
+     OutCount=3
+     link(onEvent1,4557491:onEvent11,[(247,125)(247,34)])
+     link(onEvent2,4792155:doRead,[])
+     link(onEvent3,16195498:doCompare,[(89,139)(89,195)])
+    }
+    Add(Hub,14372407,49,49)
+    {
+     link(onEvent1,4557491:onEvent1,[(247,55)(247,27)])
+     link(onEvent2,15407520:doData,[(89,62)(89,335)])
+    }
+    Add(HubEx,15992411,357,280)
+    {
+     Angle=3
+     link(onEvent,4997310:doWork3,[])
+    }
+    Add(HubEx,4997310,357,231)
+    {
+     Angle=3
+     link(onEvent,14405886:doWork3,[])
+    }
+    Add(HubEx,14405886,357,182)
+    {
+     Angle=3
+     link(onEvent,4557491:onStrCat,[(361,41)])
+    }
+  END_SDK
+  Add(GetDataEx,907058,182,49)
+  {
+   Angle=3
+   link(Data,15190173:Var3,[])
+  }
+END_SDK
+Add(DoData,8438000,616,448)
+{
+ link(onEventData,8532993:doEvent1,[])
+ link(Data,3428739:Var2,[(622,427)(552,427)])
+}
+Add(Hub,8532993,714,448)
+{
+ link(onEvent1,10848051:_idx2,[(764,454)(764,497)(98,497)(98,328)])
+ link(onEvent2,2210388:doEvent2,[(757,461)(757,491)(680,491)(680,251)])
+}
+Add(MultiElementEx,10848051,203,315)
+{
+ @Hint=#10:Commutator|
+ link(_out1,2566118:doCompare,[])
+ link(_out2,11861650:doExists,[(250,328)(250,386)(149,386)(149,405)])
+ link(_out3,11861650:doExists1,[(243,335)(243,376)(143,376)(143,412)])
+}
+BEGIN_SDK
+  Add(EditMultiEx,11080506,21,21)
+  {
+   WorkCount=#5:_idx1|5:_idx2|5:_idx3|5:Input|
+   EventCount=#5:_out1|5:_out2|5:_out3|
+   Width=167
+   Height=123
+   link(_idx1,11461508:doWork1,[(37,27)(37,41)])
+   link(_idx2,11461508:doWork2,[(37,34)(37,48)])
+   link(_idx3,11461508:doWork3,[(37,41)(37,55)])
+   link(Input,14974258:doEvent,[(31,48)(31,90)])
+  }
+  Add(Icon,11583444,56,84)
+  {
+   @Hint=#5:#main|
+   Icon=[ZIP5E07000078DA636060044209090610C9E0C1CEC020C6C0C0A001C4402106030688380828B0330C7BF01F8CA86208E54651CB1C6AF96B84004AC20AAE9792B8FB8F0351987EA8E2AF51305AFE0CA3F4F31F0E7E02310314FFFC8F0EE603C518EC817E9067F83FFF3D50FE3350F00FB20AECFA01C8378636]
+  }
+  Add(ChanelToIndex,11461508,54,35)
+  {
+   Count=3
+   link(onIndex,1447374:doValue,[])
+  }
+  Add(Memory,1447374,110,35)
+  {
+   Default=Integer(0)
+  }
+  Add(IndexToChanel,14974258,110,84)
+  {
+   Count=3
+   Point(Index)
+   link(onEvent1,11080506:_out1,[(165,90)(165,27)])
+   link(onEvent2,11080506:_out2,[(165,97)(165,34)])
+   link(onEvent3,11080506:_out3,[(165,104)(165,41)])
+   link(Index,1447374:Value,[])
+  }
+END_SDK
+Add(Hub,11288433,630,231)
+{
+ link(onEvent1,10848051:_idx1,[(674,237)(674,162)(184,162)(184,321)])
+ link(onEvent2,2210388:doEvent1,[])
+}
+Add(Trim,1828097,161,336)
+{
+ Char="\"
+ Point(Result)
+ link(onTrim,10848051:Input,[])
+}
+Add(ChangeMon,4013425,665,385)
+{
+ link(onData,2312310:doEvent1,[])
+}
+Add(StatusBar,6492827,217,399)
+{
+ Panels=#3:=50|4:=170|
+ Point(doWidth)
+ link(Panel,11861650:Value,[(230,387)(198,387)(198,443)(167,443)])
+}
+Add(DoData,14157585,616,385)
+{
+ link(onEventData,4013425:doData,[])
+ link(Data,3737069:ItemAtPos,[(622,359)(559,359)])
+}
+Add(Hub,2312310,714,385)
+{
+ link(onEvent1,10848051:_idx3,[(771,391)(771,502)(92,502)(92,335)])
+ link(onEvent2,8730631:doWork3,[(760,398)])
+}
+Add(DoData,12164577,693,308)
+{
+ link(onEventData,3737069:doExpandToggle,[(737,314)(737,364)(515,364)(515,342)])
+ link(Data,3428739:Var3,[(699,296)(628,296)(628,373)])
+}
+Add(Case,3546240,644,301)
+{
+ Value=Integer(13)
+ link(onTrue,12164577:doData,[])
+}
+Add(GetDataEx,3428739,539,364)
+{
+ link(Data,3737069:Index,[])
+}
+Add(HubEx,8730631,756,357)
+{
+ Angle=2
+ link(onEvent,3737069:doItemPath,[(507,370)(507,328)])
+}

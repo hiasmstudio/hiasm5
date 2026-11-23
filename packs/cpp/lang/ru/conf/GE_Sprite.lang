@@ -1,0 +1,7 @@
+Game scene object - sprite=Объект игровой сцены - спрайт
+Sprite collection=Коллекция спрайтов
+The name of the sprite that is responsible for displaying the object=Имя спрайта, который отвечает за отображение объекта
+Number of frames in sprite=Количество кадров в спрайте
+Index of the first frame from which the animation begins=Индекс первого кадра, с которого начинается анимация
+The number of gameplay ticks after which a sprite frame changes=Количество тактов игрового процесса, через которое происходит смена кадра спрайта
+The lifetime of a sprite in game ticks, after which it is automatically destroyed=Время жизни спрайта в игровых тактах, после которого он автоматически уничтожается

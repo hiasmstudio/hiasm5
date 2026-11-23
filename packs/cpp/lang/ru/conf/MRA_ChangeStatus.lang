@@ -1,0 +1,5 @@
+Mail.ru agent status=Статус Mail.ru агента
+Defines the Mail.ru agent to change the status on the server=Определяет Mail.ru agent для смены статуса на сервере
+Changes the status of the current connection on the Mail.ru server ARG(Status)=Производит смену статуса текущего подключения на сервере Mail.ru ARG(Status)
+The event occurs every time after a successful status change on the Mail.ru server=Событие происходит всякий раз после успешной смены статусп на сервере Mail.ru
+Connection status=Статус подключения

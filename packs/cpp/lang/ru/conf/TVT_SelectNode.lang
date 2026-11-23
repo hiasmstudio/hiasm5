@@ -1,0 +1,7 @@
+Selecting an element in the tree=Выделение элемента в дереве
+Tree for selecting an element in it=Дерево для выделения в нем элемента
+Selects an element in the tree with the specified ID ARG(ID)=Выделяет в дереве элемент с указанным ID ARG(ID)
+The event occurs every time an element is selected in the tree=Событие происходит всякий раз после выделения элемента в дереве
+The event occurs every time after an unsuccessful selection of an element in the tree=Событие происходит всякий раз после неудачного выделения элемента в дереве
+Contains a map corresponding to the selected element in the tree=Содержит картеж, соответствующий выделенному элементу в дереве
+ID of the element to highlight=ID элемента, который необходимо выделить

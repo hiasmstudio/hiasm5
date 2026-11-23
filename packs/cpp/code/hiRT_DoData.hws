@@ -1,0 +1,3 @@
+func doData(_data)
+  event(onEventData, Data)
+end

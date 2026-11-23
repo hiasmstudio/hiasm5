@@ -27,8 +27,8 @@ void RecentFileManager::load() {
 	TRACE_PROC
 	fileListName = homeDir + "files.lst";
 	if(file_test(fileListName, FILE_TEST_EXISTS)) {
-		StringList lst(fileListName);
-		for(StringList::iterator l = lst.begin(); l != lst.end(); l++)
+		HStringList lst(fileListName);
+		for(HStringList::iterator l = lst.begin(); l != lst.end(); l++)
 			add(*l);
 	}
 }
@@ -36,7 +36,7 @@ void RecentFileManager::load() {
 RecentFileManager::~RecentFileManager() {
 	if(!changed) return;
 
-	StringList lst;
+	HStringList lst;
 	for(iterator f = begin(); f != end(); f++)
 		lst << f->name;
 	lst.saveToFile(fileListName);

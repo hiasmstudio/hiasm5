@@ -1,0 +1,7 @@
+section java
+
+func doAppend(_data)
+  println(Parent, '.appendChild(', Node, ');')
+  event(onAppend, Parent)
+end
+

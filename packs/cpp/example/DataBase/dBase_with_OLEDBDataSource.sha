@@ -1,0 +1,100 @@
+*Пример работы с файлом dBase через источник данных OLEDB#13#10______________________#13#10Автор: nesco
+Make(cpp)
+Add(MainForm,3171043,119,84)
+{
+ Left=20
+ Top=105
+ Width=390
+ Height=415
+ Caption="dBase_with_OLEDBDataSource"
+ Position=1
+ link(onCreate,11947023:doStrCat,[])
+}
+Add(Button,941652,161,224)
+{
+ Left=305
+ Top=5
+ Width=75
+ TabOrder=-1
+ Caption="Подключить"
+ link(onClick,5366140:doOpen,[])
+}
+Add(StringTable,6078793,413,196)
+{
+ Left=5
+ Top=165
+ Width=375
+ Height=210
+ Point(doAddColumn)
+}
+Add(MT_Enum,5673081,357,231)
+{
+ link(onItem,6078793:doAddColumn,[])
+}
+Add(MT_String,16321824,357,189)
+{
+ link(onResult,6078793:doAdd,[(401,195)(401,202)])
+}
+Add(Edit,11108326,217,98)
+{
+ Left=5
+ Top=5
+ Width=295
+ Text=""
+ link(onChange,6971676:doPart,[])
+}
+Add(Dir,5145339,168,49)
+{
+}
+Add(StrCat,11947023,168,98)
+{
+ Str2="Phone.dbf"
+ link(onStrCat,11108326:doText,[])
+ link(Str1,5145339:CurrentDir,[])
+}
+Add(FormatStr,5564056,322,98)
+{
+ DataCount=1
+ Mask="Driver={Microsoft dBASE Driver (*.dbf)};\r\nDriverId=533;\r\nDescription=dBase 5;\r\nFIL=dBase 5;\r\nDefaultDir=%1;\r\nPageTimeout=600;\r\nCollatingSequence=International;"
+ Point(FString)
+ link(onFString,14216946:doText,[])
+}
+Add(FormatStr,10216816,357,140)
+{
+ Mask="SELECT * FROM %1"
+ Point(FString)
+ link(onFString,90655:doText,[])
+}
+Add(FilePart,6971676,266,98)
+{
+ NameWOExt=1
+ link(onPath,5564056:doString,[])
+ link(onName,10216816:doString,[(312,111)(312,146)])
+}
+Add(Memo,14216946,413,77)
+{
+ Left=5
+ Top=30
+ Width=375
+ Height=105
+}
+Add(DS_OLEDB,5366140,217,224)
+{
+ Name="ole_driver_1"
+ link(onCreate,13233332:doQuery,[])
+ link(Driver,5564056:FString,[(223,154)(328,154)])
+}
+Add(DSC_Query,13233332,266,224)
+{
+ DSManager="ole_driver_1"
+ link(onQuery,16321824:doStr,[(328,230)(328,195)])
+ link(onColumns,5673081:doEnum,[])
+ link(SQL,90655:Text,[(272,183)(419,183)])
+}
+Add(Edit,90655,413,140)
+{
+ Left=5
+ Top=140
+ Width=375
+ Text=""
+}

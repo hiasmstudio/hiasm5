@@ -1,0 +1,27 @@
+func doModify:java
+  fvar(s)
+  if(issec("php")) 
+    s = 'strto' + lower(code(Type)) + '(' && SrcStr && ')' 
+  else
+    s = '(' && SrcStr && ').to' + code(Type) + 'Case()'
+  end
+  if(linked(Result))
+    println(sc, ' = ', s, ';')
+    event(onModify, sc)
+  else
+    event(onModify, s)
+  end
+end
+
+func Result:java
+  if(linked(doModify))
+    return(sc)
+  else
+    if(issec("php"))
+      return('strto' + lower(code(Type)) + '(' && SrcStr && ')')
+    else
+      return('(' && SrcStr && ').to' + code(Type) + 'Case()')
+    end
+  end
+end
+

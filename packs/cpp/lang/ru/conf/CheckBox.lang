@@ -1,0 +1,9 @@
+Checkbox=Флажок
+Caption transparency=Прозрачность надписи
+Sets the initial value of the checkbox=Задаёт начальное значение переключателя
+Sets the caption text next to the checkbox=Задаёт текст надписи возле переключателя
+Element display style=Стиль отображения элемента
+Checks/unchecks a checkbox=Устанавливает/снимает флажок
+The event occurs whenever the status of a checkbox changes and outputs 1 to the stream if the checkbox is checked and 0 otherwise ARG(Status)=Событие происходит всякий раз при изменении статуса флажка и выдает в поток 1, если флажок установлен и 0 в противном случае ARG(Status)
+The event occurs when an element is clicked=Событие происходит при клике на элементе
+Contains 1 if the checkbox is checked, or 0 otherwise=Содержит 1, если флажок установлен, или 0 - в противном случае

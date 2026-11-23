@@ -1,0 +1,600 @@
+Make(cpp)
+Pos(4,0)
+Add(MainForm,15261923,52,259)
+{
+ Left=20
+ Top=105
+ Width=408
+ Height=577
+ Point(MouseX)
+ Point(MouseY)
+ Point(onResize)
+ link(onCreate,16299401:doEvent1,[(92,279)(92,307)])
+ link(onResize,14551396:doWork1,[(161,286)])
+}
+Add(Gl_Particles,2176984,563,245)
+{
+ ColorStart=16776960
+ ColorEnd=8388608
+ Shape=3
+ Param2=0.03
+ LifeTime=100
+ Speed=0.01
+ Count=40
+ Point(doCount)
+ Point(doParam1)
+ Point(doParam2)
+ Point(doAverage)
+ Point(doColorStart)
+ Point(doColorEnd)
+ Point(doLifeTime)
+ Point(doGX)
+ Point(doGY)
+ Point(doGZ)
+ link(onDraw,7795135:doEnabled,[])
+}
+Add(GL_Main,12986311,171,301)
+{
+ Color=0
+ link(onInit,12198675:doInit,[])
+ link(onViewPort,3410847:doPerspective,[(224,314)(224,356)])
+ link(Handle,2597323:Var1,[])
+}
+Add(Timer,9506849,59,385)
+{
+ Interval=10
+ Enable=1
+ link(onTimer,1049454:doEvent1,[])
+}
+Add(GL_GTools,771925,171,385)
+{
+ Point(doClear)
+ Point(doPushMatrix)
+ Point(doPopMatrix)
+}
+Add(Hub,1049454,108,385)
+{
+ OutCount=5
+ link(onEvent1,771925:doClear,[])
+ link(onEvent2,771925:doPushMatrix,[])
+ link(onEvent3,10714674:doWork1,[(184,405)(184,258)])
+ link(onEvent4,771925:doPopMatrix,[(157,412)(157,405)])
+ link(onEvent5,12986311:doFlip,[(153,419)(153,321)])
+}
+Add(Hub,16299401,101,301)
+{
+ OutCount=3
+ link(onEvent1,12986311:doInit,[])
+ link(onEvent2,14551396:doWork2,[])
+ link(onEvent3,9506849:doTimer,[(145,321)(145,367)(47,367)(47,391)])
+}
+Add(HubEx,14551396,157,301)
+{
+ link(onEvent,12986311:doViewPort,[])
+}
+Add(GL_Perspective,3410847,234,350)
+{
+ Fovy=20
+}
+Add(GL_GluTools,12198675,234,301)
+{
+ Texture=0
+ link(onInit,1101264:doEnabled,[])
+}
+Add(GL_Options,1101264,283,301)
+{
+ Flag=7
+ link(onEvent,5851269:doEnabled,[])
+}
+Add(GL_Options,10513853,479,301)
+{
+ Flag=1
+}
+Add(Label,7892751,283,490)
+{
+ Left=15
+ Top=530
+ Width=11
+ Height=17
+ Caption="Z"
+}
+Add(GL_Options,5809249,381,301)
+{
+ Flag=2
+ link(onEvent,14989894:doEnabled,[])
+}
+Add(GL_Light,14989894,430,301)
+{
+ link(onEnabled,10513853:doEnabled,[])
+}
+Add(GL_Options,5851269,332,301)
+{
+ link(onEvent,5809249:doEnabled,[])
+}
+Add(MultiElement,10714674,234,252)
+{
+ link(onEvent1,14411342:doColor,[])
+ link(Data1,2597323:Var2,[(240,239)(184,239)])
+ link(Data2,2597323:Var3,[(247,233)(191,233)])
+ link(Data3,2597323:Var4,[(254,227)(198,227)])
+}
+BEGIN_SDK
+  Add(EditMulti,4359962,3,3)
+  {
+   EventCount=1
+   WorkCount=1
+   DataCount=3
+   Width=391
+   Height=144
+   link(doWork1,11247874:doEvent1,[(19,9)(19,55)])
+  }
+  Add(GL_Rotate,3276760,231,105)
+  {
+   Y=1
+   link(onRotate,8079493:doRotate,[])
+   link(Angle,8060278:Value,[])
+  }
+  Add(GL_Rotate,8079493,329,105)
+  {
+   X=1
+   link(onRotate,4359962:onEvent1,[(377,111)(377,9)])
+   link(Angle,15857313:Value,[])
+  }
+  Add(Memory,8060278,231,56)
+  {
+   link(onData,11956300:doData,[])
+  }
+  Add(Case,12224905,133,49)
+  {
+   Value=Integer(1)
+   link(onTrue,4104627:doData,[])
+  }
+  Add(DoData,6569103,84,49)
+  {
+   link(onEventData,12224905:doCase,[])
+   link(Data,4359962:Data3,[(90,15)(23,15)])
+  }
+  Add(DoData,4104627,182,56)
+  {
+   link(onEventData,8060278:doValue,[])
+   link(Data,4359962:Data1,[(188,30)(9,30)])
+  }
+  Add(Hub,11247874,35,49)
+  {
+   link(onEvent1,6569103:doData,[])
+   link(onEvent2,3276760:doRotate,[(80,62)(80,111)])
+  }
+  Add(Memory,15857313,329,56)
+  {
+  }
+  Add(DoData,11956300,280,56)
+  {
+   link(onEventData,15857313:doValue,[])
+   link(Data,4359962:Data2,[(286,23)(16,23)])
+  }
+END_SDK
+Add(GL_Options,7795135,612,245)
+{
+}
+Add(GL_Color,14411342,283,252)
+{
+ Color=8388736
+ link(onColor,3646322:doDraw,[])
+}
+Add(GL_Options,15142270,479,245)
+{
+ link(onEvent,2176984:doDraw,[])
+}
+Add(GL_Torus,3646322,332,252)
+{
+ inRadius=0.2
+ outRadius=0.5
+ Sides=20
+ Rings=20
+ link(onDraw,6348225:doData,[])
+}
+Add(GL_PrimSizes,9307230,430,252)
+{
+ Size=0
+ link(onSize,15142270:doDisabled,[])
+}
+Add(ChildPanel,2597323,171,182)
+{
+}
+BEGIN_SDK
+  Add(EditMulti,96275,6,6)
+  {
+   VarCount=4
+   link(Var1,15286353:Handle,[(12,172)(41,172)])
+   link(Var2,15286353:MouseX,[(19,172)(48,172)])
+   link(Var3,15286353:MouseY,[(26,172)(55,172)])
+   link(Var4,14091085:Value,[(33,175)(139,175)])
+  }
+  Add(Panel,15286353,35,105)
+  {
+   Left=10
+   Top=105
+   Width=380
+   Height=380
+   MouseCapture=0
+   Point(doColor)
+   Point(MouseX)
+   Point(MouseY)
+   Point(onMouseDown)
+   Point(onMouseUp)
+   Point(Handle)
+   link(onMouseDown,10864494:doData,[])
+   link(onMouseUp,14091085:doClear,[])
+  }
+  Add(Memory,14091085,133,112)
+  {
+   Default=Integer(0)
+  }
+  Add(DoData,10864494,84,112)
+  {
+   Data=Integer(1)
+   link(onEventData,14091085:doValue,[])
+  }
+END_SDK
+Add(Label,1569407,535,42)
+{
+ Left=200
+ Top=5
+ Width=22
+ Height=17
+ Caption="40"
+}
+Add(ScrollBar,5432490,381,42)
+{
+ Left=60
+ Top=5
+ Width=130
+ Max=400
+ Min=1
+ Position=40
+ link(onPosition,1378483:doEvent1,[])
+}
+Add(Hub,1378483,479,42)
+{
+ link(onEvent1,1569407:doText,[])
+ link(onEvent2,2176984:doCount,[(533,55)(533,258)])
+}
+Add(Label,13081318,332,42)
+{
+ Left=20
+ Top=5
+ Width=32
+ Height=17
+ Caption="Count"
+}
+Add(Label,6675449,332,91)
+{
+ Left=15
+ Top=30
+ Width=40
+ Height=17
+ Caption="Param1"
+}
+Add(ScrollBar,6713273,381,91)
+{
+ Left=60
+ Top=30
+ Width=130
+ link(onPosition,6353193:doOperation,[])
+}
+Add(Label,8612463,535,91)
+{
+ Left=200
+ Top=30
+ Width=10
+ Height=17
+ Caption="0"
+}
+Add(Hub,9476032,479,91)
+{
+ link(onEvent1,8612463:doText,[])
+ link(onEvent2,2176984:doParam1,[(533,104)(533,265)])
+}
+Add(Math,6353193,430,91)
+{
+ OpType=3
+ Op2=100
+ link(onResult,9476032:doEvent1,[])
+}
+Add(Label,5139026,332,140)
+{
+ Left=15
+ Top=55
+ Width=40
+ Height=17
+ Caption="Param2"
+}
+Add(ScrollBar,13513038,381,140)
+{
+ Left=60
+ Top=55
+ Width=130
+ Position=3
+ link(onPosition,2182282:doOperation,[])
+}
+Add(Label,5006205,535,140)
+{
+ Left=200
+ Top=55
+ Width=25
+ Height=17
+ Caption="0.03"
+}
+Add(Hub,12516025,479,140)
+{
+ link(onEvent1,5006205:doText,[])
+ link(onEvent2,2176984:doParam2,[(533,153)(533,272)])
+}
+Add(Math,2182282,430,140)
+{
+ OpType=3
+ Op2=100
+ link(onResult,12516025:doEvent1,[])
+}
+Add(Label,3164629,332,189)
+{
+ Left=10
+ Top=80
+ Width=40
+ Height=17
+ Caption="Average"
+}
+Add(ScrollBar,7799121,381,189)
+{
+ Left=60
+ Top=80
+ Width=130
+ link(onPosition,8087014:doOperation,[])
+}
+Add(Label,7962575,535,189)
+{
+ Left=200
+ Top=80
+ Width=10
+ Height=17
+ Caption="0"
+}
+Add(Hub,7919018,479,189)
+{
+ link(onEvent1,7962575:doText,[])
+ link(onEvent2,2176984:doAverage,[(533,202)(533,279)])
+}
+Add(Math,8087014,430,189)
+{
+ OpType=3
+ Op2=1000
+ link(onResult,7919018:doEvent1,[])
+}
+Add(Label,4945364,605,42)
+{
+ Left=225
+ Top=5
+ Width=24
+ Height=17
+ Caption="Size"
+}
+Add(ScrollBar,11079501,661,42)
+{
+ Left=255
+ Top=5
+ Max=10
+ Min=1
+ Position=1
+ link(onPosition,11587535:doText,[])
+}
+Add(Label,11587535,766,42)
+{
+ Left=360
+ Top=5
+ Width=10
+ Height=17
+ Caption="1"
+}
+Add(DoData,6348225,381,252)
+{
+ link(onEventData,9307230:doPointSize,[(418,258)(418,265)])
+ link(Data,11079501:Position,[(387,228)(667,228)])
+}
+Add(Label,3434835,605,91)
+{
+ Left=230
+ Top=30
+ Height=17
+ Caption="ColorStart"
+}
+Add(Label,5253139,605,140)
+{
+ Left=230
+ Top=55
+ Width=47
+ Height=17
+ Caption="ColorEnd"
+}
+Add(ChildPanel,11964628,661,91)
+{
+ link(onEvent1,2176984:doColorStart,[(711,97)(711,241)(527,241)(527,286)])
+}
+BEGIN_SDK
+  Add(EditMulti,12132372,6,6)
+  {
+   EventCount=1
+   Width=209
+  }
+  Add(Panel,5783406,35,98)
+  {
+   Left=280
+   Top=30
+   Width=80
+   Height=20
+   Color=16776960
+   Point(doColor)
+   link(onClick,9081133:doOpen,[])
+  }
+  Add(ColorDialog,9081133,84,98)
+  {
+   link(onSelect,1774389:doEvent1,[])
+  }
+  Add(Hub,1774389,133,98)
+  {
+   link(onEvent1,12132372:onEvent1,[(190,104)(190,12)])
+   link(onEvent2,5783406:doColor,[(175,111)(175,88)(25,88)(25,111)])
+  }
+END_SDK
+Add(ChildPanel,9610537,661,140)
+{
+ link(onEvent1,2176984:doColorEnd,[(703,146)(703,234)(520,234)(520,293)])
+}
+BEGIN_SDK
+  Add(EditMulti,2113287,6,6)
+  {
+   EventCount=1
+  }
+  Add(Panel,5783406,35,119)
+  {
+   Left=280
+   Top=55
+   Width=80
+   Height=20
+   Color=8388608
+   Point(doColor)
+   link(onClick,9081133:doOpen,[])
+  }
+  Add(ColorDialog,9081133,84,119)
+  {
+   link(onSelect,1774389:doEvent1,[])
+  }
+  Add(Hub,1774389,133,119)
+  {
+   link(onEvent1,2113287:onEvent1,[(235,125)(235,12)])
+   link(onEvent2,5783406:doColor,[(175,132)(175,109)(25,109)(25,132)])
+  }
+END_SDK
+Add(Label,12315421,605,189)
+{
+ Left=230
+ Top=80
+ Width=21
+ Height=17
+ Caption="Life"
+}
+Add(ScrollBar,2144124,661,189)
+{
+ Left=255
+ Top=80
+ Max=200
+ Min=1
+ Position=100
+ link(onPosition,15049767:doEvent1,[])
+}
+Add(Label,12119419,766,189)
+{
+ Left=365
+ Top=80
+ Width=26
+ Height=17
+ Caption="100"
+}
+Add(Hub,15049767,717,189)
+{
+ link(onEvent1,12119419:doText,[])
+ link(onEvent2,2176984:doLifeTime,[(759,202)(759,345)(552,345)(552,300)])
+}
+Add(Label,5776987,479,490)
+{
+ Left=360
+ Top=530
+ Width=19
+ Height=17
+ Caption="0.0"
+}
+Add(ScrollBar,16634305,332,392)
+{
+ Left=35
+ Top=490
+ Width=315
+ link(onPosition,4472905:doOperation,[])
+}
+Add(Label,9541693,479,392)
+{
+ Left=360
+ Top=490
+ Width=19
+ Height=17
+ Caption="0.0"
+}
+Add(Label,7892751,283,392)
+{
+ Left=15
+ Top=490
+ Width=11
+ Height=17
+ Caption="X"
+}
+Add(Math,4472905,381,392)
+{
+ OpType=3
+ Op2=100000
+ link(onResult,2837661:doEvent1,[])
+}
+Add(Hub,3135940,430,490)
+{
+ link(onEvent1,5776987:doText,[])
+ link(onEvent2,2176984:doGZ,[(539,503)(539,321)])
+}
+Add(Label,7892751,283,441)
+{
+ Left=15
+ Top=510
+ Width=11
+ Height=17
+ Caption="Y"
+}
+Add(Math,253530,381,441)
+{
+ OpType=3
+ Op2=100000
+ link(onResult,7568620:doEvent1,[])
+}
+Add(Math,13643025,381,490)
+{
+ OpType=3
+ Op2=100000
+ link(onResult,3135940:doEvent1,[])
+}
+Add(Hub,7568620,430,441)
+{
+ link(onEvent1,11684091:doText,[])
+ link(onEvent2,2176984:doGY,[(531,454)(531,314)])
+}
+Add(Hub,2837661,430,392)
+{
+ link(onEvent1,9541693:doText,[])
+ link(onEvent2,2176984:doGX,[(524,405)(524,307)])
+}
+Add(ScrollBar,7111925,332,441)
+{
+ Left=35
+ Top=510
+ Width=315
+ link(onPosition,253530:doOperation,[])
+}
+Add(ScrollBar,12669761,332,490)
+{
+ Left=35
+ Top=530
+ Width=315
+ link(onPosition,13643025:doOperation,[])
+}
+Add(Label,11684091,479,441)
+{
+ Left=360
+ Top=510
+ Width=19
+ Height=17
+ Caption="0.0"
+}

@@ -1,0 +1,12 @@
+Region collision=Коллизия регионов
+True - stop searching at the first collision (onTrue ARG(Index)), False - Checks the entire array and returns all collisions (onTrue ARG(Index,Index,...))=True - останавливать поиск при первой коллизии (onTrue ARG(Index)), False - Проверяет весь массив и выдает все коллизии (onTrue ARG(Index,Index,...))
+Checks the collision of two regions Region1 and Region2=Проверяет коллизию двух регионов Region1 и Region2
+Checks the collision of Region1 with regions from the array (excludes checking a region from the array equal to Region2)=Проверяет коллизию Region1 с регионами из массива (исключает проверку региона из массива равному Region2)
+The event occurs if the regions do not collide ARG(Region1)=Событие происходит если регионы не столкнулись ARG(Region1)
+The event occurs every time after checking for a collision between two regions ARG(Result)=Событие происходит всякий раз после проверки на коллизию двух регионов ARG(Result)
+Contains the region resulting from the collision=Содержит регион результат коллизии
+Contains the index of the collision result (1 - there was a collision, 0 - there was no collision)=Содержит индекс результата коллизии (1 - была коллизия, 0 - не было)
+Number of regions with which region Region1 collided=Колличество регионов с которыми произошла коллизия региона Region1
+Defines the first region=Определяет первый регион
+Defines the second region=Определяет второй регион
+Regions array=Массив регионов

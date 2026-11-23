@@ -1,0 +1,9 @@
+Checking the bits of a number=Проверка битов числа
+Number of bits checked=Количество проверяемых битов
+Data output to the stream by Bit# events if this bit in a number is 0=Данные, выдаваемые в поток событиями Bit№, если данный бит в числе равен 0
+Data output to the stream by Bit№ events if this bit in a number is equal to 1=Данные, выдаваемые в поток событиями Bit№, если данный бит в числе равен 1
+True - trigger the Bit№ event for zero bits, False - do not trigger=True - вызывать событие Bit№ для нулевых битов, False - не вызывать
+Decomposes a number into bits=Производит разложение числа на биты
+Decomposes a number into bits and outputs data in reverse order (from bottom to top)=Производит разложение числа на биты с выдачей данных в обратном порядке (снизу вверх)
+Stops the decomposition of a number into bits=Останавливает разложение числа на биты
+The number that needs to be decomposed into bits=Число, которое необходимо разложить на биты

@@ -1,0 +1,35 @@
+// Default is optional: an unset Default is the empty text.
+func MemDefault()
+  fvar(value)
+  value = Default
+  if(len(value) > 0)
+    return(value)
+  end
+  return('""')
+end
+
+// Memory: keeps the last stored value between calls. doValue stores the incoming data,
+// doClear restores Default; both emit onData with the stored value. The stored value is text.
+func doValue(_data)
+  println('{')
+  block.inclvl()
+  println('std::string &hiasm_mem', _id_, ' = hiasm_str_state(', _id_, ', hiasm_text(', MemDefault(), '));')
+  println('hiasm_mem', _id_, ' = hiasm_text(', isnull(_data) ? '""' : _data, ');')
+  event(onData, 'hiasm_mem' && _id_)
+  block.declvl()
+  println('}')
+end
+
+func doClear(_data)
+  println('{')
+  block.inclvl()
+  println('std::string &hiasm_mem', _id_, ' = hiasm_str_state(', _id_, ', hiasm_text(', MemDefault(), '));')
+  println('hiasm_mem', _id_, ' = hiasm_text(', MemDefault(), ');')
+  event(onData, 'hiasm_mem' && _id_)
+  block.declvl()
+  println('}')
+end
+
+func Value()
+  return('hiasm_str_state(' && _id_ && ', hiasm_text(' && MemDefault() && '))')
+end

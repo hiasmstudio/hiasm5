@@ -1,0 +1,14 @@
+Pseudo-random number sequence generator=Генератор псевдослучайной числовой последовательности
+Determines the minimum random number (for a normal distribution - at a confidence level of 68.3% (Center-Sigma))=Определяет минимальное случайное число (для нормального распределения - по уровню доверия 68.3% (Центр-Сигма))
+Determines the maximum random number (for a normal distribution - at a confidence level of 68.3% (Center+Sigma))=Определяет максимальное случайное число (для нормального распределения  - по уровню доверия 68.3% (Центр+Сигма))
+Defines the type of distribution: discrete/continuous/normal=Определяет тип распределения: дискретный/непрерывный/нормальный
+Pseudo Random Number Generator Algorithm=Алгоритм Генератора Псевдо Случайных Чисел
+Generates the next random number=Генерирует следующее случайное число
+Resets the random number generator (initialization if a new series of random numbers is needed each time it runs)=Переустанавливает генератор случайных чисел (инициализация, если при каждом запуске необходим новый ряд случайных чисел)
+Predefines a sequence of random numbers as an integer (zero by default)=Предопределяет последовательность случайных чисел целым числом (по умолчанию - с нуля)
+Generates a unique sequence of random integers=Генерирует неповторяемую последовательность случайных целых чисел
+The event occurs every time a random number is generated and outputs the number itself to the stream=Событие происходит всякий раз при генерации случайного числа и выдает в поток само число
+Stores the last value of the generator=Хранит последнее значение генератора
+Stores the current value of the random number sequence identifier=Хранит текущее значение идентификатора последовательности случайных чисел
+Determines the minimum random number (For normal distribution, standard deviation)=Определяет минимальное случайное число (Для нормального распределения среднеквадратичное отклонение)
+Determines the maximum random number (For a normal distribution, the mathematical expectation (mean))=Определяет максимальное случайное число (Для нормального распределения математическое ожидание (среднее значение))

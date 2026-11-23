@@ -1,0 +1,12 @@
+System hotkey=Системная горячая клавиша
+If Down, then additionally press Alt for a key combination=Если Down, то дополнительно нажать Alt для комбинации клавиш
+If Down, then additionally press Ctrl for the key combination=Если Down, то дополнительно нажать Ctrl для комбинации клавиш
+If Down, then additionally press Shift for a key combination=Если Down, то дополнительно нажать Shift для комбинации клавиш
+If Down, then additionally press Win for the key combination=Если Down, то дополнительно нажать Win для комбинации клавиш
+Primary key number for key combination=Номер основной клавиши для комбинации клавиш
+Assigns a hotkey (HotKey)=Назначает горячую клавишу (HotKey)
+Cancels a hotkey=Отменяет горячую клавишу
+The event occurs whenever a hotkey is pressed in the system=Событие происходит всякий раз при нажатии горячей клавиши в системе
+The event occurs every time after a successful hotkey assignment=Событие происходит всякий раз после успешного назначения горячей клавиши
+The event occurs whenever a hotkey is canceled=Событие происходит всякий раз после отмены горячей клавиши
+The event occurs whenever a hotkey assignment error occurs and issues an error code to the ARG(Error) stream.=Событие происходит всякий раз при ошибки назначения горячей клавиши и выдает код ошибки в поток ARG(Error)

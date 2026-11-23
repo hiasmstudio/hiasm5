@@ -1,0 +1,25 @@
+func doStart
+  gvar(BLK_HEAD, BLK_BODY)
+  
+  BLK_HEAD = "head" 
+  BLK_BODY = "body"
+  // регистрируем два блока под функции и собственно тело приложения
+  block.reg(BLK_HEAD)
+  block.reg(BLK_BODY)
+  
+  // формируем шапку 
+  block.select(BLK_HEAD)
+  println('Блабла бла')
+  block.inclvl()
+  
+  // выбираем в качестве текущего блок body(оператор print по-умолчанию будет печатать именно сюда)
+  block.select(BLK_BODY)
+  
+  block.inclvl()
+  event(onStart)
+  block.declvl()
+  
+  println('')
+  println('  // made by ' + sys.hi_version("HiAsm %mj.%mn build %bl"))
+  print('?')
+end

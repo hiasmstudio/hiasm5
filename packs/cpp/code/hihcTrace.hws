@@ -1,0 +1,7 @@
+func doTrace(_data)
+  println('std::puts(', cstr(Text), ');')
+  event(onTrace, Text)
+end
+
+func doClear(_data)
+end

@@ -1,0 +1,8 @@
+Decomposition of color into components=Разложение цвета на составляющие
+Color=Цвет
+Gets the R, G and B components of a color=Получает R,G и B составляющие цвета
+The event occurs every time after the color is decomposed into its components and outputs them to the stream ARG(R,G,B)=Событие происходит всякий раз после разложения цвета на составляющие и выдает их в поток ARG(R,G,B)
+Contains red color component=Содержит красную составляющую цвета
+Contains green color component=Содержит зеленую составляющую цвета
+Contains blue color component=Содержит синюю составляющую цвета
+Color for decomposition=Цвет для разложения на составляющие

@@ -21,6 +21,7 @@
 class LayerObject {
 	private:
 		guint timerID;	/**< timer ID for show object by delay */
+        static gboolean showTimeout(void *data);
 	protected:
 	public:
 		gdouble x;	/**< x coordinate of the object */
@@ -109,7 +110,6 @@ class LO_PointHint : public LayerObject {
 		std::list<ustring> info;
 		int type;
 
-		void drawHintRect(DrawContext dc);
 	public:
 		LO_PointHint(ElementPoint *point, double zoom, Widget *parent);
 		~LO_PointHint();
@@ -127,7 +127,6 @@ class LO_ElementHint : public LayerObject {
 	private:
 		std::list<ustring> info;
 
-		void drawHintRect(DrawContext dc);
 	public:
 		LO_ElementHint(Element *e, double zoom, Widget *parent);
 

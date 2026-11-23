@@ -1,0 +1,6 @@
+Playing an audio stream=Проигрывание звукового потока
+Audio stream to be played=Звуковой поток, который необхоимо проиграть
+Restart audio stream before starting playback=Перезапустить звуковой поток перед началом проигрывания
+Starts playing the audio stream=Начинает проигрывание звукового потока
+The event occurs every time the audio stream starts playing=Событие происходит всякий раз после начала проигрывания звукового потока
+Contains the channel status: 0 - channel is stopped, 1 - channel is active=Содержит состояние канала:  0 - канал остановлен, 1 - канал активен

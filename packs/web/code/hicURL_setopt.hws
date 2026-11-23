@@ -1,0 +1,17 @@
+func doSetOption(_data)
+  fvar(n,v,s)
+  
+  n = Name
+  v = Value  
+  
+  s = 'curl_setopt('+cURLID+', '+n+', '+v+');'
+  
+  if (linked(onSetOption))
+	println(result, ' = ', s)
+	event(onSetOption, result)
+  else
+    println(s)
+    event(onSetOption)
+  end
+end
+

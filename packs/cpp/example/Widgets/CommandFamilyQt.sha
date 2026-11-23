@@ -1,0 +1,100 @@
+Make(cpp)
+Add(MainForm,1,28,28)
+{
+ Backend=1
+ Caption="Command family"
+ Width=400
+ Height=240
+ link(onCreate,5:doRefresh,[])
+}
+Add(CMD_PopupMenu,2,140,84)
+{
+ CommandCenter="commands"
+ Menu=#6:Switch|1:-|4:More|1:(|5:About|1:)|7:Blocked|
+ link(onRefresh,6:doSetState,[])
+ link(onAction,12:doText,[])
+}
+Add(CMD_ToolBar,3,140,140)
+{
+ CommandCenter="commands"
+ ToolBar="commandBar"
+ Menu=#6:switch|1:-|4:more|1:(|5:about|1:)|7:blocked|
+ link(onRefresh,7:doSetState,[])
+ link(onAction,13:doText,[])
+}
+Add(ToolBar,4,28,84)
+{
+ Name="commandBar"
+ Left=12
+ Top=12
+ Width=360
+ Height=32
+}
+Add(CommandCenter,5,140,28)
+{
+ Name="commands"
+ Commands=['^Switch=Switch'=[],'More=More'=[],'About=About'=[],'Blocked=Disabled'=[]]
+ link(onRefresh,8:doSetState,[])
+ link(onAction,11:doAdd,[])
+}
+Add(CMD_State,6,224,84)
+{
+ CommandCenter="commands"
+ Name="sWiTcH"
+ Enabled=1
+ Checked=1
+}
+Add(CMD_State,7,224,140)
+{
+ CommandCenter="commands"
+ Name="more"
+ Enabled=1
+}
+Add(CMD_State,8,224,28)
+{
+ CommandCenter="commands"
+ Name="about"
+ Enabled=1
+}
+Add(Button,9,28,140)
+{
+ Left=12
+ Top=52
+ Width=130
+ Height=28
+ Caption="Show command menu"
+ link(onClick,2:doPopupHere,[])
+}
+Add(Button,10,28,196)
+{
+ Left=152
+ Top=52
+ Width=130
+ Height=28
+ Caption="Popup at (80, 80)"
+ Data=Integer(5242960)
+ link(onClick,2:doPopup,[])
+}
+Add(ListBox,11,308,28)
+{
+ Left=12
+ Top=92
+ Width=360
+ Height=66
+}
+Add(Label,12,308,84)
+{
+ Left=12
+ Top=164
+ Width=360
+ Height=24
+ Caption="Popup action"
+}
+Add(Label,13,308,140)
+{
+ Left=12
+ Top=192
+ Width=360
+ Height=24
+ Caption="Toolbar action"
+}

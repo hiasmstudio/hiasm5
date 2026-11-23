@@ -1,0 +1,108 @@
+*Светоэффект с музыкой#13#10( на основе примера Counter )
+Make(cpp)
+Pos(0,0)
+Add(MainForm,50080,14,161)
+{
+ Left=348
+ Top=345
+ Width=328
+ Height=78
+ Caption="Counter"
+ BorderStyle=3
+ TaskBar=1
+ link(onCreate,73951:doEvent2,[(65,202)(65,139)])
+}
+Add(Counter,47479,132,70)
+{
+ Max=2
+ link(onNext,46602:doWork1,[(196,76)])
+}
+Add(ScrollBar,2167,17,71)
+{
+ Left=20
+ Top=25
+ Width=277
+ Height=14
+ Max=1000
+ Min=10
+ Position=300
+ link(onPosition,8201:doInterval,[])
+}
+Add(Timer,8201,68,70)
+{
+ Interval=800
+ Point(doInterval)
+ link(onTimer,47479:doNext,[])
+}
+Add(Hub,73951,84,126)
+{
+ InCount=2
+ link(onEvent1,47479:doReset,[(124,132)(124,90)])
+ link(onEvent2,46602:doWork2,[(181,139)(181,83)])
+}
+Add(CheckBox,20974,203,21)
+{
+ Left=120
+ Top=5
+ Width=130
+ Height=15
+ Font=[Arial,8,0,0,1]
+ Caption="Snake"
+ link(onCheck,73951:doEvent1,[(244,27)(244,13)(9,13)(9,132)])
+}
+Add(MultiElement,46602,203,70)
+{
+ link(Data1,20974:Checked,[])
+}
+BEGIN_SDK
+  Add(EditMulti,32949,3,3)
+  {
+   WorkCount=2
+   DataCount=1
+   Width=457
+   Height=164
+   link(doWork1,76839:doCase,[(19,9)(19,34)])
+  }
+  Add(IntToBits,12667,287,28)
+  {
+   Count=3
+   Data_0=Integer(0)
+   Data_1=Integer(1)
+   link(onBit1,28729:doNumLock,[])
+   link(onBit2,28729:doCapsLock,[])
+   link(onBit3,28729:doScrollLock,[])
+  }
+  Add(DoData,3284,98,91)
+  {
+   Data=Integer(1)
+   link(onEventData,68367:doEvent2,[(152,97)(152,41)])
+  }
+  Add(Case,76839,35,28)
+  {
+   Value=Integer(0)
+   link(onNextCase,67114:doOperation,[])
+   link(onTrue,3284:doData,[(82,41)(82,97)])
+  }
+  Add(Hub,68367,175,28)
+  {
+   InCount=2
+   OutCount=1
+   link(onEvent1,52349:doValue,[])
+  }
+  Add(LedKey,28729,374,28)
+  {
+  }
+  Add(Memory,52349,224,28)
+  {
+   Default=Integer(1)
+   link(onData,12667:doBits,[])
+  }
+  Add(Math,67114,98,28)
+  {
+   OpType=2
+   Op2=2
+   ResultType=0
+   link(onResult,68367:doEvent1,[])
+   link(Op1,52349:Value,[(104,18)(142,18)(142,70)(230,70)])
+  }
+END_SDK

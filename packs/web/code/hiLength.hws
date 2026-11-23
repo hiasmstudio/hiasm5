@@ -1,0 +1,26 @@
+func doLength:java
+  fvar(s)
+  if(issec("php")) 
+    s = 'strlen(' && Text && ')' 
+  else
+    s = Text && '.length'
+  end
+  if(linked(Result))
+    println(len, ' = ', s, ';')
+    event(onLength, len)
+  else
+    event(onLength, s)
+  end
+end
+
+func Result:java
+  if(linked(doLength))
+    return(len)
+  else
+    if(issec("php"))
+      return('strlen(' && Text && ')')
+    else
+      return(Text && '.length')
+    end
+  end
+end

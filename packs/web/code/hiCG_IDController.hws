@@ -1,0 +1,10 @@
+func doSetIndex(_data):any
+  fvar(i)
+  i = sys.setindex(Offset)
+  event(onSetIndex, i)
+end
+
+func CurIndex():any
+  return(sys.setindex(0))
+end
+

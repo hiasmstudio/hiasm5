@@ -1,0 +1,5 @@
+Storing multidimensional data in memory=Сохранение многомерных данных в памяти
+Remembers data from a stream=Запоминает данные из потока
+Clears memory=Очищает память
+The event occurs every time the data is changed, and it is also output back to the stream.=Событие происходит всякий раз после изменения данных, их же и выдавая обратно в поток
+Contains data from a memory cell=Содержит данные из ячейки памяти

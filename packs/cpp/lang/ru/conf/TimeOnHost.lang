@@ -1,0 +1,5 @@
+Determining the date and time on a remote computer=Определение даты и времени на удаленном компьютере
+The name or IP address of the default host from which you want to obtain the date and time=Имя или IP-адрес хоста по умолчанию, у которого нужно узнать дату и время
+Determines the date and time on the remote computer ARG(Host)=Определяет дату и время на удаленном компьютере ARG(Host)
+Returns the date and time on the remote computer ARG(Day, Month, Year, Hours, Mins, Secs)=Возвращает дату и время на удаленном компьютере ARG(Day, Month, Year, Hours, Mins, Secs)
+The name or IP address of the host from which you want to find out the date and time=Имя или IP-адрес хоста у которого нужно узнать дату и время

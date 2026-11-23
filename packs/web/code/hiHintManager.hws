@@ -1,0 +1,15 @@
+section html
+
+func doHintCreate(_data)
+  if(isdef(Mode))
+    println('<span onmouseover=\'this.lastChild.style.display = "block";\' onmouseout=\'this.lastChild.style.display = "none";\'>')
+  else
+    println('<span onclick=\'s = this.lastChild.style; s.display = (s.display == "block") ? "none" : "block";\'>')
+  end
+  event(onCaption)
+  println('<div class="' + Class + '" style="display: none; position: absolute;">')
+  event(onHint)
+  println('</div>')
+  println('</span>')
+end
+

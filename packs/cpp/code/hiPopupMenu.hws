@@ -1,0 +1,94 @@
+func PopupMenuWidget()
+  return('qt_widget<QMenu>(form, "PopupMenu' && _id_ && '")')
+end
+
+func doStart
+  println('{')
+  println('auto *popupMenu = new QMenu(widgetParent);')
+  println('popupMenu->setObjectName(QStringLiteral("PopupMenu', _id_, '"));')
+  println('auto captions = qt_text(', cstr(d('Menu')), ');')
+  println('captions.remove(QChar(13));')
+  println('if (!captions.isEmpty()) {')
+  println('  for (const auto &caption : captions.split(QChar(10))) {')
+  println('    if (caption == QStringLiteral("-")) popupMenu->addSeparator();')
+  println('    else popupMenu->addAction(caption);')
+  println('  }')
+  println('}')
+  println('}')
+end
+
+func PopupMenuIcons(first)
+  if(linked('Bitmaps'))
+    fvar(bitmaps)
+    bitmaps = d('Bitmaps')
+    println('const auto popupBitmaps = ', bitmaps, ';')
+    println('const auto popupActions = popupMenu->actions();')
+    println('for (qsizetype i = ', first, '; i < popupActions.size() && i < popupBitmaps.size(); ++i) {')
+    println('  if (popupActions.at(i)->isSeparator()) continue;')
+    println('  QImage image = popupBitmaps.at(i);')
+    println('  if (image.isNull()) continue;')
+    if(get('TranspIcon') == 'True')
+      println('  image = image.convertToFormat(QImage::Format_ARGB32);')
+      println('  const QRgb key = image.pixel(0, 0);')
+      println('  for (int y = 0; y < image.height(); ++y) {')
+      println('    auto *row = reinterpret_cast<QRgb *>(image.scanLine(y));')
+      println('    for (int x = 0; x < image.width(); ++x) if (row[x] == key) row[x] = 0;')
+      println('  }')
+    end
+    println('  popupActions.at(i)->setIcon(QIcon(QPixmap::fromImage(image)));')
+    println('}')
+  end
+end
+
+func PopupMenuShow(position)
+  println('if (auto *popupMenu = ', PopupMenuWidget(), ') {')
+  println('const QPoint popupPosition = ', position, ';')
+  PopupMenuIcons('0')
+  if(linked(onClick) or linked(onSelectStr))
+    println('const QPointer<QMenu> popupGuard(popupMenu);')
+    println('auto *popupSelection = popupMenu->exec(popupPosition);')
+    // Snapshot the selection before onEndPopup can clear or rebuild the menu.
+    println('const int popupIndex', _id_, ' = popupGuard && popupSelection ? int(popupMenu->actions().indexOf(popupSelection)) : -1;')
+    if(linked(onSelectStr))
+      println('const QString popupCaption', _id_, ' = popupIndex', _id_, ' >= 0 ? popupSelection->text() : QString();')
+    end
+  else
+    println('popupMenu->exec(popupPosition);')
+  end
+  event(onEndPopup)
+  if(linked(onClick) or linked(onSelectStr))
+    println('if (popupIndex', _id_, ' >= 0) {')
+    event(onSelectStr, 'popupCaption' && _id_)
+    event(onClick, 'popupIndex' && _id_)
+    println('}')
+  end
+  println('}')
+end
+
+func doPopup(_data)
+  println('{')
+  println('const quint32 popupCoordinates = quint32(qt_text(', cstr(_data), ').toLongLong());')
+  PopupMenuShow('QPoint(int(popupCoordinates & 0xffffu), int(popupCoordinates >> 16))')
+  println('}')
+end
+
+func doPopupHere(_data)
+  PopupMenuShow('QCursor::pos()')
+end
+
+func doAddItem(_data)
+  println('if (auto *popupMenu = ', PopupMenuWidget(), ') {')
+  println('const auto caption = qt_text(', cstr(_data), ');')
+  println('if (caption == QStringLiteral("-")) popupMenu->addSeparator();')
+  println('else popupMenu->addAction(caption);')
+  PopupMenuIcons('popupActions.size() - 1')
+  println('}')
+end
+
+func doClear(_data)
+  println('if (auto *popupMenu = ', PopupMenuWidget(), ') popupMenu->clear();')
+end
+
+func Handle()
+  return('reinterpret_cast<quintptr>(' && PopupMenuWidget() && ')')
+end

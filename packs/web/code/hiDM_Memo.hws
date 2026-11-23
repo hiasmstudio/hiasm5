@@ -1,0 +1,14 @@
+section html
+
+func doPrint(_data)
+  print('<textarea name="' + DataBind + _SCOPE_ + '" ')
+  include('dmtag_html')
+  print(">")
+  if(isdef(Mode))
+    inc_sec("php")
+    print('htmlspecialchars($f' + _SITE_ + '[' + DataBind + '])')
+    dec_sec("html")
+  end
+  println('</textarea>')
+  event(onPrint, _data)
+end

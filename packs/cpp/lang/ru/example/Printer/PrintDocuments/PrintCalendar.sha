@@ -1,0 +1,243 @@
+Make(cpp)
+Add(MainForm,12413584,84,203)
+{
+ Width=271
+ Height=308
+ Caption="Calendar"
+}
+Add(DocumentTemplate,15557505,364,147)
+{
+ Name="MainPage"
+ link(Bitmap,13572165:Bitmap,[(370,135)(404,135)(404,190)(272,190)])
+}
+BEGIN_SDK
+  Add(Print_Shape,10271985,37,36)
+  {
+   X=40
+   Y=39
+   Width=127
+   Height=25
+   Type=2
+   BackStyle=0
+  }
+  Add(Print_Text,565839,49,40)
+  {
+   Name="time"
+   X=52
+   Y=43
+   Width=106
+   Height=18
+   Text="---"
+  }
+  Add(Print_Table,15348492,25,76)
+  {
+   Name="mtable"
+   X=28
+   Y=79
+   Width=154
+   Height=154
+   Columns=#7:пн|21|1|7:вт|21|1|7:ср|21|1|7:чт|21|1|7:пт|21|1|7:сб|21|1|7:вс|21|1|
+   HeadFont=[Comic Sans MS,10,1,0,1]
+   HeadBackColor=12303291
+   Cells=#0:|0:|0:|0:|0:|0:|0:|
+   CellBackColor=15658734
+   RowHeight=20
+   Spacing=1
+   TBorderStyle=5
+   TableTrans=0
+  }
+END_SDK
+Add(PaintBox,13572165,266,147)
+{
+ Left=10
+ Top=40
+ Width=240
+ Height=225
+ Color=16777215
+ Layout="horz"
+ WidthScale=100
+ HeightScale=100
+ ClearBeforeDraw=0
+ link(onBeforeDraw,8750585:doText,[])
+}
+Add(VBoxLayout,10551583,147,147)
+{
+ Name="horz"
+ Space=3
+ Padding=2
+}
+Add(PC_Text,8750585,315,147)
+{
+ ItemName="time"
+ Document="MainPage"
+ link(onText,15557505:doDraw,[])
+ link(Text,2872526:EditText,[])
+}
+Add(Button,9618318,147,203)
+{
+ Left=15
+ Top=10
+ Caption="View"
+ link(onClick,4255895:doWork2,[])
+}
+Add(Hub,12070866,210,203)
+{
+ link(onEvent1,12897021:doEnumDays,[])
+ link(onEvent2,13572165:doRefresh,[(245,216)(245,153)])
+}
+Add(PC_TableCellStyle,16269631,658,322)
+{
+ ItemName="mtable"
+ Document="MainPage"
+ BgApply=0
+ Background=-16777196
+ link(Col,9698000:Var3,[(664,310)])
+ link(Row,14849240:Var2,[])
+}
+Add(ComboBox,2872526,301,91)
+{
+ Left=80
+ Top=10
+ Width=170
+ Height=21
+ Strings=#6:Январь|7:Февраль|4:Март|6:Апрель|3:Май|4:Июнь|4:Июль|6:Август|8:Сентябрь|7:Октябрь|6:Ноябрь|7:Декабрь|
+ ReadOnly=0
+ Point(EditText)
+ link(onClick,9887217:doOperation,[])
+}
+Add(Math,9887217,427,98)
+{
+ Op2=1
+ Default=1
+ link(onResult,4255895:doWork1,[(471,104)(471,65)(193,65)])
+}
+Add(MonthCalendar,12897021,420,203)
+{
+ Year=2009
+ Holidays=['Новогодние каникулы'=257,'Новогодние каникулы'=258,'Новогодние каникулы'=259,'Новогодние каникулы'=260,'Новогодние каникулы'=261,'Рождество Христово'=263,'День защитника Отечества'=535,'Международный женский день'=776,'Праздник Весны и Труда'=1281,'День Победы'=1289,'День России'=1548,'День народного единства'=2820]
+ EmptyDays=0
+ link(onDay,3316216:doValue,[])
+ link(Month,9887217:Result,[])
+}
+Add(MT_MultiMem,3316216,476,203)
+{
+ Count=3
+ link(onData,11320318:doEvent1,[])
+}
+Add(IntToBits,11203693,588,322)
+{
+ Count=3
+ ZeroBits=1
+ link(onBit1,16269631:doSetStyle,[])
+ link(onBit2,5643463:doSetStyle,[(639,335)(639,384)])
+ link(onBit3,2762587:doSetStyle,[(639,342)(639,433)])
+}
+Add(If_else,3314870,539,322)
+{
+ Type=5
+ Op2=Integer(0)
+ link(onTrue,11203693:doBits,[])
+ link(onFalse,3060389:doSetStyle,[(581,335)(581,482)])
+}
+Add(DoData,5320309,490,322)
+{
+ link(onEventData,3314870:doCompare,[])
+ link(Data,3316216:Value3,[])
+}
+Add(PC_TableCellStyle,5643463,665,378)
+{
+ ItemName="mtable"
+ Document="MainPage"
+ BgApply=0
+ Background=8224255
+ link(Col,11317836:Var3,[(671,366)])
+ link(Row,4162724:Var2,[])
+}
+Add(PC_TableCellStyle,2762587,672,427)
+{
+ ItemName="mtable"
+ Document="MainPage"
+ BgApply=0
+ Background=255
+ link(Col,9601328:Var3,[(678,415)])
+ link(Row,5791169:Var2,[])
+}
+Add(PC_TableCellStyle,3060389,679,476)
+{
+ ItemName="mtable"
+ Document="MainPage"
+ BgApply=0
+ Background=-16777201
+ link(Col,9601328:Var2,[(685,464)(664,464)])
+ link(Row,5791169:Var3,[(692,415)])
+}
+Add(Counter,5417741,609,203)
+{
+ Max=41
+ Default=-1
+ link(onNext,857631:doOperation,[])
+}
+Add(GetDataEx,14849240,665,305)
+{
+ link(Data,39524:Var2,[])
+}
+Add(GetDataEx,4162724,672,361)
+{
+ link(Data,14849240:Var3,[(678,310)])
+}
+Add(GetDataEx,5791169,679,410)
+{
+ link(Data,4162724:Var3,[(685,366)])
+}
+Add(GetDataEx,9698000,644,305)
+{
+ link(Data,11671745:Var1,[(650,275)])
+}
+Add(GetDataEx,11317836,651,361)
+{
+ Angle=3
+ link(Data,9698000:Var2,[(650,366)])
+}
+Add(GetDataEx,9601328,658,410)
+{
+ Angle=3
+ link(Data,11317836:Var2,[(657,415)])
+}
+Add(Math,6453991,721,203)
+{
+ OpType=1
+ Op2=1
+ link(Op1,3316216:Value2,[(727,189)(466,189)(466,247)(489,247)])
+}
+Add(HubEx,4255895,189,203)
+{
+ link(onEvent,12070866:doEvent1,[])
+}
+Add(PC_TableSetCell,14043931,714,287)
+{
+ ItemName="mtable"
+ Document="MainPage"
+ link(Col,11671745:Var2,[])
+ link(Row,39524:Var3,[(734,261)])
+}
+Add(GetDataEx,11671745,721,270)
+{
+ link(Data,6453991:Result,[])
+}
+Add(GetDataEx,39524,665,256)
+{
+ link(Data,857631:Result,[])
+}
+Add(Hub,11320318,525,203)
+{
+ OutCount=3
+ link(onEvent1,5417741:doNext,[])
+ link(onEvent2,5320309:doData,[(561,216)(561,270)(478,270)(478,328)])
+ link(onEvent3,14043931:doText,[(547,223)(547,293)])
+}
+Add(Math,857631,665,203)
+{
+ OpType=7
+ Op2=7
+ link(onResult,6453991:doOperation,[])
+}

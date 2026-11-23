@@ -1,0 +1,48 @@
+Make(cpp)
+Add(MainForm,1,28,28)
+{
+ Backend=1
+ Caption="Named data source"
+ Width=320
+ Height=215
+ link(onCreate,2:doEvent1,[])
+}
+Add(Hub,2,100,28)
+{
+ link(onEvent1,4:doWrite,[])
+ link(onEvent2,5:doEnum,[])
+}
+Add(DS_StaticData,3,170,28)
+{
+ Name="people"
+ Columns=#4:Name|4:Role|
+ Data=#11:Ada|Analyst|12:Grace|Author|
+}
+Add(MReadWrite,4,170,84)
+{
+ DataSource="people"
+ Column="Role"
+ Index=1
+ link(Value,7:Text,[])
+}
+Add(MEnumerator,5,170,140)
+{
+ DataSource="people"
+ Column="Role"
+ link(onEnum,6:doAdd,[])
+}
+Add(Memo,6,250,140)
+{
+ Left=12
+ Top=45
+ Width=280
+ Height=125
+ ReadOnly=0
+}
+Add(Edit,7,250,84)
+{
+ Left=12
+ Top=12
+ Width=280
+ Text="Compiler pioneer"
+}

@@ -1,0 +1,11 @@
+section java
+
+func doCookie(_data)
+  println('document.cookie = ', Value, ';')
+  event(onCookie)
+end
+
+func Cookie()
+  return('document.cookie')
+end
+

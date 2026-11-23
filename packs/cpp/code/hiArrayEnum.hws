@@ -1,0 +1,46 @@
+func ArrayExpr()
+  if(linked('Array'))
+    return(d('Array'))
+  else
+    return('std::vector<std::string>()')
+  end
+end
+
+func Reverse()
+  if(get('Type') == 1)
+    return(1)
+  else
+    return(0)
+  end
+end
+
+func doEnum(_data)
+  println('{')
+  block.inclvl()
+  println('auto hiasm_arr', _id_, ' = ', ArrayExpr(), ';')
+  println('const int hiasm_rev', _id_, ' = ', Reverse(), ';')
+  println('const std::size_t hiasm_count', _id_, ' = hiasm_arr', _id_, '.size();')
+  println('for(std::size_t hiasm_step', _id_, ' = 0; hiasm_step', _id_, ' < hiasm_count', _id_, '; ++hiasm_step', _id_, ') {')
+  block.inclvl()
+  println('const std::size_t hiasm_pos', _id_, ' = hiasm_rev', _id_, ' ? hiasm_count', _id_, ' - 1 - hiasm_step', _id_, ' : hiasm_step', _id_, ';')
+  println('auto &hiasm_item', _id_, ' = hiasm_arr', _id_, '[hiasm_pos', _id_, '];')
+  println('const int hiasm_index', _id_, ' = static_cast<int>(hiasm_pos', _id_, ');')
+  event(onItem, 'hiasm_item' && _id_)
+  block.declvl()
+  println('}')
+  event(onEndEnum)
+  block.declvl()
+  println('}')
+end
+
+func doStop(_data)
+  println('break;')
+end
+
+func Item()
+  return('hiasm_item' && _id_)
+end
+
+func Index()
+  return('hiasm_index' && _id_)
+end

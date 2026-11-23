@@ -1,0 +1,35 @@
+func doStart
+  println('{')
+  println('auto *fonts = new QComboBox(widgetParent);')
+  println('fonts->setObjectName(QStringLiteral("FontBox', _id_, '"));')
+  println('fonts->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+  println('fonts->setStyleSheet(QStringLiteral("QComboBox QAbstractItemView::item { min-height: ', ItemHeight, 'px; }"));')
+  println('qt_reload_fonts(*fonts);')
+  println('qt_select_font(*fonts, qt_text(', cstr(d('SelFont')), '));')
+  if(linked(onResult))
+    println('QObject::connect(fonts, &QComboBox::textActivated, &form, [&form](const QString &family) {')
+    event(onResult, 'family')
+    println('});')
+  end
+  println('}')
+end
+
+func doSetFont(_data)
+  fvar(value)
+  value = _data
+  if(linked('Font'))
+    value = d('Font')
+  end
+  if(len(value) == 0)
+    value = '""'
+  end
+  println('qt_select_font(*qt_widget<QComboBox>(form, "FontBox', _id_, '"), qt_text(', value, '));')
+end
+
+func doReReadFonts(_data)
+  println('qt_reload_fonts(*qt_widget<QComboBox>(form, "FontBox', _id_, '"));')
+end
+
+func CurrentFont()
+  return('qt_widget<QComboBox>(form, "FontBox' && _id_ && '")->currentText()')
+end

@@ -1,0 +1,55 @@
+*Просмотр тегов MP3 файлов
+Pos(0,0)
+Add(MainForm,68022,21,105)
+{
+ Left=312
+ Top=294
+ Height=181
+}
+Add(ListBox,24959,392,56)
+{
+ Left=95
+ Top=30
+ Width=290
+ Height=115
+ Font=[Arial,8,0,0]
+}
+Add(Hub,15365,196,63)
+{
+ OutCount=4
+ link(onEvent1,24959:doClear,[])
+ link(onEvent2,14675:doReadInfo,[(302,76)(302,97)])
+ link(onEvent3,93787:doEnum,[(278,83)(278,160)])
+ link(onEvent4,20224:doText,[(240,90)(240,27)])
+}
+Add(Button,93945,91,63)
+{
+ Left=15
+ Top=55
+ Height=55
+ Font=[Arial,8,0,0]
+ Caption="Open"
+ link(onClick,3485:doExecute,[])
+}
+Add(Edit,20224,308,21)
+{
+ Left=95
+ Top=5
+ Width=290
+ Height=20
+ Font=[Arial,8,0,0]
+ Text=""
+}
+Add(ODialog,3485,140,63)
+{
+ Filter="MP3|*.mp3"
+ link(onExecute,15365:doEvent1,[])
+}
+Add(MP3_Info,14675,329,91)
+{
+}
+Add(ArrayEnum,93787,329,154)
+{
+ link(onItem,24959:doAdd,[(376,160)(376,62)])
+ link(Array,14675:Tags,[])
+}

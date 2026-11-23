@@ -1,0 +1,18 @@
+section java
+
+func doStyle(_data)
+  fvar(s, _obj)
+
+  _obj = Id
+  s = isdef(IdAsObject) ? ('document.getElementById(' && _obj && ')') : _obj && '.style.' + Property
+  println(s, ' = ', Text, ';')
+  event(onStyle, s)
+end
+
+func Value()
+  fvar(s, _obj)
+
+  _obj = Id
+  return(isdef(IdAsObject) ? ('document.getElementById(' && _obj && ')') : _obj && '.style.' + Property)
+end
+

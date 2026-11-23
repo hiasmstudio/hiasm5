@@ -1,0 +1,7 @@
+Data Enumeration=Перечисление данных
+Data source=Источник данных
+Name of the data source column for issuing elements to the stream=Имя колонки источника данных для выдачи элементов в поток
+Begins enumerating data source elements=Начинает перечисление элементов источника данных
+Outputs the next element of the data source to the stream=Выдает в поток очередной элемент источника данных
+Contains the current data source element after the onEnum event is called=Содержит текущий элемент источника данных после вызова события onEnum
+Contains the index of the current data source element after the onEnum event is called=Содержит индекс текущего элемента источника данных после вызова события onEnum

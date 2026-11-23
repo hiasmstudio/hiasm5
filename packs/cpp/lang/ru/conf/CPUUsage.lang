@@ -1,0 +1,5 @@
+Number of the polled processor=Номер опрашиваемого процессора
+Calculates the load of the selected processor=Вычисляет загрузку выбранного процессора
+Stops CPU monitoring and frees up system resources (Win9x only)=Останавливает мониторинг загрузки процессора и освобождает системные ресурсы (только для Win9x)
+The event occurs every time after receiving information about processor load and outputs it to the stream=Событие происходит всякий раз после получения информации о загрузке процессора и выдаёт её в поток
+Contains the number of processors in the system=Содержит кол-во процессоров в системе

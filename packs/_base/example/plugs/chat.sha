@@ -1,0 +1,45 @@
+Make(cpp)
+Add(MainForm,1,56,56)
+{
+ Caption="Чат: обработка сообщений"
+}
+Add(Edit,2,56,150)
+{
+ Left=20
+ Top=20
+ Width=480
+ Height=26
+ Text="#TEXT:hello"
+}
+Add(Button,3,56,240)
+{
+ Left=510
+ Top=20
+ Width=110
+ Height=26
+ Caption="Send"
+ link(onClick,4:doExecute,[])
+}
+Add(Code,4,56,330)
+{
+ Code=#108:const std::string chat_line = std::string(gtk_editable_get_text(GTK_EDITABLE(hiasm_widget("Edit2").get())));|44:const auto chat_colon = chat_line.find(':');|65:const std::string chat_command = chat_line.substr(0, chat_colon);|116:const std::string chat_payload = chat_colon == std::string::npos ? std::string() : chat_line.substr(chat_colon + 1);|24:std::string chat_result;|71:if(chat_command == "#REG") chat_result = "Registered: " + chat_payload;|73:else if(chat_command == "#JOIN") chat_result = "Joined: " + chat_payload;|74:else if(chat_command == "#TEXT") chat_result = "Message: " + chat_payload;|54:else chat_result = "Unknown command: " + chat_command;|
+ Expression=chat_result
+ link(onResult,5:doAdd,[])
+}
+Add(Memo,5,56,420)
+{
+ Left=20
+ Top=60
+ Width=600
+ Height=340
+ ScrollBars=2
+ ReadOnly=0
+}
+Add(Label,6,56,510)
+{
+ Left=20
+ Top=412
+ Width=600
+ Height=20
+ Caption="Команды: #REG:имя, #JOIN:комната, #TEXT:текст. Остальные команды — ошибка."
+}

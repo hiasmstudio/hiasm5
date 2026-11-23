@@ -1,0 +1,19 @@
+func doReplace(_data):java
+  fvar(code_str)
+
+  if(issec("php"))
+    code_str = 'str_replace(' && SubStr && ',' && DestStr && ',' && SrcStr && ')'
+  else
+    code_str = '(' && SrcStr && ').replace(' && SubStr && ',' && DestStr && ')'
+  end  
+  if(linked(Result))
+    println(s, ' = ', code_str, ';')
+    event(onReplace, s)
+  else
+    event(onReplace, code_str)
+  end  
+end
+
+func Result():java
+  return(s)
+end

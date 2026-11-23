@@ -1,0 +1,8 @@
+Retrieves selected values from the type with the specified name=Извлекает из типа с указанным именем выбранные значения
+Defines the variables to be retrieved=Определяет извлекаемые переменные
+Defines the name of the type=Определяет имя типа
+Retrieves selected values=Извлекает выбранные значения
+Clears the internal memory of a component=Очищает внутреннюю память компонента
+The event occurs after the data is fetched and outputs the type back to the stream=Событие происходит после извлечения данных и выдает тип обратно в поток
+The event occurs when an error occurs and outputs its code to the streamARG(err_code,info)=Событие происходит при возникновении ошибки и выдает ее код в потокARG(err_code,info)
+Defines a type to retrieve values from=Определяет тип для извлечения из него значений

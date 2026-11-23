@@ -1,0 +1,5 @@
+Adjusting the global sound of the BASS subsystem=Регулировка глобального звука BASS подситемы
+Sound level from 0 to 1=Уровень звука от 0 до 1
+Sets the sound level=Устанавливает уровень звука
+The event occurs every time the sound value is set=Событие происходит всякий раз после установки значения звука
+Contains the current value of the sound=Содержит текущее значение звука

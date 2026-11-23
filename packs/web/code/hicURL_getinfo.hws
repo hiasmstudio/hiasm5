@@ -1,0 +1,84 @@
+func CURLINFO_EFFECTIVE_URL()
+  return('curl_getinfo('+cURLID+',CURLINFO_EFFECTIVE_URL)')
+end
+
+func CURLINFO_HTTP_CODE()
+  return('curl_getinfo('+cURLID+',CURLINFO_HTTP_CODE)')
+end
+
+func CURLINFO_FILETIME()
+  return('curl_getinfo('+cURLID+',CURLINFO_FILETIME)')
+end
+
+func CURLINFO_TOTAL_TIME()
+  return('curl_getinfo('+cURLID+',CURLINFO_TOTAL_TIME)')
+end
+
+func CURLINFO_NAMELOOKUP_TIME()
+  return('curl_getinfo('+cURLID+',CURLINFO_NAMELOOKUP_TIME)')
+end
+
+func CURLINFO_CONNECT_TIME()
+  return('curl_getinfo('+cURLID+',CURLINFO_CONNECT_TIME)')
+end
+
+func CURLINFO_PRETRANSFER_TIME()
+  return('curl_getinfo('+cURLID+',CURLINFO_PRETRANSFER_TIME)')
+end
+
+func CURLINFO_STARTTRANSFER_TIME()
+  return('curl_getinfo('+cURLID+',CURLINFO_STARTTRANSFER_TIME)')
+end
+
+func CURLINFO_REDIRECT_TIME()
+  return('curl_getinfo('+cURLID+',CURLINFO_REDIRECT_TIME)')
+end
+
+func CURLINFO_SIZE_UPLOAD()
+  return('curl_getinfo('+cURLID+',CURLINFO_SIZE_UPLOAD)')
+end
+
+func CURLINFO_SIZE_DOWNLOAD()
+  return('curl_getinfo('+cURLID+',CURLINFO_SIZE_DOWNLOAD)')
+end
+
+func CURLINFO_SPEED_DOWNLOAD()
+  return('curl_getinfo('+cURLID+',CURLINFO_SPEED_DOWNLOAD)')
+end
+
+func CURLINFO_SPEED_UPLOAD()
+  return('curl_getinfo('+cURLID+',CURLINFO_SPEED_UPLOAD)')
+end
+
+func CURLINFO_HEADER_SIZE()
+  return('curl_getinfo('+cURLID+',CURLINFO_HEADER_SIZE)')
+end
+
+func CURLINFO_HEADER_OUT()
+  return('curl_getinfo('+cURLID+',CURLINFO_HEADER_OUT)')
+end
+
+func CURLINFO_REQUEST_SIZE()
+  return('curl_getinfo('+cURLID+',CURLINFO_REQUEST_SIZE)')
+end
+
+func CURLINFO_SSL_VERIFYRESULT()
+  return('curl_getinfo('+cURLID+',CURLINFO_SSL_VERIFYRESULT)')
+end
+
+func CURLINFO_CONTENT_LENGTH_DOWNLOAD()
+  return('curl_getinfo('+cURLID+',CURLINFO_CONTENT_LENGTH_DOWNLOAD)')
+end
+
+func CURLINFO_CONTENT_LENGTH_UPLOAD()
+  return('curl_getinfo('+cURLID+',CURLINFO_CONTENT_LENGTH_UPLOAD)')
+end
+
+func CURLINFO_CONTENT_TYPE()
+  return('curl_getinfo('+cURLID+',CURLINFO_CONTENT_TYPE)')
+end
+
+func InfoArr()
+  return('curl_getinfo('+cURLID+')')
+end
+

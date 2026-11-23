@@ -1,0 +1,9 @@
+include('tag_maker')
+
+section html
+
+func doPrint
+  include('tag_header')
+  s[1] = (Type = 0) ? "ul" : "ol"
+  include('tag_footer')
+end

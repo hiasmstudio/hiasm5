@@ -1,0 +1,5 @@
+Database management=Управление базами данных
+Gets a list of databases on the server and outputs them one by one to the stream=Получает список баз данных на сервере и выдает их по очереди в поток
+The event occurs when the name of the next database is received=Событие происходит при получении имени очередной БД
+The event occurs in the event of a MySQL error and outputs its number to the stream=Событие происходит в случае ошибки работы MySQL и выдает её номер в поток
+Defines the database ID=Определяет идентификатор базы данных

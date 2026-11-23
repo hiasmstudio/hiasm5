@@ -1,0 +1,11 @@
+Writing and reading data=Запись и чтение данных
+Data source=Источник данных
+Name of the data source column for issuing elements to the stream=Имя колонки источника данных для выдачи элементов в поток
+Default data source element index=Индекс элемента источника данных по-умолчанию
+Reads the data source element with Index=Читает элемент источника данных с индексом Index
+Writes the value from the Value field to the data source element with index Index=Записывает в элемент источника данных с индексом Index значение из поля Value
+The event occurs each time a data source element is read and outputs its value to the stream=Событие происходит всякий раз после чтения элемента источника данных и выдаёт его значение в поток
+Contains the data source element after the doRead method is executed=Содержит элемент источника данных после выполнения метода doRead
+Contains the number of data source rows=Содержит кол-во строк источника данных
+Defines the index of a data source element=Определяет индекс элемента источника данных
+Specifies a value to write to a data source element=Определяет значение для записи в элемент источника данных

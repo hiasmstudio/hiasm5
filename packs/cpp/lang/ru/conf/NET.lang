@@ -1,0 +1,3 @@
+Checking the activity of NET connections=Проверка активности NET соединений
+Contains 1 if the computer is connected to the network, and 0 otherwise=Содержит 1, если компьютер подключен к сети, и 0 - в противном случае
+Contains 1 if the computer is connected to the Internet, and 0 otherwise=Содержит 1, если компьютер подключен к Internet, и 0 - в противном случае

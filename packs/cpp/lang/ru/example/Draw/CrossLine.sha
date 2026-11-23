@@ -1,0 +1,222 @@
+Make(cpp)
+Add(MainForm,9929235,70,175)
+{
+ Width=300
+ Caption="CrossLine"
+ Position=1
+}
+Add(Img_Line,7576544,511,231)
+{
+ @Hint=#7:Линия 2|
+ Point1=6946841
+ Point2=3473616
+ Color=255
+ Point(Pattern)
+ Point(Point1)
+ Point(Point2)
+ Point(Color)
+ link(onDraw,1479421:doEvent1,[])
+ link(Bitmap,14694423:Var3,[(517,210)])
+ link(Point1,12717687:Point,[])
+ link(Point2,2382763:Point,[(531,216)(559,216)])
+}
+Add(Img_Line,2461668,392,231)
+{
+ Point1=3276900
+ Point2=13107450
+ Point(Pattern)
+ Point(Point1)
+ Point(Point2)
+ Point(Color)
+ link(onDraw,7576544:doDraw,[])
+ link(Bitmap,14694423:Var2,[])
+}
+Add(PointXY,12717687,518,175)
+{
+ link(X,16773545:Wire1,[])
+ link(Y,16773545:Wire2,[])
+}
+Add(PointXY,2382763,553,175)
+{
+ X=150
+ Y=150
+ link(X,16773545:Wire3,[(559,168)(538,168)])
+ link(Y,16773545:Wire4,[(566,164)(545,164)])
+}
+Add(Timer,14138341,28,231)
+{
+ Interval=20
+ link(onTimer,3380661:doNext,[])
+}
+Add(Counter,3380661,70,231)
+{
+ @Hint=#16:Считаем импульсы|
+ Max=359
+ link(onNext,8756041:doCalc,[])
+ AddHint(102,-75,112,13,@Hint)
+}
+Add(MathParse,8756041,133,231)
+{
+ DataCount=1
+ MathStr="sin(%1)*100+150"
+ ResultType=0
+ AngleMode=1
+ link(onResult,6349645:doCalc,[])
+}
+Add(MathParse,2076100,217,231)
+{
+ DataCount=1
+ MathStr="-sin(%1)*100+150"
+ ResultType=0
+ AngleMode=1
+ link(onResult,3184027:doCalc,[])
+ link(X1,1087630:Var2,[])
+}
+Add(MathParse,6349645,175,231)
+{
+ DataCount=1
+ MathStr="cos(%1)*100+150"
+ ResultType=0
+ AngleMode=1
+ link(onResult,2076100:doCalc,[])
+ link(X1,6823430:Var2,[])
+}
+Add(MathParse,3184027,259,231)
+{
+ DataCount=1
+ MathStr="-cos(%1)*100+150"
+ ResultType=0
+ AngleMode=1
+ link(onResult,13966783:doRefresh,[])
+ link(X1,1087630:Var3,[(265,219)])
+}
+Add(GetDataEx,6823430,175,214)
+{
+ Angle=3
+ link(Data,3380661:Count,[(107,219)(107,274)(76,274)])
+}
+Add(GetDataEx,1087630,217,214)
+{
+ Angle=3
+ link(Data,6823430:Var3,[])
+}
+Add(PaintBox,13966783,315,231)
+{
+ Width=300
+ Height=300
+ ClearBeforeDraw=0
+ link(onBeforeDraw,2461668:doDraw,[])
+}
+Add(Hub,1479421,644,231)
+{
+ link(onEvent1,600461:doIntercross,[(667,237)(667,174)])
+ link(onEvent2,6997998:doString,[])
+}
+Add(LED,7839709,777,161)
+{
+ Left=5
+ Top=5
+}
+Add(CrossLine,600461,693,168)
+{
+ AX1=100
+ AY1=50
+ AX2=250
+ AY2=200
+ ResultType=0
+ link(onIntercross,13854350:doEvent,[])
+ link(BX1,4351953:Wire1,[])
+ link(BY1,4351953:Wire2,[])
+ link(BX2,4351953:Wire3,[])
+ link(BY2,4351953:Wire4,[])
+}
+Add(Label,2129633,735,238)
+{
+ Left=40
+ Top=5
+ Height=35
+ Caption=""
+ AutoSize=1
+}
+Add(InfoTip,987140,126,182)
+{
+ Info=#36:Вычисление координат подвижной линии|
+ Font=[MS Sans Serif,8,0,255,204]
+ Frame=2
+ Width=176
+ Height=130
+}
+Add(InfoTip,5268721,469,133)
+{
+ Info=#25:Отрисовка подвижной линии|
+ Font=[MS Sans Serif,8,0,255,1]
+ Frame=2
+ Width=162
+ Height=179
+}
+Add(InfoTip,10593205,371,133)
+{
+ Info=#27:Отрисовка неподвижной линии|
+ Font=[MS Sans Serif,8,0,255,1]
+ Frame=2
+ Width=85
+ Height=179
+}
+Add(InfoTip,9998842,679,133)
+{
+ Info=#27:Индикатор пересечения линий|
+ Font=[MS Sans Serif,8,0,255,1]
+ Frame=2
+ Width=218
+ Height=81
+}
+Add(InfoTip,16420762,679,224)
+{
+ Info=#16:Вывод координат |18:точки пересечения |
+ Font=[MS Sans Serif,8,0,255,1]
+ Frame=2
+ HAlign=2
+ Width=218
+ Height=88
+ Margin=2
+}
+Add(CableData,9026816,168,287)
+{
+ Count=4
+ link(Wire1,8756041:Result,[(174,272)(139,272)])
+ link(Wire2,6349645:Result,[])
+ link(Wire3,2076100:Result,[(188,272)(223,272)])
+ link(Wire4,3184027:Result,[(195,279)(265,279)])
+}
+Add(CableVar,4351953,693,147)
+{
+ Count=4
+ link(Cable,3126709:Var3,[(699,103)])
+}
+Add(CableVar,16773545,518,147)
+{
+ Count=4
+ link(Cable,3126709:Var2,[])
+}
+Add(GetDataEx,3126709,518,98)
+{
+ Angle=3
+ link(Data,9026816:Cable,[(13,103)(13,304)(174,304)])
+}
+Add(GetDataEx,14694423,392,205)
+{
+ Angle=3
+ link(Data,13966783:Bitmap,[(358,210)(358,274)(321,274)])
+}
+Add(IndexToChanel,13854350,735,168)
+{
+ link(onEvent1,7839709:doOff,[])
+ link(onEvent2,7839709:doOn,[])
+}
+Add(FormatStr,6997998,693,238)
+{
+ Mask="X=%1\r\nY=%2"
+ link(onFString,2129633:doText,[])
+ link(Str1,600461:ResultX,[])
+ link(Str2,600461:ResultY,[])
+}

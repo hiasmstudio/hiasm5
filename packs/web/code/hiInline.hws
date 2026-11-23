@@ -1,0 +1,4 @@
+func doInline(data):html,java
+  println(code(InlineCode))
+  event(onInline, data)
+end

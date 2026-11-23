@@ -1,0 +1,9 @@
+Removes part of a string=Удаляет часть строки
+Contains the default position from which characters are removed=Содержит позицию по-умолчанию, с которой удаляются символы
+Contains the default number of characters to be removed=Содержит кол-во удаляемых символов по-умолчанию
+Removal direction=Направление удаления
+Removes Count characters from the string Str, starting at position Position, returning the resulting string to the stream=Удаляет из строки Str символы, начиная с позиции Position в количестве Count штук, возвращая в поток полученную строку
+The event occurs whenever part of a line is deleted=Событие происходит всякий раз при удалении части строки
+Specifies the line in which characters need to be removed=Определяет строку, в которой необходимо удалить символы
+Defines the position from which characters are removed=Определяет позицию, с которой удаляются символы
+Defines the number of characters to be removed=Определяет кол-во удаляемых символов

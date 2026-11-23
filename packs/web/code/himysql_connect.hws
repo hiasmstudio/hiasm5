@@ -1,0 +1,39 @@
+func select_db(_data)
+    if (linked(onError))
+      print('if(!@')    
+    end
+    print('mysql_select_db(', DBName, ')')
+    if (linked(onError))
+      println(') {')
+      block.inclvl()
+      event(onError, 'mysql_error()')
+      block.declvl()
+      println('}')    
+    else
+      println(';')
+    end
+end
+
+func doConnect
+  if (linked(onError))
+    print('if(!@')    
+  end
+  print('mysql_connect(', Host, ',', Login, ',', Password,')')
+  if (linked(onError))
+    println(') {')
+    block.inclvl()
+    event(onError, 'mysql_error()')
+    block.declvl()
+    println('}')    
+  else
+    println(';')
+  end
+  if (isdef(AutoSelectDB))
+    select_db(_data)
+  end 
+  event(onConnect)
+end
+
+func doSelectDB(data)
+  select_db(_data) 
+end

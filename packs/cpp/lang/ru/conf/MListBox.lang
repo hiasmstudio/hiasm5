@@ -1,0 +1,10 @@
+List of strings=Список строк
+Data source=Источник данных
+Name of the column displayed in the element=Имя колонки, отображаемой в элементе
+Type of data output to the stream: Caption - item title, Index - index of the selected item, Field - value of a user-specified column=Тип данных, выдаваемых в поток: Caption - заголовок пункта, Index - индекс выбранного пункта, Field - значение указанного пользователем столбца
+Height of each list item=Высота каждого пункта списка
+Index Manager=Менеджер индексов
+Rendering Manager=Менеджер отрисовки
+Icon manager=Менеджер иконок
+Updates data in an element=Обновляет данные в элементе
+The event occurs whenever a list item is selected and outputs its value to the stream=Событие происходит всякий раз при выборе пункта списка и выдает его значение в поток

@@ -1,0 +1,10 @@
+func doCopy(_data)
+  fvar(expr, count)
+  count = d('Count')
+  if(Direction > 0)
+    expr = 'std::string(' && _data && ').substr(std::string(' && _data && ').size() - (' && Position && ') - (' && count && ') + 1, ' && count && ')'
+  else
+    expr = 'std::string(' && _data && ').substr((' && Position && ') - 1, ' && count && ')'
+  end
+  event(onCopy, expr)
+end

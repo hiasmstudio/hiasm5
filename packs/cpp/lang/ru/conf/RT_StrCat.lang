@@ -1,0 +1,10 @@
+Joining two strings into one=Соединение двух строк в одну
+Left line by default=Левая строка по-умолчанию
+Right line by default=Правая строка по-умолчанию
+Initial result values=Начальные значения результата
+Make the value of an internal variable external=Сделать значение внутренней переменной внешним
+Concatenates strings Str1 and Str2 and outputs the result to the stream=Соединяет строки Str1 и Str2 и выдает в поток результат
+The event occurs whenever strings are joined=Событие происходит всякий раз при соединении строк
+Contains the result of the operation=Содержит результат операции
+Left line=Левая строка
+Right line=Правая строка

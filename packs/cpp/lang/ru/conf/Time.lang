@@ -1,0 +1,12 @@
+Getting time and date=Получение времени и даты
+Determines the purpose of the Hours, Minute, Second inputs: Time - output time, Date - date=Определяет назначение входов Hours, Minute, Second: Time - выдавать время, Date - дату
+Defines the format of the FormatTime field string: D - day of the month, W - day of the week, M - month, Y - year, h - hours, m - minutes, s - seconds=Определяет формат строки поля FormatTime: D - день месяца, W - день недели, M - месяц, Y - год, h - часы, m - минуты, s - секунды
+Sets the time or date=Устанавливает время или дату
+Outputs a formatted time-date string to the stream (see Format)=Выдаёт в поток форматированную строку время-дата (см. Format)
+Contains a Real date-time=Содержит дату-время типа Real
+Outputs the number of hours/years to the stream=Выдаёт в поток число часов/лет
+Outputs the number of minutes/months to the stream=Выдаёт в поток число минут/месяцев
+Outputs the number of seconds/days to the stream=Выдаёт в поток число секунд/дней
+New time value hours/years=Новое значение времени часы/годы
+New time value minutes/months=Новое значение времени минуты/месяцы
+New time value seconds/days=Новое значение времени секунды/дни

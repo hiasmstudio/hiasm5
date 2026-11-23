@@ -1,0 +1,8 @@
+Combines several types into one=Объединяет несколько типов в один
+Number of types to be combined=Количество объединяемых типов
+Determines whether to replace the value of variables when their names match. The resulting type name will be the type name from the first dot=Определяет, заменять ли значение переменных при совпадении их имен. Имя полученного типа будет именем типа с первой точки
+Combines types into one=Объединяет типы в один
+Clears the internal memory of a component=Очищает внутреннюю память компонента
+The event occurs after the types are combined into one and outputs the result to the stream=Событие происходит после объединения типов в один и выдает результат в поток
+The event occurs when an error occurs and outputs its code to the streamARG(err_code,info)=Событие происходит при возникновении ошибки и выдает ее код в потокARG(err_code,info)
+Contains the resulting type=Содержит полученный тип

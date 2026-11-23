@@ -1,0 +1,9 @@
+Perspective=Перспектива
+Aspect (the ratio of the sides of the window and the visible part)=Аспект (отношение сторон окна и видимой части)
+Angle of the field of view along the y axis (specifies the parameters of the truncated cone of visibility, where zfar and znear are the cutting planes of the cone, the angle value must be in the range from 0 to 180)=Угол поля зрения по оси y (задаёт параметры усеченного конуса видимости, где zfar и znear плоскости отсечения конуса, величина угла должна находиться в диапазоне от 0 до 180)
+Near plane=Ближняя плоскость
+Far plane=Дальняя плоскость
+Sets the perspective mode=Устанавливает режим перспективы
+Event occurs after setting perspective mode=Событие происходит после установки режима перспективы
+Aspect=Аспект
+Angle of field of view along the y axis=Угол поля зрения по оси y

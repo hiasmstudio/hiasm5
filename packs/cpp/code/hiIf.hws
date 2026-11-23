@@ -1,0 +1,20 @@
+func doCompare(_data)
+  fvar(op)
+  op = '=='
+  switch(get('Type'))
+    case 1: op = '<'
+    case 2: op = '>'
+    case 3: op = '<='
+    case 4: op = '>='
+    case 5: op = '!='
+  end
+  println('if(', d('Left'), ' ', op, ' ', d('Right'), ') {')
+  block.inclvl()
+  event(onTrue)
+  block.declvl()
+  println('} else {')
+  block.inclvl()
+  event(onFalse)
+  block.declvl()
+  println('}')
+end

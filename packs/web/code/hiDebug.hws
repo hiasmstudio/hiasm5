@@ -1,0 +1,31 @@
+func doEvent(_data)
+  println(tmp, ' = ', _data, ';')
+  println('echo ', WEName + ": " + tmp + "<br>", ';')
+  event(onEvent, tmp)
+end
+
+section java
+
+func doEvent(_data)
+  if(isdef(Enabled))
+    fvar(old)
+    old = block.select(BLK_DEBUG)
+    println('<tr><td>' + code(WEName) + '</td><td id="dbg_' + code(_id_) + '"></td></tr>')
+    block.select(old)
+    println('document.getElementById("dbg_' + code(_id_) + '").innerHTML = ', _data, ';')
+    event(onEvent, _data_)
+  end
+end
+
+func Var()
+  if(isdef(Enabled))
+    fvar(dt,old)
+    dt = Data
+    old = block.select(BLK_DEBUG)
+    println('<tr><td>' + code(VDName) + '</td><td id="dbg_' + code(_id_) + '"></td></tr>')
+    block.select(old)
+    println('document.getElementById("dbg_' + code(_id_) + '").innerHTML = ', dt, ';')  
+    return(dt)
+  end
+end
+

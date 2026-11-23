@@ -1,0 +1,289 @@
+*Пример работы компонента ColorBox в различных режимах
+Make(cpp)
+Add(MainForm,11966440,35,112)
+{
+ Left=20
+ Top=105
+ Width=335
+ Height=164
+ Ctl3D=0
+ Caption="ColorBox"
+ Icon=[ZIP5E07000078DA636060044209090610C9E0C1CEC020C6C0C0A001C4402106030688380828B0338C02CAC0B367CFFE333020A367780149E6343030602232CC21C33D0D24223CE6A03AE73F15CDB9850DD0CD3D54091F5014A02A253BFD609A435EFAA1C43D79797954C95640739E1107808AE72101ACE630FCFF8F8C7099034C3C796040BC3998610B3107A28B72F740005673880423AD40FE0F0E5208FEC0C04C123E8003239B0900C24FB630]
+ Position=1
+}
+Add(ColorBox,4694236,273,161)
+{
+ Left=10
+ Top=15
+ Width=195
+ Height=21
+ Font=[MS Sans Serif,10,1,0,1]
+ TypeListColors=2
+ DefColor=-16777201
+ DataType=1
+ Colors="Красный         =  $000000FF\r\nОранжевый    =  #FF8000\r\nЖелтый          =  #FFFF00\r\nЗеленый         =  $00008000\r\nГолубой          =  $00FF0000\r\nСиний              =  8388608\r\nФиолетовый  =  8388736"
+ IndentImg=2
+ Point(doFormatColor)
+ link(onClick,666938:doWork2,[])
+ link(Str,7928388:Text,[])
+}
+Add(Edit,15150141,574,161)
+{
+ Left=210
+ Top=15
+ Width=110
+ Height=24
+ Font=[MS Sans Serif,10,1,0,1]
+ Text=""
+ Alignment=1
+}
+Add(ColorDialog,13579986,84,168)
+{
+ link(onSelect,8885657:doEvent1,[])
+}
+Add(Button,6625567,35,168)
+{
+ Left=10
+ Top=105
+ Width=90
+ TabOrder=-1
+ Caption="SelectColor"
+ link(onClick,13579986:doOpen,[])
+}
+Add(Hub,8885657,147,168)
+{
+ link(onEvent1,4694236:doSelectColor,[])
+ link(onEvent2,274041:doData,[(226,181)(226,223)])
+}
+Add(DoData,274041,273,217)
+{
+ link(onEventData,666938:doWork3,[(340,223)])
+ link(Data,4694236:CurrentColor,[])
+}
+Add(HubEx,666938,336,154)
+{
+ link(onEvent,10523101:doEvent1,[])
+}
+Add(Edit,8206653,770,224)
+{
+ Left=210
+ Top=45
+ Width=110
+ Height=24
+ Font=[MS Sans Serif,8,1,0,1]
+ Ctl3D=1
+ Text=""
+ Alignment=1
+ Point(doColor)
+}
+Add(Edit,7777428,84,210)
+{
+ Left=105
+ Top=75
+ Width=95
+ Height=24
+ Font=[MS Sans Serif,8,1,0,1]
+ Text="Красный"
+}
+Add(ColorDialog,8294417,147,112)
+{
+ link(onSelect,4694236:doAdd,[(226,118)(226,167)])
+}
+Add(Edit,7928388,273,112)
+{
+ Left=210
+ Top=75
+ Width=90
+ Height=24
+ Text=""
+}
+Add(Button,10912226,84,112)
+{
+ Left=210
+ Top=105
+ Width=90
+ TabOrder=-1
+ Caption="AddColor"
+ link(onClick,8294417:doOpen,[])
+}
+Add(DoData,15987664,84,252)
+{
+ link(onEventData,4694236:doSelectName,[(238,258)(238,181)])
+ link(Data,7777428:Text,[])
+}
+Add(Button,6822330,35,252)
+{
+ Left=105
+ Top=105
+ Width=95
+ TabOrder=-1
+ Caption="FindColor"
+ link(onClick,15987664:doData,[])
+}
+Add(ComboBox,6072645,84,294)
+{
+ Left=10
+ Top=40
+ Width=195
+ Height=21
+ Font=[MS Sans Serif,8,1,0,1]
+ Ctl3D=0
+ Strings=#5:Color|4:HTML|3:HEX|3:RGB|
+ Text=""
+ ReadOnly=0
+ Point(Index)
+ link(onClick,4694236:doFormatColor,[(194,307)(194,195)])
+}
+Add(IndexToChanel,14581060,455,161)
+{
+ Count=4
+ Point(Index)
+ link(onEvent1,7245253:doWork2,[])
+ link(onEvent2,7245253:doWork3,[(501,174)])
+ link(onEvent3,5580433:doWork3,[(515,181)])
+ link(onEvent4,9934090:doData,[])
+ link(Index,5203966:Var3,[(461,135)])
+}
+Add(HubEx,7245253,497,154)
+{
+ link(onEvent,5580433:doWork2,[])
+}
+Add(HubEx,5580433,511,154)
+{
+ link(onEvent,7142171:doWork2,[])
+}
+Add(Hub,10523101,364,161)
+{
+ link(onEvent1,14581060:doEvent,[])
+ link(onEvent2,11145170:doEvent,[(412,174)(412,244)])
+}
+Add(MT_IndexToChanel,11145170,427,238)
+{
+ Count=4
+ Point(Index)
+ link(onEvent1,55703:doWork2,[])
+ link(onEvent2,6653606:doEvent1,[(495,251)(495,279)])
+ link(onEvent3,11195248:doConvert,[(475,258)(475,398)])
+ link(onEvent4,9186544:doValue,[(475,265)(475,433)])
+ link(Index,5203966:Var2,[])
+}
+Add(GetDataEx,5203966,420,126)
+{
+ Angle=3
+ link(Data,6072645:Index,[(266,135)(266,351)(104,351)])
+}
+Add(MT_MultiMem,9186544,490,427)
+{
+ Count=3
+ link(onData,10523150:doRGB,[(534,433)(534,457)(478,457)(478,482)])
+}
+Add(RGB,10523150,490,476)
+{
+ link(onRGB,9792745:doWork3,[(753,482)])
+ link(R,9186544:Value1,[])
+ link(G,9186544:Value2,[])
+ link(B,9186544:Value3,[])
+}
+Add(HubEx,55703,749,231)
+{
+ link(onEvent,8206653:doColor,[])
+}
+Add(DoData,9934090,511,182)
+{
+ Data=String(MultiThread)
+ link(onEventData,7142171:doWork3,[(557,188)])
+}
+Add(HubEx,7142171,553,154)
+{
+ link(onEvent,15150141:doText,[])
+}
+Add(Convertor,11195248,490,392)
+{
+ Mode=5
+ link(onResult,9792745:doWork2,[])
+}
+Add(DoData,14618826,126,427)
+{
+ link(onEventData,4694236:doInitList,[(216,433)(216,188)])
+ link(Data,7559991:Text,[])
+}
+Add(HubEx,9792745,749,385)
+{
+ Angle=3
+ link(onEvent,9980466:doWork3,[])
+}
+Add(Button,1387743,42,427)
+{
+ Left=10
+ Top=75
+ Width=90
+ TabOrder=-1
+ Caption="InitListColors"
+ link(onClick,14618826:doData,[])
+}
+Add(Copy,7799596,595,252)
+{
+ Position=1
+ Count=2
+ link(onCopy,15674283:doConvert,[])
+}
+Add(Hub,6653606,532,273)
+{
+ OutCount=4
+ link(onEvent1,7799596:doCopy,[(583,279)(583,258)])
+ link(onEvent2,11844218:doCopy,[(583,286)(583,293)])
+ link(onEvent3,7199642:doCopy,[(583,293)(583,328)])
+ link(onEvent4,9659171:doRGB,[(576,300)(576,377)])
+}
+Add(Convertor,15674283,644,252)
+{
+ Mode=5
+ link(onResult,4544247:doValue,[])
+}
+Add(Memory,4544247,693,252)
+{
+}
+Add(Copy,11844218,595,287)
+{
+ Position=3
+ Count=2
+ link(onCopy,7500574:doConvert,[])
+}
+Add(Convertor,7500574,644,287)
+{
+ Mode=5
+ link(onResult,4276661:doValue,[])
+}
+Add(Memory,4276661,700,287)
+{
+}
+Add(Copy,7199642,595,322)
+{
+ Position=5
+ Count=2
+ link(onCopy,5734871:doConvert,[])
+}
+Add(Convertor,5734871,644,322)
+{
+ Mode=5
+ link(onResult,3279070:doValue,[])
+}
+Add(Memory,3279070,707,322)
+{
+}
+Add(RGB,9659171,693,371)
+{
+ link(onRGB,9980466:doWork2,[])
+ link(R,4544247:Value,[])
+ link(G,4276661:Value,[])
+ link(B,3279070:Value,[])
+}
+Add(HubEx,9980466,749,364)
+{
+ Angle=3
+ link(onEvent,55703:doWork3,[])
+}
+Add(StrList,7559991,126,364)
+{
+ Strings=#22:Фиолетовый  =  8388736|29:Синий              =  8388608|29:Голубой          =  $00FF0000|28:Зеленый         =  $00008000|26:Желтый          =  #FFFF00|23:Оранжевый    =  #FF8000|28:Красный         =  $000000FF|
+}

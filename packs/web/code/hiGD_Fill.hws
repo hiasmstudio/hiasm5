@@ -1,0 +1,5 @@
+func doFill(_data)
+  println('ImageFill(', HImage, ', 0, 0, ', Color, ');')
+  event(onFill, _data)
+end
+

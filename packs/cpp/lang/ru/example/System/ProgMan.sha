@@ -1,0 +1,107 @@
+Pos(0,0)
+Add(MainForm,61628,21,105)
+{
+ Left=312
+ Top=234
+ Width=241
+ Height=327
+ Font=[Arial,8,0,0,1]
+ link(onCreate,21283:doEvent1,[(69,146)(69,83)])
+}
+Add(Hub,35159,259,91)
+{
+ link(onEvent1,8410547:doPart,[])
+ link(onEvent2,22528:doAdd,[(310,104)(310,223)])
+}
+Add(EnumProcess,40527,210,91)
+{
+ link(onProcess,35159:doEvent1,[])
+}
+Add(Hub,60828,441,203)
+{
+ link(onEvent1,60610:doFindID,[])
+ link(onEvent2,60610:doKill,[])
+}
+Add(InfoTip,9213,63,14)
+{
+ Info='Управление процессами в Windows'
+ Font=[Arial,12,1,0,1]
+ Frame=1
+ Width=372
+ Height=18
+}
+Add(ChildPanel,22496,84,84)
+{
+ link(onEvent1,21283:doEvent2,[])
+ link(onEvent2,22528:doRead,[(137,97)(137,209)])
+}
+BEGIN_SDK
+Pos(0,0)
+  Add(EditMulti,42741,3,3)
+  {
+   EventCount=2
+  }
+  Add(Panel,34417,30,100)
+  {
+   Top=272
+   Width=233
+   Height=30
+   Align=4
+   Font=[Arial,8,0,0,1]
+   Caption=""
+   BevelInner=0
+  }
+  Add(Button,67790,133,42)
+  {
+   Left=5
+   Top=5
+   Hint="Обновить список процессов"
+   Font=[Arial,8,0,0,1]
+   Caption="Refresh"
+   link(onClick,42741:onEvent1,[(234,48)(234,9)])
+  }
+  Add(Button,31987,189,56)
+  {
+   Left=65
+   Top=5
+   Hint="Убить процесс"
+   Font=[Arial,8,0,0,1]
+   Caption="Kill"
+   link(onClick,42741:onEvent2,[(255,62)(255,16)])
+  }
+END_SDK
+Add(ListBox,41545,378,70)
+{
+ Width=233
+ Height=272
+ Align=5
+ Font=[Arial,8,0,0,1]
+ Point(Index)
+}
+Add(Hub,21283,154,77)
+{
+ InCount=2
+ OutCount=3
+ link(onEvent1,41545:doClear,[])
+ link(onEvent2,46160:doClear,[(200,90)(200,160)])
+ link(onEvent3,40527:doEnum,[])
+}
+Add(EnumProcess,60610,497,196)
+{
+}
+Add(IntegerArray,46160,392,140)
+{
+ IntArray=[]
+}
+Add(ArrayRW,22528,392,203)
+{
+ link(onRead,60828:doEvent1,[])
+ link(Array,46160:Array,[])
+ link(Index,41545:Index,[])
+ link(Value,40527:CurrentID,[(412,182)(216,182)])
+}
+Add(FilePart,8410547,315,91)
+{
+ NameWOExt=1
+ link(onName,41545:doAdd,[(362,104)(362,76)])
+}

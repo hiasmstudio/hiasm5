@@ -1,0 +1,303 @@
+Make(cpp)
+Add(MainForm,841979,63,252)
+{
+ Left=20
+ Top=105
+ Width=442
+ Height=287
+ Font=[Arial,8,0,0,1]
+ Caption="Моделирование звеньев"
+ link(onCreate,1848554:doFor,[])
+}
+Add(PaintBox,5686251,252,98)
+{
+ Left=10
+ Top=30
+ Width=420
+ Height=225
+ Color=12632256
+ ClearBeforeDraw=0
+ Point(MouseX)
+ Point(MouseY)
+ link(onBeforeDraw,9861288:doEvent1,[(297,104)(297,92)(115,92)(115,202)])
+}
+Add(Timer,14093932,189,98)
+{
+ Interval=10
+ link(onTimer,5686251:doRefresh,[])
+}
+Add(Hub,9861288,126,196)
+{
+ OutCount=3
+ link(onEvent1,2848735:doData,[(171,202)(171,167)])
+ link(onEvent2,13786422:doData,[])
+ link(onEvent3,13558073:doFor,[(171,216)(171,279)])
+}
+Add(DoData,13786422,266,203)
+{
+ link(onEventData,10958191:doValue,[])
+ link(Data,5686251:MouseY,[])
+}
+Add(DoData,2848735,259,161)
+{
+ link(onEventData,7632352:doValue,[])
+ link(Data,5686251:MouseX,[])
+}
+Add(Label,7506722,280,28)
+{
+ Left=205
+ Top=5
+ Width=59
+ Height=13
+ Font=[Arial,8,0,0,1]
+ Caption="Усрорение"
+}
+Add(GlobalVar,10958191,322,203)
+{
+ Name="cy0"
+}
+Add(GlobalVar,7632352,322,161)
+{
+ Name="cx0"
+}
+Add(For,13558073,189,273)
+{
+ End=5
+ link(onEvent,4843185:##select,[])
+}
+Add(MultiElementEx,4843185,252,266)
+{
+ Mode=1
+ link(Handle,5686251:Bitmap,[])
+}
+BEGIN_SDK
+  Add(EditMultiEx,5083368,3,3)
+  {
+   WorkCount=#5:##add|8:##select|
+   DataCount=#6:Handle|
+   Width=405
+   Height=312
+   Point(##add)
+   Point(##select)
+   link(##add,6394064:doEvent1,[(26,9)(26,34)])
+   link(##select,16067169:doData,[(19,16)(19,251)])
+  }
+  Add(MultiElementEx,2902116,196,245)
+  {
+   link(onX,8038219:doValue,[(325,251)(325,146)])
+   link(onY,4784989:doValue,[(338,258)(338,195)])
+   link(x,8038219:Var,[(202,188)(363,188)])
+   link(y,4784989:Var,[(209,231)(363,231)])
+   link(mx,11698439:Var,[])
+   link(my,10448535:Var,[])
+  }
+  BEGIN_SDK
+    Add(EditMultiEx,8936834,3,3)
+    {
+     WorkCount=#6:doDraw|6:doChar|
+     EventCount=#3:onX|3:onY|
+     DataCount=#1:x|1:y|2:mx|2:my|
+     Width=433
+     Height=354
+     link(doDraw,16261618:doDraw,[(19,9)(19,258)])
+     link(doChar,13491310:doValue,[(22,16)(22,118)])
+    }
+    Add(Img_Text,16261618,62,252)
+    {
+     Font=[Arial,16,1,0,1]
+     Text="H"
+     Point(X)
+     Point(Y)
+     link(onDraw,2413014:doCalc,[])
+     link(Text,13491310:Value,[(75,198)(48,198)])
+     link(X,11819058:Var2,[])
+     link(Y,10341368:Var2,[])
+    }
+    Add(GetDataEx,13978772,160,175)
+    {
+     link(Data,8936834:my,[(173,22)(30,22)])
+    }
+    Add(GetDataEx,5357228,146,196)
+    {
+     link(Data,8936834:mx,[(159,31)(23,31)])
+    }
+    Add(MathParse,13360748,314,308)
+    {
+     DataCount=5
+     MathStr="%1 -  abs(%3 - %1)/%5*cos( %2 ) + %4"
+     link(onResult,8936834:onY,[(363,314)(363,16)])
+     link(X1,10706858:Var3,[(320,191)])
+     link(X3,13978772:Var3,[(334,184)])
+     link(X4,10290138:Var,[])
+     link(X5,16094651:Var2,[(348,273)(349,273)])
+    }
+    Add(Hub,12228896,209,252)
+    {
+     link(onEvent1,8786243:doCalc,[])
+     link(onEvent2,13360748:doCalc,[(260,265)(260,314)])
+    }
+    Add(GetDataEx,11819058,69,56)
+    {
+     link(Data,8936834:x,[(82,46)(9,46)])
+    }
+    Add(GetDataEx,4039732,153,203)
+    {
+     link(Data,11819058:Var3,[(166,65)])
+    }
+    Add(MathParse,2413014,153,252)
+    {
+     DataCount=4
+     MathStr="atan(%2 - %1, %4 - %3)"
+     link(onResult,12228896:doEvent1,[])
+     link(X1,5357228:Var2,[])
+     link(X2,4039732:Var2,[])
+     link(X3,13978772:Var2,[])
+     link(X4,10706858:Var2,[])
+    }
+    Add(GetDataEx,10706858,167,182)
+    {
+     link(Data,10341368:Var3,[(180,51)])
+    }
+    Add(GetDataEx,10341368,76,42)
+    {
+     link(Data,8936834:y,[(89,39)(16,39)])
+    }
+    Add(MathParse,8786243,279,252)
+    {
+     DataCount=4
+     MathStr="%1 -  abs(%3 - %1)/%4*sin( %2 )"
+     link(onResult,8936834:onX,[(345,258)(345,9)])
+     link(X1,4039732:Var3,[(285,212)])
+     link(X3,5357228:Var3,[(299,205)])
+     link(X4,16094651:Var1,[(306,233)])
+    }
+    Add(Memory,13491310,42,112)
+    {
+    }
+    Add(GlobalVar,10290138,335,266)
+    {
+     Name="gravity"
+    }
+    Add(GlobalVar,8570133,377,182)
+    {
+     Name="a"
+    }
+    Add(GetDataEx,16094651,336,224)
+    {
+     link(Data,8570133:Var,[(349,216)(383,216)])
+    }
+  END_SDK
+  Add(Hub,6394064,49,28)
+  {
+   OutCount=4
+   link(onEvent1,10041749:doStrCat,[])
+   link(onEvent2,345090:doStrCat,[(103,41)(103,83)])
+   link(onEvent3,8745933:doOperation,[(95,48)(95,153)])
+   link(onEvent4,9681816:doRead,[(91,55)(91,99)(50,99)(50,202)])
+  }
+  Add(StrCat,10041749,126,28)
+  {
+   Str1="cx"
+   link(onStrCat,11698439:doName,[])
+  }
+  Add(StrCat,345090,126,77)
+  {
+   Str1="cy"
+   link(onStrCat,10448535:doName,[])
+  }
+  Add(GlobalVar,11698439,210,21)
+  {
+   Point(doName)
+  }
+  Add(GlobalVar,10448535,217,70)
+  {
+   Point(doName)
+  }
+  Add(Hub,12685480,196,147)
+  {
+   link(onEvent1,3064402:doStrCat,[])
+   link(onEvent2,8695624:doStrCat,[(250,160)(250,202)])
+  }
+  Add(StrCat,3064402,273,147)
+  {
+   Str1="cx"
+   link(onStrCat,8038219:doName,[])
+  }
+  Add(StrCat,8695624,273,196)
+  {
+   Str1="cy"
+   link(onStrCat,4784989:doName,[])
+  }
+  Add(GlobalVar,8038219,357,140)
+  {
+   Point(doName)
+  }
+  Add(GlobalVar,4784989,357,189)
+  {
+   Point(doName)
+  }
+  Add(Math,8745933,133,147)
+  {
+   Op2=1
+   ResultType=0
+   link(onResult,12685480:doEvent1,[])
+  }
+  Add(DoData,16067169,35,245)
+  {
+   link(onEventData,2902116:doDraw,[])
+   link(Data,5083368:Handle,[(41,7)(9,7)])
+  }
+  Add(StrList,11285551,56,126)
+  {
+   Strings=#1:H|1:i|1:A|1:s|1:m|1:!|
+  }
+  Add(ArrayRW,9681816,70,196)
+  {
+   link(onRead,2902116:doChar,[(149,202)(149,258)])
+   link(Array,11285551:Array,[])
+  }
+END_SDK
+Add(For,1848554,126,266)
+{
+ End=5
+ link(onEvent,4843185:##add,[])
+}
+Add(ScrollBar,2387239,77,28)
+{
+ Left=95
+ Top=5
+ Max=20
+ link(onPosition,11045822:doOperation,[])
+}
+Add(Math,11045822,140,28)
+{
+ OpType=3
+ Op2=10
+ link(onResult,10290138:doValue,[])
+}
+Add(GlobalVar,10290138,202,28)
+{
+ Name="gravity"
+}
+Add(GlobalVar,8570133,391,28)
+{
+ Name="a"
+ Data=Integer(5)
+}
+Add(ScrollBar,8647359,322,28)
+{
+ Left=270
+ Top=5
+ Max=40
+ Min=5
+ link(onPosition,8570133:doValue,[])
+}
+Add(Label,4436550,28,28)
+{
+ Left=25
+ Top=5
+ Width=65
+ Height=13
+ Font=[Arial,8,0,0,1]
+ Caption="Гравитация"
+}

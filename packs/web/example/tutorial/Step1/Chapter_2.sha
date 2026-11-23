@@ -1,0 +1,126 @@
+*Chapter 2: HTML приложение с использованием тегов
+Make(web)
+Add(HtmlEntryPoint,16563582,21,105)
+{
+ link(onStart,8284333:doPrint,[])
+}
+Add(HTM_Html,8284333,77,105)
+{
+ link(onPrint,6847978:doEvent,[])
+}
+Add(Hub,6847978,133,105)
+{
+ link(onEvent1,2288322:doPrint,[])
+ link(onEvent2,763948:doPrint,[(177,118)(177,167)])
+}
+Add(HTM_Head,2288322,189,105)
+{
+ link(onPrint,10304836:doPrint,[])
+}
+Add(HTM_Body,763948,189,161)
+{
+ link(onPrint,13714669:doPrint,[])
+}
+Add(HTM_Title,10304836,245,105)
+{
+ link(onPrint,3973328:doPrint,[])
+}
+Add(VisualText,3973328,301,105)
+{
+ Lines=#49:Chapter 2: HTML приложение с использованием тегов|
+ Width=291
+ Point(doPrint)
+}
+Add(VisualText,13714669,245,161)
+{
+ Lines=#113:Попробуем вставить на страницу некоторые HTML теги, которые позволят отображать информацию в более наглядном виде|
+ Width=347
+ Height=32
+ Point(doPrint)
+ Point(onPrint)
+ link(onPrint,2786676:doPrint,[(602,167)(602,208)(179,208)(179,230)])
+}
+Add(HTM_Table,2786676,189,224)
+{
+ link(onPrint,15520730:doEvent,[])
+}
+Add(Hub,15520730,245,224)
+{
+ link(onEvent1,16623277:doPrint,[])
+ link(onEvent2,15943196:doPrint,[(289,237)(289,328)])
+}
+Add(HTM_Tr,16623277,301,224)
+{
+ link(onPrint,7237345:doEvent,[])
+}
+Add(Hub,7237345,357,224)
+{
+ link(onEvent1,6478890:doPrint,[])
+ link(onEvent2,16051756:doPrint,[(401,237)(401,279)])
+}
+Add(HTM_Td,6478890,413,224)
+{
+ link(onPrint,8097816:doPrint,[])
+}
+Add(HTM_Td,16051756,413,273)
+{
+ link(onPrint,3584666:doPrint,[])
+}
+Add(HTM_Tr,15943196,301,322)
+{
+ link(onPrint,11043647:doEvent,[])
+}
+Add(Hub,11043647,357,322)
+{
+ link(onEvent1,5644336:doPrint,[])
+ link(onEvent2,14309692:doPrint,[(401,335)(401,377)])
+}
+Add(HTM_Td,5644336,413,322)
+{
+ link(onPrint,12746793:doPrint,[])
+}
+Add(HTM_Td,14309692,413,371)
+{
+ link(onPrint,1587462:doPrint,[])
+}
+Add(VisualText,8097816,469,224)
+{
+ Lines=#11:Колонка 1.1|
+ Width=70
+ Point(doPrint)
+}
+Add(VisualText,3584666,469,273)
+{
+ Lines=#11:Колонка 1.2|
+ Width=70
+ Height=17
+ Point(doPrint)
+}
+Add(VisualText,12746793,469,322)
+{
+ Lines=#11:Колонка 2.1|
+ Width=70
+ Point(doPrint)
+}
+Add(VisualText,1587462,469,371)
+{
+ Lines=#11:Колонка 2.2|
+ Width=70
+ Point(doPrint)
+}
+Add(InfoTip,9564197,14,371)
+{
+ Info=#6:Важно!|
+ Font=[MS Sans Serif,12,1,255,1]
+ Transparent=1
+ Width=365
+ Height=109
+}
+Add(InfoTip,5292217,21,392)
+{
+ Info=#318:  Большинство тегов HTML являются двойными(все используемые в этом примере теги как раз такие). Поэтому элементы, идущие после точки onPrint оказываются внутри двойного тега и становятся для него дочерними. Для того, чтобы теги разместить последовательно друг за другом используйте элемент Hub, как показано в примере.|
+ Frame=1
+ HAlign=0
+ Width=351
+ Height=81
+}

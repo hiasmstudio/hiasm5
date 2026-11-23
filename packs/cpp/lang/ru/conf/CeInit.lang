@@ -1,0 +1,8 @@
+Installing or disconnecting from ActiveSync=Установка, разрыв соединения с ActiveSync
+Waiting time Moscow time=Время ожидания мск
+Opens a connection=Открывает соединение
+Closes the connection=Закрывает соединение
+Begins syncing with the device=Начинает синхронизацию с устройством
+Stops the synchronization process with the device=Останавливает процесс синхронизации с устройством
+In case of successful initialization and connection with the device, it returns 0, otherwise: 1 - if there was an initialization error, 2 - if it is necessary to process the message queue, 3 - if the device was not connected after TimeOut, 4 - Unknown Error=В случае успешной инициализации и соединении с устройством выдает 0, иначе: 1 - при ошибке инициализации, 2 - при необходимости обработки очереди сообщений, 3 - если по истечении времени ожидания (TimeOut) устройство не было подключено, 4 - Unknown Error
+Contains 1 if the connection is active and the device is connected, 0 otherwise=Содержит 1, если соединение активно и устройство подключено, 0 - в противном случае

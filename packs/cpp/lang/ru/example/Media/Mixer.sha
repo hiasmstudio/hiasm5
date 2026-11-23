@@ -1,0 +1,137 @@
+Make(cpp)
+Pos(0,0)
+Add(MainForm,13860035,21,105)
+{
+ Left=20
+ Top=105
+ Width=189
+ Height=218
+ link(onCreate,14173545:doEvent1,[(79,146)(79,223)])
+}
+Add(VolControl,8725652,217,154)
+{
+ Device=5
+}
+Add(CheckBox,15146942,126,161)
+{
+ Left=5
+ Top=165
+ Caption="Mute"
+ link(onCheck,8725652:doMute,[])
+}
+Add(TrackBar,2965969,126,119)
+{
+ Left=25
+ Top=65
+ Width=30
+ Height=100
+ Max=65535
+ TickCount=10000
+ Kind=1
+ ThumbLength=10
+ link(onPosition,8725652:doVolume,[(187,125)(187,160)])
+}
+Add(Label,9295574,126,77)
+{
+ Left=10
+ Top=45
+ Width=39
+ Height=17
+ Caption="Volume"
+}
+Add(Label,58194,126,28)
+{
+ Left=10
+ Top=10
+ Width=33
+ Height=17
+ Caption="Wave"
+}
+Add(ChildPanel,15574753,70,28)
+{
+}
+BEGIN_SDK
+  Add(EditMulti,7988455,3,3)
+  {
+  }
+  Add(Panel,4643864,35,105)
+  {
+   Left=10
+   Top=30
+   Width=165
+   Height=5
+   BevelInner=1
+   Point(doColor)
+  }
+END_SDK
+Add(VolControl,5422836,392,154)
+{
+ Device=2
+}
+Add(CheckBox,11956744,301,161)
+{
+ Left=105
+ Top=165
+ Caption="Mute"
+ link(onCheck,5422836:doMute,[])
+}
+Add(TrackBar,10544876,301,119)
+{
+ Left=125
+ Top=65
+ Width=30
+ Height=100
+ Max=65535
+ TickCount=10000
+ Kind=1
+ ThumbLength=10
+ link(onPosition,5422836:doVolume,[(362,125)(362,160)])
+}
+Add(Label,12913397,301,77)
+{
+ Left=105
+ Top=45
+ Width=39
+ Height=17
+ Caption="Volume"
+}
+Add(Label,2185480,301,28)
+{
+ Left=105
+ Top=10
+ Width=63
+ Height=17
+ Caption="Microphone"
+}
+Add(ArrayRW,13471542,392,231)
+{
+ Index=Integer(2)
+ link(onRead,10544876:doPosition2,[(434,237)(434,206)(282,206)(282,132)])
+ link(Array,5422836:Volume,[])
+}
+Add(Hub,14173545,105,217)
+{
+ OutCount=4
+ link(onEvent1,1243443:doRead,[])
+ link(onEvent2,6397239:doRead,[(204,230)(204,265)])
+ link(onEvent3,13471542:doRead,[])
+ link(onEvent4,6735536:doRead,[(196,244)(196,279)])
+}
+Add(ArrayRW,1243443,217,217)
+{
+ Index=Integer(5)
+ link(onRead,2965969:doPosition2,[(259,223)(259,204)(111,204)(111,132)])
+ link(Array,8725652:Volume,[])
+}
+Add(ArrayRW,6397239,224,259)
+{
+ Index=Integer(5)
+ link(onRead,15146942:doCheck,[(267,265)(267,199)(116,199)(116,167)])
+ link(Array,8725652:Mute,[])
+}
+Add(ArrayRW,6735536,399,273)
+{
+ Index=Integer(2)
+ link(onRead,11956744:doCheck,[(440,279)(440,199)(291,199)(291,167)])
+ link(Array,5422836:Mute,[])
+}

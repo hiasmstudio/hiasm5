@@ -1,0 +1,12 @@
+CD-ROM Drive Control=Управление приводом CD-ROM
+Specifies the drive letter (* for the first one found)=Задаёт букву диска (* для первого найденного)
+Opens the CD cover=Открывает крышку CD
+Closes the CD cover=Закрывает крышку CD
+Locks the Eject button, making the CD door impossible to open=Блокирует кнопку Eject, после чего дверцу CD невозможно открыть
+Unlocks the Eject button=Снимает блокировку кнопки Eject
+Starts an Audio CD to play from the first track through the computer's audio system=Запускает Audio CD на проигрывание с первого трека через аудио систему компьютера
+Stops Audio CD=Останавливает Audio CD
+Contains 1 if there is currently a readable disk in the CD-ROM, and 0 otherwise=Содержит 1, если в данный момент в CD-ROM находится читающийся диск, и 0 - в противном случае
+Contains the disc label or 'Audio CD' string for audio discs=Содержит метку диска или строку 'Audio CD' для аудио дисков
+Looks up the letter of the first CD and returns it. If the CD is not installed, then * is returned=Ищет букву первого CD и возвращает ее. Если CD не установлен, то возвращается *
+Specifies the drive letter=Определяет букву диска

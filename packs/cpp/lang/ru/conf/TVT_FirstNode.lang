@@ -1,0 +1,7 @@
+Get the first element of a specified tree node=Получение первого элемента указанного узла дерева
+Tree for adding elements to it=Дерево для добавления в него элементов
+Gets the first element of the specified tree branch ARG(ID)=Получает первый элемент указанной ветки дерева ARG(ID)
+The event occurs every time after receiving a tree element and outputs it to the ARG(Node) stream=Событие происходит всякий раз после получения элемента дерева и выдает его в поток ARG(Node)
+The event occurs every time after an attempt to get the first element of an empty branch=Событие происходит всякий раз после попытки получения первого элемента пустой ветки
+The event occurs whenever the first element of the specified tree branch is unsuccessfully retrieved=Событие происходит всякий раз после неудачного получения первого элемента указанной ветки дерева
+Specifies the ID of the parent tuple=Определяет ID родительского кортежа

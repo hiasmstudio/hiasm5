@@ -1,0 +1,5 @@
+BASS audio output device=Устройство вывода звука BASS
+Sound device number (0 - no sound)=Номер звукового устройства(0 - нет звука)
+Sets the specified audio output device as the current one=Устанавливает указанное устройство вывода звука в качестве текущего
+The event occurs whenever the current audio output device is set=Событие происходит всякий раз после установки текущего устройства вывода звука
+Contains the index of the current output device=Содержит индекс текущего устройства вывода

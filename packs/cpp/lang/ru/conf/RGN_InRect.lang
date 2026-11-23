@@ -1,0 +1,7 @@
+Checking whether a region is in a rectangle=Проверка нахождения региона в прямоугольнике
+Checks if a region is inside a rectangle=Проверяет нахождение региона внутри прямоугольника
+The event occurs every time when at least one point in the region is found in the rectangle=Событие происходит всякий раз при нахождении хоть одной точки региона в прямоугольнике
+The event occurs whenever more than one point in the region does not fall inside the rectangle=Событие происходит всякий раз при непопадании не одной точки региона внутрь прямоугольника
+The event occurs after checking whether the region is included in the rectangle and produces: 0 - if it is not included, 1 - if at least one of the points of the region is included=Событие происходит после проверки вхождения региона  в прямоугольник и выдает: 0 - если не входит, 1 - если входит хоть одна из точек региона
+Contains the result of checking whether the region is included in the rectangle (0 - the region is not included in the rectangle, 1 - if at least one of the points of the region is included)=Содержит результат проверки вхождения региона в прямоугольник (0 - регион не входит в прямоугольник, 1 - если входит хоть одна из точек региона)
+Defines the region=Определяет регион

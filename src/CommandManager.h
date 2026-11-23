@@ -9,6 +9,7 @@
 #define COMMANDMANAGER_H_
 
 #include "share.h"
+#include <functional>
 
 #define MENUNAME_ELEMENT	"el_menu"
 #define MENUNAME_SDK		"sdk_menu"
@@ -47,7 +48,7 @@ typedef std::list<CommandItem*> Commands;
 class CommandManager {
 	private:
 		void loadCommandList();
-		MenuShell *fillMenu(MenuShell *menu, const ustring &name);
+		MenuShell *fillMenu(MenuShell *menu, const ustring &name, const std::function<void(const ustring&)> &handler = {}, const std::function<bool(const ustring&)> &available = {});
 		CommandItem *getComandByName(CMD_TYPE codeName);
 	public:
 		Commands cmds;			/**< array of environment commands */
@@ -77,7 +78,7 @@ class CommandManager {
 		 * Create Menu widget by name
 		 * @param name menu name from hiasm.db
 		 */
-		inline Menu *createMenu(const ustring &name) { return (Menu*)fillMenu((MenuShell*)(new Menu()), name); }
+		inline Menu *createMenu(const ustring &name, const std::function<void(const ustring&)> &handler = {}, const std::function<bool(const ustring&)> &available = {}) { return (Menu*)fillMenu((MenuShell*)(new Menu()), name, handler, available); }
 		/**
 		 * Search description of the command on its name
 		 * @param name command
@@ -107,6 +108,7 @@ class CommandManager {
 		 * @return true if command found
 		 */
 		bool check(CMD_TYPE cmd);
+		bool uncheck(CMD_TYPE cmd);
 		/**
 		 * Completes the update status of the commands and change the state of all widgets in the bars and menu control
 		 */
@@ -186,10 +188,14 @@ class CM_MenuToolButton : public MenuToolButton {
 class CM_ImageMenuItem : public ImageMenuItem {
 	private:
 		ustring cmd;
+		std::function<void(const ustring&)> handler;
+		std::function<bool(const ustring&)> available;
 	public:
 		CommandManager *parent;
 
-		CM_ImageMenuItem(CommandManager *parent, const ustring &name, const ustring &info);
+		CM_ImageMenuItem(CommandManager *parent, const ustring &name, const ustring &info, const std::function<void(const ustring&)> &handler = {}, const std::function<bool(const ustring&)> &available = {});
+		~CM_ImageMenuItem() override;
+		void updateSensitivity(bool enabled) { set_sensitive(available ? available(cmd) : enabled); }
 		virtual void on_activate();
 };
 

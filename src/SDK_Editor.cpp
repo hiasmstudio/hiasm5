@@ -5,7 +5,9 @@
  *      Author: dilma
  */
 
-#include <gtkmm-3.0/gtkmm/stylecontext.h>
+#include <cstdint>
+
+#include <gtkmm/stylecontext.h>
 
 #include "SDK_Editor.h"
 
@@ -15,20 +17,36 @@
 
 CursorList *curList = NULL;
 
+#ifdef HIASM_GTK4
+SDK_Editor::SDK_Editor():HDrawingArea(),
+#else
 SDK_Editor::SDK_Editor():DrawingArea(),
+#endif
 	on_begin_operation(this, CBT_BEGIN_OPERATION),
 	on_end_operation(this, CBT_END_OPERATION),
 	on_popup_menu(this, CBT_POPUP_MENU),
 	on_key_down(this, CBT_KEY_DOWN),
 	on_change_sdk(this, CBT_CHANGE_SDK),
-	on_change_scheme(this, CBT_CHANGE_SCHEME)
+	on_change_scheme(this, CBT_CHANGE_SCHEME),
+	on_enter_request(this, CBT_ENTER_SCHEME_REQUEST)
 #ifdef OPENGL_SDE
 	//,cairo_surface(new Cairo::Surface::Surface(gl_create_surface(get_window()->gobj())))
 #endif
 {
-	set_events(Gdk::BUTTON_PRESS_MASK|Gdk::POINTER_MOTION_MASK|Gdk::BUTTON_RELEASE_MASK);
+	widget_set_events(*this, Gdk::BUTTON_PRESS_MASK|Gdk::POINTER_MOTION_MASK|Gdk::BUTTON_RELEASE_MASK);
+#ifdef HIASM_GTK4
+	connect_button_press(*this, sigc::mem_fun(*this, &SDK_Editor::on_button_press_event));
+	connect_button_release(*this, sigc::mem_fun(*this, &SDK_Editor::on_button_release_event));
+	connect_motion_notify(*this, sigc::mem_fun(*this, &SDK_Editor::on_motion_notify_event));
+	connect_key_press(*this, sigc::mem_fun(*this, &SDK_Editor::on_key_press_event));
+	connect_scroll(*this, sigc::mem_fun(*this, &SDK_Editor::on_scroll_event));
+#endif
 	set_size_request(500, 100);
+#ifdef HIASM_GTK4
+	set_focusable(true);
+#else
 	set_can_focus(true);
+#endif
 
 #ifdef GL_SDK
 	Glib::RefPtr<Gdk::GL::Config> glconfig;
@@ -54,7 +72,7 @@ SDK_Editor::SDK_Editor():DrawingArea(),
 	set_gl_capability(glconfig);
 #endif
 
-	memset(&mouse, 0, sizeof(mouse));
+	mouse = SDK_MouseEvent();
 
 	zoom = 1.0;
 //	cursor = NULL;
@@ -162,6 +180,8 @@ SDK_Editor::SDK_Editor():DrawingArea(),
 
 SDK_Editor::~SDK_Editor() {
 	TRACE_PROC
+    for(LayerObject *object : lobj) delete object;
+    lobj.clear();
 	csdk->on_add_element -= this;
 	csdk->on_remove_element -= this;
 	delete sdk;
@@ -190,8 +210,8 @@ void SDK_Editor::beginOperation(MouseOperation op, const void *data) {
 void SDK_Editor::endOperation() {
 	MouseOperation op = mouse.cur_operation;
 
-	memset(&mouse.obj, 0, sizeof(mouse.obj));
-	memset(&mouse.select_obj, 0, sizeof(mouse.select_obj));
+	mouse.obj = ObjectType();
+	mouse.select_obj = ObjectType();
 	mouse.cur_operation = MS_NO_OPERATION;
 
 	if(actionMap[op].endProc)
@@ -201,11 +221,16 @@ void SDK_Editor::endOperation() {
 }
 
 bool SDK_Editor::on_button_press_event(GdkEventButton* event) {
+#ifdef HIASM_GTK4
+	// A double click on a MultiElement enters its scheme, as HiAsm 4 does.
+	if(event->type == COMPAT_2BUTTON_PRESS && event->button == BTN_LEFT && requestEnterAt(event->x / zoom, event->y / zoom))
+		return true;
+#endif
 	if(event->button == BTN_MIDDLE) {
 		beginOperation(MS_SCROLL);
 		return false;
 	}
-	grab_focus();
+		grab_focus();
 
 	// ------------------------------------- hints operations
 	if(!lobj.empty()) {
@@ -304,6 +329,16 @@ bool SDK_Editor::on_button_release_event(GdkEventButton* event) {
 	return true;
 }
 
+#ifdef HIASM_GTK4
+bool SDK_Editor::on_scroll_event(GdkEventScroll* event) {
+	// Keep wheel scrolling delegated to the surrounding Gtk::ScrolledWindow.
+	// The compat controller still exposes coordinates, deltas, modifiers and time
+	// so future editor-specific wheel actions can be added without GTK3 code.
+	(void)event;
+	return false;
+}
+#endif
+
 bool SDK_Editor::on_draw (const ::Cairo::RefPtr< ::Cairo::Context >& cr) {
 //	GTimer *t = g_timer_new();
 
@@ -332,7 +367,7 @@ bool SDK_Editor::on_draw (const ::Cairo::RefPtr< ::Cairo::Context >& cr) {
 	cr->rectangle(0, 0, 800, 600);
 	cr->fill();
 #else
-	Gdk::Cairo::set_source_rgba(cr, get_style_context()->get_background_color(STATE_FLAG_NORMAL));
+	Gdk::Cairo::set_source_rgba(cr, themeBase(get_style_context()));
 	cr->rectangle(0, 0, get_width(), get_height());
 	cr->fill();
 #endif
@@ -346,7 +381,8 @@ bool SDK_Editor::on_draw (const ::Cairo::RefPtr< ::Cairo::Context >& cr) {
 	}
 
 	if(zoom > 0.7) {
-		cr->set_source_rgb(0.0, 0.0, 0.0);
+		Gdk::Cairo::set_source_rgba(cr, themeMix(themeBase(get_style_context()),
+		    themeText(get_style_context()), 0.28));
 		gdouble zx = 10 * (int)(0/zoom/10);
 		gdouble zy = 10 * (int)(0/zoom/10);
 		for(int j = 0; j < get_height()/zoom + 10; j += 10)
@@ -358,6 +394,11 @@ bool SDK_Editor::on_draw (const ::Cairo::RefPtr< ::Cairo::Context >& cr) {
 	// antialias
 	cr->set_antialias((zoom == 1.0) ? Cairo::ANTIALIAS_NONE : Cairo::ANTIALIAS_DEFAULT);
 
+    // Cairo widgets must follow theme changes without changing saved colors.
+    sysColors.init(this);
+    lightColor = themeBase(get_style_context());
+    hintColor = themeText(get_style_context());
+    darkColor = themeMix(lightColor, hintColor, 0.4);
 	csdk->draw(cr, zoom);
 
 	if(zoom != 1.0)
@@ -391,112 +432,6 @@ bool SDK_Editor::on_draw (const ::Cairo::RefPtr< ::Cairo::Context >& cr) {
 #endif
 
 	return false;
-}
-
-bool SDK_Editor::on_expose_event(GdkEventExpose *event) {
-//	GTimer *t = g_timer_new();
-
-#ifdef GL_SDK
-	  Glib::RefPtr<Gdk::GL::Window> glwindow = get_gl_window();
-
-	  // *** OpenGL BEGIN ***
-	  if (!glwindow->gl_begin(get_gl_context()))
-	    return false;
-
-	  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	  glwindow->draw_cube(true, 0.5);
-
-		glColor3f(0.5, 0.5, 0.5);
-		glBegin(GL_LINE_LOOP);
-			glVertex2d(0, 0);
-			glVertex2d(0.5, 0);
-			glVertex2d(0.5, 0.5);
-		glEnd();
-#else
-
-#ifdef OPENGL_SDE
-	DrawContext &cr = cairo_contex;
-	cr->set_source_rgb(1, 1, 1);
-	cr->rectangle(0, 0, 800, 600);
-	cr->fill();
-#else
-	DrawContext cr = get_window()->create_cairo_context();
-//	Gdk::Cairo::set_source_rgba(cr, get_style()->get_base(Gtk::STATE_NORMAL));
-	cr->rectangle(event->area.x, event->area.y, event->area.width, event->area.height);
-	cr->fill();
-#endif
-
-#endif
-
-	// zoom scale
-	if(zoom != 1.0) {
-		cr->save();
-		cr->scale(zoom, zoom);
-	}
-
-	if(zoom > 0.7) {
-		cr->set_source_rgb(0.0, 0.0, 0.0);
-		gdouble zx = 10 * (int)(event->area.x/zoom/10);
-		gdouble zy = 10 * (int)(event->area.y/zoom/10);
-		for(int j = 0; j < event->area.height/zoom + 10; j += 10)
-			for(int i = 0; i < event->area.width/zoom + 10; i += 10)
-				cr->rectangle(zx + i, zy + j, 1, 1);
-		cr->fill();
-	}
-
-	// antialias
-	cr->set_antialias((zoom == 1.0) ? Cairo::ANTIALIAS_NONE : Cairo::ANTIALIAS_DEFAULT);
-
-	csdk->draw(cr, zoom);
-
-	if(zoom != 1.0)
-		cr->restore();
-
-	if(actionMap[mouse.cur_operation].drawProc)
-		(this->*actionMap[mouse.cur_operation].drawProc)(cr);
-
-	for(LayerObjects::iterator lo = lobj.begin(); lo != lobj.end(); lo++)
-		if((*lo)->visible)
-			(*lo)->draw(cr);
-
-#ifdef GL_SDK
-	  // Swap buffers.
-	  if (glwindow->is_double_buffered())
-	    glwindow->swap_buffers();
-	  else {
-	    glFlush();
-	  }
-
-	  glwindow->gl_end();
-	  // *** OpenGL END ***
-#endif
-
-
-#ifdef OPENGL_SDE
-	//DrawContext dc = get_window()->create_cairo_context();
-	//dc->set_source(cairo_surface, 0, 0);
-	//dc->paint();
-	gl_swap();
-#endif
-
-	return false;
- }
-
-void SDK_Editor::on_realize() {
-	DrawingArea::on_realize();
-
-#ifdef OPENGL_SDE
-	set_double_buffered(false);
-
-	Cairo::RefPtr<Cairo::Surface> cs(new Cairo::Surface(gl_create_surface((GtkWidget*)gobj())));
-#endif
-//	Cairo::RefPtr<Cairo::Surface> cs(new Cairo::Surface(xlib_create_surface((GtkWidget*)gobj())));
-	//cairo_surface = cs;
-
-//	cairo_contex = Cairo::Context::create(cs);
-//	if(cairo_contex)
-//		DEBUG_MSG("Cairo context created!")
 }
 
 #ifdef GL_SDK
@@ -565,6 +500,11 @@ void SDK_Editor::showObjectHint(gdouble x, gdouble y) {
 	}
 }
 
+void SDK_Editor::setLinkHintsVisible(bool visible) {
+    sdk->showLinkHints = visible;
+    reDraw();
+}
+
 void SDK_Editor::invalidateRect(gdouble x1, gdouble y1, gdouble x2, gdouble y2) {
 	if(x1 > x2) {
 		int t = x1;
@@ -577,7 +517,7 @@ void SDK_Editor::invalidateRect(gdouble x1, gdouble y1, gdouble x2, gdouble y2) 
 		y2 = t;
 	}
 	Gdk::Rectangle r(x1 - 3, y1 - 3, x2 - x1 + 6, y2 - y1 + 6);
-	get_window()->invalidate_rect(r, false);
+	widget_invalidate_rect(*this, r);
 }
 
 void SDK_Editor::invalidateRealRect(gdouble x1, gdouble y1, gdouble x2, gdouble y2) {
@@ -585,11 +525,11 @@ void SDK_Editor::invalidateRealRect(gdouble x1, gdouble y1, gdouble x2, gdouble 
 }
 
 void SDK_Editor::reDraw() {
-	if(Glib::RefPtr<Gdk::Window> w = get_window()) w->invalidate(false);
+	widget_invalidate(*this);
 }
 
 void SDK_Editor::reDrawRect(const Gdk::Rectangle &r) {
-	if(Glib::RefPtr<Gdk::Window> w = get_window()) w->invalidate_rect(r, false);
+	widget_invalidate_rect(*this, r);
 }
 
 void SDK_Editor::callback(void *owner, CallbackType type, const void *data) {
@@ -624,6 +564,37 @@ bool SDK_Editor::load(const ustring& file_name) {
 	return res;
 }
 
+void SDK_Editor::replaceScheme(MSDK *replacement, const std::vector<int> &path, const std::vector<int> &selected) {
+    replacement->showLinkHints = sdk->showLinkHints;
+    endOperation();
+    unselectPoints();
+    for(LayerObject *object : lobj) delete object;
+    lobj.clear(); oldObj = nullptr;
+    csdk->selMan->clear();
+    csdk->on_redraw_rect -= this;
+    csdk->on_add_element -= this;
+    csdk->on_remove_element -= this;
+    ChangeSDKInfo info(csdk);
+    on_change_sdk.run(&info);
+    MSDK *previous = sdk;
+    sdk = replacement; csdk = sdk;
+    for(int id : path) {
+        Element *container = csdk->getElementById(id);
+        if(!container || !container->sdk) break;
+        csdk = container->sdk;
+    }
+    csdk->on_redraw_rect += this;
+    csdk->on_add_element += this;
+    csdk->on_remove_element += this;
+    for(int id : selected)
+        if(Element *element = csdk->getElementById(id)) csdk->selMan->add(element);
+    info.setSDK(csdk);
+    on_change_sdk.run(&info);
+    delete previous;
+    mouse = SDK_MouseEvent();
+    setGeometry(); reDraw();
+}
+
 void SDK_Editor::setGeometry() {
 	gdouble min_x, min_y, max_x, max_y;
 
@@ -633,6 +604,17 @@ void SDK_Editor::setGeometry() {
 
 bool SDK_Editor::saveToFile(const ustring &file_name) {
 	return sdk->saveToFile(file_name);
+}
+
+bool SDK_Editor::requestEnterAt(gdouble x, gdouble y) {
+	ObjectType obj;
+	if(!csdk->getObjectAtPos(x, y, &obj) || obj.type != SDK_OBJ_ELEMENT || !obj.element->sdk)
+		return false;
+	endOperation();
+	csdk->selMan->clear();
+	csdk->selMan->add(obj.element);
+	on_enter_request.run(obj.element);
+	return true;
 }
 
 void SDK_Editor::enterSDK(Element *element) {
@@ -673,6 +655,10 @@ void SDK_Editor::leaveSDK() {
 	on_change_sdk.run(&csi);
 }
 
+void SDK_Editor::leaveSDKTo(SDK *target) {
+	while(csdk != target && csdk->parent) leaveSDK();
+}
+
 void SDK_Editor::selectPoint(ElementPoint *point) {
 	if(point->isSelect()) return;
 
@@ -695,6 +681,7 @@ void SDK_Editor::unselectPoints() {
 
 bool SDK_Editor::pasteElementOnLine(const ustring &name) {
 	Element *e = csdk->add(name, GRID_X(mouse.startx), GRID_Y(mouse.starty));
+	if(!e) return false;
 	e->place(mouse.startx, mouse.starty);
 	if(e) csdk->selMan->select(e);
 
@@ -719,7 +706,7 @@ void SDK_Editor::changeCursor() {
 		cur = curList->cursor(CURSOR_DEFAULT);
 
 	if(cur != cursor) {
-		get_window()->set_cursor(cur);
+		widget_set_cursor(*this, cur);
 		cursor = cur;
 	}
 }
@@ -835,6 +822,7 @@ void SDK_Editor::createInsertCursor(TypePixbuf img, const char *maskName, Cursor
 
 void SDK_Editor::insertElement_BeginProc(const void *data) {
 	PackElement *pe = sdk->pack->getElementByName((char*)data);
+	if(!pe) { endOperation(); return; }
 
 	for(int i = CURSOR_INSERT_ELEMENT; i <= CURSOR_INSERT_ELEMENT_POINT; i++)
 		createInsertCursor(pe->image, curInfo[i - CURSOR_MOVE_LINE_POINT].name, (CursorListType)i);
@@ -1151,7 +1139,7 @@ void SDK_Editor::selectByEdge_DownProc(gdouble x, gdouble y, int button, int sta
 			endOperation();
 			break;
 		case BTN_LEFT: {
-			sdk->selMan->selectByEdge((SelectManager::SBE_Types) (long) mouse.data,mouse.curx,mouse.cury);
+			sdk->selMan->selectByEdge((SelectManager::SBE_Types) (int)(intptr_t) mouse.data,mouse.curx,mouse.cury);
 			endOperation();
 			reDraw();
 			beginOperation(MS_MOVE_ELEMENT, NULL);
@@ -1161,7 +1149,7 @@ void SDK_Editor::selectByEdge_DownProc(gdouble x, gdouble y, int button, int sta
 }
 
 void SDK_Editor::selectByEdge_MoveProc(gdouble x, gdouble y) {
-	switch((SelectManager::SBE_Types) (long) mouse.data){
+	switch((SelectManager::SBE_Types) (int)(intptr_t) mouse.data){
 		case SelectManager::SBE_EDGE_VERTICAL:
 			invalidateRealRect(0, y, get_width()/zoom, mouse.cury);
 			break;
@@ -1186,7 +1174,7 @@ void SDK_Editor::selectByEdge_DrawProc(DrawContext cr) {
 	Cairo::Antialias a = cr->get_antialias();
 	cr->set_antialias(Cairo::ANTIALIAS_NONE);
 	cr->set_source_rgb(0.0, 0.0, 1.0);
-	switch((SelectManager::SBE_Types) (long) mouse.data){
+	switch((SelectManager::SBE_Types) (int)(intptr_t) mouse.data){
 		case SelectManager::SBE_EDGE_VERTICAL:
 			cr->move_to(0, mouse.cury*zoom);
 			cr->line_to(get_width(), mouse.cury*zoom);
@@ -1206,7 +1194,7 @@ void SDK_Editor::selectByEdge_DrawProc(DrawContext cr) {
 }
 
 Glib::RefPtr<Gdk::Cursor> SDK_Editor::selectByEdge_cursorProc() {
-	return curList->cursor((CursorListType)(CURSOR_EDGE_HORZ + (long) mouse.data));
+	return curList->cursor((CursorListType)(CURSOR_EDGE_HORZ + (int)(intptr_t) mouse.data));
 }
 
 // MS_SCROLL --------------------------------------------------------------------
@@ -1223,6 +1211,8 @@ void SDK_Editor::scroll_MoveProc(gdouble x, gdouble y) {
 	Widget *w = this;
 	do {
 		w = w->get_parent();
+		if(!w)
+			return;
 	} while(!GTK_IS_SCROLLED_WINDOW(w->gobj()));
 	ScrolledWindow *sc = (ScrolledWindow *)w;
 	sc->get_vadjustment()->set_value(sc->get_vadjustment()->get_value() + dy);
@@ -1295,7 +1285,7 @@ void SDK_Editor::linkHint_UpProc(gdouble x, gdouble y, int button, int state) {
 			item = new LH_MenuItem(mouse.obj.hint, *prop);
 			hintMenu.append(*item);
 		}
-		hintMenu.show_all_children();
+		hintMenu.show();
 		hintMenu.popup(button, mouse.time);
 	}
 	endOperation();

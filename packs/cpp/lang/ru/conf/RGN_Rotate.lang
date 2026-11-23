@@ -1,0 +1,8 @@
+Rotate region=Поворот регион
+Rotation angle=Угол поворота
+Rotation method=Способ поворота
+Rotates the region=Поворачивает регион
+Deletes a region (zeroes Result)=Удаляет регион (обнуляет Result)
+The event occurs every time the region is rotated ARG(Region)=Событие происходит всякий раз после поворота региона ARG(Region)
+Contains the region after rotation=Содержит регион после поворота
+Region to rotate=Регион для поворота

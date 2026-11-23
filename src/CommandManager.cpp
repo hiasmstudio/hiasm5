@@ -31,6 +31,7 @@ void CommandManager::loadCommandList() {
 	CommandInfo cmd;
 	while(mdb.read_commands(id, cmd)) {
 		CommandItem *ci = new CommandItem();
+		ci->enabled = false; ci->checked = false;
 		ci->info = cmd.info;
 		ci->name = cmd.name;
 		ci->icon = loadIcon(cmd.name);
@@ -48,17 +49,17 @@ CommandItem *CommandManager::findByName(const ustring &name) {
 
 Image *createImageByCmd(CommandItem *ci) {
 	if(ci->name == CMD_ZOOMIN)
-		return new Image(Gtk::Stock::ZOOM_IN, IconSize(ICON_SIZE_MENU));
+		return stock_image(Stock::ZOOM_IN, ICON_SIZE_MENU);
 	else if(ci->name == CMD_ZOOMOUT)
-		return new Image(Gtk::Stock::ZOOM_OUT, IconSize(ICON_SIZE_MENU));
+		return stock_image(Stock::ZOOM_OUT, ICON_SIZE_MENU);
 	else if(ci->name == CMD_SELECTALL)
-		return new Image(Gtk::Stock::SELECT_ALL, IconSize(ICON_SIZE_MENU));
+		return stock_image(Stock::SELECT_ALL, ICON_SIZE_MENU);
 	else if(ci->name == CMD_SEARCH)
-		return new Image(Gtk::Stock::FIND, IconSize(ICON_SIZE_MENU));
+		return stock_image(Stock::FIND, ICON_SIZE_MENU);
 	else if(ci->name == CMD_FULLSCREEN)
-		return new Image(Gtk::Stock::FULLSCREEN, IconSize(ICON_SIZE_MENU));
+		return stock_image(Stock::FULLSCREEN, ICON_SIZE_MENU);
 //	else if(ci->name == CMD_BUILD)
-//		return new Image(Gtk::Stock::EXECUTE, IconSize(ICON_SIZE_MENU));
+//		return stock_image(Gtk::Stock::EXECUTE, ICON_SIZE_MENU);
 	else if(ci->icon)
 		return new Image(ci->icon);
 
@@ -71,7 +72,7 @@ Toolbar *CommandManager::createToolbar(const ustring &name) {
 
 	void *id = mdb.begin_read_command_menu(name);
 	CommandInfo old, cmd;
-	ToolButton *btn;
+	Gtk::Widget *btn;
 	Menu *menu = NULL;
 	CM_ImageMenuItem *mi;
 	while(mdb.read_command_menu(id, cmd)) {
@@ -107,7 +108,8 @@ Toolbar *CommandManager::createToolbar(const ustring &name) {
 					if(old.name == CMD_BUILD)
 						btn = new CM_MenuToolButton(this, old.name, old.info);
 					else
-						if(old.name == CMD_FORMEDIT)
+						if(old.name == CMD_FORMEDIT || old.name == CMD_BIND_RECT ||
+						   old.name == CMD_BIND_CENTER || old.name == CMD_BIND_PADDING)
 							btn = new CM_ToggleToolButton(this, old.name, old.info);
 						else
 							btn = new CM_ToolButton(this, old.name, old.info);
@@ -117,11 +119,15 @@ Toolbar *CommandManager::createToolbar(const ustring &name) {
 
 		if(btn) {
 			btn->set_tooltip_text(old.info);
+#ifdef HIASM_GTK4
+			gtk_accessible_update_property(GTK_ACCESSIBLE(btn->gobj()),
+			    GTK_ACCESSIBLE_PROPERTY_LABEL, old.info.c_str(), -1);
+#endif
 			CommandItem *ci = findByName(old.name);
 			if(ci) {
 				ci->widgets.push_back(btn);
 				if(Image *i = createImageByCmd(ci))
-					btn->set_icon_widget(*i);
+					tool_button_set_icon(btn, *i);
 			}
 			tb->add(*btn);
 		}
@@ -138,7 +144,7 @@ Toolbar *CommandManager::createToolbar(const ustring &name) {
 	return tb;
 }
 
-MenuShell *CommandManager::fillMenu(MenuShell *menu, const ustring &name) {
+MenuShell *CommandManager::fillMenu(MenuShell *menu, const ustring &name, const std::function<void(const ustring&)> &handler, const std::function<bool(const ustring&)> &available) {
 	void *id = mdb.begin_read_command_menu(name);
 	CommandInfo cmd;
 	CM_ImageMenuItem *mi = NULL;
@@ -159,7 +165,7 @@ MenuShell *CommandManager::fillMenu(MenuShell *menu, const ustring &name) {
 			menu->append(*m);
 		}
 		else {
-			mi = new CM_ImageMenuItem(this, cmd.name, cmd.info);
+			mi = new CM_ImageMenuItem(this, cmd.name, cmd.info, handler, available);
 			CommandItem *ci = findByName(cmd.name);
 			if(ci) {
 				ci->widgets.push_back(mi);
@@ -224,10 +230,20 @@ bool CommandManager::check(CMD_TYPE cmd) {
 	return false;
 }
 
+bool CommandManager::uncheck(CMD_TYPE cmd) {
+	CommandItem *ci = getComandByName(cmd);
+	if(ci)
+		return ci->checked = false;
+
+	DEBUG_MSG("WARNING: command " << cmd << " not found!")
+	return false;
+}
+
 void CommandManager::endUpdate() {
 	for(Commands::iterator c = cmds.begin(); c != cmds.end(); c++) {
 		for(CommandWidgets::iterator w = (*c)->widgets.begin(); w != (*c)->widgets.end(); w++) {
-			(*w)->set_sensitive((*c)->enabled);
+			if(auto *menu = dynamic_cast<CM_ImageMenuItem*>(*w)) menu->updateSensitivity((*c)->enabled);
+			else (*w)->set_sensitive((*c)->enabled);
 			CM_ToggleToolButton *b = dynamic_cast<CM_ToggleToolButton*>(*w);
 			if(b)
 				b->check((*c)->checked);
@@ -291,12 +307,18 @@ void CM_MenuToolButton::on_clicked() {
 	parent->command(cmd);
 }
 
-CM_ImageMenuItem::CM_ImageMenuItem(CommandManager *parent, const ustring &name, const ustring &info):ImageMenuItem(info) {
+CM_ImageMenuItem::CM_ImageMenuItem(CommandManager *parent, const ustring &name, const ustring &info, const std::function<void(const ustring&)> &handler, const std::function<bool(const ustring&)> &available):ImageMenuItem(info), handler(handler), available(available) {
 	this->cmd = name;
 	this->parent = parent;
 	show();
 }
 
 void CM_ImageMenuItem::on_activate() {
-	parent->command(cmd);
+	if(available && !available(cmd)) return;
+	if(handler) handler(cmd);
+	else parent->command(cmd);
+}
+
+CM_ImageMenuItem::~CM_ImageMenuItem() {
+	if(parent) if(auto *item = parent->findByName(cmd)) item->widgets.remove(this);
 }

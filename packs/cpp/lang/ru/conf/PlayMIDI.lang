@@ -1,0 +1,10 @@
+Playing MIDI files=Проигрывание MIDI-файлов
+Default MIDI file name=Имя MIDI-файла по-умолчанию
+Plays a MIDI file=Проигрывает MIDI-файл
+Enables pause when playing a MIDI file=Включает паузу при проигрывании MIDI-файла
+Resumes playback after a pause=Возобновляет проигрывание после паузы
+Stops playing a MIDI file=Останавливает проигрывание MIDI-файла
+The event occurs every time the MIDI file is played=Событие происходит всякий по окночанию проигрывания MIDI-файла
+The event occurs whenever playback of a MIDI file is stopped=Событие происходит всякий раз при остановке проигрывания MIDI-файла
+Specifies the name of the MIDI file=Определяет имя MIDI-файла
+Contains the length of the MIDI file (in milliseconds)=Содержит длину MIDI-файла (в миллисекундах)

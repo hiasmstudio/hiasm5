@@ -1,0 +1,17 @@
+func doAddSlashes(_data)
+  if(linked(Result))
+    println(str, ' = ' + code(Mode) + 'slashes(', Text, ');')
+    event(onAddSlashes, str)
+  else
+    event(onAddSlashes, code(Mode) + 'slashes(' && Text && ')')
+  end
+end
+
+func Result()
+  if(linked(doAddSlashes))
+    return(str)
+  else
+    return(code(Mode) + 'slashes(' && Text && ')')
+  end
+end
+

@@ -1,0 +1,6 @@
+Changes information about a file's security settings=Изменяет информацию о настройках безопасности файла
+File name=Имя файла
+Sets information about the security settings of the specified file=Устанавливает информацию о настройках безопасности указанного файла
+The event occurs whenever security information is set=Событие происходит всякий раз после установки информации о безопасности
+The event occurs whenever an error occurs during the installation of security settings information=Событие происходит всякий раз при возникновении ошибки в процессе установки информации о настройках безопасности
+Security Settings Information=Информация о настройках безопасности

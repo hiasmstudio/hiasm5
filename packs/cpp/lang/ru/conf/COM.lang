@@ -1,0 +1,15 @@
+COM port=COM порт
+Port number=Номер порта
+Port speed=Скорость порта
+Parity bit=Бит чётности
+Waiting time=Время ожидания
+Opens a port=Открывает порт
+Closes the port=Закрывает порт
+Clears the RX input buffer=Очищает буфер RX входа
+Writes data to a port=Записывает данные в порт
+Reads data from the port. The required number of bytes is indicated in the stream=Читает данные из порта. Необходимое количество байт указывается в потоке
+Sets/resets the signal on the DTR line=Устанавливает/сбрасывает сигнал на линии DTR
+Sets/resets the signal on the RTS line=Устанавливает/сбрасывает сигнал на линии RTS
+If the recording is successful, it displays the number of bytes written, otherwise - 0=В случае успешной записи выдает кол-во записанных байт, иначе - 0
+If the reading is successful, it displays the read byte string=В случае успешного чтения выдает прочитанную строку байт
+Port number (1 to N)=Номер порта (от 1 до N)

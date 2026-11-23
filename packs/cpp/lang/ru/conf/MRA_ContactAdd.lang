@@ -1,0 +1,8 @@
+Adding a Mail.ru agent contact=Добавление контакта Mail.ru агента
+Defines Mail.ru agent for authorization on the server=Определяет Mail.ru agent для авторизации на сервере
+Adds a contact to the Mail.ru server=Добавляет контакт на сервер Mail.ru
+The event occurs every time a contact is added to the Mail.ru server and outputs it to the ARG(Mail, Nick, GroupID, UserID) stream=Событие происходит всякий раз после добавления контакта на сервере Mail.ru и выдает его в поток ARG(Mail, Nick, GroupID, UserID)
+The event occurs every time an error occurs when adding a contact on the Mail.ru server and outputs it to the ARG(Mail, Nick, GroupID, UserID, Code) stream=Событие происходит всякий раз после возникновения ошибки при добавлении контакта на сервере Mail.ru и выдает ее в поток ARG(Mail, Nick, GroupID, UserID, Code)
+Email address of the contact to be added=E-mail адрес добавляемого контакта
+Name of the contact to be added=Имя добавляемого контакта
+Group ID of the contact being added=Идентификатор группы добавляемого контакта

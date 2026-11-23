@@ -1,0 +1,14 @@
+include('tag_maker')
+
+section html
+
+func doPrint
+  include('tag_header')
+  if(isndef(HttpEquiv))
+    s &= " http-equiv=\"" & HttpEquiv & "\""
+  end 
+  if(isndef(Content))
+    s &= " content=\"" & Content & "\""
+  end
+  include('tag_footer')
+end

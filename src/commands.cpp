@@ -136,6 +136,7 @@ const gchar *CMD_DEL_POINT = "del_point";
 const gchar *CMD_ZOOMIN = "zoomin";
 const gchar *CMD_ZOOMOUT = "zoomout";
 const gchar *CMD_PN_ERRORS = "pn_errors";
+const gchar *CMD_PN_TERMINAL = "pn_terminal";
 const gchar *CMD_PAL_FILTER = "pal_filter";
 const gchar *CMD_SVN = "svn";
 const gchar *CMD_SVN_UPDATE = "svn_update";

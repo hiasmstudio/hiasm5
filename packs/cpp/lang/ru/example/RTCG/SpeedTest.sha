@@ -1,0 +1,137 @@
+Make(cpp)
+Add(MainForm,2260457,35,98)
+{
+ Left=20
+ Top=105
+ Width=271
+ Height=200
+ Color=8421376
+ Caption=":("
+ BorderStyle=3
+}
+Add(RTCG_Tools,15518940,224,98)
+{
+ link(onStop,16367636:doStop,[(266,104)(266,136)(154,136)(154,111)])
+}
+BEGIN_SDK
+  Add(EditMultiEx,10505492,21,21)
+  {
+   WorkCount=#6:doWork|
+   EventCount=#6:onStop|
+   Width=202
+   Height=193
+   link(doWork,12125474:doFor,[(35,27)(35,111)])
+  }
+  Add(RT_StrCat,10795338,126,105)
+  {
+   Str2="*"
+   link(Str1,12755995:Var1,[(132,93)(120,93)(120,149)])
+  }
+  Add(RT_For,12125474,70,105)
+  {
+   End=100000
+   link(onEvent,10795338:doStrCat,[])
+   link(onStop,6145167:doData,[(114,118)(114,174)])
+  }
+  Add(RT_DoData,6145167,126,168)
+  {
+   link(onEventData,10505492:onStop,[(190,174)(190,27)])
+   link(Data,12755995:Var2,[])
+  }
+  Add(GetDataEx,12755995,119,140)
+  {
+   link(Data,10795338:Result,[])
+  }
+END_SDK
+Add(Button,11229748,112,98)
+{
+ Left=105
+ Top=60
+ Caption="RTCG"
+ link(onClick,16367636:doStart,[])
+}
+Add(Button,6997520,112,147)
+{
+ Left=105
+ Top=125
+ Caption="Classic"
+ link(onClick,11168319:doStart,[])
+}
+Add(MultiElementEx,4649866,224,147)
+{
+ link(onStop,11168319:doStop,[(266,153)(266,186)(158,186)(158,160)])
+}
+BEGIN_SDK
+  Add(EditMultiEx,16173786,21,21)
+  {
+   WorkCount=#6:doWork|
+   EventCount=#6:onStop|
+   Width=244
+   Height=179
+   link(doWork,1073837:doFor,[(39,27)(39,90)])
+  }
+  Add(StrCat,5161981,126,84)
+  {
+   Str2="*"
+   link(Str1,13303495:Var1,[(132,72)(115,72)(115,128)])
+  }
+  Add(For,1073837,56,84)
+  {
+   End=100000
+   link(onEvent,5161981:doStrCat,[])
+   link(onStop,15555639:doData,[(104,97)(104,153)])
+  }
+  Add(DoData,15555639,126,147)
+  {
+   link(onEventData,16173786:onStop,[(212,153)(212,27)])
+   link(Data,13303495:Var2,[])
+  }
+  Add(GetDataEx,13303495,119,119)
+  {
+   link(Data,5161981:Result,[])
+  }
+END_SDK
+Add(TimeCounter,11168319,168,147)
+{
+ link(onStart,4649866:doWork,[])
+ link(onStop,8806424:doMessage,[])
+}
+Add(TimeCounter,16367636,168,98)
+{
+ link(onStart,15518940:doWork,[])
+ link(onStop,11089976:doMessage,[])
+}
+Add(Message,11089976,280,105)
+{
+ Caption="Complite"
+}
+Add(Message,8806424,280,154)
+{
+ Caption="Complite"
+}
+Add(Label,4934633,336,105)
+{
+ Left=5
+ Top=10
+ Width=251
+ Height=42
+ Caption="Цикл из 100 000 итераций в схеме, собранной по технологии RTCG выполняется примерно за 12 тысячных секунд"
+ AutoSize=1
+}
+Add(Label,13593925,336,154)
+{
+ Left=5
+ Top=85
+ Width=250
+ Height=32
+ Caption="Таже схема в рамках классического пакета выполняется за 12-13 секунд..."
+ AutoSize=1
+}
+Add(Label,1622881,203,217)
+{
+ Left=5
+ Top=150
+ Width=250
+ Caption="т.е. более чем в 1000 раз медленнее"
+ AutoSize=1
+}

@@ -1,0 +1,12 @@
+.PHONY: all debug release stage test clean
+all debug stage:
+	cmd /d /c tools\build_windows.bat debug build-only
+
+release:
+	cmd /d /c tools\build_windows.bat release build-only
+
+test:
+	powershell.exe -NoProfile -ExecutionPolicy Bypass -File tools/run_all_checks.ps1
+
+clean:
+	cmake --build --preset qt69-native-debug --target clean

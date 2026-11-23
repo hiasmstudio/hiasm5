@@ -1,0 +1,5 @@
+Query to execute against the database=Запрос на выполнение к базе данных
+Query text in SQL language=Текст запроса на языке SQL
+Executes a query string in SQL language=Выполняет строку запроса на языке SQL
+The event occurs in case of an error and outputs its description to the stream=Событие происходит в случае ошибки и выдает её описание в поток
+SQLite Database ID=Идентификатор базы данных SQLite

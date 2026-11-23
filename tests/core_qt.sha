@@ -1,0 +1,32 @@
+Make(_base)
+Add(hcTplForm,1,0,0)
+{
+ link(onCreate,6:doWork1,[])
+}
+Add(hcMemory,3,30,30)
+{
+ Default=String(Qt Core)
+}
+Add(hcTplChildExpander,6,130,100)
+{
+ link(onEvent1,1:doClose,[])
+ link(Data1,3:Value,[])
+}
+BEGIN_SDK
+  Add(hcEditMulti,7,14,14)
+  {
+   WorkCount=1
+   EventCount=1
+   DataCount=1
+   link(doWork1,2:doText,[])
+  }
+  Add(hcTplExpander,8,56,56)
+  {
+   Label="Details"
+  }
+  Add(hcTplEdit,2,110,60)
+  {
+   link(onChange,7:onEvent1,[])
+   link(Str,7:Data1,[])
+  }
+END_SDK

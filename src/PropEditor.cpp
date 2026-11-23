@@ -7,8 +7,9 @@
  *      Author: dilma
  */
 
-#include <gtkmm-3.0/gtkmm/stylecontext.h>
-#include <gdkmm-2.4/gdkmm/window.h>
+#include <cstring>
+
+#include <gtkmm/stylecontext.h>
 
 #include "PropEditor.h"
 #include "StringList.h"
@@ -48,11 +49,11 @@ int PropertyItem::getLevel() {
 }
 
 Gdk::RGBA get_light_color(Glib::RefPtr<StyleContext> style) {
-	return sysColors.btnLight;
+	return themeBase(style);
 }
 
 Gdk::RGBA get_dark_color(Glib::RefPtr<StyleContext> style) {
-	return sysColors.btnDark;
+	return themeMix(themeBase(style), themeText(style), 0.35);
 }
 
 void PropertyItem::draw(DrawContext dc, Glib::RefPtr<StyleContext> style, int x, int y) {
@@ -71,7 +72,7 @@ void PropertyItem::draw(DrawContext dc, Glib::RefPtr<StyleContext> style, int x,
 		dc->rectangle(x + 4, y + 5, 9, 9);
 		dc->stroke();
 		if(checked) {
-			Gdk::Cairo::set_source_rgba(dc, style->get_color(STATE_FLAG_SELECTED));
+			Gdk::Cairo::set_source_rgba(dc, style->get_color());
 			dc->rectangle(x + 6, y + 7, 5, 5);
 			dc->fill();
 			dc->rectangle(x + 6, y + 7, 5, 5);
@@ -88,7 +89,7 @@ void PropertyItem::draw(DrawContext dc, Glib::RefPtr<StyleContext> style, int x,
 	int c_off = x + 18;
 
 	// caption
-	dc->set_source_rgb(0, 0, 0);
+	Gdk::Cairo::set_source_rgba(dc, themeText(style));
 	dc->save();
 	dc->rectangle(0, y + 1, parent->get_width() / 2, 20);
 	dc->clip();
@@ -103,9 +104,12 @@ void PropertyItem::draw(DrawContext dc, Glib::RefPtr<StyleContext> style, int x,
 	//dc->rectangle(parent->get_width() / 2 - 1, y + 1, parent->get_width() / 2, 12);
 	//dc->fill();
 
-	// value
-	dc->set_source_rgb(0.0, 0.0, 0.5);
-	drawValue(dc, style, parent->get_width() / 2 + 4, y);
+	// value: while the selected row is edited, the entry draws the text itself; drawing it here too
+	// doubles the text, because the entry's text sits a few pixels lower.
+	if(!(this == parent->select && parent->edit && parent->edit->get_visible())) {
+		Gdk::Cairo::set_source_rgba(dc, themeText(style));
+		drawValue(dc, style, parent->get_width() / 2 + 4, y);
+	}
 
 	drawSelect(dc, style, x, y);
 
@@ -130,7 +134,7 @@ void PropertyItem::drawValue(DrawContext dc, Glib::RefPtr<StyleContext> style, i
 
 void PropertyItem::drawSelect(DrawContext dc, Glib::RefPtr<StyleContext> style, int x, int y) {
 	if(this == parent->select) {
-		dc->set_source_rgb(0, 0, 0);
+		Gdk::Cairo::set_source_rgba(dc, themeText(style));
 		dc->move_to(0, y + 19);
 		dc->line_to(0, y + 1);
 		dc->line_to(parent->get_width()-2, y + 1);
@@ -198,9 +202,7 @@ void PropertyGroup::draw(DrawContext dc, Glib::RefPtr<StyleContext> style, int x
 		if((*p)->flag & PROP_FLG_NDEF)
 			def = true;
 	// caption
-	Gdk::RGBA black;
-	black.set_rgba(0,0,0);
-	Gdk::Cairo::set_source_rgba(dc, black);
+	Gdk::Cairo::set_source_rgba(dc, themeText(style));
 	dc->move_to(x + 18, y + 14);
 	//Cairo::RefPtr<const Cairo::ToyFontFace> ff = dc->get_font_face();
 	dc->select_font_face(FONT_NAME, Cairo::FONT_SLANT_NORMAL, def ? Cairo::FONT_WEIGHT_BOLD : Cairo::FONT_WEIGHT_NORMAL);
@@ -222,9 +224,7 @@ void PropertyTitle::draw(DrawContext dc, Glib::RefPtr<StyleContext> style, int x
 	dc->stroke();
 
 	// caption
-	Gdk::RGBA black;
-	black.set_rgba(0,0,0);
-	Gdk::Cairo::set_source_rgba(dc, black);
+	Gdk::Cairo::set_source_rgba(dc, themeText(style));
 	dc->move_to(x + 4, y + 14);
 	//Cairo::RefPtr<const Cairo::ToyFontFace> ff = dc->get_font_face();
 	dc->select_font_face(FONT_NAME, Cairo::FONT_SLANT_NORMAL, Cairo::FONT_WEIGHT_BOLD);
@@ -335,8 +335,8 @@ PropertyStock::PropertyStock(const ustring &name, void *value):PropertyItem(name
 
 void PropertyStock::drawValue(DrawContext dc, Glib::RefPtr<StyleContext> style, int x, int y) {
 	if(!(*(ustring*)value).empty()) {
-		Glib::RefPtr<IconSet> iconSet = style->lookup_icon_set(*(ustring*)value);
-		TypePixbuf pix = iconSet->render_icon_pixbuf(style, ICON_SIZE_MENU);
+		TypePixbuf pix = stock_pixbuf(*(ustring*)value, ICON_SIZE_MENU);
+
 
 		if(pix)	{
 			dc->save();
@@ -378,7 +378,7 @@ void PropertyColor::drawValue(DrawContext dc, Glib::RefPtr<StyleContext> style, 
 	dc->rectangle(x+1, y+3, 12, 12);
 	dc->stroke();
 
-	dc->set_source_rgb(0, 0, 0.5);
+	Gdk::Cairo::set_source_rgba(dc, themeText(style));
 
 	PropertyItem::drawValue(dc, style, x + 16, y);
 }
@@ -414,7 +414,7 @@ PropertyFlags::PropertyFlags(const ustring &name, void *value, const ustring &li
 	type = data_flags;
 	this->value = value;
 
-	StringList flg_list;
+	HStringList flg_list;
 	flg_list.split(list.c_str(), ',');
 	for(unsigned int i = 0; i < flg_list.size(); i++) {
 		*(int*)add(new PropertyFlagsItem(flg_list[i], this, i))->value = ((*(int *)value >> i) & 1) ? 1 : 0;
@@ -433,12 +433,13 @@ void PropertyFlags::_change(PropertyFlagsItem *prop) {
 //-------------------------------------------------------------------------------------------
 
 PropEditor::PropEditor():
+	old_width(-1),
 	on_change_property(this, CBT_CHANGE_PROPERTY),
 	on_select_property(this, CBT_SELECT_PROPERTY),
 	on_check_property(this, CBT_CHECK_PROPERTY),
 	on_edit_property(this, CBT_EDIT_PROPERTY)
 {
-	set_events(Gdk::BUTTON_PRESS_MASK|Gdk::POINTER_MOTION_MASK|Gdk::BUTTON_RELEASE_MASK);
+	widget_set_events(*this, Gdk::BUTTON_PRESS_MASK|Gdk::POINTER_MOTION_MASK|Gdk::BUTTON_RELEASE_MASK);
 
 	select = NULL;
 	edit = NULL;
@@ -468,7 +469,7 @@ int PropEditor::itemsHeight(Properties &items) {
 }
 
 void PropEditor::reDraw() {
-	get_window()->invalidate(false);
+	widget_invalidate(*this);
 }
 
 void PropEditor::clear() {
@@ -495,6 +496,9 @@ void PropEditor::drawProperties(DrawContext dc, Properties &items, int x, int &y
 }
 
 bool PropEditor::on_draw (const ::Cairo::RefPtr< ::Cairo::Context >& cr) {
+	sysColors.init(this);
+	Gdk::Cairo::set_source_rgba(cr, themeBase(get_style_context()));
+	cr->paint();
 	cr->set_antialias(Cairo::ANTIALIAS_NONE);
 	cr->set_line_width(1);
 
@@ -503,8 +507,9 @@ bool PropEditor::on_draw (const ::Cairo::RefPtr< ::Cairo::Context >& cr) {
 	int y = 0;
 	drawProperties(cr, props, 0, y);
 
+#ifndef HIASM_GTK4
 	Fixed::on_draw(cr);
-
+#endif
 	return true;
 }
 
@@ -522,7 +527,7 @@ void PropEditor::on_icon_press(EntryIconPosition icon, const GdkEventButton *but
 		int posX = max(w/2, 50);
 		this->move(*comboPanel, posX, select_y + 20);
 
-		TreePath p = comboList->get_path(comboList->children()[((PropertyEnum*)select)->getSelectIndex()]);
+		TreePath p = tree_path_at(*comboList.operator->(), ((PropertyEnum*)select)->getSelectIndex());
 		// prevent on_row_activated emitted
 		PropertyItem *old = select;
 		select = NULL;
@@ -530,7 +535,7 @@ void PropEditor::on_icon_press(EntryIconPosition icon, const GdkEventButton *but
 		tree->set_cursor(p);
 		tree->scroll_to_row(p);
 
-		comboPanel->show_all();
+		comboPanel->show();
 
 		Gdk::Rectangle r;
 		//p = comboList->get_path(comboList->children()[0]);
@@ -545,10 +550,10 @@ void PropEditor::on_icon_press(EntryIconPosition icon, const GdkEventButton *but
 		this->move(*stockPanel, w - 0.8*w, select_y + 20);
 		stockPanel->set_size_request(0.8*w, 170);
 
-		TreePath p = stockList->get_path(stockList->children()[0]);
+		TreePath p = tree_path_at(*stockList.operator->(), 0);
 		for(unsigned long i = 1; i < stockList->children().size(); i++)
 			if(stockList->children()[i][stockColumns.param] == *(ustring*)select->value) {
-				p = stockList->get_path(stockList->children()[i]);
+				p = tree_path_at(*stockList.operator->(), (int)i);
 				break;
 			}
 		PropertyItem *old = select;
@@ -557,7 +562,7 @@ void PropEditor::on_icon_press(EntryIconPosition icon, const GdkEventButton *but
 		stock->set_cursor(p);
 		stock->scroll_to_row(p);
 
-		stockPanel->show_all();
+		stockPanel->show();
 
 		select = old;
 	}
@@ -567,7 +572,7 @@ void PropEditor::on_icon_press(EntryIconPosition icon, const GdkEventButton *but
 		cs.get_color_selection()->set_current_rgba(*(TypeColor*)select->value);
 		cs.get_color_selection()->set_has_palette(true);
 
-		if(cs.run())
+		if(dialog_run(cs))
 			edit->set_text(cs.get_color_selection()->get_current_rgba().to_string());
 			//*(TypeColor*)select->value = cs.get_colorsel()->get_current_color();
 	}
@@ -579,12 +584,11 @@ void PropEditor::fillStockPanel() {
 	Gtk::TreeRow row = *(stockList->append());
 	row[stockColumns.param] = emptyName;
 
-	typedef std::vector<Gtk::StockID> GList;
-	GList list = Gtk::Stock::get_ids();
-	for(GList::iterator l = list.begin(); l != list.end(); l++) {
+	std::vector<Gtk::StockID> list = Stock::get_ids();
+	for(const Gtk::StockID &stockId : list) {
 		row = *(stockList->append());
-		row[stockColumns.param] = (*l).get_string();
-		row[stockColumns.icon] = get_style_context()->lookup_icon_set(row[stockColumns.param])->render_icon_pixbuf(get_style_context(), ICON_SIZE_MENU);
+		row[stockColumns.param] = stockId.get_string();
+		row[stockColumns.icon] = stock_pixbuf(row[stockColumns.param], ICON_SIZE_MENU);
 	}
 }
 
@@ -621,12 +625,17 @@ void PropEditor::on_btn_click() {
 void PropEditor::rePosChild() {
 	if(!edit) {
 		edit = new Entry();
-		this->add(*edit);
+		fixed_add(*this, *edit);
+		edit->set_visible(false);	// shown by the selection code only (was a white box at 0,0)
 		edit->set_has_frame(false);
-		edit->set_icon_from_stock(Gtk::Stock::EDIT, ENTRY_ICON_SECONDARY);
+		entry_set_icon_from_stock(*edit, Stock::EDIT, ENTRY_ICON_SECONDARY);
 		edit->set_icon_tooltip_text("Edit value in extended editor", ENTRY_ICON_SECONDARY);
 		edit->signal_changed().connect(sigc::mem_fun(*this, &PropEditor::on_edit_changed));
+#ifdef HIASM_GTK4
+		edit->signal_icon_press().connect([this](Gtk::Entry::IconPosition pos) { on_icon_press(pos, NULL); }, false);
+#else
 		edit->signal_icon_press().connect(sigc::mem_fun(*this, &PropEditor::on_icon_press));
+#endif
 		Glib::RefPtr<CssProvider> css = Gtk::CssProvider::create();
 		css->load_from_data("* {"
 			"color: inherit;"
@@ -636,7 +645,9 @@ void PropEditor::rePosChild() {
 			"font-variant: inherit;"
 			"font-weight: inherit;"
 			"text-shadow: inherit;"
+#ifndef HIASM_GTK4
 			"icon-shadow: inherit;"
+#endif
 			"box-shadow: initial;"
 			"margin-top: initial;"
 			"margin-left: initial;"
@@ -654,11 +665,13 @@ void PropEditor::rePosChild() {
 			"  transition-duration: initial;"
 			"  transition-timing-function: initial;"
 			"  transition-delay: initial;"
+#ifndef HIASM_GTK4
 			"  engine: initial;"
 			"  gtk-key-bindings: initial;"
 			"  -GtkWidget-focus-line-width: 0;"
 			"  -GtkWidget-focus-padding: 0;"
 			"  -GtkNotebook-initial-gap: 0;"
+#endif
 		"}");
 		edit->get_style_context()->add_provider(css, G_MAXUINT);
 		edit->set_width_chars(1);
@@ -671,7 +684,8 @@ void PropEditor::rePosChild() {
 		objBtn->show();
 		EventBox *cont = new EventBox();
 		cont->add(*objBtn);
-		this->add(*cont);
+		fixed_add(*this, *cont);
+		cont->set_visible(false);	// shown with the selected property (see objBtn->get_parent())
 
 		//--- enum list
 		comboList = Gtk::ListStore::create(comboColumns);
@@ -684,12 +698,13 @@ void PropEditor::rePosChild() {
 		comboPanel = new EventBox();
 		ScrolledWindow *sw = new ScrolledWindow();
 		sw->set_policy(POLICY_AUTOMATIC, POLICY_AUTOMATIC);
-		sw->add(*tree);
+		scrolled_set_child(*sw, *tree);
 		Frame *frm = new Frame();
-		frm->add(*sw);
+		frame_set_child(*frm, *sw);
 		comboPanel->add(*frm);
 
-		this->add(*comboPanel);
+		fixed_add(*this, *comboPanel);
+		comboPanel->set_visible(false);	// empty white list at 0,0 until a enum property is opened
 
 		//--- stock list
 		stockList = Gtk::ListStore::create(stockColumns);
@@ -703,12 +718,13 @@ void PropEditor::rePosChild() {
 		stockPanel = new EventBox();
 		sw = new ScrolledWindow();
 		sw->set_policy(POLICY_AUTOMATIC, POLICY_AUTOMATIC);
-		sw->add(*stock);
+		scrolled_set_child(*sw, *stock);
 		frm = new Frame();
-		frm->add(*sw);
+		frame_set_child(*frm, *sw);
 		stockPanel->add(*frm);
 
-		this->add(*stockPanel);
+		fixed_add(*this, *stockPanel);
+		stockPanel->set_visible(false);
 
 		fillStockPanel();
 	}
@@ -720,7 +736,7 @@ void PropEditor::rePosChild() {
 	
 	edit->set_visible(select && (select->flag & PROP_FLG_EDIT));
 	this->move(*edit, w / 2 + 2, select_y + 1);
-	edit->set_size_request(w / 2 - 3, 17);
+	edit->set_size_request(w / 2 - 3 > 0 ? w / 2 - 3 : 1, 17);
 
 	objBtn->get_parent()->set_visible(select && (select->flag & PROP_FLG_BTN) && !(select->flag & PROP_FLG_EDIT));
 	objBtn->show();
@@ -751,10 +767,9 @@ void PropEditor::rePosChild() {
 	}
 }
 
-int oldW = -1;
 void PropEditor::changeSize(int width) {
-	if(oldW != width) {
-		oldW = width;
+	if(old_width != width) {
+		old_width = width;
 		
 		edit->hide();
 		objBtn->hide();
@@ -838,7 +853,7 @@ void PropEditor::selectPropertyByPath(const ustring &path) {
 	if(path.empty()) return;
 
 	char *buf = new char[path.length()+1];
-	path.copy(buf, path.length());
+	memcpy(buf, path.c_str(), path.length());
 	buf[path.length()] = '\0';
 	Properties *p = &props;
 	PropertyItem *selProp = NULL;
@@ -870,7 +885,7 @@ void PropEditor::selectPropertyByPath(const ustring &path) {
 }
 
 void PropEditor::update() {
-	get_window()->invalidate(false);
+	widget_invalidate(*this);
 	if(edit->get_visible())
 		edit->set_text(select->editText());
 }

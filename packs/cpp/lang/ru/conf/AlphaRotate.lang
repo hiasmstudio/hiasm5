@@ -1,0 +1,10 @@
+Rotate Alpha picture=Поворот Alpha-картинки
+Alpha image rotation angle (in degrees)=Угол поворота Alpha-картинки (в градусах)
+Rotates the Alpha image ARG(AlphaBitmap, Angle)=Поворачивает Alpha-картинку ARG(AlphaBitmap, Angle)
+Vertical reflection of Alpha picture ARG(AlphaBitmap)=Вертикальное отражение Alpha-картинки ARG(AlphaBitmap)
+Horizontal reflection of Alpha picture ARG(AlphaBitmap)=Горизонтальное отражение Alpha-картинки ARG(AlphaBitmap)
+The event occurs after the Alpha image rotation operation is performed and outputs the result to the ARG(AlphaBitmap) stream=Событие происходит после выполнения операции поворота Alpha-картинки и выдаёт результат в поток ARG(AlphaBitmap)
+Defines the Alpha image to be rotated=Определяет Alpha-картинку для поворота
+Contains the width of the resulting Alpha image=Содержит ширину полученной Alpha-картинки
+Contains the height of the resulting Alpha image=Содержит высоту полученной Alpha-картинки
+Contains a rotated Alpha image=Содержит повернутую Alpha-картинку

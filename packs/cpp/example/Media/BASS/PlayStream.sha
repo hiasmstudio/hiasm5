@@ -1,0 +1,195 @@
+Make(cpp)
+Add(BASS_Version,10183901,175,287)
+{
+ link(onCheckFailed,109118:doMessage,[(219,300)(219,342)])
+}
+Add(Message,11232751,175,336)
+{
+ Message="Error BASS initialization"
+ Caption="Error"
+ Icon=1
+}
+Add(Message,109118,231,336)
+{
+ Message="Incorrect version of BASS library "
+ Caption="Error"
+ Icon=1
+}
+Add(MainForm,16358250,42,273)
+{
+ Width=393
+ Height=219
+ Caption="BASS play stream sound"
+ Point(Handle)
+ link(onCreate,4252681:doInit,[])
+}
+Add(BASS_Init,4252681,119,287)
+{
+ link(onInit,10183901:doCheck,[])
+ link(onError,11232751:doMessage,[(163,300)(163,342)])
+ link(Handle,16358250:Handle,[(139,275)(93,275)(93,317)(48,317)])
+}
+Add(Button,3597837,161,168)
+{
+ Left=10
+ Top=15
+ link(onClick,14476773:doCreate,[])
+}
+Add(PaintBox,8758719,427,308)
+{
+ Left=10
+ Top=65
+ Width=360
+ Height=120
+ link(onBeforeDraw,5631139:doDraw,[])
+}
+Add(BASS_ChannelVisibleSpectrum,5631139,483,308)
+{
+ SoundStream="MainSound"
+ Mode=1
+ link(WindowsHandle,8758719:Bitmap,[(489,296)(461,296)(461,352)(433,352)])
+}
+Add(Timer,5820169,371,308)
+{
+ Interval=50
+ link(onTimer,8758719:doRefresh,[])
+}
+Add(BASS_StreamCreate,14476773,238,168)
+{
+ Name="MainSound"
+ link(onCreate,3047460:doPlay,[])
+ link(onError,93305:doMessage,[(282,181)(282,223)])
+ link(Data,6212927:getdata,[])
+}
+Add(FTCG_Tools,6212927,238,119)
+{
+}
+BEGIN_SDK
+  Add(EditMultiEx,16524994,21,21)
+  {
+   WorkCount=#6:doFreq|8:doVolume|
+   VarCount=#7:getdata|
+   Width=398
+   Height=165
+   link(doFreq,12691846:doOperation,[(70,27)(70,69)])
+   link(doVolume,15470044:doValue,[(49,34)(49,76)])
+   link(getdata,9423444:GetData,[(27,172)(69,172)])
+  }
+  Add(FT_Math,11805699,161,126)
+  {
+   OpType=2
+   link(onResult,5967425:doOperation,[])
+   link(Op2,1584974:Value,[])
+  }
+  Add(FT_Math,9082239,112,126)
+  {
+   Op2=1
+   link(onResult,11805699:doOperation,[])
+   link(Op1,9082239:Result,[(118,114)(107,114)(107,169)(118,169)])
+  }
+  Add(FT_Math,5967425,210,126)
+  {
+   OpType=13
+   AngleMode=1
+   link(onResult,1741056:doOperation,[])
+  }
+  Add(FT_Math,1741056,259,126)
+  {
+   OpType=34
+   link(onResult,15902:doOperation,[])
+  }
+  Add(FT_Math,15902,308,126)
+  {
+   OpType=2
+   link(onResult,9423444:doData,[(357,132)(357,106)(51,106)(51,132)])
+   link(Op2,15470044:Value,[])
+  }
+  Add(InfoTip,69284,203,110)
+  {
+   Info=#6:Миандр|
+   Font=[Arial,8,0,0,1]
+   Width=99
+   Height=60
+  }
+  Add(FT_Memory,1584974,168,63)
+  {
+   Default=Real(0)
+  }
+  Add(FT_Memory,15470044,315,70)
+  {
+   Default=Integer(0)
+  }
+  Add(FT_EventFromData,9423444,63,126)
+  {
+   link(onEvent,9082239:doOperation,[])
+  }
+  Add(FT_Math,12691846,119,63)
+  {
+   OpType=3
+   Op2=100
+   link(onResult,1584974:doValue,[])
+  }
+END_SDK
+Add(Label,75448,385,49)
+{
+ Left=330
+ Top=15
+ Font=[Arial,8,0,0,1]
+}
+Add(Hub,2542160,287,49)
+{
+ link(onEvent1,64790:doStrCat,[])
+ link(onEvent2,6212927:doFreq,[(331,62)(331,94)(226,94)(226,125)])
+}
+Add(ScrollBar,1413,238,49)
+{
+ Left=90
+ Top=20
+ Width=235
+ Max=5000
+ Position=2500
+ link(onPosition,2542160:doEvent1,[])
+}
+Add(Hub,4502827,490,49)
+{
+ link(onEvent1,68167:doOperation,[])
+ link(onEvent2,6212927:doVolume,[(530,62)(530,160)(226,160)(226,132)])
+}
+Add(StrCat,64790,336,49)
+{
+ Str2="Гц"
+ link(onStrCat,75448:doText,[])
+}
+Add(Math,68167,539,49)
+{
+ OpType=3
+ Op2=327.67
+ ResultType=0
+ link(onResult,85961:doText,[])
+}
+Add(Label,85961,588,49)
+{
+ Left=330
+ Top=40
+ Font=[Arial,8,0,0,1]
+}
+Add(ScrollBar,3421,441,49)
+{
+ Left=90
+ Top=40
+ Width=235
+ Max=32767
+ Position=10000
+ link(onPosition,4502827:doEvent1,[])
+}
+Add(Message,93305,294,217)
+{
+}
+Add(BASS_ChannelPlay,3047460,294,168)
+{
+ Channel="MainSound"
+}
+Add(BASS_ChannelVisibleOcilloScope,7049151,483,357)
+{
+ SoundStream="MainSound"
+}

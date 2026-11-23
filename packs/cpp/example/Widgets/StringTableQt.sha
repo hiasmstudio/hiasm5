@@ -1,0 +1,36 @@
+Make(cpp)
+Add(MainForm,1,28,28)
+{
+ Backend=1
+ Caption="String table"
+ Width=350
+ Height=220
+}
+Add(StringTable,2,168,84)
+{
+ Left=12
+ Top=12
+ Width=315
+ Height=150
+ Columns=#8:Name=140|8:Value=90|
+ Grid=0
+ Point(doSortDigit)
+}
+Add(Button,3,28,84)
+{
+ Left=12
+ Top=176
+ Width=125
+ Caption="Add row"
+ Data=String(Sample;42)
+ link(onClick,2:doAdd,[])
+}
+Add(Button,4,28,140)
+{
+ Left=150
+ Top=176
+ Width=125
+ Caption="Sort by value"
+ Data=Integer(1)
+ link(onClick,2:doSortDigit,[])
+}

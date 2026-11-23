@@ -1,0 +1,66 @@
+func doSearch(_data)
+  fvar(subdir, full, mode, nameExpr)
+  subdir = 0
+  switch(d('SubDir'))
+    case 0: subdir = 1
+  end
+  full = 0
+  switch(d('FullName'))
+    case "True": full = 1
+  end
+  mode = d('Include')
+  if(full)
+    nameExpr = 'hiasm_entry' && _id_ && '.path().string()'
+  else
+    nameExpr = 'hiasm_entry' && _id_ && '.path().filename().string()'
+  end
+  println('std::vector<std::string> hiasm_hits', _id_, ';')
+  println('std::vector<std::string> hiasm_other', _id_, ';')
+  println('std::error_code hiasm_ec', _id_, ';')
+  if(subdir)
+    println('for(const auto &hiasm_entry', _id_, ' : std::filesystem::recursive_directory_iterator(std::string(', Dir, '), hiasm_ec', _id_, ')) {')
+  else
+    println('for(const auto &hiasm_entry', _id_, ' : std::filesystem::directory_iterator(std::string(', Dir, '), hiasm_ec', _id_, ')) {')
+  end
+  block.inclvl()
+  println('std::string hiasm_name', _id_, ' = ', nameExpr, ';')
+  println('if(hiasm_entry', _id_, '.is_directory()) {')
+  block.inclvl()
+  switch(mode)
+    case 1: println('hiasm_hits', _id_, '.push_back(hiasm_name', _id_, ');')
+    case 2: println('hiasm_hits', _id_, '.push_back(hiasm_name', _id_, ');')
+    default: println('continue;')
+  end
+  block.declvl()
+  println('} else {')
+  block.inclvl()
+  switch(mode)
+    case 1: println('continue;')
+    default:
+      println('if(hiasm_match(hiasm_name', _id_, ', ', Ext, ')) hiasm_hits', _id_, '.push_back(hiasm_name', _id_, ');')
+      println('else hiasm_other', _id_, '.push_back(hiasm_name', _id_, ');')
+  end
+  block.declvl()
+  println('}')
+  block.declvl()
+  println('}')
+  println('for(const auto &hiasm_name', _id_, ' : hiasm_hits', _id_, ') {')
+  block.inclvl()
+  event(onSearch, 'hiasm_name' && _id_)
+  block.declvl()
+  println('}')
+  println('for(const auto &hiasm_name', _id_, ' : hiasm_other', _id_, ') {')
+  block.inclvl()
+  event(onOtherFiles, 'hiasm_name' && _id_)
+  block.declvl()
+  println('}')
+  event(onEndSearch)
+end
+
+func doStop(_data)
+  println('break;')
+end
+
+func Count()
+  return('static_cast<int>(hiasm_hits' && _id_ && '.size())')
+end

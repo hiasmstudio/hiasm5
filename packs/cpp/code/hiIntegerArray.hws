@@ -1,0 +1,61 @@
+func Initial()
+  fvar(arr, items, i)
+  arr = get('IntArray')
+  items = ''
+  i = 0
+  while(i < arr.size())
+    if(i > 0)
+      items = items && ','
+    end
+    items = items && arr.get(i)
+    i = i + 1
+  end
+  return(items)
+end
+
+func Init()
+  println('if(!hiasm_vect_ready[', _id_, ']) { hiasm_vect_ready[', _id_, '] = true; hiasm_int_list(', _id_, ') = std::vector<int>{', Initial(), '}; }')
+end
+
+func Array()
+  Init()
+  return('hiasm_int_list(' && _id_ && ')')
+end
+
+func Count()
+  Init()
+  return('static_cast<int>(hiasm_int_list(' && _id_ && ').size())')
+end
+
+func doClear(_data)
+  Init()
+  println('hiasm_int_list(', _id_, ').clear();')
+end
+
+func doSort(_data)
+  Init()
+  println('std::sort(hiasm_int_list(', _id_, ').begin(), hiasm_int_list(', _id_, ').end());')
+end
+
+func doLoad(_data)
+  Init()
+  println('{')
+  block.inclvl()
+  println('std::ifstream hiasm_file', _id_, '(std::string(', cstr(get('FileName')), '));')
+  println('std::vector<int> &hiasm_vec', _id_, ' = hiasm_int_list(', _id_, ');')
+  println('hiasm_vec', _id_, '.clear();')
+  println('int hiasm_value', _id_, ' = 0;')
+  println('while(hiasm_file', _id_, ' >> hiasm_value', _id_, ') hiasm_vec', _id_, '.push_back(hiasm_value', _id_, ');')
+  block.declvl()
+  println('}')
+end
+
+func doSave(_data)
+  Init()
+  println('{')
+  block.inclvl()
+  println('std::ofstream hiasm_file', _id_, '(std::string(', cstr(get('FileName')), '));')
+  println('for(int hiasm_value', _id_, ' : hiasm_int_list(', _id_, ')) hiasm_file', _id_, ' << hiasm_value', _id_, ' << static_cast<char>(10);')
+  block.declvl()
+  println('}')
+end

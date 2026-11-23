@@ -1,0 +1,78 @@
+Make(cpp)
+Add(RichEdit,11256652,560,280)
+{
+ Left=10
+ Top=30
+ Width=555
+ Height=390
+ Layout="horz"
+ HeightScale=100
+ ScrollBars=3
+}
+Add(Label,6175573,287,231)
+{
+ Left=10
+ Top=10
+ Width=40
+ Height=17
+ Layout="vert"
+ Caption="Domain"
+}
+Add(MainForm,63531,126,287)
+{
+ Width=584
+ Height=452
+ Caption="WhoIs info"
+}
+Add(TCP_Client,5988577,504,280)
+{
+ Port=80
+ IP="77.234.201.66"
+ link(onRead,11256652:doAdd,[])
+}
+Add(HTTP_PostBuilder,13551532,413,280)
+{
+ URL="/"
+ Host="www.whois-service.ru"
+ link(onBuild,3473778:doEvent1,[])
+}
+Add(HBoxLayout,4506754,350,161)
+{
+ Name="vert"
+ Space=3
+ Layout="horz"
+}
+Add(Hub,3473778,469,280)
+{
+ link(onEvent1,5988577:doOpen,[])
+ link(onEvent2,5988577:doSend,[(493,293)(493,300)])
+}
+Add(VBoxLayout,16125515,350,322)
+{
+ Name="horz"
+ Space=3
+ Padding=3
+}
+Add(Button,5349034,287,280)
+{
+ Left=510
+ Top=5
+ Layout="vert"
+ Caption="Read"
+ link(onClick,11021987:doBuild,[])
+}
+Add(URLBuilder,11021987,350,280)
+{
+ Args=#6:domain|11:imageField2|
+ link(onBuild,13551532:doBuild,[])
+ link(domain,511036:Text,[])
+}
+Add(Edit,511036,350,224)
+{
+ Left=55
+ Top=5
+ Width=450
+ Layout="vert"
+ WidthScale=100
+ Text="hiasm.com"
+}

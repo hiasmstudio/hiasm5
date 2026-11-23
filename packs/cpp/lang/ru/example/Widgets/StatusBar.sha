@@ -1,0 +1,120 @@
+*Amper - amper@xaker.ru
+Pos(0,0)
+Add(MainForm,1118796,238,98)
+{
+ Left=20
+ Top=105
+ Height=201
+ Font=[Arial,8,0,0]
+ Caption="Проверка строки состояния"
+ BorderStyle=3
+ Point(onMouseDown)
+ link(onMouseDown,5903389:doEvent1,[(282,146)(282,223)])
+}
+Add(InfoTip,6731200,329,70)
+{
+ Info='Надписи в StatusBar'е'
+ Font=[Arial,8,0,0]
+ Width=211
+ Height=81
+}
+Add(StatusBar,16434685,168,105)
+{
+ SizeGrip=1
+ Text="Test StatusBar"
+ TextAlign=1
+ Panels='Ничего не нажато=300','Test StatusBar'
+ link(Text,8918120:Var,[(174,93)(146,93)])
+ link(Panel,3069932:Value,[(181,93)(280,93)(280,119)(293,119)])
+}
+Add(LineBreak,1448123,14,161)
+{
+ Caption="Устанавливает текст в StatusBar"
+ link(Out,13545459:doEvent1,[])
+ Primary=[5228636,392,77]
+}
+Add(GetIndexData,6505498,406,175)
+{
+ Count=4
+ link(Data1,14808127:Text,[(412,163)(349,163)])
+ link(Data2,9722910:Text,[(419,159)(398,159)])
+ link(Data3,10377084:Text,[(426,159)(447,159)])
+ link(Data4,2191902:Text,[(433,163)(496,163)])
+}
+Add(StrList,10377084,441,91)
+{
+ Strings='Средняя кнопка'
+}
+Add(StrList,14808127,343,91)
+{
+ Strings='Левая кнопка'
+}
+Add(StrList,9722910,392,91)
+{
+ Strings='Правая кнопка'
+}
+Add(LineBreak,9522990,406,217)
+{
+ Caption="Надпись в StatusBar'е"
+ Type=1
+ link(Data,6505498:Var,[])
+ Primary=[8918120,-266,-147]
+}
+Add(StrList,2191902,490,91)
+{
+ Strings='Ничего не нажато'
+}
+Add(Hub,5903389,294,217)
+{
+ InCount=2
+ link(onEvent1,6505498:doIndex,[(367,223)(367,181)])
+ link(onEvent2,5228636:In,[(367,230)(367,244)])
+}
+Add(Timer,4030706,133,217)
+{
+ Interval=1200
+ link(onTimer,6901958:doEvent1,[])
+}
+Add(DoData,11318066,231,217)
+{
+ Data=Integer(3)
+ link(onEventData,5903389:doEvent2,[(276,223)(276,230)])
+}
+Add(Hub,6901958,182,217)
+{
+ link(onEvent1,11318066:doData,[])
+ link(onEvent2,13545459:doEvent2,[(222,230)(222,174)])
+}
+Add(Hub,13545459,231,161)
+{
+ InCount=2
+ OutCount=1
+ link(onEvent1,16434685:doText,[(272,167)(272,156)(157,156)(157,111)])
+}
+Add(Label,8250852,21,70)
+{
+ Top=20
+ Width=395
+ Height=20
+ Font=[Arial,8,0,0]
+ Transparent=0
+ Caption="Кликни кнопкой мыши на форме"
+ AutoSize=1
+ Alignment=2
+}
+Add(Memory,3069932,287,70)
+{
+ Default=Integer(0)
+}
+Add(InfoTip,15864711,7,7)
+{
+ Info='Пример использования строки состояния'
+ Font=[Arial,10,1,0]
+ Frame=2
+ Width=610
+ Height=263
+}
+Add(LinkTip,10315186,553,28)
+{
+ Link="Amper=mailto:amper@xaker.ru"
+}

@@ -1,0 +1,46 @@
+func doEvent(data)
+  Clone(data)
+end
+
+func doEvent1(data)
+  Clone(data)
+end
+
+func doEvent2(data)
+  Clone(data)
+end
+
+func doEvent3(data)
+  Clone(data)
+end
+
+func doEvent4(data)
+  Clone(data)
+end
+
+func doEvent5(data)
+  Clone(data)
+end
+
+func doEvent6(data)
+  Clone(data)
+end
+
+func doEvent7(data)
+  Clone(data)
+end
+
+func doEvent8(data)
+  Clone(data)
+end
+
+func Clone(data)
+  event(onEvent1, data)
+  event(onEvent2, data)
+  event(onEvent3, data)
+  event(onEvent4, data)
+  event(onEvent5, data)
+  event(onEvent6, data)
+  event(onEvent7, data)
+  event(onEvent8, data)
+end

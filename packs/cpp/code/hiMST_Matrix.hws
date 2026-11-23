@@ -1,0 +1,28 @@
+include('qtMstClient')
+
+func EmitMatrix(mode, x, y)
+  fvar(result)
+  result = 'mstMatrix' && _id_
+  MstBegin()
+  if(linked('X'))
+    x = d('X')
+  end
+  if(linked('Y'))
+    y = d('Y')
+  end
+  println('const auto ', result, ' = ', MstLocal(), '->matrix(', MstInt(MstDefault(x, get('X'))), ', ', MstInt(MstDefault(y, get('Y'))), ', ', mode, ');')
+  event(onEMatrix, result)
+  println('}')
+end
+
+func doEMatrix(_data)
+  EmitMatrix(0, mt_arg(0), mt_arg(MstNext('X', 0)))
+end
+
+func doChkEMatrix(_data)
+  EmitMatrix(1, mt_arg(0), mt_arg(MstNext('X', 0)))
+end
+
+func doSelEMatrix(_data)
+  EmitMatrix(2, mt_arg(0), mt_arg(MstNext('X', 0)))
+end

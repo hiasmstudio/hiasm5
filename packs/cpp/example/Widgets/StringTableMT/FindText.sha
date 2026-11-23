@@ -1,0 +1,197 @@
+Make(cpp)
+Add(MainForm,3063237,140,140)
+{
+ Width=398
+ Height=309
+ link(onCreate,1976442:doEnum,[])
+}
+Add(StrList,4383086,182,84)
+{
+ Strings=#20:Иван;Иванов;Иванович|24:Андрей;Андреев;Андреевич|22:Иван;Андреев;Андреевич|22:Андрей;Иванов;Иванович|
+}
+Add(ArrayEnum,1976442,196,154)
+{
+ link(onItem,3337036:doAdd,[(366,160)(366,272)])
+ link(Array,4383086:Array,[])
+}
+Add(Edit,5830599,196,217)
+{
+ Top=210
+ Width=135
+ Text="Иван"
+ link(onChange,15192790:doReset,[])
+}
+Add(Button,15619008,196,301)
+{
+ Top=255
+ Width=390
+ TabOrder=-1
+ Caption="Найти координаты слова"
+ Point(doCaption)
+ link(onClick,4099803:doAdd,[])
+}
+Add(Label,16292755,511,231)
+{
+ Top=237
+ Width=11
+ Height=17
+ Caption="X"
+}
+Add(Edit,5455477,511,273)
+{
+ Left=15
+ Top=235
+ Width=20
+ Text="0"
+ DataType=2
+}
+Add(Label,13477812,553,231)
+{
+ Left=40
+ Top=237
+ Width=11
+ Height=17
+ Caption="Y"
+}
+Add(Edit,11611152,532,315)
+{
+ Left=55
+ Top=235
+ Width=20
+ Text="0"
+ DataType=2
+}
+Add(Edit,11182224,553,357)
+{
+ Left=130
+ Top=235
+ Width=115
+ Text="Иван"
+}
+Add(Label,10883221,595,231)
+{
+ Left=75
+ Top=236
+ Width=52
+ Height=17
+ Caption="Значение"
+}
+Add(Label,10756163,511,189)
+{
+ Left=140
+ Top=212
+ Width=85
+ Height=17
+ Caption="Начать поиск с:"
+}
+Add(Label,15408271,553,189)
+{
+ Left=225
+ Top=213
+ Width=11
+ Height=17
+ Caption="X"
+}
+Add(Edit,11206526,294,245)
+{
+ Left=235
+ Top=210
+ Width=20
+ Text="0"
+}
+Add(Label,7014763,595,189)
+{
+ Left=260
+ Top=212
+ Width=11
+ Height=17
+ Caption="Y"
+}
+Add(Edit,6116195,252,245)
+{
+ Left=275
+ Top=210
+ Width=20
+ Text="0"
+}
+Add(MT_AddData,4099803,245,301)
+{
+ Count=3
+ link(onAdd,8045882:doEvent,[])
+ link(Data1,5830599:Text,[(251,286)(202,286)])
+ link(Data2,6116195:Text,[])
+ link(Data3,11206526:Text,[(265,289)(300,289)])
+}
+Add(MT_MultiData,8009833,455,280)
+{
+ Count=3
+ link(onData1,5455477:doText,[(499,286)(499,279)])
+ link(onData2,11611152:doText,[(509,293)(509,321)])
+ link(onData3,11182224:doText,[(495,300)(495,363)])
+}
+Add(PointHint,5981647,126,63)
+{
+ Info=#41:Пример использования метода doMT_FindText|
+ Font=[MS Sans Serif,8,1,0,1]
+ Transparent=0
+ VAlign=0
+ Width=519
+ Height=389
+}
+Add(Switch,15192790,329,210)
+{
+ DataOn=Integer(1)
+ DataOff=Integer(0)
+ Point(onOn)
+ Point(State)
+ Point(doOn)
+ link(onOn,12889683:doData,[])
+}
+Add(Hub,7050031,420,273)
+{
+ OutCount=3
+ link(onEvent1,15192790:doOn,[(444,279)(444,203)(317,203)(317,230)])
+ link(onEvent2,8009833:doSeparateMT,[])
+ link(onEvent3,12688484:doOperation,[(443,293)(443,405)])
+}
+Add(DoData,12889683,378,217)
+{
+ Data=String(Найти координаты следующего слова)
+ link(onEventData,6883274:doWork1,[(421,223)(421,196)(186,196)])
+}
+Add(HubEx,6883274,182,294)
+{
+ link(onEvent,15619008:doCaption,[])
+}
+Add(Math,12688484,511,399)
+{
+ link(onResult,11446088:doCase,[])
+ link(Op1,5455477:Text,[])
+ link(Op2,11611152:Text,[(524,373)(538,373)])
+}
+Add(Case,11446088,560,399)
+{
+ Value=Integer(-2)
+ DataOnTrue=String(Слов больше не найдено)
+ link(onTrue,6883274:doWork3,[(604,412)(604,438)(186,438)])
+}
+Add(StringTableMT,3337036,378,266)
+{
+ Width=390
+ Height=210
+ Columns=#3:Имя|7:Фамилия|8:Отчество|
+ IconsCheck=[]
+ MiscIcons=[]
+ Icons=[]
+ Point(doMT_FindText)
+ Point(doMT_FindNext)
+ Point(onMT_FindText)
+ link(onMT_FindText,7050031:doEvent1,[])
+}
+Add(MT_IndexToChanel,8045882,329,301)
+{
+ Point(Index)
+ link(onEvent1,3337036:doMT_FindText,[])
+ link(onEvent2,3337036:doMT_FindNext,[])
+ link(Index,15192790:State,[])
+}

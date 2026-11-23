@@ -1,0 +1,140 @@
+Make(cpp)
+Add(MainForm,15739648,35,84)
+{
+ Width=445
+ Height=264
+ Caption="BASS internet radio"
+ Point(Handle)
+ link(onCreate,4252681:doInit,[])
+}
+Add(BASS_Init,4252681,112,98)
+{
+ link(onInit,10183901:doCheck,[])
+ link(onError,11232751:doMessage,[(156,111)(156,153)])
+ link(Handle,15739648:Handle,[(132,86)(86,86)(86,128)(41,128)])
+}
+Add(BASS_Version,10183901,168,98)
+{
+ link(onCheckFailed,109118:doMessage,[(212,111)(212,153)])
+}
+Add(Message,11232751,168,147)
+{
+ Message="Error BASS initialization"
+ Caption="Error"
+ Icon=1
+}
+Add(Message,109118,224,147)
+{
+ Message="Incorrect version of BASS library "
+ Caption="Error"
+ Icon=1
+}
+Add(BASS_StreamCreateURL,12045247,357,91)
+{
+ Name="InetStream"
+ link(onCreate,15405158:doEvent1,[(397,97)(397,34)])
+ link(onMeta,7586771:doEvent1,[])
+ link(onStatus,11163659:doText,[(397,111)(397,146)])
+ link(onError,13951091:doStrCat,[(397,118)(397,195)])
+ link(URL,5325196:String,[])
+}
+Add(Button,6044672,308,91)
+{
+ Left=5
+ Top=5
+ Caption="Play"
+ link(onClick,12045247:doCreate,[])
+}
+Add(ComboBox,5325196,350,28)
+{
+ Left=65
+ Top=5
+ Width=365
+ Height=21
+ Strings=#52:http://www.radioparadise.com/musiclinks/rp_128-9.m3u|49:http://www.radioparadise.com/musiclinks/rp_32.m3u|35:http://www.sky.fm/mp3/classical.pls|39:http://www.sky.fm/mp3/classical_low.pls|32:http://www.sky.fm/mp3/the80s.pls|36:http://www.sky.fm/mp3/the80s_low.pls|45:http://bassdrive.com/v2/streams/BassDrive.m3u|46:http://bassdrive.com/v2/streams/BassDrive3.m3u|33:http://somafm.com/secretagent.pls|35:http://somafm.com/secretagent24.pls|
+}
+Add(BASS_ChannelPlay,9406897,462,49)
+{
+ Channel="InetStream"
+}
+Add(Message,12393418,462,189)
+{
+ Caption="Error"
+ Icon=1
+}
+Add(StrCat,13951091,406,189)
+{
+ Str1="Error opening url: "
+ link(onStrCat,12393418:doMessage,[])
+}
+Add(BASS_ChannelEnumTags,12731962,525,105)
+{
+ Channel="InetStream"
+ Type=5
+ link(onEnumTags,14517957:doText,[])
+}
+Add(ListBox,10629913,581,42)
+{
+ Left=50
+ Top=110
+ Width=380
+ Height=125
+}
+Add(Hub,7586771,462,98)
+{
+ link(onEvent2,8049503:doWork2,[])
+}
+Add(Label,3855079,343,140)
+{
+ Left=5
+ Top=40
+ Width=37
+ Height=17
+ Caption="Status:"
+}
+Add(Label,11163659,406,140)
+{
+ Left=50
+ Top=40
+ Width=380
+ Height=17
+ Color=-16777204
+ Caption=""
+ AutoSize=1
+}
+Add(Hub,15405158,406,28)
+{
+ OutCount=4
+ link(onEvent1,8049503:doWork1,[(508,34)])
+ link(onEvent2,10629913:doClear,[(566,41)(566,55)])
+ link(onEvent3,6223963:doEnumTags,[])
+ link(onEvent4,9406897:doPlay,[])
+}
+Add(HubEx,8049503,504,98)
+{
+ link(onEvent,12731962:doEnumTags,[])
+}
+Add(Label,10829890,581,154)
+{
+ Left=5
+ Top=65
+ Width=24
+ Height=17
+ Caption="Title"
+}
+Add(Label,14517957,581,105)
+{
+ Left=50
+ Top=65
+ Width=380
+ Height=35
+ Color=-16777204
+ Caption=""
+ AutoSize=1
+}
+Add(BASS_ChannelEnumTags,6223963,525,42)
+{
+ Channel="InetStream"
+ Type=4
+ link(onEnumTags,10629913:doAdd,[])
+}

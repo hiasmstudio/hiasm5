@@ -1,0 +1,27 @@
+Make(cpp)
+Add(MainForm,1,28,28)
+{
+ Backend=1
+ Caption="Highlighted text"
+ Width=410
+ Height=240
+}
+Add(HilightMemo,2,168,84)
+{
+ Left=12
+ Top=12
+ Width=380
+ Height=165
+ Strings=#17:HiAsm Qt Widgets!|18:Edit this example.|
+ HilightStrings=#13:HiAsm=Green=B|9:Qt=Blue=U|
+ Point(doAddHilightStrings)
+}
+Add(Button,3,28,84)
+{
+ Left=12
+ Top=190
+ Width=155
+ Caption="Highlight Widgets"
+ Data=String(Widgets=Purple=C)
+ link(onClick,2:doAddHilightStrings,[])
+}

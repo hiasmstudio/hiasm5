@@ -1,0 +1,130 @@
+Make(cpp)
+Add(MainForm,1,28,28)
+{
+ Backend=1
+ Caption="Page control"
+ Width=440
+ Height=263
+}
+Add(PageControl,2,217,91)
+{
+ Left=16
+ Top=16
+ Width=400
+ Height=146
+ Childrens=#5:Notes|4:Tags|
+ Selected="base"
+ AutoCreate=0
+ SelectAdd=0
+}
+BEGIN_SDK
+  Add(EditPolyMulti,10,21,21)
+  {
+   WorkCount=#5:##add|8:##select|8:##delete|7:##clear|
+   VarCount=#7:##count|7:##index|
+  }
+END_SDK
+BEGIN_SDK
+  Add(EditPolyMulti,11,21,21)
+  {
+   WorkCount=#5:##add|8:##select|8:##delete|7:##clear|
+   VarCount=#7:##count|7:##index|
+  }
+  Add(PagePanel,12,49,70)
+  {
+   Caption="Notes"
+  }
+  Add(Label,13,91,70)
+  {
+   Left=12
+   Top=12
+   Width=220
+   Caption="Text for this page"
+  }
+  Add(Edit,14,140,70)
+  {
+   Left=12
+   Top=44
+   Width=310
+   Text="An independent note"
+   link(onChange,13:doText,[])
+  }
+END_SDK
+BEGIN_SDK
+  Add(EditPolyMulti,15,21,21)
+  {
+   WorkCount=#5:##add|8:##select|8:##delete|7:##clear|
+   VarCount=#7:##count|7:##index|
+  }
+  Add(PagePanel,16,49,70)
+  {
+   Caption="Tags"
+  }
+  Add(Label,17,91,70)
+  {
+   Left=12
+   Top=12
+   Width=220
+   Caption="Tags for this page"
+  }
+  Add(Edit,18,140,70)
+  {
+   Left=12
+   Top=44
+   Width=310
+   Text="qt, rtcg"
+   link(onChange,17:doText,[])
+  }
+END_SDK
+Add(Button,3,77,91)
+{
+ Left=16
+ Top=178
+ Width=94
+ Caption="Add Notes"
+ Data=String(Notes)
+ link(onClick,2:##add,[])
+}
+Add(Button,4,77,126)
+{
+ Left=118
+ Top=178
+ Width=94
+ Caption="Select first"
+ Data=Integer(0)
+ link(onClick,2:##select,[])
+}
+Add(Button,5,77,161)
+{
+ Left=220
+ Top=178
+ Width=94
+ Caption="Delete first"
+ Data=Integer(0)
+ link(onClick,2:##delete,[])
+}
+Add(Button,6,77,196)
+{
+ Left=322
+ Top=178
+ Width=94
+ Caption="Clear pages"
+ link(onClick,2:##clear,[])
+}
+Add(Button,7,77,238)
+{
+ Left=16
+ Top=216
+ Width=118
+ Caption="Read page count"
+ link(onClick,8:doText,[])
+}
+Add(Label,8,154,238)
+{
+ Left=148
+ Top=217
+ Width=120
+ Height=20
+ Caption=""
+ link(Text,2:##count,[(160,223)(223,223)])
+}

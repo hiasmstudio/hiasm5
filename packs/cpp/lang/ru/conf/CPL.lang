@@ -1,0 +1,6 @@
+Windows Control Panel Extension=Расширение Панели Управления Windows
+Extension name=Имя расширения
+Extension information=Информация о расширении
+Icon displayed in Control Panel=Иконка, отображаемая в Панели Управления
+Executed when the applet is loaded into memory=Выполняется при загрузке апплета в память
+Executed by double clicking on the applet icon=Выполняется при двойном щелчке на иконке апплета

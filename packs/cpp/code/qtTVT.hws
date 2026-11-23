@@ -1,0 +1,55 @@
+func TVTree()
+  return('qt_widget<HiasmTreeViewTrain>(form, ' && cstr(get('qtTreeView')) && ')')
+end
+
+func TVArg(port, value)
+  if(linked(port))
+    return(d(port))
+  end
+  if(not isnull(value) and len(value) > 0)
+    return(value)
+  end
+  return('QVariant()')
+end
+
+func TVMutate(method, expression, success, failure)
+  fvar(row, tree)
+  row = 'tvtRow' && _id_
+  tree = 'tvtTree' && _id_
+  println('{')
+  println('const auto ', row, ' = ', expression, ';')
+  println('if (auto *', tree, ' = ', TVTree(), '; ', tree, ' && ', tree, '->', method, '(', row, ')) {')
+  event(success)
+  println('} else {')
+  event(failure, row)
+  println('} }')
+end
+
+func TVState()
+  return('form.findChild<QObject *>(QStringLiteral("TVTState' && _id_ && '"))')
+end
+
+func TVStartState()
+  println('{ auto *state = new QObject(&form); state->setObjectName(QStringLiteral("TVTState', _id_, '")); }')
+end
+
+func TVNode()
+  return('([](QObject *state) { return state ? state->property("node").toList() : QVariantList(); }(' && TVState() && '))')
+end
+
+func TVRecord(value)
+  println('if (auto *state = ', TVState(), ') state->setProperty("node", ', value, ');')
+end
+
+func TVFileName(value)
+  if(linked('FileName'))
+    return(cstr(d('FileName')))
+  end
+  if(len(get('FileName')) > 0)
+    return(cstr(get('FileName')))
+  end
+  if(not isnull(value) and len(value) > 0)
+    return(value)
+  end
+  return(cstr(get('FileName')))
+end

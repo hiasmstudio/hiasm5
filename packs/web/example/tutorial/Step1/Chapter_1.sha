@@ -1,0 +1,56 @@
+*Chapter 1: Простейшее HTML приложение
+Make(web)
+Add(HtmlEntryPoint,16563582,21,105)
+{
+ link(onStart,8284333:doPrint,[])
+}
+Add(HTM_Html,8284333,77,105)
+{
+ link(onPrint,6847978:doEvent,[])
+}
+Add(Hub,6847978,133,105)
+{
+ link(onEvent1,2288322:doPrint,[])
+ link(onEvent2,763948:doPrint,[(177,118)(177,167)])
+}
+Add(HTM_Head,2288322,189,105)
+{
+ link(onPrint,10304836:doPrint,[])
+}
+Add(HTM_Body,763948,189,161)
+{
+ link(onPrint,13714669:doPrint,[])
+}
+Add(HTM_Title,10304836,245,105)
+{
+ link(onPrint,3973328:doPrint,[])
+}
+Add(VisualText,3973328,301,105)
+{
+ Lines=#37:Chapter 1: Простейшее HTML приложение|
+ Width=235
+ Point(doPrint)
+}
+Add(VisualText,13714669,245,161)
+{
+ Lines=#94:Это пример создания простейшего HTML приложения пакета WEB, отображающее тескт в окне браузера|
+ Width=291
+ Height=32
+ Point(doPrint)
+}
+Add(InfoTip,9564197,84,224)
+{
+ Info=#6:Важно!|
+ Font=[MS Sans Serif,12,1,255,1]
+ Transparent=1
+ Width=365
+ Height=109
+}
+Add(InfoTip,5292217,91,245)
+{
+ Info=#294:  Серия приведенных здесь обучающих примеров расчитана на то, что Вы уже обладаете некоторыми хотя бы базовыми знаниями HTML+CSS и более менее предсталяете возможности обеих технологий. Данные примеры являются кратким экскурсом по общим понятиям этих технологий и их представлению в пакете WEB.|
+ Frame=1
+ HAlign=0
+ Width=351
+ Height=81
+}

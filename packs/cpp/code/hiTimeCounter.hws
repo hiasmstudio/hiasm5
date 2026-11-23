@@ -1,0 +1,13 @@
+func doStart(_data)
+  println('hiasm_ll_state(', _id_, ') = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now().time_since_epoch()).count();')
+  event(onStart)
+end
+
+func doStop(_data)
+  if(get('Precision') == 0)
+    println('const long long hiasm_tc', _id_, ' = (std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now().time_since_epoch()).count() - hiasm_ll_state(', _id_, ')) / 1000;')
+  else
+    println('const long long hiasm_tc', _id_, ' = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now().time_since_epoch()).count() - hiasm_ll_state(', _id_, ');')
+  end
+  event(onStop, 'hiasm_tc' && _id_)
+end

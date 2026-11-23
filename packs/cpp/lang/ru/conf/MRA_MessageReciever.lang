@@ -1,0 +1,6 @@
+Messages from Mail.ru agent=Сообщения от Mail.ru агента
+Defines Mail.ru agent for authorization on the server=Определяет Mail.ru agent для авторизации на сервере
+The event occurs every time after receiving the next message from the Mail.ru server ARG(From, Text, MsgID)=Событие происходит всякий раз после получения очередного сообщения от сервера Mail.ru ARG(From, Text, MsgID)
+The event occurs every time after receiving another offline message from the Mail.ru server ARG(From, Text, MsgID)=Событие происходит всякий раз после получения очередного offline сообщения от сервера Mail.ru ARG(From, Text, MsgID)
+The event occurs every time after receiving the next system message from the Mail.ru server ARG(From, Text, MsgID)=Событие происходит всякий раз после получения очередного системного сообщения от сервера Mail.ru ARG(From, Text, MsgID)
+The event occurs every time a contact authorization request is received=Событие происходит всякий раз после получения запроса на авторизацию контакта

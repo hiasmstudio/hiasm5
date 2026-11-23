@@ -1,0 +1,20 @@
+func doEvent(_data):java
+  fvar(ind, dt, i, evn)
+  ind = Index
+  dt = Data
+  println('switch(', ind, ') {')
+  block.inclvl()
+  for(i = 0; i < _event_count_; i++)
+    evn = cgt.pt_get_name_byid(cgt.pt_arr_event(i))   
+    if(cgt.pt_get_rlink_point(cgt.pt_arr_event(i)))
+      println('case ' + i + ':')
+      block.inclvl()
+      event(evn, dt)
+      println('break;')
+      block.declvl()
+    end
+  end
+  block.declvl()
+  println('}')
+end
+

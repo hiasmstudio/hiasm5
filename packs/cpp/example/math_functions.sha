@@ -1,0 +1,54 @@
+Make(cpp)
+Add(Entry,1,28,28)
+{
+ link(onStart,2:doEvent1,[])
+}
+Add(Hub,2,126,28)
+{
+ OutCount=3
+ link(onEvent1,3:doOperation,[])
+ link(onEvent2,5:doOperation,[])
+ link(onEvent3,7:doEvent1,[])
+}
+Add(Math,3,224,28)
+{
+ Op1=90
+ OpType=13
+ AngleMode=1
+ link(onResult,4:doWrite,[])
+}
+Add(Write,4,322,28)
+{
+}
+Add(Math,5,224,126)
+{
+ Op1=2
+ Op2=8
+ OpType=27
+ link(onResult,6:doWrite,[])
+}
+Add(Write,6,322,126)
+{
+}
+Add(Hub,7,126,224)
+{
+ OutCount=3
+ link(onEvent1,8:doOperation,[])
+ link(onEvent2,8:doClear,[])
+ link(onEvent3,11:doWrite,[])
+}
+Add(Math,8,224,224)
+{
+ Op1=-1
+ OpType=32
+ Default=7
+ link(onError,9:doPrint,[])
+}
+Add(Print,9,322,224)
+{
+ Text=domain error
+}
+Add(Write,11,322,322)
+{
+ link(Data,8:Result,[])
+}

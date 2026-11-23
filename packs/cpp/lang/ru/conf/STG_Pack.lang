@@ -1,0 +1,7 @@
+Storage packaging=Упаковка хранилища
+Path to the default storage file=Путь к файлу хранилища по-умолчанию
+Structured Storage Management=Управление структуированным хранилищем
+Packs storage ARG(PackStgFilePath)=Упаковывает хранилище ARG(PackStgFilePath)
+The event occurs every time after the storage has finished packing=Событие происходит всякий раз после окончания упаковки хранилища
+Path to storage file=Путь к файлу хранилища
+An event for this point is issued when an attempt is made to pack the current storage. If 0 is returned, the packing operation will continue, otherwise it will be cancelled.=Событие на эту точку выдается тогда, когда производится попытка упаковать текущее хранилище. Если будет возвращен 0, то операция упаковки будет продолжена, иначе - отменена

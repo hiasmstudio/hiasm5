@@ -1,0 +1,93 @@
+func DrawTarget()
+  return('dynamic_cast<HiasmMstDraw *>(form.findChild<QObject *>(QStringLiteral("MST_DrawManager' && _id_ && '")))')
+end
+
+func doStart
+  println('{ auto *draw = new HiasmMstDraw(&form);')
+  println('draw->setObjectName(QStringLiteral("MST_DrawManager', _id_, '"));')
+  println('draw->iconSize = ', IconSize, ';')
+  println('draw->gutterStyle = ', get('GutterStyle'), ';')
+  println('draw->styleGrid3D = ', get('StyleGrid3D'), ';')
+  println('draw->singleString = ', get('SingleString') == 'True', ';')
+  println('draw->tabGrid = ', get('TabGrid') == 'True', ';')
+  println('draw->tabGridFrame = ', get('TabGridFrame') == 'True', ';')
+  println('draw->lightTextSel = ', get('LightTextSel') == 'True', ';')
+  println('draw->bumpText = ', get('BumpText') == 'True', ';')
+  println('draw->grid3D = ', get('Grid3D') == 'True', ';')
+  println('draw->gradient = ', get('Gradient') == 'True', ';')
+  println('draw->colorRowSel = ', get('ColorRowSel') == 'True', ';')
+  println('draw->gradientColor = qt_mst_color(qt_text(', cstr(get('GradientColor')), '), form.palette().color(QPalette::Highlight));')
+  println('draw->frameColor = qt_mst_color(qt_text(', cstr(get('FrameColor')), '));')
+  println('draw->bkFrameColor = qt_mst_color(qt_text(', cstr(get('BkFrameColor')), '), form.palette().color(QPalette::ToolTipBase));')
+  println('draw->shadowColor = qt_mst_color(qt_text(', cstr(get('ShadowColor')), '), form.palette().color(QPalette::HighlightedText));')
+  println('draw->lightTxtColor = qt_mst_color(qt_text(', cstr(get('LightTxtColor')), '), form.palette().color(QPalette::HighlightedText));')
+  println('draw->gutterColor = qt_mst_color(qt_text(', cstr(get('GutterColor')), '), form.palette().color(QPalette::Button)); }')
+end
+
+func DrawSet(field, value, operation)
+  if(isnull(value) == 0)
+    println('if (auto *draw = ', DrawTarget(), ') {')
+    if(operation == 2)
+      println('draw->', field, ' = qt_mst_color(qt_mst_value(', value, '), draw->', field, ');')
+    elseif(operation == 1)
+      println('draw->', field, ' = qt_mst_value(', value, ').toInt() != 0;')
+    else
+      println('draw->', field, ' = qt_mst_value(', value, ').toInt();')
+    end
+    println('draw->update();')
+    event(onChangeProperty)
+    println('}')
+  end
+end
+
+func doIconSize(_data)
+  DrawSet('iconSize', _data, 0)
+end
+func doSingleString(_data)
+  DrawSet('singleString', _data, 1)
+end
+func doTabGrid(_data)
+  DrawSet('tabGrid', _data, 1)
+end
+func doTabGridFrame(_data)
+  DrawSet('tabGridFrame', _data, 1)
+end
+func doGutterStyle(_data)
+  DrawSet('gutterStyle', _data, 0)
+end
+func doLightTextSel(_data)
+  DrawSet('lightTextSel', _data, 1)
+end
+func doBumpText(_data)
+  DrawSet('bumpText', _data, 1)
+end
+func doGrid3D(_data)
+  DrawSet('grid3D', _data, 1)
+end
+func doStyleGrid3D(_data)
+  DrawSet('styleGrid3D', _data, 0)
+end
+func doGradient(_data)
+  DrawSet('gradient', _data, 1)
+end
+func doColorRowSel(_data)
+  DrawSet('colorRowSel', _data, 1)
+end
+func doGradientColor(_data)
+  DrawSet('gradientColor', _data, 2)
+end
+func doFrameColor(_data)
+  DrawSet('frameColor', _data, 2)
+end
+func doBkFrameColor(_data)
+  DrawSet('bkFrameColor', _data, 2)
+end
+func doShadowColor(_data)
+  DrawSet('shadowColor', _data, 2)
+end
+func doLightTxtColor(_data)
+  DrawSet('lightTxtColor', _data, 2)
+end
+func doGutterColor(_data)
+  DrawSet('gutterColor', _data, 2)
+end

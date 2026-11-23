@@ -1,0 +1,194 @@
+Make(cpp)
+Add(Button,13708268,42,77)
+{
+ Left=10
+ Top=10
+ Caption="Record"
+ link(onClick,5066922:doStart,[])
+}
+Add(Button,14140950,42,126)
+{
+ Left=75
+ Top=10
+ Caption="Stop"
+ link(onClick,5066922:doStop,[(96,132)(96,90)])
+}
+Add(BASS_RecordStart,5066922,119,77)
+{
+ Freq=44100
+ Mode=1
+ Name="mainrec"
+}
+Add(BASS_Version,10183901,175,231)
+{
+ link(onCheckOk,12302345:doInit,[])
+ link(onCheckFailed,109118:doMessage,[(219,244)(219,286)])
+}
+Add(Message,11232751,175,280)
+{
+ Message="Error BASS initialization"
+ Caption="Error"
+ Icon=1
+}
+Add(Message,109118,231,280)
+{
+ Message="Incorrect version of BASS library "
+ Caption="Error"
+ Icon=1
+}
+Add(MainForm,16358250,42,217)
+{
+ Width=387
+ Height=454
+ Caption="BASS record inputs demo"
+ Point(Handle)
+ link(onCreate,4252681:doInit,[])
+}
+Add(BASS_Init,4252681,119,231)
+{
+ link(onInit,10183901:doCheck,[])
+ link(onError,11232751:doMessage,[(163,244)(163,286)])
+ link(Handle,16358250:Handle,[(139,219)(93,219)(93,261)(48,261)])
+}
+Add(BASS_RecordCenter,12302345,231,231)
+{
+ link(onInit,15862958:doEnumInputs,[])
+ link(onError,11713735:doMessage,[(275,244)(275,286)])
+}
+Add(Message,11713735,287,280)
+{
+ Message="InitRecord failed!"
+ Caption="Error"
+ Icon=1
+}
+Add(PaintBox,8758719,434,280)
+{
+ Left=10
+ Top=40
+ Width=360
+ Height=120
+ link(onBeforeDraw,5631139:doDraw,[])
+}
+Add(BASS_ChannelVisibleSpectrum,5631139,490,280)
+{
+ SoundStream="mainrec"
+ Mode=1
+ link(WindowsHandle,8758719:Bitmap,[(496,268)(468,268)(468,324)(440,324)])
+}
+Add(Timer,5820169,385,280)
+{
+ Interval=10
+ link(onTimer,8758719:doRefresh,[])
+}
+Add(BASS_RecordInput,15862958,287,231)
+{
+ link(onEnumInputs,14934018:doEvent1,[])
+}
+Add(ChildPanelEx,11572707,434,231)
+{
+ Mode=1
+}
+BEGIN_SDK
+  Add(EditMultiEx,15548015,21,21)
+  {
+   WorkCount=#5:##add|
+   Width=608
+   Height=228
+   Point(##add)
+   link(##add,4584490:doGet,[(105,27)(105,181)])
+  }
+  Add(Panel,8363783,567,98)
+  {
+   Left=25
+   Top=165
+   Width=329
+   Height=26
+   Point(doTop)
+  }
+  Add(CheckBox,11557791,378,112)
+  {
+   Left=240
+   Top=5
+   Width=75
+   Height=15
+   Caption="on"
+   Point(doCaption)
+   Point(onClick)
+   link(onClick,10832955:doWork2,[])
+  }
+  Add(ScrollBar,903568,378,56)
+  {
+   Left=5
+   Top=5
+   Width=220
+   link(onPosition,14509023:doOperation,[])
+  }
+  Add(MT_Get,4584490,189,175)
+  {
+   link(onData,14133430:doGet,[(229,181)(229,153)])
+   link(onGet,11557791:doCaption,[(358,188)(358,125)])
+  }
+  Add(MT_Get,14133430,238,147)
+  {
+   link(onData,16133573:doGet,[(278,153)(278,111)])
+   link(onGet,16264771:doOperation,[])
+  }
+  Add(MT_Get,16133573,287,105)
+  {
+   link(onData,4613851:doValue,[])
+   link(onGet,11557791:doCheck,[])
+  }
+  Add(Math,16264771,287,154)
+  {
+   OpType=2
+   Op2=100
+   ResultType=0
+   link(onResult,903568:doPosition,[(348,160)(348,62)])
+  }
+  Add(MathParse,12046249,504,105)
+  {
+   DataCount=1
+   MathStr="165 + %1*28"
+   link(onResult,8363783:doTop,[])
+  }
+  Add(BASS_InputControl,9998094,441,189)
+  {
+   link(Index,4613851:Value,[])
+   link(Volume,14509023:Result,[])
+   link(State,11557791:Checked,[(461,167)(384,167)])
+  }
+  Add(Math,14509023,448,56)
+  {
+   OpType=3
+   Op2=100
+   Default=-1
+   link(onResult,10832955:doWork1,[(492,62)(492,91)(424,91)])
+  }
+  Add(Memory,4613851,441,105)
+  {
+   link(onData,12046249:doCalc,[])
+  }
+  Add(HubEx,10832955,420,112)
+  {
+   Angle=1
+   link(onEvent,9998094:doSetInput,[(424,195)])
+  }
+END_SDK
+Add(Counter,188776,385,182)
+{
+}
+Add(MT_Add,4962988,385,231)
+{
+ link(onAdd,11572707:##add,[])
+ link(Data,188776:Count,[])
+}
+Add(Hub,14934018,336,231)
+{
+ link(onEvent1,4962988:doAdd,[])
+ link(onEvent2,188776:doNext,[(376,244)(376,188)])
+}
+Add(BASS_ChannelVisibleOcilloScope,13141873,490,343)
+{
+ SoundStream="mainrec"
+ ScaleY=50
+}

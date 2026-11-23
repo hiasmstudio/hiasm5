@@ -1,0 +1,6 @@
+Rectangular area=Прямоугольная область
+Defines the X coordinate of the upper left corner=Определяет Х координату левого верхнего угла
+Defines the Y coordinate of the upper left corner=Определяет Y координату левого верхнего угла
+Defines the X coordinate of the lower right corner=Определяет Х координату правого нижнего угла
+Defines the Y coordinate of the lower right corner=Определяет Y координату правого нижнего угла
+Forming an area based on its coordinates=Формирование области по её координатам

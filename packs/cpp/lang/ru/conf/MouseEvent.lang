@@ -1,0 +1,17 @@
+Mouse Action Emulator=Эмулятор действий мыши
+Default mouse button=Кнопка мыши по-умолчанию
+Number of scroll units=Кол-во единиц прокрутки
+Presses a Button=Нажимает кнопку Button
+Moves the mouse X pixels horizontally and Y pixels vertically=Перемещает мышку на X пикселей по горизонтали и Y пикселей по вертикали
+Sets the mouse to X and Y coordinates=Устанавливает мышку в координаты X и Y
+Scrolls the mouse wheel (Win 2K only)=Осуществляет прокрутку колесика мыши (только в Win 2K)
+Hides/shows the mouse cursor in the application=Скрывает/показывает курсор мыши в приложении
+Emulates a mouse button press=Эмулирует нажатие кнопки мыши
+Emulates releasing a mouse button=Эмулирует отпускание кнопки мыши
+The event occurs every time after doVisible, outputting the mouse display number to the stream (at -1 the mouse is disabled)=Событие происходит всякий раз после doVisible, выдавая номер дисплея мыши в поток (при -1 мышь выключена)
+Contains the X coordinate of the mouse relative to the screen=Содержит координату X мыши относительно экрана
+Contains the Y coordinate of the mouse relative to the screen=Содержит координату Y мыши относительно экрана
+Contains the ID of the window under the mouse cursor=Содержит идентификатор окна под курсором мыши
+Mouse button=Кнопка мыши
+X coordinate=Координата Х
+Y coordinate=Координата Y

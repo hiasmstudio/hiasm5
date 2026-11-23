@@ -1,0 +1,97 @@
+*Chapter 5: HTML приложение с картинками
+Make(web)
+Add(InfoTip,9564197,21,259)
+{
+ Info=#6:Важно!|
+ Font=[MS Sans Serif,12,1,255,1]
+ Transparent=1
+ Width=365
+ Height=130
+}
+Add(InfoTip,5292217,28,280)
+{
+ Info=#442:  HTML документ не поддерживает вставку внутрь себя каких бы то ни было внешних документов. Поэтому при использование графики в ваших приложениях не следует забывать про то, что картинки не переносятся автоматически вместе с документом. Кроме того не следует указывать абсолютные пути(в этом примере путь до логотипа задан относительно папки с примерами), поскольку при переносе документа на сервер в internet эти пути заведомо будут другими.|
+ Frame=1
+ HAlign=0
+ Width=351
+ Height=109
+}
+Add(HtmlEntryPoint,16563582,21,105)
+{
+ link(onStart,8284333:doPrint,[])
+}
+Add(HTM_Html,8284333,77,105)
+{
+ link(onPrint,6847978:doEvent,[])
+}
+Add(Hub,6847978,133,105)
+{
+ link(onEvent1,2288322:doPrint,[])
+ link(onEvent2,763948:doPrint,[(177,118)(177,209)])
+}
+Add(HTM_Head,2288322,189,105)
+{
+ link(onPrint,13151932:doEvent,[])
+}
+Add(HTM_Body,763948,189,203)
+{
+ link(onPrint,4749107:doPrint,[])
+}
+Add(HTM_Title,10304836,301,105)
+{
+ link(onPrint,3973328:doPrint,[])
+}
+Add(VisualText,3973328,357,105)
+{
+ Lines=#39:Chapter 5: HTML приложение с картинками|
+ Width=235
+ Point(doPrint)
+}
+Add(VisualText,13714669,301,203)
+{
+ Lines=#95:Попробуем добавить в наш документ вывод внешней картинки. Отобразим логотип HiAsm из папки Int.|
+ Width=291
+ Height=32
+ Point(doPrint)
+}
+Add(CSS,208528,357,154)
+{
+ Tag="table"
+ BorderColor="gray"
+ BorderWidth="1px"
+ BorderStyle=3
+ BgColor="silver"
+ link(onPrint,6191608:doPrint,[])
+}
+Add(CSS,6191608,413,154)
+{
+ Tag="tr"
+ BgColor="#dddddd"
+ link(onPrint,1818881:doPrint,[])
+}
+Add(HTM_Style,8768063,301,154)
+{
+ link(onPrint,208528:doPrint,[])
+}
+Add(HTM_Span,4749107,245,203)
+{
+ Class="text"
+ link(onPrint,13714669:doPrint,[])
+ link(onAfterPrint,5150871:doPrint,[(292,216)(292,251)])
+}
+Add(Hub,13151932,245,105)
+{
+ link(onEvent1,10304836:doPrint,[])
+ link(onEvent2,8768063:doPrint,[(289,118)(289,160)])
+}
+Add(HTM_Img,5150871,413,245)
+{
+ Src="../../../../../int/logo.jpg"
+}
+Add(CSS,1818881,469,154)
+{
+ Tag="img"
+ BorderWidth="0"
+ MTop="10px"
+ Float=1
+}

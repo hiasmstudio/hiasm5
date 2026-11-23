@@ -1,0 +1,43 @@
+func doWork(_data, index):java,html
+  fvar(old, old_body, old_head)
+  if(not isset(_head))
+    var(_head, _body, _section)
+  end
+  
+  old_body = BLK_BODY
+  old_head = BLK_HEAD
+  BLK_BODY = "java_body_" + _id_
+  BLK_HEAD = "java_head_" + _id_
+  block.reg(BLK_BODY)
+  block.reg(BLK_HEAD)
+  old = block.select(BLK_BODY)
+
+  if(issec("php"))      _section = 1
+  elseif(issec("java")) _section = 2 
+  elseif(issec("html")) _section = 3
+  else 
+    error("Unknonw language")
+  end
+
+  sys.selectElement(cgt.el_get_child_id(0))
+  block.lvloff()
+  event(cgt.pt_get_name_byid(cgt.pt_arr_event(index)):java)
+  sys.selectElement(cgt.el_get_parent_id())
+  
+  _body = block.astext()
+  block.delete(block.select(BLK_HEAD)) 
+  _head = block.astext()
+    
+  BLK_BODY = old_body
+  BLK_HEAD = old_head
+  block.delete(block.select(old))
+  event(onPrint, _body)  
+end
+
+func GetVar(_data, index):java,html
+  if(index = 0)
+    return(_body)
+  else
+    return(_head)
+  end
+end

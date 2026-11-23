@@ -1,0 +1,8 @@
+Processor=Процессор
+Returns the full processor name=Возвращает полное имя процессора
+Returns the current processor frequency=Возвращает актуальную частоту процессора
+Returns the size of the L2 cache=Возвращает размер L2 кеша
+Returns the number of processors (cores)=Возвращает количество процессоров(ядер)
+Returns the processor manufacturer=Возвращает производителя процессора
+Returns the size of the L1D cache=Возвращает размер L1D кеша
+Returns the size of the L1I cache=Возвращает размер L1I кеша

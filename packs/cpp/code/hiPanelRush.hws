@@ -1,0 +1,49 @@
+func Target()
+  return('qt_widget<HiasmRushButton>(form, "PanelRush' && _id_ && '")')
+end
+
+func doStart
+  println('{')
+  println('auto *panel = new HiasmRushButton(qt_text(', cstr(get('Caption')), '), widgetParent);')
+  println('panel->setObjectName(QStringLiteral("PanelRush', _id_, '"));')
+  println('panel->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+  println('panel->setFocusPolicy(Qt::NoFocus);')
+  println('panel->setEnabled(', get('Enabled') == 'True', ');')
+  println('panel->setVisible(', get('Visible') == 'True', ');')
+  println('panel->roundWidth = ', RoundWidth, '; panel->roundHeight = ', RoundHeight, ';')
+  println('panel->spacing = ', Spacing, '; panel->opacity = ', AlphaBlendValue, ';')
+  println('panel->glyphAlpha = ', get('Alpha') == 'True', ';')
+  println('panel->singleGlyph = ', get('OnlyGlyphDef') == 'True', ';')
+  println('panel->glyphX = ', get('GlyphHAlign'), '; panel->glyphY = ', get('GlyphVAlign'), ';')
+  println('panel->textX = ', get('HAlign'), '; panel->textY = ', get('VAlign'), ';')
+  println('if (panel->textX != 0) panel->textX = 3 - panel->textX;')
+  println('panel->dots = ', DotsCount, '; panel->verticalDots = ', get('DotsOrient') == 1, ';')
+  println('panel->setSkin(0, {qt_text(', cstr(d('ColorFrom')), '), qt_text(', cstr(d('ColorTo')), '), qt_text(', cstr(d('ColorText')), '), qt_text(', cstr(d('BorderColor')), '), qt_text(', cstr(d('ColorShadow')), '), QString::number(', get('GradientStyle'), '), QString::number(', BorderWidth, '), QString::number(', ShadowOffset, ')});')
+  println('panel->setSkin(3, {qt_text(', cstr(d('ColorFromDis')), '), qt_text(', cstr(d('ColorToDis')), '), qt_text(', cstr(d('ColorTextDis')), '), qt_text(', cstr(d('BorderColorDis')), '), qt_text(', cstr(d('ColorShadowDis')), '), QString::number(', get('GradientStyleDis'), '), QString::number(', BorderWidthDis, '), QString::number(', ShadowOffsetDis, ')});')
+  println('panel->skins[1] = panel->skins[2] = panel->skins[0];')
+  println('static const QRegularExpression glyphPattern(QStringLiteral("[[]ZIP[0-9A-Fa-f]+[]]"));')
+  println('const auto glyphs = qt_text(', cstr(get('Glyphs')), ');')
+  println('for (auto matches = glyphPattern.globalMatch(glyphs); matches.hasNext();) panel->glyphs.append(qt_bitmap(matches.next().captured()));')
+  if(linked(onClick))
+    println('QObject::connect(panel, &QPushButton::pressed, &form, [&form] {')
+    event(onClick)
+    println('});')
+  end
+  if(sys.inner_parent())
+    println('QWidget *widgetParent = panel;')
+    sys.run_all('dostart')
+  end
+  println('}')
+end
+
+func doCaption(_data)
+  if(len(_data) > 0)
+    println(Target(), '->setText(qt_text(', _data, '));')
+  else
+    println(Target(), '->setText(QString());')
+  end
+end
+
+func doUpdate(_data)
+  println(Target(), '->update();')
+end

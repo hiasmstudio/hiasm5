@@ -1,0 +1,40 @@
+Make(cpp)
+Add(MainForm,2953706,21,105)
+{
+ Height=279
+ Caption="Layout demo"
+}
+Add(Edit,5021945,182,77)
+{
+ Left=5
+ Top=5
+ Layout="main"
+ WidthScale=100
+}
+Add(HBoxLayout,8493884,210,35)
+{
+ Name="main"
+ Space=5
+ Layout="mainh"
+}
+Add(Memo,5028569,182,140)
+{
+ Left=5
+ Top=30
+ Width=110
+ Height=120
+ Layout="mainh"
+ HeightScale=100
+}
+Add(VBoxLayout,727780,217,210)
+{
+ Name="mainh"
+ Space=5
+ Padding=10
+}
+Add(Button,7950936,238,77)
+{
+ Left=60
+ Top=5
+ Layout="main"
+}

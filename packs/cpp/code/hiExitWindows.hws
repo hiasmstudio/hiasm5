@@ -1,0 +1,48 @@
+func Force()
+  if(get('QuickForce') == "True")
+    return('EWX_FORCE')
+  else
+    return('0')
+  end
+end
+
+func Guard()
+  println('#if !defined(_WIN32)')
+  println('#error "ExitWindows is a Windows-only element"')
+  println('#endif')
+end
+
+func doReboot(_data)
+  Guard()
+  println('ExitWindowsEx(EWX_REBOOT | ', Force(), ', 0);')
+end
+
+func doShutdown(_data)
+  Guard()
+  println('ExitWindowsEx(EWX_SHUTDOWN | EWX_POWEROFF | ', Force(), ', 0);')
+end
+
+func doSuspend(_data)
+  Guard()
+  println('SetSuspendState(FALSE, FALSE, FALSE);')
+end
+
+func doLogOff(_data)
+  Guard()
+  println('ExitWindowsEx(EWX_LOGOFF | ', Force(), ', 0);')
+end
+
+func doHibernate(_data)
+  Guard()
+  println('SetSuspendState(TRUE, FALSE, FALSE);')
+end
+
+func doLockStation(_data)
+  Guard()
+  println('LockWorkStation();')
+end
+
+func doPowerOff(_data)
+  Guard()
+  println('ExitWindowsEx(EWX_POWEROFF | ', Force(), ', 0);')
+end

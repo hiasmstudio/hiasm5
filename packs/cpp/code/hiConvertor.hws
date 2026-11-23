@@ -1,0 +1,62 @@
+func Data(value)
+  if(linked('Data'))
+    return(d('Data'))
+  end
+  if(len(value) > 0)
+    return(value)
+  end
+  return('""')
+end
+
+func FillReverse()
+  if(get('DirectFill') == "Reverse")
+    return(1)
+  else
+    return(0)
+  end
+end
+
+func Pad(expr)
+  return('[](std::string s, int digits, const std::string &fill, int reverse) { if(fill.empty() || digits <= static_cast<int>(s.size())) return s; std::string pad; while(static_cast<int>(pad.size()) < digits - static_cast<int>(s.size())) pad += fill; const std::string add = pad.substr(0, static_cast<std::size_t>(digits) - s.size()); return reverse ? s + add : add + s; }(' && expr && ', ' && get('Digits') && ', ' && cstr(get('SymbolFill')) && ', ' && FillReverse() && ')')
+end
+
+func IntData(value)
+  return('std::atoll(hiasm_text(' && Data(value) && ').c_str())')
+end
+
+func PadZero(expr)
+  return('[](std::string s, int digits, int reverse) { if(digits <= static_cast<int>(s.size())) return s; std::string add(static_cast<std::size_t>(digits) - s.size(), static_cast<char>(48)); return reverse ? s + add : add + s; }(' && expr && ', ' && get('Digits') && ', ' && FillReverse() && ')')
+end
+
+func Expr(value)
+  fvar(mode)
+  mode = get('Mode')
+  switch(mode)
+    case 1: return('std::atoi(hiasm_text(' && Data(value) && ').c_str())')
+    case 2: return('static_cast<int>(std::atof(hiasm_text(' && Data(value) && ').c_str()))')
+    case 3: return('[](const std::string &s) { return s.empty() ? 0 : static_cast<int>(static_cast<unsigned char>(s[0])); }(hiasm_text(' && Data(value) && '))')
+    case 4: return('[](int value) { return std::string(1, static_cast<char>(value & 0xFF)); }(static_cast<int>(' && IntData(value) && '))')
+    case 5: return('static_cast<int>(std::strtol(hiasm_text(' && Data(value) && ').c_str(), nullptr, 16))')
+    case 6: return(PadZero('[](int value) { char buf[32]; std::snprintf(buf, sizeof(buf), "%X", value); return std::string(buf); }(static_cast<int>(' && IntData(value) && '))'))
+    case 7: return('static_cast<int>(std::strtol(hiasm_text(' && Data(value) && ').c_str(), nullptr, 2))')
+    case 8: return(PadZero('[](int value) { std::string out; unsigned v = static_cast<unsigned>(value); do { out.insert(out.begin(), static_cast<char>((v & 1) ? 49 : 48)); v >>= 1; } while(v); return out; }(static_cast<int>(' && IntData(value) && '))'))
+    case 9: return('hiasm_text(std::atof(hiasm_text(' && Data(value) && ').c_str()))')
+    case 10: return('std::atof(hiasm_text(' && Data(value) && ').c_str())')
+    case 11: return('std::string(' && Data(value) && ')')
+    case 12: return('std::string(' && Data(value) && ')')
+    case 13: return('[](int value) { if(value <= 0 || value > 3999) return std::to_string(value); const std::pair<int, const char*> table[] = {{1000, "M"}, {900, "CM"}, {500, "D"}, {400, "CD"}, {100, "C"}, {90, "XC"}, {50, "L"}, {40, "XL"}, {10, "X"}, {9, "IX"}, {5, "V"}, {4, "IV"}, {1, "I"}}; std::string out; for(const auto &item : table) while(value >= item.first) { out += item.second; value -= item.first; } return out; }(static_cast<int>(' && IntData(value) && '))')
+    case 14: return('[](const std::string &s) { int total = 0, prev = 0; for(char c : s) { int value = 0; switch(c) { case 73: value = 1; break; case 86: value = 5; break; case 88: value = 10; break; case 76: value = 50; break; case 67: value = 100; break; case 68: value = 500; break; case 77: value = 1000; break; default: continue; } total += value > prev ? value - 2 * prev : value; prev = value; } return total; }(hiasm_text(' && Data(value) && '))')
+    case 15: return('[](const std::string &s) { std::string out; for(std::size_t i = 0; i < s.size(); i += 3) { if(!out.empty()) out += static_cast<char>(32); out += s.substr(i, 3); } return out; }(hiasm_text(' && Data(value) && '))')
+    case 16: return('[](long long n, const std::string &w1, const std::string &w2, const std::string &w5) { const int m100 = static_cast<int>(std::llabs(n) % 100), m10 = static_cast<int>(std::llabs(n) % 10); const std::string &word = (m100 >= 11 && m100 <= 14) ? w5 : (m10 == 1 ? w1 : (m10 >= 2 && m10 <= 4 ? w2 : w5)); return std::to_string(n) + " " + word; }(' && IntData(value) && ', ' && cstr(get('Word_1')) && ', ' && cstr(get('Word_2')) && ', ' && cstr(get('Word_5')) && ')')
+    default: return(Pad('std::to_string(' && IntData(value) && ')'))
+  end
+end
+
+func doConvert(_data)
+  println('hiasm_str_state(', _id_, ') = hiasm_text(', Expr(_data), ');')
+  event(onResult, 'hiasm_str_state(' && _id_ && ')')
+end
+
+func Result()
+  return('hiasm_str_state(' && _id_ && ')')
+end

@@ -1,0 +1,13 @@
+Motherboard=Материнская плата
+Network name of the computer (dot - local computer)=Сетевое имя компьютера (точка - локальный компьютер)
+Parameter fields in database query format (separated by commas)=Поля параметров в формате запроса к БД (разделение запятыми)
+Gets motherboard parameters=Получает парметры материнской платы
+The event occurs whenever motherboard parameters are received=Событие происходит всякий раз при получении параметров материнской платы
+The event occurs whenever it is impossible to obtain parameters=Событие происходит всякий раз при невозможности получить параметры
+Motherboard name=Название материнской платы
+Motherboard manufacturer=Производитель материнской платы
+Motherboard model=Модель материнской платы
+Motherboard type=Тип материнской платы
+Motherboard text identifier=Текстовый иденитификатор материнской платы
+Motherboard serial number=Серийный номер материнской платы
+Motherboard version=Версия материнской платы

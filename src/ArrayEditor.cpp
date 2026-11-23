@@ -5,22 +5,28 @@
  *      Author: dilma
  */
 
+#include <cstdint>
+
 #include "ArrayEditor.h"
 
 ArrayEditor::ArrayEditor():
+#ifdef HIASM_GTK4
+	btnAdd(Gtk::StockIconMap::label(Stock::ADD)),btnClear(Gtk::StockIconMap::label(Stock::CLEAR))
+#else
 	btnAdd(Stock::ADD),btnClear(Stock::CLEAR)
+#endif
 {
 	set_default_size(300, 400);
 
-	add_button(Gtk::Stock::OK, 1);
+	add_button(Stock::OK, 1);
 
 	pFixed.add(pEditor);
-	pFixed.signal_size_allocate().connect(sigc::mem_fun(*this, &ArrayEditor::props_on_size_allocate));
-	pFixed.signal_button_press_event().connect(sigc::mem_fun(pEditor, &PropEditor::on_button_press_event));
+	connect_size_allocate(pFixed, sigc::mem_fun(*this, &ArrayEditor::props_on_size_allocate));
+	connect_button_press(pFixed, sigc::mem_fun(pEditor, &PropEditor::on_button_press_event));
 	pFixed.signal_button_release_event().connect(sigc::mem_fun(pEditor, &PropEditor::on_button_release_event));
-	pFixed.signal_motion_notify_event().connect(sigc::mem_fun(pEditor, &PropEditor::on_motion_notify_event));
+	connect_motion_notify(pFixed, sigc::mem_fun(pEditor, &PropEditor::on_motion_notify_event));
 	pScroll.set_policy(POLICY_AUTOMATIC, POLICY_AUTOMATIC);
-	pScroll.add(pFixed);
+	scrolled_set_child(pScroll, pFixed);
 	pScroll.set_size_request(200, 300);
 
 	bbox.add(btnAdd);
@@ -30,10 +36,10 @@ ArrayEditor::ArrayEditor():
 	hbox.pack_start(pScroll, true, true);
 	hbox.pack_end(bbox, false, false);
 
-	get_vbox()->pack_start(state, false, false);
-	get_vbox()->pack_end(hbox, true, true);
+	box_pack_start(*get_content_area(), state, false, false, 0);
+	box_pack_end(*get_content_area(), hbox, true, true, 0);
 
-	get_vbox()->show_all();
+	get_content_area()->show();
 
 	btnAdd.signal_clicked().connect(sigc::mem_fun(*this, &ArrayEditor::on_add_click));
 	btnClear.signal_clicked().connect(sigc::mem_fun(*this, &ArrayEditor::on_clear_click));
@@ -52,7 +58,7 @@ void ArrayEditor::edit(void *value) {
 
 	updateState();
 
-	run();
+	dialog_run(*this);
 	hide();
 }
 
@@ -107,7 +113,7 @@ void ArrayEditor::addValueToEditor(const ustring &name, void *value) {
 }
 
 void ArrayEditor::updateState() {
-	int i = pEditor.select ? (long)pEditor.select->data : -1;
+	int i = pEditor.select ? (int)(intptr_t)pEditor.select->data : -1;
 	state.set_text(ustring("Items: ") + int_to_str(array->size()) + ", select: " + int_to_str(i));
 }
 

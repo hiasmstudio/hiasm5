@@ -1,0 +1,17 @@
+func doEnum(_data)
+  println(arr, ' = ', Array, ';')
+  println('for( var ', _item, ' in ', arr, ') {')
+  block.inclvl()
+  event(onEnum, arr && '[' && _item && ']')
+  block.declvl()
+  println('}')
+  event(onEndEnum)
+end
+
+func Item()
+  return(arr && '[' && _item && ']')
+end
+
+func Index()
+  return(_item)
+end

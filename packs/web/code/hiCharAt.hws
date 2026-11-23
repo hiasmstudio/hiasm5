@@ -1,0 +1,19 @@
+section java
+
+func doCharAt(_data)
+  if(linked(Result))
+    println(ch, ' = ', SrcStr, '.charAt(', Index, ');')
+    event(onCharAt, ch) 
+  else
+    event(onCharAt, SrcStr && '.charAt(' && Index && ')')
+  end
+end
+
+func Result()
+  if(linked(doCharAt))
+    return(ch)
+  else
+    return(SrcStr && '.charAt(' && Index && ')')
+  end
+end
+

@@ -1,0 +1,19 @@
+func doProcessMessages(_data)
+  if(is_gui_project())
+    println('while(g_main_context_pending(NULL)) g_main_context_iteration(NULL, FALSE);')
+  end
+end
+
+func doLoopMessages(_data)
+  if(is_gui_project())
+    println('gtk_main();')
+  end
+end
+
+func AppFileName()
+  return('std::filesystem::absolute(std::string(argv[0])).string()')
+end
+
+func Params()
+  return('[](int argc, char **argv) { std::vector<std::string> out; for(int i = 1; i < argc; ++i) out.push_back(argv[i]); return out; }(argc, argv)')
+end

@@ -1,0 +1,92 @@
+*ќтрисовка эллипсов с убывающей R составл€ющей цвета
+Make(cpp)
+Add(MainForm,18192,56,98)
+{
+ Left=131
+ Top=52
+ Width=550
+ Height=550
+ Font=[Arial,8,0,0,1]
+ Caption="Ellipse"
+ BorderStyle=3
+ link(onCreate,31785:doFor,[])
+}
+Add(GetDataEx,194253,217,158)
+{
+ Angle=3
+ link(Data,31785:Position,[(118,163)])
+}
+Add(PointXY,47468,266,189)
+{
+ link(X,14370786:Var2,[])
+ link(Y,14370786:Var3,[(279,163)])
+}
+Add(MathParse,56984,266,112)
+{
+ DataCount=1
+ MathStr="(255 - %1)  *2"
+ ResultType=0
+ link(onResult,775:doDraw,[(305,118)(305,328)(228,328)(228,293)])
+}
+Add(Img_Ellipse,775,238,287)
+{
+ Point2AsOffset=0
+ Style=1
+ Point(BgColor)
+ Point(Point1)
+ Point(Point2)
+ link(Bitmap,3001651:Var3,[(244,233)])
+ link(Color,15429529:Var1,[(251,240)])
+ link(BgColor,15429529:Var2,[])
+ link(Point1,89528:Point,[(265,230)(223,230)])
+ link(Point2,47468:Point,[])
+}
+Add(GetDataEx,3001651,168,228)
+{
+ link(Data,14725897:Bitmap,[])
+}
+Add(Img_Text,28603,168,287)
+{
+ X=50
+ Y=475
+ Font=[Courier New,11,1,65280,1]
+ Text="ќтрисовка эллипсов с убывающей R составл€ющей цвета"
+ Point(Orientation)
+ link(Bitmap,3001651:Var2,[])
+ link(Orientation,6652827:Value,[])
+}
+Add(GetDataEx,14370786,266,158)
+{
+ link(Data,56984:Result,[])
+}
+Add(PointXY,89528,217,189)
+{
+ link(X,194253:Var2,[])
+ link(Y,10895933:Var2,[])
+}
+Add(For,31785,112,112)
+{
+ End=255
+ link(onEvent,56984:doCalc,[])
+ link(onStop,28603:doDraw,[(156,125)(156,293)])
+}
+Add(PaintBox,14725897,168,189)
+{
+ Width=544
+ Height=527
+ Align=5
+ Color=0
+}
+Add(GetDataEx,10895933,224,158)
+{
+ Angle=3
+ link(Data,194253:Var3,[])
+}
+Add(GetDataEx,15429529,252,235)
+{
+ link(Data,10895933:Var3,[(258,163)])
+}
+Add(Memory,6652827,182,238)
+{
+ Default=Integer(0)
+}

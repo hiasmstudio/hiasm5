@@ -1,0 +1,10 @@
+Joining two strings into one using a delimiter=Соединение двух строк в одну через разделитель
+Separator between lines=Разделитель между строками
+Left line by default=Левая строка по-умолчанию
+Right line by default=Правая строка по-умолчанию
+Connects strings Str1 and Str2 via Delimiter and outputs the result to the stream=Соединяет строки Str1 и Str2 через Delimiter и выдает в поток результат
+Clears the internal buffer of the result of an operation=Очищает внутренний буфер результата операции
+The event occurs whenever strings are joined=Событие происходит всякий раз при соединении строк
+Contains the result of the operation=Содержит результат операции
+Left line=Левая строка
+Right line=Правая строка

@@ -1,0 +1,7 @@
+Manage User Subscription=Управление подпиской пользователя
+Jabber client=Клиент Jabber
+Subscription status=Статус подписки
+Sends a request to change the subscription of the specified JID ARG(JID, State)=Отправляет запрос об изменении подписки указанного JID ARG(JID, State)
+Removes the specified JID from the roster list ARG(JID)=Удаляет указанный JID из ростер листа ARG(JID)
+The event occurs whenever information about a change in the user's subscription state is received ARG(JID, State)=Событие происходит всякий раз при получении информации об изменении состояния подписки пользователя ARG(JID, State)
+ID of the contact whose subscription status you want to change=Идентификатор контакта, чье состояние подписки требуется изменить

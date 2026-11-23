@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect><x>0</x><y>0</y><width>1280</width><height>820</height></rect>
+  </property>
+  <property name="windowTitle">
+   <string>HiAsm</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QVBoxLayout" name="centralLayout">
+    <property name="leftMargin"><number>0</number></property>
+    <property name="topMargin"><number>0</number></property>
+    <property name="rightMargin"><number>0</number></property>
+    <property name="bottomMargin"><number>0</number></property>
+    <item>
+     <widget class="QTabWidget" name="tabs">
+      <property name="tabsClosable"><bool>true</bool></property>
+      <property name="documentMode"><bool>true</bool></property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QDockWidget" name="paletteDock">
+   <property name="windowTitle"><string>Element palette</string></property>
+   <attribute name="dockWidgetArea"><number>1</number></attribute>
+   <widget class="QWidget" name="paletteDockContents">
+    <layout class="QVBoxLayout" name="paletteLayout">
+     <item><widget class="QScrollArea" name="palette">
+      <property name="widgetResizable"><bool>true</bool></property>
+      <property name="horizontalScrollBarPolicy"><enum>Qt::ScrollBarAlwaysOff</enum></property>
+     </widget></item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="propertyDock">
+   <property name="windowTitle"><string>Properties</string></property>
+   <attribute name="dockWidgetArea"><number>2</number></attribute>
+   <widget class="QWidget" name="propertyDockContents">
+    <layout class="QVBoxLayout" name="propertyLayout">
+     <item><widget class="QTreeWidget" name="properties"/></item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="debugDock">
+   <property name="windowTitle"><string>Debug</string></property>
+   <attribute name="dockWidgetArea"><number>8</number></attribute>
+   <widget class="QWidget" name="debugDockContents">
+    <layout class="QVBoxLayout" name="debugLayout">
+     <item><widget class="QPlainTextEdit" name="debugOutput"><property name="readOnly"><bool>true</bool></property></widget></item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="terminalDock">
+   <property name="windowTitle"><string>Terminal</string></property>
+   <attribute name="dockWidgetArea"><number>8</number></attribute>
+   <widget class="QWidget" name="terminalDockContents"/>
+  </widget>
+  <widget class="QDockWidget" name="catalogDock">
+   <property name="windowTitle"><string>Project catalog</string></property>
+   <attribute name="dockWidgetArea"><number>2</number></attribute>
+   <widget class="QWidget" name="catalogDockContents"/>
+  </widget>
+  <widget class="QDockWidget" name="repositoryDock">
+   <property name="windowTitle"><string>Project repository</string></property>
+   <attribute name="dockWidgetArea"><number>2</number></attribute>
+   <widget class="QWidget" name="repositoryDockContents"/>
+  </widget>
+  <widget class="QDockWidget" name="buildSettingsDock">
+   <property name="windowTitle"><string>Build settings</string></property>
+   <attribute name="dockWidgetArea"><number>2</number></attribute>
+   <widget class="QWidget" name="buildSettingsDockContents"/>
+  </widget>
+  <widget class="QDockWidget" name="errorsDock">
+   <property name="windowTitle"><string>Errors</string></property>
+   <attribute name="dockWidgetArea"><number>8</number></attribute>
+   <widget class="QWidget" name="errorsDockContents">
+    <layout class="QVBoxLayout" name="errorsLayout">
+     <item><widget class="QTreeWidget" name="errors"><property name="rootIsDecorated"><bool>false</bool></property></widget></item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry"><rect><x>0</x><y>0</y><width>1280</width><height>22</height></rect></property>
+   <widget class="QMenu" name="fileMenu"><property name="title"><string>File</string></property>
+    <addaction name="actionNew"/><addaction name="actionOpen"/><addaction name="actionSave"/><addaction name="actionSaveAs"/><addaction name="actionClose"/><addaction name="separatorFile1"/><addaction name="actionProjectManager"/><addaction name="separatorFile2"/><addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="buildMenu"><property name="title"><string>Build</string></property><addaction name="actionBuild"/><addaction name="actionRun"/><addaction name="actionStop"/></widget>
+   <widget class="QMenu" name="viewMenu"><property name="title"><string>View</string></property><addaction name="actionFormEdit"/></widget>
+   <widget class="QMenu" name="helpMenu"><property name="title"><string>Help</string></property><addaction name="actionAbout"/></widget>
+   <addaction name="fileMenu"/><addaction name="buildMenu"/><addaction name="viewMenu"/><addaction name="helpMenu"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolbar"><property name="windowTitle"><string>Main toolbar</string></property><addaction name="actionNew"/><addaction name="actionOpen"/><addaction name="actionSave"/><addaction name="actionFormEdit"/><addaction name="separatorTool1"/><addaction name="actionBuild"/><addaction name="actionRun"/><addaction name="actionStop"/></widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionNew"><property name="text"><string>New</string></property><property name="shortcut"><string>Ctrl+N</string></property></action>
+  <action name="actionOpen"><property name="text"><string>Open...</string></property><property name="shortcut"><string>Ctrl+O</string></property></action>
+  <action name="actionSave"><property name="text"><string>Save</string></property><property name="shortcut"><string>Ctrl+S</string></property></action>
+  <action name="actionSaveAs"><property name="text"><string>Save as...</string></property><property name="shortcut"><string>Ctrl+Shift+S</string></property></action>
+  <action name="actionClose"><property name="text"><string>Close</string></property><property name="shortcut"><string>Ctrl+W</string></property></action>
+  <action name="actionProjectManager"><property name="text"><string>Project manager...</string></property></action>
+  <action name="actionExit"><property name="text"><string>Exit</string></property><property name="shortcut"><string>Ctrl+Q</string></property></action>
+  <action name="actionFormEdit"><property name="text"><string>Form editor</string></property><property name="checkable"><bool>true</bool></property></action>
+  <action name="actionBuild"><property name="text"><string>Build</string></property><property name="shortcut"><string>F7</string></property></action>
+  <action name="actionRun"><property name="text"><string>Run</string></property><property name="shortcut"><string>F9</string></property></action>
+  <action name="actionStop"><property name="text"><string>Stop</string></property><property name="enabled"><bool>false</bool></property><property name="shortcut"><string>Shift+F9</string></property></action>
+  <action name="actionAbout"><property name="text"><string>About HiAsm</string></property></action>
+  <action name="separatorFile1"><property name="separator"><bool>true</bool></property></action>
+  <action name="separatorFile2"><property name="separator"><bool>true</bool></property></action>
+  <action name="separatorTool1"><property name="separator"><bool>true</bool></property></action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

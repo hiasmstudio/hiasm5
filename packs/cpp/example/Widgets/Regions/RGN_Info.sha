@@ -1,0 +1,55 @@
+Make(cpp)
+Add(MainForm,2953706,161,133)
+{
+ Width=501
+ Caption="Тест компонента RGN_GetData"
+ Position=1
+ link(onCreate,12286427:doCreateElliptic,[(205,153)(205,139)])
+}
+Add(RGN_Elliptic,12286427,217,133)
+{
+ Point1=327685
+ Point2=5570665
+ link(onCreateElliptic,5125719:doGetData,[])
+}
+Add(RGN_SetToWindow,5249926,329,133)
+{
+ link(onSetRegion,4332254:doString,[(401,139)(401,270)(233,270)(233,202)])
+ link(Handle,13710672:Handle,[])
+}
+Add(PaintBox,13710672,322,84)
+{
+ Left=45
+ Top=25
+ Width=180
+ Height=210
+ Color=32768
+ Point(Handle)
+}
+Add(FormatStr,4332254,259,196)
+{
+ DataCount=7
+ Mask="Отступ слева\t\t%1\r\nОтступ справа\t\t%2\r\nШирина\t\t\t%3\r\nВысота\t\t\t%4\r\nРазмер заголовка в байтах\t%5\r\nКол-во прямоугольников\t%6\r\nРазмер буфера\t\t%7\r\n"
+ link(onFString,13384562:doText,[])
+ link(Str1,5125719:Left,[])
+ link(Str2,5125719:Top,[])
+ link(Str3,5125719:Width,[])
+ link(Str4,5125719:Height,[])
+ link(Str5,5125719:Size,[])
+ link(Str6,5125719:Count,[])
+ link(Str7,5125719:RgnSize,[])
+}
+Add(RGN_GetData,5125719,259,133)
+{
+ Point(Size)
+ Point(Count)
+ Point(RgnSize)
+ link(onGetData,5249926:doSetRegion,[])
+}
+Add(Memo,13384562,329,175)
+{
+ Left=230
+ Top=25
+ Width=205
+ Height=210
+}

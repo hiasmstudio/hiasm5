@@ -1,0 +1,7 @@
+Computer information=Некоторая информация о компьютере
+Information line mask: %t - processor type, %n - number of processors per mat. board=Маска строки информации: %t - тип процессора, %n - число процессоров на мат. плате
+WinInfo string mask. %n - Windows name, %M - Major version, %m - minor version, %b - build number, %p - platform ID, %o - other information (for example Service Pack), %x - OS bitness=Маска строки WinInfo. %n - имя Windows, %M - Major версия, %m - minor версия, %b - номер сборки, %p - ID платформы, %o - другая информация (например Servise Pack), %x - разрядность ОС
+Current user name=Имя текущего пользователя
+Current computer name=Имя текущего компьютера
+Processor type=Тип процессора
+Information about the current version of Windows=Информация о текущей версии Windows

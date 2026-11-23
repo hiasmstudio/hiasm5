@@ -1,0 +1,21 @@
+func create(_data)
+  return('preg_replace(' && Pattern && ',' && Replacement && ',' && StrSrc && ')')
+end
+
+func doPregReplace(_data)
+  if(linked(Result))
+    println(pr_rep, ' = ', create(_data))
+    event(onPregReplace, pr_rep)
+  else
+    event(onPregReplace, create(_data))
+  end 
+end
+
+func Result(_data)
+  if(linked(doPregReplace))
+    return(pr_rep)
+  else
+    return(create(_data))
+  end
+end
+

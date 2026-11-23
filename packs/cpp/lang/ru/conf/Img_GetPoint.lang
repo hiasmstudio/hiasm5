@@ -1,0 +1,10 @@
+Getting pixel color=Получение цвета пикселя
+Default X coordinate of the point=Координата X точки по-умолчанию
+Default Y coordinate of the point=Координата Y точки по-умолчанию
+Graphics object: Bitmap - picture, Handle - window or Windows control=Объект графики: Bitmap - картинка, Handle - окно или элемент управления Windows
+Gets the color of a point with coordinates (X,Y)=Получает цвет точки с координатами (X,Y)
+The event occurs whenever a color is received and returns it to the ARG(Color) stream=Событие происходит всякий раз после получения цвета и возвращает его в поток ARG(Color)
+A graphics object on which color operations are performed=Объект графики, с которым поизводятся операции получения цвета
+Contains the color of the pixel obtained by calling the doGetPixel method=Содержит цвет точки, полученный вызовом метода doGetPixel
+X coordinate of the point=Координата X точки
+Y coordinate of the point=Координата Y точки

@@ -1,0 +1,8 @@
+Multidimensional stream splitting=Разбиение многомерного потока
+Break after Nth=Разбивать после N-го
+Splits a multidimensional stream into two parts=Разбивает многомерный поток на две части
+The event occurs after the left side of the multidimensional stream has been separated and releases the right side into the stream=Событие происходит после отделения левой части многомерного потока и выдает в поток правую часть
+The event occurs immediately after a multidimensional stream is split, before the onSplit event, and outputs the left side to the stream=Событие происходит сразу после разделения многомерного потока перед событием onSplit и выдает в поток левую часть
+Contains the left side of a multidimensional stream=Содержит левую часть многомерного потока
+Contains the right side of a multidimensional stream=Содержит правую часть многомерного потока
+Input MT data=Входные MT-данные

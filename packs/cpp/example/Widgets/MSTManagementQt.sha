@@ -1,0 +1,56 @@
+Make(cpp)
+Add(MainForm,1,21,21)
+{
+ Backend=1
+ Caption="MT table management"
+ Width=450
+ Height=260
+ link(onCreate,2:doData,[])
+}
+Add(DoData,2,91,21)
+{
+ Data=String(Pears)
+ link(onEventData,3:doAddRow,[])
+}
+Add(MST_DB,3,161,21)
+{
+ MSTControl="Inventory"
+ link(onChange,5:doSelect,[])
+}
+Add(MTStrTbl,4,91,105)
+{
+ Name="Inventory"
+ Left=12
+ Top=12
+ Width=410
+ Height=195
+ Columns=#8:Item=230|12:Quantity=110|
+ CheckBoxes=0
+ MultiSelect=0
+}
+Add(MST_SelectRow,5,231,21)
+{
+ MSTControl="Inventory"
+}
+Add(Button,6,91,175)
+{
+ Left=12
+ Top=213
+ Width=130
+ Caption="Check first row"
+ link(onClick,7:doData,[])
+}
+Add(DoData,7,161,175)
+{
+ Data=Integer(1)
+ link(onEventData,8:doCheckBox,[])
+}
+Add(MST_CheckBoxes,8,231,175)
+{
+ MSTControl="Inventory"
+ link(IndexRow,9:Index,[])
+}
+Add(MST_SelectRow,9,231,231)
+{
+ MSTControl="Inventory"
+}

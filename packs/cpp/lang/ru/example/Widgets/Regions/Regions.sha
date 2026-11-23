@@ -1,0 +1,39 @@
+*Пример использования регионов для изменения внешнего вида формы
+Make(cpp)
+Add(MainForm,2953706,91,119)
+{
+ BorderStyle=3
+ Point(Handle)
+ Point(Width)
+ Point(Height)
+ link(onCreate,1545626:doCreateRect,[])
+}
+Add(RGN_Rect,1545626,168,133)
+{
+ link(onCreateRect,5949742:doCreateRect,[])
+ link(Point2,152639:Point,[(181,105)(145,105)(145,212)(104,212)])
+}
+Add(RGN_Combine,3864493,280,133)
+{
+ Mode=2
+ link(onCombine,7533673:doSetRegion,[])
+ link(Region1,1545626:Result,[(286,121)(320,121)(320,176)(174,176)])
+}
+Add(RGN_Rect,5949742,224,133)
+{
+ Point1=2621480
+ Point2=3276850
+ Point2AsOffset=0
+ link(onCreateRect,3864493:doCombine,[])
+}
+Add(RGN_SetToWindow,7533673,336,133)
+{
+ link(Handle,2953706:Handle,[(342,60)(81,60)(81,165)(97,165)])
+}
+Add(PointXY,152639,98,168)
+{
+ X=40
+ Y=40
+ link(X,2953706:Width,[])
+ link(Y,2953706:Height,[])
+}

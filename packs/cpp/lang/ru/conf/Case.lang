@@ -1,0 +1,6 @@
+Organizing a chain of comparison events with the output of predetermined data to the stream=Организация цепи событий сравнения с выдачей в поток заранее определенных данных
+Specifies a comparison constant=Задаёт константу сравнения
+Defines data for the True state=Определяет данные для состояния True
+Compares the value from the stream with the constant parameter Value. If these values ​​are equal, the onTrue event is called, otherwise onNextCase with a copy of the input data. onNextCase - usually associated with the next Case cascade=Производит сравнение значения из потока с параметром-константой Value. В случае равенства этих значений вызывается событие onTrue иначе onNextCase с копией входных данных. onNextCase - обычно связывается со следующим каскадом Case
+The event occurs whenever the value from the stream is not equal to the value of the Value parameter. Unchanged data from the input is transferred to the stream=Событие происходит всякий раз при неравенстве значения из потока значению параметра Value. В поток передаются неизменные данные со входа
+The event occurs whenever the value from the stream is equal to the value of the Value parameter and outputs data from the DataOnTrue cell to the stream=Событие происходит всякий раз при равенстве значения из потока значению параметра Value и выдает в поток данные из ячейки DataOnTrue

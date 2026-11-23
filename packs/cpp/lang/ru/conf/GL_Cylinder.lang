@@ -1,0 +1,8 @@
+Cylinder=Цилиндр
+Base radius=Радиус основания
+Top cover radius=Радиус верхней крышки
+Height=Высота
+Number of polygons by latitude=Кол-во полигонов по широте
+Number of polygons by longitude=Кол-во полигонов по долготе
+Draws a figure on the stage=Отрисовывает фигуру на сцене
+The event occurs every time after rendering=Событие происходит всякий раз после отрисовки

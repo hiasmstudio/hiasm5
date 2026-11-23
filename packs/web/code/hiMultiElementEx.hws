@@ -1,0 +1,117 @@
+func create(_data):any
+  fvar(ff,j)
+  if(isdef(Name))
+    ff = 'multi_call' + code(_id_)
+  else
+    ff = code(Name)
+  end
+  ff &&= '('
+  for(j = 0; j < _data_count_; j++)
+    ff &&= (j > 0) ? ',' : '' + point(cgt.pt_get_name_byid(cgt.pt_arr_data(j)))
+  end 
+  ff &&= ')'
+  return(ff)
+end
+
+func doWork(_data, index):any
+  if(cgt.el_link_is() and cgt.el_link_main() != sys.curelement() and CodeType = 0)
+    fvar(f)
+    f = create(_data) 
+    if(_event_count_)
+      event(cgt.pt_get_name_byid(cgt.pt_arr_event(0)), f)
+    else
+      println(f,';')
+    end  
+  elseif(isset(f))
+    // при повторном вызове пропускаем формирование тела ф-ции
+    f = create(_data)
+    if(call_event)
+      event(cgt.pt_get_name_byid(cgt.pt_arr_event(call_event-1)), f)
+    else
+      println(f,';')
+    end  
+  else  
+    if(CodeType = 1)
+      sys.selectElement(cgt.el_get_child_id(0))
+      event(cgt.pt_get_name_byid(cgt.pt_arr_event(index)), _data)
+      sys.selectElement(cgt.el_get_parent_id())
+    else
+      var(f, fname, call_event, ret)
+      fvar(i, pref, old, dt)
+
+      pref = issec("php") ? '$arg' : 'arg'
+      // ----- function name
+      if(isdef(Name))
+        fname = 'multi_call' + code(_id_)
+      else
+        fname = code(Name)
+      end 
+      // ----- call function
+      f = fname + '('
+      for(i = 0; i < _data_count_; i++)
+        f &&= (i > 0) ? ',' : '' && point(cgt.pt_get_name_byid(cgt.pt_arr_data(i)))
+        if(dt = "" and cgt.pt_get_rlink_point(cgt.pt_arr_data(i)) = 0)
+          dt = pref + (i+1)
+        end
+      end 
+      f &&= ')'
+
+      old = block.select(block.reggen())
+      // ----- function header
+      print('function ' + fname + '(')
+      for(i = 1; i <= _data_count_; i++)
+        print( (i > 1) ? ',' : '' + pref + i )
+      end 
+      println(') {')
+      block.inclvl()
+      include("func_head")
+      // ----- external vars
+      if(issec("php") and _var_count_)
+        print('global ')
+        for(i = 1; i <= _var_count_; i++)
+          print( (i > 1) ? ',' : '' + pref + i + '_var' + code(_id_) )
+        end     
+        println(';')
+      end
+      // ----- function body
+      call_event = 0
+      sys.selectElement(cgt.el_get_child_id(0))
+      event(cgt.pt_get_name_byid(cgt.pt_arr_event(index)), dt)
+      sys.selectElement(cgt.el_get_parent_id())
+      // ----- save values of external vars
+      gvar(j)
+      for(j = 0; j < _var_count_; j++)
+        print(pref + (j + 1) + '_var' + code(_id_), ' = ')
+        sys.selectElement(cgt.el_get_child_id(0))
+        print(point(cgt.pt_get_name_byid(cgt.pt_arr_data(j))))
+        sys.selectElement(cgt.el_get_parent_id())
+        println(';')
+      end
+      free(j)
+      // ----- вставка возвращаемого значения
+//      if(ret)
+//        println(ret)
+//      end
+      include("func_tail")
+      block.declvl()
+      println('}')
+      block.copyto(BLK_HEAD)
+      block.delete(block.select(old))
+    
+      if(call_event)
+        event(cgt.pt_get_name_byid(cgt.pt_arr_event(call_event-1)), f)
+      else
+        println(f,';')
+      end
+    end
+  end
+end
+
+func getVar(_data, index):any
+  if(CodeType = 1)
+    sys.selectElement(cgt.el_get_child_id(0))
+    return( point(cgt.pt_get_name_byid(cgt.pt_arr_data(index))) )
+  else
+    return( issec("php") ? '$arg' : 'arg' + (index+1) + '_var' + code(_id_) )
+  end  
+end

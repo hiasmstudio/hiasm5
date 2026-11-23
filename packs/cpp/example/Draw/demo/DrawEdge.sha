@@ -1,0 +1,586 @@
+Make(cpp)
+Add(MainForm,2953706,133,98)
+{
+ Width=558
+ Height=382
+ Position=1
+ Point(Handle)
+ Point(onPaint)
+ link(onPaint,3505105:doEvent1,[])
+}
+Add(Img_Edge,17633,343,119)
+{
+ Point2=3276850
+ Point2AsOffset=0
+ DrawSource=1
+ View=1
+ link(Bitmap,2024712:getVar,[])
+ link(View,6810218:Position,[(370,110)(384,110)(384,159)(265,159)])
+}
+Add(For,6810218,259,119)
+{
+ End=7
+ link(onEvent,10627365:doCalc,[])
+}
+Add(Img_Edge,16566095,343,203)
+{
+ Point2=3276850
+ Point2AsOffset=0
+ DrawSource=1
+ View=1
+ bfSoft=0
+ link(Bitmap,16158956:getVar,[])
+ link(View,12064915:Position,[(370,194)(384,194)(384,243)(265,243)])
+}
+Add(For,12064915,259,203)
+{
+ End=7
+ link(onEvent,15803093:doCalc,[])
+}
+Add(MathParse,15803093,301,203)
+{
+ DataCount=1
+ MathStr="%1 * 55 + 25 + 85 * 65536"
+ ResultType=0
+ link(onResult,16566095:doDraw,[])
+}
+Add(MathParse,10627365,301,119)
+{
+ DataCount=1
+ MathStr="%1 * 55 + 25 + 25 * 65536"
+ ResultType=0
+ link(onResult,17633:doDraw,[])
+}
+Add(Hub,3505105,182,119)
+{
+ OutCount=4
+ link(onEvent1,6810218:doFor,[])
+ link(onEvent2,12064915:doFor,[(249,132)(249,209)])
+ link(onEvent3,9365577:doFor,[(242,139)(242,293)])
+ link(onEvent4,9908182:doFor,[(235,146)(235,370)])
+}
+Add(LineBreakEx,12270079,133,140)
+{
+ Caption="HDC"
+ Type=3
+ link(_Data,2953706:Handle,[])
+}
+Add(LineBreakEx,2024712,343,91)
+{
+ Caption="HDC"
+ Type=2
+}
+Add(LineBreakEx,16158956,343,175)
+{
+ Caption="HDC"
+ Type=2
+}
+Add(Img_Edge,16016355,343,287)
+{
+ Point2=3276850
+ Point2AsOffset=0
+ DrawSource=1
+ View=1
+ bfTop=1
+ bfRight=1
+ bfDiagonal=0
+ bfAdjust=0
+ link(onDraw,6393995:doDraw,[])
+ link(Bitmap,7880452:getVar,[])
+ link(View,7724410:Var2,[(370,257)(448,257)])
+}
+Add(For,9365577,259,287)
+{
+ End=7
+ link(onEvent,13552170:doCalc,[])
+}
+Add(MathParse,13552170,301,287)
+{
+ DataCount=1
+ MathStr="%1 * 55 + 25 + 145 * 65536"
+ ResultType=0
+ link(onResult,16016355:doDraw,[])
+}
+Add(LineBreakEx,7880452,343,259)
+{
+ Caption="HDC"
+ Type=2
+}
+Add(Img_Edge,6393995,385,287)
+{
+ Point2=3276850
+ Point2AsOffset=0
+ DrawSource=1
+ View=1
+ bfRight=1
+ bfBottom=1
+ link(Bitmap,14247554:getVar,[])
+ link(View,7724410:Var1,[(412,278)])
+}
+Add(LineBreakEx,14247554,385,259)
+{
+ Caption="HDC"
+ Type=2
+}
+Add(GetDataEx,7724410,442,273)
+{
+ Angle=2
+ link(Data,9365577:Position,[(448,329)(265,329)])
+}
+Add(Img_Edge,1344518,336,364)
+{
+ Point2=3276850
+ Point2AsOffset=0
+ DrawSource=1
+ View=1
+ bfMono=0
+ link(Bitmap,3298200:getVar,[])
+ link(View,9908182:Position,[(363,355)(377,355)(377,404)(258,404)])
+}
+Add(For,9908182,252,364)
+{
+ End=7
+ link(onEvent,651854:doCalc,[])
+}
+Add(MathParse,651854,294,364)
+{
+ DataCount=1
+ MathStr="%1 * 55 + 25 + 205 * 65536"
+ ResultType=0
+ link(onResult,1344518:doDraw,[])
+}
+Add(LineBreakEx,3298200,336,336)
+{
+ Caption="HDC"
+ Type=2
+}
+Add(ChildPanelEx,3776065,266,469)
+{
+ link(onDownBig,1643879:doMessage,[])
+ link(onDownSmall,9808525:doPopupHere,[])
+}
+BEGIN_SDK
+  Add(EditMultiEx,5432513,21,21)
+  {
+   EventCount=#9:onDownBig|11:onDownSmall|
+   Width=748
+   Height=459
+  }
+  Add(Panel,1192259,140,147)
+  {
+   Left=215
+   Top=290
+   Width=50
+   BevelInner=0
+   Point(onPaint)
+   Point(onMouseUp)
+   Point(onMouseLeave)
+   Point(MouseX)
+   Point(MouseY)
+   Point(onMouseDown)
+   Point(Handle)
+   link(onPaint,4733341:doWork1,[(319,160)])
+   link(onMouseUp,14706085:doEvent1,[])
+   link(onMouseLeave,15980155:doWork2,[(186,174)(186,195)])
+   link(onMouseDown,5511033:doEvent,[(179,181)(179,209)(39,209)(39,258)])
+  }
+  Add(Img_Edge,16708302,644,231)
+  {
+   Point2=3276850
+   DrawSource=1
+   link(Bitmap,5598791:Var3,[(650,203)])
+  }
+  Add(Img_Edge,13501146,385,252)
+  {
+   Point2=3276850
+   DrawSource=1
+   View=1
+   link(onDraw,6158887:doDraw,[])
+   link(Bitmap,16500724:Var2,[])
+  }
+  Add(Img_Edge,7068009,602,231)
+  {
+   Point1=1835036
+   Point2=3276850
+   DrawSource=1
+   bfTop=1
+   bfRight=1
+   bfDiagonal=0
+   link(onDraw,16708302:doDraw,[])
+   link(Bitmap,5598791:Var2,[])
+  }
+  Add(Img_Edge,6008729,511,252)
+  {
+   Point1=2097184
+   Point2=3276850
+   DrawSource=1
+   bfLeft=1
+   bfTop=1
+   link(onDraw,3527725:doDraw,[])
+   link(Bitmap,15978678:Var2,[])
+  }
+  Add(Img_Edge,3527725,553,252)
+  {
+   Point1=2097184
+   Point2=3276850
+   DrawSource=1
+   View=1
+   bfTop=1
+   bfRight=1
+   bfDiagonal=0
+   link(Bitmap,4984430:Var2,[])
+  }
+  Add(RGN_PointXY,14034720,133,252)
+  {
+   link(onTrue,15965884:doWork2,[])
+   link(onFalse,15965884:doWork3,[])
+   link(X,1192259:MouseX,[])
+   link(Y,1192259:MouseY,[])
+  }
+  Add(RGN_Script,2191246,91,252)
+  {
+   Script=#31:poly(0,0,50,0,50,28,28,50,0,50)|
+   link(onCreateRgn,14034720:doCheck,[])
+  }
+  Add(Img_Edge,7942155,455,308)
+  {
+   Point1=2097184
+   Point2=3276850
+   DrawSource=1
+   View=1
+   bfLeft=1
+   bfTop=1
+   link(onDraw,6819695:doDraw,[])
+   link(Bitmap,9168407:Var2,[])
+  }
+  Add(Img_Edge,6819695,497,308)
+  {
+   Point1=2097184
+   Point2=3276850
+   DrawSource=1
+   bfTop=1
+   bfRight=1
+   bfSoft=0
+   bfDiagonal=0
+   link(Bitmap,6249689:Var2,[])
+  }
+  Add(Img_Edge,6158887,427,252)
+  {
+   Point1=1835036
+   Point2=3276850
+   DrawSource=1
+   View=1
+   bfTop=1
+   bfRight=1
+   bfDiagonal=0
+   link(onDraw,8205431:doWork2,[])
+   link(Bitmap,12285585:Var2,[])
+  }
+  Add(IndexToChanel,13744833,336,245)
+  {
+   Count=3
+   Data=Integer(0)
+   Point(Index)
+   link(onEvent1,2732909:doEvent1,[(375,251)(375,237)])
+   link(onEvent2,13501146:doDraw,[])
+   link(onEvent3,4377209:doEvent1,[(375,265)(375,307)])
+   link(Index,2142275:Var2,[])
+  }
+  Add(ChanelToIndex,15965884,231,245)
+  {
+   Count=3
+   link(onIndex,5551579:doValue,[])
+  }
+  Add(Memory,5551579,280,245)
+  {
+   Default=Integer(0)
+   link(onData,4733341:doWork2,[])
+  }
+  Add(IndexToChanel,5511033,49,252)
+  {
+   Count=1
+   link(onEvent1,2191246:doCreateRgn,[])
+  }
+  Add(Hub,2732909,469,231)
+  {
+   link(onEvent1,5497739:doWork2,[])
+   link(onEvent2,8205431:doWork1,[(494,244)])
+  }
+  Add(HubEx,8205431,490,252)
+  {
+   link(onEvent,6008729:doDraw,[])
+  }
+  Add(HubEx,4733341,315,245)
+  {
+   link(onEvent,13744833:doEvent,[])
+  }
+  Add(GetDataEx,16500724,385,198)
+  {
+   Angle=3
+   link(Data,1192259:Handle,[(160,203)])
+  }
+  Add(GetDataEx,12285585,427,198)
+  {
+   Angle=3
+   link(Data,16500724:Var3,[])
+  }
+  Add(GetDataEx,5598791,602,198)
+  {
+   Angle=3
+   link(Data,4984430:Var3,[])
+  }
+  Add(Hub,4377209,413,301)
+  {
+   link(onEvent1,5497739:doWork3,[(438,307)(438,300)(592,300)])
+   link(onEvent2,7942155:doDraw,[])
+  }
+  Add(HubEx,5497739,588,231)
+  {
+   link(onEvent,7068009:doDraw,[])
+  }
+  Add(GetDataEx,9168407,455,198)
+  {
+   Angle=3
+   link(Data,12285585:Var3,[])
+  }
+  Add(GetDataEx,6249689,497,198)
+  {
+   Angle=3
+   link(Data,9168407:Var3,[])
+  }
+  Add(GetDataEx,15978678,511,198)
+  {
+   Angle=3
+   link(Data,6249689:Var3,[])
+  }
+  Add(GetDataEx,4984430,553,198)
+  {
+   Angle=3
+   link(Data,15978678:Var3,[])
+  }
+  Add(Hub,14706085,189,161)
+  {
+   link(onEvent1,4033583:doEvent,[(214,167)(214,69)])
+   link(onEvent2,15980155:doWork1,[(221,174)])
+  }
+  Add(HubEx,15980155,217,189)
+  {
+   Angle=1
+   link(onEvent,15965884:doWork1,[(221,251)])
+  }
+  Add(IndexToChanel,4033583,406,63)
+  {
+   Count=3
+   Point(Index)
+   link(onEvent2,5432513:onDownBig,[(564,76)(564,27)])
+   link(onEvent3,5432513:onDownSmall,[(571,83)(571,34)])
+   link(Index,2142275:Var1,[(412,54)(342,54)])
+  }
+  Add(GetDataEx,2142275,336,231)
+  {
+   Angle=3
+   link(Data,5551579:Value,[(325,236)(325,286)(286,286)])
+  }
+END_SDK
+Add(ChildPanelEx,7027940,413,469)
+{
+}
+BEGIN_SDK
+  Add(EditMultiEx,3533422,21,21)
+  {
+   EventCount=#7:onClick|
+   Width=846
+   Height=312
+  }
+  Add(Panel,9072254,84,154)
+  {
+   Left=285
+   Top=290
+   Width=50
+   BevelInner=0
+   Point(Handle)
+   Point(MouseX)
+   Point(MouseY)
+   Point(onMouseUp)
+   Point(onPaint)
+   Point(onMouseLeave)
+   Point(onMouseDown)
+   Point(onMouseMove)
+   link(onMouseUp,8555192:doEvent1,[(123,167)(123,160)])
+   link(onPaint,8136544:doWork2,[])
+   link(onMouseLeave,8136544:doWork3,[(158,181)])
+   link(onMouseDown,13761327:doWork1,[(133,188)])
+   link(onMouseMove,13761327:doWork2,[])
+  }
+  Add(RGN_PointXY,89395,224,238)
+  {
+   link(onTrue,5726937:doData,[])
+   link(onFalse,13101736:doWork3,[(263,251)])
+   link(X,9072254:MouseX,[(237,222)(97,222)])
+   link(Y,9072254:MouseY,[(244,215)(104,215)])
+  }
+  Add(RGN_Script,8484779,182,238)
+  {
+   Script=#37:poly(20,0,50,0,50,30,30,50,0,50,0,20)|
+   link(onCreateRgn,89395:doCheck,[])
+  }
+  Add(IndexToChanel,12483391,140,238)
+  {
+   Count=1
+   Data=Integer(0)
+   link(onEvent1,8484779:doCreateRgn,[])
+  }
+  Add(Img_Edge,8006648,322,168)
+  {
+   Point2=3276850
+   DrawSource=1
+   bfMiddle=0
+   link(onDraw,12755604:doDraw,[])
+   link(Bitmap,16451331:Var2,[])
+  }
+  Add(Img_Edge,12755604,364,168)
+  {
+   Point2=1310740
+   DrawSource=1
+   View=1
+   bfTop=1
+   bfRight=1
+   bfDiagonal=0
+   bfMiddle=0
+   link(onDraw,6956284:doDraw,[])
+   link(Bitmap,13974550:Var2,[])
+  }
+  Add(GetDataEx,16451331,322,140)
+  {
+   Angle=3
+   link(Data,9072254:Handle,[(76,145)(76,201)(90,201)])
+  }
+  Add(Img_Edge,6956284,406,168)
+  {
+   Point1=1966110
+   Point2=3276850
+   DrawSource=1
+   View=1
+   bfLeft=1
+   bfBottom=1
+   bfDiagonal=0
+   bfMiddle=0
+   link(onDraw,16435959:doDraw,[])
+   link(Bitmap,9302394:Var2,[])
+  }
+  Add(GetDataEx,13974550,364,140)
+  {
+   Angle=3
+   link(Data,16451331:Var3,[])
+  }
+  Add(Img_Edge,4420357,483,238)
+  {
+   Point2=3276850
+   DrawSource=1
+   View=1
+   bfMiddle=0
+   link(onDraw,7881779:doDraw,[])
+   link(Bitmap,6085446:Var2,[])
+  }
+  Add(Img_Edge,7881779,525,238)
+  {
+   Point2=1310740
+   DrawSource=1
+   bfTop=1
+   bfRight=1
+   bfDiagonal=0
+   bfMiddle=0
+   link(onDraw,15941556:doDraw,[])
+   link(Bitmap,6001734:Var2,[])
+  }
+  Add(Img_Edge,15941556,567,238)
+  {
+   Point1=1966110
+   Point2=3276850
+   DrawSource=1
+   bfLeft=1
+   bfBottom=1
+   bfDiagonal=0
+   bfMiddle=0
+   link(onDraw,9130291:doDraw,[])
+   link(Bitmap,12668627:Var2,[])
+  }
+  Add(GetDataEx,9302394,406,140)
+  {
+   Angle=3
+   link(Data,13974550:Var3,[])
+  }
+  Add(GetDataEx,6085446,483,140)
+  {
+   Angle=3
+   link(Data,9633687:Var3,[])
+  }
+  Add(GetDataEx,6001734,525,140)
+  {
+   Angle=3
+   link(Data,6085446:Var3,[])
+  }
+  Add(DoData,1162293,280,168)
+  {
+   link(onEventData,8006648:doDraw,[])
+  }
+  Add(DoData,5726937,280,238)
+  {
+   link(onEventData,4420357:doDraw,[])
+  }
+  Add(HubEx,13761327,129,189)
+  {
+   Angle=1
+   link(onEvent,12483391:doEvent,[(133,244)])
+  }
+  Add(HubEx,8136544,154,168)
+  {
+   link(onEvent,13101736:doWork2,[])
+  }
+  Add(HubEx,13101736,259,168)
+  {
+   link(onEvent,1162293:doData,[])
+  }
+  Add(Hub,8555192,133,154)
+  {
+   link(onEvent1,3533422:onClick,[(158,160)(158,27)])
+   link(onEvent2,8136544:doWork1,[(158,167)])
+  }
+  Add(Img_Text,16435959,448,168)
+  {
+   X=7
+   Y=32
+   DrawSource=1
+   Font=[Microsoft Sans Serif,8,0,0,204]
+   Orientation=45
+   Text="HIASM"
+   link(Bitmap,9633687:Var2,[])
+  }
+  Add(GetDataEx,12668627,567,140)
+  {
+   Angle=3
+   link(Data,6001734:Var3,[])
+  }
+  Add(Img_Text,9130291,609,238)
+  {
+   X=8
+   Y=33
+   DrawSource=1
+   Font=[Microsoft Sans Serif,8,0,0,204]
+   Orientation=45
+   Text="HIASM"
+   link(Bitmap,12668627:Var3,[(615,145)])
+  }
+  Add(GetDataEx,9633687,448,140)
+  {
+   Angle=3
+   link(Data,9302394:Var3,[])
+  }
+END_SDK
+Add(Message,1643879,357,469)
+{
+}
+Add(PopupMenu,9808525,315,476)
+{
+ Menu=#1:1|1:2|1:3|1:4|
+}

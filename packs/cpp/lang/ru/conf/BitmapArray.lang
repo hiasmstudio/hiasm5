@@ -1,0 +1,10 @@
+Bitmap array=Содержит массив картинок
+Array of pictures=Массив картинок
+True - allow access to array elements by their names and indexes, False - access only by indexes (fast)=True - разрешить доступ к элементам массива по их именам и по индексам, False - доступ только по индексам (быстрый)
+File name to save/load array=Имя файла для сохранения/загрузки массива
+Array File Format=Формат файла массива
+Clears an array=Очищает массив
+Saves an array to a file=Сохраняет массив в файле
+Loads an array from a file=Загружает массив из файла
+Provides access to array elements=Предоставляет доступ к элементам массива
+Contains the number of array elements=Содержит кол-во элементов массива

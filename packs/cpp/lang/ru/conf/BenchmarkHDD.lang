@@ -1,0 +1,7 @@
+HDD test=Тест HDD
+Letter of the hard drive that needs to be tested=Буква винчестера, который необходимо протестировать
+Hard drive testing mode=Режим тестирования винчестера
+Read/Write Caching=Кеширование чтения и записи
+Begins the testing procedure=Начинает процедуру тестирования
+The event occurs every time after the end of the testing procedure and displays the speed of the operation per second ARG(HDDSpeed)=Событие происходит всякий раз после окончания процедуры тестирования и выдает скорость выполнения операции в секунду ARG(HDDSpeed)
+Contains 1 if the testing process is in progress, and 0 otherwise=Содержит 1 если идет процесс тестирования, и 0 в противном случае

@@ -1,0 +1,7 @@
+MSSQL Database=База данных MSSQL
+Specifies the name of the database file=Определяет имя файла с базой данных
+Connects to the database=Соединяется с базой данных
+Breaks the connection to the database=Разрывает связь с базой данных
+Executes MSSQL query with table modification=Выполняет MSSQL запрос с изменением таблицы
+Executes MSSQL query to select fields=Выполняет MSSQL запрос на выборку полей
+Contains the result of the request=Содержит результат запроса

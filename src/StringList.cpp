@@ -7,7 +7,7 @@
 
 #include "StringList.h"
 
-void StringList::loadFromFile(const ustring &fileName) {
+void HStringList::loadFromFile(const ustring &fileName) {
 	clear();
 	if(file_test(fileName, FILE_TEST_EXISTS)) {
 		gchar *cont;
@@ -18,12 +18,12 @@ void StringList::loadFromFile(const ustring &fileName) {
 	}
 }
 
-void StringList::saveToFile(const ustring &fileName) {
+void HStringList::saveToFile(const ustring &fileName) {
 	ustring data = text();
 	g_file_set_contents(fileName.c_str(), data.c_str(), data.bytes(), NULL);
 }
 
-ustring StringList::text() {
+ustring HStringList::text() {
 	ustring result;
 	for(iterator line = begin(); line != end(); line++)
 		if(line == begin())
@@ -33,14 +33,14 @@ ustring StringList::text() {
 	return result;
 }
 
-int StringList::indexOf(const ustring &text) {
+int HStringList::indexOf(const ustring &text) {
 	for(unsigned int i = 0; i < size(); i++)
 		if(at(i) == text)
 			return i;
 	return -1;
 }
 
-void StringList::loadFromChar(char *buf) {
+void HStringList::loadFromChar(char *buf) {
 	clear();
 
 	if(!*buf) return;
@@ -62,7 +62,7 @@ void StringList::loadFromChar(char *buf) {
 	push_back(tok);
 }
 
-void StringList::setText(const ustring &text) {
+void HStringList::setText(const ustring &text) {
 	char *buf = new char[text.bytes() + 1], *sbuf = buf;
 	strcpy(buf, text.c_str());
 
@@ -71,7 +71,7 @@ void StringList::setText(const ustring &text) {
 	delete[] sbuf;
 }
 
-void StringList::split(const char *text, char delimiter) {
+void HStringList::split(const char *text, char delimiter) {
 	const char *c = text;
 	while(*text) {
 		if(*text == delimiter) {

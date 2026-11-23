@@ -1,0 +1,13 @@
+func doExecute(_data)
+  println('{')
+  block.inclvl()
+  // input (Expression's default) is the value that came with the event; an event without data starts an empty string.
+  println('auto input = ', isnull(_data) ? 'std::string()' : _data, ';')
+  println(code(get('Code')))
+  if(linked(onResult))
+    println('auto hiasm_result = (', code(Expression), ');')
+    event(onResult, 'hiasm_result')
+  end
+  block.declvl()
+  println('}')
+end

@@ -1,0 +1,136 @@
+﻿*Управление окнами Windows
+Make(cpp)
+Add(MainForm,18141,56,91)
+{
+ Left=310
+ Top=283
+ Width=282
+ Height=272
+ Caption=""
+ link(onCreate,18378:doEvent2,[(96,111)(96,69)])
+}
+Add(ChildPanel,18876,7,56)
+{
+ link(onEvent1,18378:doEvent1,[])
+ link(onEvent2,87406:doEvent,[(49,69)(49,167)])
+}
+BEGIN_SDK
+  Add(EditMulti,73583,3,3)
+  {
+   EventCount=2
+   Width=190
+   Height=130
+  }
+  Add(Panel,68008,15,85)
+  {
+   Width=274
+   Height=30
+   Align=2
+   Font=[Arial,8,0,0,1]
+   Point(doColor)
+  }
+  Add(ChanelToIndex,32148,140,49)
+  {
+   Count=3
+   link(onIndex,73583:onEvent2,[(182,55)(182,16)])
+  }
+  Add(Button,41799,70,56)
+  {
+   Left=110
+   Top=5
+   Width=75
+   Font=[Arial,8,0,0,1]
+   Caption="Hide"
+   link(onClick,32148:doWork2,[])
+  }
+  Add(Button,60593,10,9)
+  {
+   Left=5
+   Top=5
+   Width=20
+   Font=[Arial,8,0,0,1]
+   Caption="->"
+   link(onClick,73583:onEvent1,[(51,9)])
+  }
+  Add(Button,13483,70,91)
+  {
+   Left=190
+   Top=5
+   Width=75
+   Font=[Arial,8,0,0,1]
+   Caption="Show"
+   link(onClick,32148:doWork3,[(121,97)(121,69)])
+  }
+  Add(Button,69494,70,21)
+  {
+   Left=30
+   Top=5
+   Width=75
+   Font=[Arial,8,0,0,1]
+   Caption="Close"
+   link(onClick,32148:doWork1,[(121,27)(121,55)])
+  }
+END_SDK
+Add(IndexToChanel,87406,301,161)
+{
+ Count=3
+ Point(Index)
+ link(onEvent1,5901:doClose,[(345,167)(345,195)])
+ link(onEvent2,50041:doWork1,[])
+ link(onEvent3,50041:doWork2,[])
+}
+Add(FormatStr,8535,273,91)
+{
+ Mask="%1 - %2"
+ link(onFString,74780:doAdd,[])
+ link(Str2,7059:ClassName,[(286,81)(258,81)(258,132)(160,132)])
+}
+Add(WinEnum,7059,147,91)
+{
+ VisibleOnly=1
+ Point(ClassName)
+ link(onFindWindow,2077:doEvent1,[])
+}
+Add(StrList,52907,399,21)
+{
+}
+Add(Hub,18378,105,56)
+{
+ InCount=2
+ OutCount=3
+ link(onEvent1,52907:doClear,[(251,62)(251,34)])
+ link(onEvent2,74780:doClear,[(327,69)(327,104)])
+ link(onEvent3,7059:doEnum,[(133,76)(133,97)])
+}
+Add(WinTools,5901,413,168)
+{
+ link(Handle,26538:Item,[])
+}
+Add(ChanelToIndex,50041,364,168)
+{
+ Count=4
+ link(onIndex,5901:doVisible,[])
+}
+Add(ListBox,74780,336,91)
+{
+ Top=30
+ Width=274
+ Height=217
+ Align=5
+ Font=[Arial,8,0,0,1]
+ link(onClick,26538:doRead,[])
+}
+Add(Hub,2077,189,91)
+{
+ link(onEvent1,8535:doString,[])
+ link(onEvent2,5568525:doData,[])
+}
+Add(ArrayRW,26538,413,98)
+{
+ link(Array,52907:Array,[])
+}
+Add(DoData,5568525,217,98)
+{
+ link(onEventData,52907:doAdd,[(324,104)(324,27)])
+ link(Data,7059:Handle,[(223,86)(193,86)(193,135)(153,135)])
+}

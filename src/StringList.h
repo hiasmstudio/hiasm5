@@ -10,13 +10,13 @@
 
 #include "share.h"
 
-/*! \class StringList
+/*! \class HStringList
     \brief string list
 
     Provides methods for working with a list of strings
 */
 
-class StringList : public std::vector<ustring> {
+class HStringList : public std::vector<ustring> {
 	private:
 		/**
 		 * Load string list from memory buffer
@@ -27,12 +27,12 @@ class StringList : public std::vector<ustring> {
 		/**
 		 * Default constructor
 		 */
-		StringList() {}
+		HStringList() {}
 		/**
 		 * Create string list and load it from file
 		 * @param fileName name of file to load
 		 */
-		explicit StringList(const ustring &fileName) { loadFromFile(fileName); }
+		explicit HStringList(const ustring &fileName) { loadFromFile(fileName); }
 		/**
 		 * Load string list from file
 		 * @param fileName name of file to load
@@ -76,7 +76,7 @@ class StringList : public std::vector<ustring> {
 		 * Add new line to end of list
 		 * @param text new line to add
 		 */
-		StringList &operator << (const ustring &text) {
+		HStringList &operator << (const ustring &text) {
 			add(text);
 			return *this;
 		}
@@ -84,7 +84,7 @@ class StringList : public std::vector<ustring> {
 		 * Parse lines from one long string line
 		 * @param text long string line with \n or \r\n delimiter
 		 */
-		StringList &operator = (const ustring &text) {
+		HStringList &operator = (const ustring &text) {
 			setText(text);
 			return *this;
 		}

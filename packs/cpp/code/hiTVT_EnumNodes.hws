@@ -1,0 +1,21 @@
+include('qtTVT')
+
+func doStart()
+  TVStartState()
+end
+
+func doEnum(_data)
+  fvar(row)
+  row = 'tvtRow' && _id_
+  println('{ const auto id = qt_tvt_id(', TVArg('ID', _data), ');')
+  println('if (auto *tree = ', TVTree(), ') for (const auto &', row, ' : tree->enumerate(id)) {')
+  TVRecord(row)
+  event(onEnum, row)
+  println('}')
+  event(onStop)
+  println('}')
+end
+
+func Node()
+  return(TVNode())
+end

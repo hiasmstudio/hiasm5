@@ -1,0 +1,4 @@
+Formation of a point according to its coordinates=Формирование точки по её координатам
+X coordinate of the point=Координата X точки
+Y coordinate of the point=Координата Y точки
+Returns a point in the format Y*65536 + X=Возвращает точку в формате Y*65536 + X

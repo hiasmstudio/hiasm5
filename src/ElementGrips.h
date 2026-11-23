@@ -19,7 +19,7 @@ struct GripValue {
 
 typedef std::list<GripValue> GripValueList;
 
-typedef struct {
+struct GripInfo {
 	gdouble x;
 	gdouble y;
 	int width;
@@ -32,7 +32,7 @@ typedef struct {
 
 	inline void addValue(int *value, int dx, int dy) { values.push_back(GripValue(value, dx, dy)); }
 	inline void move(int x, int y) { this->x = x;  this->y = y; }
-} GripInfo;
+};
 
 typedef std::vector<GripInfo*> GripList;
 

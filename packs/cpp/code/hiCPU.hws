@@ -1,0 +1,27 @@
+func ExtendedCpuName()
+  return('[](const char *value) { return std::string(value && *value ? value : "Unknown CPU"); }(std::getenv("PROCESSOR_IDENTIFIER"))')
+end
+
+func Frequency()
+  return('0')
+end
+
+func ExtendedL2Cache()
+  return('0')
+end
+
+func CPUCount()
+  return('static_cast<int>(std::thread::hardware_concurrency())')
+end
+
+func Vendor()
+  return('"Unknown"')
+end
+
+func ExtendedL1DCache()
+  return('0')
+end
+
+func ExtendedL1ICache()
+  return('0')
+end

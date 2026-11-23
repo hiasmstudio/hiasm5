@@ -1,0 +1,6 @@
+Adding a Mail.ru agent group=Добавление группы Mail.ru агента
+Defines Mail.ru agent for authorization on the server=Определяет Mail.ru agent для авторизации на сервере
+Adds a group to the Mail.ru server=Добавляет группу на сервер Mail.ru
+The event occurs every time a group is added to the Mail.ru server and outputs it to the ARG(Name, ID) stream=Событие происходит всякий раз после добавления группы на сервере Mail.ru и выдает ее в поток ARG(Name, ID)
+The event occurs every time an error occurs when adding a group on the Mail.ru server and outputs it to the ARG(Name, ID, Code) stream=Событие происходит всякий раз после возникновения ошибки при добавлении группы на сервере Mail.ru и выдает ее в поток ARG(Name, ID, Code)
+Name of the group to add=Имя добавляемой группы

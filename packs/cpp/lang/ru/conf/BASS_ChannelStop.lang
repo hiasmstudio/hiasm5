@@ -1,0 +1,4 @@
+Stopping the audio stream=Останов звукового потока
+A sound stream that must be stopped=Звуковой поток, который необхоимо остановить
+Stops playing an audio stream=Останавливает проигрывание звукового потока
+The event occurs every time the audio stream is stopped playing=Событие происходит всякий раз после остановки проигрывания звукового потока

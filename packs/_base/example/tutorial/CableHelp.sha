@@ -1,0 +1,18 @@
+Make(cpp)
+Add(InfoTip,900,24,18)
+{
+ @Width=680
+ @Height=145
+ Info=#26:Именованные провода кабеля|0:|127:Кабель объединяет именованные значения. В C++ урок использует структуру с вложенными полями и меняет канал, сохраняя остальные.|
+ HAlign=0
+ Margin=12
+}
+Add(Entry,1,42,196)
+{
+ link(onStart,2:doExecute,[])
+}
+Add(Code,2,196,196)
+{
+ Code=#95:struct Cable { struct Color { int red = 10, green = 20; } color; std::string text = "cable"; };|12:Cable cable;|67:auto setRed = [](Cable& value, int red) { value.color.red = red; };|18:setRed(cable, 42);|103:std::cout << cable.text << ": red=" << cable.color.red << ", green=" << cable.color.green << std::endl;|
+ Expression=input
+}

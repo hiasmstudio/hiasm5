@@ -1,0 +1,17 @@
+func doHexDec(_data)
+  if(linked(Result))
+    println(rslt, ' = hexdec(', Value, ');')
+    event(onHexDec, rslt)
+  else
+    event(onHexDec, 'hexdec(' && Value && ')')
+  end 
+end
+
+func Result()
+  if(linked(doHexDec))
+    return(rslt)
+  else
+    return('hexdec(' && Value && ')')
+  end
+end
+

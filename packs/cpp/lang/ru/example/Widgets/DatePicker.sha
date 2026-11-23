@@ -1,0 +1,135 @@
+*Пример работы компонента DatePicker в режимах выбора даты и выбора времени
+Make(cpp)
+Add(MainForm,7925207,105,105)
+{
+ Left=20
+ Top=105
+ Width=355
+ Height=100
+ Caption="-= DatePicker =-"
+ Icon=[ZIP5E07000078DA636060044209090610C9E0C1CEC020C6C0C0A001C4402106030688380828B0338C3CD0D2D4422D73FE83C1B1C3C78867D0D41CA02CA98854F7303000ADA682BF483287EAFEC2653BA9FEA2D01CAAF90BE20E52107E73080222CD21DB3D54CFA4040150319E7026C91C2009540F895FECE6100C109839105D94BB0729C5A29B43241A2AC53BB2DF1F3030938C0FE0C03000006F39BB68]
+ Position=1
+ link(onCreate,14119056:doData,[(167,125)(167,223)])
+}
+Add(DatePicker,285339,217,105)
+{
+ Left=10
+ Top=25
+ Width=107
+ Height=21
+ Font=[MS Sans Serif,8,1,128,1]
+ Cursor=3
+ Hint="DatePicker"
+ Style=1
+ Point(doVisible)
+ Point(doEnabled)
+ Point(DateTime)
+ Point(CurrentDateTime)
+ link(OnChange,14266385:doSetDate,[])
+}
+Add(Hub,12486808,364,105)
+{
+ link(onEvent1,12133623:doConvert,[])
+ link(onEvent2,12519364:doConvert,[(490,118)(490,181)])
+}
+Add(DateConvertor,12133623,511,105)
+{
+ Mode=9
+ Format="dd-MM-yyyy"
+ Point(Data)
+ link(onResult,12761538:doText,[])
+ link(Data,14266385:DateTime,[(517,95)(422,95)(422,147)(314,147)])
+}
+Add(Edit,12761538,574,105)
+{
+ Left=240
+ Top=10
+ Width=100
+ Font=[MS Sans Serif,8,1,0,1]
+ Text=""
+}
+Add(DatePicker,14266385,301,105)
+{
+ Left=125
+ Top=25
+ Width=107
+ Height=21
+ Font=[MS Sans Serif,8,1,128,1]
+ Cursor=3
+ Hint="DatePicker"
+ Style=1
+ Point(doVisible)
+ Point(doEnabled)
+ Point(CurrentDateTime)
+ Point(DateTime)
+ Point(Data)
+ link(OnChange,12486808:doEvent1,[])
+ link(Data,285339:DateTime,[(307,95)(275,95)(275,147)(223,147)])
+}
+Add(Edit,4629857,574,175)
+{
+ Left=240
+ Top=35
+ Width=100
+ Font=[MS Sans Serif,8,1,0,1]
+ Text=""
+}
+Add(DateConvertor,4092894,301,280)
+{
+ Mode=9
+ Format="HH:mm:ss"
+ Point(Data)
+ link(onResult,205061:doStrCat,[])
+ link(Data,4528462:Var2,[])
+}
+Add(Timer,5605350,245,280)
+{
+ link(onTimer,4092894:doConvert,[])
+}
+Add(StrCat,205061,399,280)
+{
+ Str1="-= DatePicker =-   "
+ link(onStrCat,9640709:doWork3,[(452,286)])
+}
+Add(HubEx,9640709,448,210)
+{
+ link(onEvent,7925207:doCaption,[(472,223)(472,180)(95,180)(95,111)])
+}
+Add(DateConvertor,12519364,511,175)
+{
+ Mode=9
+ Format="HH:mm:ss"
+ Point(Data)
+ link(onResult,4629857:doText,[])
+ link(Data,4528462:Var3,[(517,156)])
+}
+Add(GetDataEx,4528462,294,147)
+{
+ link(Data,14266385:CurrentDateTime,[])
+}
+Add(DoData,14119056,399,217)
+{
+ Data=String(-= DatePicker =-)
+ link(onEventData,9640709:doWork2,[])
+}
+Add(Label,1375568,119,14)
+{
+ Left=10
+ Top=5
+ Width=105
+ Font=[MS Sans Serif,8,1,0,1]
+ Caption="Предустановка"
+ AutoSize=1
+ Alignment=2
+}
+Add(Label,10215645,161,14)
+{
+ Left=130
+ Top=5
+ Width=95
+ Height=17
+ Font=[MS Sans Serif,8,1,0,1]
+ Caption="Выбор"
+ AutoSize=1
+ Alignment=2
+}

@@ -1,0 +1,10 @@
+func doBeep(_data)
+  println('#if defined(_WIN32)')
+  println('Beep(static_cast<DWORD>(', d('Freq'), '), static_cast<DWORD>(', d('Duration'), '));')
+  println('#else')
+  println('std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<int>(', d('Duration'), ')));')
+  println('std::fputc(7, stdout);')
+  println('std::fflush(stdout);')
+  println('#endif')
+  event(onBeep)
+end

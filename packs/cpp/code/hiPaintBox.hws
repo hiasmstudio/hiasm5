@@ -1,0 +1,49 @@
+func PaintTarget()
+  return('qt_widget<HiasmPaintBox>(form, "PaintBox' && _id_ && '")')
+end
+
+func doStart
+  println('{')
+  println('auto *box = new HiasmPaintBox(widgetParent);')
+  println('box->setObjectName(QStringLiteral("PaintBox', _id_, '"));')
+  println('box->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+  println('box->background = qt_led_color(qt_text(', cstr(d('Color')), '), box->background);')
+  println('box->clearBeforeDraw = ', get('ClearBeforeDraw') == 'True', ';')
+  if(linked(onBeforeDraw))
+    println('box->beforeDraw = [&form] {')
+    event(onBeforeDraw)
+    println('};')
+  end
+  if(linked(onClick))
+    println('box->clicked = [&form] {')
+    event(onClick)
+    println('};')
+  end
+  println('}')
+end
+
+func doRefresh(_data)
+  println(PaintTarget(), '->update();')
+end
+
+func doClear(_data)
+  println('{ auto *box = ', PaintTarget(), '; box->bitmap(); box->clear(); }')
+end
+
+func doColor(_data)
+  if(len(_data) > 0)
+    println('{ auto *box = ', PaintTarget(), '; box->background = qt_led_color(qt_text(', _data, '), box->background); }')
+  end
+end
+
+func Bitmap()
+  return(PaintTarget() && '->bitmap()')
+end
+
+func Width()
+  return(PaintTarget() && '->width()')
+end
+
+func Height()
+  return(PaintTarget() && '->height()')
+end

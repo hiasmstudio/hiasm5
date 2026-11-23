@@ -7,865 +7,27 @@
 
 #include "FormEditor.h"
 #include "Elements.h"
+#include "SettingsManager.h"
 #include <glibmm.h>
-
-#define PK_CMD_ADD      1
-#define PK_CMD_SET_INT  2
-#define PK_CMD_SET_STR  3
-#define PK_CMD_BEGIN    4
-#define PK_CMD_END      5
-#define PK_CMD_SELECT   6
-#define PK_CMD_DELETE   7
-
-typedef struct {
-    char name[65];
-    int EID;
-    int x;
-    int y;
-    int w;
-    int h;
-} TAddPack;
-
-typedef struct {
-    int cmd;
-    char name[65];
-    int EID;
-    int value;
-} TSetIntPack;
-
-typedef struct {
-    int cmd;
-    char name[65];
-    int EID;
-    char value[65];
-} TSetStrPack;
-
-typedef struct {
-    int cmd;
-    int EID;
-} TSelectElementPack;
-
-typedef TSelectElementPack TDeleteElementPack;
-
-void FE_ExternalTcp::start(SDK_Editor *sde) {
-	FormEditor::start(sde);
-
-	cancel = NULL;
-	sock = g_socket_new(G_SOCKET_FAMILY_IPV4, G_SOCKET_TYPE_STREAM, G_SOCKET_PROTOCOL_TCP, NULL);
-	GSocketAddress *addr = g_inet_socket_address_new(g_inet_address_new_from_string("127.0.0.1"), 4588);
-	if(!g_socket_bind(sock, addr, true, NULL))
-		DEBUG_MSG("Bind failed!")
-	g_object_unref(addr);
-	if(!g_socket_listen(sock, NULL))
-		DEBUG_MSG("Listen failed!")
-
-	serverThread = Glib::Thread::create(sigc::mem_fun(*this, &FE_ExternalTcp::on_server_thread), true);
-	feThread = Glib::Thread::create(sigc::mem_fun(*this, &FE_ExternalTcp::on_form_edit_thread), false);
-
-	sde->csdk->on_remove_element += this;
-	sde->csdk->selMan->on_selection_change += this;
-	sde->csdk->on_add_element += this;
-}
-
-void FE_ExternalTcp::stop() {
-	sde->csdk->on_remove_element -= this;
-	sde->csdk->selMan->on_selection_change -= this;
-	sde->csdk->on_add_element -= this;
-
-	on_end_edit.clear();
-
-	g_socket_close(sock, NULL);
-	g_object_unref(sock);
-	if(cancel) {
-		g_cancellable_cancel(cancel);
-		serverThread->join();
-	}
-
-	for(ElementsList::iterator e = sde->csdk->elements.begin(); e != sde->csdk->elements.end(); e++)
-		if((*e)->tpl->conf->isWinElement())
-			(*e)->on_property_change -= this;
-}
-
-void FE_ExternalTcp::pk_add_element(Element *e) {
-	TAddPack ap;
-	strcpy(ap.name, e->tpl->name.c_str());
-	ap.EID = e->id;
-	ap.x = e->props[0]->readInt();
-	ap.y = e->props[1]->readInt();
-	ap.w = e->props[2]->readInt();
-	ap.h = e->props[3]->readInt();
-
-	pk_send(PK_CMD_ADD, &ap, sizeof(TAddPack));
-
-	for(ElementProperties::iterator prop = e->props.begin(); prop != e->props.end(); prop++)
-		pk_send_prop(*prop);
-
-	e->on_property_change += this;
-}
-
-void FE_ExternalTcp::pk_send(int num, void *data, int size) {
-	g_socket_send(client, (const gchar *)&num, sizeof(int), NULL, NULL);
-	if(size) {
-		g_socket_send(client, (const gchar *)data, size, NULL, NULL);
-	}
-}
-
-void FE_ExternalTcp::pk_send_prop(ElementProperty *prop) {
-	switch(prop->type) {
-		case data_list:
-		case data_str: {
-			TSetStrPack str;
-			str.cmd = PK_CMD_SET_STR;
-			str.EID = prop->parent->id;
-			strcpy(str.name, prop->name.c_str());
-			strncpy(str.value, prop->readStr().c_str(), 64);
-			g_socket_send(client, (const gchar *)&str, sizeof(TSetStrPack), NULL, NULL);
-			break;
-		}
-		case data_int:
-		case data_combo:
-		case data_comboEx: {
-			TSetIntPack iv;
-			iv.cmd = PK_CMD_SET_INT;
-			iv.EID = prop->parent->id;
-			strcpy(iv.name, prop->name.c_str());
-			iv.value = prop->readInt();
-			g_socket_send(client, (const gchar *)&iv, sizeof(TSetIntPack), NULL, NULL);
-			break;
-		}
-
-		default:;
-	}
-}
-
-void FE_ExternalTcp::pk_send_remove(Element *e) {
-	TDeleteElementPack dep;
-	dep.cmd = PK_CMD_DELETE;
-	dep.EID = e->id;
-	g_socket_send(client, (const gchar *)&dep, sizeof(TDeleteElementPack), NULL, NULL);
-}
-
-void FE_ExternalTcp::pk_send_select(SelectManager *sm) {
-	// clear selection
-	TSelectElementPack sep;
-	sep.cmd = PK_CMD_SELECT;
-	sep.EID = 0;
-	g_socket_send(client, (const gchar *)&sep, sizeof(TSelectElementPack), NULL, NULL);
-
-	// send selected elements
-	for(ElementsList::iterator e = sm->elements.begin(); e != sm->elements.end(); e++) {
-		sep.EID = (*e)->id;
-		if((*e)->tpl->conf->isWinElement())
-			g_socket_send(client, (const gchar *)&sep, sizeof(TSelectElementPack), NULL, NULL);
-	}
-}
-
-void FE_ExternalTcp::callback(void *owner, CallbackType type, const void *data) {
-	switch(type) {
-		case CBT_ELEMENT_PROP_CHANGE:
-			pk_send_prop((ElementProperty*)data);
-			break;
-		case CBT_SDK_REMOVE_ELEMENT:
-			pk_send_remove((Element*)data);
-			break;
-		case CBT_SDK_CHANGE_SELECT:
-			pk_send_select((SelectManager*)owner);
-			break;
-		case CBT_SDK_ADD_ELEMENT:
-			if(((Element*)data)->tpl->conf->isWinElement())
-				pk_add_element((Element*)data);
-			break;
-		default:;
-	}
-}
-
-void FE_ExternalTcp::on_form_edit_thread() {
-	ustring fe = sde->sdk->pack->pathMake() + "formedit";
-	system(fe.c_str());
-}
-
-void FE_ExternalTcp::on_server_thread() {
-	client = g_socket_accept(sock, NULL, NULL);
-	if(client) {
-		pk_send(PK_CMD_BEGIN, NULL, 0);
-		DEBUG_MSG("Connect from editor!")
-		for(ElementsList::iterator e = sde->csdk->elements.begin(); e != sde->csdk->elements.end(); e++)
-			if((*e)->isParent()) {
-				pk_add_element(*e);
-				break;
-			}
-
-		for(ElementsList::iterator e = sde->csdk->elements.begin(); e != sde->csdk->elements.end(); e++)
-			if(!(*e)->isParent() && (*e)->tpl->conf->isWinElement()) {
-				pk_add_element(*e);
-			}
-		pk_send(PK_CMD_END, NULL, 0);
-
-		int cmd;
-		DEBUG_MSG("Read data from client...")
-		cancel = g_cancellable_new();
-		while(g_socket_receive(client, (gchar *)&cmd, sizeof(cmd), cancel, NULL) > 0) {
-			//DEBUG_MSG("Read command " << cmd)
-			switch(cmd) {
-				case PK_CMD_SET_INT: {
-					TSetIntPack ap;
-					g_socket_receive(client, (gchar *)&ap.name, sizeof(ap) - sizeof(int), NULL, NULL);
-					Element *e = sde->csdk->getElementById(ap.EID);
-					if(e) {
-						ElementProperty *prop = e->props.getByName(ap.name);
-						if(prop) {
-							gdk_threads_enter();
-							e->on_property_change -= this;
-							prop->setValue(&ap.value);
-							e->on_property_change += this;
-							gdk_threads_leave();
-						}
-					}
-					break;
-				}
-				case PK_CMD_SELECT: {
-					TSelectElementPack sep;
-					g_socket_receive(client, (gchar *)&sep.EID, sizeof(sep) - sizeof(int), NULL, NULL);
-					Element *e = sde->csdk->getElementById(sep.EID);
-					if(e) {
-						gdk_threads_enter();
-						sde->csdk->selMan->select(e);
-						gdk_threads_leave();
-					}
-					break;
-				}
-				case PK_CMD_DELETE: {
-					TDeleteElementPack dep;
-					g_socket_receive(client, (gchar *)&dep.EID, sizeof(dep) - sizeof(int), NULL, NULL);
-					Element *e = sde->csdk->getElementById(dep.EID);
-					if(e) {
-						gdk_threads_enter();
-						sde->csdk->selMan->erase();
-						gdk_threads_leave();
-					}
-					break;
-				}
-			}
-		}
-		DEBUG_MSG("Client disconnect")
-		g_socket_close(client, NULL);
-		g_object_unref(client);
-	}
-	g_object_unref(cancel);
-	cancel = NULL;
-
-	if(!on_end_edit.empty()) {
-		gdk_threads_enter();
-		on_end_edit();
-		gdk_threads_leave();
-	}
-}
+#include <cmath>
 
 //-------------------------------------------------------------------------------------------------------------------
 
-WidgetInfo::WidgetInfo(WidgetEditor *parent, Element *e) {
-	wedit = parent;
 
-	tpl = e;
+WidgetEditorEx *WidgetEditorEx::activeInstance = NULL;
 
-	select = false;
-	change = false;
-
-	changeProperty = false;
-
-	tpl->on_property_change += this;
-
-	init();
-}
-
-WidgetInfo::~WidgetInfo() {
-	TRACE_PROC
-	// TODO remove widgets
-	tpl->on_property_change -= this;
-//	delete ctl;
-//	delete window;
-}
-
-
-gboolean damage (GtkWidget *widget, GdkEventExpose *event, gpointer data)
-{
-  return ((WidgetInfo*)data)->on_expose_event(event);
-}
-
-
-void WidgetInfo::init() {
-	Element *e = tpl->sdk ? tpl->getParentElement() : tpl;
-
-	DEBUG_MSG("CLASS:" << e->tpl->conf->editClassName.c_str())
-
-	if(e->tpl->conf->editClassName == "Label") {
-		ctl = new Label(e->props[7]->readStr());
-		((Label*)ctl)->set_justify((Justification)(e->props[8]->readInt() + JUSTIFY_LEFT));
-	}
-	else if(e->tpl->conf->editClassName == "Edit") {
-		ctl = new Entry();
-	}
-	else if(e->tpl->conf->editClassName == "Button") {
-		ctl = new Button(tpl->props[7]->readStr());
-		if(!e->props[9]->isDefault()) {
-			if(!e->props[11]->isDefault())
-				((Button*)ctl)->set_image_position((PositionType)(e->props[11]->readInt() + POS_LEFT));
-
-			BuiltinStockID sid = {e->props[9]->readStr().c_str()};
-			Image *img = new Image(sid, (BuiltinIconSize)(e->props[10]->readInt() + ICON_SIZE_MENU));
-			((Button*)ctl)->set_image(*img);
-			img->show();
-		}
-	}
-	else if(e->tpl->conf->editClassName == "CheckBox") {
-		ctl = new CheckButton(e->props[8]->readStr());
-		((CheckButton*)ctl)->set_active(e->props[7]->readInt() == 0);
-	}
-	else if(e->tpl->conf->editClassName == "ScrollBar") {
-		if(e->props[10]->readInt())
-			ctl = new VScrollbar();
-		else
-			ctl = new HScrollbar();
-	}
-	else if(e->tpl->conf->editClassName == "ListBox") {
-		Glib::RefPtr<ListStore> list = Gtk::ListStore::create(listColumns);
-		ctl = new TreeView(list);
-	}
-	else if(e->tpl->conf->editClassName == "GroupBox") {
-		ctl = new Frame(e->props[7]->readStr());
-	}
-	else {
-		ctl = new Label();
-	}
-
-	ctl->set_sensitive(e->props[5]->readInt() == 0);
-	ctl->show();
-
-	x = e->props[0]->readInt();
-	y = e->props[1]->readInt();
-	width = e->props[2]->readInt();
-	height = e->props[3]->readInt();
-
-//	window = gtk_offscreen_window_new();
-//	gtk_window_set_default_size(GTK_WINDOW(window), width, height);
-//	gtk_container_add(GTK_CONTAINER(window), ctl->gobj());
-
-//	gtk_widget_show_all(window);
-//	g_signal_connect (window, "damage-event", G_CALLBACK (damage), this);
-}
-
-void WidgetInfo::on_realize() {
-	TRACE_PROC
-}
-
-void WidgetInfo::snap() {
-//	bmp = window->get_pixmap();
-	nb = false;
-}
-
-bool WidgetInfo::checkAtPos(gdouble x, gdouble y) {
-	return (this->x <= x) && (this->x + width >= x) && (this->y <= y) && (this->y + height >= y);
-}
-
-void WidgetInfo::move(int dx, int dy) {
-	x += dx;
-	y += dy;
-	changeProperty = true;
-	Element *e = tpl->sdk ? tpl->getParentElement() : tpl;
-	e->props[0]->setValue(&x);
-	e->props[1]->setValue(&y);
-	changeProperty = false;
-}
-
-void WidgetInfo::size(int dx, int dy) {
-	width += dx;
-	height += dy;
-
-//	window->set_default_size(width, height);
-	gtk_window_set_default_size(GTK_WINDOW(window), width, height);
-
-	changeProperty = true;
-	Element *e = tpl->sdk ? tpl->getParentElement() : tpl;
-	e->props[2]->setValue(&width);
-	e->props[3]->setValue(&height);
-	changeProperty = false;
-}
-
-bool WidgetInfo::on_expose_event(GdkEventExpose* event) {
-	Gdk::Rectangle r(x, y, width, height);
-	wedit->get_window()->invalidate_rect(r, false);
-	return false;
-}
-
-void WidgetInfo::on_size_allocate(Allocation &alloc) {
-	DEBUG_MSG("Alloc size")
-	//snap();
-}
-
-void WidgetInfo::callback(void *owner, CallbackType type, const void *data) {
-	if(changeProperty) return;
-
-	ElementProperty *p = (ElementProperty *)data;
-	if(p == tpl->props[0]) {
-		move(p->readInt() - x, 0);
-		wedit->invalidate();
-	}
-	else if(p == tpl->props[1]) {
-		move(0, p->readInt() - y);
-		wedit->invalidate();
-	}
-	else if(p == tpl->props[2]) {
-		size(p->readInt() - width, 0);
-		wedit->invalidate();
-	}
-	else if(p == tpl->props[3]) {
-		size(0, p->readInt() - height);
-		wedit->invalidate();
-	}
-	else if(p == tpl->props[5]) {
-		ctl->set_sensitive(p->readInt() == 0);
-	}
-	else if(tpl->tpl->conf->editClassName == "Label") {
-		if(p == tpl->props[7])
-			((Label *)ctl)->set_text(p->readStr());
-		else if(p == tpl->props[8])
-			((Label *)ctl)->set_justify((Justification)(p->readInt() + JUSTIFY_LEFT));
-	}
-	else if(tpl->tpl->conf->editClassName == "Edit") {
-
-	}
-	else if(tpl->tpl->conf->editClassName == "Button") {
-		((Button *)ctl)->set_label(tpl->props[7]->readStr());
-
-		((Button*)ctl)->set_image_position((PositionType)(tpl->props[11]->readInt() + POS_LEFT));
-
-		if(tpl->props[9]->isDefault()) {
-			// remove image
-		}
-		else {
-			BuiltinStockID sid = {tpl->props[9]->readStr().c_str()};
-			Image *img = new Image(sid, (BuiltinIconSize)(tpl->props[10]->readInt() + ICON_SIZE_MENU));
-			((Button*)ctl)->set_image(*img);
-			img->show();
-		}
-	}
-	else if(tpl->tpl->conf->editClassName == "CheckBox") {
-		if(p == tpl->props[7])
-			((CheckButton *)ctl)->set_active(p->readInt() == 0);
-		else if(p == tpl->props[8])
-			((CheckButton *)ctl)->set_label(p->readStr());
-	}
-	else if(tpl->tpl->conf->editClassName == "ScrollBar") {
-		if(p == tpl->props[10]) {
-			gtk_container_remove(GTK_CONTAINER(window), ctl->gobj());
-			delete ctl;
-			if(p->readInt())
-				ctl = new VScrollbar();
-			else
-				ctl = new HScrollbar();
-			gtk_container_add(GTK_CONTAINER(window), ctl->gobj());
-			ctl->set_sensitive(tpl->props[5]->readInt() == 0);
-			ctl->show();
-		}
-	}
-}
-
-//-----------------------------------------------------------------------------------------------
-
-static const double kx[] = {0, 0.5, 1, 1, 1, 0.5, 0, 0};
-static const double ky[] = {0, 0, 0, 0.5, 1, 1, 1, 0.5};
-
-WidgetEditor::WidgetEditor(SDK *parent) {
-//	set_events(Gdk::BUTTON_PRESS_MASK|Gdk::POINTER_MOTION_MASK|Gdk::BUTTON_RELEASE_MASK);
-//	set_size_request(200, 200);
-	set_above_child(true);
-
-	sdk = parent;
-	sdk->selMan->on_selection_change += this;
-	sdk->on_remove_element += this;
-
-	state = WE_MS_NONE;
-}
-
-WidgetEditor::~WidgetEditor() {
-	for(WidgetsList::iterator w = wlist.begin(); w != wlist.end(); w++)
-		delete *w;
-	wlist.clear();
-	sdk->selMan->on_selection_change -= this;
-	sdk->on_remove_element -= this;
-}
-
-void WidgetEditor::addWidget(Element *e) {
-	wlist.push_back(new WidgetInfo(this, e));
-}
-
-bool WidgetEditor::on_draw (const ::Cairo::RefPtr< ::Cairo::Context >& cr) {
-	EventBox::on_draw(cr);
-	
-	Gdk::RGBA black;
-	black.set_rgba(0,0,0);
-	Gdk::Cairo::set_source_rgba(cr, black);
-	cr->rectangle(0, 0, 200, 100);
-	cr->fill();
-	
-	return true;
-}
-
-bool WidgetEditor::on_expose_event(GdkEventExpose* event) {
-//	EventBox::on_expose_event(event);
-//
-//	GdkGC *gc = gdk_gc_new(event->window);
-//	gdk_gc_set_subwindow(gc, GDK_INCLUDE_INFERIORS);
-//	gdk_draw_line(event->window, gc, 0, 0, 400, 400);
-//
-//
-////	DrawContext cr = get_window()->create_cairo_context();
-//
-////	cr->set_line_width(0.5);
-////	cr->set_antialias(Cairo::ANTIALIAS_SUBPIXEL);
-//
-////	Gdk::Cairo::set_source_color(cr, get_style()->get_bg(Gtk::STATE_NORMAL));
-////	cr->rectangle(event->area.x, event->area.y, event->area.width, event->area.height);
-////	cr->fill();
-//
-////	cr->set_source_rgb(0, 0, 0);
-////	for(int j = 0; j < get_height(); j += 10)
-////		for(int i = 0; i < get_width(); i += 10)
-////			cr->rectangle(i, j, 1, 1);
-////	cr->fill();
-//
-//	int c = 0;
-//	Gdk::Rectangle r(0,0,0,0);
-//	for(WidgetsList::iterator wl = wlist.begin(); wl != wlist.end(); wl++) {
-////		GdkPixmap *pixmap = gtk_offscreen_window_get_pixmap(GTK_OFFSCREEN_WINDOW((*wl)->window));
-////		if(!pixmap)
-////			DEBUG_MSG("Failed pixmap")
-///*
-//		cr->save();
-//		cr->translate((*wl)->x, (*wl)->y);
-//		gdk_cairo_set_source_pixmap(cr->cobj(), pixmap, 0, 0);
-//		cr->rectangle (0, 0, (*wl)->width, (*wl)->height);
-//		cr->clip();
-//		cr->paint();
-//		cr->restore();
-//*/
-//		if((*wl)->select) {
-//			if((*wl)->change) {
-//				gdouble _x = (*wl)->x + (*wl)->width/2;
-//				gdouble _y = (*wl)->y + (*wl)->height/2;
-////				cr->set_source_rgba(0.0, 1.0, 1.0, 0.6);
-////				cr->arc(_x, _y, 5, 0, 2*3.1415);
-////				cr->fill();
-////				cr->set_source_rgba(0.0, 0.0, 0.0, 0.4);
-////				cr->arc(_x, _y, 5, 0, 2*3.1415);
-////				cr->stroke();
-//				gdk_draw_rectangle(event->window, gc, true, _x - 4, _y - 4, 8, 8);
-//			}
-//			else {
-//				c++;
-//				if(r.has_zero_area())
-//					r = (*wl)->getRect();
-//				else
-//					r.join((*wl)->getRect());
-//			}
-//		}
-//	}
-//
-//	for(int i = 0; c && i < 8; i++) {
-//		gdouble _x = r.get_x() + kx[i]*r.get_width();
-//		gdouble _y = r.get_y() + ky[i]*r.get_height();
-////		cr->set_source_rgba(1, 1, 1, 0.7);
-////		cr->arc(_x, _y, 3, 0, 2*3.1415);
-////		cr->fill();
-////		cr->set_source_rgba(0, 0, 0, 0.8);
-////		cr->arc(_x, _y, 3, 0, 2*3.1415);
-////		cr->stroke();
-//		gdk_draw_rectangle(event->window, gc, true, _x - 3, _y - 3, 6, 6);
-//	}
-//
-//	switch(state) {
-//		case WE_MS_RECT: {
-//			//cr->set_antialias(Cairo::ANTIALIAS_NONE);
-//			Gdk::Rectangle r = calcRectangle(false);
-//			//cr->set_source_rgba(0.5, 0.7, 0.7, 0.4);
-//			//cr->rectangle(r.get_x(), r.get_y(), r.get_width(), r.get_height());
-//			//cr->fill();
-//			//cr->set_line_width(1);
-//			//cr->set_source_rgba(0.2, 0.2, 0.2, 0.4);
-//			//cr->rectangle(r.get_x(), r.get_y(), r.get_width(), r.get_height());
-//			//cr->stroke();
-//			gdk_draw_rectangle(event->window, gc, true, r.get_x(), r.get_y(), r.get_width(), r.get_height());
-//			break;
-//		}
-//		default:;
-//	}
-//
-//	gdk_flush();
-//	gdk_gc_unref(gc);
-
-	return true;
-}
-
-void WidgetEditor::invalidate() {
-	get_window()->invalidate(false);
-}
-
-void WidgetEditor::setSelectionChange(bool value) {
-	for(WidgetsList::iterator w = wlist.begin(); w != wlist.end(); w++)
-		if((*w)->select)
-			(*w)->change = value;
-}
-
-void  WidgetEditor::moveSelection(int dx, int dy) {
-	for(WidgetsList::iterator w = wlist.begin(); w != wlist.end(); w++)
-		if((*w)->select) {
-			(*w)->move(dx, dy);
-		}
-}
-
-void  WidgetEditor::sizeSelection(int dx, int dy) {
-	for(WidgetsList::iterator w = wlist.begin(); w != wlist.end(); w++)
-		if((*w)->select) {
-			(*w)->size(dx, dy);
-		}
-}
-
-WidgetInfo *WidgetEditor::getWidgetAtPos(gdouble x, gdouble y) {
-	for(WidgetsList::reverse_iterator w = wlist.rbegin(); w != wlist.rend(); w++)
-		if((*w)->checkAtPos(x, y))
-			return *w;
-	return NULL;
-}
-
-void WidgetEditor::clearSelection() {
-	for(WidgetsList::iterator w = wlist.begin(); w != wlist.end(); w++)
-		(*w)->select = false;
-}
-
-Gdk::Rectangle WidgetEditor::getSelectionRect() {
-	Gdk::Rectangle r(0,0,0,0);
-	for(WidgetsList::iterator w = wlist.begin(); w != wlist.end(); w++)
-		if((*w)->select) {
-			if(r.has_zero_area())
-				r = Gdk::Rectangle((*w)->x - 4, (*w)->y - 4, (*w)->width + 8, (*w)->height + 8);
-			else
-				r.join(Gdk::Rectangle((*w)->x - 4, (*w)->y - 4, (*w)->width + 8, (*w)->height + 8));
-		}
-
-	return r;
-}
-
-int WidgetEditor::getSizer(int x, int y) {
-	Gdk::Rectangle r(0,0,0,0);
-	for(WidgetsList::iterator w = wlist.begin(); w != wlist.end(); w++)
-		if((*w)->select) {
-			if(r.has_zero_area())
-				r = (*w)->getRect();
-			else
-				r.join((*w)->getRect());
-		}
-	if(!r.has_zero_area())
-		for(int i = 0; i < 8; i++) {
-			gdouble _x = r.get_x() + kx[i]*r.get_width();
-			gdouble _y = r.get_y() + ky[i]*r.get_height();
-			if(abs(_x - x) <= 3 && abs(_y - y) <= 3)
-				return i;
-		}
-	return -1;
-}
-
-void WidgetEditor::callback(void *owner, CallbackType type, const void *data) {
-	switch(type) {
-		case CBT_SDK_CHANGE_SELECT:
-			clearSelection();
-			for(ElementsList::iterator e = sdk->selMan->elements.begin(); e != sdk->selMan->elements.end(); e++) {
-				for(WidgetsList::iterator w = wlist.begin(); w != wlist.end(); w++) {
-					if((*w)->tpl == *e) {
-						(*w)->select = true;
-						break;
-					}
-				}
-			}
-			invalidate();
-			break;
-		case CBT_SDK_REMOVE_ELEMENT:
-			for(WidgetsList::iterator w = wlist.begin(); w != wlist.end(); w++) {
-				if((*w)->tpl == data) {
-					delete *w;
-					wlist.remove(*w);
-					invalidate();
-					break;
-				}
-			}
-			break;
-		default: ;
-	}
-}
-
-Gdk::Rectangle WidgetEditor::calcRectangle(bool forDraw) {
-	int x1 = min(start_x, cur_x);
-	int y1 = min(start_y, cur_y);
-	int x2 = max(start_x, cur_x);
-	int y2 = max(start_y, cur_y);
-	if(forDraw) {
-		x1 -= 3;
-		y1 -= 3;
-		x2 += 3;
-		y2 += 3;
-	}
-	return Gdk::Rectangle(x1, y1, x2 - x1, y2 - y1);
-}
-
-void WidgetEditor::selectWigdetsFromRect() {
-	int x1 = min(start_x, cur_x);
-	int y1 = min(start_y, cur_y);
-	int x2 = max(start_x, cur_x);
-	int y2 = max(start_y, cur_y);
-	for(WidgetsList::iterator w = wlist.begin(); w != wlist.end(); w++) {
-		if((*w)->x > x2 || (*w)->y > y2 || ((*w)->x + (*w)->width) < x1 || ((*w)->y + (*w)->height) < y1)
-			; // no
-		else
-			sdk->selMan->add((*w)->tpl);
-	}
-}
-
-bool WidgetEditor::on_button_press_event(GdkEventButton* event) {
-	int sz = getSizer(event->x, event->y);
-	WidgetInfo *w = getWidgetAtPos(event->x, event->y);
-	if(sz != -1) {
-		selSizer = sz;
-		state = WE_MS_SIZER;
-	}
-	else if(w) {
-		if(w->select) {
-			setSelectionChange(true);
-		}
-		else {
-			w->change = true;
-			sdk->selMan->select(w->tpl);
-		}
-		state = WE_MS_MOVE;
-	}
-	else {
-		sdk->selMan->clear();
-		state = WE_MS_RECT;
-		cur_x = event->x;
-		cur_y = event->y;
-	}
-
-	start_x = event->x;
-	start_y = event->y;
-
-	return true;
-}
-
-bool WidgetEditor::on_button_release_event(GdkEventButton* event) {
-	switch(state) {
-		case WE_MS_MOVE:
-			setSelectionChange(false);
-			break;
-		case WE_MS_RECT:
-			selectWigdetsFromRect();
-			break;
-		default:;
-	}
-	invalidate();
-	state = WE_MS_NONE;
-	return true;
-}
-
-bool WidgetEditor::on_motion_notify_event(GdkEventMotion* event) {
-	switch(state) {
-		case WE_MS_NONE: {
-			int sz = getSizer(event->x, event->y);
-			switch(sz) {
-				case 0: get_window()->set_cursor(curList->cursor(CURSOR_TL_CORNER)); break;
-				case 5:
-				case 1: get_window()->set_cursor(curList->cursor(CURSOR_V_DOUBLE)); break;
-				case 2: get_window()->set_cursor(curList->cursor(CURSOR_TR_CORNER)); break;
-				case 7:
-				case 3: get_window()->set_cursor(curList->cursor(CURSOR_H_DOUBLE)); break;
-				case 4: get_window()->set_cursor(curList->cursor(CURSOR_BR_CORNER)); break;
-				case 6: get_window()->set_cursor(curList->cursor(CURSOR_BL_CORNER)); break;
-				default: get_window()->set_cursor(curList->cursor(CURSOR_DEFAULT)); break;
-			}
-			break;
-		}
-		case WE_MS_MOVE: {
-			int dx = (int)((event->x - start_x) / 5)*5;
-			int dy = (int)((event->y - start_y) / 5)*5;
-			if(abs(dx) >= 5 || abs(dy) >= 5) {
-				Gdk::Rectangle r = getSelectionRect();
-				moveSelection(dx, dy);
-				start_x += dx;
-				start_y += dy;
-				r.join(getSelectionRect());
-				get_window()->invalidate_rect(r, false);
-			}
-			break;
-		}
-		case WE_MS_RECT: {
-			Gdk::Rectangle r = calcRectangle();
-			cur_x = event->x;
-			cur_y = event->y;
-			r.join(calcRectangle());
-			get_window()->invalidate_rect(r, false);
-			break;
-		}
-		case WE_MS_SIZER: {
-			Gdk::Rectangle r = getSelectionRect();
-			int dx = (int)((event->x - start_x) / 5)*5;
-			int dy = (int)((event->y - start_y) / 5)*5;
-			switch(selSizer) {
-				case 0:
-					moveSelection(dx, dy);
-					sizeSelection(-dx, -dy);
-					break;
-				case 1:
-					moveSelection(0, dy);
-					sizeSelection(0, -dy);
-					break;
-				case 2:
-					moveSelection(0, dy);
-					sizeSelection(dx, -dy);
-					break;
-				case 3:
-					sizeSelection(dx, 0);
-					break;
-				case 4:
-					sizeSelection(dx, dy);
-					break;
-				case 5:
-					sizeSelection(0, dy);
-					break;
-				case 6:
-					moveSelection(dx, 0);
-					sizeSelection(-dx, dy);
-					break;
-				case 7:
-					moveSelection(dx, 0);
-					sizeSelection(-dx, 0);
-					break;
-			}
-			start_x += dx;
-			start_y += dy;
-			r.join(getSelectionRect());
-			get_window()->invalidate_rect(r, false);
-			break;
-		}
-		default: ;
-	}
-	return false;
-}
-
-//-----------------------------------------------------------------------------------------------
-
-WidgetEditorEx::WidgetEditorEx(SDK *sdk) {
-	set_events(Gdk::BUTTON_PRESS_MASK|Gdk::POINTER_MOTION_MASK|Gdk::BUTTON_RELEASE_MASK);
+WidgetEditorEx::WidgetEditorEx(SDK *sdk, SDK_Editor *sde) {
+	activeInstance = this;
+	this->sde = sde;
+	widget_set_events(*this, Gdk::BUTTON_PRESS_MASK|Gdk::POINTER_MOTION_MASK|Gdk::BUTTON_RELEASE_MASK);
 	set_above_child(true);
 	this->sdk = sdk;
 	sdk->on_remove_element += this;
+	sdk->on_add_element += this;
+	sdk->selMan->on_selection_change += this;
 	state = WE_MS_NONE;
+	start_x = start_y = cur_x = cur_y = 0;
+	selSizer = -1;
 
 	ElementTplWinControl *main = NULL;
 	for(ElementsList::iterator e = sdk->elements.begin(); e != sdk->elements.end(); e++)
@@ -876,12 +38,62 @@ WidgetEditorEx::WidgetEditorEx(SDK *sdk) {
 
 	Element *parent = NULL;
 	asParent = false;
+	parentForm = NULL;
+	formSurface = NULL;
+	formFrame = NULL;
+	panelField = NULL;
 	if(main) {
+		parentForm = main;
 		if(main->tpl->conf->editClassName == "Form") {
 			parent = main;
+#ifdef HIASM_GTK4
+			if(settingsMan && settingsMan->readInt(IDS_FORM_EDITOR) == 1) {
+				// "Plain field": the form is a free canvas without a frame, as the designer was before.
+				Fixed *surface = new Fixed();
+				surface->set_hexpand(true);
+				surface->set_vexpand(true);
+				main->ctl = surface;
+			}
+			else {
+			// The form is drawn like the runtime window: a frame (title from Caption, border from
+			// BorderStyle) around a client area of Width x Height, where the controls are placed.
+			formSurface = new Fixed();
+			formSurface->set_hexpand(true);
+			formSurface->set_vexpand(true);
+			formSurface->add_css_class("hiasm-form-surface");
+			formCss = Gtk::CssProvider::create();
+			buildFormFrame();
+			formSurface->get_style_context()->add_provider(formCss, G_MAXUINT);
+			main->ctl = formSurface;
+			main->on_property_change += this;
+			applyFormStyle(main);
+			}
+#else
 			main->ctl = this;
 			asParent = true;
+#endif
 			//ctrls.insert(std::pair<Widget*, Element*>(this, main));
+		}
+		else if(main->tpl->conf->editClassName == "Panel") {
+			// The scheme of a panel (ChildPanel): its field is the panel's size in the parent form, and the
+			// controls of the scheme are placed on it. The frame of the panel carries its Caption.
+			main->prepareForRun(&parent);
+			if(Gtk::Frame *frame = dynamic_cast<Gtk::Frame*>(main->ctl)) {
+				panelField = new Gtk::Fixed();
+				// The field has the designer's dot grid and a border, as the field of a form.
+				panelField->get_style_context()->add_class("hiasm-panel-field");
+				panelCss = Gtk::CssProvider::create();
+				panelCss->load_from_data(".hiasm-panel-field { border: 1px solid #8a8a8a; "
+					"background-image: radial-gradient(circle, #9a9a9a 1px, transparent 1px); background-size: 8px 8px; }\n");
+				panelField->get_style_context()->add_provider(panelCss, G_MAXUINT);
+#ifdef HIASM_GTK4
+				frame->set_child(*panelField);
+#else
+				frame->add(*panelField);
+#endif
+				main->on_property_change += this;
+				applyPanelSize(main);
+			}
 		}
 		else if(main->tpl->conf->editClassName == "Dialog") {
 			parent = main;
@@ -902,31 +114,151 @@ WidgetEditorEx::WidgetEditorEx(SDK *sdk) {
 		else
 			ew = dynamic_cast<ElementTplWinControl *>(*e);
 		if(*e != main && ew) {
-			dynamic_cast<ElementCore *>(*e)->prepareForRun(&parent);
+			prepareControl(*e, ew, &parent);
+			if(!ew->ctl) continue;
+			placeControl(*e, ew);
 			ctrls.insert(std::pair<Widget*, Element*>(ew->ctl, *e));
 			ew->on_property_change += this;
 		}
 	}
 
-	if(!asParent)
-		add(*main->ctl);
+	if(main && !asParent)
+		add(formFrame ? static_cast<Gtk::Widget&>(*formFrame) : *main->ctl);
 
 	unBuffer(this);
 }
 
 WidgetEditorEx::~WidgetEditorEx() {
+	if(activeInstance == this)
+		activeInstance = NULL;
+
 	sdk->on_remove_element -= this;
+	sdk->on_add_element -= this;
+	sdk->selMan->on_selection_change -= this;
 
 	for(WEItems::iterator w = ctrls.begin(); w != ctrls.end(); w++)
 		if(w->second->sdk)
 			w->second->getParentElement()->on_property_change -= this;
 		else
 			w->second->on_property_change -= this;
+	for(const auto &item : ctrls) {
+		Element *element = item.second->sdk ? item.second->getParentElement() : item.second;
+		delete item.first;
+		if(auto control = dynamic_cast<ElementTplWinControl*>(element)) control->ctl = nullptr;
+	}
+	if(!asParent) {
+		if(auto control = dynamic_cast<ElementTplWinControl*>(parentForm)) {
+			if(panelField) {
+				// The frame of the panel owns its field and the controls on it.
+				control->on_property_change -= this;
+				panelField->get_style_context()->remove_provider(panelCss);
+				panelField = NULL;
+			}
+			if(formFrame) {
+				// The frame owns the client area (control->ctl).
+				control->on_property_change -= this;
+				formSurface->get_style_context()->remove_provider(formCss);
+				formFrame->get_style_context()->remove_provider(formCss);
+				delete formFrame;
+				formFrame = NULL;
+				formSurface = NULL;
+			}
+			else
+				delete control->ctl;
+			control->ctl = nullptr;
+		}
+	}
+	else if(auto control = dynamic_cast<ElementTplWinControl*>(parentForm)) control->ctl = nullptr;
+}
+
+void WidgetEditorEx::beginInsert(const ustring &name) {
+	pendingInsertName = name;
+	if(curList)
+		widget_set_cursor(*this, curList->cursor(CURSOR_INSERT_ELEMENT));
+}
+
+// Prepares the widget of an element of the scheme for the editor. A container of the C++ package (ChildPanel,
+// ChildForm) is not an ElementCore: its window is the inner parent element ew, and a core container (hcChildPanel)
+// prepares its whole scheme itself. A child window (ChildForm, hcChildForm) is not a control of the form: it lives
+// in its own scheme, so drawing its frame here would put a window frame on the main form, a panel or another child
+// form. Only the form editor of its own scheme shows that window.
+void WidgetEditorEx::prepareControl(Element *e, ElementTplWinControl *ew, Element **parent) {
+	if(ElementCore *core = dynamic_cast<ElementCore *>(e))
+		core->prepareForRun(parent);
+	else if(dynamic_cast<ElementTplForm *>(ew))
+		return;
+	else
+		ew->prepareForRun(parent);
+}
+
+// Puts the widget into the field of its panel, or into the client area of its form, and moves it to its place.
+// A container is drawn where it stands in the scheme: its inner window was created at a fixed point of its own
+// scheme, so the positions of several containers would coincide.
+void WidgetEditorEx::placeControl(Element *e, ElementTplWinControl *ew) {
+#ifdef HIASM_GTK4
+	if(!ew->ctl) return;
+	ElementTplWinControl *form = dynamic_cast<ElementTplWinControl*>(parentForm);
+	Gtk::Widget *area = panelField ? static_cast<Gtk::Widget*>(panelField) : (form ? form->ctl : nullptr);
+	if(!area) return;
+	if(panelField && !ew->ctl->get_parent())
+		panelField->put(*ew->ctl, 0, 0);
+	if(ew->ctl->get_parent() != area) return;
+	if(Gtk::Fixed *surface = dynamic_cast<Gtk::Fixed*>(area)) {
+		if(ew != e)
+			surface->move(*ew->ctl, GRID_FRM_X(e->x), GRID_FRM_Y(e->y));
+		else
+			surface->move(*ew->ctl, ew->props[0]->readInt(), ew->props[1]->readInt());
+	}
+#endif
+}
+
+// The frame of a panel is the panel's Width x Height, as in the parent form, with its Caption; the field of the
+// controls fills the frame inside it.
+void WidgetEditorEx::applyPanelSize(Element *panel) {
+	if(!panelField) return;
+	ElementProperty *width = panel->props.getByName("Width");
+	ElementProperty *height = panel->props.getByName("Height");
+	ElementTplWinControl *control = dynamic_cast<ElementTplWinControl*>(panel);
+	if(Gtk::Frame *frame = control ? dynamic_cast<Gtk::Frame*>(control->ctl) : nullptr) {
+		ElementProperty *caption = panel->props.getByName("Caption");
+		// An empty Caption leaves no title row, so the field gets the whole panel.
+		ustring text = caption ? caption->readStr() : ustring();
+		if(text.empty())
+			frame->unset_label();
+		else
+			frame->set_label(text);
+		frame->set_size_request(width ? width->readInt() : 60, height ? height->readInt() : 50);
+		gtk_widget_set_halign(GTK_WIDGET(frame->gobj()), GTK_ALIGN_START);
+		gtk_widget_set_valign(GTK_WIDGET(frame->gobj()), GTK_ALIGN_START);
+		frame->set_hexpand(false);
+		frame->set_vexpand(false);
+	}
+	panelField->set_hexpand(true);
+	panelField->set_vexpand(true);
+}
+
+void WidgetEditorEx::addElement(Element *e) {
+	ElementTplWinControl *ew = NULL;
+	if(e->sdk && e->getParentElement())
+		ew = dynamic_cast<ElementTplWinControl *>((Element*)e->getParentElement());
+	else
+		ew = dynamic_cast<ElementTplWinControl *>(e);
+	if(ew) {
+		Element *parent = parentForm;
+		prepareControl(e, ew, &parent);
+		if(ew->ctl) {
+			placeControl(e, ew);
+			ctrls.insert(std::pair<Widget*, Element*>(ew->ctl, e));
+			ew->on_property_change += this;
+			ew->ctl->show();
+		}
+		invalidate();
+	}
 }
 
 void WidgetEditorEx::unBuffer(Widget *ctl) {
 	if(!dynamic_cast<TextView*>(ctl) && !dynamic_cast<TreeView*>(ctl))
-		ctl->set_double_buffered(false);
+		(void)ctl;
 	Container *c = dynamic_cast<Container*>(ctl);
 	if(!c) return;
 
@@ -935,29 +267,48 @@ void WidgetEditorEx::unBuffer(Widget *ctl) {
 		unBuffer(*c); //->set_double_buffered(false);
 }
 
+Gdk::Rectangle WidgetEditorEx::widgetRectangle(Widget *widget) {
+#ifdef HIASM_GTK4
+	graphene_rect_t bounds;
+	if(gtk_widget_compute_bounds(widget->gobj(), GTK_WIDGET(gobj()), &bounds))
+		return Gdk::Rectangle(bounds.origin.x, bounds.origin.y, bounds.size.width, bounds.size.height);
+	return Gdk::Rectangle();
+#else
+	int x = 0, y = 0;
+	widget->translate_coordinates(*this, 0, 0, x, y);
+	return Gdk::Rectangle(x, y, widget->get_width(), widget->get_height());
+#endif
+}
+
 Element *WidgetEditorEx::getElementAtPos(gdouble x, gdouble y) {
-	Element *er = NULL;
-	Container *prn = asParent ? this : (Container*)(*get_children().begin());
-	Glib::ListHandle<Widget*> ch = prn->get_children();
-	for(Glib::ListHandle<Widget*>::iterator c = ch.begin(); c != ch.end(); c++) {
-		Allocation a = (*c)->get_allocation();
-		if(a.get_x() <= x && a.get_y() <= y && (a.get_x() + a.get_width()) >= x && (a.get_y() + a.get_height()) >= y) {
-			er = ctrls[*c];
+	Element *hit = nullptr;
+	// Use scheme order (also the widget stacking order), never pointer order.
+	for(Element *element : sdk->elements)
+		for(const auto &item : ctrls) {
+			if(item.second != element) continue;
+			const auto a = widgetRectangle(item.first);
+			if(x >= a.get_x() && y >= a.get_y() && x < a.get_x()+a.get_width() && y < a.get_y()+a.get_height())
+				hit = element;
 		}
-	}
-	return er;
+	return hit;
 }
 
 #include "main_gui.h"
+
+// Anchors of the 8 resize grips on the selection rectangle, clockwise from the
+// top-left corner (0 = top-left, 2 = top-right, 4 = bottom-right, 6 = bottom-left,
+// 1/3/5/7 = edge midpoints). Same layout as ElementDynGeometry::rePosGrids().
+static const double kx[8] = {0, 0.5, 1, 1, 1, 0.5, 0, 0};
+static const double ky[8] = {0, 0, 0, 0.5, 1, 1, 1, 0.5};
 
 int WidgetEditorEx::getSizer(int x, int y) {
 	Gdk::Rectangle r(0,0,0,0);
 	for(WEItems::iterator w = ctrls.begin(); w != ctrls.end(); w++)
 		if(w->second->isSelect()) {
 			if(r.has_zero_area())
-				r = w->first->get_allocation();
+				r = widgetRectangle(w->first);
 			else
-				r.join(w->first->get_allocation());
+				r = r.join(widgetRectangle(w->first));
 		}
 	if(!r.has_zero_area())
 		for(int i = 0; i < 8; i++) {
@@ -969,9 +320,75 @@ int WidgetEditorEx::getSizer(int x, int y) {
 	return -1;
 }
 
+void WidgetEditorEx::snapMovement(int &dx, int &dy, bool resizing) {
+	const bool edges = SettingsManager::formBinding(SettingsManager::BindEdges);
+	const bool centers = SettingsManager::formBinding(SettingsManager::BindCenter);
+	const bool padding = SettingsManager::formBinding(SettingsManager::BindPadding);
+	if(!edges && !centers && !padding) return;
+	const auto selected = getSelectionRect();
+	if(selected.has_zero_area()) return;
+	for(const auto &item : ctrls)
+		if(item.second->isSelect() && item.second->isFreeze()) return;
+	int correctionX = 0, correctionY = 0, distanceX = 6, distanceY = 6;
+	auto candidate = [](double moving, double target, int &correction, int &distance, int factor = 1) {
+		const int delta = static_cast<int>(std::lround(target - moving));
+		if(std::abs(delta) < distance) { distance = std::abs(delta); correction = factor*delta; }
+	};
+	const bool moveLeft = !resizing || selSizer == 0 || selSizer == 6 || selSizer == 7;
+	const bool moveRight = !resizing || selSizer == 2 || selSizer == 3 || selSizer == 4;
+	const bool moveTop = !resizing || selSizer == 0 || selSizer == 1 || selSizer == 2;
+	const bool moveBottom = !resizing || selSizer == 4 || selSizer == 5 || selSizer == 6;
+	const double left = selected.get_x() + (moveLeft ? dx : 0), top = selected.get_y() + (moveTop ? dy : 0);
+	const double right = selected.get_x() + selected.get_width() + (moveRight ? dx : 0);
+	const double bottom = selected.get_y() + selected.get_height() + (moveBottom ? dy : 0);
+	auto compare = [&](const Gdk::Rectangle &target, bool parent) {
+		const double l = target.get_x(), t = target.get_y();
+		const double r = l + target.get_width(), b = t + target.get_height();
+		if(edges) {
+			for(double guide : {l, r}) {
+				if(moveLeft) candidate(left, guide, correctionX, distanceX);
+				if(moveRight) candidate(right, guide, correctionX, distanceX);
+			}
+			for(double guide : {t, b}) {
+				if(moveTop) candidate(top, guide, correctionY, distanceY);
+				if(moveBottom) candidate(bottom, guide, correctionY, distanceY);
+			}
+		}
+		if(centers) {
+			if(moveLeft || moveRight) candidate((left+right)/2, (l+r)/2, correctionX, distanceX, resizing ? 2 : 1);
+			if(moveTop || moveBottom) candidate((top+bottom)/2, (t+b)/2, correctionY, distanceY, resizing ? 2 : 1);
+		}
+		if(padding) {
+			if(parent) {
+				if(moveLeft) candidate(left, l+5, correctionX, distanceX);
+				if(moveRight) candidate(right, r-5, correctionX, distanceX);
+				if(moveTop) candidate(top, t+5, correctionY, distanceY);
+				if(moveBottom) candidate(bottom, b-5, correctionY, distanceY);
+			} else {
+				if(moveLeft) candidate(left, r+5, correctionX, distanceX);
+				if(moveRight) candidate(right, l-5, correctionX, distanceX);
+				if(moveTop) candidate(top, b+5, correctionY, distanceY);
+				if(moveBottom) candidate(bottom, t-5, correctionY, distanceY);
+			}
+		}
+	};
+	for(Element *element : sdk->elements) {
+		if(element->isSelect()) continue;
+		for(const auto &item : ctrls) {
+			if(item.second != element) continue;
+			bool sameParent = true;
+			for(const auto &moving : ctrls) if(moving.second->isSelect() && moving.first->get_parent() != item.first->get_parent()) sameParent = false;
+			if(sameParent) compare(widgetRectangle(item.first), false);
+		}
+	}
+	if(auto control = dynamic_cast<ElementTplWinControl*>(parentForm))
+		if(control->ctl) compare(widgetRectangle(control->ctl), true);
+	dx += correctionX; dy += correctionY;
+}
+
 void  WidgetEditorEx::moveSelection(int dx, int dy) {
 	for(WEItems::iterator w = ctrls.begin(); w != ctrls.end(); w++)
-		if(w->second->isSelect()) {
+		if(w->second->isSelect() && !w->second->isFreeze()) {
 			//changeProperty = true;
 			Element *e = w->second->sdk ? w->second->getParentElement() : w->second;
 			int v = e->props[0]->readInt() + dx;
@@ -984,12 +401,12 @@ void  WidgetEditorEx::moveSelection(int dx, int dy) {
 
 void  WidgetEditorEx::sizeSelection(int dx, int dy) {
 	for(WEItems::iterator w = ctrls.begin(); w != ctrls.end(); w++)
-		if(w->second->isSelect()) {
+		if(w->second->isSelect() && !w->second->isFreeze()) {
 			//changeProperty = true;
 			Element *e = w->second->sdk ? w->second->getParentElement() : w->second;
-			int v = e->props[2]->readInt() + dx;
+			int v = max(5, e->props[2]->readInt() + dx);
 			e->props[2]->setValue(&v);
-			v = e->props[3]->readInt() + dy;
+			v = max(5, e->props[3]->readInt() + dy);
 			e->props[3]->setValue(&v);
 			//changeProperty = false;
 		}
@@ -1000,9 +417,9 @@ Gdk::Rectangle WidgetEditorEx::getSelectionRect() {
 	for(WEItems::iterator w = ctrls.begin(); w != ctrls.end(); w++)
 		if(w->second->isSelect()) {
 			if(r.has_zero_area())
-				r = w->first->get_allocation();
+				r = widgetRectangle(w->first);
 			else
-				r.join(w->first->get_allocation());
+				r = r.join(widgetRectangle(w->first));
 		}
 
 	return r;
@@ -1028,7 +445,7 @@ void WidgetEditorEx::selectWigdetsFromRect() {
 	int x2 = max(start_x, cur_x);
 	int y2 = max(start_y, cur_y);
 	for(WEItems::iterator w = ctrls.begin(); w != ctrls.end(); w++) {
-		Allocation a = w->first->get_allocation();
+		Allocation a = widgetRectangle(w->first);
 		if(a.get_x() > x2 || a.get_y() > y2 || (a.get_x() + a.get_width()) < x1 || (a.get_y() + a.get_height()) < y1)
 			; // no
 		else
@@ -1037,12 +454,37 @@ void WidgetEditorEx::selectWigdetsFromRect() {
 }
 
 bool WidgetEditorEx::on_button_press_event(GdkEventButton* event)  {
+	if(event->button != BTN_LEFT && pendingInsertName.empty()) return false;
+	if(!pendingInsertName.empty()) {
+		if(event->button != BTN_LEFT) {
+			pendingInsertName.clear();
+			if(sde) sde->on_end_operation.run(NULL);
+			return true;
+		}
+		ustring name = pendingInsertName;
+		pendingInsertName.clear();
+		if(curList)
+			widget_set_cursor(*this, curList->cursor(CURSOR_DEFAULT));
+		if(sde) sde->beginOperation(MS_SCROLL);
+		Element *e = sdk->add(name, GRID_FRM_X(event->x), GRID_FRM_Y(event->y));
+		if(e) {
+			sdk->selMan->select(e);
+		}
+		if(sde) {
+			sde->changeScheme();
+			sde->endOperation();
+		}
+		invalidate();
+		return true;
+	}
+
 //	sdk->selMan->clear();
 	Element *e = getElementAtPos(event->x, event->y);
 //	if(e)
 //		sdk->selMan->add(e);
 
 	int sz = getSizer(event->x, event->y);
+	if(sde) sde->beginOperation(MS_SCROLL);
 	if(sz != -1) {
 		selSizer = sz;
 		state = WE_MS_SIZER;
@@ -1052,7 +494,8 @@ bool WidgetEditorEx::on_button_press_event(GdkEventButton* event)  {
 			//setSelectionChange(true);
 		}
 		else {
-			sdk->selMan->select(e);
+			if(event->state & GDK_SHIFT_MASK) sdk->selMan->add(e);
+			else sdk->selMan->select(e);
 		}
 		state = WE_MS_MOVE;
 	}
@@ -1072,6 +515,7 @@ bool WidgetEditorEx::on_button_press_event(GdkEventButton* event)  {
 }
 
 bool WidgetEditorEx::on_button_release_event(GdkEventButton* event) {
+	if(event->button != BTN_LEFT) return false;
 	switch(state) {
 		case WE_MS_MOVE:
 			//setSelectionChange(false);
@@ -1082,6 +526,7 @@ bool WidgetEditorEx::on_button_release_event(GdkEventButton* event) {
 		default:;
 	}
 	state = WE_MS_NONE;
+	if(sde) sde->endOperation();
 
 	invalidate();
 
@@ -1091,17 +536,18 @@ bool WidgetEditorEx::on_button_release_event(GdkEventButton* event) {
 bool WidgetEditorEx::on_motion_notify_event(GdkEventMotion* event) {
 	switch(state) {
 		case WE_MS_NONE: {
+			if(!curList) break;
 			int sz = getSizer(event->x, event->y);
 			switch(sz) {
-				case 0: get_window()->set_cursor(curList->cursor(CURSOR_TL_CORNER)); break;
+				case 0: widget_set_cursor(*this, curList->cursor(CURSOR_TL_CORNER)); break;
 				case 5:
-				case 1: get_window()->set_cursor(curList->cursor(CURSOR_V_DOUBLE)); break;
-				case 2: get_window()->set_cursor(curList->cursor(CURSOR_TR_CORNER)); break;
+				case 1: widget_set_cursor(*this, curList->cursor(CURSOR_V_DOUBLE)); break;
+				case 2: widget_set_cursor(*this, curList->cursor(CURSOR_TR_CORNER)); break;
 				case 7:
-				case 3: get_window()->set_cursor(curList->cursor(CURSOR_H_DOUBLE)); break;
-				case 4: get_window()->set_cursor(curList->cursor(CURSOR_BR_CORNER)); break;
-				case 6: get_window()->set_cursor(curList->cursor(CURSOR_BL_CORNER)); break;
-				default: get_window()->set_cursor(curList->cursor(CURSOR_DEFAULT)); break;
+				case 3: widget_set_cursor(*this, curList->cursor(CURSOR_H_DOUBLE)); break;
+				case 4: widget_set_cursor(*this, curList->cursor(CURSOR_BR_CORNER)); break;
+				case 6: widget_set_cursor(*this, curList->cursor(CURSOR_BL_CORNER)); break;
+				default: widget_set_cursor(*this, curList->cursor(CURSOR_DEFAULT)); break;
 			}
 			break;
 		}
@@ -1109,7 +555,9 @@ bool WidgetEditorEx::on_motion_notify_event(GdkEventMotion* event) {
 			int dx = (int)((event->x - start_x) / 5)*5;
 			int dy = (int)((event->y - start_y) / 5)*5;
 			if(abs(dx) >= 5 || abs(dy) >= 5) {
+				snapMovement(dx, dy);
 				moveSelection(dx, dy);
+				if(sde) sde->changeScheme();
 				start_x += dx;
 				start_y += dy;
 			}
@@ -1119,14 +567,15 @@ bool WidgetEditorEx::on_motion_notify_event(GdkEventMotion* event) {
 			Gdk::Rectangle r = calcRectangle();
 			cur_x = event->x;
 			cur_y = event->y;
-			r.join(calcRectangle());
-			get_window()->invalidate_rect(r, true);
+			r = r.join(calcRectangle());
+			widget_invalidate_rect(*this, r);
 			break;
 		}
 		case WE_MS_SIZER: {
 			Gdk::Rectangle r = getSelectionRect();
 			int dx = (int)((event->x - start_x) / 5)*5;
 			int dy = (int)((event->y - start_y) / 5)*5;
+			if(dx || dy) snapMovement(dx, dy, true);
 			switch(selSizer) {
 				case 0:
 					moveSelection(dx, dy);
@@ -1160,9 +609,10 @@ bool WidgetEditorEx::on_motion_notify_event(GdkEventMotion* event) {
 			}
 			start_x += dx;
 			start_y += dy;
-			r.join(getSelectionRect());
+			if((dx || dy) && sde) sde->changeScheme();
+			r = r.join(getSelectionRect());
 			r = Gdk::Rectangle(r.get_x() - 4, r.get_y() - 4, r.get_width() + 8, r.get_height() + 8);
-			get_window()->invalidate_rect(r, true);
+			widget_invalidate_rect(*this, r);
 			break;
 		}
 		default: ;
@@ -1181,10 +631,17 @@ bool WidgetEditorEx::on_draw (const ::Cairo::RefPtr< ::Cairo::Context >& cr) {
 	cr->fill();
 		
 	EventBox::on_draw(cr);
+#ifdef HIASM_GTK4
+	return true;
+#else
+	return drawSelection(cr);
+#endif
+}
 
+bool WidgetEditorEx::drawSelection(const Cairo::RefPtr<Cairo::Context> &cr) {
 	for(WEItems::iterator e = ctrls.begin(); e != ctrls.end(); e++) {
 		if(e->second->isSelect()) {
-			Allocation a = e->first->get_allocation();
+			Allocation a = widgetRectangle(e->first);
 			cr->set_source_rgba(0.5, 0.7, 0.7, 0.4);
 			cr->rectangle(a.get_x(), a.get_y(), a.get_width(), a.get_height());
 			cr->fill();
@@ -1220,8 +677,102 @@ bool WidgetEditorEx::on_draw (const ::Cairo::RefPtr< ::Cairo::Context >& cr) {
 	return true;
 }
 
+// Size from Width and Height, title from Caption, border from BorderStyle and background from Color,
+// the same properties the runtime window uses (ElementTplForm::applyFrame, createWidget).
+// The form is drawn like the window of HiAsm 4: a title bar (icon, Caption and the window buttons) above the
+// client area. Which parts show follows BorderStyle (applyFormStyle).
+void WidgetEditorEx::buildFormFrame() {
+	formFrame = new VBox();
+	formFrame->get_style_context()->add_class("hiasm-form-frame");
+	formTitle = new HBox(false, 4);
+	formTitle->get_style_context()->add_class("hiasm-form-title");
+	// The HiAsm icon, as the window of HiAsm 4 shows it in the title bar.
+	#ifdef HIASM_GTK4
+	auto icon = new Gtk::Picture();
+	#else
+	auto icon = Gtk::manage(new Gtk::Image());
+	#endif
+	const ustring logo = dataDir + INT_PATH"hiasm.png";
+	#ifdef HIASM_GTK4
+	if(g_file_test(logo.c_str(), G_FILE_TEST_IS_REGULAR)) icon->set_filename(logo.raw());
+	icon->set_can_shrink(false);
+	#else
+	if(g_file_test(logo.c_str(), G_FILE_TEST_IS_REGULAR)) icon->set(Gdk::Pixbuf::create_from_file(logo, 16, 16));
+	#endif
+	icon->set_size_request(16, 16);
+	box_pack_start(*formTitle, *icon, false, false, 0);
+	formTitleText = new Gtk::Label();
+	formTitleText->set_hexpand(true);
+	formTitleText->set_xalign(0);
+	box_pack_start(*formTitle, *formTitleText, true, true, 0);
+	auto windowButton = [this](const char *iconName) {
+		auto button = new Gtk::Button();
+		#ifdef HIASM_GTK4
+		button->set_icon_name(iconName);
+		#else
+		auto image = Gtk::manage(new Gtk::Image());
+		image->set_from_icon_name(iconName, Gtk::ICON_SIZE_BUTTON);
+		button->set_image(*image);
+		#endif
+		button->get_style_context()->add_class("flat");
+		button->get_style_context()->add_class("hiasm-window-button");
+		button->get_style_context()->add_provider(formCss, G_MAXUINT);
+		box_pack_start(*formTitle, *button, false, false, 0);
+		return button;
+	};
+	formMinimize = windowButton("window-minimize-symbolic");
+	formMaximize = windowButton("window-maximize-symbolic");
+	windowButton("window-close-symbolic");
+	formTitle->get_style_context()->add_provider(formCss, G_MAXUINT);
+	formFrame->get_style_context()->add_provider(formCss, G_MAXUINT);
+	box_pack_start(*formFrame, *formTitle, false, false, 0);
+	box_pack_start(*formFrame, *formSurface, false, false, 0);
+}
+
+void WidgetEditorEx::applyFormStyle(Element *form) {
+	if(!formSurface || !formFrame) return;
+	ElementProperty *width = form->props.getByName("Width");
+	ElementProperty *height = form->props.getByName("Height");
+	formSurface->set_size_request(width ? width->readInt() : 400, height ? height->readInt() : 300);
+
+	// BorderStyle (Delphi list, default bsSizeable): 0 bsNone has no frame; 1..5 have a title bar.
+	ElementProperty *border = form->props.getByName("BorderStyle");
+	const int style = border ? border->readInt() : 2;
+	const bool titled = style >= 1 && style <= 5;
+	ElementProperty *caption = form->props.getByName("Caption");
+	formTitleText->set_text(titled && caption ? caption->readStr() : ustring());
+	formTitle->set_visible(titled);
+	// Minimize and maximize belong to the sizable borders (bsSizeable, bsSizeToolWin, bsSizeBox, bsSizeBoxEdge).
+	const bool sizable = style == 2 || style == 5 || style == 7 || style == 9;
+	formMinimize->set_visible(sizable);
+	formMaximize->set_visible(sizable);
+	if(style == 0)
+		formFrame->get_style_context()->add_class("hiasm-noframe");
+	else
+		formFrame->get_style_context()->remove_class("hiasm-noframe");
+
+	ElementProperty *color = form->props.getByName("Color");
+	std::string css = ".hiasm-noframe { border-width: 0; }\n"
+		".hiasm-form-frame { border: 1px solid #8a8a8a; }\n"
+		".hiasm-form-title { background-color: #f3f3f3; padding: 2px 4px; }\n"
+		".hiasm-window-button { min-width: 28px; min-height: 22px; margin: 0; padding: 0; border-radius: 0; }\n";
+	if(color && color->type == data_color)
+		css += ".hiasm-form-surface { background-color: " + ((TypeColor*)color->value)->to_string() + "; }\n";
+	// The designer's dot grid stays visible on the client area, as in HiAsm 4.
+	css += ".hiasm-form-surface { background-image: radial-gradient(circle, #9a9a9a 1px, transparent 1px); background-size: 8px 8px; }\n";
+	formCss->load_from_data(css);
+}
+
 void WidgetEditorEx::changeProperty(ElementProperty *prop) {
 	Element *e = prop->parent;
+	if(formFrame && e == parentForm) {
+		applyFormStyle(e);
+		return;
+	}
+	if(panelField && e == parentForm) {
+		applyPanelSize(e);
+		return;
+	}
 	Widget *w = NULL, *fw;
 
 	WEItems::iterator we;
@@ -1246,7 +797,7 @@ void WidgetEditorEx::changeProperty(ElementProperty *prop) {
 			Gdk::Rectangle r = fw->get_allocation();
 			f->move(*fw, e->props[0]->readInt(), e->props[1]->readInt());
 			r.join(fw->get_allocation());
-			//get_window()->invalidate_rect(r, true);
+			//widget_invalidate_rect(*this, r);
 			invalidate();
 		}
 	}
@@ -1257,9 +808,15 @@ void WidgetEditorEx::changeProperty(ElementProperty *prop) {
 		if(prop->name == "Caption")
 			((Label *)w)->set_text(prop->readStr());
 	}
+	else if(prop->name == "Caption") {
+		// Caption of the other controls: a button, a check box or a group box frame
+		if(auto button = dynamic_cast<Gtk::Button*>(w)) button->set_label(prop->readStr());
+		else if(auto check = dynamic_cast<Gtk::CheckButton*>(w)) check->set_label(prop->readStr());
+		else if(auto frame = dynamic_cast<Gtk::Frame*>(w)) frame->set_label(prop->readStr());
+	}
 	else if(e->tpl->conf->editClassName == "FileChooserButton") {
 		if(prop->name == "Action")
-			((FileChooserButton *)w)->set_action((FileChooserAction)(prop->readInt()+FILE_CHOOSER_ACTION_OPEN));
+			((FileChooserButton *)w)->set_action(file_chooser_action(prop->readInt()));
 	}
 	else if(e->tpl->conf->editClassName == "Edit") {
 		if(prop->name == "Text")
@@ -1272,16 +829,16 @@ void WidgetEditorEx::changeProperty(ElementProperty *prop) {
 	else if(e->tpl->conf->editClassName == "Button") {
 		((Button *)w)->set_label(e->props[7]->readStr());
 
-		((Button*)w)->set_image_position((PositionType)(e->props[11]->readInt() + POS_LEFT));
+		button_set_image_position(*((Gtk::Button*)w), (PositionType)(e->props[11]->readInt() + POS_LEFT));
 
 		if(e->props[9]->isDefault()) {
 			Image *img = new Image();
-			((Button*)w)->set_image(*img);
+			button_set_image(*((Gtk::Button*)w), *img);
 		}
 		else {
 			BuiltinStockID sid = {e->props[9]->readStr().c_str()};
-			Image *img = new Image(sid, (BuiltinIconSize)(e->props[10]->readInt() + ICON_SIZE_MENU));
-			((Button*)w)->set_image(*img);
+			Image *img = stock_image(sid, (BuiltinIconSize)(e->props[10]->readInt() + ICON_SIZE_MENU));
+			button_set_image(*((Gtk::Button*)w), *img);
 		}
 	}
 	else if(e->tpl->conf->editClassName == "Image") {
@@ -1295,7 +852,7 @@ void WidgetEditorEx::changeProperty(ElementProperty *prop) {
 		}
 		else {
 			BuiltinStockID sid = {e->props[10]->readStr().c_str()};
-			img->set(sid, (BuiltinIconSize)(e->props[11]->readInt() + ICON_SIZE_MENU));
+			image_set_stock(*img, sid, (BuiltinIconSize)(e->props[11]->readInt() + ICON_SIZE_MENU));
 		}
 	}
 	else if(e->tpl->conf->editClassName == "CheckBox") {
@@ -1328,6 +885,7 @@ void WidgetEditorEx::changeProperty(ElementProperty *prop) {
 void WidgetEditorEx::callback(void *owner, CallbackType type, const void *data) {
 	switch(type) {
 		case CBT_SDK_CHANGE_SELECT:
+			invalidate();
 			/*
 			for(ElementsList::iterator e = sdk->selMan->elements.begin(); e != sdk->selMan->elements.end(); e++) {
 				for(WidgetsList::iterator w = wlist.begin(); w != wlist.end(); w++) {
@@ -1343,12 +901,18 @@ void WidgetEditorEx::callback(void *owner, CallbackType type, const void *data) 
 		case CBT_SDK_REMOVE_ELEMENT:
 			for(WEItems::iterator e = ctrls.begin(); e != ctrls.end(); e++) {
 				if(e->second == data) {
+					Element *control = e->second->sdk ? e->second->getParentElement() : e->second;
+					if(control) control->on_property_change -= this;
 					delete e->first;
+					if(auto widget = dynamic_cast<ElementTplWinControl*>(control)) widget->ctl = nullptr;
 					ctrls.erase(e);
 					invalidate();
 					break;
 				}
 			}
+			break;
+		case CBT_SDK_ADD_ELEMENT:
+			addElement((Element*)data);
 			break;
 		case CBT_ELEMENT_PROP_CHANGE:
 			changeProperty((ElementProperty*)data);
@@ -1370,35 +934,20 @@ void WidgetEditorEx::edit(Container *w) {
 void FE_Internal::start(SDK_Editor *sde) {
 	FormEditor::start(sde);
 
-	we = new WidgetEditorEx(sde->csdk);
-	sde->get_parent()->add(*we);
-	we->show_all();
-
-	sde->hide();
-
-	return;
-
-	weditor = new WidgetEditor(sde->csdk);
-
-	for(ElementsList::iterator e = sde->csdk->elements.begin(); e != sde->csdk->elements.end(); e++)
-		if((*e)->isParent()) {
-			// do nothing
-			break;
-		}
-	for(ElementsList::iterator e = sde->csdk->elements.begin(); e != sde->csdk->elements.end(); e++)
-		if(!(*e)->isParent() && !(*e)->tpl->conf->editClassName.empty() && ((*e)->tpl->conf->editClassName != "EditMulti" || !(*e)->tpl->conf->sub.empty())) {
-			weditor->addWidget(*e);
-		}
-	sde->get_parent()->add(*weditor);
-	weditor->show();
-
-	weditor->callback(sde, CBT_SDK_CHANGE_SELECT, sde->csdk->selMan);
+	we = new WidgetEditorEx(sde->csdk, sde);
+	widget_add_child(*sde->get_parent(), *we);
+	we->set_hexpand(true);
+	we->set_vexpand(true);
+	compat_show_all(*we);
 
 	sde->hide();
 }
 
 void FE_Internal::stop() {
-	//delete weditor;
-	delete we;
+	if(we) {
+		widget_remove_child(*sde->get_parent(), *we);
+		delete we;
+		we = NULL;
+	}
 	sde->show();
 }

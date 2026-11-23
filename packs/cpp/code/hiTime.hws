@@ -1,0 +1,55 @@
+func TimeState()
+  return('hiasm_ll_state(' && _id_ && ', static_cast<long long>(std::time(nullptr)))')
+end
+
+func doTimeDate(_data)
+  println('{')
+  block.inclvl()
+  println('std::time_t hiasm_tval', _id_, ' = static_cast<std::time_t>(', TimeState(), ');')
+  println('std::tm hiasm_ttm', _id_, ' = *std::localtime(&hiasm_tval', _id_, ');')
+  if(linked('newHours'))
+    println('hiasm_ttm', _id_, '.tm_hour += static_cast<int>(', d('newHours'), ');')
+  end
+  if(linked('newMinute'))
+    println('hiasm_ttm', _id_, '.tm_min += static_cast<int>(', d('newMinute'), ');')
+  end
+  if(linked('newSecond'))
+    println('hiasm_ttm', _id_, '.tm_sec += static_cast<int>(', d('newSecond'), ');')
+  end
+  println('hiasm_ttm', _id_, '.tm_isdst = -1;')
+  println(TimeState(), ' = static_cast<long long>(std::mktime(&hiasm_ttm', _id_, '));')
+  block.declvl()
+  println('}')
+end
+
+func DateTime()
+  return('[](long long t) { return 25569.0 + static_cast<double>(t) / 86400.0; }(' && TimeState() && ')')
+end
+
+func Hours()
+  if(get('Time_Date') == 1)
+    return('[](long long t) { std::time_t tt = static_cast<std::time_t>(t); std::tm tm = *std::localtime(&tt); return tm.tm_year + 1900; }(' && TimeState() && ')')
+  else
+    return('[](long long t) { std::time_t tt = static_cast<std::time_t>(t); std::tm tm = *std::localtime(&tt); return tm.tm_hour; }(' && TimeState() && ')')
+  end
+end
+
+func Minute()
+  if(get('Time_Date') == 1)
+    return('[](long long t) { std::time_t tt = static_cast<std::time_t>(t); std::tm tm = *std::localtime(&tt); return tm.tm_mon + 1; }(' && TimeState() && ')')
+  else
+    return('[](long long t) { std::time_t tt = static_cast<std::time_t>(t); std::tm tm = *std::localtime(&tt); return tm.tm_min; }(' && TimeState() && ')')
+  end
+end
+
+func Second()
+  if(get('Time_Date') == 1)
+    return('[](long long t) { std::time_t tt = static_cast<std::time_t>(t); std::tm tm = *std::localtime(&tt); return tm.tm_mday; }(' && TimeState() && ')')
+  else
+    return('[](long long t) { std::time_t tt = static_cast<std::time_t>(t); std::tm tm = *std::localtime(&tt); return tm.tm_sec; }(' && TimeState() && ')')
+  end
+end
+
+func FormatTime()
+  return('[](long long t, const std::string &fmt) { std::time_t tt = static_cast<std::time_t>(t); std::tm tm = *std::localtime(&tt); auto pad = [](int v) { std::string s = std::to_string(v); return s.size() < 2 ? std::string(1, static_cast<char>(48)) + s : s; }; const char *wd[] = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"}; std::string out; for(char c : fmt) { switch(c) { case 68: out += pad(tm.tm_mday); break; case 87: out += wd[tm.tm_wday]; break; case 77: out += pad(tm.tm_mon + 1); break; case 89: out += std::to_string(tm.tm_year + 1900); break; case 104: out += pad(tm.tm_hour); break; case 109: out += pad(tm.tm_min); break; case 115: out += pad(tm.tm_sec); break; default: out += c; } } return out; }(' && TimeState() && ', ' && cstr(get('Format')) && ')')
+end

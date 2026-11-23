@@ -1,0 +1,13 @@
+include('tag_maker')
+
+section html
+
+func doPrint
+  include('tag_header')
+
+  if(isset(Type))
+    s &= " type=\"" & Type & "\""
+  end
+   
+  include('tag_footer')
+end

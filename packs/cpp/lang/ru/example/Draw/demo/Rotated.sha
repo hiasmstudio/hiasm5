@@ -1,0 +1,102 @@
+*ѕоворот фигуры вокруг произвольного центра
+Make(cpp)
+Add(PaintBox,6326391,119,91)
+{
+ Left=10
+ Top=10
+ Width=205
+ Height=245
+ link(onBeforeDraw,17089:doNext,[])
+}
+Add(Math,49103,301,105)
+{
+ Op2=180
+ ResultType=0
+ link(onResult,1064467:doWork3,[(347,111)])
+}
+Add(Case,95847,245,147)
+{
+ Value=Integer(179)
+ link(onTrue,65750:doSwitch,[])
+}
+Add(PointXY,26967,413,147)
+{
+ link(X,99080:Result,[])
+ link(Y,90215:Result,[(426,139)(475,139)])
+}
+Add(Counter,17089,168,91)
+{
+ Max=179
+ link(onNext,35643:doEvent1,[])
+}
+Add(Img_Line,30894,294,280)
+{
+ Point(Color)
+ Point(Point1)
+ Point(Point2)
+ link(Bitmap,6326391:Bitmap,[(300,263)(125,263)])
+ link(Color,65750:State,[])
+ link(Point1,12041715:Var1,[(314,198)])
+ link(Point2,26742:Value,[(321,264)(475,264)])
+}
+Add(Timer,88607,70,91)
+{
+ Interval=10
+ link(onTimer,6326391:doRefresh,[])
+}
+Add(MathParse,90215,469,91)
+{
+ DataCount=1
+ MathStr="50*cos(%1/180*pi) + 100"
+ ResultType=0
+}
+Add(MathParse,99080,413,98)
+{
+ DataCount=1
+ MathStr="70*sin(%1/180*pi) + 100"
+ ResultType=0
+}
+Add(MainForm,53742,70,133)
+{
+ Left=312
+ Top=234
+ Width=234
+ Height=292
+ Caption="Rotated"
+}
+Add(DoData,68560,413,217)
+{
+ link(onEventData,26742:doValue,[])
+ link(Data,12041715:Var2,[])
+}
+Add(Memory,26742,469,217)
+{
+}
+Add(GetDataEx,12041715,406,189)
+{
+ link(Data,26967:Point,[])
+}
+Add(Switch,65750,301,154)
+{
+ DataOn=Integer(65535)
+ DataOff=Integer(0)
+ Point(State)
+}
+Add(Hub,35643,217,91)
+{
+ OutCount=5
+ link(onEvent1,1064467:doWork2,[])
+ link(onEvent2,68560:doData,[(290,104)(290,223)])
+ link(onEvent3,49103:doOperation,[])
+ link(onEvent4,30894:doDraw,[(283,118)(283,286)])
+ link(onEvent5,95847:doCase,[(238,125)(238,153)])
+}
+Add(Hub,8029453,364,91)
+{
+ link(onEvent1,90215:doCalc,[])
+ link(onEvent2,99080:doCalc,[])
+}
+Add(HubEx,1064467,343,84)
+{
+ link(onEvent,8029453:doEvent1,[])
+}

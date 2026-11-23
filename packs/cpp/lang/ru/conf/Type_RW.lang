@@ -1,0 +1,15 @@
+Working with type variables=Работа с переменными типа
+Stores the default variable name=Хранит имя переменной по умолчанию
+Reads the value of a variable named Name=Считывает значение переменной с именем Name
+Writes the value Value to a variable named Name=Записывает в переменную с именем Name значение Value
+Adds a variable named Name with the value Value to the type=Добавляет переменную с именем Name и значением Value в тип
+Removes a variable named Name from a type=Удаляет переменную с именем Name из типа
+Removes all variables from a type=Удаляет все переменные из типа
+Specifies the type on which the operation will be performed=Определяет тип, над которым будет производиться операция
+The name of the variable on which the operation will be performed=Имя переменной, над которой будет производиться операция
+Defines the value to write to a variable=Определяет значение для записи в переменную
+The event occurs every time the value of a variable is read and outputs it to the stream=Событие происходит всякий раз после считывания значения переменной и выдает его в поток
+The event occurs when an error occurs and outputs its code to the ARG(err_code,info) stream=Событие происходит при возникновении ошибки и выдает ее код в поток ARG(err_code,info)
+Contains the read value=Содержит считанное значение
+Contains the number of variables in the type=Содержит количество переменных в типе
+Contains the type name=Содержит имя типа

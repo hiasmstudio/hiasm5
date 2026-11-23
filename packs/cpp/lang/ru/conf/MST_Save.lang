@@ -1,0 +1,13 @@
+Saving the MTStrTbl table to a file=Сохранение таблицы MTStrTbl в файл
+Default save file name=Имя файла для сохранения по-умолчанию
+Column separator in a row=Разделитель столбцов в строке
+Maintain Columns=Сохранять столбцы
+Maintain column properties=Сохранять свойства столбцов
+Save checkbox states=Сохранять состояния флажков
+Managing the MTStrTbl element=Управление элементом MTStrTbl
+Saves the table to a file=Сохраняет таблицу в файл
+Saves a table to a file stream=Сохраняет таблицу в файловый поток
+The event occurs every time after saving the table to a file=Событие происходит всякий раз после сохранения таблицы в файл
+The event occurs every time a table is saved to a file stream ARG(Stream)=Событие происходит всякий раз после сохранения таблицы в файловый поток ARG(Stream)
+Save file name=Имя файла для сохранения
+Contains the file stream identifier=Содержит идентификатор файлового потока

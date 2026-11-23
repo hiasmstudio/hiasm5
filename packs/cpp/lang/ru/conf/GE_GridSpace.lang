@@ -1,0 +1,9 @@
+Playing space in the form of a checkered field=Игровое пространство в виде клетчатого поля
+File name to download data=Имя файла для загрузки данных
+Sprite collection=Коллекция спрайтов
+List of mapping values of matrix elements to sprites in the collection=Список сопоставления значений элементов матрицы спрайтам в коллекции
+Loading checkered field data from file ARG(FileName)=Загрузка данных клетчатого поля из файла ARG(FileName)
+Saving checkered field data to file ARG(FileName)=Сохранение данных клетчатого поля в файл ARG(FileName)
+Sets the cell value to ARG(X,Y,ID)=Устанавливает значении ячейки ARG(X,Y,ID)
+The event occurs every time after loading data from a file=Событие происходит всякий раз после загрузки данных из файла
+Contains a cell matrix=Содержит матрицу ячеек

@@ -1,0 +1,7 @@
+Summing elements in arrays=Суммирование элементов в массивах
+Array type=Тип массива
+Element separator when summing strings for type String=Разделитель элементов при суммировании строк для типа String
+Sums the elements in the array ARG(Array)=Суммирует элементы в массиве ARG(Array)
+The event occurs every time the elements are summed, producing the result in the ARG(Sum) stream=Событие происходит всякий раз по окончанию суммирования элементов, выдавая результат в поток ARG(Sum)
+An array in which you want to sum the elements=Массив, в котором необходимо просуммировать элементы
+Contains the result of summing the elements in the array=Содержит результ суммирования элементов в массиве

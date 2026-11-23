@@ -1,0 +1,6 @@
+Button effect=Эффект кнопки
+Maximum corner line thickness (1..51)=Максимальная толщина угловой линии (1..51)
+Contrast of angular lines (0..255)=Контрастность угловых линий (0..255)
+Creates a button effect on an image=Создаёт на изображении эффект кнопки
+The event occurs after the operation has completed and outputs its result ARG(Bitmap) to the stream.=Событие происходит после выполнения операции и выдаёт в поток её результат ARG(Bitmap)
+Defines an image to work with=Определяет картинку для работы с ней

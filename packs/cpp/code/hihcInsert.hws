@@ -1,0 +1,3 @@
+func doInsert(_data)
+  event(onInsert, 'std::string(' && _data && ').insert((' && Position && ') - 1, ' && SubStr && ')')
+end

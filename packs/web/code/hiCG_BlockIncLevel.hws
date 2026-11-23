@@ -1,0 +1,9 @@
+func doIncLevel(_data):any
+  block.inclvl()
+  event(onIncLevel)
+end
+
+func CurLevel():any
+  return(block.getlvl())
+end
+

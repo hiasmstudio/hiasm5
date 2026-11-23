@@ -5,15 +5,22 @@
  *      Author: dilma
  */
 
+#include <cstring>
+
 #include "Elements.h"
+#include "SettingsManager.h"
 
 //--------------------------------------------------------------------------------------------------
 
 Element *createElement(const ustring &name, SDK *sdk, gdouble x, gdouble y) {
+	if(!sdk || !sdk->getMSDK()->pack)
+		return NULL;
 	PackElement *pe = sdk->getMSDK()->pack->getElementByName(name);
 	if(pe) {
 		if(pe->conf->cClass == "HCWE_Form")
 			return new ElementTplForm(pe, sdk, x, y);
+		else if(pe->conf->cClass == "HCWE_MainForm")
+			return new ElementTplMainForm(pe, sdk, x, y);
 		else if(pe->conf->cClass == "HCWE_Button")
 			return new ElementTplButton(pe, sdk, x, y);
 		else if(pe->conf->cClass == "HCWE_Edit")
@@ -42,6 +49,8 @@ Element *createElement(const ustring &name, SDK *sdk, gdouble x, gdouble y) {
 			return new ElementTplProgressBar(pe, sdk, x, y);
 		else if(pe->conf->cClass == "HCWE_ComboBox")
 			return new ElementTplComboBox(pe, sdk, x, y);
+		else if(pe->conf->cClass == "HCWE_Frame")
+			return new ElementTplFrame(pe, sdk, x, y);
 		else if(pe->conf->cClass == "HCWE_Fixed")
 			return new ElementTplFixed(pe, sdk, x, y);
 		else if(pe->conf->cClass == "HCWE_VBox" || pe->conf->cClass == "HCWE_HBox")
@@ -160,19 +169,23 @@ Element *createElement(const ustring &name, SDK *sdk, gdouble x, gdouble y) {
 			return new ElementCoreDelete(pe, sdk, x, y);
 		else if(pe->conf->cClass == "HCInsert")
 			return new ElementCoreInsert(pe, sdk, x, y);
+		// A HiAsm 4 element with a Sub list (InlineCode: WorkPoints, EventPoints, ...) has dynamic points.
+		else if(pe->conf->pack && pe->conf->pack->isLegacy() && !pe->conf->sub.empty())
+			return new ElementDynPoints(pe, sdk, x, y);
 
 		return new Element(pe, sdk, x, y);
 	}
 	else {
 		std::cout << "Element not found: " << name.c_str() << std::endl;
 		// TODO pointelement create
-		return new Element(sdk->getMSDK()->pack->getElementByName("PointElement"), sdk, x, y);
+		auto *placeholder = sdk->getMSDK()->pack->getElementByName("PointElement");
+		return placeholder ? new Element(placeholder, sdk, x, y) : nullptr;
 	}
 }
 
 //--------------------------------------------------------------------------------------------------
 ElementWinElement::ElementWinElement(PackElement *pe, SDK *sdk, gdouble x, gdouble y):
-	Element(pe, sdk, x, y)
+	Element(pe, sdk, x, y), ElementTplWinControl(pe, sdk, x, y)
 {
 	cIndex = CI_WinElement;
 }
@@ -184,12 +197,49 @@ void ElementWinElement::place(int x, int y) {
 	*(int*)props[1]->value = GRID_FRM_Y(y);
 }
 
+void ElementWinElement::prepareForRun(Element **parent) {
+	ElementTplParent *op = dynamic_cast<ElementTplParent*>(*parent);
+	ctl = createWidget(parent);
+	// A parent that is not a form or a dialog (a panel) gets the widget from the editor (WidgetEditorEx::placeControl).
+	if(op)
+		op->insertElement(this);
+	ctl->set_size_request(props[2]->readInt(), props[3]->readInt());
+	// Visible and Enabled are True,False lists: index 0 is True.
+	ElementProperty *visible = props.getByName("Visible");
+	ctl->set_visible(!visible || visible->readInt() == 0);
+	ElementProperty *enabled = props.getByName("Enabled");
+	if(enabled && enabled->readInt() != 0) ctl->set_sensitive(false);
+}
+
+Widget *ElementWinElement::createWidget(Element **parent) {
+	const ustring cls = tpl->conf->editClassName;
+	ElementProperty *captionProp = props.getByName("Caption");
+	const ustring caption = captionProp ? captionProp->readStr() : ustring();
+	if(cls == "Button") return new Button(caption);
+	if(cls == "Label") return new Label(caption);
+	if(cls == "Edit") return new Entry();
+	if(cls == "CheckBox" || cls == "RadioButton") return new CheckButton(caption);
+	if(cls == "ComboBox") return new ComboBoxText();
+	if(cls == "Progress") return new ProgressBar();
+	if(cls == "GroupBox" || cls == "Panel" || cls == "ScrollBox") return new Frame(caption);
+	if(cls == "Memo" || cls == "ListBox" || cls == "TreeView") {
+		ScrolledWindow *scroll = new ScrolledWindow();
+		scroll->set_policy(POLICY_AUTOMATIC, POLICY_AUTOMATIC);
+		if(cls == "Memo") scrolled_set_child(*scroll, *new TextView());
+		else if(cls == "ListBox") scrolled_set_child(*scroll, *new ListBox());
+		else scrolled_set_child(*scroll, *new TreeView());
+		return scroll;
+	}
+	// The other controls keep their place in the form with a frame named after their class.
+	return new Frame(cls);
+}
+
 ElementDynPoints::ElementDynPoints(PackElement *pe, SDK *sdk, gdouble x, gdouble y):
 	Element(pe, sdk, x, y)
 {
 	int l = tpl->conf->sub.length();
 	char *sub = new char[l+1];
-	tpl->conf->sub.copy(sub, l);
+	memcpy(sub, tpl->conf->sub.c_str(), l);
 	sub[l] = '\0';
 	for(int i = 0; i < 4; i++) {
 		char *pt = getTok(&sub, ',');
@@ -227,10 +277,34 @@ void ElementDynPoints::connectToPoint(ElementPoint *point) {
 	Element::connectToPoint(point);
 }
 
+// HiAsm 4 named points: the items of the list are the names of the points of this type. Unconnected
+// points that are no longer listed are removed; connected points stay, as the wires need them.
+void ElementDynPoints::syncNamedPoints(int type, const ustring &text) {
+	HStringList names;
+	names = text;
+	std::vector<ElementPoint*> stale;
+	for(ElementPoint *p : points)
+		if(p->type == type && !p->point && std::find(names.begin(), names.end(), p->name) == names.end())
+			stale.push_back(p);
+	for(ElementPoint *p : stale) removePoint(p);
+	for(const ustring &name : names) {
+		bool exists = false;
+		for(ElementPoint *p : points)
+			if(p->type == type && p->name == name) { exists = true; break; }
+		if(!exists) addPoint(name, "", type);
+	}
+}
+
 void ElementDynPoints::on_change_property(ElementProperty *prop) {
 	Gdk::Rectangle r = drawRect();
 	for(int i = 0; i < 4; i++)
-		if(dynInfoList[i].prop == prop) {
+		if(dynInfoList[i].prop == prop && prop->type == data_list) {
+			syncNamedPoints(i + 1, *(ustring*)prop->value);
+			rePosPoints();
+			r.join(drawRect());
+			parent->on_redraw_rect.run(&r);
+		}
+		else if(dynInfoList[i].prop == prop) {
 			int count = getPointsCount(i+1);
 			int val = prop->readInt();
 
@@ -269,7 +343,7 @@ ElementNamedDynPoints::ElementNamedDynPoints(PackElement *pe, SDK *sdk, gdouble 
 {
 	int l = tpl->conf->sub.length();
 	char *sub = new char[l+1];
-	tpl->conf->sub.copy(sub, l);
+	memcpy(sub, tpl->conf->sub.c_str(), l);
 	sub[l] = '\0';
 	for(int i = 0; i < 4; i++) {
 		char *pt = getTok(&sub, ',');
@@ -292,7 +366,7 @@ void ElementNamedDynPoints::init() {
 			on_change_property(dynInfoList[i].prop);
 }
 
-bool pointInList(const StringList &list, const ustring &name) {
+bool pointInList(const HStringList &list, const ustring &name) {
 	ustring n, h;
 	for(unsigned int i = 0; i < list.size(); i++) {
 		parseHintName(list[i], n, h);
@@ -306,7 +380,7 @@ void ElementNamedDynPoints::on_change_property(ElementProperty *prop) {
 	Gdk::Rectangle r = drawRect();
 	for(int i = 0; i < 4; i++)
 		if(dynInfoList[i].prop == prop) {
-			StringList list;
+			HStringList list;
 			list = prop->readStr();
 
 			for(unsigned int p = 0; p < points.size(); p++)
@@ -316,7 +390,7 @@ void ElementNamedDynPoints::on_change_property(ElementProperty *prop) {
 				}
 
 			ustring n, h;
-			for(StringList::iterator line = list.begin(); line != list.end(); line++) {
+			for(HStringList::iterator line = list.begin(); line != list.end(); line++) {
 				parseHintName(*line, n, h);
 				if(n.length() && !points.getByName(n)) {
 					addPoint(n, h, i + 1);
@@ -339,7 +413,9 @@ ElementMulti::ElementMulti(PackElement *pe, SDK *sdk, gdouble x, gdouble y):
 	this->sdk->parent = this;
 	ustring cl = tpl->conf->editClassName;
 	if(cl.empty()) {
-		cl = (pe->name == "MultiElement") ? "EditMulti" : "EditMultiEx";
+		// As in HiAsm 4 the class decides: a MultiElement without [Edit] (ChildForm, ChildGroupBox, ChildScrollBox)
+		// gets EditMulti, a MultiElementEx gets EditMultiEx.
+		cl = (pe->conf->cClass == "MultiElement") ? "EditMulti" : "EditMultiEx";
 	}
 	child = this->sdk->add(cl, 14, 14);
 
@@ -372,9 +448,9 @@ ElementMulti::~ElementMulti() {
 void ElementMulti::saveToText(ustring &text, const ustring offset, int flags) {
 	Element::saveToText(text, offset, flags);
 	if(!isELink() || isMainELink()) {
-		text += offset + "BEGIN_SDK"LINE_END;
+		text += offset + "BEGIN_SDK" LINE_END;
 		sdk->saveToText(text, offset + ustring(" "));
-		text += offset + "END_SDK"LINE_END;
+		text += offset + "END_SDK" LINE_END;
 	}
 }
 
@@ -393,7 +469,7 @@ void ElementMulti::createELink(Element *owner) {
 void ElementMulti::on_change_property(ElementProperty *prop) {
 	Element::on_change_property(prop);
 
-	if(prop == sysProps[2]) {
+	if(prop == sysProps.getByName("Icon")) {
 		if(stockRender)
 			icon = stockRender(prop->readStr());
 		invalidate();
@@ -475,7 +551,7 @@ int ElementEditMultiEx::isDynPointProp(ElementProperty *prop) {
 void ElementEditMultiEx::changePoints(Element *multi, int i) {
 	static const unsigned char mt_types[] = {pt_event, pt_work, pt_data, pt_var};
 
-	StringList list;
+	HStringList list;
 	list = dynInfoList[i].prop->readStr();
 
 	for(unsigned int p = 0; p < multi->points.size(); p++)
@@ -485,7 +561,7 @@ void ElementEditMultiEx::changePoints(Element *multi, int i) {
 		}
 
 	ustring n, h;
-	for(StringList::iterator line = list.begin(); line != list.end(); line++)
+	for(HStringList::iterator line = list.begin(); line != list.end(); line++)
 		if(!multi->points.getByName(*line)) {
 			parseHintName(*line, n, h);
 			if(n.length())
@@ -1176,11 +1252,11 @@ void ElementCoreMessage::do_work(ElementPoint *point, TData *data) {
 	if(!props[3]->isDefault()) {
 		// TODO memory
 		BuiltinStockID sid = {props[3]->readStr().c_str()};
-		Image *img = new Image(sid, (BuiltinIconSize)(ICON_SIZE_DIALOG));
+		Image *img = stock_image(sid, (BuiltinIconSize)(ICON_SIZE_DIALOG));
 		img->show();
-		msg->set_image(*img);
+		message_dialog_set_image(*msg, *img);
 	}
-	points[1]->on_event(msg->run());
+	points[1]->on_event(dialog_run(*msg));
 	msg->hide();
 }
 
@@ -1248,14 +1324,12 @@ ElementCoreMulti::ElementCoreMulti(PackElement *pe, SDK *sdk, gdouble x, gdouble
 
 void ElementCoreMulti::do_work(ElementPoint *point, TData *data) {
 	int i = points.indexOf(point);
-	if(ElementPoint *p = child->points[i]->point)
-		dynamic_cast<ElementCore*>(p->parent)->do_work(p, data);
+	child->points[i]->on_event(data);
 }
 
 void ElementCoreMulti::read_var(ElementPoint *point, TData *data) {
 	int i = points.indexOf(point);
-	if(ElementPoint *p = child->points[i]->point)
-		dynamic_cast<ElementCore*>(p->parent)->read_var(p, data);
+	child->points[i]->get_data(data);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1268,14 +1342,12 @@ ElementCoreEditMulti::ElementCoreEditMulti(PackElement *pe, SDK *sdk, gdouble x,
 
 void ElementCoreEditMulti::do_work(ElementPoint *point, TData *data) {
 	int i = points.indexOf(point);
-	if(ElementPoint *p = parent->parent->points[i]->point)
-		dynamic_cast<ElementCore*>(p->parent)->do_work(p, data);
+	parent->parent->points[i]->on_event(data);
 }
 
 void ElementCoreEditMulti::read_var(ElementPoint *point, TData *data) {
 	int i = points.indexOf(point);
-	if(ElementPoint *p = parent->parent->points[i]->point)
-		dynamic_cast<ElementCore*>(p->parent)->read_var(p, data);
+	parent->parent->points[i]->get_data(data);
 }
 
 
@@ -1657,7 +1729,7 @@ bool ElementCoreTimer::on_timer() {
 
 void ElementCoreTimer::start() {
 	autoStop = props[2]->readInt();
-	timerID = gdk_threads_add_timeout(props[0]->readInt(), _timer_proc, this);
+	timerID = g_timeout_add(props[0]->readInt(), _timer_proc, this);
 }
 
 void ElementCoreTimer::stop() {
@@ -1755,12 +1827,12 @@ ElementCoreClipboard::ElementCoreClipboard(PackElement *pe, SDK *sdk, gdouble x,
 }
 
 void ElementCoreClipboard::do_work(ElementPoint *point, TData *data) {
-	Clipboard::get()->set_text(readString(data, points[1], props[0]));
+	clipboard_set_text(readString(data, points[1], props[0]));
 	points[1]->on_event();
 }
 
 void ElementCoreClipboard::read_var(ElementPoint *point, TData *data) {
-	*data = Clipboard::get()->wait_for_text();
+	*data = clipboard_wait_for_text();
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -2055,8 +2127,8 @@ void ElementHubEx::connectToPoint(ElementPoint *point) {
 
 	int res[4];
 	int m,l;
-	for(int i = 0; i < 3; i++)
-		if(!points[i]->point) {
+	for(int i = 0; i < 3; i++) {
+		if(point->canConnect(points[i])) {
 			point->connect(points[i])->createPath();
 			m = 0;
 			l = 0;
@@ -2071,14 +2143,16 @@ void ElementHubEx::connectToPoint(ElementPoint *point) {
 			point->clear();
 		}
 		else
-			res[i] = 0;	m = 0xFFFFFF;
+			res[i] = 0;
+	}
+	m = 0xFFFFFF;
 	int j = 0;
 	for(int i = 0; i < 3; i++)
 		if(res[i] < m && res[i] > 0) {
 			m = res[i];
 			j = i;
 		}
-	point->connect(points[j])->createPath();
+	if(point->canConnect(points[j])) point->connect(points[j])->createPath();
 }
 
 void ElementHubEx::remove() {
@@ -2282,8 +2356,8 @@ ElementCoreOpenDialog::ElementCoreOpenDialog(PackElement *pe, SDK *sdk, gdouble 
 
 void ElementCoreOpenDialog::prepareForRun(Element **parent) {
 	dlg = new FileChooserDialog(props[1]->readStr());
-	dlg->add_button(Gtk::Stock::CANCEL, 0);
-	dlg->add_button(Gtk::Stock::OK, 1);
+	dlg->add_button(Stock::CANCEL, 0);
+	dlg->add_button(Stock::OK, 1);
 }
 
 void ElementCoreOpenDialog::stopRun() {
@@ -2293,10 +2367,10 @@ void ElementCoreOpenDialog::stopRun() {
 void ElementCoreOpenDialog::do_work(ElementPoint *point, TData *data){
 	ustring fname = readString(data, points[3], props[3]);
 	if(!props[2]->isDefault())
-		dlg->set_current_folder(props[2]->readStr());
+		file_chooser_set_current_folder(*dlg, props[2]->readStr());
 	//dlg.set_filename(fname);
-	if(dlg->run())
-		points[1]->on_event(dlg->get_filename());
+	if(dialog_run(*dlg))
+		points[1]->on_event(file_chooser_get_filename(*dlg));
 	else
 		points[2]->on_event();
 	dlg->hide();
@@ -2313,12 +2387,12 @@ ElementCoreSaveDialog::ElementCoreSaveDialog(PackElement *pe, SDK *sdk, gdouble 
 void ElementCoreSaveDialog::do_work(ElementPoint *point, TData *data){
 	FileChooserDialog dlg(props[1]->readStr(), FILE_CHOOSER_ACTION_SAVE);
 	ustring fname = readString(data, points[3], props[3]);
-	dlg.set_current_folder(props[2]->readStr());
-	dlg.add_button(Gtk::Stock::CANCEL, 0);
-	dlg.add_button(Gtk::Stock::OK, 1);
+	file_chooser_set_current_folder(dlg, props[2]->readStr());
+	dlg.add_button(Stock::CANCEL, 0);
+	dlg.add_button(Stock::OK, 1);
 	//dlg.set_filename(fname);
-	if(dlg.run())
-		points[1]->on_event(dlg.get_filename());
+	if(dialog_run(dlg))
+		points[1]->on_event(file_chooser_get_filename(dlg));
 	else
 		points[2]->on_event();
 }
@@ -2486,22 +2560,29 @@ void ElementCoreDS_SQLite::close() {
 void ElementCoreDS_SQLite::do_work(ElementPoint *point, TData *data) {
 	if(point == points[0]) {
 		close();
-		sqlite3_open(readString(data, points[3], props[1]).c_str(), &db);
-		points[2]->on_event();
+		if(sqlite3_open(readString(data, points[3], props[1]).c_str(), &db) == SQLITE_OK && db)
+			points[2]->on_event();
+		else {
+			if(db) { sqlite3_close(db); db = NULL; }
+			points[2]->on_event(ustring("Unable to open SQLite database"));
+		}
 	}
 	else if(point == points[1])
 		close();
 }
 
 void ElementCoreDS_SQLite::exec(const ustring &sql) {
-	sqlite3_exec(db, sql.c_str(), NULL, NULL, NULL);
+	if(db) sqlite3_exec(db, sql.c_str(), NULL, NULL, NULL);
 }
 
 sqlite3_stmt *ElementCoreDS_SQLite::query(const ustring &sql) {
-	sqlite3_stmt *result;
-	sqlite3_prepare(db, sql.c_str(), -1, &result, NULL);
-	if(!result)
+	if(!db) return NULL;
+	sqlite3_stmt *result = NULL;
+	if(sqlite3_prepare_v2(db, sql.c_str(), -1, &result, NULL) != SQLITE_OK) {
+		if(result) sqlite3_finalize(result);
+		result = NULL;
 		std::cout << "Sql query " << sql.c_str() << " return empty result!" << std::endl;
+	}
 	return result;
 }
 
@@ -2548,8 +2629,8 @@ void ElementCoreDSC_QueryScalar::do_work(ElementPoint *point, TData *data) {
 			points[2]->on_event(ustring(sqlite->error()));
 			return;
 		}
-		sqlite3_step(r);
-		if(sqlite3_data_count(r)) {
+		int step = sqlite3_step(r);
+		if(step == SQLITE_ROW && sqlite3_data_count(r)) {
 			switch(sqlite3_column_type(r, 0)) {
 				case SQLITE_INTEGER: result = sqlite3_column_int(r, 0); break;
 				case SQLITE_FLOAT: result = sqlite3_column_double(r, 0); break;
@@ -2561,6 +2642,7 @@ void ElementCoreDSC_QueryScalar::do_work(ElementPoint *point, TData *data) {
 			result.clear();
 		TData dt = result;
 		points[1]->on_event(&dt);
+		sqlite3_finalize(r);
 	}
 }
 
@@ -2595,7 +2677,8 @@ void ElementCoreDSC_Query::do_work(ElementPoint *point, TData *data) {
 		dt.dump();
 		points[2]->on_event(&dt);
 
-		while(sqlite3_step(r) != SQLITE_DONE) {
+		int step = SQLITE_ROW;
+		while((step = sqlite3_step(r)) == SQLITE_ROW) {
 			dt.clear();
 			for(int i = 0; i < sqlite3_data_count(r); i++) {
 				switch(sqlite3_column_type(r, i)) {
@@ -2608,6 +2691,7 @@ void ElementCoreDSC_Query::do_work(ElementPoint *point, TData *data) {
 			dt.dump();
 			points[1]->on_event(&dt);
 		}
+		sqlite3_finalize(r);
 	}
 }
 
@@ -2725,6 +2809,7 @@ void ElementCoreInsert::do_work(ElementPoint *point, TData *data){
 ElementTplWinControl::ElementTplWinControl(PackElement *pe, SDK *sdk, gdouble x, gdouble y):
 	Element(pe, sdk, x, y), ElementCore(pe, sdk, x, y)
 {
+	ctl = nullptr;
 	*(int*)props[0]->value = GRID_FRM_X(x);
 	*(int*)props[1]->value = GRID_FRM_Y(y);
 }
@@ -2793,7 +2878,7 @@ void ElementTplParent::addElement(Element *ie) {
 						e2 = dynamic_cast<ElementTplWinControl*>(*el);
 					if(e2) {
 						MessageDialog msg("Can not insert more then one interface widget!", false, MESSAGE_ERROR);
-						msg.run();
+						dialog_run(msg);
 						break;
 					}
 				}
@@ -2805,7 +2890,11 @@ void ElementTplParent::addElement(Element *ie) {
 ElementTplForm::ElementTplForm(PackElement *pe, SDK *sdk, gdouble x, gdouble y):
 	Element(pe, sdk, x, y), ElementTplParent(pe, sdk, x, y)
 {
-	flag |= ELEMENT_FLG_ONE_WIDGET;
+	// A form/window is a free layout container: any number of controls and
+	// nested windows may be placed on it. Only single-child containers
+	// (group box, expander, handle box) keep ELEMENT_FLG_ONE_WIDGET.
+	surface = nullptr;
+	form = nullptr;
 }
 
 Widget *ElementTplForm::createWidget(Element **parent) {
@@ -2814,17 +2903,40 @@ Widget *ElementTplForm::createWidget(Element **parent) {
 	form->set_title(props[7]->readStr());
 	if(!props[8]->isDefault())
 		form->set_modal(true);
-	if(!props[9]->isDefault())
-		form->set_resizable(false);
+	applyFrame();
+	// GTK4 windows hold one child; the free-positioning surface inside it is
+	// what lets a form contain any number of controls at their Left/Top.
+	surface = new Fixed();
+	surface->set_hexpand(true);
+	surface->set_vexpand(true);
+#ifdef HIASM_GTK4
+	form->set_child(*surface);
+#else
+	form->add(*surface);
+#endif
+	surface->show();
+#ifdef HIASM_GTK4
+	form->signal_close_request().connect([this]() { return on_delete_event(NULL); }, false);
+#else
 	form->signal_delete_event().connect(sigc::mem_fun(*this, &ElementTplForm::on_delete_event));
-/*
-	form->set_name("test");
-	GtkRcStyle *s = gtk_rc_style_new();
-	s->bg[0].red = 0xffff;
-	gtk_rc_add_widget_name_style(s, "test");
-*/
+#endif
 	*parent = this;
 	return form;
+}
+
+// The frame follows the BorderStyle property (Delphi list, default bsSizeable). It is looked up by
+// name: the Core form and the C++ MainForm keep the property at different indexes.
+void ElementTplForm::applyFrame() {
+	ElementProperty *bs = props.getByName("BorderStyle");
+	int border = bs ? bs->readInt() : 2;
+	form->set_resizable(compat_border_is_sizeable(border) && props[9]->isDefault());
+	compat_native_frame(*form, border);
+}
+
+void ElementTplForm::on_change_property(ElementProperty *prop) {
+	if(form && (prop->name == "BorderStyle" || prop->name == "Resizable"))
+		applyFrame();
+	Element::on_change_property(prop);
 }
 
 bool ElementTplForm::on_button_press(GdkEventButton* event) {
@@ -2843,7 +2955,8 @@ bool ElementTplForm::on_delete_event(GdkEventAny *event) {
 
 void ElementTplForm::stopRun() {
 	ElementTplWinControl::stopRun();
-	//delete form;
+	form = nullptr;
+	surface = nullptr;
 }
 
 void ElementTplForm::run() {
@@ -2854,7 +2967,10 @@ void ElementTplForm::run() {
 }
 
 void ElementTplForm::insertElement(ElementTplWinControl *e) {
-	((Container*)ctl)->add(*e->ctl);
+	if(surface)
+		surface->put(*e->ctl, e->props[0]->readInt(), e->props[1]->readInt());
+	else
+		widget_add_child(*((Gtk::Widget*)ctl), *e->ctl);
 }
 
 void ElementTplForm::do_work(ElementPoint *point, TData *data) {
@@ -2866,6 +2982,12 @@ void ElementTplForm::do_work(ElementPoint *point, TData *data) {
 
 //--------------------------------------------------------------------------------------------------
 
+ElementTplMainForm::ElementTplMainForm(PackElement *pe, SDK *sdk, gdouble x, gdouble y):
+	Element(pe, sdk, x, y), ElementTplForm(pe, sdk, x, y)
+{
+	flag &= ~ELEMENT_FLG_ONE_WIDGET;
+}
+
 ElementTplDialog::ElementTplDialog(PackElement *pe, SDK *sdk, gdouble x, gdouble y):
 	Element(pe, sdk, x, y), ElementTplParent(pe, sdk, x, y)
 {
@@ -2874,6 +2996,7 @@ ElementTplDialog::ElementTplDialog(PackElement *pe, SDK *sdk, gdouble x, gdouble
 
 Widget *ElementTplDialog::createWidget(Element **parent) {
 	form = new Dialog();
+	compat_standard_frame(*form);
 	form->set_size_request(props[2]->readInt(), props[3]->readInt());
 	form->set_title(props[7]->readStr());
 
@@ -2894,7 +3017,7 @@ void ElementTplDialog::stopRun() {
 void ElementTplDialog::run() {
 	points[1]->on_event();
 	if(props[4]->isDefault()) {
-		points[2]->on_event(form->run());
+		points[2]->on_event(dialog_run(*form));
 		form->hide();
 		MSDK *m = parent->getMSDK();
 		if(m->isRun())
@@ -2929,14 +3052,14 @@ void ElementTplDialog::insertElement(ElementTplWinControl *e) {
 		vb = form->get_content_area();
 	else	// TODO: form edit fix
 		vb = (Box*)ctl;
-	vb->pack_start(*e->ctl, e->props.getByName("Expand")->isDefault(),
+	compat_pack(*vb, *e->ctl, e->props.getByName("Expand")->isDefault(),
 							e->props.getByName("Fill")->isDefault(),
 							e->props.getByName("Padding")->readInt());
 }
 
 void ElementTplDialog::do_work(ElementPoint *point, TData *data) {
 	if(point->name == "doRun") {
-		points[2]->on_event(form->run());
+		points[2]->on_event(dialog_run(*form));
 	}
 	else
 		ElementTplWinControl::do_work(point, data);
@@ -2959,6 +3082,25 @@ Widget *ElementTplGroupBox::createWidget(Element **parent) {
 }
 
 void ElementTplGroupBox::do_work(ElementPoint *point, TData *data) {
+	if(point->name == "doCaption")
+		((Frame*)ctl)->set_label(data ? data->toStr() : "");
+	else
+		ElementTplWinControl::do_work(point, data);
+}
+
+//--------------------------------------------------------------------------------------------------
+
+ElementTplFrame::ElementTplFrame(PackElement *pe, SDK *sdk, gdouble x, gdouble y):
+	Element(pe, sdk, x, y), ElementTplWinControl(pe, sdk, x, y)
+{
+	// none
+}
+
+Widget *ElementTplFrame::createWidget(Element **parent) {
+	return new Frame(props[7]->readStr());
+}
+
+void ElementTplFrame::do_work(ElementPoint *point, TData *data) {
 	if(point->name == "doCaption")
 		((Frame*)ctl)->set_label(data ? data->toStr() : "");
 	else
@@ -3037,14 +3179,14 @@ ElementTplExpander::ElementTplExpander(PackElement *pe, SDK *sdk, gdouble x, gdo
 Widget *ElementTplExpander::createWidget(Element **parent) {
 	*parent = this;
 	Expander *exp = new Expander(props[7]->readStr());
-	exp->set_spacing(props[8]->readInt());
+	expander_set_spacing(*exp, props[8]->readInt());
 	if(!props[9]->isDefault())
 		exp->set_expanded(true);
 	return exp;
 }
 
 void ElementTplExpander::insertElement(ElementTplWinControl *e) {
-	((Expander*)ctl)->add(*e->ctl);
+	expander_set_child(*((Gtk::Expander*)ctl), *e->ctl);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -3121,11 +3263,11 @@ Widget *ElementTplPaned::createWidget(Element **parent) {
 }
 
 void ElementTplPaned::insertElement(ElementTplWinControl *e) {
-	if(((Paned*)ctl)->get_child1())
-		((Paned*)ctl)->pack2(*e->ctl, e->props.getByName("Resize")->isDefault(),
+	if(paned_get_child1(*((Gtk::Paned*)ctl)))
+		paned_pack2(*((Gtk::Paned*)ctl), *e->ctl, e->props.getByName("Resize")->isDefault(),
 									e->props.getByName("Shrink")->isDefault());
 	else
-		((Paned*)ctl)->pack1(*e->ctl, e->props.getByName("Resize")->isDefault(),
+		paned_pack1(*((Gtk::Paned*)ctl), *e->ctl, e->props.getByName("Resize")->isDefault(),
 									e->props.getByName("Shrink")->isDefault());
 }
 
@@ -3166,15 +3308,15 @@ Widget *ElementTplButton::createWidget(Element **parent) {
 
 	if(!props[12]->isDefault()) {
 		Image *img = new Image( *(TypePixbuf*)props[12]->value );
-		btn->set_image(*img);
+		button_set_image(*btn, *img);
 		img->show();
 	}
 	else if(!props[9]->isDefault()) {
 		if(!props[11]->isDefault())
-			btn->set_image_position((PositionType)(props[11]->readInt() + POS_LEFT));
+			button_set_image_position(*btn, (PositionType)(props[11]->readInt() + POS_LEFT));
 
-		Image *img = new Image(StockID(props[9]->readStr().c_str()), (BuiltinIconSize)(props[10]->readInt() + ICON_SIZE_MENU));
-		btn->set_image(*img);
+		Image *img = stock_image(StockID(props[9]->readStr().c_str()), (BuiltinIconSize)(props[10]->readInt() + ICON_SIZE_MENU));
+		button_set_image(*btn, *img);
 		img->show();
 	}
 	return btn;
@@ -3192,8 +3334,8 @@ Widget *ElementTplEdit::createWidget(Element **parent) {
 	Entry *e = new Entry();
 	e->set_text(props[7]->readStr());
 	e->signal_changed().connect(sigc::mem_fun(*this, &ElementTplEdit::on_edit_changed));
-	e->signal_key_press_event().connect(sigc::mem_fun(*this, &ElementTplEdit::on_button_press));
-	e->add_events(Gdk::KEY_PRESS_MASK);
+	connect_key_press(*e, sigc::mem_fun(*this, &ElementTplEdit::on_button_press));
+	widget_add_events(*e, Gdk::KEY_PRESS_MASK);
 	return e;
 }
 
@@ -3239,7 +3381,7 @@ Widget *ElementTplMemo::createWidget(Element **parent) {
 
 	ScrolledWindow *sc = new ScrolledWindow();
 	sc->set_policy(POLICY_AUTOMATIC, POLICY_AUTOMATIC);
-	sc->add(*t);
+	scrolled_set_child(*sc, *t);
 	t->show();
 
 	return sc;
@@ -3337,7 +3479,7 @@ Widget *ElementTplScrollBar::createWidget(Element **parent) {
 	else
 		sb = new VScrollbar(adj);
 
-	sb->signal_value_changed().connect(sigc::mem_fun(*this, &ElementTplScrollBar::on_change_value));
+	sb->get_adjustment()->signal_value_changed().connect(sigc::mem_fun(*this, &ElementTplScrollBar::on_change_value));
 	return sb;
 }
 
@@ -3347,16 +3489,16 @@ void ElementTplScrollBar::stopRun() {
 }
 
 void ElementTplScrollBar::on_change_value() {
-	points[1]->on_event((int)((Scrollbar*)ctl)->get_value());
+	points[1]->on_event((int)((Scrollbar*)ctl)->get_adjustment()->get_value());
 }
 
 void ElementTplScrollBar::read_var(ElementPoint *point, TData *data) {
-	*data = ((Scrollbar*)ctl)->get_value();
+	*data = ((Scrollbar*)ctl)->get_adjustment()->get_value();
 }
 
 void ElementTplScrollBar::do_work(ElementPoint *point, TData *data) {
 	if(point == points[0])
-		((Scrollbar*)ctl)->set_value(readReal(data, points[3], NULL));
+		((Scrollbar*)ctl)->get_adjustment()->set_value(readReal(data, points[3], NULL));
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -3380,7 +3522,7 @@ Widget *ElementTplListBox::createWidget(Element **parent) {
 
 	ScrolledWindow *sc = new ScrolledWindow();
 	sc->set_policy(POLICY_AUTOMATIC, POLICY_AUTOMATIC);
-	sc->add(*t);
+	scrolled_set_child(*sc, *t);
 	t->show();
 
 	return sc;
@@ -3403,7 +3545,7 @@ void ElementTplListBox::do_work(ElementPoint *point, TData *data) {
 
 void ElementTplListBox::read_var(ElementPoint *point, TData *data) {
 	if(point->name == "Text") {
-		StringList lst;
+		HStringList lst;
 		for(TreeNodeChildren::iterator n = list->children().begin(); n != list->children().end(); n++)
 			lst << (*n)[listColumns.text];
 		*data = lst.text();
@@ -3425,10 +3567,10 @@ void ElementTplListBox::on_show_ep_row_activated() {
 }
 
 void ElementTplListBox::setText(const ustring &text) {
-	StringList lst;
+	HStringList lst;
 	lst = text;
 	list->clear();
-	for(StringList::iterator l = lst.begin(); l != lst.end(); l++)
+	for(HStringList::iterator l = lst.begin(); l != lst.end(); l++)
 		(*list->append())[listColumns.text] = *l;
 }
 
@@ -3442,7 +3584,7 @@ ElementTplImage::ElementTplImage(PackElement *pe, SDK *sdk, gdouble x, gdouble y
 
 Widget *ElementTplImage::createWidget(Element **parent) {
 	if(!props[10]->isDefault()) {
-		image = new Image(StockID(props[10]->readStr().c_str()), (BuiltinIconSize)(props[11]->readInt() + ICON_SIZE_MENU));
+		image = stock_image(StockID(props[10]->readStr().c_str()), (BuiltinIconSize)(props[11]->readInt() + ICON_SIZE_MENU));
 	}
 	else if(!props[12]->isDefault())
 		image = new Image( *(TypePixbuf*)props[12]->value );
@@ -3453,7 +3595,7 @@ Widget *ElementTplImage::createWidget(Element **parent) {
 		ScrolledWindow *sc = new ScrolledWindow();
 		sc->set_policy( (PolicyType)(props[7]->readInt() + POLICY_ALWAYS),
 						(PolicyType)(props[8]->readInt() + POLICY_ALWAYS));
-		sc->add(*image);
+		scrolled_set_child(*sc, *image);
 		image->show();
 		return sc;
 	}
@@ -3478,7 +3620,7 @@ void ElementTplImage::do_work(ElementPoint *point, TData *data) {
 }
 
 void ElementTplImage::read_var(ElementPoint *point, TData *data) {
-	img = image->get_pixbuf();
+	img = TypePixbuf();
 	*data = &img;
 }
 
@@ -3497,7 +3639,7 @@ ElementTplFileChooserButton::ElementTplFileChooserButton(PackElement *pe, SDK *s
 }
 
 Widget *ElementTplFileChooserButton::createWidget(Element **parent) {
-	FileChooserButton *fb = new FileChooserButton(props[7]->readStr(), (FileChooserAction)(props[8]->readInt() + FILE_CHOOSER_ACTION_OPEN));
+	FileChooserButton *fb = new FileChooserButton(props[7]->readStr(), file_chooser_action(props[8]->readInt()));
 	fb->signal_file_set().connect(sigc::mem_fun(*this, &ElementTplFileChooserButton::on_file_set));
 
 	return fb;
@@ -3561,13 +3703,7 @@ void ElementTplProgressBar::do_work(ElementPoint *point, TData *data) {
 	if(point == points[0]) {
 		double v = readReal(data, points[2], NULL);
 		((ProgressBar *)ctl)->set_fraction(v);
-		points[1]->on_event(v);
 	}
-	else if(point->name == "doText") {
-		((ProgressBar *)ctl)->set_text(data ? data->toStr() : "");
-	}
-	else
-		ElementTplWinControl::do_work(point, data);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -3579,39 +3715,49 @@ ElementTplComboBox::ElementTplComboBox(PackElement *pe, SDK *sdk, gdouble x, gdo
 }
 
 Widget *ElementTplComboBox::createWidget(Element **parent) {
-	ComboBoxText *cb = new ComboBoxText();
-	if(!props[8]->isDefault()) {
-		StringList list;
-		list = props[8]->readStr();
-		for(StringList::iterator l = list.begin(); l != list.end(); l++)
-			cb->append(*l);
+	ComboBoxText *combo = new ComboBoxText();
+	ArrayValue *items = (ArrayValue *)props[9]->value;
+	if(items) {
+		for(ArrayValue::iterator item = items->begin(); item != items->end(); item++)
+			combo->append(*(ustring *)item->data);
 	}
-	cb->signal_changed().connect(sigc::mem_fun(*this, &ElementTplComboBox::on_changed));
-	return cb;
+	combo->set_active(0);
+	combo->set_sensitive(props[11]->readInt() == 0);
+	combo->signal_changed().connect(sigc::mem_fun(*this, &ElementTplComboBox::on_changed));
+	*parent = this;
+	return combo;
 }
 
 void ElementTplComboBox::on_changed() {
-	if(props[9]->isDefault())
-		points[1]->on_event(((ComboBoxText*)ctl)->get_active_row_number());
+	ComboBoxText *combo = dynamic_cast<ComboBoxText *>(ctl);
+	if(!combo)
+		return;
+	if(props[10]->readInt() == 0)
+		points[0]->on_event(combo->get_active_row_number());
 	else
-		points[1]->on_event(((ComboBoxText*)ctl)->get_active_text());
+		points[0]->on_event(combo->get_active_text());
 }
 
 void ElementTplComboBox::do_work(ElementPoint *point, TData *data) {
-	if(point == points[0]) {
-		((ComboBoxText*)ctl)->append(data ? data->toStr() : "");
-	}
+	ComboBoxText *combo = dynamic_cast<ComboBoxText *>(ctl);
+	if(!combo)
+		return;
+	if(point->name == "doAdd")
+		combo->append(readString(data, points[2], NULL));
 	else if(point->name == "doClear")
-		((ComboBoxText*)ctl)->remove_all();
+		combo->remove_all();
 	else if(point->name == "doSelectByIndex")
-		((ComboBoxText*)ctl)->set_active(data ? data->toInt() : -1);
+		combo->set_active(readInteger(data, points[3], NULL));
 	else
 		ElementTplWinControl::do_work(point, data);
 }
 
 void ElementTplComboBox::read_var(ElementPoint *point, TData *data) {
-	if(point->name == "EditText")
-		*data = ((ComboBoxText*)ctl)->get_active_text();
-	else if(point->name == "Index")
-		*data = ((ComboBoxText*)ctl)->get_active_row_number();
+	ComboBoxText *combo = dynamic_cast<ComboBoxText *>(ctl);
+	if(!combo)
+		return;
+	if(point->name == "Index")
+		*data = combo->get_active_row_number();
+	else if(point->name == "EditText")
+		*data = combo->get_active_text();
 }

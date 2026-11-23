@@ -1,0 +1,9 @@
+Data source for the cart tree=Источник данных для дерева картежей
+Tree for displaying data=Дерево для отображения данных
+Data source=Источник данных
+Table name to load and save the tree=Имя таблицы для загрузки и сохранения дерева
+Names of columns in the table that store the tree branch map=Имена колонок в таблице, хранящих картеж ветки дерева
+Loads data into the map tree=Загружает данные в дерево картежей
+Saves data from the cart tree=Сохраняет данные из дерева картежей
+The event occurs every time data is loaded into the tree=Событие происходит всякий раз после загрузки данных в дерево
+The event occurs whenever an error occurs when working with a tree or data source=Событие происходит всякий раз после возникновения ошибки при работе с деревом или источником данных

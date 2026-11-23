@@ -1,0 +1,7 @@
+section java
+
+func doRemove(_data)
+  println(Parent, '.removeChild(', Node, ');')
+  event(onRemove, Parent)
+end
+

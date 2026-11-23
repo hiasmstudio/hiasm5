@@ -1,0 +1,64 @@
+Make(cpp)
+Add(MainForm,1388320,147,105)
+{
+ Left=20
+ Top=105
+ Width=871
+ Height=337
+}
+Add(ProcessInfo,7724354,259,168)
+{
+ Point(onErr)
+ Point(Computer)
+ Point(Query)
+ Point(CommandLine)
+ Point(PageFileUsage)
+ Point(WorkingSetSize)
+ Point(Priority)
+ Point(ThreadCount)
+ Point(OSName)
+ Point(WindowsVersion)
+ link(onInfo,13388512:doString,[(344,174)(344,206)(247,206)(247,237)])
+}
+Add(StringTable,3646190,385,154)
+{
+ Left=10
+ Top=10
+ Width=845
+ Height=235
+ Columns=#9:ProcessID|5:Name |14:ExecutablePath|11:CommandLine|13:PageFileUsage|14:WorkingSetSize|8:Priority|11:ThreadCount|6:OSName|14:WindowsVersion|
+}
+Add(Button,7760478,147,161)
+{
+ Left=410
+ Top=265
+ link(onClick,13907702:doEvent1,[])
+}
+Add(Hub,13907702,196,161)
+{
+ link(onEvent1,3646190:doClear,[])
+ link(onEvent2,7724354:doInfo,[])
+}
+Add(FormatStr,13388512,259,231)
+{
+ DataCount=10
+ Mask="%1;%2;%3;%4;%5;%6;%7;%8;%9;%10"
+ link(onFString,3646190:doAdd,[(352,237)(352,160)])
+ link(Str1,7724354:ProcessID,[])
+ link(Str2,7724354:Name,[])
+ link(Str3,7724354:ExecutablePath,[])
+ link(Str4,7724354:CommandLine,[(286,215)(293,215)])
+ link(Str5,7724354:PageFileUsage,[(293,215)(300,215)])
+ link(Str6,7724354:WorkingSetSize,[(300,215)(307,215)])
+ link(Str7,7724354:Priority,[(307,215)(314,215)])
+ link(Str8,7724354:ThreadCount,[(314,215)(321,215)])
+ link(Str9,7724354:OSName,[(321,215)(328,215)])
+ link(Str10,7724354:WindowsVersion,[(328,215)(335,215)])
+}
+Add(InfoTip,10664306,189,68)
+{
+ Info=#28:Пример применения компонента|16: WMI ProcessInfo|
+ Font=[MS Sans Serif,8,1,0,1]
+ Width=218
+ Height=39
+}

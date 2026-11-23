@@ -1,0 +1,12 @@
+Monitoring folder structure changes=Мониторинг изменений структуры папок
+Default folder name for monitoring structure changes=Имя папки по-умолчанию для наблюдения за изменениями структуры
+The default sum of flags to set a specific monitoring mode (1 - change the file name, 2 - change the folder name, 4 - change the file attributes, 8 - change the size, 16 - change the last record time, 32 - change the last access time, 64 - change the creation time, 256 - change access rights)=Сумма флагов по-умолчанию для установки определенного режима наблюдения (1 - изменение имени файла, 2 - изменение имени папки, 4 - изменение атрибутов файла, 8 - изменение размера, 16 - изменение времени последней записи, 32 - изменение времени последнего доступа, 64 - изменение времени создания, 256 - изменение прав доступа)
+Enables/disables tracking changes in subfolders=Включает/выключает слежение за изменениями в подпапках
+Enables monitoring of folder structure changes=Включает наблюдение за изменениями структуры папок
+Disables monitoring for folder structure changes=Отключает наблюдение за изменениями структуры папок
+Displays the result of any change in the folder structure. 1 - creation, 2 - deletion, 3 - change, 5 - renaming=Выдает результат какого-либо изменения в структуре папок. 1 - создание, 2 - удаление, 3 - изменение, 5 - переименование
+Displays a text description of the monitoring startup error=Выдает текстовое описание ошибки запуска наблюдения
+Contains the old file or folder name before renaming=Содержит старое имя файла или папки до переименования
+Contains the current name of the modified file or folder=Содержит текущее имя измененного файла или папки
+Folder name to monitor structure changes=Имя папки для наблюдения за изменениями структуры
+Sum of flags to set a specific surveillance mode=Сумма флагов для установки определенного режима наблюдения

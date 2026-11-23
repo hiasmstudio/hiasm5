@@ -1,0 +1,33 @@
+func FontTarget()
+  return('qt_widget<QWidget>(form, ' && cstr(get('qtControlTarget')) && ')')
+end
+
+func doFont(_data)
+  println('qt_apply_font(', FontTarget(), ', qt_text(', cstr(get('Font')), '));')
+end
+
+func doSetFont(_data)
+  if(len(_data) > 0)
+    println('qt_apply_font(', FontTarget(), ', qt_text(', _data, '));')
+  end
+end
+
+func FontSize()
+  return('([](QWidget *w) { return w ? w->fontInfo().pointSize() : 0; }(' && FontTarget() && '))')
+end
+
+func FontColor()
+  return('([](QWidget *w) { const auto c = w ? w->palette().color(w->foregroundRole()) : QColor(Qt::black); return c.red() | (c.green() << 8) | (c.blue() << 16); }(' && FontTarget() && '))')
+end
+
+func FontName()
+  return('([](QWidget *w) { return w ? w->font().family() : QString(); }(' && FontTarget() && '))')
+end
+
+func FontStyle()
+  return('([](QWidget *w) { if (!w) return 0; const auto f = w->font(); return int(f.bold()) | (int(f.italic()) << 1) | (int(f.underline()) << 2) | (int(f.strikeOut()) << 3); }(' && FontTarget() && '))')
+end
+
+func FontCharset()
+  return('([](QWidget *w) { return w ? w->property("hiasmFontCharset").toInt() : 0; }(' && FontTarget() && '))')
+end

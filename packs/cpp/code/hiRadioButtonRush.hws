@@ -1,0 +1,39 @@
+include('rushChoice')
+
+func Target()
+  return('qt_widget<HiasmRushRadio>(form, "RadioButtonRush' && _id_ && '")')
+end
+
+func doStart
+  RushChoice('RadioButtonRush', 'HiasmRushRadio', get('Selected') == 0)
+  if(linked(onSelect))
+    println('QObject::connect(choice, &QRadioButton::clicked, &form, [&form] {')
+    event(onSelect)
+    println('});')
+  end
+  println('}')
+end
+
+func doSelect(_data)
+  println('{ auto *choice = ', Target(), ';')
+  println('const bool exclusive = choice->autoExclusive();')
+  println('choice->setAutoExclusive(false);')
+  println('choice->setChecked(', RushBool(_data), ');')
+  println('choice->setAutoExclusive(exclusive); }')
+end
+
+func Selected()
+  return('int(' && Target() && '->isChecked())')
+end
+
+func doCaption(_data)
+  if(len(_data) > 0)
+    println(Target(), '->setText(qt_text(', _data, '));')
+  else
+    println(Target(), '->setText(QString());')
+  end
+end
+
+func doUpdate(_data)
+  println(Target(), '->update();')
+end

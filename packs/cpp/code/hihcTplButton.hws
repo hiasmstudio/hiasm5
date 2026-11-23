@@ -1,0 +1,44 @@
+func doStart
+  println('{')
+  fvar(stock, size, pos, orient)
+  stock = d('StockID')
+  if(len(stock) > 0)
+    size = 16
+    switch(get('StockIconSize'))
+      case 2: size = 24
+      case 4: size = 32
+      case 5: size = 32
+    end
+    pos = get('Position')
+    orient = 'GTK_ORIENTATION_HORIZONTAL'
+    if(pos > 1)
+      orient = 'GTK_ORIENTATION_VERTICAL'
+    end
+    println('GtkWidget *widget = gtk_button_new();')
+    println('GtkWidget *box = gtk_box_new(', orient, ', 4);')
+    println('GtkWidget *icon = gtk_image_new_from_icon_name(', cstr(stock), ');')
+    println('gtk_image_set_pixel_size(GTK_IMAGE(icon), ', size, ');')
+    println('GtkWidget *label = gtk_label_new(', cstr(d('Caption')), ');')
+    if(pos == 1 or pos == 3)
+      println('gtk_box_append(GTK_BOX(box), label);')
+      println('gtk_box_append(GTK_BOX(box), icon);')
+    else
+      println('gtk_box_append(GTK_BOX(box), icon);')
+      println('gtk_box_append(GTK_BOX(box), label);')
+    end
+    println('gtk_button_set_child(GTK_BUTTON(widget), box);')
+  else
+    println('GtkWidget *widget = gtk_button_new_with_label(', cstr(d('Caption')), ');')
+  end
+  println('hiasm_place("hcTplButton', _id_, '", widget, ', Left, ', ', Top, ');')
+  println('hiasm_set_font(widget, ', cstr(d('Font')), ');')
+  if(linked(onClick))
+    println('g_signal_connect(widget, "clicked", G_CALLBACK(+[](GtkButton *, gpointer) {')
+    println('if(!hiasm_form_ready) return;')
+    block.inclvl()
+    event(onClick, Data)
+    block.declvl()
+    println('}), NULL);')
+  end
+  println('}')
+end

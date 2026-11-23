@@ -63,7 +63,7 @@ class ElementPoint {
 		/**
 		 * Link two point without path trace
 		 * @param link connect point
-		 * @return this point
+		 * @return this point, or NULL if incompatible or either endpoint is occupied
 		 */
 		ElementPoint *connect(ElementPoint *link);
 		/**

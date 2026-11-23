@@ -1,0 +1,190 @@
+Make(cpp)
+Add(BASS_Version,10183901,189,238)
+{
+ link(onCheckOk,12302345:doInit,[])
+ link(onCheckFailed,109118:doMessage,[(233,251)(233,293)])
+}
+Add(Message,11232751,189,287)
+{
+ Message="Error BASS initialization"
+ Caption="Error"
+ Icon=1
+}
+Add(Message,109118,245,287)
+{
+ Message="Incorrect version of BASS library "
+ Caption="Error"
+ Icon=1
+}
+Add(MainForm,16358250,56,224)
+{
+ Width=813
+ Height=489
+ Caption="BASS record demo"
+ Point(Handle)
+ link(onCreate,4252681:doInit,[])
+}
+Add(BASS_Init,4252681,133,238)
+{
+ link(onInit,10183901:doCheck,[])
+ link(onError,11232751:doMessage,[(177,251)(177,293)])
+ link(Handle,16358250:Handle,[(153,226)(107,226)(107,268)(62,268)])
+}
+Add(Button,13708268,56,84)
+{
+ Left=10
+ Top=10
+ Caption="Record"
+ link(onClick,5066922:doStart,[])
+}
+Add(Button,14140950,56,133)
+{
+ Left=75
+ Top=10
+ Caption="Stop"
+ link(onClick,5066922:doStop,[(110,139)(110,97)])
+}
+Add(BASS_RecordCenter,12302345,245,238)
+{
+ link(onError,11713735:doMessage,[(289,251)(289,293)])
+}
+Add(BASS_RecordStart,5066922,133,84)
+{
+ Freq=44100
+ Mode=1
+ link(onData,4781887:doDetect,[])
+}
+Add(Message,11713735,301,287)
+{
+ Message="InitRecord failed!"
+ Caption="Error"
+ Icon=1
+}
+Add(Grapher,13162224,686,140)
+{
+ Left=10
+ Top=245
+ Width=485
+ Height=200
+ MaxH=0
+ LeftMargin=0
+ RightMargin=0
+ TopMargin=0
+ BottomMargin=0
+}
+Add(VolumeDetector,4781887,189,91)
+{
+ DetectLevel=2000
+ Delay=12000
+ link(onDetect,16532858:doSumm,[])
+}
+Add(VolumeSummator,16532858,238,91)
+{
+ link(onResult,4377045:doEvent1,[])
+}
+Add(Grapher,13475393,336,91)
+{
+ Left=10
+ Top=35
+ Width=485
+ Height=200
+ MaxH=0
+ LeftMargin=0
+ RightMargin=0
+ TopMargin=0
+ BottomMargin=0
+}
+Add(Hub,4377045,287,91)
+{
+ link(onEvent1,13475393:doAdd,[])
+ link(onEvent2,3262080:doEdge,[(327,104)(327,146)])
+}
+Add(VolumeEdge,3262080,336,140)
+{
+ link(onResult,3305714:doSumm,[])
+}
+Add(VolumeSmoothing,10917253,434,140)
+{
+ Level=100
+ link(onResult,1474433:doSumm,[])
+}
+Add(Memory,15172366,581,140)
+{
+ link(onData,3000059:doEvent1,[])
+}
+Add(Button,9858318,525,245)
+{
+ Left=195
+ Top=10
+ Caption="Save"
+ link(onClick,6288690:doData,[])
+}
+Add(DoData,6288690,581,245)
+{
+ link(onEventData,10470133:doAdd,[])
+ link(Data,15172366:Value,[])
+}
+Add(Edit,10886304,693,189)
+{
+ Left=255
+ Top=10
+ Width=95
+ Text=""
+}
+Add(VolumeSummator,3305714,385,140)
+{
+ Level=60
+ Mode=1
+ link(onResult,10917253:doSmoothing,[])
+}
+Add(VolumeSmoothing,9264211,532,140)
+{
+ Level=40
+ link(onResult,15172366:doValue,[])
+}
+Add(VolumeComparator,10470133,686,238)
+{
+ Volumes="c:\snd\"
+ link(onOk,9969028:doEvent1,[])
+ link(onFailed,4539809:doAdd,[(730,251)(730,293)])
+ link(Name,10886304:Text,[])
+}
+Add(Hub,3000059,630,140)
+{
+ OutCount=3
+ link(onEvent1,13162224:doAdd,[])
+ link(onEvent2,4539809:doClear,[(679,153)(679,300)])
+ link(onEvent3,10470133:doCompare,[(674,160)(674,244)])
+}
+Add(Label,12620894,847,238)
+{
+ Left=440
+ Top=10
+}
+Add(RichEdit,4539809,742,287)
+{
+ Left=505
+ Top=35
+ Width=295
+ Height=410
+}
+Add(VolumeSummator,1474433,483,140)
+{
+ Level=20
+ Mode=1
+ link(onResult,9264211:doSmoothing,[])
+}
+Add(Hub,9969028,777,238)
+{
+ link(onEvent1,12620894:doText,[])
+ link(onEvent2,10987137:doCase,[(831,251)(831,300)])
+}
+Add(Case,10987137,854,294)
+{
+ Value=String(openvideo)
+ link(onTrue,10969450:doShellExec,[(902,307)(902,335)])
+}
+Add(WinExec,10969450,917,322)
+{
+ FileName="D:\data\video"
+}

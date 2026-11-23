@@ -1,0 +1,61 @@
+func Progress()
+  return('qt_widget<HiasmGradientProgress>(form, "GProgressBar' && _id_ && '")')
+end
+
+func doStart
+  println('{')
+  println('auto *bar = new HiasmGradientProgress(widgetParent);')
+  println('bar->setObjectName(QStringLiteral("GProgressBar', _id_, '"));')
+  println('bar->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+  println('bar->setMaximum(', Max, ');')
+  println('bar->vertical = ', get('Kind') == 1, ';')
+  println('bar->invertGradient = ', get('InvKindGrad') == 'True', ';')
+  println('auto palette = bar->palette();')
+  println('palette.setColor(QPalette::Window, qt_led_color(qt_text(', cstr(d('Color')), '), palette.color(QPalette::Window)));')
+  println('bar->setPalette(palette);')
+  println('bar->light = qt_led_color(qt_text(', cstr(d('LightProgress')), '), Qt::cyan);')
+  println('bar->dark = qt_led_color(qt_text(', cstr(d('DarkProgress')), '), Qt::blue);')
+  if(linked(onClick))
+    println('bar->clicked = [&form] {')
+    event(onClick)
+    println('};')
+  end
+  println('}')
+end
+
+func doPosition(_data)
+  println(Progress(), '->setPosition(', Number(_data), ');')
+end
+
+func doMax(_data)
+  println(Progress(), '->setMaximum(', Number(_data), ');')
+end
+
+func doLightProgress(_data)
+  if(len(_data) > 0)
+    println('{ auto *bar = ', Progress(), '; bar->light = qt_led_color(qt_text(', _data, '), bar->light); bar->update(); }')
+  end
+end
+
+func doDarkProgress(_data)
+  if(len(_data) > 0)
+    println('{ auto *bar = ', Progress(), '; bar->dark = qt_led_color(qt_text(', _data, '), bar->dark); bar->update(); }')
+  end
+end
+
+func doInvKindGrad(_data)
+  if(len(_data) > 0)
+    println('{ auto *bar = ', Progress(), '; bar->invertGradient = qt_flag(qt_text(', _data, ')); bar->update(); }')
+  end
+end
+
+func Position()
+  return(Progress() && '->position')
+end
+
+func Number(value)
+  if(len(value) > 0)
+    return('qt_text(' && value && ').toInt()')
+  end
+  return('0')
+end

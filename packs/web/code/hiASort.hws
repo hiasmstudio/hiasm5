@@ -1,0 +1,52 @@
+func doSort(_data)
+  fvar(arr,_mode,_assoc)
+  _mode = isdef(Mode) ? '' : 'r'
+  _assoc = isdef(Associate) ? '' : 'a' 
+  if(isdef(Copy))
+    arr = Array
+  else
+    println(n_arr, ' = ', Array, ';')
+    arr = n_arr
+  end    
+  println(_assoc + _mode + 'sort(', arr, ');')
+  event(onSort, arr)
+end
+
+func Result()
+  if(linked(doSort))
+    return(isdef(Copy) ? Array : n_arr)
+  else    
+    fvar(arr,_mode,_assoc)
+    _mode = isdef(Mode) ? '' : 'r'
+    _assoc = isdef(Associate) ? '' : 'a'
+    if(isdef(Copy))
+      arr = Array
+    else
+      println(n_arr, ' = ', Array, ';')
+      arr = n_arr
+    end    
+    println(_assoc + _mode + 'sort(', arr, ');')
+    return(arr)
+  end
+end
+
+section java
+
+func doSort(_data)
+  fvar(a)
+  a = '.sort()' + isdef(Mode) ? '' : '.reverse()'
+  if(linked(Result))
+    println(n_arr, ' = ', Array, a, ';')
+    event(onSort, n_arr)
+  else    
+    event(onSort, Array && a)
+  end
+end
+
+func Result()
+  if(linked(doSort))
+    return(n_arr)
+  else    
+    return(Array && '.sort()' + isdef(Mode) ? '' : '.reverse()')
+  end
+end

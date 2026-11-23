@@ -1,0 +1,38 @@
+include('qtMstClient')
+
+func doStart
+  println('QTimer::singleShot(0, &form, [&form] {')
+  MstBegin()
+  println(MstLocal(), '->setGeneralColor(0, qt_text(', cstr(get('BkColor')), '));')
+  println(MstLocal(), '->setGeneralColor(1, qt_text(', cstr(get('TextColor')), '));')
+  println(MstLocal(), '->setGeneralColor(2, qt_text(', cstr(get('TextBkColor')), '));')
+  println(MstLocal(), '->setGeneralColor(3, qt_text(', cstr(get('IconColColor')), '));')
+  println('} });')
+end
+
+func SetColor(field, value)
+  MstBegin()
+  println(MstLocal(), '->setGeneralColor(', field, ', qt_mst_value(', MstDefault(value, '0'), '));')
+  event(onChangeProperty)
+  println('}')
+end
+
+func doBkColor(_data)
+  SetColor(0, _data)
+end
+
+func doTextColor(_data)
+  SetColor(1, _data)
+end
+
+func doTextBkColor(_data)
+  SetColor(2, _data)
+end
+
+func doIconColColor(_data)
+  SetColor(3, _data)
+end
+
+func GenColors()
+  return('([](HiasmMstTable *table) { return table ? table->generalColors() : QVariantList(); }(' && MstTarget() && '))')
+end

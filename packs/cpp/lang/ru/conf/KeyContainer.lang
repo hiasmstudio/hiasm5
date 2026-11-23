@@ -1,0 +1,15 @@
+Key container=Контейнер ключей
+Default key container name=Имя контейнера ключей по умолчанию
+Creates a key container named ARG(ContainerName)=Cоздает контейнер ключей по имени ARG(ContainerName)
+Deletes the key container named ARG(ContainerName)=Удаляет контейнер ключей по имени ARG(ContainerName)
+Imports a key pair into the key container ARG(ContainerName, ImportKeyPair)=Импортирует ключевую пару в контейнер ключей ARG(ContainerName, ImportKeyPair)
+Exports a key pair from the key container ARG(ContainerName)=Экспортирует ключевую пару из контейнера ключей ARG(ContainerName)
+The event occurs every time after the key container has been created ARG(Null)=Событие происходит всякий раз после окончания создания контйнера ключей ARG(Null)
+The event occurs every time after the deletion of the key container ARG(Null) is completed=Событие происходит всякий раз после окончания удаления контйнера ключей ARG(Null)
+The event occurs every time after the import of the key pair ARG(Null) is completed=Событие происходит всякий раз после окончания импортирования ключевой пары ARG(Null)
+The event occurs every time the export of a key pair is completed and outputs the result to the ARG(KeyPair, PublicKey) stream=Событие происходит всякий раз после окончания экспортирования ключевой пары и выдает результат в поток ARG(KeyPair, PublicKey)
+The event occurs as a result of an error and issues an error code to the ARG(Error) stream=Событие происходит в результате ошибки и выдает код ошибки в поток ARG(Error)
+Contains a key pair=Содержит ключевую пару
+Contains the public key=Содержит открытый ключ
+Key container name=Имя контейнера ключей
+Key pair for import into key container=Ключевая пара для импорта в контйенер ключей

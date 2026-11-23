@@ -1,0 +1,59 @@
+*Получение цвета пикселя на экране
+Make(cpp)
+Add(MainForm,16667262,147,70)
+{
+ Left=20
+ Top=105
+ Width=296
+ Height=232
+ Caption="GetPixel"
+}
+Add(Img_GetPoint,5849388,224,112)
+{
+ DrawSource=1
+ link(onGetPixel,10560964:doData,[])
+ link(X,13549640:MouseX,[])
+ link(Y,13549640:MouseY,[])
+}
+Add(Timer,4941287,147,112)
+{
+ Interval=10
+ link(onTimer,5849388:doGetPixel,[])
+}
+Add(ChildPanel,7296815,336,112)
+{
+}
+BEGIN_SDK
+  Add(EditMulti,12071646,3,3)
+  {
+   WorkCount=1
+   link(doWork1,11237753:doEvent1,[(36,9)(36,111)])
+  }
+  Add(Panel,961086,217,105)
+  {
+   Left=70
+   Top=40
+   Width=145
+   Height=55
+   Alignment=2
+   Point(doColor)
+  }
+  Add(Hub,11237753,70,105)
+  {
+   link(onEvent1,12563101:doConvert,[])
+   link(onEvent2,961086:doColor,[])
+  }
+  Add(Convertor,12563101,133,105)
+  {
+   Mode=6
+   Digits=6
+   link(onResult,961086:doCaption,[])
+  }
+END_SDK
+Add(MouseEvent,13549640,231,35)
+{
+}
+Add(ChangeMon,10560964,280,112)
+{
+ link(onData,7296815:doWork1,[])
+}

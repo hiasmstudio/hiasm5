@@ -1,0 +1,23 @@
+func Obj(value)
+  if(linked('ObjHandle'))
+    return(d('ObjHandle'))
+  else
+    return(value)
+  end
+end
+
+func Timeout()
+  if(get('Time') < 0)
+    return('INFINITE')
+  else
+    return(get('Time'))
+  end
+end
+
+func doWait(_data)
+  println('#if !defined(_WIN32)')
+  println('#error "WaitObject is a Windows-only element"')
+  println('#endif')
+  println('const DWORD hiasm_wait', _id_, ' = WaitForSingleObject(reinterpret_cast<HANDLE>(static_cast<intptr_t>(', Obj(_data), ')), ', Timeout(), ');')
+  event(onWait, 'static_cast<int>(hiasm_wait' && _id_ && ')')
+end

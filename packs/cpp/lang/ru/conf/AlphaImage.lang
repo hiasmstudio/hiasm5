@@ -1,0 +1,15 @@
+Displaying Alpha pictures=Отображение Alpha-картинок
+True - set the element dimensions to the same size as the image, False - do nothing=True - установить размеры элемента равными размерам картинки, False - ничего не делать
+Display method: Center - align the image to the center, Stretch - stretch/compress the image to the size of the image, ScaleMin - fit the image into the image area (while maintaining proportions) completely, Mosaic - tile (mosaic), None - display the image as is, ScaleMax - fit the image into the image area (while maintaining proportions) without voids=Способ отображения: Center - выравнивание картинки по центру, Stretch - растягивание/сжатие картинки до размеров изображения, ScaleMin - вписывание картинки в область изображения (с сохранением пропорции) полностью, Mosaic - замостить (мозаика), None - отображать картинку как есть, ScaleMax - вписывание картинки в область изображения (с сохранением пропорции) без пустот
+Defines the default image=Определяет картинку по-умолчанию
+Determines the degree of transparency of the picture (from 0 to 255)=Определяет степень прозрачности картинки (от 0 до 255)
+Enable Transparency Mode=Включить режим прозрачности
+Capture the mouse by a component when you left-click on it=Захват мыши компонентом при нажатии на нем левой кнопки
+Copies an image from a stream=Копирует картинку из потока
+Clears the image area=Очищает область изображения
+Updates the image (needed when drawing on it)=Обновляет картинку (необходимо при рисовании на ней)
+The event occurs every time the mouse button is clicked on the image=Событие происходит всякий раз при нажатии кнопки мыши на картинке
+Contains a picture=Содержит картинку
+Defines a picture with an Alpha channel to be copied into an image=Определяет картинку c Alpha-каналом для копирования в изображение
+Image width=Ширина картинки
+Picture height=Высота картинки

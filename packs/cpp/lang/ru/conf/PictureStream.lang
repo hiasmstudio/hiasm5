@@ -1,0 +1,9 @@
+Picture stream=Загрузка/сохранение изображения (форматы BMP,ICO,PCX,JPEG)
+Defines the default image file name=Определяет имя файла с картинкой по-умолчанию
+JPEG file quality (from 1 to 100) when writing to a file=Качество JPEG файла (от 1 до 100) при записи в файл
+Loads an image from a file=Загружает картинку из файла
+Saves the image to a file=Сохраняет картинку в файл
+The event occurs whenever an image is successfully loaded and outputs this image to the ARG(Bitmap) stream=Событие происходит всякий раз при удачной загрузке картинки и выдаёт эту картинку в поток ARG(Bitmap)
+Specifies the name of the image file=Определяет имя файла с картинкой
+Specifies the image to save=Определяет картинку для сохранения
+JPEG file quality (from 1 to 100)=Качество JPEG файла (от 1 до 100)

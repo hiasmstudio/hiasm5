@@ -1,0 +1,56 @@
+func Arg(name, fallback)
+  if(linked(name))
+    return(d(name))
+  else
+    return(cstr(fallback))
+  end
+end
+
+func Source()
+  return(Arg('FileName', get('FileName')))
+end
+
+func Dest()
+  return(Arg('NewFileName', get('NewFileName')))
+end
+
+func doCopy(_data)
+  println('{')
+  block.inclvl()
+  println('std::error_code hiasm_ec', _id_, ';')
+  println('std::filesystem::copy(std::filesystem::path(std::string(', Source(), ')), std::filesystem::path(std::string(', Dest(), ')), std::filesystem::copy_options::overwrite_existing | std::filesystem::copy_options::recursive, hiasm_ec', _id_, ');')
+  event(onEnd)
+  block.declvl()
+  println('}')
+end
+
+func doMove(_data)
+  println('{')
+  block.inclvl()
+  println('std::error_code hiasm_ec', _id_, ';')
+  println('std::filesystem::rename(std::filesystem::path(std::string(', Source(), ')), std::filesystem::path(std::string(', Dest(), ')), hiasm_ec', _id_, ');')
+  println('if(hiasm_ec', _id_, ') {')
+  block.inclvl()
+  println('hiasm_ec', _id_, '.clear();')
+  println('std::filesystem::copy(std::filesystem::path(std::string(', Source(), ')), std::filesystem::path(std::string(', Dest(), ')), std::filesystem::copy_options::overwrite_existing | std::filesystem::copy_options::recursive, hiasm_ec', _id_, ');')
+  println('if(!hiasm_ec', _id_, ') std::filesystem::remove_all(std::filesystem::path(std::string(', Source(), ')), hiasm_ec', _id_, ');')
+  block.declvl()
+  println('}')
+  event(onEnd)
+  block.declvl()
+  println('}')
+end
+
+func doDelete(_data)
+  println('{')
+  block.inclvl()
+  println('std::error_code hiasm_ec', _id_, ';')
+  println('std::filesystem::remove_all(std::filesystem::path(std::string(', Source(), ')), hiasm_ec', _id_, ');')
+  event(onEnd)
+  block.declvl()
+  println('}')
+end
+
+func doFileExists(_data)
+  event(onEnd, 'std::filesystem::exists(std::filesystem::path(std::string(' && Source() && '))) ? 1 : 0')
+end

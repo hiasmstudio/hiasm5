@@ -1,0 +1,55 @@
+*Расширение контекстного меню Explorer#13#10( об использование и установки см. Справка -> COM -> Дополнительная справка
+Pos(0,0)
+Add(DoData,74478,287,184)
+{
+ Data=Null()
+ link(onEventData,95878:doPutText,[])
+ link(Data,5796:Text,[])
+}
+Add(StrList,5796,287,61)
+{
+ FileName=
+ Strings=
+}
+Add(Case,77991,94,137)
+{
+ Value=Integer(0)
+ link(onNextCase,27920:doCase,[])
+ link(onTrue,74478:doData,[(140,150)(140,190)])
+}
+Add(StrCat,50096,218,135)
+{
+ Str1=
+ Str2=List.txt
+ link(onStrCat,5796:doSave,[(268,141)(268,102)])
+ link(Str1,5921:Value,[])
+}
+Add(Case,27920,151,137)
+{
+ Value=Integer(1)
+ link(onTrue,50096:doStrCat,[(200,150)(200,141)])
+}
+Add(Hub,90290,95,75)
+{
+ InCount=1
+ OutCount=2
+ link(onEvent1,5796:doClear,[(207,81)(207,74)])
+ link(onEvent2,5921:doValue,[])
+}
+Add(Memory,5921,218,82)
+{
+ Default=Null()
+}
+Add(Clipboard,95878,343,184)
+{
+}
+Add(Context,90975,10,61)
+{
+ Info=Help
+ Name=Test
+ Menu='FileName','List'
+ FileType=*
+ link(onFileName,5796:doAdd,[])
+ link(onCommand,77991:doCase,[(68,74)(68,143)])
+ link(onCurrentDir,90290:doEvent1,[])
+}

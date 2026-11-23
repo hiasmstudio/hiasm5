@@ -1,0 +1,133 @@
+func StatusTarget()
+  return('qt_widget<HiasmStatusBar>(form, "StatusBarEx' && _id_ && '")')
+end
+
+func doStart
+  println('{')
+  println('auto *status = new HiasmStatusBar(widgetParent);')
+  println('status->setObjectName(QStringLiteral("StatusBarEx', _id_, '"));')
+  println('status->setSizeGripEnabled(', get('SizeGrip') == 'True', ');')
+  println('status->messages = qt_text(', cstr(d('Strings')), ').split(QChar(10));')
+  println('const auto panels = qt_text(', cstr(d('Panels')), ').split(QChar(10), Qt::SkipEmptyParts);')
+  println('const Qt::Alignment alignments[] = {Qt::AlignLeft, Qt::AlignHCenter, Qt::AlignRight};')
+  println('const auto alignment = alignments[qBound(0, int(', get('TextAlign'), '), 2)] | Qt::AlignVCenter;')
+  println('for (const auto &line : panels) {')
+  println('  const auto separator = line.lastIndexOf(QChar(61));')
+  println('  bool fixed = false;')
+  println('  const int width = separator < 0 ? 0 : line.mid(separator + 1).toInt(&fixed);')
+  println('  auto *panel = new QLabel(fixed ? line.left(separator) : line, status);')
+  println('  panel->setTextFormat(Qt::PlainText);')
+  println('  panel->setAlignment(alignment);')
+  println('  if (fixed && width > 0) panel->setFixedWidth(width);')
+  println('  status->panels.append(panel);')
+  println('  status->addWidget(panel, fixed && width > 0 ? 0 : 1);')
+  println('}')
+  println('status->summary = new QLabel(qt_text(', cstr(d('Text')), '), status);')
+  println('status->summary->setTextFormat(Qt::PlainText);')
+  println('status->summary->setAlignment(alignment);')
+  println('status->addWidget(status->summary, 1);')
+  if(get('EnablePBar') == 'True')
+    println('if (!status->panels.isEmpty()) {')
+    println('  status->progress = new QProgressBar(status);')
+    println('  status->progress->setTextVisible(false);')
+    println('  status->progress->setRange(0, qMax(0, int(', Max, ')));')
+    println('  status->progress->setValue(0);')
+    println('  auto palette = status->progress->palette();')
+    println('  palette.setColor(QPalette::Highlight, qt_led_color(qt_text(', cstr(d('ColorPBar')), '), palette.color(QPalette::Highlight)));')
+    println('  status->progress->setPalette(palette);')
+    println('  status->progressVisible = ', get('VisiblePBar') == 'True', ';')
+    println('  status->panelHint = ', get('PanelHintPBar') == 'True', ';')
+    println('  status->progressHint = qt_text(', cstr(d('HintPBar')), ');')
+    println('  status->setProgressPanel(', PanelPBar, ');')
+    println('}')
+  end
+  println('status->setVisible(', get('Visible') == 'True', ');')
+  println('status->place();')
+  println('}')
+end
+
+func PanelIndex()
+  if(linked('Panel'))
+    return('qt_text(' && d('Panel') && ').toInt()')
+  end
+  return('0')
+end
+
+func Number(value)
+  if(len(value) > 0)
+    return('qt_text(' && value && ').toInt()')
+  end
+  return('0')
+end
+
+func doText(_data)
+  fvar(value)
+  value = _data
+  if(linked('Text') or len(value) == 0)
+    value = cstr(d('Text'))
+  end
+  println(StatusTarget(), '->setPanelText(', PanelIndex(), ', qt_text(', value, '));')
+  event(onText)
+end
+
+func doIndexText(_data)
+  println('{ auto *status = ', StatusTarget(), ';')
+  println('status->setPanelText(', PanelIndex(), ', status->messages.value(', Number(_data), ')); }')
+  event(onText)
+end
+
+func doWidth(_data)
+  fvar(value)
+  value = _data
+  if(linked('Width'))
+    value = d('Width')
+  end
+  println('if (auto *label = ', StatusTarget(), '->panels.value(', PanelIndex(), '))')
+  println('  label->setFixedWidth(qMax(0, ', Number(value), '));')
+end
+
+func doVisible(_data)
+  if(len(_data) > 0)
+    println(StatusTarget(), '->setVisible(qt_flag(qt_text(', _data, ')));')
+  end
+end
+
+func doPanelPBar(_data)
+  println(StatusTarget(), '->setProgressPanel(', Number(_data), ');')
+end
+
+func doVisiblePBar(_data)
+  if(len(_data) > 0)
+    println('{ auto *status = ', StatusTarget(), '; status->progressVisible = qt_flag(qt_text(', _data, ')); status->syncProgress(); }')
+  end
+end
+
+func doHintPBar(_data)
+  if(len(_data) > 0)
+    println('{ auto *status = ', StatusTarget(), '; status->progressHint = qt_text(', _data, '); status->syncProgress(); }')
+  end
+end
+
+func doMax(_data)
+  println('if (auto *progress = ', StatusTarget(), '->progress) progress->setMaximum(qMax(0, ', Number(_data), '));')
+end
+
+func doPosPBar(_data)
+  println('if (auto *progress = ', StatusTarget(), '->progress) progress->setValue(qBound(0, ', Number(_data), ', progress->maximum()));')
+end
+
+func PosPBar()
+  return('([](const QProgressBar *progress) { return progress ? progress->value() : 0; }(' && StatusTarget() && '->progress))')
+end
+
+func Count()
+  return('int(' && StatusTarget() && '->panels.size())')
+end
+
+func Handle()
+  return(StatusTarget() && '->winId()')
+end
+
+func Array()
+  return(StatusTarget() && '->messages')
+end

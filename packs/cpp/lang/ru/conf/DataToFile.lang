@@ -1,0 +1,9 @@
+Saving/loading data to/from file/file=Сохранение/загрузка данных в/из файл/файла
+Data type=Тип данных
+Stores data in a file stream=Сохраняет данные в файловом потоке
+Returns data from a file stream=Возвращает данные из файлового потока
+Sets the byte number to the value from the stream from which data reading/writing begins=Устанавливает номер байта значением из потока, с которого начинается считывание/запись данных
+The event occurs after the doGet method is called and outputs the read data to the stream.=Событие происходит после вызова метода doGet и выдаёт в поток считанные данные
+Contains the file ID=Содержит идентификатор файла
+Returns data from a file stream (without calling the doGet method)=Возвращает данные из файлового потока (без вызова метода doGet)
+Contains the position of the current byte in the stream=Содержит позицию текущего байта в потоке

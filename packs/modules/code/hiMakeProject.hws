@@ -1,0 +1,44 @@
+section cpp
+
+func doDeclare(_data)
+  fvar(old, old_var, mb)
+  
+  old_var = BLK_FUNC
+  BLK_FUNC = block.reggen()
+  
+  mb = block.reggen() 
+  old = block.select(mb)
+  event(onDeclare, 'string((PChar)params.result)')
+  
+  block.select(BLK_HEAD)
+  println('extern "C" __declspec(dllexport) int buildMakePrj(TBuildMakePrjRec &params)') 
+  lng.begin()
+    block.select(BLK_FUNC)
+    if(not block.empty())
+      block.select(BLK_HEAD)
+      block.copyhere(BLK_FUNC)
+    end
+    block.delete(BLK_FUNC)
+    BLK_FUNC = old_var
+    block.select(BLK_HEAD)
+
+    block.copyhere(mb)    
+    block.delete(mb)
+    if(isdef(AutoSave))
+      println('TFileStream f(string((PChar)params.prjFilename), 0);')
+      println('f.Write(params.result, strlen((PChar)params.result));')
+    end
+    println('return CG_SUCCESS;')
+  lng.end()
+  println('')
+  
+  block.select(old)
+end
+
+func FileName()
+  return('string(params.prjFilename)')
+end
+
+func FileName()
+  return('string(params.compiler)')
+end

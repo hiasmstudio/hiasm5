@@ -1,0 +1,9 @@
+Progress bar=Отображает значение параметра
+Sets the maximum value of the quantity=Задаёт максимальное значение величины
+Element orientation on the form=Ориентация элемента на форме
+Light gradient color=Светлый цвет градиента
+Dark gradient color=Темный цвет градиента
+Invert gradient orientation=Инвертирование ориентации градиента
+Sets the progress position=Устанавливает позицию прогресса
+The event occurs every time you click on an element=Сoбытиe пpoиcxoдит вcякий paз пpи клике на элементе
+Contains the current progress position=Содержит текущую позицию прогресса

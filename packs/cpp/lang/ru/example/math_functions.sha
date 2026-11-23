@@ -1,0 +1,52 @@
+Make(cpp)
+Add(Entry,1,28,28)
+{
+ link(onStart,2:doEvent,[])
+}
+Add(Hub,2,126,28)
+{
+ link(onFirst,3:doOperation,[])
+ link(onSecond,5:doOperation,[])
+ link(onThird,7:doEvent,[])
+}
+Add(Math,3,224,28)
+{
+ Left=90
+ Operation=13
+ AngleMode=1
+ link(onResult,4:doWrite,[])
+}
+Add(Write,4,322,28)
+{
+}
+Add(Math,5,224,126)
+{
+ Left=2
+ Right=8
+ Operation=27
+ link(onResult,6:doWrite,[])
+}
+Add(Write,6,322,126)
+{
+}
+Add(Hub,7,126,224)
+{
+ link(onFirst,8:doOperation,[])
+ link(onSecond,8:doClear,[])
+ link(onThird,11:doWrite,[])
+}
+Add(Math,8,224,224)
+{
+ Left=-1
+ Operation=32
+ Default=7
+ link(onError,9:doPrint,[])
+}
+Add(Print,9,322,224)
+{
+ Text=domain error
+}
+Add(Write,11,322,322)
+{
+ link(Data,8:Result,[])
+}

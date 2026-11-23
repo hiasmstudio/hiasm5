@@ -1,0 +1,88 @@
+func Target()
+  return('qt_widget<QSlider>(form, "TrackBarRush' && _id_ && '")')
+end
+
+func doStart
+  println('{')
+  fvar(orientation, ticks)
+  orientation = 'Qt::Horizontal'
+  if(get('Kind') == 1)
+    orientation = 'Qt::Vertical'
+  end
+  ticks = 'QSlider::TicksBelow'
+  switch(get('TickMarks'))
+    case 'tmTopLeft': ticks = 'QSlider::TicksAbove'
+    case 'tmBoth': ticks = 'QSlider::TicksBothSides'
+  end
+  println('auto *track = new QSlider(', orientation, ', widgetParent);')
+  println('track->setObjectName(QStringLiteral("TrackBarRush', _id_, '"));')
+  println('track->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+  println('track->setRange(', Min, ', ', Max, ');')
+  println('track->setValue(', get('Position'), ');')
+  println('track->setTickInterval(qMax(1, int(', Frequency, ')));')
+  println('track->setTickPosition(', ticks, ');')
+  println('track->setEnabled(', get('Enabled') == 'True', ');')
+  println('track->setVisible(', get('Visible') == 'True', ');')
+  println('track->setProperty("hiasmAbsolute", ', get('AbsPosition') == 'True', ');')
+  println('QString style;')
+  println('const auto axis = track->orientation() == Qt::Horizontal ? QStringLiteral("horizontal") : QStringLiteral("vertical");')
+  println('qt_rush_slider_rule(style, "groove", axis, "", ', cstr(get('SlideColorFrom')), ', ', cstr(get('SlideColorTo')), ', ', cstr(get('BorderColor')), ', ', get('SlideGradientStyle'), ', ', BorderWidth, ', ', SlideRoundWidth, ');')
+  println('qt_rush_slider_rule(style, "handle", axis, "", ', cstr(get('ThumbColorFrom')), ', ', cstr(get('ThumbColorTo')), ', ', cstr(get('BorderColor')), ', ', get('ThumbGradientStyle'), ', ', BorderWidth, ', ', ThumbRoundWidth, ');')
+  println('qt_rush_slider_rule(style, "handle", axis, ":hover", ', cstr(get('ThumbColorFromOver')), ', ', cstr(get('ThumbColorToOver')), ', ', cstr(get('BorderColor')), ', ', get('ThumbGradientStyleOver'), ', ', BorderWidthOver, ', ', ThumbRoundWidth, ');')
+  println('qt_rush_slider_rule(style, "handle", axis, ":pressed", ', cstr(get('ThumbColorFromDown')), ', ', cstr(get('ThumbColorToDown')), ', ', cstr(get('BorderColor')), ', ', get('ThumbGradientStyleDown'), ', ', BorderWidthDown, ', ', ThumbRoundWidth, ');')
+  println('qt_rush_slider_rule(style, "handle", axis, ":disabled", ', cstr(get('ThumbColorFromDis')), ', ', cstr(get('ThumbColorToDis')), ', ', cstr(get('BorderColorDis')), ', ', get('ThumbGradientStyleDis'), ', ', BorderWidthDis, ', ', ThumbRoundWidth, ');')
+  println('qt_rush_slider_rule(style, "groove", axis, ":disabled", ', cstr(get('SlideColorFromDis')), ', ', cstr(get('SlideColorToDis')), ', ', cstr(get('BorderColorDis')), ', ', get('SlideGradientStyleDis'), ', ', BorderWidthDis, ', ', SlideRoundWidth, ');')
+  println('style += QStringLiteral("QSlider::handle:%1 { %2: %3px; }").arg(axis, track->orientation() == Qt::Horizontal ? QStringLiteral("width") : QStringLiteral("height"), QString::number(qMax(1, int(', ThumbLength, '))));')
+  println('style += QStringLiteral("QSlider::groove:%1 { %2: %3px; }").arg(axis, track->orientation() == Qt::Horizontal ? QStringLiteral("height") : QStringLiteral("width"), QString::number(qMax(1, int(', ThumbWidth, '))));')
+  println('track->setStyleSheet(style);')
+  if(linked(onPosition))
+    println('QObject::connect(track, &QSlider::valueChanged, &form, [&form, track] {')
+    event(onPosition, 'qt_rush_slider_value(track)')
+    println('});')
+  end
+  if(linked(onStart))
+    println('QObject::connect(track, &QSlider::sliderPressed, &form, [&form, track] {')
+    event(onStart, 'qt_rush_slider_value(track)')
+    println('});')
+  end
+  if(linked(onStop))
+    println('QObject::connect(track, &QSlider::sliderReleased, &form, [&form, track] {')
+    event(onStop, 'qt_rush_slider_value(track)')
+    println('});')
+  end
+  println('}')
+end
+
+func Number(value)
+  if(len(value) > 0)
+    return('qt_text(' && value && ').toInt()')
+  end
+  return('0')
+end
+
+func doPosition(_data)
+  println('{ auto *track = ', Target(), ';')
+  println('{ const QSignalBlocker blocker(track); track->setValue(', Number(_data), '); }')
+  event(onPosition, 'qt_rush_slider_value(track)')
+  println('}')
+end
+
+func doPosition2(_data)
+  println('{ auto *track = ', Target(), '; const QSignalBlocker blocker(track); track->setValue(', Number(_data), '); }')
+end
+
+func doMin(_data)
+  println('{ auto *track = ', Target(), '; const QSignalBlocker blocker(track); track->setMinimum(', Number(_data), '); }')
+end
+
+func doMax(_data)
+  println('{ auto *track = ', Target(), '; const QSignalBlocker blocker(track); track->setMaximum(', Number(_data), '); }')
+end
+
+func doUpdate(_data)
+  println(Target(), '->update();')
+end
+
+func Position()
+  return(Target() && '->value()')
+end

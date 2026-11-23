@@ -1,0 +1,59 @@
+func Graph()
+  return('qt_widget<HiasmGrapher>(form, "Grapher' && _id_ && '")')
+end
+
+func doStart
+  println('{')
+  println('auto *graph = new HiasmGrapher(widgetParent);')
+  println('graph->setObjectName(QStringLiteral("Grapher', _id_, '"));')
+  println('graph->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+  println('graph->minimumY = ', MinH, ';')
+  println('graph->maximumY = ', MaxH, ';')
+  println('graph->step = ', Step, ';')
+  println('graph->grid = ', Grid, ';')
+  println('graph->limit = ', MaxValues, ';')
+  println('graph->margins = QMargins(', LeftMargin, ', ', TopMargin, ', ', RightMargin, ', ', BottomMargin, ');')
+  println('graph->penWidth = ', PenWidth, ';')
+  println('graph->gridColor = qt_led_color(qt_text(', cstr(d('GridColor')), '), graph->gridColor);')
+  println('graph->borderColor = qt_led_color(qt_text(', cstr(d('BorderColor')), '), graph->borderColor);')
+  println('graph->axisColor = qt_led_color(qt_text(', cstr(d('AxisColor')), '), graph->axisColor);')
+  println('graph->penColor = qt_led_color(qt_text(', cstr(d('PenColor')), '), graph->penColor);')
+  println('}')
+end
+
+func doAdd(_data)
+  fvar(value)
+  value = _data
+  if(linked('ValueY'))
+    value = d('ValueY')
+  elseif(len(value) == 0)
+    value = '0'
+  end
+  println('{ auto *graph = ', Graph(), '; bool valid = false;')
+  println('const double sample = qt_text(', value, ').toDouble(&valid);')
+  println('if (valid && qIsFinite(sample)) { graph->samples.append(sample); graph->trim(); } }')
+end
+
+func doClear(_data)
+  println('{ auto *graph = ', Graph(), '; graph->samples.clear(); graph->firstX = 0; graph->update(); }')
+end
+
+func doMaxValues(_data)
+  if(len(_data) > 0)
+    println('{ auto *graph = ', Graph(), '; graph->limit = qt_text(', _data, ').toInt(); graph->trim(); }')
+  end
+end
+
+func doSaveToFile(_data)
+  if(len(_data) > 0)
+    println(Graph(), '->grab().save(qt_text(', _data, '), "BMP");')
+  end
+end
+
+func Min()
+  return(Graph() && '->extreme(false)')
+end
+
+func Max()
+  return(Graph() && '->extreme(true)')
+end

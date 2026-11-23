@@ -50,6 +50,7 @@ class SelectManager {
 		Event on_selection_change;	/**< call when elements has been changed */
 
 		SelectManager(SDK *sdk);
+		virtual ~SelectManager() = default;
 
 		/**
 		 * Add element in selection list
@@ -92,6 +93,13 @@ class SelectManager {
 		 * @return rectangle areas
 		 */
 		Gdk::Rectangle getSelectionRect();
+		// Body bounds exclude hints and wire routes.
+		Gdk::Rectangle getBodyRect() const;
+		bool moveTo(int x, int y);
+		bool align(const ustring &mode);
+		int availableGroupId() const;
+		bool group();
+		bool ungroup();
 		/**
 		 * Determines the availability of removal selected items
 		 * @return true if can, false if IS_PARENT in list
@@ -139,6 +147,8 @@ class SelectManager {
 		 * Paste elements from clipboard
 		 */
 		void paste();
+		// Parse a clipboard fragment; useful for non-clipboard import and tests.
+		bool pasteText(const ustring &text);
 		/**
 		 * Copy selected element as link to clipboard
 		 */

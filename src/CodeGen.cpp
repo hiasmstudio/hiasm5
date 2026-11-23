@@ -8,6 +8,7 @@
 #include "CodeGen.h"
 #include "ProjectBuilder.h"
 #include "Elements.h"
+#include <memory>
 
 #define CGT_TRACE //TRACE_PROC
 
@@ -27,7 +28,7 @@ int sdkGetCount(SDK *sdk) {
 Element *sdkGetElement(SDK *sdk, unsigned int index) {
 	CGT_TRACE
 	unsigned int n = 0;
-	if(index >= 0 && index < sdk->elements.size()) {
+	if(index < sdk->elements.size()) {
 		for(ElementsList::iterator i = sdk->elements.begin(); i != sdk->elements.end(); i++)
 			if(index == n)
 				return *i;
@@ -61,7 +62,7 @@ int elGetPropCount(Element *e) {
 
 ElementProperty *elGetProperty(Element *e, unsigned int index) {
 	CGT_TRACE
-	if(index >= 0 && index < e->props.size())
+	if(index < e->props.size())
 		return e->props[index];
 	return NULL;
 }
@@ -114,7 +115,7 @@ unsigned char elGetClassIndex(Element *e) {
 
 void *elGetSDK(Element *e) {
 	CGT_TRACE
-	return e->sdk ? (void*)e->sdk : (void*)e->parent->parent;
+	return e->sdk ? (void*)e->sdk : (void*)e->parent;
 }
 
 SDK *elGetSDKByIndex(Element *e, int index) {
@@ -155,8 +156,7 @@ int elGetEID(Element *e) {
 
 int elGetGroup(Element *e) {
 	CGT_TRACE
-	//Result := integer(TElement(e).Group);
-	return 0;
+	return e ? e->groupId() : 0;
 }
 
 void elGetPos(Element *e, int *x, int *y) {
@@ -380,11 +380,8 @@ unsigned char propToByte(ElementProperty *prop) {
 
 int propToInteger(ElementProperty *prop) {
 	CGT_TRACE
-	if(prop->type == data_color) {
-		TypeColor &c = *(TypeColor*)prop->value;
-
-		return (c.get_red_u() >> 8) | ((c.get_green_u() >> 8) << 8) | ((c.get_blue_u() >> 8) << 16);
-	}
+	if(prop->type == data_color)
+		return ((TypeColor*)prop->value)->toDelphi();
 	return *(int*)prop->value;
 }
 
@@ -402,6 +399,7 @@ const char *propToString(ElementProperty *p) {
 		case data_list:
 		case data_menu:
 		case data_code:
+		case data_stock:
 			return (*(ustring *)p->value).c_str();
 		//case data_script: _res := TScript(p.value).Text + #0;
 		case data_comboEx: {
@@ -422,6 +420,33 @@ const char *propToString(ElementProperty *p) {
 				buf++;
 			}
 			return c; //p->list[*(int*)p->value].c_str();
+		}
+		case data_color: {
+			static std::string color_text;
+			color_text = ((TypeColor*)p->value)->to_string();
+			return color_text.c_str();
+		}
+		case data_font: {
+			FontRecord *font = (FontRecord*)p->value;
+			static std::string font_text;
+			font_text = std::to_string(font->size > 0 ? font->size : 8) + "px \"" + font->name.raw() + "\"";
+			return font_text.c_str();
+		}
+		case data_pixbuf: {
+			// Base64 PNG, the same text as the project file stores (DataValue::serializePixbuf).
+			static std::string pixbuf_text;
+			pixbuf_text.clear();
+			TypePixbuf *pixbuf = (TypePixbuf*)p->value;
+			if(pixbuf && *pixbuf) {
+				gchar *buf = NULL;
+				gsize size = 0;
+				(*pixbuf)->save_to_buffer(buf, size);
+				gchar *encoded = g_base64_encode((const guchar*)buf, size);
+				pixbuf_text = encoded;
+				g_free(encoded);
+				g_free(buf);
+			}
+			return pixbuf_text.c_str();
 		}
 		default: ;
 	}
@@ -646,7 +671,7 @@ int _Debug(const char *text, int color) {
 	CGT_TRACE
 
 	if(color) {
-		char *buf = new char[strlen(text) + 1];
+		char *buf = new char[strlen(text) + 2];
 		if(color == 0x0000FF)
 			buf[0] = '#';
 		else if(color == 0xFF0000)
@@ -655,7 +680,7 @@ int _Debug(const char *text, int color) {
 			buf[0] = '@';
 		strcpy(buf + 1, text);
 		cgt_on_debug.run(buf);
-		delete buf;
+		delete[] buf;
 	}
 	else {
 		cgt_on_debug.run(text);
@@ -663,8 +688,18 @@ int _Debug(const char *text, int color) {
 	return 0;
 }
 
+static int copyParamText(void *value, const ustring &text) {
+	if(text.bytes() >= CGT_PARAM_TEXT_CAPACITY) {
+		((char*)value)[0] = 0;
+		return 1;
+	}
+	memcpy(value, text.c_str(), text.bytes() + 1);
+	return 0;
+}
+
 int GetParam(short index, void *value) 	{
 	CGT_TRACE
+	if(!value) return 1;
 	/*
 var e:TElement;
     sdk:TSDKMain;
@@ -682,28 +717,31 @@ var e:TElement;
 	switch(index) {
 		case PARAM_CODE_PATH :
 			sdk = (*(Element **)value)->parent->getMSDK();
-			strcpy((char*)value, sdk->pack->pathCode().c_str());
-			return 0;
+			return copyParamText(value, sdk->pack->pathCode());
 		case PARAM_DEBUG_MODE: *(int*)value = 1; return 0;
 		case PARAM_DEBUG_SERVER_PORT: *(int*)value = 100; return 0; //glbParams.readInt(GP_dbg_ServerPort);
 		case PARAM_DEBUG_CLIENT_PORT: *(int*)value = 101; return 0; //glbParams.readInt(GP_dbg_ClientPort);
 		case PARAM_PROJECT_PATH:
 			sdk = (*(Element **)value)->parent->getMSDK();
-			strcpy((char*)value, sdk->projectDir().c_str());
-			return 0;
+			return copyParamText(value, sdk->projectDir());
 		case PARAM_HIASM_VERSION:
 			s = (char *)value;
-			s = s.replace(s.find("%mj"), 3, int_to_str(HIASM_VERSION_MAJOR));
-			s = s.replace(s.find("%mn"), 3, int_to_str(HIASM_VERSION_MINOR));
-			s = s.replace(s.find("%bl"), 3, int_to_str(HIASM_VERSION_BUILD));
-			strcpy((char*)value, s.c_str());
-			return 0;
-		case PARAM_USER_NAME: return 0; //ReturnParam(GP_usr_Name);
-		case PARAM_USER_MAIL: return 0; //ReturnParam(GP_usr_Mail);
+			for(const auto &macro : {std::make_pair("%mj", HIASM_VERSION_MAJOR),
+			                         std::make_pair("%mn", HIASM_VERSION_MINOR),
+			                         std::make_pair("%bl", HIASM_VERSION_BUILD)}) {
+				ustring::size_type pos = 0;
+				const ustring replacement = int_to_str(macro.second);
+				while((pos = s.find(macro.first, pos)) != ustring::npos) {
+					s.replace(pos, 3, replacement);
+					pos += replacement.size();
+				}
+			}
+			return copyParamText(value, s);
+		case PARAM_USER_NAME:
+		case PARAM_USER_MAIL: ((char*)value)[0] = '\0'; return 0;
 		case PARAM_PROJECT_NAME:
 			sdk = (*(Element **)value)->parent->getMSDK();
-			strcpy((char*)value, sdk->fileName.c_str());
-			return 0;
+			return copyParamText(value, sdk->fileName);
 		case PARAM_SDE_WIDTH:
 			//e := TElement(value^);
 			//cardinal(value^) := TSDK_Edit(TSDK(e.sdkParent).Sde).FMaxW;
@@ -723,11 +761,11 @@ var e:TElement;
 
 int _Error(int line, Element *e, const char *text) {
 	CGT_TRACE
-	char *buf = new char[strlen(text) + 1];
+	char *buf = new char[strlen(text) + 2];
 	buf[0] = '!';
 	strcpy(buf + 1, text);
 	cgt_on_debug.run(buf);
-	delete buf;
+	delete[] buf;
 	return 0;
 }
 
@@ -752,16 +790,15 @@ void *arrItemData(ArrayValue *a, int index) {
 	return a->at(index).data;
 }
 
-ElementProperty *prop = NULL;
-
 ElementProperty *arrGetItem(ArrayValue *a, int index) {
-	if(!prop) {
-		prop = new ElementProperty(NULL, ustring(), ustring(), data_int);
-	}
-	prop->name = a->at(index).name;
-	prop->value = a->at(index).data;
-	prop->type = a->type;
-	return prop;
+	// CGT exposes a temporary property, valid until the next arrGetItem call.
+	// Keep an owned copy so changing types cannot delete array-owned storage.
+	static thread_local std::unique_ptr<ElementProperty> item;
+	if(!a || index < 0 || static_cast<size_t>(index) >= a->size()) return NULL;
+	item.reset(new ElementProperty(NULL, a->at(index).name, ustring(), a->type));
+	if(!item->value || !a->at(index).data) { item.reset(); return NULL; }
+	DataValue::copyValue(a->type, item->value, a->at(index).data);
+	return item.get();
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~ Data ~~~~~~~~~~~~~~~~~~~~~~~~~~

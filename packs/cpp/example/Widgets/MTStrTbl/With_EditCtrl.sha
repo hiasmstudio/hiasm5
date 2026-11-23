@@ -1,0 +1,438 @@
+*Пример работы таблицы MTStrTbl совместно с внешними контролами в режиме TabGrid
+Make(cpp)
+Add(MainForm,2953706,63,329)
+{
+ Width=445
+ Height=375
+ Caption="MTStrTbl_As_TabGrid_with_EditCtrl"
+ Position=1
+ link(onCreate,9599078:doEvent1,[])
+}
+Add(Edit,8944797,434,371)
+{
+ Left=10
+ Top=375
+ Width=85
+ Color=8454143
+ Font=[MS Sans Serif,10,1,0,1]
+ Visible=1
+ Text=""
+ Point(doLeft)
+ Point(doTop)
+ Point(doWidth)
+ Point(doHeight)
+ Point(doVisible)
+ Point(doSetFocus)
+ Point(doBringToFront)
+ Point(onKeyUp)
+ Point(doPosition)
+ PColor(Str,4227327)
+ link(onEnter,10463855:onEnter,[(474,384)(474,354)(368,354)(368,384)])
+ link(Str,14869487:Var2,[])
+ link(onKeyUp,10463855:KeyUp,[(482,391)(482,347)(358,347)(358,391)])
+}
+Add(MultiElementEx,10463855,378,378)
+{
+ @Hint=#20:Дешифратор MT-потока|
+ PColor(SetTableFocus,16711680)
+ PColor(SetData,16512)
+ link(OutData,8944797:doText2,[])
+ link(hLeft,8944797:doLeft,[])
+ link(hTop,8944797:doTop,[])
+ link(hWidth,8944797:doWidth,[])
+ link(hHeight,8944797:doHeight,[])
+ link(Visible,8944797:doVisible,[])
+ link(SetFocus,8944797:doSetFocus,[])
+ link(BringToFront,8944797:doBringToFront,[])
+ link(Position,8944797:doPosition,[])
+ link(SetTableFocus,3587734:doWork1,[(431,447)])
+ link(SetData,13638819:doWork1,[(424,454)])
+}
+BEGIN_SDK
+  Add(EditMultiEx,13264431,21,21)
+  {
+   WorkCount=#7:onEnter|5:KeyUp|7:MT_Data|9:EnterCell|7:EscCell|
+   EventCount=#7:OutData|5:hLeft|4:hTop|6:hWidth|7:hHeight|7:Visible|8:SetFocus|12:BringToFront|8:Position|13:SetTableFocus|7:SetData|
+   Width=321
+   Height=214
+   link(onEnter,15492628:doEvent1,[(42,27)(42,146)])
+   link(KeyUp,1777653:doCase,[(34,34)(34,188)])
+   link(MT_Data,13950834:doEvent1,[])
+   link(EnterCell,13339461:doEvent1,[(96,48)(96,83)])
+   link(EscCell,14640009:doWork1,[(88,55)])
+  }
+  Add(Case,1777653,168,182)
+  {
+   Value=Integer(27)
+   DataOnTrue=Integer(0)
+   link(onNextCase,8028089:doCase,[])
+   link(onTrue,7950987:doEvent2,[(209,195)(209,202)])
+  }
+  Add(DoData,14327129,168,147)
+  {
+   Data=Integer(0)
+   link(onEventData,16696880:doWork2,[])
+  }
+  Add(Hub,7950987,273,189)
+  {
+   InCount=2
+   link(onEvent1,16696880:doWork3,[(298,195)])
+   link(onEvent2,13264431:SetTableFocus,[(308,202)(308,90)])
+  }
+  Add(HubEx,16696880,294,140)
+  {
+   Angle=3
+   link(onEvent,13264431:Visible,[(298,62)])
+  }
+  Add(HubEx,14640009,84,140)
+  {
+   link(onEvent,14327129:doData,[])
+  }
+  Add(DoData,11234906,168,98)
+  {
+   Data=Integer(10000000)
+   link(onEventData,13264431:Position,[(237,104)(237,83)])
+  }
+  Add(Hub,15492628,56,140)
+  {
+   link(onEvent1,13264431:SetData,[(249,146)(249,97)])
+   link(onEvent2,14640009:doWork2,[])
+  }
+  Add(Case,8028089,224,182)
+  {
+   Value=Integer(13)
+   DataOnTrue=Integer(0)
+   link(onTrue,7950987:doEvent1,[])
+  }
+  Add(MT_MultiData,2622840,168,35)
+  {
+   Count=4
+   link(onData1,13264431:hLeft,[(235,41)(235,34)])
+   link(onData2,13264431:hTop,[(244,48)(244,41)])
+   link(onData3,13264431:hWidth,[(251,55)(251,48)])
+   link(onData4,13264431:hHeight,[(261,62)(261,55)])
+  }
+  Add(Hub,13339461,119,77)
+  {
+   OutCount=4
+   link(onEvent1,13264431:OutData,[(159,83)(159,27)])
+   link(onEvent2,10179666:doWork2,[])
+   link(onEvent3,13264431:BringToFront,[(224,97)(224,76)])
+   link(onEvent4,11234906:doData,[])
+  }
+  Add(Hub,13950834,119,35)
+  {
+   link(onEvent1,2622840:doSeparateMT,[])
+   link(onEvent2,10179666:doWork1,[(151,48)])
+  }
+  Add(HubEx,10179666,147,77)
+  {
+   link(onEvent,13264431:SetFocus,[(212,90)(212,69)])
+  }
+END_SDK
+Add(MST_UseEditCtrl,3498945,210,392)
+{
+ MSTControl="MtS_tbl"
+ PColor(onCellSize,8421440)
+ PColor(onEscCell,32768)
+ link(onCellSize,6528030:doEvent1,[(252,398)(252,321)])
+ link(onEnterCell,3579290:doEvent,[])
+ link(onEscCell,4676570:doEvent1,[(268,412)(268,475)])
+}
+Add(MST_DrawManager,15127737,63,245)
+{
+ Name="mtst_draw"
+ SingleString=0
+ TabGrid=0
+ TabGridFrame=0
+ GutterStyle=3
+ ColorRowSel=0
+ GutterColor=-16777203
+}
+Add(StrList,15034837,196,231)
+{
+ Strings=#27:sdfsdf utyuyt popo;aaaaa;;0|15:fzsdfzs;bbbb;;3|14:sdfszz;cccc;;2|15:sdfszz;ddddd;;0|15:sdfszz;eeeee;;1|15:sdfszz;fffff;;3|15:fzsdfzs;gggg;;2|14:sdfszz;hhhh;;0|16:fzsdfzs;iiiii;;3|16:sdfszz;jjjjjj;;1|
+}
+Add(Hub,9599078,112,343)
+{
+ OutCount=4
+ PColor(onEvent3,16711680)
+ link(onEvent1,10041622:doEnum,[(151,349)(151,293)])
+ link(onEvent2,5031208:doSelect,[])
+ link(onEvent3,1224705:doWork2,[])
+ link(onEvent4,16301273:doWork2,[(140,370)(140,524)])
+}
+Add(IconsManager,10830939,63,371)
+{
+ Name="icm"
+ ImgSize=24
+ Icons=['Icon'=[ZIP7E03000078DA63606004420101062029C190C1CCC020C6C0C0A001C440210605068838083830331001A222A30C0D0C21088FB2736DC97B130DB77A0A6C75E580A339161CC92A1CE82A6BA3F6862A6EF594586A039405990F11079A7F2CD372AD23C714902EA8E263A55E7B0325804681157340DC03570F3773ADA744B60648F6DEAA2920C35D39B25510EEC7540FD2E2C8017576A426507D3221F57070AD2F7B6FAC21D016881682EA415AA6155F9B54BCD4552248818318F5D080EACADE9B6A88AC7E8AAB628F0907C1F882AB07F92E5613189EC51A1C53706804AA872306DA000E816A0E9E6C22157BF91E63E058CBC0B294482D41A1C7FEFFFF0F522FD043BC15205BB0813FF60C0C0FF819181A807983C5928181C7168881622D407C00883F00E5FE3042D4016D65F8570F618330880D00EC7069E6],'Icon'=[ZIP7E05000078DAED94AB4FC35014877FE5395E612C14088F85C2B26CE111064BC380B105AA2A27B118FCE46CFF84CADAC9CACA26A82BAFBC72B6B2B2B2FC6E0B018B8673FADD73BE734FED050C66B50A9E15BC2D023B005A84231CA39CEB181AF88E9FBD0758CC17B70DB7D7C3CBE809AEEBB2BA188F741DE195391E8F117B13087F02194C10791E02DF43ECFB48A58F8C8869C03E604F5400114E2149A6A6EC43C8288422A90A390B21A2082A8E30D3880809493532E23D99F15EC498C998B3981E0342F0135052D049229048894449F6BA2A56855C936A6624419E25B0B29435C55E96B1929C30D9C022F93FFFFC2180CD9F41DFBEED9CB7EAFB66AD56DB2DFDF22B4CED7B7776F7EABC6E9A66ADF47BBBDBB96A2DEA81F6C361B1BB84CFFD23A7CF3F3ACB40BBAEDD7206FD9EDD5D7EBA40BBF4627FED91BE453F711C6770D7B357B870403F75CA41F5F9A278CD1AE5FEA5BDC085C28B185E571E0A3F2BDDB9D9982F1EB9C6A05FC4F546C530E6E84D46A3D1B4D6B1BA8A7723CF7F0D3E59C9F30F3BC90AD4],'Icon'=[ZIP7E03000078DA63606004420101062029C190C1CCC020C6C0C0A001C44021060506883808383033E0060D3810B5D463EA22060C75F5B40624B987A4C8A2437A2035F1D022FC1FC843F08F7A4CFCFF3F0483D81FEC116A416C983C00048F3C06],'Icon'=[ZIP7E03000078DA63606004420101062029C190C1CCC020C6C0C0A001C440210605068838083830336080FF442074F5F8C1E0574F867F19185A30105C8A54F35B900003360014071A7CECD8314C12977AAC8A315C473FF371013CEE81D88206A8623E3EC08F0703C13F3C18E47B00D8664C6C]]
+}
+Add(MST_SelectRow,5031208,210,350)
+{
+ MSTControl="MtS_tbl"
+ Point(doSetFocus)
+}
+Add(InfoTip,6538180,210,14)
+{
+ Info=#0:|317:В режиме TabGrid с EditControl-ами работают стрелки клавиатуры или выбор пункта мышью. Вход в режим редактирования -- либо F2, либо двойной клик мышью. Выход -- либо ESC, либо любой Scroll, либо выбор любой другой ячейки мышью без применения редакции. В режиме Edit, для применения изменений, необходимо нажать Enter.|
+ Font=[MS Sans Serif,12,1,32768,1]
+ Frame=3
+ Width=358
+ Height=158
+}
+Add(IconsManager,2179594,63,413)
+{
+ Name="check"
+ Icons=['Icon'=[ZIP7E04000078DAC592410AC23010457FA107E8CA950B971EC32B780B8FE1D1BC8588259440A04220845A6BADCD982282C8285344FCE167F1E1BDD500497C5986F8CFB04A810980796C9CE272DF872C52FC2CEBE594C6F69577DE93AF2A3AD6359D9A86CE6D4B97AEA36BDF5308819EC3F1D639B183E30FD68A1D1C6FCA52ECE0786D8CD8C1F14A6BB183E3F745217670FC4E29B183E3B7792E76BCE3A58E4FBCC4C1F1DFDCFFBF32DCF22619DF476E984E5892],'Icon'=[ZIP7E04000078DAC5925F0A8240108747F0003EF5D443BE758CAED02D3A4657E9265D2422C52459581631D3D469D6583119FF11D12CBF7D18F6FBD86516C0A2E53840FB0A7636C00200D6146A51E7DDD7B5B1E167B5DF2E716EBABC8A638C9304EF698A8F2CC32CCFF15914589625565585EDE278A9D46407C70B293F1CEEC1ED7570FC4D88C6A15913CEC1F1D728AA1D6DB6CFC1F17E18D60EC30CDD83E32F41503BF4D9B1B770FCD9F71B87794BD761E6C2F127CF1B7598D9F6F1630E33DB217E8A83E3BFF9FFFF2AA45B1CADF9D19CCE0B69991361]]
+}
+Add(HubEx,1224705,147,350)
+{
+ PColor(onEvent,16711680)
+ link(onEvent,5031208:doSetFocus,[])
+}
+Add(ComboBox,3501412,588,336)
+{
+ Left=10
+ Top=400
+ Width=150
+ Height=21
+ Color=8454143
+ Font=[MS Sans Serif,10,1,0,1]
+ Visible=1
+ Ctl3D=0
+ Strings=#5:aaaaa|4:bbbb|4:cccc|5:ddddd|5:eeeee|5:fffff|4:gggg|4:hhhh|5:iiiii|6:jjjjjj|
+ Text=""
+ ReadOnly=0
+ Point(doLeft)
+ Point(doTop)
+ Point(doWidth)
+ Point(doVisible)
+ Point(onKeyUp)
+ Point(doSelectString)
+ Point(doBringToFront)
+ Point(doSetFocus)
+ link(onClick,10646790:onEnter,[(628,349)(628,328)(514,328)(514,384)])
+ link(onKeyUp,10646790:KeyUp,[(636,356)(636,321)(504,321)(504,391)])
+}
+Add(MultiElementEx,10646790,525,378)
+{
+ @Hint=#20:Дешифратор MT-потока|
+ PColor(SetTableFocus,16711680)
+ PColor(SetData,16512)
+ PColor(Cell,4227327)
+ PColor(Data,4227327)
+ link(hLeft,3501412:doLeft,[])
+ link(hTop,3501412:doTop,[])
+ link(hWidth,3501412:doWidth,[])
+ link(Visible,3501412:doVisible,[])
+ link(OutData,3501412:doSelectString,[])
+ link(BringToFront,3501412:doBringToFront,[])
+ link(SetTableFocus,3587734:doWork2,[(580,426)(580,510)])
+ link(SetData,13638819:doWork2,[(565,433)(565,503)])
+ link(Cell,14869487:Var3,[(531,359)])
+ link(Data,3501412:String,[(538,359)(572,359)(572,448)(601,448)])
+}
+BEGIN_SDK
+  Add(EditMultiEx,13264431,21,14)
+  {
+   WorkCount=#7:onEnter|5:KeyUp|7:MT_Data|9:EnterCell|7:EscCell|
+   EventCount=#5:hLeft|4:hTop|6:hWidth|7:Visible|7:OutData|12:BringToFront|13:SetTableFocus|7:SetData|
+   DataCount=#4:Cell|4:Data|
+   Width=370
+   Height=214
+   link(onEnter,15492628:doEvent1,[(42,20)(42,146)])
+   link(KeyUp,1777653:doCase,[(28,27)(28,188)])
+   link(MT_Data,2622840:doSeparateMT,[])
+   link(EnterCell,16226397:doEvent1,[(101,41)(101,90)])
+   link(EscCell,14640009:doWork1,[(88,48)])
+  }
+  Add(Case,1777653,175,182)
+  {
+   Value=Integer(27)
+   DataOnTrue=Integer(0)
+   link(onNextCase,8028089:doCase,[])
+   link(onTrue,7950987:doEvent2,[(216,195)(216,202)])
+  }
+  Add(DoData,14327129,175,147)
+  {
+   Data=Integer(0)
+   link(onEventData,16696880:doWork2,[])
+  }
+  Add(Hub,7950987,294,189)
+  {
+   InCount=2
+   link(onEvent1,16696880:doWork3,[(354,195)])
+   link(onEvent2,13264431:SetTableFocus,[(366,202)(366,62)])
+  }
+  Add(HubEx,16696880,350,140)
+  {
+   Angle=3
+   link(onEvent,13264431:Visible,[(354,41)])
+  }
+  Add(HubEx,14640009,84,140)
+  {
+   link(onEvent,14327129:doData,[])
+  }
+  Add(Hub,15492628,56,140)
+  {
+   link(onEvent1,4954691:doData,[])
+   link(onEvent2,14640009:doWork2,[])
+  }
+  Add(Case,8028089,231,182)
+  {
+   Value=Integer(13)
+   DataOnTrue=Integer(0)
+   link(onTrue,7950987:doEvent1,[])
+  }
+  Add(MT_MultiData,2622840,168,28)
+  {
+   Count=4
+   link(onData1,13264431:hLeft,[(275,34)(275,20)])
+   link(onData2,13264431:hTop,[(286,41)(286,27)])
+   link(onData3,13264431:hWidth,[(296,48)(296,34)])
+  }
+  Add(DoData,5354186,231,84)
+  {
+   link(onEventData,13264431:OutData,[(308,90)(308,48)])
+   link(Data,13264431:Cell,[(237,17)(27,17)])
+  }
+  Add(DoData,4954691,231,140)
+  {
+   Data=Integer(0)
+   link(onEventData,13264431:SetData,[(326,146)(326,69)])
+   link(Data,13264431:Data,[(237,125)(34,125)])
+  }
+  Add(Hub,16226397,168,84)
+  {
+   link(onEvent1,5354186:doData,[])
+   link(onEvent2,13264431:BringToFront,[(317,97)(317,55)])
+  }
+END_SDK
+Add(MT_IndexToChanel,3579290,273,399)
+{
+ Count=3
+ Point(Index)
+ PColor(onEvent1,12615680)
+ PColor(onEvent2,12615680)
+ PColor(onEvent3,12615680)
+ PColor(Index,8388736)
+ link(onEvent1,14516374:doWork2,[])
+ link(onEvent2,14516374:doWork3,[(333,412)])
+ link(onEvent3,10646790:EnterCell,[(333,419)(333,463)(493,463)(493,405)])
+ link(Index,3498945:SubItem,[(279,387)(260,387)(260,444)(223,444)])
+}
+Add(GetDataEx,14869487,427,350)
+{
+ Angle=3
+ PColor(Data,4227327)
+ link(Data,16585770:Var3,[])
+}
+Add(Hub,4676570,308,469)
+{
+ OutCount=3
+ PColor(onEvent1,32768)
+ PColor(onEvent2,32768)
+ PColor(onEvent3,32768)
+ link(onEvent1,10463855:EscCell,[(347,475)(347,412)])
+ link(onEvent2,10646790:EscCell,[(504,482)(504,412)])
+ link(onEvent3,10297606:doWork1,[(347,489)])
+}
+Add(HubEx,13638819,420,490)
+{
+ Angle=2
+ PColor(onEvent,16512)
+ link(onEvent,2045899:doEvent1,[(163,503)(163,398)])
+}
+Add(HubEx,3587734,427,497)
+{
+ Angle=2
+ PColor(onEvent,16711680)
+ link(onEvent,1224705:doWork3,[(151,510)])
+}
+Add(Hub,6528030,287,315)
+{
+ PColor(onEvent1,8421440)
+ PColor(onEvent2,8421440)
+ link(onEvent1,10646790:MT_Data,[(493,321)(493,398)])
+ link(onEvent2,10463855:MT_Data,[(347,328)(347,398)])
+}
+Add(HubEx,14516374,329,392)
+{
+ PColor(onEvent,12615680)
+ link(onEvent,10463855:EnterCell,[])
+}
+Add(Hub,2045899,175,392)
+{
+ PColor(onEvent1,16512)
+ PColor(onEvent2,16512)
+ link(onEvent1,3498945:doSetData,[])
+ link(onEvent2,16301273:doWork1,[(200,405)])
+}
+Add(HubEx,16301273,196,511)
+{
+ link(onEvent,10297606:doWork2,[])
+}
+Add(VBoxLayout,12452202,105,287)
+{
+ Name="horiz_1"
+ Space=5
+ Padding=5
+}
+Add(MTStrTbl,4376548,63,287)
+{
+ Left=10
+ Top=5
+ Width=420
+ Height=305
+ Color=-16777194
+ Font=[MS Sans Serif,10,1,128,1]
+ Name="MtS_tbl"
+ HintManager="mtst_hint"
+ Layout="horiz_1"
+ WidthScale=100
+ HeightScale=100
+ Columns=#8:Col1=132|8:Col2=132|8:Col3=132|
+ ColumnClick=1
+ CheckBoxes=0
+ SmallIconsManager="icm"
+ StateIconsManager="check"
+ DrawManager="mtst_draw"
+}
+Add(Edit,4865121,385,518)
+{
+ Left=10
+ Top=315
+ Width=420
+ Height=22
+ Color=-16777194
+ Font=[MS Sans Serif,10,1,0,1]
+ Layout="horiz_1"
+ Text=""
+ PColor(Str,4227327)
+ link(Str,16585770:Var2,[])
+}
+Add(HubEx,10297606,343,511)
+{
+ link(onEvent,4865121:doText,[])
+}
+Add(GetDataEx,16585770,378,350)
+{
+ Angle=3
+ PColor(Data,4227327)
+ link(Data,3498945:Cell,[(319,359)(319,436)(237,436)])
+}
+Add(MT_String,922736,266,273)
+{
+ Point(doMTString)
+ link(onResult,2904434:doRowAction,[])
+}
+Add(ArrayEnum,10041622,210,287)
+{
+ link(onItem,922736:doMTString,[])
+ link(Array,15034837:Array,[])
+}
+Add(MST_RowAction,2904434,322,273)
+{
+ MSTControl="MtS_tbl"
+}

@@ -1,0 +1,616 @@
+*Пример мониторинга изменений структуры папок
+Make(cpp)
+Pos(102,0)
+Add(MainForm,2953706,-74,56)
+{
+ Width=660
+ Height=340
+ Caption="DirectoryChanges"
+ BorderStyle=1
+ Icon=[ZIP5E07000078DAE594214CC34014861F6A728ECC0D1C73E0C04E914964EDE4E414597055A4726A5970332445908020192159026E134B36B1A45B82383171241515133FEFEE16766CD77520E1F57F275EEFBEDEFD7D2DD11E5F8502A991CE7344FB4474C4C9253A2653577190A3FF176757CDD2E54ABF83F0C28BA7C8EB89D26D7472D3B5813F63B6FA95C72810A84F501FA336C4E68376625A9C650596882A3D59BA1B1D5E871940CD69CEF51AFF3BC4D404588D77D4C6F0068AE94669CE0AE2BB39FE5C2990A80E91CDF1976BEDF025BE14C46C6092CDD1C193D3D45C281B3338443CCD29FB169FD1B447E67E9C1C536F435954BE8F9C9CEA9BDCE2CFAA19883A405BC27B7673EA0399FABE36DA80390DA7D5AD7E2012CF46210B35757342680363573F6F40C2185D91CA695BDAE20F80D71822411AC76CC9BC111EBB50E2F3B2D80D33916D640513194E25FF229C2D34D2A88EDECF03D4CEB968140C9575BC9C99A148CADC245C4FFFEAD7B5CBAD3F1DB062C6F992E7249545CEFC5AE6B6E68CE77C9C166D243E0111ADE81B]
+ TaskBar=1
+ Point(Handle)
+ link(onCreate,11815296:doEvent1,[])
+}
+Add(Button,1673798,-39,343)
+{
+ Left=80
+ Top=280
+ Width=70
+ TabOrder=-1
+ Caption="StopWatch"
+ link(onClick,4928178:doEvent1,[])
+}
+Add(CheckBox,3487901,45,735)
+{
+ Left=160
+ Top=255
+ Width=150
+ Caption="Изменение доступа"
+ link(onCheck,9739652:doEvent,[])
+}
+Add(Button,13612687,-39,231)
+{
+ Left=5
+ Top=280
+ Width=70
+ TabOrder=-1
+ Caption="StartWatch"
+ Data=String()
+ link(onClick,9758169:doEvent2,[])
+}
+Add(Edit,6569606,199,133)
+{
+ Left=60
+ Top=230
+ Width=295
+ Color=16774365
+ Text="c:\\"
+}
+Add(Edit,6977804,157,133)
+{
+ Left=395
+ Top=230
+ Width=255
+ Color=14277119
+ Text=""
+}
+Add(Hub,9758169,38,224)
+{
+ InCount=2
+ OutCount=8
+ link(onEvent1,8887664:doWork,[(82,230)(82,160)])
+ link(onEvent2,2811533:doStartWatch,[])
+ link(onEvent3,2742038:doStartWatch,[(177,244)(177,349)])
+ link(onEvent4,2449296:doStartWatch,[(164,251)(164,447)])
+ link(onEvent5,15280455:doStartWatch,[(155,258)(155,531)])
+ link(onEvent6,6905243:doEvent,[(126,265)(126,608)])
+ link(onEvent7,14827753:doEvent,[(95,272)(95,706)])
+ link(onEvent8,282956:In,[])
+}
+Add(Math,69603,724,406)
+{
+ OpType=1
+ Op2=1
+ link(onResult,12581242:doEnsureVisible,[])
+ link(Op1,12581242:Count,[(730,394)(768,394)(768,430)(786,430)])
+}
+Add(LED,60810,423,49)
+{
+ Left=160
+ Top=280
+ Width=20
+ Height=20
+ Shape=1
+ ColorOn=65280
+ ColorOff=32768
+ ColorBlick=65280
+}
+Add(Hub,4928178,38,343)
+{
+ OutCount=7
+ link(onEvent1,2811533:doStopWatch,[(186,349)(186,244)])
+ link(onEvent2,2742038:doStopWatch,[])
+ link(onEvent3,2449296:doStopWatch,[(145,363)(145,454)])
+ link(onEvent4,15280455:doStopWatch,[(135,370)(135,538)])
+ link(onEvent5,10373731:doWork2,[(118,377)(118,622)])
+ link(onEvent6,4962524:doWork2,[(85,384)(85,720)])
+ link(onEvent7,16603260:In,[])
+}
+Add(WinTools,9097451,-74,133)
+{
+ link(Handle,2953706:Handle,[])
+}
+Add(DirectoryChanges,2811533,199,231)
+{
+ @Hint=#17:Следим за папками|
+ Flags=2
+ link(onChange,1551666:doEvent,[])
+ link(onError,6692379:doWork,[])
+ link(DirName,15461985:getVar,[])
+}
+Add(DirectoryChanges,2449296,199,441)
+{
+ @Hint=#17:Следим за записью|
+ Flags=16
+ link(onChange,16704996:doEvent,[])
+ link(onError,5165264:doWork,[])
+ link(DirName,7895453:getVar,[])
+}
+Add(IndexToChanel,16704996,297,441)
+{
+ Count=4
+ Point(Data)
+ link(onEvent4,15574189:doExists,[])
+ link(Data,9769197:Var2,[])
+}
+Add(Label,6311316,465,49)
+{
+ Left=5
+ Top=232
+ Height=20
+ Caption="DirName:"
+ AutoSize=1
+ Alignment=1
+}
+Add(Label,4664584,507,49)
+{
+ Left=355
+ Top=232
+ Width=35
+ Height=20
+ Caption="Error:"
+ AutoSize=1
+ Alignment=1
+}
+Add(Time,13555556,682,189)
+{
+ Format="h:m:s"
+}
+Add(TrayIcon,4232253,80,49)
+{
+ FormHook=0
+ ShowWORemoveIcon=0
+ Point(doAddTrayIcon)
+ Point(doHint)
+ link(onClick,8248625:doEvent,[])
+}
+Add(Hub,11815296,-25,70)
+{
+ OutCount=3
+ link(onEvent1,4232253:doAddTrayIcon,[])
+ link(onEvent2,9758169:doEvent1,[(29,83)(29,230)])
+ link(onEvent3,9097451:doPopup,[(19,90)(19,118)(-86,118)(-86,146)])
+}
+Add(LineBreakEx,6692379,248,238)
+{
+ Caption="Error"
+}
+Add(LineBreakEx,6360907,94,133)
+{
+ Caption="Error"
+ Type=1
+ link(OnEvent,6977804:doText,[])
+}
+Add(LineBreakEx,5165264,248,448)
+{
+ Caption="Error"
+}
+Add(DirectoryChanges,15280455,199,525)
+{
+ @Hint=#17:Следим за чтением|
+ Flags=32
+ link(onChange,11998594:doEvent,[])
+ link(onError,4512529:doWork,[])
+ link(DirName,14527662:getVar,[])
+}
+Add(IndexToChanel,11998594,297,525)
+{
+ Count=4
+ Point(Data)
+ link(onEvent4,12388924:doExists,[])
+ link(Data,14693694:Var2,[])
+}
+Add(LineBreakEx,4512529,248,532)
+{
+ Caption="Error"
+}
+Add(LineBreakEx,8887664,94,154)
+{
+ Caption="Error"
+}
+Add(LineBreakEx,13580848,199,182)
+{
+ Caption="DirName"
+ Type=3
+ link(_Data,6569606:Text,[])
+}
+Add(LineBreakEx,15461985,199,203)
+{
+ Caption="DirName"
+ Type=2
+}
+Add(LineBreakEx,7895453,199,413)
+{
+ Caption="DirName"
+ Type=2
+}
+Add(LineBreak,385582,31,77)
+{
+ Caption="Hint"
+ link(Out,4232253:doHint,[])
+ Primary=[8610073,798,259]
+}
+Add(LineBreakEx,14527662,199,497)
+{
+ Caption="DirName"
+ Type=2
+}
+Add(StringTable,12581242,780,371)
+{
+ Left=5
+ Top=5
+ Width=645
+ Height=220
+ Columns=#8:Время=60|12:Операция=160|8:Файл=400|
+ Flat=1
+ Point(doEnsureVisible)
+}
+Add(IndexToChanel,8248625,136,49)
+{
+ link(onEvent1,4232253:doShow,[(177,55)(177,36)(68,36)(68,55)])
+ link(onEvent2,7518827:doPopupHere,[])
+}
+Add(PopupMenu,7518827,199,49)
+{
+ Menu=#5:Выход|
+ link(onClick,7551342:doWork2,[])
+}
+Add(IndexToChanel,12883681,276,49)
+{
+ link(onEvent1,2953706:doClose,[(323,55)(323,25)(-86,25)(-86,83)])
+}
+Add(DirTools,15574189,353,441)
+{
+ Point(doExists)
+ link(onOK,13595491:doEvent,[(398,447)(398,363)])
+}
+Add(GetDataEx,9769197,290,413)
+{
+ Angle=3
+ link(Data,2449296:NewFileName,[(255,422)(255,485)(212,485)])
+}
+Add(DirTools,12388924,353,525)
+{
+ Point(doExists)
+ link(onOK,9835178:doEvent,[(408,531)(408,405)])
+}
+Add(GetDataEx,14693694,290,497)
+{
+ Angle=3
+ link(Data,15280455:NewFileName,[(255,506)(255,569)(212,569)])
+}
+Add(Button,4059663,199,91)
+{
+ Left=580
+ Top=280
+ Width=70
+ TabOrder=-1
+ Caption="Exit"
+ Data=Integer(0)
+ link(onClick,7551342:doWork3,[(259,97)])
+}
+Add(HubEx,7551342,255,42)
+{
+ link(onEvent,12883681:doEvent,[])
+}
+Add(DirectoryChanges,2742038,199,343)
+{
+ @Hint=#17:Следим за файлами|
+ Flags=9
+ link(onChange,16428924:doEvent,[(334,349)(334,300)])
+ link(onError,15255920:doWork,[])
+ link(DirName,7468470:getVar,[])
+}
+Add(LineBreakEx,15255920,248,350)
+{
+ Caption="Error"
+}
+Add(LineBreakEx,7468470,199,315)
+{
+ Caption="DirName"
+ Type=2
+}
+Add(LineBreak,13468408,353,56)
+{
+ Caption="LedOff"
+ link(Out,60810:doOff,[])
+ Primary=[16603260,-252,329]
+}
+Add(LineBreak,7626670,353,77)
+{
+ Caption="LedOn"
+ link(Out,60810:doOn,[(411,83)(411,69)])
+ Primary=[282956,-252,196]
+}
+Add(GetDataEx,1453104,290,581)
+{
+ Angle=3
+ link(Data,3364308:NewFileName,[(255,590)(255,653)(212,653)])
+}
+Add(DirectoryChanges,3364308,199,609)
+{
+ @Hint=#20:Следим за атрибутами|
+ Flags=4
+ link(onChange,11632590:doEvent,[])
+ link(onError,14832850:doWork,[])
+ link(DirName,3612059:getVar,[])
+}
+Add(IndexToChanel,11632590,297,609)
+{
+ Count=4
+ Point(Data)
+ link(onEvent4,11924708:doExists,[])
+ link(Data,1453104:Var2,[])
+}
+Add(LineBreakEx,14832850,248,616)
+{
+ Caption="Error"
+}
+Add(LineBreakEx,3612059,199,581)
+{
+ Caption="DirName"
+ Type=2
+}
+Add(DirTools,11924708,353,609)
+{
+ Point(doExists)
+ link(onOK,9793136:doEvent,[(418,615)(418,447)])
+}
+Add(CheckBox,16321318,45,637)
+{
+ Left=5
+ Top=255
+ Width=150
+ Caption="Изменение атрибутов"
+ link(onCheck,10803:doEvent,[])
+}
+Add(IndexToChanel,6905243,136,602)
+{
+ Point(Index)
+ link(onEvent2,13656404:doWork2,[])
+ link(Index,16321318:Checked,[(142,590)(105,590)(105,681)(51,681)])
+}
+Add(IndexToChanel,10803,136,637)
+{
+ link(onEvent1,10373731:doWork3,[(175,643)])
+ link(onEvent2,13656404:doWork3,[(182,650)])
+}
+Add(HubEx,10373731,171,609)
+{
+ link(onEvent,3364308:doStopWatch,[])
+}
+Add(HubEx,13656404,178,602)
+{
+ link(onEvent,3364308:doStartWatch,[])
+}
+Add(HubEx,5124636,178,700)
+{
+ link(onEvent,10715413:doStartWatch,[])
+}
+Add(GetDataEx,7761002,290,679)
+{
+ Angle=3
+ link(Data,10715413:NewFileName,[(255,688)(255,751)(212,751)])
+}
+Add(DirectoryChanges,10715413,199,707)
+{
+ @Hint=#28:Следим за изменением доступа|
+ Flags=256
+ link(onChange,12293589:doEvent,[])
+ link(onError,2750390:doWork,[])
+ link(DirName,3822543:getVar,[])
+}
+Add(IndexToChanel,12293589,297,707)
+{
+ Count=4
+ Point(Data)
+ link(onEvent4,10666865:doExists,[])
+ link(Data,7761002:Var2,[])
+}
+Add(LineBreakEx,2750390,248,714)
+{
+ Caption="Error"
+}
+Add(LineBreakEx,3822543,199,679)
+{
+ Caption="DirName"
+ Type=2
+}
+Add(DirTools,10666865,353,707)
+{
+ Point(doExists)
+ link(onOK,16320064:doEvent,[(428,713)(428,489)])
+}
+Add(IndexToChanel,14827753,136,700)
+{
+ Point(Index)
+ link(onEvent2,5124636:doWork2,[])
+ link(Index,3487901:Checked,[(142,688)(104,688)(104,778)(51,778)])
+}
+Add(IndexToChanel,9739652,136,735)
+{
+ link(onEvent1,4962524:doWork3,[(175,741)])
+ link(onEvent2,5124636:doWork3,[(182,748)])
+}
+Add(HubEx,4962524,171,707)
+{
+ link(onEvent,10715413:doStopWatch,[])
+}
+Add(IndexToChanel,1551666,437,231)
+{
+ Count=6
+ Point(Data)
+ link(onEvent2,9922393:doWork1,[])
+ link(onEvent3,9922393:doWork2,[])
+ link(onEvent6,9922393:doWork3,[(491,272)(491,258)])
+ link(Data,2811533:NewFileName,[(443,219)(327,219)(327,275)(212,275)])
+}
+Add(IndexToChanel,16428924,437,294)
+{
+ Count=6
+ Point(Data)
+ link(onEvent2,9922393:doWork4,[(491,307)(491,265)])
+ link(onEvent3,9922393:doWork5,[(491,314)(491,272)])
+ link(onEvent4,9922393:doWork6,[(491,321)(491,279)])
+ link(onEvent6,9922393:doWork7,[(491,335)(491,286)])
+ link(Data,2742038:NewFileName,[(443,282)(352,282)(352,401)(212,401)])
+}
+Add(ChanelToIndex,9922393,514,238)
+{
+ Count=15
+ Point(Data)
+ link(onIndex,13077425:doEvent1,[])
+}
+Add(IndexToChanel,13595491,437,357)
+{
+ Count=3
+ Point(Data)
+ link(onEvent2,9922393:doWork8,[(491,370)(491,293)])
+ link(onEvent3,9922393:doWork9,[(491,377)(491,300)])
+ link(Data,9769197:Var3,[(443,345)(375,345)(375,422)])
+}
+Add(IndexToChanel,9835178,437,399)
+{
+ Count=3
+ Point(Data)
+ link(onEvent2,9922393:doWork10,[(491,412)(491,307)])
+ link(onEvent3,9922393:doWork11,[(491,419)(491,314)])
+ link(Data,14693694:Var3,[(443,387)(384,387)(384,506)])
+}
+Add(IndexToChanel,9793136,437,441)
+{
+ Count=3
+ Point(Data)
+ link(onEvent2,9922393:doWork12,[(491,454)(491,321)])
+ link(onEvent3,9922393:doWork13,[(491,461)(491,328)])
+ link(Data,1453104:Var3,[(443,429)(394,429)(394,590)])
+}
+Add(IndexToChanel,16320064,437,483)
+{
+ Count=3
+ Point(Data)
+ link(onEvent2,9922393:doWork14,[(491,496)(491,335)])
+ link(onEvent3,9922393:doWork15,[(491,503)(491,342)])
+ link(Data,7761002:Var3,[(443,471)(402,471)(402,688)])
+}
+Add(GetIndexData,1694244,696,252)
+{
+ Count=7
+ link(Data1,9779298:Var2,[])
+ link(Data2,5478684:Var1,[(709,240)])
+ link(Data3,5478684:Var2,[])
+ link(Data4,14306819:Var1,[(723,212)])
+ link(Data5,14101746:Var1,[(730,226)])
+ link(Data6,3783584:Var1,[(737,240)])
+ link(Data7,3783584:Var2,[])
+}
+Add(Hub,13077425,563,238)
+{
+ OutCount=7
+ link(onEvent1,11373911:doCase,[(608,244)(608,139)])
+ link(onEvent2,2688305:doCase,[(618,251)(618,174)])
+ link(onEvent3,1694244:doIndex,[])
+ link(onEvent4,5821481:doGetString,[])
+ link(onEvent5,4476100:doPart,[(648,272)(648,335)])
+ link(onEvent6,2234908:doString,[(638,279)(638,377)])
+ link(onEvent7,69603:doOperation,[(628,286)(628,412)])
+}
+Add(StrList,5821481,766,217)
+{
+ Strings=#13:Создана папка|13:Удалена папка|19:Переименована папка|11:Создан файл|11:Удален файл|20:Изменен размер файла|17:Переименован файл|18:Перезаписана папка|16:Перезаписан файл|15:Прочитана папка|13:Прочитан файл|23:Изменены атрибуты папки|23:Изменены атрибуты файла|22:Изменен доступ к папке|22:Изменен доступ к файлу|
+ Point(doGetString)
+ Point(String)
+}
+Add(FormatStr,2234908,682,371)
+{
+ DataCount=4
+ Mask="%1;%4;%3%2"
+ link(onFString,12581242:doAdd,[])
+ link(Str1,5859778:Var2,[])
+ link(Str2,11239159:Var2,[])
+ link(Str3,1694244:Var,[])
+ link(Str4,14386866:Var1,[(709,303)])
+}
+Add(StrCat,5764473,696,126)
+{
+ Str2=" -> "
+ Point(doClear)
+ link(Str1,155005:Var,[])
+}
+Add(StrCat,6066306,738,161)
+{
+ Str2=" -> "
+ Point(doClear)
+ link(Str1,5702386:Var,[])
+}
+Add(Case,11373911,633,133)
+{
+ Value=Integer(2)
+ link(onNextCase,5764473:doClear,[])
+ link(onTrue,5764473:doStrCat,[(681,146)(681,132)])
+}
+Add(Case,2688305,633,168)
+{
+ Value=Integer(6)
+ link(onNextCase,6066306:doClear,[])
+ link(onTrue,6066306:doStrCat,[(698,181)(698,167)])
+}
+Add(GetDataEx,14306819,731,203)
+{
+ link(Data,6066306:Result,[])
+}
+Add(GetDataEx,14101746,731,217)
+{
+ link(Data,14306819:Var2,[])
+}
+Add(GetDataEx,3783584,731,231)
+{
+ link(Data,14101746:Var2,[])
+}
+Add(GetDataEx,5478684,703,231)
+{
+ link(Data,9779298:Var3,[(716,226)])
+}
+Add(FilePart,4476100,724,329)
+{
+ NameWOExt=1
+ link(onName,3116746:doString,[])
+ link(FileName,11239159:Var3,[(730,310)])
+}
+Add(FormatStr,3116746,780,336)
+{
+ DataCount=3
+ Mask="%1  %2: %3"
+ link(onFString,8610073:In,[])
+ link(Str1,5859778:Var3,[(786,296)])
+ link(Str2,14386866:Var2,[])
+}
+Add(GetDataEx,14386866,780,294)
+{
+ link(Data,5821481:String,[])
+}
+Add(GetDataEx,5859778,675,287)
+{
+ link(Data,13555556:FormatTime,[])
+}
+Add(GetDataEx,11239159,682,301)
+{
+ Angle=3
+ link(Data,9922393:Data,[(605,310)(605,358)(520,358)])
+}
+Add(LineBreak,14637842,199,280)
+{
+ Caption="Old_1"
+ Type=1
+ link(Data,2811533:OldFileName,[])
+ Primary=[155005,497,-182]
+}
+Add(LineBreak,16445224,199,392)
+{
+ Caption="Old_2"
+ Type=1
+ link(Data,2742038:OldFileName,[])
+ Primary=[5702386,539,-259]
+}
+Add(GetDataEx,9779298,689,217)
+{
+ link(Data,5764473:Result,[])
+}
+Add(StyleXP,16431948,507,91)
+{
+}
+Add(Project,6295169,465,91)
+{
+ ProtectLevel=1
+}

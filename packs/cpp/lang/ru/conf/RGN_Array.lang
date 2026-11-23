@@ -1,0 +1,12 @@
+Regions array=Массив регионов
+File name to save/load array=Имя файла для сохранения/загрузки массива
+Adds a region to an array=Добавляет регион в массив
+Clears an array of regions=Очищает массив регионов
+Removes a region from the array by index from the stream (0 is the first index of the array)=Удаляет регион из массива по индексу из потока (0 - первый индекс массива)
+Saves an array of regions to a file=Сохраняет массив регионов в файле
+Loads an array of regions from a file=Загружает массив регионов из файла
+The event occurs whenever the region array changes=Событие происходит всякий раз при изменении массива регионов
+File name for saving/loading an array of regions=Имя файла для сохранения/загрузки массива регионов
+Provides access to elements of a region array=Предоставляет доступ к элементам массива регионов
+Contains the number of regions in the array=Содержит количество регионов в массиве
+Contains the index of the last region in the array=Содержит индекс последнего региона в массиве

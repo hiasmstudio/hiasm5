@@ -1,0 +1,46 @@
+Make(cpp)
+Add(MainForm,1,28,28)
+{
+ Backend=1
+ Width=360
+ Height=180
+ Caption="Box layouts"
+}
+Add(VBoxLayout,2,140,28)
+{
+ Name="column"
+ Padding=12
+ Space=8
+}
+Add(HBoxLayout,3,140,84)
+{
+ Name="row"
+ Layout="column"
+ Space=8
+}
+Add(Label,4,224,84)
+{
+ Layout="row"
+ Width=72
+ Caption="Name"
+}
+Add(Edit,5,224,140)
+{
+ Layout="row"
+ Left=80
+ WidthScale=100
+ Text="Resize the window"
+}
+Add(LayoutSpacer,6,140,140)
+{
+ Layout="column"
+ Top=30
+ Height=24
+}
+Add(Button,7,224,196)
+{
+ Layout="column"
+ Top=60
+ Caption="Close"
+ link(onClick,1:doClose,[])
+}

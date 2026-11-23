@@ -1,0 +1,16 @@
+*Запуск программы MSPaint из Панели Управления
+Make(cpp)
+Pos(0,0)
+Add(WinExec,85043,77,105)
+{
+ Param=
+ FileName=mspaint.exe
+ Mode=1
+}
+Add(CPL,98950,20,105)
+{
+ Name=Best good
+ Info=It is very cool Panel!!
+ Icon=[]
+ link(onExec,85043:doExec,[(64,118)(64,111)])
+}

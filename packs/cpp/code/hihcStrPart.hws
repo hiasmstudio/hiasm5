@@ -1,0 +1,26 @@
+func doSplit(_data)
+  fvar(pos)
+  println('std::string hiasm_left', _id_, ';')
+  println('std::string hiasm_right', _id_, ';')
+  println('std::size_t hiasm_split', _id_, ' = std::string(', _data, ').find(', Char, ');')
+  println('if(hiasm_split', _id_, ' != std::string::npos) {')
+  block.inclvl()
+  println('hiasm_left', _id_, ' = std::string(', _data, ').substr(0, hiasm_split', _id_, ');')
+  println('hiasm_right', _id_, ' = std::string(', _data, ').substr(hiasm_split', _id_, ' + 1);')
+  event(onSplit, 'hiasm_right' && _id_)
+  event(onPart, 'hiasm_left' && _id_)
+  block.declvl()
+  println('} else {')
+  block.inclvl()
+  event(onNotFound)
+  block.declvl()
+  println('}')
+end
+
+func Left()
+  return('hiasm_left' && _id_)
+end
+
+func Right()
+  return('hiasm_right' && _id_)
+end

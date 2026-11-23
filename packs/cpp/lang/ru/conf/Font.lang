@@ -1,0 +1,15 @@
+Setting the font=Установка шрифта
+Default font=Шрифт по-умолчанию
+Enable font selection dialog=Включить диалог выбора шрифта
+The event occurs every time after the font is generated and outputs it to the ARG(Font) stream=Событие происходит всякий раз после формирования шрифта и выдаёт его в поток ARG(Font)
+Defines the font size=Определяет размер шрифта
+Specifies the font color=Определяет цвет шрифта
+Specifies the font name=Определяет имя шрифта
+Defines the font style=Определяет стиль шрифта
+Defines the font encoding=Определяет кодировку шрифта
+Contains the font name=Содержит имя шрифта
+Contains font color=Содержит цвет шрифта
+Contains the font size=Содержит размер шрифта
+Contains the integer value of the font style=Содержит целочисленное значение стиля шрифта
+Contains a string representation of the font style in character combination format: b - Bold, i - Italic, u - Underline, s - StrikeOut=Содержит строковое представление стиля шрифта в формате сочетания символов: b - Bold, i - Italic, u - Underline, s - StrikeOut
+Contains font encoding=Содержит кодировку шрифта

@@ -1,0 +1,44 @@
+include('qtDataReader')
+
+func doRead(_data)
+  fvar(index)
+  index = cstr(get('Index'))
+  if(linked('Index'))
+    index = d('Index')
+  elseif(len(_data) > 0)
+    index = _data
+  end
+  println('if (auto *readSource', _id_, ' = ', Source(), ') {')
+  println('  auto *readState', _id_, ' = ', Reader(), ';')
+  println('  const int readIndex', _id_, ' = qt_text(', index, ').toInt();')
+  println('  const auto column = readSource', _id_, '->columns.indexOf(readState', _id_, '->column);')
+  println('  if (column >= 0 && readIndex', _id_, ' >= 0 && readIndex', _id_, ' < readSource', _id_, '->rows.size()) {')
+  println('    readState', _id_, '->item = readSource', _id_, '->rows[readIndex', _id_, '].value(column);')
+  event(onRead, 'readState' && _id_ && '->item')
+  println('  } else readState', _id_, '->item.clear();')
+  println('}')
+end
+
+func doWrite(_data)
+  fvar(index, value)
+  index = cstr(get('Index'))
+  if(linked('Index'))
+    index = d('Index')
+  elseif(isnull(mt_arg(0)) == 0)
+    index = d('')
+  end
+  value = d('Value')
+  if(isnull(value))
+    value = '""'
+  end
+  println('if (auto *writeSource', _id_, ' = ', Source(), ') {')
+  println('  const int writeIndex', _id_, ' = qt_text(', index, ').toInt();')
+  println('  const auto column = writeSource', _id_, '->columns.indexOf(', Reader(), '->column);')
+  println('  if (column >= 0 && writeIndex', _id_, ' >= 0 && writeIndex', _id_, ' < writeSource', _id_, '->rows.size())')
+  println('    writeSource', _id_, '->rows[writeIndex', _id_, '][column] = qt_text(', value, ');')
+  println('}')
+end
+
+func Count()
+  return('([](HiasmStaticData *source) { return source ? int(source->rows.size()) : 0; }(' && Source() && '))')
+end

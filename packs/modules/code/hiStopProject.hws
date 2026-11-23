@@ -1,0 +1,37 @@
+section cpp
+
+func doDeclare(_data)
+  fvar(old, old_var, mb)
+  
+  old_var = BLK_FUNC
+  BLK_FUNC = block.reggen()
+  
+  mb = block.reggen() 
+  old = block.select(mb)
+  event(onDeclare, '(int)params.data')
+  
+  block.select(BLK_HEAD)
+  println('extern "C" __declspec(dllexport) int buildStopProc(TBuildRunRec &params)') 
+  lng.begin()
+    block.select(BLK_FUNC)
+    if(not block.empty())
+      block.select(BLK_HEAD)
+      block.copyhere(BLK_FUNC)
+    end
+    block.delete(BLK_FUNC)
+    BLK_FUNC = old_var
+    block.select(BLK_HEAD)
+    
+    block.copyhere(mb)    
+    block.delete(mb)
+    println('return CG_SUCCESS;')
+  lng.end()
+  println('')
+  
+  block.select(old)
+end
+
+func Data()
+  return('(int)params.data')
+end
+

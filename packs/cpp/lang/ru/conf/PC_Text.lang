@@ -1,0 +1,8 @@
+Text controller=Контроллер текста
+Specifies the name of the element to print text from the specified template=Определяет имя элемента для печати текста из указанного шаблона
+Defines a document template=Определяет шаблон документа
+Sets the text in the print element named name ARG(Text)=Устанавливает текст в элементе печати с именем name ARG(Text)
+The event occurs every time the text is set=Событие происходит всякий раз после установки текста
+Contains the current text in a print element=Содержит текущий текст в элементе печати
+Defines the text to be set in a print element=Определяет текст для установки в элементе печати
+Defines an object to change the text in it=Определяет объект для изменения текста в нем

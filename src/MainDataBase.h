@@ -64,11 +64,13 @@ typedef struct {
 
 class MainDataBase {
 	private:
-		sqlite3 *db;
+		sqlite3 *db = NULL;
 
 		sqlite3_stmt *query(const ustring &sql);
 		void exec(const ustring &sql);
 		ustring read_loc();
+		bool nextRow(void *id, const char *context);
+        bool migrateRuntime();
 
 		int readInt(void *id, int i);
 		ustring readStr(void *id, int i);
@@ -79,6 +81,7 @@ class MainDataBase {
 		 * Open hiasm.db
 		 */
 		void open();
+        bool setLanguage(const ustring &language);
 		/**
 		 * Close hiasm.db
 		 */

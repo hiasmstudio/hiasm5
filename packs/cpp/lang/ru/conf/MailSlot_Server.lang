@@ -1,0 +1,7 @@
+Creating a MailSlot server on your computer=Создание сервера MailSlot на компьютере
+MailSlot name=Имя MailSlot-a
+Waiting time for a message to appear in the queue in ms (at -1 the time is unlimited)=Время ожидания появления сообщения в очереди в мс (при -1 время не ограничено)
+Creates a MailSlot on your computer=Создает MailSlot на компьютере
+Destroys MailSlot=Уничтожает MailSlot
+Returns data read from a slot=Возвращает данные, прочтённые из слота
+Returns 1 if the server is created, 0 otherwise=Возвращает 1, если сервер создан, и 0 - в противном случае

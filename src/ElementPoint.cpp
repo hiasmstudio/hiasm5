@@ -8,6 +8,8 @@
 #include "ElementPoint.h"
 #include "Data.h"
 #include "Elements.h"
+#include "CoreQtRuntime.h"
+#include <set>
 
 ElementPoint::ElementPoint(Element *parent, const ustring &name, const ustring &info, int type) {
 	this->name = name;
@@ -30,6 +32,9 @@ ElementPoint::~ElementPoint() {
 }
 
 ElementPoint *ElementPoint::connect(ElementPoint *link) {
+	// A point owns one wire. Overwriting either end leaves the old wire
+	// pointing at freed endpoints when the scheme is destroyed.
+	if(!canConnect(link)) return nullptr;
 	ElementPoint *p1, *p2;
 
 	if(isPrimary()) {
@@ -49,7 +54,11 @@ ElementPoint *ElementPoint::connect(ElementPoint *link) {
 }
 
 bool ElementPoint::canConnect(ElementPoint *link) {
-	return link && !point && !link->point && abs(type + link->type - 5) == 2;
+	return link && link != this && !point && !link->point &&
+		((type == pt_event && link->type == pt_work) ||
+		 (type == pt_work && link->type == pt_event) ||
+		 (type == pt_data && link->type == pt_var) ||
+		 (type == pt_var && link->type == pt_data));
 }
 
 void ElementPoint::clear() {
@@ -184,7 +193,7 @@ void tracePath(PointPos *p, const vector &v1, const vector &v2) {
 }
 
 void ElementPoint::createPath() {
-	if(!point->point) return;
+	if(!point || point->point != this) return;
 
 	ElementPoint *point1 = isPrimary() ? this : point;
 	ElementPoint *point2 = point1->point;
@@ -413,7 +422,7 @@ void ElementPoint::invalidate() {
 ustring ElementPoint::serializePath() {
 	ustring path;
 	PointPos *p = pos->next;
-	while(p->next) {
+	while(p && p->next) {
 		path += ustring("(") + int_to_str((int)p->x) + "," + int_to_str((int)p->y) + ")";
 		p = p->next;
 	}
@@ -421,21 +430,21 @@ ustring ElementPoint::serializePath() {
 }
 
 ElementPoint *ElementPoint::getRealPointWithPath() {
-	ElementPoint *p, *root = this, *Result = this;
-	do {
-		p = Result;
-		Result = p->parent->getRealPoint(p);
-	} while( p != Result && Result && root != Result );
-
-	if(root == Result)
-		Result = p;
-	return Result;
+	std::set<ElementPoint*> visited;
+	ElementPoint *current = this;
+	while(current && visited.insert(current).second) {
+		ElementPoint *next = current->parent->getRealPoint(current);
+		if(next == current) return current;
+		current = next;
+	}
+	// A cycle consisting only of routing elements has no real endpoint.
+	return nullptr;
 }
 
 void ElementPoint::on_event(TData *data) {
 	if(point) {
 		Element *e = point->parent;
-		if(e->isCore()) {
+		if(!CoreQtRuntime::work(point, data) && e->isCore()) {
 			dynamic_cast<ElementCore*>(e)->do_work(point, data);
 		}
 	}
@@ -444,7 +453,7 @@ void ElementPoint::on_event(TData *data) {
 void ElementPoint::get_data(TData *data) {
 	if(point) {
 		Element *e = point->parent;
-		if(e->isCore()) {
+		if(!CoreQtRuntime::read(point, data) && e->isCore()) {
 			dynamic_cast<ElementCore*>(e)->read_var(point, data);
 		}
 	}

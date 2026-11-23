@@ -12,12 +12,16 @@
 #include <gtkmm.h>
 #include <glib.h>
 
+#include "gtkcompat.h"
+extern bool initializedUserProfile;
+
 using namespace Gtk;
 using namespace Glib;
 
-#define HIASM_VERSION_MAJOR 5
+#define HIASM_VERSION_MAJOR 6
 #define HIASM_VERSION_MINOR 0
-#define HIASM_VERSION_BUILD 12
+#define HIASM_VERSION_BUILD 0
+#define HIASM_VERSION_TWEAK 0
 gchar *HIASM_VERSION();
 
 #ifdef G_OS_WIN32
@@ -94,24 +98,25 @@ extern ustring double_to_str(double value);
 extern char *getTok(char **buf, char tok);
 
 // path ----------------------------------------------------------------------------------------------
-#define INT_PATH     "int"PATH_SLASH
-#define ICONS_PATH     INT_PATH"icons"PATH_SLASH
-#define CURSORS_PATH   INT_PATH"cur"PATH_SLASH
+#define INT_PATH     "int" PATH_SLASH
+#define ICONS_PATH     INT_PATH"icons" PATH_SLASH
+#define CURSORS_PATH   INT_PATH"cur" PATH_SLASH
 #define DATABASE_FILE  "hiasm.db"
-#define LANG_PATH      INT_PATH"lang"PATH_SLASH
-#define ELEMENTS_PATH  "elements"PATH_SLASH
-#define ELEMENTS_ICON_PATH  "icon"PATH_SLASH
-#define ELEMENTS_CODE_PATH  "code"PATH_SLASH
-#define ELEMENTS_CONF_PATH  "conf"PATH_SLASH
-#define ELEMENTS_NEW_PATH   "new"PATH_SLASH
-#define ELEMENTS_MAKE_PATH  "make"PATH_SLASH
+#define LANG_PATH      INT_PATH"lang" PATH_SLASH
+#define ELEMENTS_PATH  "packs" PATH_SLASH
+#define ELEMENTS_ICON_PATH  "icon" PATH_SLASH
+#define ELEMENTS_CODE_PATH  "code" PATH_SLASH
+#define ELEMENTS_CONF_PATH  "conf" PATH_SLASH
+#define ELEMENTS_NEW_PATH   "new" PATH_SLASH
+#define ELEMENTS_MAKE_PATH  "make" PATH_SLASH
+#define ELEMENTS_EXAMPLE_PATH "example" PATH_SLASH
 #define PACK_ICON_FILE  "icon.png"
 #define SPLASH_LOGO_FILE  "splash.png"
 
-#define TABS_STATE_PATH	"tabs"PATH_SLASH
+#define TABS_STATE_PATH	"tabs" PATH_SLASH
 #define APP_SETTINGS "settings.ini"
 
-#define ELEMENTS_NIL_FILE ELEMENTS_PATH"_base"PATH_SLASH""ELEMENTS_ICON_PATH"nil.png"
+#define ELEMENTS_NIL_FILE ELEMENTS_PATH"_base" PATH_SLASH"" ELEMENTS_ICON_PATH"nil.png"
 
 extern ustring databaseFile;
 extern ustring dataDir;
@@ -120,7 +125,35 @@ extern ustring homeDir;
 // internal types --------------------------------------------------------------------------------------
 typedef Cairo::RefPtr<Cairo::Context> DrawContext;
 typedef Glib::RefPtr<Gdk::Pixbuf> TypePixbuf;
-typedef Gdk::RGBA TypeColor;
+/**
+ * Color property value. Native packages use plain RGBA. Values of external
+ * HiAsm 4 packages also keep the Delphi TColor they were loaded from, because
+ * system colors (clBtnFace = $FF00000F), clNone and clDefault have no RGB
+ * equivalent and CodeGen must receive exactly what HiAsm 4 passed.
+ */
+class TypeColor : public Gdk::RGBA {
+	public:
+		TypeColor() {}
+		TypeColor(const Gdk::RGBA &color) : Gdk::RGBA(color) {}
+		explicit TypeColor(const ustring &value) : Gdk::RGBA(value) {}
+
+		/** Store a Delphi TColor; the RGBA part is a preview approximation of it. */
+		static TypeColor fromDelphi(int value);
+		/**
+		 * TColor for CodeGen: the loaded Delphi value while the color is unchanged,
+		 * otherwise the RGB channels as $00BBGGRR.
+		 */
+		int toDelphi() const;
+		/** True if the value came from a HiAsm 4 package (serialized as TColor). */
+		bool isDelphi() const { return delphi; }
+
+		bool operator==(const TypeColor &other) const;
+		bool operator!=(const TypeColor &other) const { return !(*this == other); }
+	private:
+		bool delphi = false;
+		int delphiValue = 0;
+		GdkRGBA loaded = {0, 0, 0, 0};	/**< RGBA at the time delphiValue was set */
+};
 
 // macro -----------------------------------------------------------------------------------------------
 #define TRACE_PROC //std::cout << "[" << __FILE__ << "]:" << __FUNCTION__ << std::endl;
@@ -170,6 +203,7 @@ typedef enum {
 	CBT_CHANGE_RECENT_LIST,		/**< do when recent file list is change */
 	CBT_CHANGE_SETTINGS,		/**< do when user change application settings */
 	CBT_DEBUG_INFO,				/**< do when module generates some information for user */
+	CBT_ENTER_SCHEME_REQUEST,	/**< do when a double click in SDK_Editor asks to enter the MultiElement under the pointer (data is Element*) */
 } CallbackType;
 
 /*! \class CallBack

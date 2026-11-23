@@ -1,0 +1,54 @@
+section html
+
+func printSection(evn)
+  fvar(old,s)
+  
+  old = block.select(block.reggen())
+  block.lvloff()
+  event(evn:html)
+  s = block.astext() 
+  block.delete(block.select(old))
+  println('$t = ', s, ';')
+end
+
+func doPrint(_data)
+  fvar(old, old_site, old_scope)
+  old_site = _SITE_
+  
+  inc_sec("php")
+  old = block.select(BLK_HEAD)
+  println('function makeList' + code(_id_) + '() {')
+  block.inclvl()
+    println('global $f' + _SITE_ + ';')
+    println('$ts = "";')
+    sys.event(DataSource, 'ds_select', _id_, '')
+    _SITE_ = code(_id_)
+    println('for($i = 0; $i < ' + sys.event(DataSource, 'ds_count', _id_) + '; $i++) {')
+    block.inclvl()
+      sys.event(DataSource, 'ds_fetch', _id_)
+      printSection("onItem")
+      println('$ts .= $t;')
+    block.declvl()
+    println('}')
+    println('return $ts;')
+  block.declvl()
+  println('}')
+  block.select(old)
+  
+  _SITE_ = old_site
+      
+//  fvar(i, db, s, q)
+//  db = "%" + DataBind + "%"
+//  q = Query 
+//  i = pos(db, q) 
+//  s = copy(q, 1, i-1)
+//  delete(q, 1, i)
+//  delete(q, 1, pos("%", q))
+//  s &= '$f' + _SITE_ + '[' + DataBind + ']' 
+//  if(q)
+//    s &= q
+//  end
+  print('makeList' + code(_id_) + '()')
+  dec_sec("html")
+  event(onPrint, _data)
+end

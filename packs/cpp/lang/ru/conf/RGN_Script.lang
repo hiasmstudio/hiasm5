@@ -1,0 +1,6 @@
+Creating a region using a script=Создание региона по скрипту
+Defines a script for creating a combined region=Опеределяет скрипт для создания комбинированного региона
+Creates a region according to a given script=Создает регион по заданному скрипту
+Deletes a region (zeroes Result)=Удаляет регион (обнуляет Result)
+The event occurs every time a region is created and outputs it to the ARG(Region) stream=Событие происходит всякий раз после создания региона и выдает его в поток ARG(Region)
+Contains the created region=Содержит созданный регион

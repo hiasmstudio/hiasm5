@@ -1,0 +1,6 @@
+Background application=Фоновое приложение
+EXE file icon=Иконка EXE файла
+When setting the parameter to True, the program will be executed until stopped using the doStop method=При установке параметра в True - программа будет выполняться до остановки методом doStop
+Stops program execution (if the Wait property is set)=Останавливает выполнение программы (при установленном св-ве Wait)
+The event occurs once at program start=Событие происходит один раз при старте программы
+The event occurs once when the program is unloaded=Событие происходит один раз при выгрузке программы

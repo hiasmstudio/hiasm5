@@ -1,0 +1,4 @@
+Finding KernelChip devices connected to your computer=Поиск устройств KernelChip, подключенных к компьютеру
+Searches for KernelChip devices=Производит поиск устройств KernelChip
+The event occurs every time after finding the next device and outputs its parameters to the ARG(Name, Port) stream=Событие происходит всякий раз после нахождения очередного устройства и выдает его параметры в поток ARG(Name, Port)
+The event occurs every time after the end of the search for KernelChip devices and displays their number in the ARG(Count) stream=Событие происходит всякий раз после окончания поиска устройств KernelChip и выдает их количество в поток ARG(Count)

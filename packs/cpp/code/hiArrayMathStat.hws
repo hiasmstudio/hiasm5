@@ -1,0 +1,19 @@
+func ArrayExpr()
+  if(linked('Array'))
+    return(d('Array'))
+  else
+    return('std::vector<double>()')
+  end
+end
+
+func Expr()
+  return('[](const auto &a, int mode) { std::vector<double> v(a.begin(), a.end()); const std::size_t n = v.size(); if(n == 0) return 0.0; if(mode == 6 || mode == 7) { std::sort(v.begin(), v.end()); if(n % 2) return v[n / 2]; return (v[n / 2 - 1] + v[n / 2]) / 2.0; } double mean = 0.0; for(double x : v) mean += x; mean /= static_cast<double>(n); if(mode == 0) return mean; double sum2 = 0.0, sum3 = 0.0, sum4 = 0.0, adev = 0.0; for(double x : v) { const double d = x - mean; sum2 += d * d; sum3 += d * d * d; sum4 += d * d * d * d; adev += std::fabs(d); } const double var = sum2 / static_cast<double>(n); if(mode == 1) return var; if(mode == 4) return std::sqrt(var); if(mode == 5) return adev / static_cast<double>(n); if(mode == 2) return var > 0.0 ? (sum3 / static_cast<double>(n)) / (var * std::sqrt(var)) : 0.0; if(mode == 3) return var > 0.0 ? (sum4 / static_cast<double>(n)) / (var * var) - 3.0 : 0.0; return mean; }(' && ArrayExpr() && ', ' && get('FunctionMathStat') && ')')
+end
+
+func doFunction(_data)
+  event(onResult, Expr())
+end
+
+func Result()
+  return(Expr())
+end

@@ -1,0 +1,12 @@
+include('qtCommandFamily')
+
+func doStart
+  println('HiasmCommandBindings::get(form)->pending.append([&form] {')
+  println('auto *center = ', QtCommandCenterTarget(), ';')
+  println('auto *toolbar = qt_widget<HiasmToolBar>(form, ', cstr(get('qtCommandToolBar')), ');')
+  println('if (!center || !toolbar) return;')
+  QtCommandMonitor('toolbar')
+  QtCommandAction()
+  println('center->buildToolbar(*toolbar, qt_text(', cstr(get('Menu')), '), localAction);')
+  println('});')
+end

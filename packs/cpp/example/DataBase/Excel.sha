@@ -1,0 +1,100 @@
+*Пример работы с файлом Microsoft Excel как с базой данных#13#10______________________#13#10Авторы: Alexbootch & Dilma
+Make(cpp)
+Add(MainForm,3171043,112,112)
+{
+ Left=20
+ Top=105
+ Height=285
+ Caption="OLEXLS"
+ Position=1
+ link(onCreate,11947023:doStrCat,[(156,153)(156,118)])
+}
+Add(OLEdb,2142462,168,189)
+{
+ link(onConnect,14252000:doCreate,[])
+ link(Driver,9469155:Var1,[(174,173)(286,173)])
+}
+Add(Button,941652,112,189)
+{
+ Left=310
+ Top=10
+ Width=75
+ Caption="Подключить"
+ link(onClick,2142462:doOpen,[])
+}
+Add(OLEdb_Query,11136757,280,189)
+{
+ link(onQuery,16321824:doStr,[(328,195)(328,160)])
+ link(onColumns,5673081:doEnum,[])
+ link(Text,9469155:Var2,[])
+}
+Add(OLEdb_Session,14252000,224,189)
+{
+ link(onCreate,11136757:doQuery,[])
+}
+Add(StringTable,6078793,406,161)
+{
+ Left=10
+ Top=40
+ Width=375
+ Height=210
+ Point(doAddColumn)
+}
+Add(MT_Enum,5673081,343,196)
+{
+ link(onItem,6078793:doAddColumn,[])
+}
+Add(MT_String,16321824,343,154)
+{
+ link(onResult,6078793:doAdd,[(391,160)(391,167)])
+}
+Add(Edit,11108326,224,112)
+{
+ Left=10
+ Top=10
+ Width=295
+ Text=""
+ link(onChange,9469155:doWork1,[])
+}
+Add(Dir,5145339,168,63)
+{
+}
+Add(StrCat,11947023,168,112)
+{
+ Str2="Temp.xls"
+ link(onStrCat,11108326:doText,[])
+ link(Str1,5145339:CurrentDir,[])
+}
+Add(MultiElement,9469155,280,112)
+{
+}
+BEGIN_SDK
+  Add(EditMulti,3827619,21,21)
+  {
+   WorkCount=1
+   VarCount=2
+   link(doWork1,2766172:doEvent1,[(91,27)(91,104)])
+   link(Var1,5564056:FString,[(27,175)(230,175)])
+   link(Var2,10216816:FString,[(34,203)(244,203)])
+  }
+  Add(FormatStr,5564056,224,98)
+  {
+   Mask="Provider=MSDASQL;Data Source=Файлы Excel;DSN=Файлы Excel;DBQ=%1;"
+   Point(FString)
+  }
+  Add(Hub,2766172,161,98)
+  {
+   link(onEvent1,5564056:doString,[])
+   link(onEvent2,14854628:doSplit,[(198,111)(198,136)(156,136)(156,153)])
+  }
+  Add(StrPart,14854628,168,147)
+  {
+   Char="."
+   link(onPart,10216816:doString,[])
+  }
+  Add(FormatStr,10216816,238,154)
+  {
+   Mask="SELECT * FROM `%1`.`Лист1$` `Лист1$` ORDER BY `Лист1$`.Фамилия"
+   Point(FString)
+  }
+END_SDK

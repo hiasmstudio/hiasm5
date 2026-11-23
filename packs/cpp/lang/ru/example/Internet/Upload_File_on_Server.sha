@@ -1,0 +1,154 @@
+Make(cpp)
+Add(Shape,15032757,42,336)
+{
+ @Group=45671128
+ Width=204
+ Height=53
+ Font=[Arial,10,0,0,204]
+ Color=-16777192
+}
+Add(MainForm,11153267,77,287)
+{
+ Width=499
+ Height=226
+ Caption="UpLoad File on Server"
+}
+Add(Button,9542592,147,287)
+{
+ Left=385
+ Top=10
+ Width=80
+ Caption="Обзор..."
+ link(onClick,16763806:doExecute,[])
+}
+Add(HTTP_FileUpload,3024452,301,336)
+{
+ Name="my_file"
+ link(onBuild,8204047:doEvent1,[])
+ link(FileName,7614253:Text,[(307,327)(265,327)])
+ link(URL,15204020:Text,[])
+ AddHint(43,-20,47,13,Name)
+}
+Add(Hub,8204047,350,336)
+{
+ OutCount=3
+ link(onEvent1,15429759:doClose,[(389,342)(389,377)(438,377)(438,356)])
+ link(onEvent2,3095139:doIPByHost,[])
+ link(onEvent3,15429759:doSend,[(382,356)(382,384)(445,384)(445,363)])
+}
+Add(TCP_Client,15429759,462,343)
+{
+ Port=80
+}
+Add(Edit,7614253,259,287)
+{
+ Left=120
+ Top=10
+ Width=255
+ Text=""
+}
+Add(Host,3095139,399,336)
+{
+ link(onIPByHost,15429759:doOpen,[])
+ link(HostName,8741098:Text,[])
+}
+Add(Label,8524049,63,217)
+{
+ Left=15
+ Top=60
+ Width=60
+ Height=17
+ Caption="Имя хоста:"
+}
+Add(Edit,8741098,406,287)
+{
+ @Hint=#13:Адрес сервера|34:(например: www.mysite.example.com)|
+ Left=120
+ Top=55
+ Width=165
+ Text="localhost"
+ AddHint(-287,-71,183,26,@Hint)
+}
+Add(Label,3311355,70,224)
+{
+ Left=15
+ Top=90
+ Width=90
+ Height=17
+ Caption="Путь к странице:"
+}
+Add(Label,558966,77,231)
+{
+ Left=15
+ Top=15
+ Width=64
+ Height=17
+ Caption="Имя файла:"
+}
+Add(Button,11953298,252,336)
+{
+ Left=20
+ Top=145
+ Width=125
+ Height=30
+ Caption="Upload"
+ link(onClick,3024452:doBuild,[])
+}
+Add(ODialog,16763806,203,287)
+{
+ Title="Укажите файл для загрузки"
+ FileName=""
+ link(onExecute,7614253:doText,[])
+}
+Add(InfoTip,8476350,42,336)
+{
+ @Group=45671128
+ Info=#29:Не забудьте указать имя поля,|19:в котором страница |21:ожидает получить файл|
+ Font=[Arial,10,0,0,204]
+ Width=204
+ Height=53
+}
+Add(InfoTip,11085833,511,56)
+{
+ Info=#39:Пример страницы на PHP, обрабатывающей |16:загрузку файлов.|0:|43:Сохраните следующий текст в файл upload.php|42:и разместите его в корне вашего локального|18:тестового сервера.|0:|6:<html>|6:<head>|41:  <title>Результат загрузки файла</title>|7:</head>|6:<body>|5:<?php|53:  $upload_dir = dirname($_SERVER['SCRIPT_FILENAME']);|26:  $max_size = 5*1024*1024;|26:  $field_name = 'my_file';|2:  |46:  if($_FILES[$field_name]["size"] > $max_size)|3:  {|64:    echo ('Размер файла превышает допустимые '.$max_size.' МБ');|9:    exit;|3:  }|31:  // Проверяем загружен ли файл|56:  if(is_uploaded_file($_FILES[$field_name]['tmp_name']))|3:  {|49:    // Если файл загружен успешно, перемещаем его|41:    // из временной директории в конечную|103:    move_uploaded_file($_FILES[$field_name]['tmp_name'], $upload_dir.'/'.$_FILES[$field_name]['name']);|4:  } |7:  else |3:  {|34:    echo('Ошибка загрузки файла');|3:  }|2:?>|7:</body>|7:</html>|
+ Font=[Arial,10,0,0,204]
+ Frame=2
+ Transparent=1
+ HAlign=0
+ Width=358
+ Height=620
+ Margin=5
+}
+Add(Edit,15204020,308,287)
+{
+ @Hint=#15:Путь к странице|31:(например: /aaa/bbb/upload.php)|
+ Left=120
+ Top=85
+ Width=255
+ Text="/upload.php"
+ AddHint(-189,-36,166,26,@Hint)
+}
+Add(Shape,2562225,21,7)
+{
+ Width=855
+ Height=25
+ Text="Пример загрузки файла на сервер"
+ Font=[Arial,12,1,0,1]
+ Color=12639424
+}
+Add(InfoTip,5452826,21,7)
+{
+ Info=#
+ Font=[Arial,8,0,0,1]
+ Frame=2
+ Width=855
+ Height=676
+}
+Add(Shape,10707994,511,35)
+{
+ Width=358
+ Height=25
+ Text="Тестовая страница"
+ Font=[Arial,12,1,0,1]
+ Color=15780518
+}

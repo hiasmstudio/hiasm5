@@ -1,0 +1,11 @@
+File data stream=Пoтoк данных файла
+Defines the default file name for loading or saving data=Определяет имя файла для загрузки или сохранения данных по-умолчанию
+File access mode: Read - reading (loading) data from a file, Write - writing data to a file, ReadWrite - reading and writing=Режим доступа к файлу: Read - чтение (загрузка) данных из файла, Write - запись данных в файл, ReadWrite - чтение и запись
+Automatically opens and closes a file when copying using the doCopyFromStream method=Автоматически открывает и закрывает файл при копировании методом doCopyFromStream
+Opens a file (see OnLoad)=Открывает файл (см. OnLoad)
+Closes the file and denies access to data=Закрывает файл и запрещает доступ к данным
+Sets the byte number from which data reading/writing begins=Устанавливает номер байта, с которого начинается считывание/запись данных
+Contains the file data identifier=Содержит идентификатор данных файла
+Contains the file size in bytes=Содержит размер файла в байтах
+Contains the position of the current byte in the file=Содержит позицию текущего байта в файле
+Specifies the file name to load or save data=Определяет имя файла для загрузки или сохранения данных

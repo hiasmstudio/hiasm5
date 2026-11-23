@@ -1,0 +1,34 @@
+func Axis()
+  return('dynamic_cast<HiasmPlotAxis *>(form.findChild<QObject *>(QStringLiteral("PlotAxis' && _id_ && '")))')
+end
+
+func doStart
+  println('{ auto *axis = new HiasmPlotAxis(widgetParent);')
+  println('axis->setObjectName(QStringLiteral("PlotAxis', _id_, '"));')
+  println('axis->target = qt_text(', cstr(get('qtPlotterTarget')), ');')
+  println('axis->origin = QPointF(', get('X'), ', ', get('Y'), ');')
+  println('axis->angle = ', get('Angle'), ';')
+  println('axis->pen = QPen(qt_led_color(qt_text(', cstr(get('Color')), '), Qt::red), qMax(0, int(', Size, ')));')
+  println('const Qt::PenStyle styles[] = {Qt::SolidLine, Qt::DashLine, Qt::DotLine, Qt::DashDotLine, Qt::DashDotDotLine, Qt::NoPen, Qt::SolidLine};')
+  println('axis->pen.setStyle(styles[qBound(0, int(', Style, '), 6)]); }')
+end
+
+func doAxis(_data)
+  fvar(x, y, angle)
+  x = d('X')
+  y = d('Y')
+  angle = d('Angle')
+  if(isnull(x))
+    x = get('X')
+  end
+  if(isnull(y))
+    y = get('Y')
+  end
+  if(isnull(angle))
+    angle = get('Angle')
+  end
+  println('{ auto *axis = ', Axis(), ';')
+  println('axis->origin = QPointF(qt_plot_value(', x, '), qt_plot_value(', y, '));')
+  println('axis->angle = qt_plot_value(', angle, '); axis->redraw(); }')
+  event(onAxis)
+end

@@ -1,0 +1,54 @@
+*Удаленное включение компьютера по сети - технология WakeOnLan#13#10_______________#13#10Автор: tsdima
+Make(cpp)
+Add(MainForm,5326769,203,98)
+{
+ Width=257
+ Height=92
+ Caption="WakeOnLan"
+ BorderStyle=3
+ link(onCreate,4493701:doOpen,[])
+}
+Add(Button,14049190,91,140)
+{
+ Left=165
+ Top=20
+ Width=65
+ Caption="Wake Up!"
+ link(onClick,14367945:doString,[])
+}
+Add(FormatStr,14367945,147,140)
+{
+ DataCount=1
+ Mask="FFFFFFFFFFFF%1%1%1%1%1%1%1%1%1%1%1%1%1%1%1%1"
+ link(onFString,9382367:doConvert,[])
+ link(Str1,1253083:Text,[])
+}
+Add(UDP,4493701,259,112)
+{
+ RemotePort=2050
+ RemoteIP="255.255.255.255"
+ ReceiveMode=1
+ BroadCast=0
+ Point(doSendTo)
+ Point(onError)
+}
+Add(Stream2Hex,9382367,203,140)
+{
+ Mode=3
+ link(onResult,4493701:doSendTo,[])
+}
+Add(Edit,1253083,147,98)
+{
+ Left=60
+ Top=20
+ Width=95
+ Text="010203040506"
+}
+Add(Label,4537467,91,98)
+{
+ Left=28
+ Top=23
+ Width=27
+ Height=14
+ Caption="MAC"
+}

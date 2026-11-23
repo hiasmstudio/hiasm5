@@ -1,0 +1,184 @@
+*ѕример динамического изменени€ размеров элементов шаблона печати
+Make(cpp)
+Add(MainForm,2953706,91,126)
+{
+ Width=362
+ Height=217
+ Caption="Memory graph"
+ link(onCreate,9568852:doWork1,[(151,146)])
+}
+Add(DocumentTemplate,15557505,266,231)
+{
+ Name="MainPage"
+ link(Bitmap,13572165:Bitmap,[(272,224)(181,224)])
+}
+BEGIN_SDK
+  Add(Print_Text,15614208,7,21)
+  {
+   X=10
+   Y=24
+   Width=43
+   Height=25
+   Text="RAM"
+   Font=[MS Sans Serif,8,1,0,1]
+   Horizontal=0
+  }
+  Add(Print_Text,7941865,7,49)
+  {
+   X=10
+   Y=52
+   Width=43
+   Height=25
+   Text="Page"
+   Font=[MS Sans Serif,8,1,0,1]
+   Horizontal=0
+  }
+  Add(Print_Shape,9576812,7,77)
+  {
+   X=10
+   Y=80
+   Width=281
+   Height=11
+   Type=4
+  }
+  Add(Print_Shape,11034871,252,7)
+  {
+   X=255
+   Y=10
+   Width=15
+   Height=88
+   Type=5
+   FrameStyle=2
+   FrameColor=-16777200
+  }
+  Add(Print_Shape,16383633,35,7)
+  {
+   X=38
+   Y=10
+   Width=15
+   Height=88
+   Type=5
+   FrameStyle=2
+   FrameColor=-16777200
+  }
+  Add(Print_Shape,9404936,151,7)
+  {
+   X=154
+   Y=10
+   Width=1
+   Height=88
+   Type=5
+   FrameStyle=2
+   FrameColor=-16777200
+  }
+  Add(Print_Text,8786080,32,91)
+  {
+   X=35
+   Y=94
+   Width=22
+   Height=18
+   Text="0%"
+  }
+  Add(Print_Text,4512748,141,91)
+  {
+   X=144
+   Y=94
+   Width=29
+   Height=18
+   Text="50%"
+  }
+  Add(Print_Text,7876619,245,91)
+  {
+   X=248
+   Y=94
+   Width=36
+   Height=18
+   Text="100%"
+  }
+  Add(Print_Shape,1935518,42,21)
+  {
+   Name="ram"
+   X=45
+   Y=24
+   Width=218
+   Height=18
+   BackColor=16776960
+  }
+  Add(Print_Shape,2954356,42,49)
+  {
+   Name="page"
+   X=45
+   Y=52
+   Width=218
+   Height=18
+   BackColor=16776960
+  }
+END_SDK
+Add(PaintBox,13572165,175,168)
+{
+ Left=20
+ Top=27
+ Width=310
+ Height=130
+ Color=16777215
+ Layout="horz"
+ WidthScale=100
+ HeightScale=100
+ ClearBeforeDraw=0
+ link(onBeforeDraw,49600:doEvent1,[])
+}
+Add(HubEx,9568852,147,161)
+{
+ link(onEvent,13572165:doRefresh,[])
+}
+Add(MemoryStatus,2882965,266,119)
+{
+}
+Add(Timer,7025817,91,168)
+{
+ link(onTimer,9568852:doWork2,[])
+}
+Add(Hub,49600,224,168)
+{
+ OutCount=3
+ link(onEvent1,2882965:Refresh,[(252,174)(252,125)])
+ link(onEvent2,13854351:doCalc,[])
+ link(onEvent3,15557505:doDraw,[(249,188)(249,237)])
+}
+Add(PC_Size,12157687,322,175)
+{
+ ItemName="ram"
+ Document="MainPage"
+ Height=18
+ link(onSize,14138343:doCalc,[])
+}
+Add(MathParse,13854351,266,175)
+{
+ MathStr="%2/%1*218"
+ ResultType=0
+ link(onResult,12157687:doSize,[])
+ link(X1,2882965:RAM,[])
+ link(X2,2882965:RAM_free,[])
+}
+Add(PC_Size,3682010,434,175)
+{
+ ItemName="page"
+ Document="MainPage"
+ Height=18
+}
+Add(MathParse,14138343,378,175)
+{
+ MathStr="%2/%1*218"
+ ResultType=0
+ link(onResult,3682010:doSize,[])
+ link(X1,2882965:PageFile,[(384,163)(286,163)])
+ link(X2,2882965:PageFile_free,[(391,163)(293,163)])
+}
+Add(Label,3600868,266,77)
+{
+ Left=120
+ Top=5
+ Width=110
+ Height=17
+ Caption="Online memory monitor"
+}

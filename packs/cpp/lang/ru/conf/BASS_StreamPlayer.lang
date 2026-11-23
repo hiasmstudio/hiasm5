@@ -1,0 +1,9 @@
+Music stream player=Проигрыватель музыкального потока
+Starts playing the audio stream=Начинает проигрывание звукового потока
+The event occurs every time after the end of playback=Событие происходит всякий раз после окончания проигрывания
+The event occurs in case of an error and outputs its number to the stream=Событие происходит в случае ошибки и выдает её номер в поток
+Contains the length of the audio stream (when loading from a file)=Содержит длину звукового потока (при загрузке из файла)
+Contains the number of bytes decoded when playing audio=Содержит количество декодированных байт при воспроизведении звука
+Contains the number of bytes downloaded when playing music from the Internet=Содержит количество загруженных байт при проигрывании музыки из Internet
+Contains the number of the last byte (then the download process as a percentage is expressed as follows: Download*100/End)=Содержит номер последнего байта (тогда процесс загрузки в процентах выражается так: Download*100/End)
+Specifies the audio stream identifier=Определяет идентификатор звукового потока

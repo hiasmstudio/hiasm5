@@ -1,0 +1,5 @@
+func doAdd(_data)
+  println('sys.addproject(', CodeName, ',', Entry, ',', Name, ',', Info, ',', Ext, ',', Make, ');')
+  event(onAdd)
+end
+

@@ -1,0 +1,5 @@
+Quickly extract variables from a type=Быстрое извлечение переменных из типа
+List of variables to be retrieved=Список извлекаемых переменных
+Defines the name of the type=Определяет имя типа
+Defines the type for retrieving variables=Определяет тип для извлечения переменных
+The event occurs when an error occurs and outputs its code to the streamARG(err_code,info)=Событие происходит при возникновении ошибки и выдает ее код в потокARG(err_code,info)

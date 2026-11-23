@@ -1,0 +1,163 @@
+func Arg(value)
+  if(len(value) > 0)
+    return(value)
+  else
+    return('""')
+  end
+end
+
+func doStart
+  if(is_qt_project())
+    qtStart()
+  else
+    gtkStart()
+  end
+end
+
+func qtStart
+  println('{')
+  println('auto *edit = new QLineEdit(widgetParent);')
+  println('edit->setObjectName(QStringLiteral("Edit', _id_, '"));')
+  println('edit->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+  fvar(limit)
+  limit = get('MaxLength')
+  if(limit <= 0)
+    limit = get('MaxLenField')
+  end
+  if(limit > 0)
+    println('edit->setMaxLength(', limit, ');')
+  end
+  if(get('ReadOnly') == 'True')
+    println('edit->setReadOnly(true);')
+  end
+  if(get('Password') == 'True')
+    println('edit->setEchoMode(QLineEdit::Password);')
+  end
+  switch(get('Alignment'))
+    case 1: println('edit->setAlignment(Qt::AlignRight);')
+    case 2: println('edit->setAlignment(Qt::AlignHCenter);')
+  end
+  println('edit->setText(qt_text(', cstr(d('Text')), '));')
+  if(linked(onChange))
+    println('QObject::connect(edit, &QLineEdit::textChanged, &form, [&form](const QString &text) {')
+    block.inclvl()
+    event(onChange, 'text')
+    block.declvl()
+    println('});')
+  end
+  if(linked(onEnter))
+    println('QObject::connect(edit, &QLineEdit::returnPressed, &form, [&form, edit] {')
+    block.inclvl()
+    event(onEnter, 'edit->text()')
+    if(get('ClearAfterEnter') == 'True')
+      println('edit->clear();')
+    end
+    block.declvl()
+    println('});')
+  end
+  println('}')
+end
+
+func gtkStart
+  println('{')
+  fvar(align)
+  switch(Alignment)
+    case 1: align = '1.0'
+    case 2: align = '0.5'
+    default: align = '0.0'
+  end
+  println('GtkWidget *source = gtk_entry_new();')
+  println('hiasm_set_background(source, ', cstr(d('Color')), ');')
+  println('hiasm_set_font(source, ', cstr(d('Font')), ');')
+  switch(get('Ctl3D'))
+    case 0: println('hiasm_set_border(source);')
+  end
+  println('gtk_entry_set_alignment(GTK_ENTRY(source), ', align, ');')
+  println('gtk_entry_set_max_length(GTK_ENTRY(source), ', d('MaxLength'), ');')
+  switch(d('DataType'))
+    case "IntegerNumber": println('gtk_entry_set_input_purpose(GTK_ENTRY(source), GTK_INPUT_PURPOSE_DIGITS);')
+    case "FloatNumber": println('gtk_entry_set_input_purpose(GTK_ENTRY(source), GTK_INPUT_PURPOSE_NUMBER);')
+  end
+  switch(d('Password'))
+    case "True": println('gtk_entry_set_visibility(GTK_ENTRY(source), FALSE);')
+  end
+  switch(d('ReadOnly'))
+    case "True": println('gtk_editable_set_editable(GTK_EDITABLE(source), FALSE);')
+  end
+  println('gtk_widget_set_size_request(source, ', Width, ', ', Height, ');')
+  println('gtk_editable_set_text(GTK_EDITABLE(source), "");')
+  println('gtk_editable_set_text(GTK_EDITABLE(source), ', Text, ');')
+  println('hiasm_place("Edit', _id_, '", source, ', Left, ', ', Top, ');')
+  if(linked(onChange))
+    println('g_signal_connect(source, "changed", G_CALLBACK(+[](GtkEditable *editable, gpointer) {')
+  println('if(!hiasm_form_ready) return;')
+    block.inclvl()
+    event(onChange, 'std::string(gtk_editable_get_text(editable))')
+    block.declvl()
+    println('}), NULL);')
+  end
+  if(linked(onEnter))
+    println('g_signal_connect(source, "activate", G_CALLBACK(+[](GtkEntry *entry, gpointer) {')
+  println('if(!hiasm_form_ready) return;')
+    block.inclvl()
+    event(onEnter, 'std::string(gtk_editable_get_text(GTK_EDITABLE(entry)))')
+    switch(d('ClearAfterEnter'))
+      case "True": println('gtk_editable_set_text(GTK_EDITABLE(entry), "");')
+    end
+    block.declvl()
+    println('}), NULL);')
+  end
+  println('}')
+end
+
+func doText(_data)
+  if(is_qt_project())
+    println('qt_widget<QLineEdit>(form, "Edit', _id_, '")->setText(qt_text(', cstr(d('Str')), '));')
+  else
+    println('gtk_editable_set_text(GTK_EDITABLE(hiasm_widget("Edit', _id_, '").get()), hiasm_text(', Arg(_data), ').c_str());')
+  end
+end
+
+func doText2(_data)
+  if(is_qt_project())
+    println('{')
+    println('auto *target = qt_widget<QLineEdit>(form, "Edit', _id_, '");')
+    println('const QSignalBlocker blocker(target);')
+    println('target->setText(qt_text(', cstr(d('Str')), '));')
+    println('}')
+  else
+    println('gtk_editable_set_text(GTK_EDITABLE(hiasm_widget("Edit', _id_, '").get()), hiasm_text(', Arg(_data), ').c_str());')
+  end
+end
+
+func Text()
+  if(is_qt_project())
+    return('qt_widget<QLineEdit>(form, "Edit' && _id_ && '")->text()')
+  else
+    return('std::string(gtk_editable_get_text(GTK_EDITABLE(hiasm_widget("Edit' && _id_ && '").get())))')
+  end
+end
+
+func doPosition(_data)
+  if(is_qt_project())
+    println('qt_widget<QLineEdit>(form, "Edit', _id_, '")->setCursorPosition(qt_text(', Arg(_data), ').toInt());')
+  else
+    println('gtk_editable_set_position(GTK_EDITABLE(hiasm_widget("Edit', _id_, '").get()), static_cast<int>(', _data, '));')
+  end
+end
+
+func doSelectAll(_data)
+  if(is_qt_project())
+    println('qt_widget<QLineEdit>(form, "Edit', _id_, '")->selectAll();')
+  else
+    println('gtk_editable_select_region(GTK_EDITABLE(hiasm_widget("Edit', _id_, '").get()), 0, -1);')
+  end
+end
+
+func Position()
+  if(is_qt_project())
+    return('qt_widget<QLineEdit>(form, "Edit' && _id_ && '")->cursorPosition()')
+  else
+    return('gtk_editable_get_position(GTK_EDITABLE(hiasm_widget("Edit' && _id_ && '").get()))')
+  end
+end

@@ -1,0 +1,11 @@
+POP3 parser=POP3 парсер
+Parses the text of a letter=Выполняет разбор текста письма
+The event occurs every time an attached file is extracted from the body of a letter and outputs its name to the stream (the file itself can be read from the Attach point)=Событие происходит всякий раз при извлечении из тела письма присоединенного файла и выдает его имя в поток (сам файл можно считать с точки Attach)
+Contains the sender's address=Содержит адрес отправителя
+Contains the recipient's address=Содержит адрес получателя
+Date of the letter=Дата письма
+Subject of the letter=Тема письма
+Contains simple letter text=Содержит простой текст письма
+Contains the HTML text of the letter (if found)=Содержит HTML текст письма (если он был найден)
+Contains an attached file (if the email contains files)=Содержит прикреплённый файл (если письмо содержит файлы)
+Defines the text of the letter=Определяет текст письма

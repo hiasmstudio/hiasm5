@@ -1,0 +1,10 @@
+Graphics tools=Графический инструментарий
+Clearing the color buffer=Очистка буфера цвета
+Clearing the Depth Buffer=Очистка буфера глубины
+Clearing the stencil buffer=Очистка буфера трафарета
+Clears and fills the accumulation buffer with the color specified when OpenGL was initialized=Очищает и заполняет буфер накопления цветом, заданным при инициализации OpenGL
+Saves the state of the transformation matrix=Сохраняет состояние матрицы преобразований
+Restores the state of the transformation matrix=Восстанавливает состояние матрицы преобразований
+Saves output attribute settings=Сохраняет установки атрибутов вывода
+Restores output attribute settings=Восстанавливает установки атрибутов вывода
+The event occurs every time after calling one of the component methods=Событие происходит всякий раз после вызова одного из методов компонента

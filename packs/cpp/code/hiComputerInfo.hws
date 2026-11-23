@@ -1,0 +1,15 @@
+func UserName()
+  return('[](const char *a, const char *b) { return std::string(a && *a ? a : (b ? b : "")); }(std::getenv("USERNAME"), std::getenv("USER"))')
+end
+
+func CompName()
+  return('[](const char *a, const char *b) { return std::string(a && *a ? a : (b ? b : "")); }(std::getenv("COMPUTERNAME"), std::getenv("HOSTNAME"))')
+end
+
+func CPU()
+  return('[](const char *value) { return std::string(value && *value ? value : "Unknown CPU"); }(std::getenv("PROCESSOR_IDENTIFIER"))')
+end
+
+func WinInfo()
+  return('hiasm_os_name()')
+end

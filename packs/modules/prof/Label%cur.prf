@@ -1,0 +1,11 @@
+ Left=200
+ Top=60
+ Width=70
+ Height=15
+ Align=0
+ Color=-16777201
+ Font=[MS Sans Serif,8,0,0,1]
+ Hint=""
+ Caption="Label"
+ AutoSize=0
+ Alignment=0

@@ -1,0 +1,5 @@
+Removing characters at the beginning and end of a line=Удаление символов в начале и конце строки
+Removes spaces from the beginning and end of the specified string=Удаляет пробелы из начала и конца указанной строки
+The event occurs every time after spaces are removed and returns the resulting string to the stream=Событие происходит всякий раз после удаления пробелов и возвращает в поток полученную строку
+Specifies the text in which spaces need to be removed=Определяет текст, в котором необходимо удалить пробелы
+Contains the result of the last operation=Содержит результат последней операции

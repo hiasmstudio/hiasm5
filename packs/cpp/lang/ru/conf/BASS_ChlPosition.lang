@@ -1,0 +1,6 @@
+Setting and reading the playback position in a channel=Установка и считывание позиция проигрывания в канале
+Sets the channel playback position=Устанавливает позицию проигрывания канала
+The event occurs in case of an error and outputs its number to the stream=Событие происходит в случае ошибки и выдает её номер в поток
+Contains the current channel playback position=Содержит текущую позицию проигрывания канала
+Specifies the ID of the sample or music=Определяет идентификатор сэмпла или музыки
+Determines the channel playback position=Определяет позицию проигрывания канала

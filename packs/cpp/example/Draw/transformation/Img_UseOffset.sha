@@ -1,0 +1,277 @@
+Make(cpp)
+Add(MainForm,4560334,259,133)
+{
+ Width=808
+ Height=502
+ Position=1
+}
+Add(PaintBox,15950500,266,196)
+{
+ Top=175
+ Width=882
+ Height=359
+ Color=32768
+ Layout="ver_01"
+ HeightScale=100
+ ClearBeforeDraw=0
+ link(onBeforeDraw,11367752:doDraw,[(306,202)(306,307)])
+}
+Add(Img_Rectangle,4572090,371,301)
+{
+ Point2AsOffset=0
+ Color=12639424
+ BgColor=8388736
+ Point(Point1)
+ Point(Point2)
+ Point(Transform)
+ link(onDraw,13865183:doDraw,[])
+ link(Bitmap,4749230:Var2,[])
+ link(Point1,13568439:getVar,[])
+ link(Point2,1941505:getVar,[])
+ link(Transform,11748784:Var1,[(405,285)])
+}
+Add(GetDataEx,12540350,315,238)
+{
+ Angle=3
+ link(Data,15950500:Bitmap,[(272,243)])
+}
+Add(Img_Rectangle,11367752,315,301)
+{
+ Point2AsOffset=0
+ Style=7
+ Color=16777215
+ Point(Point1)
+ Point(Point2)
+ link(onDraw,4572090:doDraw,[])
+ link(Bitmap,12540350:Var2,[])
+ link(Point1,10626233:getVar,[])
+ link(Point2,15465188:getVar,[])
+}
+Add(HubEx,14819192,490,91)
+{
+ Angle=3
+ link(onEvent,146509:doWork1,[(494,86)(242,86)])
+}
+Add(HubEx,146509,238,196)
+{
+ link(onEvent,15950500:doRefresh,[])
+}
+Add(Label,16736062,399,91)
+{
+ Left=270
+ Top=55
+ Width=20
+ Layout="gor_10"
+ Caption="x: "
+ AutoSize=1
+}
+Add(Label,16385465,399,133)
+{
+ Left=270
+ Top=85
+ Width=20
+ Layout="gor_11"
+ Caption="y:"
+ AutoSize=1
+}
+Add(Label,3890185,126,56)
+{
+ Left=15
+ Top=50
+ Height=17
+ Layout="gor_10"
+ Caption="слева:"
+ AutoSize=1
+}
+Add(Edit,16279673,126,189)
+{
+ Left=55
+ Top=50
+ Layout="gor_10"
+ Text="350"
+ DataType=2
+ link(onChange,1750075:doWork1,[(172,195)])
+}
+Add(Label,13979721,126,98)
+{
+ Left=15
+ Top=75
+ Height=17
+ Layout="gor_11"
+ Caption="сверху:"
+ AutoSize=1
+}
+Add(Edit,10008463,133,231)
+{
+ Left=55
+ Top=75
+ Layout="gor_11"
+ Text="160"
+ DataType=2
+ link(onChange,1750075:doWork2,[])
+}
+Add(Label,14871794,182,56)
+{
+ Left=115
+ Top=50
+ Height=17
+ Layout="gor_10"
+ Caption="ширина:"
+ AutoSize=1
+}
+Add(Edit,1703155,182,154)
+{
+ Left=165
+ Top=50
+ Layout="gor_10"
+ Text="100"
+ DataType=2
+ link(onChange,7524583:doWork1,[(228,160)])
+}
+Add(Label,4175453,182,98)
+{
+ Left=115
+ Top=75
+ Height=17
+ Layout="gor_11"
+ Caption="высота: "
+ AutoSize=1
+}
+Add(Edit,13628516,189,196)
+{
+ Left=165
+ Top=75
+ Layout="gor_11"
+ Text="50"
+ DataType=2
+ link(onChange,7524583:doWork2,[])
+}
+Add(HBoxLayout,5838153,567,91)
+{
+ Name="gor_10"
+ Space=2
+ Layout="ver_01"
+}
+Add(HBoxLayout,13328277,567,133)
+{
+ Name="gor_11"
+ Space=2
+ Layout="ver_01"
+}
+Add(VBoxLayout,16736310,560,301)
+{
+ Name="ver_01"
+}
+Add(PointXY,5846594,126,280)
+{
+ link(X,16279673:Text,[])
+ link(Y,10008463:Text,[])
+}
+Add(PointXY,7582050,182,245)
+{
+ link(X,1703155:Text,[])
+ link(Y,13628516:Text,[])
+}
+Add(LineBreakEx,1640916,126,322)
+{
+ Caption="p1"
+ Type=3
+ link(_Data,5846594:Point,[])
+}
+Add(LineBreakEx,12961841,182,287)
+{
+ Caption="p2"
+ Type=3
+ link(_Data,7582050:Point,[])
+}
+Add(LineBreakEx,10626233,329,259)
+{
+ Caption="p1"
+ Type=2
+}
+Add(LineBreakEx,15465188,336,273)
+{
+ Caption="p2"
+ Type=2
+}
+Add(LineBreakEx,13568439,385,252)
+{
+ Caption="p1"
+ Type=2
+}
+Add(LineBreakEx,1941505,392,266)
+{
+ Caption="p2"
+ Type=2
+}
+Add(HubEx,7524583,224,196)
+{
+ link(onEvent,146509:doWork2,[])
+}
+Add(HubEx,1750075,168,231)
+{
+ link(onEvent,7524583:doWork3,[(228,237)])
+}
+Add(Img_Text,13865183,427,301)
+{
+ X=200
+ Y=200
+ Font=[Microsoft Sans Serif,14,0,0,204]
+ Text="HiAsm"
+ Point(Transform)
+ link(onDraw,28344:doDraw,[])
+ link(Bitmap,16519916:Var2,[])
+ link(Transform,11748784:Var2,[])
+}
+Add(GetDataEx,4749230,371,238)
+{
+ Angle=3
+ link(Data,12540350:Var3,[])
+}
+Add(Img_Rectangle,28344,476,301)
+{
+ Point1=13107400
+ Point2AsOffset=0
+ Color=12639424
+ BgColor=8388736
+ Point(Point2)
+ Point(Transform)
+ link(Bitmap,16519916:Var3,[(482,243)])
+ link(Point2,4278363:Point,[(496,289)(524,289)(524,389)(433,389)])
+ link(Transform,11748784:Var3,[(503,285)])
+}
+Add(GetDataEx,16519916,427,238)
+{
+ Angle=3
+ link(Data,4749230:Var3,[])
+}
+Add(GetDataEx,11748784,441,280)
+{
+ link(Data,13758937:Transform,[])
+}
+Add(PointXY,4278363,427,350)
+{
+ link(X,13865183:TextWidth,[])
+ link(Y,13865183:TextHeight,[])
+}
+Add(Img_UseOffset,13758937,441,189)
+{
+ link(X,15237750:Position,[])
+ link(Y,13803706:Position,[])
+}
+Add(ScrollBar,15237750,448,91)
+{
+ Left=305
+ Top=60
+ Width=260
+ Layout="gor_10"
+ link(onPosition,14819192:doWork2,[])
+}
+Add(ScrollBar,13803706,455,133)
+{
+ Left=305
+ Top=90
+ Width=245
+ Layout="gor_11"
+ link(onPosition,14819192:doWork3,[(494,139)])
+}

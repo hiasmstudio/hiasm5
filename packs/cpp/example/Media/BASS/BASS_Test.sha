@@ -1,0 +1,248 @@
+Make(cpp)
+Add(MainForm,2953706,21,105)
+{
+ Width=419
+ Caption="BASS test"
+ Point(Handle)
+ link(onCreate,4252681:doInit,[])
+}
+Add(BASS_Init,4252681,98,119)
+{
+ link(onInit,10183901:doCheck,[])
+ link(onError,11232751:doMessage,[(142,132)(142,174)])
+ link(Handle,2953706:Handle,[(118,107)(72,107)(72,149)(27,149)])
+}
+Add(BASS_Version,10183901,154,119)
+{
+ link(onCheckFailed,109118:doMessage,[(198,132)(198,174)])
+}
+Add(Message,11232751,154,168)
+{
+ Message="Error BASS initialization"
+ Caption="Error"
+ Icon=1
+}
+Add(Message,109118,210,168)
+{
+ Message="Incorrect version of BASS library "
+ Caption="Error"
+ Icon=1
+}
+Add(BASS_StreamCreateFile,2073512,252,77)
+{
+ Name="MainSound"
+ link(onCreate,10701583:doPlay,[])
+ link(onEndPlay,13896816:doMessage,[(300,90)(300,27)])
+ link(onError,13951091:doStrCat,[(301,97)(301,125)])
+ link(FileName,12373576:Text,[])
+}
+Add(Edit,12373576,252,28)
+{
+ Left=15
+ Top=15
+ Width=350
+ Text=""
+}
+Add(Button,13708268,154,77)
+{
+ Left=15
+ Top=45
+ Caption="Play"
+ link(onClick,2073512:doCreate,[])
+}
+Add(Button,13089460,154,28)
+{
+ Left=365
+ Top=15
+ Width=20
+ Caption="..."
+ link(onClick,4225408:doExecute,[])
+}
+Add(ODialog,4225408,203,28)
+{
+ link(onExecute,12373576:doText,[])
+}
+Add(Message,12393418,364,119)
+{
+ Caption="Error"
+ Icon=1
+}
+Add(StrCat,13951091,315,119)
+{
+ Str1="Error opening file name: "
+ link(onStrCat,12393418:doMessage,[])
+}
+Add(BASS_ChannelPlay,10701583,315,77)
+{
+ Channel="MainSound"
+ link(onPlay,14122420:doData,[])
+}
+Add(BASS_ChannelPosition,9802659,364,175)
+{
+ Channel="MainSound"
+ Mode=2
+}
+Add(Timer,3915133,315,231)
+{
+ link(onTimer,12272575:doData,[])
+}
+Add(Label,4539506,476,231)
+{
+ Left=365
+ Top=45
+ Width=10
+ Height=17
+ Caption="0"
+}
+Add(DoData,12272575,364,231)
+{
+ link(onEventData,10482012:doEvent1,[])
+ link(Data,9802659:CurPosition,[])
+}
+Add(BASS_ChannelAttribute,3018529,343,378)
+{
+ Channel="MainSound"
+ Attrib=1
+}
+Add(Label,2006297,126,329)
+{
+ Left=15
+ Top=70
+ Width=39
+ Height=17
+ Caption="Volume"
+}
+Add(Label,4751666,126,427)
+{
+ Left=15
+ Top=90
+ Width=43
+ Height=17
+ Caption="Balance"
+}
+Add(ScrollBar,2661636,196,329)
+{
+ Left=75
+ Top=70
+ Width=280
+ Position=100
+ link(onPosition,15138911:doOperation,[])
+}
+Add(ScrollBar,12172482,196,427)
+{
+ Left=75
+ Top=90
+ Width=280
+ Min=-100
+ link(onPosition,15100795:doOperation,[])
+}
+Add(Label,4641453,343,329)
+{
+ Left=365
+ Top=70
+ Width=10
+ Height=17
+ Caption="0"
+}
+Add(Label,11822151,343,427)
+{
+ Left=365
+ Top=90
+ Width=10
+ Height=17
+ Caption="0"
+}
+Add(Math,15138911,245,329)
+{
+ OpType=3
+ Op2=100
+ link(onResult,15216955:doEvent1,[])
+}
+Add(Hub,15216955,294,329)
+{
+ link(onEvent1,4641453:doText,[])
+ link(onEvent2,3018529:doAttribute,[(334,342)(334,384)])
+}
+Add(Math,15100795,245,427)
+{
+ OpType=3
+ Op2=100
+ link(onResult,6863995:doEvent1,[])
+}
+Add(Hub,6863995,294,427)
+{
+ link(onEvent1,11822151:doText,[])
+ link(onEvent2,6637138:doAttribute,[(334,440)(334,482)])
+}
+Add(BASS_ChannelAttribute,6637138,343,476)
+{
+ Channel="MainSound"
+ Attrib=2
+}
+Add(DoData,14122420,420,77)
+{
+ link(onEventData,884648:doMax,[])
+ link(Data,9802659:Length,[(426,65)(402,65)(402,219)(377,219)])
+}
+Add(Hub,10482012,413,231)
+{
+ OutCount=3
+ link(onEvent1,4539506:doText,[])
+ link(onEvent2,884648:doPosition,[(461,244)(461,76)])
+ link(onEvent3,15104723:doData,[(461,251)(461,356)])
+}
+Add(ScrollBarEx,884648,476,70)
+{
+ Left=75
+ Top=45
+ Width=280
+ ScrollMode=1
+ Point(doMax)
+ link(onPosition,9802659:doPosition,[(522,76)(522,164)(352,164)(352,181)])
+}
+Add(Message,13896816,315,21)
+{
+}
+Add(PaintBox,8758719,616,224)
+{
+ Left=10
+ Top=115
+ Width=385
+ Height=120
+ link(onBeforeDraw,5631139:doDraw,[])
+}
+Add(BASS_ChannelVisibleSpectrum,5631139,672,224)
+{
+ SoundStream="MainSound"
+ Mode=1
+ link(WindowsHandle,8758719:Bitmap,[(678,212)(660,212)(660,267)(622,267)])
+}
+Add(Timer,5820169,560,224)
+{
+ Interval=50
+ link(onTimer,8758719:doRefresh,[])
+}
+Add(Label,13798880,490,392)
+{
+ Left=140
+ Top=245
+ Width=61
+ Height=17
+ Caption="CPU usage:"
+}
+Add(Label,2032143,532,350)
+{
+ Left=205
+ Top=245
+ Width=10
+ Height=17
+ Caption="0"
+}
+Add(BASS_CPU,6750767,476,294)
+{
+}
+Add(DoData,15104723,476,350)
+{
+ link(onEventData,2032143:doText,[])
+ link(Data,6750767:UsageCPU,[])
+}

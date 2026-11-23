@@ -1,0 +1,4 @@
+Array of multidimensional streams=Массив многомерных потоков
+Clears an array of multidimensional streams=Очищает массив многомерных потоков
+Accessing an Array of Multidimensional Streams=Доступ к массиву многомерных потоков
+Removes an array element at index from the stream ARG(Index)=Удаляет элемент массива по индексу из потока ARG(Index)

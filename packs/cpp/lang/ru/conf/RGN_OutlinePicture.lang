@@ -1,0 +1,11 @@
+Outline region=Контурный регион
+Transparency color mode=Режим использования цвета прозрачности
+Picture transparency color=Цвет прозрачности картинки
+Picture for creating a contour region=Картиника для создания контурного региона
+Creates an outline region=Создает контурный регион
+Deletes a region (zeroes Result)=Удаляет регион (обнуляет Result)
+The event occurs whenever an outline region is created and outputs the result to the ARG(Region) stream=Событие происходит всякий раз после создания контурного региона и выдает результат в поток ARG(Region)
+Contains the created region=Содержит созданный регион
+Contains a picture=Содержит картинку
+Contains the width of the image=Содержит ширину картинки
+Contains the height of the image=Содержит высоту картинки

@@ -1,0 +1,81 @@
+Make(cpp)
+Add(Label,6185877,112,49)
+{
+ Left=10
+ Top=10
+ Layout="vert"
+ Caption="FileName"
+}
+Add(MainForm,412030,28,35)
+{
+ Left=20
+ Top=105
+ Width=396
+ Height=323
+}
+Add(Button,3045845,112,119)
+{
+ Left=10
+ Top=35
+ Width=370
+ Height=25
+ Layout="horz"
+ Caption="Read owner info"
+ link(onClick,9598913:doGetFileSecurity,[])
+}
+Add(SIDConvertor,15785462,308,119)
+{
+ link(onConvert,8510111:doWork2,[])
+}
+Add(FileSecurity,9598913,161,119)
+{
+ link(onGetFileSecurity,16193329:doGetOwner,[])
+ link(FileName,3864285:Text,[])
+}
+Add(FSOwner,16193329,210,119)
+{
+ link(onGetOwner,1451907:doEvent1,[])
+}
+Add(SIDInfo,15261022,308,161)
+{
+ link(onGetInfo,8510111:doWork3,[(354,167)])
+}
+Add(Memo,4727531,378,119)
+{
+ Left=10
+ Top=70
+ Width=370
+ Height=215
+ Layout="horz"
+ HeightScale=100
+}
+Add(Hub,1451907,259,119)
+{
+ link(onEvent1,15785462:doConvert,[])
+ link(onEvent2,15261022:doGetInfo,[(299,132)(299,167)])
+}
+Add(HubEx,8510111,350,112)
+{
+ link(onEvent,4727531:doAdd,[])
+}
+Add(Edit,3864285,161,49)
+{
+ Left=60
+ Top=5
+ Width=320
+ Layout="vert"
+ WidthScale=100
+ Text=""
+}
+Add(HBoxLayout,8627024,210,49)
+{
+ Name="vert"
+ Space=3
+ Layout="horz"
+}
+Add(VBoxLayout,590643,210,161)
+{
+ Name="horz"
+ Space=3
+ Padding=3
+}

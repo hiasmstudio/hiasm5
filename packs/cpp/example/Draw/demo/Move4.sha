@@ -1,0 +1,43 @@
+Make(cpp)
+Add(MainForm,5148241,119,105)
+{
+ Left=20
+ Top=105
+ Caption="Move4"
+}
+Add(Timer,4011836,175,105)
+{
+ Interval=10
+ link(onTimer,12788635:doRefresh,[])
+}
+Add(PaintBox,12788635,224,105)
+{
+ Left=220
+ Top=40
+ Align=5
+ Color=12639424
+ MouseCapture=0
+ ClearBeforeDraw=0
+ Point(MouseX)
+ Point(MouseY)
+ Point(onMouseUp)
+ Point(onMouseDown)
+ Point(onMouseMove)
+ link(onBeforeDraw,4267604:doCalk,[(266,111)(266,98)(166,98)(166,167)])
+ link(onMouseUp,10657032:doWork1,[])
+ link(onMouseDown,10657032:doWork2,[])
+ link(onMouseMove,4267604:doMovePoint,[(266,132)(266,200)(214,200)(214,181)])
+}
+Add(ChanelToIndex,10657032,280,112)
+{
+ link(onIndex,4267604:doFix,[(327,118)(327,153)(214,153)(214,174)])
+}
+Add(InlineCode,4267604,224,161)
+{
+ WorkPoints=#39:doCalk=Вычисляет перемещения всех точек|48:doFix=Фиксирует одну из точек в координатах мыши|39:doMovePoint=Перемещяет фигуру за мышкой|
+ DataPoints=#54:Bitmap=Картинка на которой требуется отрисовать фигуру|20:X=Координата X мышки|20:Y=Координата Y мышки|
+ Code=#15:unit HiAsmUnit;|0:|9:interface|0:|21:uses Share,Debug,kol;|0:|4:type|20: PDPoint = ^TDPoint;|17: TDPoint = record|12:   X,Y:real;|14:   kx,ky:real;|25:   Link:array of PDPoint;|14:   Count:byte;|5: end;|28: THiAsmClass = class(TDebug)|10:   private|30:    ps:array[0..3] of TDPoint;|15:    fl:boolean;|9:   public|26:     Bitmap,X,Y:THI_Event;|0:|24:     constructor Create;|51:     procedure doCalk(var _Data:TData; Index:WORD);|50:     procedure doFix(var _Data:TData; Index:WORD);|56:     procedure doMovePoint(var _Data:TData; Index:WORD);|5: end;|0:|14:implementation|0:|17:uses hiMathParse;|0:|31:constructor THiAsmClass.Create;|5:begin|16:  ps[0].X := 55;|16:  ps[0].y := 55;|19:  ps[0].Count := 3;|36:  SetLength(ps[0].Link,ps[0].Count);|26:  ps[0].Link[0] := @ps[1];|26:  ps[0].Link[1] := @ps[2];|26:  ps[0].Link[2] := @ps[3];|0:|16:  ps[1].X := 70;|16:  ps[1].y := 55;|19:  ps[1].Count := 3;|36:  SetLength(ps[1].Link,ps[1].Count);|26:  ps[1].Link[0] := @ps[0];|26:  ps[1].Link[1] := @ps[2];|26:  ps[1].Link[2] := @ps[3];|0:|16:  ps[2].X := 60;|16:  ps[2].y := 80;|19:  ps[2].Count := 3;|36:  SetLength(ps[2].Link,ps[2].Count);|26:  ps[2].Link[0] := @ps[1];|26:  ps[2].Link[1] := @ps[0];|26:  ps[2].Link[2] := @ps[3];|0:|16:  ps[3].X := 60;|16:  ps[3].y := 80;|19:  ps[3].Count := 3;|36:  SetLength(ps[3].Link,ps[3].Count);|26:  ps[3].Link[0] := @ps[0];|26:  ps[3].Link[1] := @ps[1];|26:  ps[3].Link[2] := @ps[2];|4:end;|0:|57:procedure THiAsmClass.doFix(var _Data:TData; Index:WORD);|5:begin|25:   Fl := ReadBool(_data);|4:end;|0:|63:procedure THiAsmClass.doMovePoint(var _Data:TData; Index:WORD);|5:begin|13:   if Fl then|9:    begin|40:      ps[0].X := ReadInteger(_Data,X,0);|40:      ps[0].Y := ReadInteger(_Data,Y,0);|8:    end;|4:end;|0:|58:procedure THiAsmClass.doCalk(var _Data:TData; Index:WORD);|16:var Bmp:PBitmap;|16:    i,j:integer;|13:    p,u:real;|5:begin|38:  Bmp := ReadBitmap(_data,Bitmap,nil);|0:|20:  for i := 0 to 3 do|16:   with ps[i] do|9:    begin|36:     if fl and(i = 0 )then continue;|29:     for j := 0 to COunt-1 do|11:      begin|50:        u := ArcTan2(y - Link[j].y,x - Link[j].X);|61:        p := sqrt( sqr(x - Link[j].X) + sqr(y - Link[j].y) );|36:        kx := kx - (p-30)*cos(u)/30;|36:        ky := ky - (p-30)*sin(u)/30;|10:      end;|19:     kx := 0.95*kx;|26:     ky := 0.95*ky + 0.05;|17:     x := x + kx;|17:     y := y + ky;|53:     if x <  0 then begin x := 0; kx := -0.9*kx; end;|68:     if x > Bmp.Width then begin x := Bmp.Width; kx := -0.9*kx; end;|53:     if y <  0 then begin y := 0; ky := -0.9*ky; end;|70:     if y > Bmp.Height then begin y := Bmp.Height; ky := -0.9*ky; end;|0:|8:    end;|0:|40:  //bmp.Canvas.Brush.Color := clBtnFace;|60:  //bmp.Canvas.FillRect(MakeRect(0,0,bmp.Width,Bmp.Height));|34:  bmp.Canvas.Pen.Color := clBlack;|20:  for i := 0 to 3 do|16:   with ps[i] do|9:    begin|70:      Bmp.Canvas.Ellipse(Round(X)-2,Round(Y)-2,Round(X)+2,Round(Y)+2);|8:    end;|4:end;|0:|4:end.|
+ link(Bitmap,12788635:Bitmap,[])
+ link(X,12788635:MouseX,[])
+ link(Y,12788635:MouseY,[])
+}

@@ -1,0 +1,136 @@
+include('hiStringTable')
+
+func doReplace(_data)
+  if(linked('Str'))
+    println(Table(), '->putCells(qt_text(', d('Str'), ').split(', Table(), '->delimiter), ', Number(_data), ', true);')
+  end
+end
+
+func doRefresh(_data)
+  println(Table(), '->viewport()->update();')
+end
+
+func doDeleteCol(_data)
+  println(Table(), '->removeColumn(', Number(_data), ');')
+  event(onChangeColLst)
+end
+
+func doClearCol(_data)
+  println('{ auto *mtTable = ', Table(), '; const int mtColumn = qt_text(', isnull(_data) ? '0' : _data, ').toInt();')
+  println('if (mtColumn >= 0 && mtColumn < mtTable->columnCount()) {')
+  println('  const QSignalBlocker blocker(mtTable);')
+  println('  for (int mtRow = 0; mtRow < mtTable->rowCount(); ++mtRow)')
+  println('    if (auto *cell = mtTable->item(mtRow, mtColumn)) cell->setText(QString());')
+  println('} }')
+end
+
+func doAutoColWidth(_data)
+  println('{ auto *mtTable = ', Table(), '; const int mtColumn = qt_text(', isnull(_data) ? '0' : _data, ').toInt();')
+  println('const int minimum = qMax(0, int(', MinColWidth, '));')
+  println('const int maximum = qMax(minimum, int(', MaxColWidth, '));')
+  println('for (int col = 0; col < mtTable->columnCount(); ++col) {')
+  println('  if (mtColumn != -1 && mtColumn != col) continue;')
+  println('  mtTable->resizeColumnToContents(col);')
+  println('  mtTable->setColumnWidth(col, qBound(minimum, mtTable->columnWidth(col), maximum));')
+  println('} }')
+end
+
+func CountCol()
+  return(Table() && '->columnCount()')
+end
+
+func EndIdxCol()
+  return('(' && Table() && '->columnCount() - 1)')
+end
+
+func doMT_Add(_data)
+  fvar(i, value)
+  println('{ QStringList cells;')
+  for(i = 0; i < mt_count(); i++)
+    value = mt_arg(i)
+    println('cells.append(qt_text(', isnull(value) ? '""' : value, '));')
+  end
+  println(Table(), '->putCells(cells, -1, false); }')
+end
+
+func doMT_Insert(_data)
+  fvar(i, value)
+  value = mt_arg(0)
+  if(isnull(value))
+    return()
+  end
+  println('{ const int row = qt_text(', value, ').toInt(); QStringList cells;')
+  for(i = 1; i < mt_count(); i++)
+    value = mt_arg(i)
+    println('cells.append(qt_text(', isnull(value) ? '""' : value, '));')
+  end
+  println(Table(), '->putCells(cells, row, false); }')
+end
+
+func doMT_Replace(_data)
+  fvar(i, value)
+  value = mt_arg(0)
+  if(isnull(value))
+    return()
+  end
+  println('{ const int row = qt_text(', value, ').toInt(); QStringList cells;')
+  for(i = 1; i < mt_count(); i++)
+    value = mt_arg(i)
+    println('cells.append(qt_text(', isnull(value) ? '""' : value, '));')
+  end
+  println(Table(), '->putCells(cells, row, true); }')
+end
+
+func doGetCol_MT(_data)
+  fvar(tableName, columnName, headerName)
+  tableName = 'mtSourceTable' && _id_
+  columnName = 'mtSourceColumn' && _id_
+  headerName = 'mtSourceHeader' && _id_
+  println('{ auto *', tableName, ' = ', Table(), '; const int ', columnName, ' = ', Number(_data), ';')
+  println('if (const auto *', headerName, ' = ', tableName, '->horizontalHeaderItem(', columnName, ')) {')
+  event(onMT_GetCol, columnName, headerName && '->text()', tableName && '->columnWidth(' && columnName && ')', '-1', headerName && '->data(Qt::UserRole).toInt()')
+  println('} }')
+end
+
+func doMT_NameCol(_data)
+  if(mt_count() >= 2)
+    println('if (auto *header = ', Table(), '->horizontalHeaderItem(qt_text(', mt_arg(0), ').toInt()))')
+    println('  header->setText(qt_text(', mt_arg(1), '));')
+  end
+end
+
+func doMT_WidthCol(_data)
+  if(mt_count() >= 2)
+    println('{ auto *table = ', Table(), '; const int column = qt_text(', mt_arg(0), ').toInt();')
+    println('if (column >= 0 && column < table->columnCount()) table->setColumnWidth(column, qMax(0, qt_text(', mt_arg(1), ').toInt())); }')
+  end
+end
+
+func doMT_AlignTxtCol(_data)
+  if(mt_count() >= 2)
+    println(Table(), '->setColumnAlignment(qt_text(', mt_arg(0), ').toInt(), qt_text(', mt_arg(1), ').toInt());')
+  end
+end
+
+func doMT_AddCols(_data)
+  fvar(i, first, value)
+  first = 0
+  if(get('AllMT_AddCol') != 'True')
+    first = 2
+  end
+  if(mt_count() <= first)
+    return()
+  end
+  println('{ auto *mtTable = ', Table(), ';')
+  println('const auto mtSeparator = qt_text(', cstr(get('MT_ColDelimiter')), ');')
+  for(i = first; i < mt_count(); i++)
+    value = mt_arg(i)
+    if(isnull(value) == 0)
+      println('  { auto definition = qt_text(', value, ');')
+      println('    if (!mtSeparator.isEmpty()) definition.replace(mtSeparator, QStringLiteral("="));')
+      println('    mtTable->appendColumn(definition, true); }')
+    end
+  end
+  println('}')
+  event(onChangeColLst)
+end

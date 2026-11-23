@@ -1,0 +1,55 @@
+Make(cpp)
+Add(MainForm,2953706,98,175)
+{
+ Height=360
+ Name="form"
+ Caption="PC_Image"
+ Point(onPaint)
+ link(onPaint,14251313:doDraw,[])
+}
+Add(DocumentTemplate,14251313,147,196)
+{
+ DrawSource=2
+ Name="sdf"
+}
+BEGIN_SDK
+  Add(Print_Image,9146594,33,7)
+  {
+   Name="bitmap"
+   X=36
+   Y=10
+   Width=320
+   Height=240
+   FrameStyle=5
+   BackStyle=0
+  }
+END_SDK
+Add(Button,4259725,98,245)
+{
+ Left=175
+ Top=295
+ TabOrder=-1
+ Caption="Load"
+ link(onClick,6607378:doExecute,[])
+}
+Add(PC_Image,4025833,245,245)
+{
+ ItemName="bitmap"
+ Document="sdf"
+ link(onPicture,8476491:doRedraw,[])
+}
+Add(PictureStream,1572551,196,245)
+{
+ link(onLoad,4025833:doPicture,[])
+}
+Add(ODialog,6607378,147,245)
+{
+ Filter="Graphic Files (*.bmp;*.ico;*.pcx;*.jpg;*.jpeg)|*.bmp;*.ico;*.pcx;*.jpg;*.jpeg|All files (*.*)|*.*"
+ FileName=""
+ Select=1
+ link(onExecute,1572551:doLoad,[])
+}
+Add(RedrawManager,8476491,294,245)
+{
+ ControlManager="form"
+}

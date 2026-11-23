@@ -1,0 +1,15 @@
+Storing a picture in memory=Хранение картинки в памяти
+Defines the default image=Определяет картинку по умолчанию
+Default image width to create=Ширина картинки для создания по-умолчанию
+Default image height to create=Высота картинки для создания по-умолчанию
+Default fill color of an empty image=Цвет заливки пустой картинки по-умолчанию
+Loads an image from a stream=Загружает картинку из потока
+Creates an empty image with dimensions HWidth and HHeight and fills it with Color=Cоздает пустую картинку с размерами HWidth и HHeight и заливает ее цветом Color
+The event occurs after an empty image is created=Событие происходит после создания пустой картинки
+Clears the picture=Очищает картинку
+Returns an image=Возвращает картинку
+Contains the width of the image=Содержит ширину картинки
+Contains the height of the image=Содержит высоту картинки
+Width of the image to create=Ширина картинки для создания
+Height of the image to create=Высота картинки для создания
+Blank picture fill color=Цвет заливки пустой картинки

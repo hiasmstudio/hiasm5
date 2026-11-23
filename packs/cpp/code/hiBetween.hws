@@ -1,0 +1,24 @@
+func doBetween(_data)
+  fvar(data, left, right, cond)
+  data = _data
+  if(len(data) == 0)
+    data = get('Data')
+  end
+  left = get('Left')
+  right = get('Right')
+  switch(get('InBorders'))
+    case 1: cond = data && ' > ' && left && ' && ' && data && ' <= ' && right
+    case 2: cond = data && ' >= ' && left && ' && ' && data && ' < ' && right
+    case 3: cond = data && ' > ' && left && ' && ' && data && ' < ' && right
+    default: cond = data && ' >= ' && left && ' && ' && data && ' <= ' && right
+  end
+  println('if(', cond, ') {')
+  block.inclvl()
+  event(onTrue)
+  block.declvl()
+  println('} else {')
+  block.inclvl()
+  event(onFalse)
+  block.declvl()
+  println('}')
+end

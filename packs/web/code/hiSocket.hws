@@ -1,0 +1,16 @@
+func doOpen(_data)
+  println(fid, ' = fsockopen(', HostName, ', ', Port, ');')
+  event(onOpen, fid)
+  if(AutoClose)
+    println('fclose(', fid, ');')
+  end
+end
+
+func doClose(_data)
+  println('fclose(', fid, ');')
+end
+
+func SockID()
+  return(fid)
+end
+

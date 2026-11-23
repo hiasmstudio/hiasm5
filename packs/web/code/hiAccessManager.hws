@@ -1,0 +1,25 @@
+section html
+
+func printSection(evn)
+  fvar(old,s)
+  
+  old = block.select(block.reggen())
+  block.lvloff()
+  event(evn:html)
+  s = block.astext() 
+  block.delete(block.select(old))
+  return(s)
+end
+
+func doPrintManager(_data)
+  fvar(s1, s2)
+  inc_sec("php")
+  s1 = printSection("onTemplate")
+  if(!linked(onTemplateDenide))
+    s2 = ""
+  else
+    s2 = printSection("onTemplateDenide")
+  end
+  print('(' && Access && ' ? ' && s1 && ' : ' && s2 && ')')
+  dec_sec("html")
+end

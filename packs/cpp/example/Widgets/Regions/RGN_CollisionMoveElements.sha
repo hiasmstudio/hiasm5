@@ -1,0 +1,365 @@
+Make(cpp)
+Add(MainForm,10252938,28,315)
+{
+ Width=672
+ Height=490
+ Caption=""
+ Position=1
+ link(onCreate,15708464:doFor,[])
+}
+Add(Image,2354442,126,112)
+{
+ Left=155
+ Top=90
+ Width=130
+ Height=55
+ Color=32896
+ MouseCapture=0
+ Point(onMouseDown)
+ Point(onMouseMove)
+ Point(Handle)
+ link(onMouseDown,15314110:doWork2,[(192,125)(192,97)])
+ link(onMouseMove,14399928:doWork2,[])
+}
+Add(Image,6983947,119,77)
+{
+ Left=30
+ Top=175
+ Width=50
+ Height=45
+ Color=15780518
+ MouseCapture=0
+ Point(doLeft)
+ Point(doTop)
+ Point(onMouseDown)
+ Point(onMouseMove)
+ Point(Handle)
+ link(onMouseDown,15314110:doWork1,[])
+ link(onMouseMove,14399928:doWork1,[(186,97)])
+}
+Add(RGN_Array,3322471,574,231)
+{
+}
+Add(RGN_Collision,6798591,560,420)
+{
+ link(onTrue,4583610:doEvent1,[(601,426)(601,335)])
+ link(onFalse,2385652:doEvent1,[])
+ link(Region2,6319667:Var3,[(573,404)])
+ link(Array,970550:Var2,[])
+}
+Add(ArrayRW,1356385,406,427)
+{
+ link(onRead,13574200:doOperation,[])
+ link(Array,970550:Var1,[(412,278)])
+ link(Index,6528743:Var2,[])
+ link(Value,13957717:Result,[(426,416)(456,416)(456,479)(524,479)])
+}
+Add(ChanelToIndex,15314110,224,84)
+{
+ Count=5
+ link(onIndex,11167003:doEvent1,[])
+}
+Add(GetDataEx,970550,574,273)
+{
+ link(Data,3322471:Array,[])
+}
+Add(RGN_Offset,13957717,518,427)
+{
+ link(onOffset,6798591:doEnum,[])
+ link(Region,6319667:Var2,[])
+}
+Add(MouseEvent,893290,476,28)
+{
+}
+Add(Memory,10128186,476,84)
+{
+ Point(Data)
+ link(onData,9393500:doValue,[])
+ link(Data,12518637:Var2,[])
+}
+Add(Memory,9393500,518,84)
+{
+ Point(Data)
+ link(Data,14230697:Var2,[])
+}
+Add(IntegerArray,10242219,301,273)
+{
+ IntArray=[]
+}
+Add(ArrayRW,358317,301,322)
+{
+ link(Array,10242219:Array,[])
+ link(Index,6528743:Var1,[(314,313)])
+}
+Add(PosWindow,457866,728,427)
+{
+ link(Handle,13313784:Var2,[])
+}
+Add(Memory,12707328,413,84)
+{
+ link(onData,1441394:doWork2,[])
+}
+Add(Hub,2385652,602,427)
+{
+ OutCount=3
+ link(onEvent1,3580308:doOperation,[])
+ link(onEvent2,1356385:doWrite,[(626,440)(626,536)(397,536)(397,440)])
+ link(onEvent3,8650581:doWork3,[(641,447)])
+}
+Add(Math,13574200,469,427)
+{
+ OpType=1
+ ResultType=0
+ link(onResult,13957717:doOffset,[])
+ link(Op1,12518637:Var1,[(475,68)])
+ link(Op2,10128186:Value,[])
+}
+Add(Math,5180621,826,336)
+{
+ OpType=1
+ ResultType=0
+ link(onResult,7255491:doOffset,[])
+ link(Op1,14230697:Var3,[(832,69)])
+ link(Op2,9393500:Value,[(839,125)(524,125)])
+}
+Add(IndexToChanel,2508153,224,126)
+{
+ Count=1
+ link(onEvent1,4042449:doEvent1,[])
+}
+Add(Math,3580308,686,427)
+{
+ ResultType=0
+ link(onResult,457866:doLeft,[])
+ link(Op1,457866:CurrentLeft,[(692,415)(680,415)(680,477)(734,477)])
+ link(Op2,1134406:Var3,[(699,408)])
+}
+Add(Math,3375551,819,413)
+{
+ ResultType=0
+ link(onResult,15213520:doTop,[])
+ link(Op1,15213520:CurrentTop,[(825,401)(812,401)(812,452)(874,452)])
+ link(Op2,16322915:Var2,[])
+}
+Add(Image,5710313,133,147)
+{
+ Left=430
+ Top=90
+ Width=140
+ Height=35
+ Color=8388608
+ MouseCapture=0
+ Point(onMouseDown)
+ Point(onMouseMove)
+ Point(Handle)
+ link(onMouseDown,15314110:doWork3,[(199,160)(199,104)])
+ link(onMouseMove,11482443:doWork2,[])
+}
+Add(Image,7747776,140,189)
+{
+ Left=135
+ Top=295
+ Width=90
+ Height=100
+ Color=32768
+ MouseCapture=0
+ Point(onMouseDown)
+ Point(onMouseMove)
+ Point(Handle)
+ link(onMouseDown,15314110:doWork4,[(205,202)(205,111)])
+ link(onMouseMove,10865260:doWork2,[])
+}
+Add(Image,8097174,147,224)
+{
+ Left=235
+ Top=200
+ Width=125
+ Height=55
+ Color=128
+ MouseCapture=0
+ Point(onMouseDown)
+ Point(onMouseMove)
+ Point(Handle)
+ link(onMouseDown,15314110:doWork5,[(211,237)(211,118)])
+ link(onMouseMove,10865260:doWork3,[(186,244)])
+}
+Add(HubEx,14399928,182,126)
+{
+ link(onEvent,2508153:doEvent,[])
+}
+Add(HubEx,11482443,182,161)
+{
+ Angle=3
+ link(onEvent,14399928:doWork3,[])
+}
+Add(HubEx,10865260,182,203)
+{
+ Angle=3
+ link(onEvent,11482443:doWork3,[])
+}
+Add(DoData,13491365,182,329)
+{
+ link(onEventData,13316050:doEvent1,[])
+ link(Data,8327622:Var,[(188,317)(188,317)(172,317)(172,376)(132,376)])
+}
+Add(GetIndexData,8327622,126,329)
+{
+ Count=5
+ link(onIndex,13491365:doData,[])
+ link(Data1,6983947:Handle,[])
+ link(Data2,2354442:Handle,[])
+ link(Data3,5710313:Handle,[])
+ link(Data4,7747776:Handle,[])
+ link(Data5,8097174:Handle,[])
+}
+Add(GetDataEx,6528743,413,308)
+{
+ link(Data,12707328:Value,[])
+}
+Add(For,15708464,77,329)
+{
+ End=4
+ link(onEvent,8327622:doIndex,[])
+ link(onStop,1195605:doTimer,[(117,342)(117,405)])
+}
+Add(Hub,13316050,224,329)
+{
+ link(onEvent1,9910583:doGetRegion,[(259,335)(259,237)])
+ link(onEvent2,358317:doAdd,[])
+}
+Add(GetDataEx,6319667,518,399)
+{
+ Angle=3
+ link(Data,1356385:Item,[(444,404)(444,471)(412,471)])
+}
+Add(RGN_SetToWindow,9910583,301,224)
+{
+ link(onGetRegion,3322471:doAdd,[])
+}
+Add(RGN_Offset,7255491,875,336)
+{
+ link(onOffset,11316223:doEnum,[])
+ link(Region,2875217:Var2,[])
+ link(X,504357:Var2,[])
+}
+Add(RGN_Collision,11316223,924,329)
+{
+ link(onTrue,16109533:doOperation,[])
+ link(onFalse,12595929:doEvent1,[(961,342)(961,440)])
+ link(Region2,2875217:Var3,[(937,317)])
+ link(Array,5865671:Var3,[(944,278)])
+}
+Add(Memory,10749579,882,224)
+{
+ Default=Integer(0)
+}
+Add(GetDataEx,12518637,476,63)
+{
+ link(Data,893290:MouseX,[])
+}
+Add(GetDataEx,14230697,518,64)
+{
+ Angle=3
+ link(Data,893290:MouseY,[(489,69)])
+}
+Add(PosWindow,15213520,861,406)
+{
+ link(Handle,13313784:Var3,[(867,391)])
+}
+Add(GetDataEx,13313784,728,386)
+{
+ Angle=3
+ link(Data,358317:Item,[(307,391)])
+}
+Add(Hub,4042449,308,126)
+{
+ link(onEvent1,1356385:doRead,[(381,132)(381,433)])
+ link(onEvent2,1441394:doWork3,[(452,139)])
+}
+Add(HubEx,1441394,448,84)
+{
+ link(onEvent,10128186:doValue,[])
+}
+Add(ArrayRW,5072522,777,336)
+{
+ link(onRead,5180621:doOperation,[])
+ link(Array,5865671:Var2,[])
+ link(Index,6528743:Var3,[(790,313)])
+ link(Value,7255491:Result,[(797,326)(869,326)(869,376)(881,376)])
+}
+Add(GetDataEx,5865671,777,273)
+{
+ Angle=3
+ link(Data,970550:Var3,[])
+}
+Add(Hub,11167003,266,84)
+{
+ link(onEvent1,12707328:doValue,[])
+ link(onEvent2,358317:doRead,[(287,97)(287,328)])
+}
+Add(GetDataEx,2875217,875,312)
+{
+ Angle=3
+ link(Data,5072522:Item,[(816,317)(816,381)(783,381)])
+}
+Add(HubEx,8650581,637,336)
+{
+ link(onEvent,5072522:doRead,[])
+}
+Add(Hub,12595929,966,434)
+{
+ link(onEvent1,5072522:doWrite,[(997,440)(997,476)(767,476)(767,349)])
+ link(onEvent2,3375551:doOperation,[(988,447)(988,465)(807,465)(807,419)])
+}
+Add(MouseEvent,13625922,693,322)
+{
+}
+Add(Hub,4583610,609,329)
+{
+ link(onEvent1,3915983:doOperation,[])
+ link(onEvent2,8650581:doWork2,[])
+}
+Add(GetDataEx,1134406,668,403)
+{
+ Angle=2
+ link(Data,13574200:Result,[(674,495)(475,495)])
+}
+Add(Math,3915983,651,329)
+{
+ OpType=2
+ Op2=-1
+ ResultType=0
+ link(onResult,13625922:doMove,[])
+ link(Op1,1134406:Var2,[(657,317)(674,317)])
+}
+Add(MouseEvent,12904745,1015,322)
+{
+ link(X,504357:Var3,[(1028,264)])
+}
+Add(Math,16109533,973,329)
+{
+ OpType=2
+ Op2=-1
+ ResultType=0
+ link(onResult,12904745:doMove,[])
+ link(Op1,16322915:Var3,[(979,317)(970,317)(970,383)])
+}
+Add(GetDataEx,504357,882,259)
+{
+ link(Data,10749579:Value,[])
+}
+Add(GetDataEx,16322915,826,378)
+{
+ link(Data,5180621:Result,[])
+}
+Add(Message,13998188,168,399)
+{
+ Message="Прямоугольники можно перетаскивать наведя на них курсор и зажав левую кнопку мыши.\r\nПри этом прямоугольники не смогут накладываться друг на друга.\r\n"
+}
+Add(Timer,1195605,126,399)
+{
+ Interval=100
+ Enable=1
+ AutoStop=1
+ link(onTimer,13998188:doMessage,[])
+}

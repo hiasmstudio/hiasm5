@@ -1,0 +1,42 @@
+func Init
+  fvar(old)
+  if(isset(BLK_FUNC))
+    old = block.select(BLK_FUNC)    
+    println('global $' + code(Name), ';')
+    block.select(old)
+  end
+  if(isndef(Data))
+    old = block.select(BLK_HEAD)    
+    println('$' + code(Name), ' = ', Data, ';')
+    block.select(old)
+  end  
+end
+
+func doValue(_data)
+  println('$' + code(Name), ' = ', _data, ';') 
+  event(onValue, '$' + code(Name))
+end
+
+func Var
+  return('$' + code(Name))
+end
+
+section java
+
+func Init
+  fvar(old)
+  if(isndef(Data))
+    old = block.select(BLK_HEAD)  
+    println('var ', code(Name), ' = ', Data, ';')
+    block.select(old)
+  end 
+end
+
+func doValue(_data)
+  println(code(Name), ' = ', _data, ';') 
+  event(onValue, code(Name))
+end
+
+func Var
+  return(code(Name))
+end

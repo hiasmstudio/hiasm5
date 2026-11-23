@@ -1,0 +1,19 @@
+func doWhile(_data):any
+  if(isdef(OutData))
+    println('while(', Data, ') {')
+    block.inclvl()
+      event(onWhile)
+  else
+    println('while(', val, ' = ', Data, ') {')
+    block.inclvl()
+      event(onWhile, val)  
+  end
+  block.declvl()
+  println('}')
+  event(onStop)
+end
+
+func doStop(_data):any
+  println('break;')
+end
+

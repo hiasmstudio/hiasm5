@@ -1,0 +1,77 @@
+*Динамический вывод функции по точкам
+Make(cpp)
+Add(MainForm,16184661,287,133)
+{
+ Left=20
+ Top=105
+ Width=501
+ Height=412
+ Caption="Grapher"
+}
+Add(Math,14546787,399,196)
+{
+ OpType=3
+ Op2=25
+ link(onResult,12337674:doEvent1,[])
+}
+Add(Math,14060830,553,196)
+{
+ OpType=13
+}
+Add(Plotter,10574215,399,133)
+{
+ Left=5
+ Top=40
+ Width=475
+ Height=340
+ Align=5
+ Name="Plotter"
+ GridColor=16777215
+}
+Add(PlotPoints,13676781,546,245)
+{
+ Grapher="Plotter"
+ Size=3
+ MaxValues=250
+ Shape=2
+ link(ValueX,14060830:Result,[])
+}
+Add(PlotAxis,4986410,504,112)
+{
+ Grapher="Plotter"
+ Color=0
+}
+Add(PlotAxis,7393577,553,112)
+{
+ Grapher="Plotter"
+ Color=0
+ Angle=90
+}
+Add(InfoTip,5177955,490,91)
+{
+ Info=#9:main axis|
+ Width=113
+ Height=67
+}
+Add(Hub,12337674,448,196)
+{
+ link(onEvent1,14060830:doOperation,[])
+ link(onEvent2,2244992:doCalc,[(476,209)(476,251)])
+}
+Add(MathParse,2244992,490,245)
+{
+ DataCount=1
+ MathStr="cos(4/(2*3.1415) * %1)*sin(%1)"
+ link(onResult,13676781:doAdd,[])
+ AddHint(-207,11,159,13,MathStr)
+}
+Add(Timer,15688833,287,196)
+{
+ Interval=1
+ link(onTimer,892938:doNext,[])
+}
+Add(Counter,892938,343,196)
+{
+ Max=100000
+ link(onNext,14546787:doOperation,[])
+}

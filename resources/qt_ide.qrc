@@ -1,0 +1,38 @@
+<RCC>
+ <qresource prefix="/hiasm">
+  <file alias="logo.png">hiasm.png</file>
+  <file alias="actions/formedit.png">../packs/_base/icon/formedit.png</file>
+  <file alias="actions/property.png">../packs/_base/icon/property.png</file>
+  <file alias="actions/points.png">../packs/_base/icon/points.png</file>
+  <file alias="actions/switch.png">../packs/_base/icon/switch.png</file>
+  <file alias="points/work.png">../packs/_base/icon/sc_func.png</file>
+  <file alias="points/event.png">../packs/_base/icon/sc_event.png</file>
+  <file alias="points/variable.png">../packs/_base/icon/sc_var.png</file>
+  <file alias="points/data.png">../packs/_base/icon/sc_prop.png</file>
+  <file alias="cursors/insert-element.png">../packs/_base/cur/insertElement.png</file>
+  <file alias="actions/new.png">../packs/_base/icon/new.png</file>
+  <file alias="actions/open.png">../packs/_base/icon/open.png</file>
+  <file alias="actions/save.png">../packs/_base/icon/save.png</file>
+  <file alias="actions/build.png">../packs/_base/icon/build.png</file>
+  <file alias="actions/run.png">../packs/_base/icon/run.png</file>
+  <file alias="actions/stop.png">../packs/_base/icon/stop.png</file>
+  <file alias="license">license</file>
+  <file alias="templates/_base/hcTplForm.sha">../packs/_base/new/hcTplForm.sha</file>
+  <file alias="templates/_base/hcTplDialog.sha">../packs/_base/new/hcTplDialog.sha</file>
+  <file alias="templates/cpp/Entry.sha">../packs/cpp/new/Entry.sha</file>
+  <file alias="templates/cpp/MainForm.sha">../packs/cpp/new/MainForm.sha</file>
+  <file alias="templates/cpp/Library.sha">../packs/cpp/new/Library.sha</file>
+  <file alias="templates/cpp/Daemon.sha">../packs/cpp/new/Daemon.sha</file>
+  <file alias="templates/cpp/Plugin.sha">../packs/cpp/new/Plugin.sha</file>
+  <file alias="templates/cpp/WinDll.sha">../packs/cpp/new/WinDll.sha</file>
+  <file alias="templates/cpp/WinService.sha">../packs/cpp/new/WinService.sha</file>
+  <file alias="templates/cpp/CplApp.sha">../packs/cpp/new/CplApp.sha</file>
+  <file alias="templates/cpp/ComExt.sha">../packs/cpp/new/ComExt.sha</file>
+  <file alias="templates/web/HtmlEntryPoint.sha">../packs/web/new/HtmlEntryPoint.sha</file>
+  <file alias="templates/web/CSSEntryPoint.sha">../packs/web/new/CSSEntryPoint.sha</file>
+  <file alias="templates/web/JavaEntryPoint.sha">../packs/web/new/JavaEntryPoint.sha</file>
+  <file alias="templates/web/EntryPoint.sha">../packs/web/new/EntryPoint.sha</file>
+  <file alias="templates/modules/HISEntryPoint.sha">../packs/modules/new/HISEntryPoint.sha</file>
+  <file alias="templates/modules/MakeEntryPoint.sha">../packs/modules/new/MakeEntryPoint.sha</file>
+ </qresource>
+</RCC>

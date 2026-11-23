@@ -1,0 +1,5 @@
+Multiple Chain Search=Множественный цепочный поиск
+Sets the number of component events=Задает число событий компонента
+List of search markers (operator format: {**c - the beginning of the comment block, c**} - the end of the comment block, {**s} - the beginning of the block of the marker chain, {**e} - the end of the block of the marker chain, {**n} - the next chain of markers in the block, {**i} - the marker separator with the sign of including them in the line, {**x} - the marker separator with the sign of excluding them from the line)=Список маркеров поиска (формат операторов: {**c - начало блока комментариев, c**} - конец блока комментариев, {**s} - начало блока цепи маркеров, {**e} - конец блока цепи маркеров, {**n} - следующая цепь маркеров в блоке, {**i} - разделитель маркеров с признаком включения их в строку, {**x} - разделитель маркеров с признаком исключения их из строки)
+Starts multiple searches for text blocks ARG(Text, TagList)=Начинает множественный поиск текстовых блоков ARG(Text, TagList)
+Text for multiple search text blocks=Текст для множественного поиска текстовых блоков

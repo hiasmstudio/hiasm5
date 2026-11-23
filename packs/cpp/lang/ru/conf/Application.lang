@@ -1,0 +1,8 @@
+Project properties and its parameters=Св-ва проекта и его параметры
+Tooltip above the program icon in the TaskBar=Подсказка над иконкой программы в TaskBar
+True - wait for the first message to arrive if the queue is empty, False - return control to the program if the queue is empty=True - ожидать прихода первого сообщения в случае пустой очереди, False - вернуть управление программе если очередь пуста
+Forces all visual elements of the form to process the queue of accumulated messages (this method does not work inside container components)=Заставляет все визуальные элементы формы обработать очередь накопившихся сообщений (этот метод не работает внутри компонент-контейнеров)
+Starts scrolling the Windows message queue=Запускает прокрутку очереди Windows сообщений
+Event occurs when the program is closed=Событие происходит при закрытии программы
+Contains the full path to the program=Содержит полный путь к программе
+Contains an array of parameters passed to the program at startup=Содержит массив параметров, переданных программе при запуске

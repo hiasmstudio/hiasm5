@@ -1,0 +1,15 @@
+Channel visualization=Визуализация канала
+Sound stream=Звуковой поток
+Background color=Цвет фона
+Maximum column height=Максимальная высота столбика
+Column color=Цвет столбика
+Shelf color=Цвет полок
+Column display mode=Режим отображения столбиков
+Sampling (even/odd numbers)=Выборка (четные/нечетные номера)
+Background cleaning=Очистка фона
+Shelf fall delay=Задержка спада полок
+Column Decay Delay=Задержка спада столбиков
+Draw shelves=Отрисовывать полки
+Drawing the channel state=Отрисовка состояния канала
+Defines the identifier of the picture on which the diagram is to be drawn (Bitmap points)=Определяет идентификатор картинки, на которой требуется отрисовать диаграмму (точки Bitmap)
+Defines the background image=Определяет фоновую картинку

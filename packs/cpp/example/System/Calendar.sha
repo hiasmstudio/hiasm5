@@ -1,0 +1,154 @@
+*Простой пример построения календаря рабочих дней на один выбранный месяц
+Make(cpp)
+Add(MainForm,2953706,84,105)
+{
+ Width=183
+ Height=233
+ Caption="Easy calendar"
+ BorderStyle=3
+ link(onCreate,8889805:doFor,[])
+}
+Add(MonthCalendar,12897021,210,189)
+{
+ Year=2009
+ Holidays=['Новогодние каникулы'=257,'Новогодние каникулы'=258,'Новогодние каникулы'=259,'Новогодние каникулы'=260,'Новогодние каникулы'=261,'Рождество Христово'=263,'День защитника Отечества'=535,'Международный женский день'=776,'Праздник Весны и Труда'=1281,'День Победы'=1289,'День России'=1548,'День народного единства'=2820]
+ EmptyDays=0
+ link(onDay,3316216:doValue,[])
+ link(Month,9887217:Result,[])
+}
+Add(ChildPanelEx,1085463,427,119)
+{
+ Mode=1
+ link(Day,3316216:Value1,[(433,114)(373,114)(373,243)(272,243)])
+ link(Mask,3316216:Value3,[(440,107)(363,107)(363,236)(286,236)])
+}
+BEGIN_SDK
+  Add(EditMultiEx,9240546,21,21)
+  {
+   WorkCount=#5:##add|8:##select|
+   DataCount=#3:Day|4:Mask|
+   Width=363
+   Height=319
+   Point(##add)
+   Point(##select)
+   link(##select,8879171:doEvent1,[(35,34)(35,111)])
+  }
+  Add(Panel,12454826,329,105)
+  {
+   Left=5
+   Top=5
+   Width=25
+   Height=25
+   Layout="parent.grid"
+   BevelInner=0
+   BevelOuter=1
+   Point(doColor)
+  }
+  Add(IntToBits,11203693,196,161)
+  {
+   Count=3
+   ZeroBits=1
+   link(onBit1,5681729:doColor,[])
+   link(onBit2,3771881:doColor,[(240,174)(240,209)])
+   link(onBit3,4485080:doColor,[(240,181)(240,251)])
+  }
+  Add(Hub,8879171,49,105)
+  {
+   link(onEvent1,10065014:doData,[])
+   link(onEvent2,5320309:doData,[(81,118)(81,167)])
+  }
+  Add(DoData,10065014,210,105)
+  {
+   link(onEventData,12454826:doCaption,[])
+   link(Data,9240546:Day,[(216,63)(27,63)])
+  }
+  Add(SelectColor,5681729,252,161)
+  {
+   Color=-16777196
+   link(onColor,15158925:doWork2,[])
+  }
+  Add(SelectColor,4485080,252,245)
+  {
+   Color=255
+   link(onColor,8892327:doWork2,[])
+  }
+  Add(HubEx,15158925,294,154)
+  {
+   Angle=3
+   link(onEvent,12454826:doColor,[(298,118)])
+  }
+  Add(SelectColor,3771881,252,203)
+  {
+   Color=8224255
+   link(onColor,11114458:doWork2,[])
+  }
+  Add(HubEx,11114458,294,196)
+  {
+   Angle=3
+   link(onEvent,15158925:doWork3,[])
+  }
+  Add(If_else,3314870,147,161)
+  {
+   Type=5
+   Op2=Integer(0)
+   link(onTrue,11203693:doBits,[])
+   link(onFalse,13350242:doColor,[(190,174)(190,293)])
+  }
+  Add(SelectColor,13350242,252,287)
+  {
+   Color=-16777201
+   link(onColor,8892327:doWork3,[(298,293)])
+  }
+  Add(HubEx,8892327,294,238)
+  {
+   Angle=3
+   link(onEvent,11114458:doWork3,[])
+  }
+  Add(DoData,5320309,98,161)
+  {
+   link(onEventData,3314870:doCompare,[])
+   link(Data,9240546:Mask,[(104,31)(34,31)])
+  }
+END_SDK
+Add(For,8889805,154,119)
+{
+ End=41
+ link(onEvent,1085463:##add,[])
+ link(onStop,2403348:doWork1,[(200,132)])
+}
+Add(ToolBarLayout,8904769,476,119)
+{
+ Name="grid"
+}
+Add(MT_MultiMem,3316216,266,189)
+{
+ Count=3
+ link(onData,8910285:doNext,[])
+}
+Add(Counter,8910285,322,189)
+{
+ Max=41
+ Default=41
+ link(onNext,1085463:##select,[(390,195)(390,132)])
+}
+Add(ComboBox,2872526,161,35)
+{
+ Left=5
+ Top=180
+ Width=170
+ Height=21
+ Strings=#6:Январь|7:Февраль|4:Март|6:Апрель|3:Май|4:Июнь|4:Июль|6:Август|8:Сентябрь|7:Октябрь|6:Ноябрь|7:Декабрь|
+ ReadOnly=0
+ link(onClick,9887217:doOperation,[])
+}
+Add(Math,9887217,217,42)
+{
+ Op2=1
+ Default=1
+ link(onResult,2403348:doWork3,[(261,48)(261,153)])
+}
+Add(HubEx,2403348,196,140)
+{
+ Angle=1
+ link(onEvent,12897021:doEnumDays,[(200,195)])
+}

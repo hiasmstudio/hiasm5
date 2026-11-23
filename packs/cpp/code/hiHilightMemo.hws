@@ -1,0 +1,134 @@
+func Arg(value)
+  if(len(value) > 0)
+    return(value)
+  end
+  return('""')
+end
+
+func qtTarget()
+  return('qt_widget<QPlainTextEdit>(form, "HilightMemo' && _id_ && '")')
+end
+
+func doStart
+  println('{')
+  println('auto *target = new QPlainTextEdit(widgetParent);')
+  println('target->setObjectName(QStringLiteral("HilightMemo', _id_, '"));')
+  println('target->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+  println('target->setVisible(', get('Visible') == 'True', ');')
+  println('target->setEnabled(', get('Enabled') == 'True', ');')
+  println('target->setReadOnly(', get('ReadOnly') == 'True', ');')
+  println('target->setOverwriteMode(', get('Overwrite') == 'True', ');')
+  println('qt_apply_font(target, qt_text(', cstr(get('Font')), '));')
+  println('target->setPlainText(qt_text(', cstr(get('Strings')), '));')
+  println('auto *highlighter = new HiasmHighlighter(target->document());')
+  println('highlighter->setObjectName(QStringLiteral("hiasmHighlighter"));')
+  println('highlighter->active = ', get('Hilight') == 'True', ';')
+  println('highlighter->caseSensitive = ', get('HilightCaseSens') == 'True', ';')
+  println('highlighter->addRules(qt_text(', cstr(get('HilightStrings')), '));')
+  if(linked(onChange))
+    println('QObject::connect(target, &QPlainTextEdit::textChanged, &form, [&form, target] {')
+    event(onChange, 'target->toPlainText().replace(QChar(10), QString(QChar(13)) + QChar(10))')
+    println('});')
+  end
+  println('}')
+end
+
+func doAdd(_data)
+  println('{ auto *memo = ', qtTarget(), '; const auto text = qt_text(', cstr(d('Str')), ');')
+  if(get('AddType') == 1)
+    println('memo->setPlainText(memo->document()->isEmpty() ? text : text + QChar(10) + memo->toPlainText()); }')
+  else
+    println('memo->appendPlainText(text); }')
+  end
+end
+
+func doClear(_data)
+  println(qtTarget(), '->clear();')
+end
+
+func doText(_data)
+  println(qtTarget(), '->setPlainText(qt_text(', Arg(_data), '));')
+end
+
+func doDelete(_data)
+  println('{ auto *memo = ', qtTarget(), '; auto lines = memo->toPlainText().split(QChar(10));')
+  println('const int row = qt_text(', Arg(_data), ').toInt();')
+  println('if (row >= 0 && row < lines.size()) { lines.removeAt(row); memo->setPlainText(lines.join(QChar(10))); } }')
+end
+
+func doLoad(_data)
+  println('{ QFile input(qt_text(', cstr(d('FileName')), '));')
+  println('if (input.open(QIODevice::ReadOnly)) ', qtTarget(), '->setPlainText(QString::fromUtf8(input.readAll())); }')
+end
+
+func doSave(_data)
+  println('{ QSaveFile output(qt_text(', cstr(d('FileName')), '));')
+  println('if (output.open(QIODevice::WriteOnly)) { const auto bytes = ', qtTarget(), '->toPlainText().replace(QChar(10), QString(QChar(13)) + QChar(10)).toUtf8();')
+  println('if (output.write(bytes) == bytes.size()) output.commit(); } }')
+end
+
+func doEnsureVisible(_data)
+  println('{ auto *memo = ', qtTarget(), '; const int row = qt_text(', Arg(_data), ').toInt();')
+  println('const auto block = row == -1 ? memo->document()->lastBlock() : memo->document()->findBlockByNumber(row);')
+  println('if (block.isValid()) { memo->setTextCursor(QTextCursor(block)); memo->ensureCursorVisible(); } }')
+end
+
+func Text()
+  return(qtTarget() && '->toPlainText().replace(QChar(10), QString(QChar(13)) + QChar(10))')
+end
+
+func Count()
+  return('([](QPlainTextEdit *memo) { return memo->document()->isEmpty() ? 0 : memo->blockCount(); }(' && qtTarget() && '))')
+end
+
+func EndIdx()
+  return('(' && qtTarget() && '->blockCount() - 1)')
+end
+
+func SelText()
+  return(qtTarget() && '->textCursor().selectedText().replace(QChar(0x2029), QString(QChar(13)) + QChar(10))')
+end
+
+func Highlighter()
+  return('static_cast<HiasmHighlighter *>(' && qtTarget() && '->document()->findChild<QSyntaxHighlighter *>(QStringLiteral("hiasmHighlighter")))')
+end
+
+func doHilight(_data)
+  println('{ auto *highlight = ', Highlighter(), '; highlight->active = qt_flag(qt_text(', Arg(_data), ')); highlight->rehighlight(); }')
+end
+
+func doHilightCaseSens(_data)
+  println('{ auto *highlight = ', Highlighter(), '; highlight->caseSensitive = qt_flag(qt_text(', Arg(_data), ')); highlight->rehighlight(); }')
+end
+
+func doAddHilightStrings(_data)
+  println(Highlighter(), '->addRules(qt_text(', Arg(_data), '));')
+end
+
+func doReadOnly(_data)
+  println(qtTarget(), '->setReadOnly(qt_flag(qt_text(', Arg(_data), ')));')
+end
+
+func doOverwrite(_data)
+  println(qtTarget(), '->setOverwriteMode(qt_flag(qt_text(', Arg(_data), ')));')
+end
+
+func doCut(_data)
+  println(qtTarget(), '->cut();')
+end
+
+func doCopy(_data)
+  println(qtTarget(), '->copy();')
+end
+
+func doPaste(_data)
+  println(qtTarget(), '->paste();')
+end
+
+func doUndo(_data)
+  println(qtTarget(), '->undo();')
+end
+
+func doRedo(_data)
+  println(qtTarget(), '->redo();')
+end

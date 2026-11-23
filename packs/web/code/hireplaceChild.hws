@@ -1,0 +1,7 @@
+section java
+
+func doReplace(_data)
+  println(Parent, '.replaceChild(', Node1, ',', Node2, ');')
+  event(onReplace, Parent)
+end
+

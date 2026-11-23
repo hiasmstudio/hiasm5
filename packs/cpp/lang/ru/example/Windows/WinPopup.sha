@@ -1,0 +1,49 @@
+﻿*                       >>>> Поплавок - окно <<<<#13#10+++++++++++++++++++++++++++++++++++++++++++++++++#13#10#13#10Ctrl + Shift + Z - сделать окно поплавком#13#10Ctrl + Shift + A - сделать окно обычным окном Windows#13#10#13#10+++++++++++++++++++++++++++++++++++++++++++++++++
+Make(cpp)
+Add(MainForm,91728,197,159)
+{
+ Left=312
+ Top=284
+ Width=214
+ Height=67
+ Caption="WinTools"
+ TaskBar=1
+}
+Add(ChanelToIndex,99885,21,168)
+{
+ link(onIndex,16179:doPopup,[])
+}
+Add(KeyMask,40470,140,105)
+{
+ @Hint=#19:Нажать Ctrl+Shift+Z|
+ Shift=1
+ Ctrl=1
+ Key=90
+ link(onFalse,50338:doCheckMask,[])
+ link(onTrue,99885:doWork2,[(182,118)(182,213)(13,213)(13,181)])
+}
+Add(KeyHook,37223,80,105)
+{
+ link(onKeyDown,40470:doCheckMask,[])
+}
+Add(Label,26495,15,35)
+{
+ Left=10
+ Top=10
+ Width=190
+ Caption="Window PopUp"
+ AutoSize=1
+ Alignment=2
+}
+Add(WinTools,16179,80,161)
+{
+ link(Handle,37223:Handle,[])
+}
+Add(KeyMask,50338,200,105)
+{
+ @Hint=#23:Нажать Ctrl + Shift + A|
+ Shift=1
+ Ctrl=1
+ Key=65
+ link(onTrue,99885:doWork1,[(242,118)(242,93)(12,93)(12,174)])
+}

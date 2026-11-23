@@ -1,0 +1,168 @@
+func Table()
+  if(get('qtExtendedTable') == 1)
+    return('qt_widget<HiasmStringTable>(form, "StringTableMT' && _id_ && '")')
+  end
+  return('qt_widget<HiasmStringTable>(form, "StringTable' && _id_ && '")')
+end
+
+func doStart
+  println('{')
+  println('auto *table = new HiasmStringTable(widgetParent);')
+  if(get('qtExtendedTable') == 1)
+    println('table->setObjectName(QStringLiteral("StringTableMT', _id_, '"));')
+    println('table->extendedColumns = true;')
+    println('table->checkRows = ', get('CheckBoxes') == 'True', ';')
+    println('table->defaultColumnWidth = qMax(0, int(', ColumnWidth, '));')
+    println('table->setWordWrap(', get('TableWBreak') == 'True' and get('SingleString') != 'True', ');')
+    if(get('MultiSelect') == 'True')
+      println('table->setSelectionMode(QAbstractItemView::ExtendedSelection);')
+    end
+    if(get('Style') == 4)
+      println('table->horizontalHeader()->hide();')
+    end
+  else
+    println('table->setObjectName(QStringLiteral("StringTable', _id_, '"));')
+  end
+  println('table->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+  println('table->setVisible(', get('Visible') == 'True', ');')
+  println('table->setEnabled(', get('Enabled') == 'True', ');')
+  println('table->delimiter = qt_text(', cstr(get('StrDelimiter')), ');')
+  println('if (table->delimiter.isEmpty()) table->delimiter = QChar(32);')
+  println('table->saveWidth = ', get('SaveWidth') == 'True', ';')
+  println('table->staticColumns = ', get('StaticColumn') == 'True', ';')
+  println('table->clearColumns = ', get('ClearAll') == 'True', ';')
+  println('table->setShowGrid(', get('Grid') == 'True', ');')
+  println('table->verticalHeader()->hide();')
+  println('table->horizontalHeader()->setMinimumSectionSize(0);')
+  println('table->horizontalHeader()->setSectionsMovable(', get('HeaderDragDrop') == 'True', ');')
+  if(get('Redaction') != 'True')
+    println('table->setEditTriggers(QAbstractItemView::NoEditTriggers);')
+  end
+  if(get('RowSelect') == 'True')
+    println('table->setSelectionBehavior(QAbstractItemView::SelectRows);')
+  end
+  println('auto columns = qt_text(', cstr(get('Columns')), ').split(QChar(10));')
+  println('if (columns.last().isEmpty()) columns.removeLast();')
+  println('for (const auto &column : columns) table->appendColumn(column, true);')
+  if(linked(onClick))
+    println('QObject::connect(table, &QTableWidget::cellPressed, &form, [&form](int row, int) {')
+    if(get('qtExtendedTable') == 0 or get('EnableOnClick') == 'True')
+      event(onClick, 'row')
+    end
+    println('});')
+  end
+  if(linked(onSelect))
+    println('QObject::connect(table, &QTableWidget::currentCellChanged, &form, [&form](int row, int, int previous, int) {')
+    println('if (row >= 0 && row != previous) {')
+    event(onSelect, 'row')
+    println('} });')
+  end
+  if(linked(onColumnClick))
+    println('QObject::connect(table->horizontalHeader(), &QHeaderView::sectionClicked, &form, [&form, table](int column) {')
+    if(get('ColumnClick') == 1)
+      event(onColumnClick, 'column')
+    else
+      event(onColumnClick, 'table->horizontalHeaderItem(column)->text()')
+    end
+    println('});')
+  end
+  if(linked(onLineChange))
+    println('QObject::connect(table, &QTableWidget::cellChanged, &form, [&form](int row, int) {')
+    event(onLineChange, 'row')
+    println('});')
+  end
+  println('}')
+end
+
+func Number(value)
+  if(len(value) > 0)
+    return('qt_text(' && value && ').toInt()')
+  end
+  return('0')
+end
+
+func FileArg(value)
+  if(linked('FileName'))
+    return(d('FileName'))
+  elseif(len(value) > 0)
+    return(value)
+  end
+  return(cstr(get('FileName')))
+end
+
+func doAdd(_data)
+  println(Table(), '->appendRow(qt_text(', cstr(d('Str')), '));')
+end
+
+func doInsert(_data)
+  fvar(text)
+  text = '""'
+  if(linked('Str'))
+    text = d('Str')
+  end
+  println(Table(), '->appendRow(qt_text(', text, '), ', Number(_data), ');')
+end
+
+func doClear(_data)
+  println('{ auto *table = ', Table(), '; table->setRowCount(0); if (table->clearColumns) table->setColumnCount(0); }')
+end
+
+func doDelete(_data)
+  println(Table(), '->removeRow(', Number(_data), ');')
+end
+
+func doLoad(_data)
+  println(Table(), '->loadFile(qt_text(', FileArg(_data), '));')
+end
+
+func doSave(_data)
+  println(Table(), '->saveFile(qt_text(', FileArg(_data), '));')
+end
+
+func doAddColumn(_data)
+  if(len(_data) > 0)
+    println(Table(), '->appendColumn(qt_text(', _data, '), false);')
+  end
+end
+
+func doSort(_data)
+  println(Table(), '->sortRows(', Number(_data), ', false);')
+end
+
+func doSortDigit(_data)
+  println(Table(), '->sortRows(', Number(_data), ', true);')
+end
+
+func doSelect(_data)
+  println(Table(), '->setCurrentCell(', Number(_data), ', 0);')
+end
+
+func doEnsureVisible(_data)
+  println('{ auto *table = ', Table(), '; const int row = ', Number(_data), ';')
+  println('if (row >= 0 && row < table->rowCount() && table->columnCount())')
+  println('  table->scrollTo(table->model()->index(row, 0)); }')
+end
+
+func Count()
+  return(Table() && '->rowCount()')
+end
+
+func EndIdx()
+  return('(' && Table() && '->rowCount() - 1)')
+end
+
+func Index()
+  return(Table() && '->currentRow()')
+end
+
+func Select()
+  return(Table() && '->rowText(' && Table() && '->currentRow())')
+end
+
+func Strings()
+  return(Table() && '->rowsText()')
+end
+
+func PerPage()
+  return('([](HiasmStringTable *table) { return table->viewport()->height() / qMax(1, table->verticalHeader()->defaultSectionSize()); }(' && Table() && '))')
+end

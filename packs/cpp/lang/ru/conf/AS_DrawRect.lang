@@ -1,0 +1,7 @@
+Drawing an area=Отрисовка области
+Area name=Имя области
+Redraws the specified area=Перерисовывает заданную область
+The event occurs every time after a request to draw the specified area=Событие происходит всякий раз после запроса на отрисовку заданной области
+Contains the area of the image to be drawn=Содержит область изображения, которую необходимо отрисовать
+Contains the absolute coordinates of the area=Содержит абсолютные координаты области
+Action Skin element ID=Идентификатор элемента Action Skin

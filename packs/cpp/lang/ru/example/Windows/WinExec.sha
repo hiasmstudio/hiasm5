@@ -1,0 +1,56 @@
+﻿*Запуск 50 блокнотов(кнопка Execute) и их закрытие(кнопка Close)
+Make(cpp)
+Add(DoData,61074,154,189)
+{
+ link(onEventData,63913:doExec,[])
+}
+Add(WinTools,18473,98,105)
+{
+ link(Handle,81892:Handle,[])
+}
+Add(Button,64409,35,189)
+{
+ Left=20
+ Top=15
+ Width=75
+ Font=[Arial,8,0,0,1]
+ Caption="Execute"
+ link(onClick,22408:doFor,[])
+}
+Add(If_else,47740,147,49)
+{
+ Op2=String(Untitled - Notepad)
+ link(onTrue,18473:doClose,[(191,55)(191,94)(87,94)(87,132)])
+}
+Add(Button,43711,42,49)
+{
+ Left=20
+ Top=45
+ Width=75
+ Font=[Arial,8,0,0,1]
+ Caption="Close"
+ link(onClick,81892:doEnum,[])
+}
+Add(WinEnum,81892,98,49)
+{
+ link(onFindWindow,47740:doCompare,[])
+}
+Add(WinExec,63913,210,189)
+{
+ FileName="notepad.exe"
+}
+Add(For,22408,98,189)
+{
+ Start=1
+ End=50
+ link(onEvent,61074:doData,[])
+}
+Add(MainForm,89572,259,224)
+{
+ Left=312
+ Top=284
+ Width=131
+ Height=111
+ Caption="Notepad"
+ BorderStyle=3
+}

@@ -1,0 +1,7 @@
+The chart value at the point under the mouse cursor=Значение графика в точке под курсором мыши
+The chart from which you want to get the value=График, значение с которого требуется получить
+Coordinate output mode: Plot - in graphic units, Real - in element pixels=Режим выдачи координат: Plot - в единицах графика, Real - в пикселях элемента
+The event occurs every time the mouse button is pressed in the chart area ARG(X, Y)=Событие происходит всякий раз после нажатия кнопки мыши в области графика ARG(X, Y)
+The event occurs every time the mouse button is released ARG(X, Y)=Событие происходит всякий раз после отпускания кнопки мыши ARG(X, Y)
+The event occurs every time the mouse moves in the chart area ARG(X, Y)=Событие происходит всякий раз после движения мыши в области графика ARG(X, Y)
+Contains the code of the button pressed=Содержит код нажатой кнопки

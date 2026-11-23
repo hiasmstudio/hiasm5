@@ -1,0 +1,7 @@
+Sound level detector=Детектор уровня звука
+Detector response threshold=Порог срабатывания детектора
+Trigger duration (in samples)=Продолжительность сигнала срабатывания (в сэмплах)
+Trigger threshold delay after signal loss (in samples)=Задержка порога срабатывания после пропадания сигнала (в сэмплах)
+Scans the audio stream for a signal exceeding the specified audio threshold ARG(Stream)=Сканирует звуковой поток на наличие сигнала, превышающего заданный звуковой порог ARG(Stream)
+The event occurs every time the detector is triggered and outputs the detected signal to the ARG(Stream) stream=Событие происходит всякий раз после срабатывания детектора и выдает найденный сигнал в поток ARG(Stream)
+Sound data=Звуковые данные

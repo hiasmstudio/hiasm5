@@ -1,0 +1,57 @@
+*Работа с INI файлами
+Pos(0,0)
+Add(MainForm,4092557,21,91)
+{
+ Left=21
+ Top=105
+ Font=[Arial,8,0,0]
+ link(onCreate,2944832:doEvent1,[])
+}
+Add(Ini,407270,245,126)
+{
+ FileName="test.ini"
+ Section="params"
+ Key="p1"
+ Type=1
+ link(onResult,7104979:doText2,[(287,132)(287,116)(165,116)(165,146)])
+}
+Add(Edit,7104979,175,133)
+{
+ Left=84
+ Top=91
+ Width=98
+ Height=21
+ Font=[Arial,8,0,0]
+ link(onChange,407270:doWrite,[])
+}
+Add(Hub,2944832,98,126)
+{
+ link(onEvent1,407270:doRead,[])
+ link(onEvent2,4952295:doRead,[(154,139)(154,188)])
+}
+Add(Ini,4952295,245,182)
+{
+ FileName="test.ini"
+ Section="params"
+ Key="p2"
+ Type=1
+ link(onResult,3699501:doText2,[(287,188)(287,172)(165,172)(165,202)])
+}
+Add(Edit,3699501,175,189)
+{
+ Left=84
+ Top=63
+ Width=98
+ Height=21
+ Font=[Arial,8,0,0]
+ link(onChange,4952295:doWrite,[])
+}
+Add(InfoTip,7320819,315,112)
+{
+ Info='В этом примере показано, как считать и сохранить некоторые параметры программы в INI файле'
+ Font=[Arial,8,0,0]
+ Frame=1
+ HAlign=0
+ Width=176
+ Height=60
+}

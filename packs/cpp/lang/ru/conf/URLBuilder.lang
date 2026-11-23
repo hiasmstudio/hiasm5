@@ -1,0 +1,5 @@
+String constructor=Конструктор строки
+Arguments=Аргументы
+Constructs a URL given the given arguments=Конструирует URL по заданным аргументам
+The event occurs every time a URL is constructed and outputs the result to the ARG(URL) stream=Событие происходит всякий раз после конструирования URL и выдает результат в поток ARG(URL)
+Contains the result of string construction=Содержит результат конструирования строки

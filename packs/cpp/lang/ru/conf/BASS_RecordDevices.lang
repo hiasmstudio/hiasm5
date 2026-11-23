@@ -1,0 +1,3 @@
+Audio recording devices=Устройства записи звука
+Lists all available audio recording devices on the system=Перечисляет все доступные устройства записи звука в системе
+The event occurs every time after receiving information about the audio recording device and outputs it to the ARG(Name, Driver, Flags) stream=Событие происходит всякий раз после получения информации об устройстве записи звука и выдает ее в поток ARG(Name, Driver, Flags)

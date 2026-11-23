@@ -1,0 +1,8 @@
+Digital signature verification=Проверка цифровой подписи
+Hash algorithm of data for digital signature=Хеш-алгоритм данных для цифровой подписи
+Begins the digital signature verification process ARG(Data, PublicKey, Signature)=Начинает процесс проверки цифровой подписи ARG(Data, PublicKey, Signature)
+The event occurs every time after verification of a digital signature is completed and outputs the result to the stream (0 - signature is not confirmed, 1 - signature is confirmed) ARG(VerifyResult)=Событие происходит всякий раз после окончания проверки цифровой подписи и выдает результат в поток (0 - подпись не подтверждена, 1 - подпись подтверждена) ARG(VerifyResult)
+The event occurs as a result of an error and issues an error code to the ARG(Error) stream=Событие происходит в результате ошибки и выдает код ошибки в поток ARG(Error)
+Digital signature verification data=Данные для проверки цифровой подписи
+Public key for digital signature verification=Открытый ключ для проверки цифровой подписи
+Digital signature for authentication=Цифровая подпись для проверки подлинности

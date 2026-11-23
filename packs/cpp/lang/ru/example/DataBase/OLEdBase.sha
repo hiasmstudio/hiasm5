@@ -1,0 +1,108 @@
+*Пример работы с файлом dBase#13#10______________________#13#10Автор: nesco
+Make(cpp)
+Add(MainForm,3171043,119,84)
+{
+ @Hint=#
+ Left=20
+ Top=105
+ Width=390
+ Height=390
+ Caption="OLEdBase"
+ Position=1
+ link(onCreate,11947023:doStrCat,[])
+}
+Add(OLEdb,2142462,168,189)
+{
+ @Hint=#
+ link(onConnect,14252000:doCreate,[])
+ link(Driver,5564056:FString,[(174,143)(314,143)])
+}
+Add(Button,941652,119,189)
+{
+ @Hint=#
+ Left=305
+ Top=5
+ Width=75
+ TabOrder=-1
+ Caption="Подключить"
+ link(onClick,2142462:doOpen,[])
+}
+Add(OLEdb_Query,11136757,280,189)
+{
+ @Hint=#
+ link(onQuery,16321824:doStr,[(328,195)(328,160)])
+ link(onColumns,5673081:doEnum,[])
+ link(Text,10216816:FString,[(293,148)(356,148)])
+}
+Add(OLEdb_Session,14252000,224,189)
+{
+ @Hint=#
+ link(onCreate,11136757:doQuery,[])
+}
+Add(StringTable,6078793,406,161)
+{
+ @Hint=#
+ Left=5
+ Top=140
+ Width=375
+ Height=210
+ Point(doAddColumn)
+}
+Add(MT_Enum,5673081,343,196)
+{
+ @Hint=#
+ link(onItem,6078793:doAddColumn,[])
+}
+Add(MT_String,16321824,343,154)
+{
+ @Hint=#
+ link(onResult,6078793:doAdd,[(391,160)(391,167)])
+}
+Add(Edit,11108326,217,98)
+{
+ @Hint=#
+ Left=5
+ Top=5
+ Width=295
+ Text=""
+ link(onChange,6971676:doPart,[])
+}
+Add(Dir,5145339,168,49)
+{
+ @Hint=#
+}
+Add(StrCat,11947023,168,98)
+{
+ @Hint=#
+ Str2="Phone.dbf"
+ link(onStrCat,11108326:doText,[])
+ link(Str1,5145339:CurrentDir,[])
+}
+Add(FormatStr,5564056,308,98)
+{
+ @Hint=#
+ DataCount=1
+ Mask="Driver={Microsoft dBASE Driver (*.dbf)};\r\nDriverId=533;\r\nDescription=dBase 5;\r\nFIL=dBase 5;\r\nDefaultDir=%1;\r\nPageTimeout=600;\r\nCollatingSequence=International;"
+ Point(FString)
+ link(onFString,14216946:doText,[])
+}
+Add(FormatStr,10216816,350,105)
+{
+ @Hint=#
+ Mask="SELECT * FROM %1"
+ Point(FString)
+}
+Add(FilePart,6971676,266,98)
+{
+ @Hint=#
+ link(onPath,5564056:doString,[])
+ link(onName,10216816:doString,[])
+}
+Add(Memo,14216946,406,77)
+{
+ @Hint=#
+ Left=5
+ Top=30
+ Width=375
+ Height=105
+}

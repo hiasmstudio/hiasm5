@@ -1,0 +1,22 @@
+Make(cpp)
+Add(InfoTip,900,24,18)
+{
+ @Width=680
+ @Height=145
+ Info=#24:Общее состояние действий|0:|126:Два блока Code обращаются к одному ключу в хранилище текущего проекта. При новом запуске и в другом окне состояние независимо.|
+ HAlign=0
+ Margin=12
+}
+Add(Entry,1,42,196)
+{
+ link(onStart,2:doExecute,[])
+}
+Add(Code,2,196,196)
+{
+ Code=#53:hiasm_global_var("tutorial.global") = "shared state";|
+ link(onResult,3:doExecute,[])
+}
+Add(Code,3,350,196)
+{
+ Code=#74:std::cout << hiasm_text(hiasm_global_var("tutorial.global")) << std::endl;|
+}

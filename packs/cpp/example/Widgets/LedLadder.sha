@@ -1,0 +1,477 @@
+Make(cpp)
+Pos(0,30)
+Add(Label,9563787,196,-9)
+{
+ Left=95
+ Top=70
+ Width=60
+ Height=17
+ Caption="Spacing"
+ AutoSize=1
+ Alignment=1
+}
+Add(Label,9555713,175,-9)
+{
+ Left=95
+ Top=170
+ Width=60
+ Height=17
+ Caption="Max"
+ AutoSize=1
+ Alignment=1
+}
+Add(MainForm,13295251,119,26)
+{
+ Left=20
+ Top=105
+ Width=405
+ Caption="LedLadder"
+ BorderStyle=1
+ Icon=[ZIP5E07000078DAED92B10D80300C049F2A1B204A4A4AC660426A0A166085CCC00A9923C446965DE1821420E5B944A7587A450A4057BE6100ED5802D00398CA2A4798719F53C6809696AAD9B7AD16B52E43B6328EAC84159969CFC13872105664A63D917124125664A63D27E3C849589199F624C69144589159DDF7FAC8CFD3F2C7E49C1FD7DB8E0BE1E4E710]
+ Position=1
+ link(onCreate,15478633:doEvent1,[(315,67)(315,221)])
+}
+Add(LedLadder,12665176,476,89)
+{
+ Left=5
+ Top=5
+ Width=387
+ Hint="LedLadder_H"
+ Cursor=2
+ Spacing=1
+ Point(doSpacing)
+ Point(doCount)
+ Point(doMinMid)
+ Point(doMidMax)
+ Point(doMax)
+ Point(doFonColor)
+ Point(doSegColorMin)
+ Point(doNoSegColorMin)
+ Point(doSegColorMid)
+ Point(doNoSegColorMid)
+ Point(doSegColorMax)
+ Point(doNoSegColorMax)
+ Point(Handle)
+ Point(Position)
+ Point(doVisible)
+ Point(onMouseMove)
+ Point(doGradient)
+}
+Add(Button,866037,119,89)
+{
+ Left=160
+ Top=240
+ Width=80
+ TabOrder=-1
+ Caption="Start"
+ link(onClick,6337162:doTimer,[])
+}
+Add(Random,6387514,217,89)
+{
+ Min=5
+ Max=120
+ link(onRandom,15134645:doEvent1,[])
+}
+Add(Timer,6337162,168,89)
+{
+ Interval=50
+ Enable=1
+ link(onTimer,6387514:doRandom,[])
+}
+Add(LedLadder,6137218,476,320)
+{
+ Left=5
+ Top=35
+ Width=17
+ Height=225
+ Hint="LedLadder_V"
+ Cursor=2
+ Kind=1
+ Spacing=1
+ Point(doSpacing)
+ Point(doCount)
+ Point(doMinMid)
+ Point(doMidMax)
+ Point(doMax)
+ Point(doFonColor)
+ Point(doSegColorMin)
+ Point(doNoSegColorMin)
+ Point(doSegColorMid)
+ Point(doNoSegColorMid)
+ Point(doSegColorMax)
+ Point(doNoSegColorMax)
+ Point(Handle)
+ Point(Position)
+ Point(doVisible)
+ Point(doGradient)
+}
+Add(Hub,15134645,266,89)
+{
+ OutCount=4
+ link(onEvent1,12665176:doPosition,[])
+ link(onEvent2,4086024:doRandom,[(310,102)(310,123)(254,123)(254,144)])
+ link(onEvent3,10355442:doText,[(412,109)(412,221)])
+ link(onEvent4,10298549:doText,[(412,116)(412,452)])
+}
+Add(Random,4086024,266,138)
+{
+ Min=5
+ Max=120
+ link(onRandom,6137218:doPosition,[(387,144)(387,326)])
+}
+Add(Edit,12538745,168,180)
+{
+ Left=185
+ Top=65
+ Text="1"
+ DataType=2
+ link(onChange,12166534:doEvent1,[])
+}
+Add(Hub,4894838,217,222)
+{
+ link(onEvent1,12665176:doCount,[(324,228)(324,109)])
+ link(onEvent2,6137218:doCount,[(324,235)(324,340)])
+}
+Add(Hub,12166534,217,180)
+{
+ link(onEvent1,12665176:doSpacing,[(324,186)(324,102)])
+ link(onEvent2,6137218:doSpacing,[(324,193)(324,333)])
+}
+Add(UpDown,1256139,119,222)
+{
+ Left=165
+ Top=90
+ TabOrder=-1
+ Max=100
+ Position=20
+ link(onPosition,1678690:doText,[])
+}
+Add(Edit,1678690,168,222)
+{
+ Left=185
+ Top=90
+ Text="20"
+ DataType=2
+ link(onChange,4894838:doEvent1,[])
+}
+Add(UpDown,2018958,119,180)
+{
+ Left=165
+ Top=65
+ TabOrder=-1
+ Max=100
+ Position=1
+ link(onPosition,12538745:doText,[])
+}
+Add(Label,6442513,154,-9)
+{
+ Left=95
+ Top=95
+ Width=60
+ Height=17
+ Caption="Count"
+ AutoSize=1
+ Alignment=1
+}
+Add(Label,11549077,133,-9)
+{
+ Left=95
+ Top=120
+ Width=60
+ Height=17
+ Caption="MinMid"
+ AutoSize=1
+ Alignment=1
+}
+Add(Label,11249820,112,-9)
+{
+ Left=95
+ Top=145
+ Width=60
+ Height=17
+ Caption="MidMax"
+ AutoSize=1
+ Alignment=1
+}
+Add(Edit,11568977,168,264)
+{
+ Left=185
+ Top=115
+ Text="70"
+ DataType=2
+ link(onChange,770556:doEvent1,[])
+}
+Add(Edit,1395329,168,306)
+{
+ Left=185
+ Top=140
+ Text="95"
+ DataType=2
+ link(onChange,4618561:doEvent1,[])
+}
+Add(Edit,10320551,168,348)
+{
+ Left=185
+ Top=165
+ Text="100"
+ DataType=2
+ link(onChange,12202861:doEvent1,[])
+}
+Add(UpDown,5446762,119,264)
+{
+ Left=165
+ Top=115
+ TabOrder=-1
+ Max=200
+ Position=70
+ link(onPosition,11568977:doText,[])
+}
+Add(UpDown,8702539,119,306)
+{
+ Left=165
+ Top=140
+ TabOrder=-1
+ Max=200
+ Position=95
+ link(onPosition,1395329:doText,[])
+}
+Add(UpDown,16193813,119,348)
+{
+ Left=165
+ Top=165
+ TabOrder=-1
+ Max=200
+ Position=100
+ link(onPosition,10320551:doText,[])
+}
+Add(Hub,770556,217,264)
+{
+ link(onEvent1,12665176:doMinMid,[(324,270)(324,116)])
+ link(onEvent2,6137218:doMinMid,[(324,277)(324,347)])
+}
+Add(Hub,4618561,217,306)
+{
+ link(onEvent1,12665176:doMidMax,[(324,312)(324,123)])
+ link(onEvent2,6137218:doMidMax,[(324,319)(324,354)])
+}
+Add(Hub,12202861,217,348)
+{
+ link(onEvent1,12665176:doMax,[(324,354)(324,130)])
+ link(onEvent2,6137218:doMax,[])
+}
+Add(Button,10806126,119,390)
+{
+ Left=250
+ Top=65
+ Width=95
+ TabOrder=-1
+ Caption="FonColor"
+ link(onClick,14753256:doOpen,[])
+}
+Add(Button,6890790,119,432)
+{
+ Left=250
+ Top=90
+ Width=95
+ TabOrder=-1
+ Caption="SegColorMin"
+ link(onClick,3284442:doOpen,[])
+}
+Add(Button,15291970,119,474)
+{
+ Left=250
+ Top=115
+ Width=95
+ TabOrder=-1
+ Caption="NoSegColorMin"
+ link(onClick,14325594:doOpen,[])
+}
+Add(Button,12904034,119,516)
+{
+ Left=250
+ Top=140
+ Width=95
+ TabOrder=-1
+ Caption="SegColorMid"
+ link(onClick,7301036:doOpen,[])
+}
+Add(Button,2624486,119,558)
+{
+ Left=250
+ Top=165
+ Width=95
+ TabOrder=-1
+ Caption="NoSegColorMid"
+ link(onClick,10026345:doOpen,[])
+}
+Add(Button,8126449,119,600)
+{
+ Left=250
+ Top=190
+ Width=95
+ TabOrder=-1
+ Caption="SegClorMax"
+ link(onClick,15929041:doOpen,[])
+}
+Add(Button,13676137,119,642)
+{
+ Left=250
+ Top=215
+ Width=95
+ TabOrder=-1
+ Caption="NoSegColorMax"
+ link(onClick,16051548:doOpen,[])
+}
+Add(Edit,14137878,476,215)
+{
+ Left=160
+ Top=30
+ Width=75
+ Text=""
+ link(Str,12665176:Handle,[])
+}
+Add(Edit,11564315,476,446)
+{
+ Left=30
+ Top=240
+ Width=75
+ Text=""
+ link(Str,6137218:Handle,[])
+}
+Add(Hub,15478633,413,215)
+{
+ link(onEvent1,14137878:doText,[])
+ link(onEvent2,11564315:doText,[(453,228)(453,452)])
+}
+Add(Edit,10355442,525,215)
+{
+ Left=80
+ Top=30
+ Width=75
+ Text=""
+ link(Str,12665176:Position,[(531,206)(489,206)])
+}
+Add(Edit,10298549,525,446)
+{
+ Left=30
+ Top=215
+ Width=75
+ Text=""
+ link(Str,6137218:Position,[(531,437)(489,437)])
+}
+Add(ColorDialog,14753256,168,390)
+{
+ link(onSelect,3931046:doEvent1,[])
+}
+Add(ColorDialog,3284442,168,432)
+{
+ link(onSelect,1318651:doEvent1,[])
+}
+Add(ColorDialog,14325594,168,474)
+{
+ link(onSelect,1485593:doEvent1,[])
+}
+Add(ColorDialog,7301036,168,516)
+{
+ link(onSelect,14450932:doEvent1,[])
+}
+Add(ColorDialog,10026345,168,558)
+{
+ link(onSelect,8273039:doEvent1,[])
+}
+Add(ColorDialog,15929041,168,600)
+{
+ link(onSelect,8453689:doEvent1,[])
+}
+Add(ColorDialog,16051548,168,642)
+{
+ link(onSelect,2215103:doEvent1,[])
+}
+Add(Hub,3931046,217,390)
+{
+ link(onEvent1,12665176:doFonColor,[(363,396)(363,137)])
+ link(onEvent2,6137218:doFonColor,[(363,403)(363,368)])
+}
+Add(Hub,1318651,217,432)
+{
+ link(onEvent1,12665176:doSegColorMin,[(363,438)(363,144)])
+ link(onEvent2,6137218:doSegColorMin,[(363,445)(363,375)])
+}
+Add(Hub,1485593,217,474)
+{
+ link(onEvent1,12665176:doNoSegColorMin,[(363,480)(363,151)])
+ link(onEvent2,6137218:doNoSegColorMin,[(363,487)(363,382)])
+}
+Add(Hub,14450932,217,516)
+{
+ link(onEvent1,12665176:doSegColorMid,[(363,522)(363,158)])
+ link(onEvent2,6137218:doSegColorMid,[(363,529)(363,389)])
+}
+Add(Hub,8273039,217,558)
+{
+ link(onEvent1,12665176:doNoSegColorMid,[(363,564)(363,165)])
+ link(onEvent2,6137218:doNoSegColorMid,[(363,571)(363,396)])
+}
+Add(Hub,8453689,217,600)
+{
+ link(onEvent1,12665176:doSegColorMax,[(363,606)(363,172)])
+ link(onEvent2,6137218:doSegColorMax,[(363,613)(363,403)])
+}
+Add(Hub,2215103,217,642)
+{
+ link(onEvent1,12665176:doNoSegColorMax,[(363,648)(363,179)])
+ link(onEvent2,6137218:doNoSegColorMax,[(363,655)(363,410)])
+}
+Add(Button,16237663,315,460)
+{
+ Left=30
+ Top=190
+ Width=75
+ TabOrder=-1
+ Caption="Visible_V"
+ link(onClick,6693631:doSwitch,[])
+}
+Add(Button,16602515,315,180)
+{
+ Left=250
+ Top=30
+ Width=75
+ TabOrder=-1
+ Caption="Visible_H"
+ link(onClick,3763487:doSwitch,[])
+}
+Add(Switch,6693631,371,460)
+{
+ DataOn=Integer(1)
+ DataOff=Integer(0)
+ Default=0
+ link(onSwitch,6137218:doVisible,[(439,466)(439,417)])
+}
+Add(Switch,3763487,371,180)
+{
+ DataOn=Integer(1)
+ DataOff=Integer(0)
+ Default=0
+ link(onSwitch,12665176:doVisible,[])
+}
+Add(Button,5811445,119,684)
+{
+ Left=250
+ Top=240
+ Width=95
+ TabOrder=-1
+ Caption="Gradient"
+ link(onClick,14337967:doSwitch,[])
+}
+Add(Switch,14337967,168,684)
+{
+ DataOn=Integer(1)
+ DataOff=Integer(0)
+ Default=0
+ link(onSwitch,2658663:doEvent1,[])
+}
+Add(Hub,2658663,217,684)
+{
+ link(onEvent1,12665176:doGradient,[(363,690)(363,193)])
+ link(onEvent2,6137218:doGradient,[(363,697)(363,424)])
+}

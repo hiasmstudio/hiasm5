@@ -1,0 +1,11 @@
+func doWork(_data, index):java,html
+  if(linked(Data))
+    println(saved_data, ' = ', _data_, ';')
+  end 
+  event(onIndex, index)
+end
+
+func Data():java,html
+  return(saved_data)
+end
+

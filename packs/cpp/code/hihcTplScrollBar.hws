@@ -1,0 +1,42 @@
+func Arg(value)
+  if(len(value) > 0)
+    return(value)
+  else
+    return('0')
+  end
+end
+
+func doStart
+  println('{')
+  fvar(orient, adjustment)
+  orient = 'GTK_ORIENTATION_HORIZONTAL'
+  switch(d('Kind'))
+    case 1: orient = 'GTK_ORIENTATION_VERTICAL'
+  end
+  adjustment = 'hiasm_adjustment_' && _id_
+  println('GtkAdjustment *', adjustment, ' = gtk_adjustment_new(', d('Position'), ', ', d('Min'), ', ', d('Max'), ', 1, 10, 0);')
+  println('GtkWidget *widget = gtk_scrollbar_new(', orient, ', ', adjustment, ');')
+  println('hiasm_place("hcTplScrollBar', _id_, '", widget, ', Left, ', ', Top, ');')
+  if(linked(onPosition))
+    println('g_signal_connect(', adjustment, ', "value-changed", G_CALLBACK(+[](GtkAdjustment *adjustment, gpointer) {')
+    println('if(!hiasm_form_ready) return;')
+    block.inclvl()
+    event(onPosition, 'static_cast<int>(gtk_adjustment_get_value(adjustment))')
+    block.declvl()
+    println('}), NULL);')
+  end
+  println('}')
+end
+
+func doPosition(_data)
+  println('gtk_adjustment_set_value(hiasm_range("hcTplScrollBar', _id_, '"), static_cast<double>(', Arg(_data), '));')
+end
+
+func CurPos()
+  return('static_cast<int>(hiasm_range_value("hcTplScrollBar' && _id_ && '"))')
+end
+
+func Position()
+  return('static_cast<int>(hiasm_range_value("hcTplScrollBar' && _id_ && '"))')
+end
+

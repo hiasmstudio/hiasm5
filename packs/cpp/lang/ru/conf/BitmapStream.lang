@@ -1,0 +1,6 @@
+Bitmap stream=Преобразование картинки в данные и наоборот
+Reads an image from a Stream data stream=Считывает картинку из потока данных Stream
+Writes an image to a Stream data stream=Записывает картинку в поток данных Stream
+The event occurs every time after reading a picture and returns it to the stream ARG(Bitmap)=Событие происходит всякий раз после считывания картинки и возвращает её в поток ARG(Bitmap)
+Data Area ID=Идентификатор области данных
+Picture ID=Идентификатор картинки

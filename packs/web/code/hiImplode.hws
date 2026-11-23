@@ -1,0 +1,19 @@
+func doImplode(_data)
+  // TODO
+  if(linked(Result))
+    println(str, ' = implode(', Glue, ', ', Array, ');')
+    event(onImplode, str)
+  else
+    event(onImplode, 'implode(' && Glue && ', ' && Array && ')')
+  end
+
+end
+
+func Result()
+  if(linked(doImplode))
+    return(str)
+  else
+    return('implode(' && Delimiter && ', ' && Array && ')')
+  end
+end
+

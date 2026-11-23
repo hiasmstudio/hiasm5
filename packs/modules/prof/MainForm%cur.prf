@@ -1,0 +1,10 @@
+ Left=20
+ Top=105
+ Width=424
+ Height=370
+ Align=0
+ Color=-16777201
+ Font=[MS Sans Serif,8,0,0,1]
+ Hint=""
+ Caption="Form"
+ BorderStyle=2

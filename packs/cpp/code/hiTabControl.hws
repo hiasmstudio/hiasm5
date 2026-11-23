@@ -1,0 +1,94 @@
+func TabsWidget()
+  return('qt_widget<HiasmTabs>(form, "TabControl' && _id_ && '")')
+end
+
+func doStart
+  println('{')
+  println('auto *tabs = new HiasmTabs(widgetParent);')
+  println('tabs->setObjectName(QStringLiteral("TabControl', _id_, '"));')
+  println('tabs->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+  println('tabs->setDocumentMode(', get('Border') != 'True', ');')
+  if(get('FocusTabs') != 'True')
+    println('tabs->setFocusPolicy(Qt::NoFocus);')
+  end
+  if(get('Vertical') == 'True')
+    if(get('Bottom') == 'True')
+      println('tabs->setTabPosition(QTabWidget::East);')
+    else
+      println('tabs->setTabPosition(QTabWidget::West);')
+    end
+  elseif(get('Bottom') == 'True')
+    println('tabs->setTabPosition(QTabWidget::South);')
+  end
+  println('tabs->iconByIndex = ', get('IconByIndex') == 'True', ';')
+  println('const auto bitmaps = qt_text(', cstr(d('Bitmaps')), ');')
+  println('static const QRegularExpression bitmapPattern(QStringLiteral("[[]ZIP[0-9A-Fa-f]+[]]"));')
+  println('for (auto matches = bitmapPattern.globalMatch(bitmaps); matches.hasNext();)')
+  println('  tabs->icons.append(qt_bitmap_icon(matches.next().captured()));')
+  println('const auto titles = qt_text(', cstr(d('Tabs')), ');')
+  println('if (!titles.isEmpty()) for (const auto &title : titles.split(QLatin1Char(10))) tabs->addPage(tabs->count(), title);')
+  if(linked(onChange))
+    println('QObject::connect(tabs, &QTabWidget::currentChanged, &form, [&form](int index) {')
+    event(onChange, 'index')
+    println('});')
+  end
+  println('}')
+end
+
+func PageIndex(value)
+  if(linked('Index'))
+    return('qt_text(' && d('Index') && ').toInt()')
+  end
+  if(len(value) > 0)
+    return('qt_text(' && value && ').toInt()')
+  end
+  return('0')
+end
+
+func PageInsert(_data)
+  fvar(caption)
+  caption = _data
+  if(linked('NewPageText'))
+    caption = d('NewPageText')
+  elseif(len(caption) == 0)
+    caption = '""'
+  end
+  println(TabsWidget(), '->addPage(', PageIndex(''), ', qt_text(', caption, '));')
+end
+
+func PageTab(_data)
+  if(len(_data) > 0)
+    println(TabsWidget(), '->setCurrentIndex(qt_text(', _data, ').toInt());')
+  end
+end
+
+func PageDelete(_data)
+  println(TabsWidget(), '->deletePage(', PageIndex(_data), ');')
+end
+
+func DeleteCurrent(_data)
+  println(TabsWidget(), '->deleteCurrent();')
+end
+
+func ReplaceIdx(_data)
+  fvar(icon)
+  icon = _data
+  if(linked('IconIdx'))
+    icon = d('IconIdx')
+  elseif(len(icon) == 0)
+    icon = '0'
+  end
+  println('{ auto *tabs = ', TabsWidget(), '; tabs->setTabIcon(', PageIndex(''), ', tabs->icons.value(qt_text(', icon, ').toInt())); }')
+end
+
+func CurTabIndx()
+  return(TabsWidget() && '->currentIndex()')
+end
+
+func CurTabCaption()
+  return(TabsWidget() && '->tabText(' && TabsWidget() && '->currentIndex())')
+end
+
+func TabCount()
+  return(TabsWidget() && '->count()')
+end

@@ -1,0 +1,17 @@
+func doResult(_data)
+  if(linked(Result))
+    println(r, ' = mysql_result(', Query, ',', Index, ');')
+    event(onResult, r)
+  else
+    event(onResult, 'mysql_result(' && Query && ',' && Index && ')')
+  end
+end
+
+func Result()
+  if(linked(doResult))
+    return(r)
+  else
+    return('mysql_result(' && Query && ',' && Index && ')')
+  end
+end
+

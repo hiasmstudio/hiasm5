@@ -1,0 +1,5 @@
+Program Execution Delay=Задержка выполнения программы
+Number of CPU ticks (for doSleep) or microseconds (for doSleepMks) to wait=Количество тиков процессора (для doSleep) или микросекунд (для doSleepMks), которое необходимо подождать
+Delays an event for the specified time=Задерживает событие на указанное время
+Delays an event by the specified number of ticks=Задерживает событие на указанное число тиков
+Event occurs after the delay ends=Событие происходит после окончания задержки

@@ -1,0 +1,12 @@
+
+[Desktop Entry]
+Name=HiAsm Studio
+Comment=Create and build applications
+Exec=hiasm %F
+Icon=hiasm
+StartupNotify=true
+Terminal=false
+Type=Application
+Categories=Qt;Development;IDE;
+Name[ru]=HiAsm Studio
+Name[en_GB]=HiAsm Studio

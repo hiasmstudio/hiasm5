@@ -1,0 +1,23 @@
+section java
+
+func doEncodeURI(_data)
+  fvar(s)
+  s = 'encodeURI' + isdef(Mode) ? '' : 'Component' 
+  if(linked(Result))
+    println(_escp_, ' = ' + s + '(', Text, ');')
+    event(onEncodeURI,_escp_)
+  else
+    event(onEncodeURI,s + '(' && Text && ')')
+  end
+end
+
+func Result()
+  if(linked(doEncodeURI))
+    return(_escp_)
+  else
+    fvar(s)
+    s = 'encodeURI' + isdef(Mode) ? '' : 'Component' 
+    return(s + '(' && Text && ')')
+  end
+end
+

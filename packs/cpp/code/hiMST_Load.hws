@@ -1,0 +1,36 @@
+include('qtMstFile')
+
+func LoadBytes(device)
+  println(MstLocal(), '->loadText(', device, '->readAll(), ', DelimiterValue(), ', ', get('ColNameHeader') == 'True', ', ', get('LoadCheckBoxes') == 'True', ');')
+end
+
+func doLoad(_data)
+  fvar(path)
+  path = MstDefault(mt_arg(0), cstr(get('FileName')))
+  if(linked('FileName'))
+    path = d('FileName')
+  end
+  MstBegin()
+  println('QFile input(', MstText(path), ');')
+  println('if (input.open(QIODevice::ReadOnly)) {')
+  LoadBytes('(&input)')
+  println('}')
+  event(onLoad)
+  println('}')
+end
+
+func doLoadFromStream(_data)
+  fvar(stream)
+  stream = mt_arg(0)
+  if(linked('Stream'))
+    stream = d('Stream')
+  end
+  MstBegin()
+  if(isnull(stream) == 0)
+    println('if (QIODevice *input = ', stream, '; input && input->isReadable() && input->seek(0)) {')
+    LoadBytes('input')
+    println('}')
+  end
+  event(onLoadFromStream)
+  println('}')
+end

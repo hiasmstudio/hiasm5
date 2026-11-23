@@ -1,0 +1,3 @@
+Instrument layer=Инструментальный слой
+Automatically align the height of the parent element to the height of the area occupied by the layer's elements=Автоматически выравнивать высоту родительского элемента по высоте области, занимаемой элементами слоя
+Mode for adding elements to a layer: adZOrder - the order of elements is determined by their Z coordinate on the scheme, adPosition - the order of elements is determined by their coordinates=Режим добавления элементов в слой: adZOrder - порядок элементов определяется их Z координатой на схеме, adPosition - порядок элементов определяется их координатами

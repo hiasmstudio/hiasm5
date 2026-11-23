@@ -1,0 +1,24 @@
+func Value(name)
+  if(linked(name))
+    return(d(name))
+  else
+    return(get(name))
+  end
+end
+
+func Expr()
+  return('std::string(' && Value('Str1') && ') + std::string(' && cstr(Value('Delimiter')) && ') + std::string(' && Value('Str2') && ')')
+end
+
+func doStrCatDlm(_data)
+  println('hiasm_str_state(', _id_, ') = ', Expr(), ';')
+  event(onStrCatDlm, 'hiasm_str_state(' && _id_ && ')')
+end
+
+func doClear(_data)
+  println('hiasm_str_state(', _id_, ') = std::string();')
+end
+
+func Result()
+  return('hiasm_str_state(' && _id_ && ')')
+end

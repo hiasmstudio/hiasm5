@@ -1,0 +1,179 @@
+Make(cpp)
+Add(MainForm,6112295,40,84)
+{
+ Left=20
+ Top=105
+ Width=440
+ Height=421
+ Point(MouseX)
+ Point(MouseY)
+ Point(onResize)
+ Point(Handle)
+ link(onCreate,16299401:doEvent1,[(99,104)(99,209)])
+ link(onResize,14551396:doWork1,[(170,111)])
+}
+Add(GL_Main,12986311,180,203)
+{
+ Color=0
+ StencilBits=8
+ link(onInit,12198675:doInit,[])
+ link(onViewPort,3410847:doPerspective,[(236,216)(236,258)])
+ link(Handle,6112295:Handle,[(186,181)(60,181)])
+}
+Add(Timer,9506849,68,287)
+{
+ Interval=33
+ Enable=1
+ link(onTimer,1049454:doEvent1,[])
+}
+Add(GL_GTools,771925,180,287)
+{
+ Point(doClear)
+ Point(doPushMatrix)
+ Point(doPopMatrix)
+}
+Add(Hub,1049454,117,287)
+{
+ OutCount=5
+ link(onEvent1,771925:doClear,[])
+ link(onEvent2,771925:doPushMatrix,[])
+ link(onEvent3,10714674:doWork1,[(196,307)(196,160)])
+ link(onEvent4,771925:doPopMatrix,[(169,314)(169,307)])
+ link(onEvent5,12986311:doFlip,[(165,321)(165,223)])
+}
+Add(Hub,16299401,110,203)
+{
+ OutCount=3
+ link(onEvent1,12986311:doInit,[])
+ link(onEvent2,14551396:doWork2,[])
+ link(onEvent3,9506849:doTimer,[(153,223)(153,268)(59,268)(59,293)])
+}
+Add(HubEx,14551396,166,203)
+{
+ link(onEvent,12986311:doViewPort,[])
+}
+Add(MultiElement,10714674,243,154)
+{
+ link(onEvent1,10036663:doDraw,[])
+ link(Data1,6112295:MouseX,[(249,146)(46,146)])
+ link(Data2,6112295:MouseY,[(256,140)(53,140)])
+}
+BEGIN_SDK
+  Add(EditMulti,4359962,3,3)
+  {
+   EventCount=1
+   WorkCount=1
+   DataCount=2
+   Width=223
+   Height=109
+   link(doWork1,3276760:doRotate,[(19,9)(19,55)])
+  }
+  Add(GL_Rotate,3276760,35,49)
+  {
+   Y=1
+   link(onRotate,8079493:doRotate,[])
+   link(Angle,4359962:Data1,[(62,15)(9,15)])
+  }
+  Add(GL_Rotate,8079493,112,49)
+  {
+   X=1
+   link(onRotate,4359962:onEvent1,[(189,55)(189,9)])
+   link(Angle,4359962:Data2,[(139,8)(16,8)])
+  }
+END_SDK
+Add(GL_Perspective,3410847,243,252)
+{
+ Fovy=20
+}
+Add(Gl_Axis,10036663,292,154)
+{
+ TitleScale=0.5
+ link(onDraw,7474758:doStencilFunc,[])
+}
+Add(GL_GluTools,12198675,243,203)
+{
+ Texture=0
+ link(onInit,5851269:doEnabled,[])
+}
+Add(GL_Options,5851269,292,203)
+{
+ Flag=1
+ link(onEvent,10513853:doEnabled,[])
+}
+Add(GL_Options,10513853,348,203)
+{
+ Flag=11
+ link(onEvent,15226729:doEnabled,[])
+}
+Add(GL_StencilFunc,7474758,399,154)
+{
+ Ref=1
+ link(onStencilFunc,1855947:doStencilOp,[])
+}
+Add(GL_StencilOp,1855947,448,154)
+{
+ Fail=2
+ link(onStencilOp,7549745:doColor,[])
+}
+Add(GL_Disk,13604247,546,154)
+{
+ InRadius=0.2
+ OutRadius=0.4
+ link(onDraw,10705010:doStencilFunc,[])
+}
+Add(GL_Color,15705374,343,154)
+{
+ Color=32768
+}
+Add(GL_Color,7549745,497,154)
+{
+ Color=8421376
+ link(onColor,13604247:doDraw,[])
+}
+Add(GL_StencilFunc,10705010,602,154)
+{
+ Func=4
+ Ref=2
+ link(onStencilFunc,12156203:doStencilOp,[])
+}
+Add(GL_StencilOp,12156203,651,154)
+{
+ link(onStencilOp,14199235:doColor,[])
+}
+Add(GL_Color,14199235,700,154)
+{
+ Color=16711935
+ link(onColor,11757565:doBegin,[])
+}
+Add(Gl_Begin,11757565,756,154)
+{
+ BlockType=7
+ link(onBegin,4473937:doVertex,[])
+}
+Add(GL_Vertex3D,4473937,805,154)
+{
+ link(onVertex,6233083:doVertex,[])
+}
+Add(GL_Vertex3D,6233083,854,154)
+{
+ X=1
+ link(onVertex,9442400:doVertex,[])
+}
+Add(GL_Vertex3D,9442400,903,154)
+{
+ X=1
+ Y=1
+ link(onVertex,9242816:doVertex,[])
+}
+Add(GL_Vertex3D,9242816,952,154)
+{
+ Y=1
+ link(onVertex,6414993:doEnd,[])
+}
+Add(Gl_End,6414993,1001,154)
+{
+}
+Add(GL_Options,15226729,397,203)
+{
+ Flag=2
+}

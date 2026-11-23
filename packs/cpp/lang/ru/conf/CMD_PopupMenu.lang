@@ -1,0 +1,7 @@
+Command Center context menu=Контекстное меню центра комманд
+Command center name=Имя центра комманд
+Defines menu items (the - sign is used to skip an item)=Определяет пункты меню (для пропуска пункта используется знак -)
+Expands the menu at the point where the cursor is located=Разворачивает меню в точке, в которой находится курсор
+Expands the menu at the point whose coordinates are contained in the stream ARG(X, Y)=Разворачивает меню в точке, координаты которой содержатся в потоке ARG(X, Y)
+The event occurs whenever it is necessary to update the state of commands=Событие происходит всякий раз при необходимости обновить состояние команд
+The event occurs every time after one of the commands is executed and outputs its name to the ARG(Name) stream=Событие происходит всякий раз после выполнения одной из команд и выдает ее имя в поток ARG(Name)

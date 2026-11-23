@@ -1,0 +1,8 @@
+Export session key=Экспорт сессионного ключа
+Session key generation mode=Режим генерации сессионного ключа
+Begins the process of obtaining and exporting the session key ARG(PublicKey, ExternalKey)=Начинает процесс получения и экспорта сессионного ключа ARG(PublicKey, ExternalKey)
+The event occurs every time after the process of obtaining and exporting a session key is completed and outputs the result to the ARG(SessionKey, ExchangeKey) stream=Событие происходит всякий раз после окончания процесса получения и экспорта сессионного ключа и выдает результат в поток ARG(SessionKey, ExchangeKey)
+The event occurs as a result of an error and issues an error code to the ARG(Error) stream=Событие происходит в результате ошибки и выдает код ошибки в поток ARG(Error)
+Contains the session key=Содержит сессионный ключ
+Contains the exchange key=Содержит ключ обмена
+Public key to create an exchange key=Открытый ключ для создания ключа обмена

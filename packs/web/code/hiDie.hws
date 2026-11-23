@@ -1,0 +1,4 @@
+func doDie(_data)
+  println('die(', Text, ');')
+end
+

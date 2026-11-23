@@ -1,0 +1,4 @@
+func doPrint(_data)
+  println('std::puts(', Text, ');')
+  event(onPrint)
+end

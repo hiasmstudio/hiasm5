@@ -1,0 +1,52 @@
+func doStrCat:java
+  fvar(s1,s2)
+  s1 = Str1
+  s2 = Str2
+  if(not isset(_str_cat_))
+    var(_str_cat_)
+  end
+  if(linked(Result))
+    if(cgt.pt_get_rlink_point(cgt.pt_arr_data(0)) = cgt.pt_arr_var(0))
+      println(s, issec("php") ? ' .= ' : ' += ', s2, ';')
+    else
+      println(s, ' = ', s1 & s2, ';')
+    end
+    event(onStrCat, s)
+  else
+    event(onStrCat, s1 & s2)
+  end
+end
+
+func Result:java
+  if(linked(doStrCat))
+    if(not isset(_str_cat_))
+      var(_str_cat_)
+      fvar(old)
+      old = block.select((isset(BLK_FUNC) and isndef(Extern)) ? BLK_FUNC : BLK_HEAD)
+      println(issec("php") ? '' : 'var ', s, ' = ', Default, ';')
+      block.select(old)
+    end
+    return(s)
+  else
+    return(Str1 & Str2)
+  end
+end
+
+section html
+
+func doStrCat:java
+  event(onStrCat, Str1 & Str2)
+end
+
+func Result:java
+  return(Str1 & Str2)
+end
+
+//section java
+
+//func Init
+//  fvar(old)
+//  old = block.select(BLK_HEAD)
+//  println('var ', s, ' = "";')
+//  block.select(old)
+//end

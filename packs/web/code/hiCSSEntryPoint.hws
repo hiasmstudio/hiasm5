@@ -1,0 +1,6 @@
+func doStart:any
+  block.reg("body")
+  block.select("body")
+
+  event(onStart)
+end

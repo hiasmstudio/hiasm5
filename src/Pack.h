@@ -12,6 +12,7 @@
 #include "sqlite3.h"
 #include "ElementConfig.h"
 #include "Compiler.h"
+#include <set>
 
 class ElementConfig;
 
@@ -59,12 +60,12 @@ class PackProject {
 		 * @param project output file name of project
 		 * @param result project body
 		 */
-		void make(const ustring &project, void *result);
+		bool make(const ustring &project, void *result);
 		/**
 		 * Run created project if it exists
 		 * @param project file name for run
 		 */
-		void run(const ustring &project);
+		bool run(const ustring &project);
 };
 
 typedef std::list<PackProject*> PackProjects;
@@ -77,6 +78,9 @@ typedef std::list<PackProject*> PackProjects;
 
 class Pack {
 	private:
+		std::set<ustring> loadingConfigs;
+		ustring externalDirectory;
+		ustring legacyInstallation;
 		typedef struct _CompilerItem {
 			Compiler *compiler;
 			bool active;
@@ -103,7 +107,11 @@ class Pack {
 
 		PackProjects projects;
 
-		Pack(const ustring &name, const ustring &info);
+		Pack(const ustring &name, const ustring &info, const ustring &directory = {}, const ustring &installation = {});
+		bool isLegacy() const { return !externalDirectory.empty(); }
+		/** HiAsm 4 installation of a legacy pack (its Elements, Int and compiler folders) */
+		ustring legacyRoot() const { return legacyInstallation; }
+		void ensureLoaded() { if(groups.empty()) load(); }
 		/**
 		 * Loads the configuration element from the file and returns it
 		 * @param name element code name
@@ -131,6 +139,12 @@ class Pack {
 		 * @return path for elements/<pack>/code/hi<name>.<ext>
 		 */
 		ustring pathElementCode(const ustring &name);
+		/**
+		 * True if a project of this package can contain the element. The compiled
+		 * "cpp" package needs .hws code for every element except wiring helpers
+		 * (HubEx, GetDataEx, InfoTip). Other packages accept every element.
+		 */
+		bool compiles(const ustring &name);
 		/**
 		 * path for element icon
 		 * @return path for elements/<pack>/icon/<name>.png
@@ -187,13 +201,14 @@ class Pack {
 		 * @param name element codename
 		 * @param info element description
 		 */
-		void addElement(const ustring &tab, const ustring &name, const ustring &info);
+		bool addElement(const ustring &tab, const ustring &name, const ustring &info);
 		/**
 		 * Add group to tab
 		 * @param tab name of tab
 		 * @param group name of new group
 		 */
-		void addGroup(const ustring &tab, const ustring &group);
+		bool addGroup(const ustring &tab, const ustring &group);
+		bool createElement(const ustring &name, const ustring &tab, const ustring &info, ustring &error);
 };
 
 /*! \class PackCollection
@@ -214,6 +229,7 @@ class PackCollection : public std::list<Pack*> {
 		 * @return pack if found, else NULL
 		 */
 		Pack *getPackByName(const ustring &name);
+		bool isLegacyFile(const ustring &file);
 };
 
 extern PackCollection *packSet;

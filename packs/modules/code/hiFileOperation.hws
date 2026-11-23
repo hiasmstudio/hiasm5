@@ -1,0 +1,10 @@
+section cpp
+
+func doOperation(_data)
+  switch(Operation)
+    case 0: println('CopyFile(', Source, ', ', Dest, ', false);')
+    case 1: println('MoveFile(', Source, ', ', Dest, ');')
+    case 2: println('DeleteFile(', Source, ');')  
+  end
+end
+

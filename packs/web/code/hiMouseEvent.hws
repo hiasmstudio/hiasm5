@@ -1,0 +1,9 @@
+section java
+
+func X
+  return('event.clientX')
+end
+
+func Y
+  return('event.clientY')
+end

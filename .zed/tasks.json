@@ -1,0 +1,49 @@
+[
+    {
+        "label": "HiAsm: build Qt Debug",
+        "command": "powershell.exe",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "tools/build_qt_windows.ps1",
+            "-Configuration",
+            "Debug",
+            "-SkipTests"
+        ],
+        "cwd": "$ZED_WORKTREE_ROOT",
+        "tags": [
+            "build"
+        ]
+    },
+    {
+        "label": "HiAsm: build Qt Release",
+        "command": "powershell.exe",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "tools/build_qt_windows.ps1",
+            "-Configuration",
+            "Release",
+            "-SkipTests"
+        ],
+        "cwd": "$ZED_WORKTREE_ROOT",
+        "tags": [
+            "build"
+        ]
+    },
+    {
+        "label": "HiAsm: run Qt Debug",
+        "command": "cmd.exe",
+        "args": [
+            "/d",
+            "/c",
+            "tools\\build_windows_run-debug.bat",
+            "qt"
+        ],
+        "cwd": "$ZED_WORKTREE_ROOT"
+    }
+]

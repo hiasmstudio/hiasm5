@@ -1,0 +1,14 @@
+Service for Windows=Сервис для Windows
+System service name=Системное имя сервиса
+Description of the service=Описание сервиса
+Startup type: Auto - automatic, Demand - manual, Disable - disabled=Тип запуска: Auto - автоматический, Demand - ручной, Disable - отключено
+Frequency of calling the onStep event (milliseconds)=Переодичность вызова события onStep (миллисекунд)
+EXE file icon=Иконка EXE файла
+Event occurs during service initialization=Событие происходит во время инициализации сервиса
+The event occurs periodically while the service is running.=Событие происходит переодически во время работы сервиса
+The event occurs when the service is terminated=Событие происходит при завершении работы сервиса
+Event occurs when the service is suspended=Событие происходит при приостановке сервиса
+Event occurs when continuing after a service is suspended=Событие происходит при продолжении после приостановки сервиса
+The event occurs when the service is installed (launched with the /install parameter)=Событие происходит при инсталляции сервиса (запуск с параметром /install)
+The event occurs when the service is uninstalled (run with the /uninstall parameter)=Событие происходит при деинсталляции сервиса (запуск с параметром /uninstall)
+Periodicity set by doStepTime=Переодичность, устанавливаемая по doStepTime

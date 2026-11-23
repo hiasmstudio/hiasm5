@@ -1,0 +1,107 @@
+include('qtTVT')
+
+func Train()
+  return('qt_widget<HiasmTreeViewTrain>(form, "TreeViewTrain' && _id_ && '")')
+end
+
+func doStart()
+  println('{ auto *train = new HiasmTreeViewTrain(widgetParent);')
+  println('train->setObjectName(QStringLiteral("TreeViewTrain', _id_, '"));')
+  println('train->setGeometry(', get('Left'), ', ', get('Top'), ', ', get('Width'), ', ', get('Height'), ');')
+  println('train->setHeaderHidden(true);')
+  println('train->setRootIsDecorated(', get('LinesRoot') == 'True', ');')
+  if(get('Lines') == 'False')
+    println('train->setStyleSheet(QStringLiteral("QTreeView::branch { border-image: none; }"));')
+  end
+  println('train->setEnabled(', get('Enabled') == 'True', ');')
+  println('train->setVisible(', get('Visible') == 'True', ');')
+  println('train->hints = ', get('Tooltips') == 'True', ';')
+  println('train->hashed = ', get('UseHashMap') == 'True', ';')
+  println('train->captionIndex = ', get('CaptionIndex'), '; train->parentIndex = ', get('ParentIDIndex'), ';')
+  println('train->idIndex = ', get('IDIndex'), '; train->iconIndex = ', get('IconIndex'), ';')
+  println('train->numeric = ', get('Numeric'), '; train->emptyString = qt_text(', cstr(get('String')), ');')
+  if(len(get('qtIconsManager')) > 0)
+    println('QTimer::singleShot(0, train, [&form, train] {')
+    println('  train->icons = dynamic_cast<HiasmIconsManager *>(form.findChild<QObject *>(qt_text(', cstr(get('qtIconsManager')), ')));')
+    println('  if (!train->icons) return;')
+    println('  train->refreshIcons();')
+    println('  train->icons->listeners.append([guard = QPointer(train)] { if (guard) guard->refreshIcons(); });')
+    println('});')
+  end
+  fvar(row)
+  row = 'trainEventRow' && _id_
+  if(linked(onClick))
+    println('QObject::connect(train, &QTreeWidget::currentItemChanged, &form, [&form](QTreeWidgetItem *item) {')
+    println('if (!item) return; const auto ', row, ' = HiasmTreeViewTrain::tuple(item);')
+    event(onClick, row)
+    println('});')
+  end
+  if(linked(onExpand))
+    println('QObject::connect(train, &QTreeWidget::itemExpanded, &form, [&form](QTreeWidgetItem *item) {')
+    println('const auto ', row, ' = HiasmTreeViewTrain::tuple(item);')
+    event(onExpand, row)
+    println('});')
+  end
+  if(linked(onCollapse))
+    println('QObject::connect(train, &QTreeWidget::itemCollapsed, &form, [&form](QTreeWidgetItem *item) {')
+    println('const auto ', row, ' = HiasmTreeViewTrain::tuple(item);')
+    event(onCollapse, row)
+    println('});')
+  end
+  if(linked(onDelete))
+    println('train->deleted = [&form](const QVariantList &', row, ') {')
+    event(onDelete, row)
+    println('};')
+  end
+  if(get('DragDrop') == 'True')
+    println('train->setDragDropMode(QAbstractItemView::DragDrop);')
+    println('train->setDefaultDropAction(Qt::MoveAction); train->setDropIndicatorShown(false);')
+    if(linked('DropAccept'))
+      println('train->dropAccept = [&form](const QVariantList &) { return qt_flag(qt_text(', d('DropAccept'), ')); };')
+    else
+      println('train->dropAccept = [](const QVariantList &row) { return row.value(0).toInt() != 0; };')
+    end
+    if(linked(onDrop))
+      println('train->dropped = [&form](const QVariantList &', row, ') {')
+      event(onDrop, row)
+      println('};')
+    end
+  end
+  println('}')
+end
+
+func doClear(_data)
+  println(Train(), '->clearTrain();')
+end
+
+func doExpand(_data)
+  println(Train(), '->expandBranches(true);')
+end
+
+func doCollapse(_data)
+  println(Train(), '->expandBranches(false);')
+end
+
+func doExpandNode(_data)
+  println(Train(), '->expandTrain(qt_tvt_id(', TVArg('', _data), '), 1);')
+end
+
+func doExpandToggle(_data)
+  println(Train(), '->expandTrain(qt_tvt_id(', TVArg('', _data), '), 2);')
+end
+
+func doCollapseNode(_data)
+  println(Train(), '->expandTrain(qt_tvt_id(', TVArg('', _data), '), 0);')
+end
+
+func doSort(_data)
+  println(Train(), '->sortItems(0, Qt::AscendingOrder);')
+end
+
+func Select()
+  return(Train() && '->selection()')
+end
+
+func NextID()
+  return(Train() && '->nextID()')
+end

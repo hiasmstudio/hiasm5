@@ -1,0 +1,6 @@
+Scale=Масштаб
+X coefficient=Коэффициент по X
+Y coefficient=Коэффициент по Y
+Z coefficient=Коэффициент по Z
+Scales the coordinate system=Масштабирует систему координат
+Event occurs after scaling the coordinate system=Событие происходит после масштабирования системы координат

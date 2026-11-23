@@ -1,0 +1,5 @@
+func doSet(_data)
+  println('sys.setcompiler(', Pack, ',', Compiler, ');')
+  event(onSet)
+end
+

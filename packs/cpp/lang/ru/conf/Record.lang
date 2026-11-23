@@ -1,0 +1,15 @@
+Record audio from a microphone or LineIn on a sound card=Запись звука с микрофона или LineIn на звуковой плате
+Contains the default recording file name=Содержит имя файла для записи по-умолчанию
+Automatically stop and close the operation after saving=Автоматически остановить и закрыть операцию после сохранения
+Quality, bit (these 3 options are used in accordance with the capabilities of the sound card)=Качество, бит (эти 3 опции используются в соответствии с возможностями звуковой платы)
+Number of audio channels=Количество каналов звука
+Recording frequency, kHz=Частота записи, кГц
+Triggers the operation and begins recording audio into temporary memory=Запускает операцию и начинает запись звука во временную память
+Writes the record accumulated up to this point to a file=Записывает запись, накопленную к этому моменту, в файл
+Completes the operation and frees all occupied memory for recording=Завершает операцию и освобождает всю занятую память под запись
+Pauses the recording process=Приостанавливает процесс записи
+Continues a stopped process=Продолжает остановленный процесс
+The event occurs if there is an error starting a write operation with the specified parameters=Событие происходит в случае ошибки запуска операции записи с установленными параметрами
+Returns 1 if the process has already been started using the doRecord command and was not closed using doClose, and 0 if the process is not running=Вернёт 1, если уже начат процесс по команде doRecord и не был закрыт по doClose, и 0 - если процесс не запущен
+Returns 1 if the process has already started and the recording itself is in progress (no pause), and 0 if the process is not running or recording is in pause mode=Вернёт 1, если уже начат процесс и идет сама запись (нет паузы), и 0 - если проесс не запущено или запись в режиме паузы
+Specifies the file name for recording=Задаёт имя файла для записи

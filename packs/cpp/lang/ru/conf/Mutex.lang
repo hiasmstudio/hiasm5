@@ -1,0 +1,12 @@
+Allows you to protect parts of a scheme when shared between multiple threads=Позволяет защищать части схемы при совместном доступе из нескольких потоков
+Mutex name=Название Mutex-а
+Creates a Mutex by name from the thread or Name field. If creation is successful, the onCreated event occurs; if there is already one with the same name, then - onAlreadyExists, otherwise - onError=Создает Mutex по имени из потока или поля Name. В случае удачного создания происходит событие onCreated, если уже есть с таким именем, то - onAlreadyExists, иначе - onError
+Creates a Mutex, raises an event, and destroys the Mutex=Создает Mutex, генерирует событие и уничтожает Mutex
+Releases Mutex=Освобождает Mutex
+Opens Mutex=Открывает Mutex
+The event occurs when a Mutex is successfully created=Событие происходит при удачном создании Mutex-а
+The event occurs when a Mutex with the same name is detected in the system=Событие происходит при обнаружении в системе Mutex-а с таким же именем
+The event occurs after the Mutex is successfully released=Событие происходит после удачного освобождения Mutex-а
+The event occurs when the Mutex is successfully opened=Событие происходит при успешном открытии Mutex-а
+The event occurs in case of an error, outputting its number to the thread=Событие происходит в случае ошибки, выдавая ее номер в поток
+Handle Mutex=Handle Mutex-а

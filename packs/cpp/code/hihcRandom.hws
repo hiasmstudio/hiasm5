@@ -1,0 +1,16 @@
+func doRandom(_data)
+  println('int hiasm_random', _id_, ' = ', d('Min'), ' + (std::rand() % ((', d('Max'), ') - (', d('Min'), ') + 1));')
+  event(onRandom, 'hiasm_random' && _id_)
+end
+
+func doRandomize(_data)
+  println('std::srand(static_cast<unsigned int>(std::time(nullptr)));')
+end
+
+func Random()
+  if(linked('doRandom'))
+    return('hiasm_random' && _id_)
+  else
+    return(d('Min'))
+  end
+end

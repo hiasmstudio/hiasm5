@@ -138,6 +138,7 @@ extern const gchar *CMD_DEL_POINT;
 extern const gchar *CMD_ZOOMIN;
 extern const gchar *CMD_ZOOMOUT;
 extern const gchar *CMD_PN_ERRORS;
+extern const gchar *CMD_PN_TERMINAL;
 extern const gchar *CMD_PAL_FILTER;
 extern const gchar *CMD_SVN;
 extern const gchar *CMD_SVN_UPDATE;

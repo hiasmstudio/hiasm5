@@ -1,0 +1,37 @@
+*Пример доступа к элементам массива из тела скрипта
+Make(cpp)
+Add(MainForm,10977632,21,105)
+{
+ Left=20
+ Top=105
+ Font=[Arial,8,0,0,1]
+}
+Add(ListBox,5376461,224,84)
+{
+ Left=125
+ Top=50
+ Width=110
+ Height=90
+ Font=[Arial,8,0,0,1]
+ Strings=#8:String 1|8:String 2|8:String 3|
+}
+Add(Button,13797412,133,203)
+{
+ Left=35
+ Top=60
+ Font=[Arial,8,0,0,1]
+ Caption="Read"
+ link(onClick,3863772:doRead,[])
+}
+Add(VBScript,3863772,238,203)
+{
+ WorkPoints=#6:doRead|
+ EventPoints=#6:onRead|
+ DataPoints=#5:Array|
+ Script=#27:function doWork(Data,Index)|44:  'читаем с точки Array элемент с индексом 1|40:  onEvent "onRead", array.Read "array",1|3:end|
+ link(onRead,3730822:doMessage,[])
+ link(Array,5376461:Array,[])
+}
+Add(Message,3730822,322,203)
+{
+}

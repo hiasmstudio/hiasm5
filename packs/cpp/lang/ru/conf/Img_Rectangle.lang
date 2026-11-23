@@ -1,0 +1,10 @@
+Rectangle=Прямоугольник
+Default rectangle edge rounding width=Ширина скругления кромок прямоугольника по-умолчанию
+Default rounding height of rectangle edges=Высота скругления кромок прямоугольника по-умолчанию
+Defines the default color of the edge (outer border) of the rectangle=Определяет цвет кромки (внешней границы) прямоугольника по-умолчанию
+Defines the default fill color of the rectangle=Определяет цвет заливки прямоугольника по-умолчанию
+Color of the edge (outer border) of the rectangle=Цвет кромки (внешней границы) прямоугольника
+Rectangle fill color=Цвет заливки прямоугольника
+Rectangle rounding width=Ширина скругления кромок прямоугольника
+Rectangle edge rounding height=Высота скругления кромок прямоугольника
+Transformation=Трансформация

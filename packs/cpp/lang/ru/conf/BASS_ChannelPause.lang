@@ -1,0 +1,4 @@
+Channel pause=Пауза канала
+Audio stream that needs to be paused=Звуковой поток, который необхоимо поставить на паузу
+Pauses the audio stream=Устанавливает звуковой поток на паузу
+The event occurs every time the audio stream is paused=Событие происходит всякий раз после установки паузы звукового потока

@@ -1,0 +1,17 @@
+func doHostByAddr(_data)
+  if(linked(Result))
+    println(host, ' = gethostbyaddr(', IP, ');')
+    event(onHostByAddr, host)
+  else
+    event(onHostByAddr, 'gethostbyaddr(' && IP && ')')
+  end 
+end
+
+func Result()
+  if(linked(doHostByAddr))
+    return(host)
+  else
+    return('gethostbyaddr(' && IP && ')')
+  end
+end
+

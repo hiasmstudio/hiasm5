@@ -1,0 +1,12 @@
+Popup context menu=Всплывающее контекстное меню
+Defines menu items (the - sign is used to skip an item)=Определяет пункты меню (для пропуска пункта используется знак -)
+True - enable transparency of pictures, False - do not enable=True - включить прозрачность картинок, False - не включать
+Expands the menu at the point where the cursor is located=Разворачивает меню в точке, в которой находится курсор
+Expands the menu at the point whose coordinates are contained in the stream in the format Y*65536 + X=Разворачивает меню в точке, координаты которой содержатся в потоке в формате Y*65536 + X
+Adds a new menu item (the - sign is used to skip an item)=Добавляет новый пункт меню (для пропуска пункта используется знак -)
+Removes all menu items=Удаляет все пункты меню
+The event occurs when a menu item is clicked and outputs the ordinal index of this item to the stream (starts at 0) ARG(Index)=Событие происходит при клике на пункте меню и выдает в поток порядковый индекс этого пункта (начинается с 0) ARG(Index)
+The event occurs when a menu item is clicked and outputs the line of this item ARG(Caption) to the stream.=Событие происходит при клике на пункте меню и выдает в поток строку этого пункта ARG(Caption)
+The event occurs every time after the dropdown is closed and before onClick/onSelectStr=Событие происходит всякий раз после закрытия выпадающего списка и до onClick/onSelectStr
+Returns the ID of the menu to be manipulated from other elements=Возвращает идентификатор меню для управления им из других элементов
+Array of pictures=Массив картинок

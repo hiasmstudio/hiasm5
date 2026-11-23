@@ -1,0 +1,115 @@
+Make(cpp)
+Add(BenchmarkCPU,65489,406,231)
+{
+ ThreadCount=0
+ Iterations=1000
+ link(onBenchmark,5522203:doEvent1,[])
+}
+Add(MainForm,10690639,357,140)
+{
+ Width=519
+ Caption="CPU benchmark"
+ BorderStyle=3
+ link(onCreate,8100601:doString,[])
+}
+Add(Button,12689665,98,217)
+{
+ Left=5
+ Top=20
+ Caption="Start"
+ link(onClick,4009710:doEvent1,[])
+}
+Add(ListBox,12557048,553,154)
+{
+ Left=75
+ Top=20
+ Width=420
+ Height=240
+}
+Add(Math,8269455,308,224)
+{
+ OpType=9
+ Op1=1
+ ResultType=0
+ link(onResult,12979959:doEvent1,[])
+}
+Add(Hub,12979959,364,224)
+{
+ link(onEvent1,9490999:doStrCat,[(392,230)(392,286)])
+ link(onEvent2,65489:doStartBenchmark,[])
+}
+Add(StrCat,9490999,406,280)
+{
+ Str1="Threads: "
+ link(onStrCat,3421638:doWork3,[(536,286)])
+}
+Add(Counter,14325200,210,224)
+{
+ Min=-1
+ link(onNext,7793629:doCompare,[])
+}
+Add(Hub,4009710,147,217)
+{
+ link(onEvent1,14325200:doReset,[(180,223)(180,244)])
+ link(onEvent2,8724473:doWork2,[])
+}
+Add(HubEx,8724473,189,217)
+{
+ link(onEvent,14325200:doNext,[])
+}
+Add(Button,13716277,490,224)
+{
+ Left=5
+ Top=60
+ Caption="Copy"
+ link(onClick,4101020:doString,[])
+}
+Add(Clipboard,9415504,609,224)
+{
+ Point(PutText)
+}
+Add(FormatStr,4101020,553,224)
+{
+ DataCount=1
+ Mask="[scode]\r\n%1\r\n[/code]"
+ link(onFString,9415504:doPutText,[])
+ link(Str1,12557048:Text,[])
+}
+Add(FormatStr,8100601,406,154)
+{
+ DataCount=4
+ Mask="%1 (%2Ããö), L2 = %3x%4"
+ link(onFString,999432:doWork2,[])
+ link(Str1,6578321:ExtendedCpuName,[])
+ link(Str2,6578321:Frequency,[])
+ link(Str3,6578321:ExtendedL2Cache,[])
+ link(Str4,6578321:CPUCount,[])
+}
+Add(Hub,5522203,448,231)
+{
+ link(onEvent1,9330820:doStrCat,[(477,237)(477,188)])
+ link(onEvent2,8724473:doWork1,[(470,244)(470,214)(193,214)])
+}
+Add(StrCat,9330820,490,182)
+{
+ Str1="Time: "
+ link(onStrCat,3421638:doWork2,[])
+}
+Add(HubEx,999432,532,147)
+{
+ link(onEvent,12557048:doAdd,[])
+}
+Add(If_else,7793629,259,224)
+{
+ Type=1
+ Op2=Integer(3)
+ link(onTrue,8269455:doOperation,[])
+}
+Add(HubEx,3421638,532,175)
+{
+ Angle=3
+ link(onEvent,999432:doWork3,[])
+}
+Add(CPU,6578321,406,98)
+{
+}

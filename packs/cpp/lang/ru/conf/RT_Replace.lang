@@ -1,0 +1,9 @@
+Replacing text in a string=Замена текста в строке
+The string to be replaced=Строка которую нужно заменить
+The string to replace with=Строка на которую нужно заменить
+Replaces the SubStr substring in the SrcStr string with the DestStr string (all found substrings are replaced)=Производит замену подстроки SubStr в строке SrcStr на строку DestStr (заменяются все найденные подстроки)
+The event occurs whenever a row replacement is completed=Событие происходит всякий раз при завершении замены строк
+Contains the result of the operation=Содержит результат операции
+The line where the replacement occurs=Строка, в которой происходит замена
+Substring to be replaced=Подстрока, которую нужно заменить
+Substring to replace with=Подстрока, на которую нужно заменить

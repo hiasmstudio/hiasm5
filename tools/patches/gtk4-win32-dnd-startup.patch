@@ -1,0 +1,11 @@
+--- a/gdk/win32/gdkdrag-win32.c
++++ b/gdk/win32/gdkdrag-win32.c
+@@ -679,7 +679,7 @@
+     {
+       GdkDisplay *display = gdk_display_get_default ();
+ 
+-      if (!dnd_queue_is_empty (display))
++      if (display != NULL && !dnd_queue_is_empty (display))
+         {
+           while ((item = g_async_queue_try_pop (queue)) != NULL)
+             {

@@ -1,0 +1,6 @@
+Allows you to work with a string as an array=Позволяет работать со строкой как с массивом
+Loads a string into memory=Загружает строку в память
+The event occurs every time a string is loaded into memory and outputs the corresponding array ARG(Array) to the stream.=Событие происходит всякий раз после загрузки строки в память и выдает в поток соответствующий ей массив ARG(Array)
+Contains an array corresponding to a string=Содержит массив соответствующий строке
+Contains a string stored in memory=Содержит строку, сохраненную в памяти
+Defines a string to be stored in memory=Определяет строку для сохранения в памяти

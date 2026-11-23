@@ -1,0 +1,57 @@
+*Отрисовка градиента
+Make(cpp)
+Add(MainForm,8140,112,266)
+{
+ Left=312
+ Top=234
+ Font=[Arial,8,0,0,1]
+ Caption="Draw"
+}
+Add(PointXY,74598,322,182)
+{
+ link(X,47042:Position,[(328,172)(269,172)(269,309)(188,309)])
+ link(Y,10997129:Height,[])
+}
+Add(PaintBox,10997129,315,112)
+{
+ Left=370
+ Top=55
+ Align=5
+ Point(Width)
+ Point(Height)
+ Point(onResize)
+ link(onBeforeDraw,47042:doFor,[(358,118)(358,97)(170,97)(170,272)])
+}
+Add(MathParse,24330,357,217)
+{
+ MathStr="%2/%1*255"
+ ResultType=0
+ link(onResult,14330813:doRGB,[])
+ link(X1,15839118:Var3,[(363,163)])
+}
+Add(RGB,14330813,420,217)
+{
+ R=1
+}
+Add(GetDataEx,15839118,315,154)
+{
+ link(Data,10997129:Width,[])
+}
+Add(For,47042,182,266)
+{
+ link(onEvent,40415:doEvent1,[])
+ link(End,15839118:Var1,[(195,163)])
+}
+Add(Hub,40415,231,266)
+{
+ link(onEvent1,24330:doCalc,[(294,272)(294,223)])
+ link(onEvent2,11497:doDraw,[])
+}
+Add(Img_Line,11497,308,273)
+{
+ Point(Color)
+ Point(Point2)
+ link(Bitmap,10997129:Bitmap,[(314,209)(321,209)])
+ link(Color,14330813:Color,[(321,261)(426,261)])
+ link(Point2,74598:Point,[])
+}

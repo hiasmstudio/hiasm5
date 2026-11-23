@@ -1,0 +1,38 @@
+Make(cpp)
+Add(MainForm,1,28,28)
+{
+ Backend=1
+ Caption="Application menu"
+ Width=340
+ Height=130
+ link(onCreate,3:doHSymbolGrad,[])
+}
+Add(Menu,2,112,84)
+{
+ Menu=#5:&File|1:(|12:&Open	Ctrl+O|1:-|5:E&xit|1:)|
+ Point(onSelectNum)
+ link(onSelectNum,4:doText,[])
+ link(onSelectStr,3:doText,[])
+}
+Add(GLabel,3,203,84)
+{
+ Left=16
+ Top=40
+ Width=300
+ Height=24
+ AutoSize=1
+ TextGradient=0
+ Horizontal=0
+ HSymbolGrad=0
+ Point(doHSymbolGrad)
+ Antialiased=0
+ Caption="Select a menu item"
+}
+Add(Label,4,203,140)
+{
+ Left=16
+ Top=72
+ Width=300
+ Height=24
+ AutoSize=1
+}

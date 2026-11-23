@@ -1,0 +1,21 @@
+func doWork(_data, index):any
+  sys.selectElement(cgt.el_get_parent_id())
+  if(CodeType = 1)
+    event(cgt.pt_get_name_byid(cgt.pt_arr_event(index)), _data)
+  else
+    ret = 'return(' && _data && ');'
+    println(ret)
+    if(call_event = 0)
+      call_event = index + 1
+    end
+  end
+end
+
+func getVar(_data, index):any
+  sys.selectElement(cgt.el_get_parent_id())
+  if(CodeType = 1)
+    return( point(cgt.pt_get_name_byid(cgt.pt_arr_data(index))) )
+  else
+    return( issec("php") ? '$arg' : 'arg' + (index + 1) )
+  end
+end

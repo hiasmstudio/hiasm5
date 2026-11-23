@@ -1,0 +1,17 @@
+UDP socket=UDP сокет
+Port to which the socket is bound=Порт к которому привязывается сокет
+Port for sending data=Порт для отсылки данных
+IP address to which the socket is bound=IP адрес к которому привязывается сокет
+IP address for sending data=IP адрес для отправки данных
+Automatically bind socket data sending to the specified address and port (for the doSend method)=Автоматически связывать отправку данных сокета с указанным адресом и портом (для метода doSend)
+Thread - using threads, Manual - manual reception=Thread - с использованием потоков, Manual - ручной приём
+Allow sending broadcast packets=Разрешить отправку широковещательных пакетов
+Creating a socket=Создание сокета
+Receiving data sent to a socket=Приём данных, переданных сокету
+Receiving data sent to the socket and obtaining the sender's IP address=Приём данных, переданных сокету с получением IP адреса отправителя
+Destroys a socket=Уничтожает сокет
+The event occurs every time after receiving data and outputs it to the thread=Событие происходит всякий раз, после приёма данных и выдает их в поток
+The event occurs every time there is an error when working with a socket and outputs its number to the thread=Событие происходит всякий раз в случае ошибки при работе с сокетом и выдает её номер в поток
+Contains the address of the sender of received data when using the doReceiveFrom method=Содержит адрес отправителя принятых данных при использовании метода doReceiveFrom
+Contains 1 if the socket is open, 0 otherwise=Содержит 1, если сокет открыт, и 0 - в противном случае
+Data to send=Данные для отправки

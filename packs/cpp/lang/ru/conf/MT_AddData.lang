@@ -1,0 +1,6 @@
+Adding Data to a Multidimensional Stream=Добавление данных в многомерный поток
+Number of data access points=Количество точек доступа к данным
+Stores default data for the top points, placed into the stream using the doAdd method=Хранит данные по-умолчанию для верхних точек, помещаемые в поток методом doAdd
+Using data from the stream: Head - to the head of the stream, Tail - to the tail of the stream, Nul - equivalent to NULL input data, Standard - standard data receiving=Использование данных из потока: Head - в голову потока, Tail - в хвост потока, Nul - эквивалентно входным данным NULL, Standart - стандартное получение данных
+Adds data to a multidimensional stream=Добавляет данные в многомерный поток
+The event occurs after data has been added and outputs it to the stream=Событие происходит после добавления данных и выдает их в поток

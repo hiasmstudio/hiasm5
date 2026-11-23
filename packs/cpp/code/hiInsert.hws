@@ -1,0 +1,46 @@
+func Source(value)
+  if(linked('Str'))
+    return(d('Str'))
+  end
+  if(len(value) > 0)
+    return(value)
+  end
+  return('""')
+end
+
+func SubSource()
+  if(linked('SubStr'))
+    return(d('SubStr'))
+  else
+    return(cstr(get('SubStr')))
+  end
+end
+
+func Arg(name)
+  if(linked(name))
+    return(d(name))
+  else
+    return(get(name))
+  end
+end
+
+func Expr(value)
+  if(get('Direction') == 1)
+    return('[](std::string s, const std::string &sub, int position) { int start = static_cast<int>(s.size()) - (position - 1); if(start < 0) start = 0; s.insert(static_cast<std::size_t>(start), sub); return s; }(' && Source(value) && ', std::string(' && SubSource() && '), ' && Arg('Position') && ')')
+  else
+    return('[](std::string s, const std::string &sub, int position) { int start = position > 0 ? position - 1 : 0; if(start > static_cast<int>(s.size())) start = static_cast<int>(s.size()); s.insert(static_cast<std::size_t>(start), sub); return s; }(' && Source(value) && ', std::string(' && SubSource() && '), ' && Arg('Position') && ')')
+  end
+end
+
+func doInsert(_data)
+  println('auto hiasm_ins', _id_, ' = ', Expr(_data), ';')
+  event(onInsert, 'hiasm_ins' && _id_)
+end
+
+func Result()
+  if(linked('doInsert'))
+    return('hiasm_ins' && _id_)
+  else
+    return(Expr(''))
+  end
+end

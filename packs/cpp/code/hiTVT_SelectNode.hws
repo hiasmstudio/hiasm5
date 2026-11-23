@@ -1,0 +1,15 @@
+include('qtTVT')
+
+func doSelectNode(_data)
+  println('{ const auto id = qt_tvt_id(', TVArg('ID', _data), '); auto *tree = ', TVTree(), ';')
+  println('if (auto *item = tree ? tree->find(id) : nullptr) {')
+  println('tree->setCurrentItem(item);')
+  event(onSelectNode)
+  println('} else {')
+  event(onSelectFailed)
+  println('} }')
+end
+
+func SelectNode()
+  return('([](HiasmTreeViewTrain *tree) { return tree ? tree->selection() : QVariantList(); }(' && TVTree() && '))')
+end

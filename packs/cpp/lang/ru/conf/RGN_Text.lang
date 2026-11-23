@@ -1,0 +1,13 @@
+Region from string=Регион из строки
+Line to create a region=Строка для создания региона
+X coordinate of the top right corner of the start of the line=Координата X верхнего правого угла начала строки
+Y coordinate of the top right corner of the start of the line=Координата Y верхнего правого угла начала строки
+Create a stencil region from a string=Создать трафаретный регион из строки
+Font (you can only use TrueType or OpenType outline fonts; in the list of fonts they are indicated by icons: TT and O)=Шрифт (использовать можно только контурные шрифты TrueType или OpenType, в списке шрифтов обозначены иконками: TT и О)
+Creates a region from a string and streams the result=Создает регион из строки и выдает в поток результат
+Deletes a region (zeroes Result)=Удаляет регион (обнуляет Result)
+The event occurs whenever a region is created from the string ARG(Region)=Событие происходит всякий раз при создании региона из строки ARG(Region)
+Contains the created region=Содержит созданный регион
+Contains the length of the string in pixels=Содержит длину строки в пикселях
+Contains the line height in pixels=Содержит высоту строки в пикселях
+Line for creating a region=Cтрока для создания региона

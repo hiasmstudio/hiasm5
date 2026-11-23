@@ -1,0 +1,9 @@
+Sound volume in Windows=Громкость звука в Windows
+Defines the audio device: Wave - audio channel=Определяет звуковое устройство: Wave - канал аудио
+Sets the sound volume=Устанавливает громкость звука
+Reads sound volume=Считывает громкость звука
+Sets the audio device (0 to 2)=Устанавливает звуковое устройство (от 0 до 2)
+Returns the volume value of the left channel (from 0 to 65535)=Возвращает значение громкости левого канала (от 0 до 65535)
+Returns the volume value of the right channel (from 0 to 65535)=Возвращает значение громкости правого канала (от 0 до 65535)
+Left channel volume=Громкость левого канала
+Right channel volume=Громкость правого канала

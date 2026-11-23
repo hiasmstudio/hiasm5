@@ -1,0 +1,86 @@
+func doStart
+  if(is_qt_project())
+    qtStart()
+  else
+    gtkStart()
+  end
+end
+
+func qtStart
+  println('{')
+  println('auto *progress = new QProgressBar(widgetParent);')
+  println('progress->setObjectName(QStringLiteral("ProgressBar', _id_, '"));')
+  println('progress->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+  println('progress->setTextVisible(false);')
+  if(get('Kind') == 1)
+    println('progress->setOrientation(Qt::Vertical);')
+  end
+  println('progress->setRange(0, qMax(0, ', get('Max'), '));')
+  println('progress->setValue(0);')
+  println('if (const QColor color = QColor::fromString(qt_text(', cstr(d('ProgressColor')), ')); color.isValid()) {')
+  println('    QPalette palette = progress->palette();')
+  println('    palette.setColor(QPalette::Highlight, color);')
+  println('    progress->setPalette(palette);')
+  println('}')
+  println('}')
+end
+
+func gtkStart
+  println('{')
+  println('GtkWidget *progress = gtk_progress_bar_new();')
+  println('hiasm_set_progress_color(progress, ', cstr(d('ProgressColor')), ');')
+  switch(get('Smooth'))
+    case 1: println('hiasm_progress_smooth(progress, FALSE);')
+    default: println('hiasm_progress_smooth(progress, TRUE);')
+  end
+  switch(d('Kind'))
+    case 1: println('gtk_orientable_set_orientation(GTK_ORIENTABLE(progress), GTK_ORIENTATION_VERTICAL);')
+  end
+  println('gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progress), hiasm_progress_fraction_of(GTK_PROGRESS_BAR(progress)));')
+  println('hiasm_place("ProgressBar', _id_, '", progress, ', Left, ', ', Top, ');')
+  println('}')
+end
+
+func doPosition(_data)
+  if(is_qt_project())
+    println('{')
+    if(len(_data) > 0)
+      println('const int progressInput = qt_text(', _data, ').toInt();')
+    else
+      println('const int progressInput = 0;')
+    end
+    println('auto *progressTarget = qt_widget<QProgressBar>(form, "ProgressBar', _id_, '");')
+    println('progressTarget->setValue(qBound(0, progressInput, progressTarget->maximum()));')
+    println('}')
+  else
+    println('gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(hiasm_widget("ProgressBar', _id_, '").get()), static_cast<double>(', _data, ') / static_cast<double>(', get('Max'), '));')
+  end
+end
+
+func doMax(_data)
+  if(is_qt_project())
+    println('{')
+    if(len(_data) > 0)
+      println('const int progressInput = qt_text(', _data, ').toInt();')
+    else
+      println('const int progressInput = 0;')
+    end
+    println('auto *progressTarget = qt_widget<QProgressBar>(form, "ProgressBar', _id_, '");')
+    println('const int position = progressTarget->value();')
+    println('progressTarget->setMaximum(qMax(0, progressInput));')
+    println('progressTarget->setValue(qBound(0, position, progressTarget->maximum()));')
+    println('}')
+  end
+end
+
+func doValue(_data)
+  doPosition(_data)
+end
+
+func Position()
+  if(is_qt_project())
+    return('qt_widget<QProgressBar>(form, "ProgressBar' && _id_ && '")->value()')
+  else
+    return('static_cast<int>(hiasm_progress_fraction_of(GTK_PROGRESS_BAR(hiasm_widget("ProgressBar' && _id_ && '").get())) * ' && get('Max') && ')')
+  end
+end

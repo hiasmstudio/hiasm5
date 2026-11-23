@@ -1,0 +1,18 @@
+func curlHandleName()
+  return('$curlHandle' && _id_)
+end
+
+func doInit
+  fvar(u)
+  u = URL
+  println(curlHandleName(), ' = curl_init(', u, ');')
+  event(onInit, curlHandleName())
+end
+
+func doClose
+  println('curl_close(', curlHandleName(), ');')
+end
+
+func CurlID
+  return(curlHandleName())
+end

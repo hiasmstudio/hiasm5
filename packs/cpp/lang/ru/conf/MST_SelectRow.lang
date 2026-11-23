@@ -1,0 +1,15 @@
+Selecting a line in MTStrTbl=Выделение строки в MTStrTbl
+Display mode of the selected line. Valid for lvsDetail and lvsDetailNoHeader styles=Режим отображения выбранной строки. Действительно для стилей lvsDetail и lvsDetailNoHeader
+True - automatically make the selected line visible, False - the selected line can be invisible=True - автоматически делать видимой выбранную строку, False - выбраная строка может быть невидимой
+Row index for default selection=Индекс строки для выбора по-умолчанию
+Managing the MTStrTbl element=Управление элементом MTStrTbl
+Selects a table row by index from a stream=Выделяет строку таблицы по индексу из потока
+Removes selection from table rows=Снимает выделение со строк таблицы
+Makes a row visible by index from the stream=Делает строку видимой по индексу из потока
+Sets focus to an element=Устанавливает фокус на элементе
+The event occurs after a table row is highlighted=Событие происходит после выделения строки таблицы
+Contains the selected row, where the row is a set of MT elements with the values of each column and a data tuple=Содержит выбранную строку, где строка - это набор MT-элементов со значениями каждой колонки и кортежем данных
+Contains the index of the selected row=Содержит индекс выделенной строки
+Contains the number of rows in the table=Содержит количество строк в таблице
+Contains the index of the last row in the table=Содержит индекс последней строки в таблице
+Row index to select=Индекс строки для выбора

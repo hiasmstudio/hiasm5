@@ -1,0 +1,13 @@
+Ellipse=Эллипс
+Chord line start coordinates for Chord mode by default=Координаты начала линии хорды для режима Chord по-умолчанию
+Chord line end coordinates for default Chord mode=Координаты конца линии хорды для режима Chord по умолчанию
+Count the coordinates of the fourth point relative to the third=Отсчитывать координаты четвертой точки относительно третьей
+Shape drawing mode=Режим отрисовки фигуры
+Drawing direction=Направление рисования
+Defines the default color of the edge (outer border) of the ellipse (chord).=Определяет цвет кромки (внешней границы) эллипса (хорды) по-умолчанию
+Defines the default fill color of the ellipse (chord)=Определяет цвет заливки эллипса (хорды) по-умолчанию
+Edge (outer border) color of the ellipse=Цвет кромки (внешней границы) эллипса
+Ellipse fill color=Цвет заливки эллипса
+Coordinates of the beginning of the chord line for Chord mode=Координаты начала линии хорды для режима Chord
+Chord line end coordinates for Chord mode=Координаты конца линии хорды для режима Chord
+Transformation=Трансформация

@@ -1,0 +1,61 @@
+include('qtMstClient')
+
+func doStart
+  println('QTimer::singleShot(0, &form, [&form] {')
+  MstBegin()
+  println(MstLocal(), '->externalDoubleClick = ', get('DblClick') == 'True', ';')
+  println(MstLocal(), '->externalReturn = ', get('KeyCellEnter') == 1, ';')
+  if(linked(onEnterCell))
+    println(MstLocal(), '->externalEnter = [&form] {')
+    event(onEnterCell)
+    println('};')
+  end
+  if(linked(onCellSize))
+    fvar(rect)
+    rect = 'mstEditCellRect' && _id_
+    println(MstLocal(), '->externalSize = [&form, table = ', MstLocal(), '] {')
+    println('const auto ', rect, ' = table->cellRect(table->currentRow(), table->currentColumn());')
+    event(onCellSize, rect && '.x()', rect && '.y()', rect && '.width()', rect && '.height()')
+    println('};')
+  end
+  if(linked(onEscCell))
+    fvar(value)
+    value = 'mstEditCellText' && _id_
+    println(MstLocal(), '->externalEscape = [&form](const QString &', value, ') {')
+    event(onEscCell, value)
+    println('};')
+  end
+  println(MstLocal(), '->connectExternalEditor();')
+  println('} });')
+end
+
+func doSetData(_data)
+  MstBegin()
+  println('if (', MstLocal(), '->currentIndex().isValid())')
+  println('  ', MstLocal(), '->setText(', MstLocal(), '->currentRow(), ', MstLocal(), '->currentColumn(), ', MstText(_data), '); }')
+end
+
+func doClientRect(_data)
+  fvar(rect, row, col)
+  rect = 'mstRequestedCellRect' && _id_
+  row = mt_arg(0)
+  col = mt_arg(MstNext('Row', 0))
+  if(linked('Row'))
+    row = d('Row')
+  end
+  if(linked('Col'))
+    col = d('Col')
+  end
+  MstBegin()
+  println('const auto ', rect, ' = ', MstLocal(), '->cellRect(', MstInt(row), ', ', MstInt(col), ');')
+  event(onClientRect, rect && '.x()', rect && '.y()', rect && '.width()', rect && '.height()')
+  println('}')
+end
+
+func SubItem()
+  return('([](HiasmMstTable *table) { return table ? table->currentColumn() : -1; }(' && MstTarget() && '))')
+end
+
+func Cell()
+  return('([](HiasmMstTable *table) { return table ? table->text(table->currentRow(), table->currentColumn()) : QString(); }(' && MstTarget() && '))')
+end

@@ -1,0 +1,104 @@
+*Монитор виртуальной и физической памяти памяти
+Make(cpp)
+Add(ProgressBar,23810,301,126)
+{
+ Left=55
+ Top=20
+ Width=335
+ Height=10
+ Layout="main"
+ WidthScale=100
+ Point(doMax)
+}
+Add(ProgressBar,48176,301,91)
+{
+ Left=55
+ Top=5
+ Width=335
+ Height=10
+ Layout="main"
+ WidthScale=100
+ Point(doMax)
+}
+Add(Hub,7008,84,196)
+{
+ OutCount=3
+ link(onEvent1,11418503:doWork3,[(102,202)])
+ link(onEvent2,77923:doData,[])
+ link(onEvent3,10124:doData,[])
+}
+Add(DoData,10124,154,210)
+{
+ link(onEventData,23810:doPosition,[(288,216)(288,132)])
+ link(Data,64546:RAM_free,[(160,83)(188,83)])
+}
+Add(Timer,33457,35,196)
+{
+ link(onTimer,7008:doEvent1,[])
+}
+Add(DoData,67912,175,133)
+{
+ link(onEventData,23810:doMax,[])
+ link(Data,64546:RAM,[])
+}
+Add(DoData,77923,231,203)
+{
+ link(onEventData,48176:doPosition,[(278,209)(278,97)])
+ link(Data,64546:PageFile_free,[(237,85)(202,85)])
+}
+Add(MemoryStatus,64546,175,21)
+{
+ Scale=2
+}
+Add(DoData,42372,189,98)
+{
+ link(onEventData,48176:doMax,[])
+ link(Data,64546:PageFile,[])
+}
+Add(Hub,23828,70,119)
+{
+ OutCount=3
+ link(onEvent1,11418503:doWork2,[])
+ link(onEvent2,42372:doData,[(163,132)(163,104)])
+ link(onEvent3,67912:doData,[])
+}
+Add(MainForm,47176,20,105)
+{
+ Left=195
+ Top=359
+ Height=57
+ Caption="Memory monitor"
+ BorderStyle=5
+ TaskBar=1
+ DragForm=0
+ link(onCreate,23828:doEvent1,[])
+}
+Add(HubEx,11418503,98,112)
+{
+ Angle=3
+ link(onEvent,64546:Refresh,[(102,27)])
+}
+Add(Label,16647483,329,49)
+{
+ Width=33
+ Height=17
+ Layout="main"
+ Caption="Virtual"
+}
+Add(Label,16440486,329,161)
+{
+ Top=15
+ Width=43
+ Height=17
+ Layout="main"
+ Caption="Physical"
+}
+Add(GridLayout,4072497,399,119)
+{
+ Name="main"
+ Space=3
+ Padding=3
+ Rows=2
+ Cols=2
+ AddMode=1
+}

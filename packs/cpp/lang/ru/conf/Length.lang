@@ -1,0 +1,5 @@
+Returns the length of a string=Возвращает длину строки
+Calculates the length of a string Str or a string from a stream=Вычисляет длину строки Str или строки из потока
+The event occurs whenever the length of a string is calculated=Событие происходит всякий раз при вычислении длины строки
+Contains the result of a calculation=Содержит результат вычисления
+Specifies the string whose length is to be calculated=Определяет строку, чью длину необходимо вычислить

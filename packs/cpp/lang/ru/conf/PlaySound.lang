@@ -1,0 +1,7 @@
+Playing a sound file (wav)=Проигрывание звукового файла (wav)
+SND_SYNC - return control to the program only after playing the sound file. SND_ASYNC - return control to the program immediately after the sound file starts playing. SND_LOOP - play a sound file cyclically=SND_SYNC - вернуть управление в программу только после проигрывания файла звука. SND_ASYNC - вернуть управление в программу сразу же после начала проигрывания файла звука. SND_LOOP - циклически проигрывать файл звука
+Contains the name of the file being played by default=Содержит имя проигрываемого файла по-умолчанию
+Contains audio data=Содержит звуковые данные
+Plays sound=Проигрывает звук
+The event occurs every time the Windows "Play Sound" function is called.=Событие происходит всякий раз после вызова функции Windows "Проиграть звук"
+Sets the name of the file being played=Задаёт имя проигрываемого файла

@@ -1,0 +1,1763 @@
+Make(cpp)
+Add(MainForm,15261923,28,56)
+{
+ Left=20
+ Top=105
+ Width=695
+ Height=650
+ Caption="Big Bang"
+ Point(MouseX)
+ Point(MouseY)
+ Point(onResize)
+ Point(Handle)
+ Point(onMouseDown)
+ Point(Width)
+ Point(Height)
+ link(onCreate,16299401:doEvent1,[(92,76)(92,181)])
+ link(onResize,14551396:doWork1,[(158,83)])
+ link(onMouseDown,15558308:In,[])
+}
+Add(GL_Main,12986311,168,175)
+{
+ Color=0
+ link(onInit,12198675:doInit,[])
+ link(onViewPort,3410847:doPerspective,[(224,188)(224,230)])
+ link(Handle,15261923:Handle,[(174,153)(48,153)])
+}
+Add(Timer,9506849,56,259)
+{
+ Interval=33
+ Enable=1
+ link(onTimer,1049454:doEvent1,[])
+}
+Add(GL_GTools,771925,168,259)
+{
+ ClearColor=1
+ Point(doClear)
+ Point(doPushMatrix)
+ Point(doPopMatrix)
+}
+Add(Hub,1049454,105,259)
+{
+ OutCount=5
+ link(onEvent1,771925:doClear,[])
+ link(onEvent2,771925:doPushMatrix,[])
+ link(onEvent3,3468357:doColor,[(162,279)(162,76)])
+ link(onEvent4,771925:doPopMatrix,[(162,286)(162,279)])
+ link(onEvent5,12986311:doFlip,[(158,293)(158,195)])
+}
+Add(Hub,16299401,98,175)
+{
+ OutCount=3
+ link(onEvent1,12986311:doInit,[])
+ link(onEvent2,14551396:doWork2,[])
+ link(onEvent3,9506849:doTimer,[(146,195)(146,240)(52,240)(52,265)])
+}
+Add(HubEx,14551396,154,182)
+{
+ link(onEvent,12986311:doViewPort,[])
+}
+Add(GL_Perspective,3410847,231,224)
+{
+ Fovy=20
+}
+Add(GL_GluTools,12198675,231,175)
+{
+ Texture=0
+ link(onInit,1101264:doEnabled,[])
+}
+Add(GL_Options,1101264,280,175)
+{
+ link(onEvent,3060881:doInit,[])
+}
+Add(GL_Options,10513853,525,175)
+{
+ Flag=1
+ link(onEvent,10286315:doBeginList,[])
+}
+Add(GL_Options,4378486,427,175)
+{
+ Flag=3
+ link(onEvent,14989894:doEnabled,[])
+}
+Add(GL_Options,5809249,378,175)
+{
+ Flag=2
+ link(onEvent,4378486:doEnabled,[])
+}
+Add(GL_Light,14989894,476,175)
+{
+ link(onEnabled,10513853:doEnabled,[])
+}
+Add(GL_Color,3468357,203,70)
+{
+ Color=0
+ Alpha=0.05
+ link(onColor,7836071:doCallList,[])
+}
+Add(GL_CallList,7836071,252,70)
+{
+ Index=2
+ link(onCallList,5403708:doNext,[])
+}
+Add(GL_Vertex3D,3652044,679,175)
+{
+ X=-2
+ Y=-2
+ Z=-0.4
+ link(onVertex,13810871:doVertex,[])
+}
+Add(Gl_BeginList,10286315,581,175)
+{
+ Index=2
+ link(onBiginList,7222455:doBegin,[])
+}
+Add(Gl_Begin,7222455,630,175)
+{
+ BlockType=7
+ link(onBegin,3652044:doVertex,[])
+}
+Add(GL_Vertex3D,13810871,728,175)
+{
+ X=2
+ Y=-2
+ Z=-0.4
+ link(onVertex,1499599:doVertex,[])
+}
+Add(GL_Vertex3D,1499599,777,175)
+{
+ X=2
+ Y=2
+ Z=-0.4
+ link(onVertex,875687:doVertex,[])
+}
+Add(GL_Vertex3D,875687,826,175)
+{
+ X=-2
+ Y=2
+ Z=-0.4
+ link(onVertex,6901366:doEnd,[])
+}
+Add(Gl_End,6901366,875,175)
+{
+ link(onEnd,258936:doEndList,[])
+}
+Add(Gl_EndList,258936,924,175)
+{
+ link(onEndList,16037297:doEnabled,[])
+}
+Add(GL_Options,16037297,966,175)
+{
+ Flag=8
+ link(onEvent,16156658:doPointSize,[(1013,181)(1013,188)])
+}
+Add(GL_PrimSizes,16156658,1022,175)
+{
+ Size=2
+ link(onSize,6870310:doWork2,[])
+}
+Add(PolymorphMulti,2966042,497,84)
+{
+ Selected="base"
+ WorkScheme=1
+ link(onAdd,11464146:doWork3,[(543,90)])
+}
+BEGIN_SDK
+  Add(EditPolyMulti,2286377,21,21)
+  {
+   WorkCount=#5:##add|6:doDraw|8:##delete|
+   EventCount=#5:onAdd|
+   VarCount=#7:##count|
+   Width=783
+   Height=340
+   Point(##add)
+   Point(##delete)
+   Point(##count)
+   link(##add,16521613:doValue,[(63,27)(63,48)])
+   link(doDraw,16062221:doEvent1,[(42,34)(42,202)])
+  }
+  Add(Memory,14020852,259,84)
+  {
+  }
+  Add(Gl_Begin,11067850,182,273)
+  {
+   link(onBegin,9949051:doVertex,[])
+  }
+  Add(GL_Vertex3D,9949051,252,273)
+  {
+   link(onVertex,10897047:doEnd,[])
+   link(X,141143:Var2,[])
+   link(Y,9388557:Var2,[(265,259)(370,259)])
+   link(Z,9129347:Value,[(272,246)(160,246)])
+  }
+  Add(Gl_End,10897047,315,273)
+  {
+   link(onEnd,6398081:doRandom,[])
+  }
+  Add(GL_Color,10064849,126,273)
+  {
+   Color=16776960
+   link(onColor,11067850:doBegin,[])
+  }
+  Add(Math,10184845,252,196)
+  {
+   link(onResult,12338709:doEvent1,[])
+   link(Op1,14741411:Value,[])
+   link(Op2,9844230:Var2,[])
+  }
+  Add(GetDataEx,141143,252,238)
+  {
+   link(Data,10184845:Result,[])
+  }
+  Add(Hub,16062221,63,196)
+  {
+   link(onEvent1,10184845:doOperation,[])
+   link(onEvent2,10064849:doColor,[(101,209)(101,279)])
+  }
+  Add(Memory,1054337,371,84)
+  {
+  }
+  Add(Math,13936952,364,196)
+  {
+   link(onResult,6659701:doEvent1,[])
+   link(Op1,14712539:Value,[])
+   link(Op2,14189956:Var2,[])
+  }
+  Add(GetDataEx,9388557,364,231)
+  {
+   link(Data,13936952:Result,[])
+  }
+  Add(Random,6398081,364,273)
+  {
+   Max=80
+   link(onRandom,5510936:doCompare,[])
+  }
+  Add(If_else,5510936,406,273)
+  {
+   Op2=Integer(1)
+   link(onTrue,8473537:doRandom,[])
+  }
+  Add(MT_AddData,14594142,616,273)
+  {
+   Count=4
+   InputMT=3
+   link(onAdd,2286377:onAdd,[(712,279)(712,27)])
+   link(Data1,12842902:Var2,[])
+   link(Data2,2169315:Var2,[])
+   link(Data3,9726966:Result,[(636,261)(657,261)(657,316)(510,316)])
+  }
+  Add(MT_MultiMem,16521613,105,42)
+  {
+   From=1
+   Count=4
+   link(onData,1406277:doEvent1,[])
+  }
+  Add(Hub,6659701,413,196)
+  {
+   OutCount=3
+   link(onEvent1,4587527:doCalc,[(445,202)(445,97)])
+   link(onEvent2,7517282:doCalc,[])
+   link(onEvent3,5739430:doWork3,[(432,216)(432,232)(340,232)])
+  }
+  Add(DoData,7980615,189,42)
+  {
+   link(onEventData,16490989:doWork1,[(242,48)])
+   link(Data,16521613:Value1,[(195,30)(146,30)(146,93)(111,93)])
+  }
+  Add(Hub,1406277,154,42)
+  {
+   OutCount=5
+   link(onEvent1,7980615:doData,[])
+   link(onEvent2,5986097:doData,[])
+   link(onEvent3,13668905:doData,[])
+   link(onEvent4,13643200:doData,[(189,69)(189,76)])
+   link(onEvent5,2949763:doRandom,[(180,76)(180,114)(58,114)(58,153)])
+  }
+  Add(DoData,5986097,196,49)
+  {
+   link(onEventData,5739430:doWork1,[(340,55)])
+   link(Data,16521613:Value2,[(202,25)(139,25)(139,86)(118,86)])
+  }
+  Add(MathParse,9726966,504,273)
+  {
+   MathStr="sin(%2/180*pi)/100"
+   link(onResult,1682944:doCalc,[])
+   link(X1,15987805:Var2,[])
+  }
+  Add(MathParse,1682944,567,273)
+  {
+   MathStr="cos(%2/180*pi)/100"
+   link(onResult,14594142:doAdd,[])
+   link(X1,5951237:Var3,[(573,124)])
+   link(X2,8473537:Random,[(580,261)(555,261)(555,329)(461,329)])
+  }
+  Add(DoData,13668905,203,56)
+  {
+   link(onEventData,12262618:doWork1,[(249,62)])
+   link(Data,16521613:Value3,[(209,36)(158,36)(158,103)(125,103)])
+  }
+  Add(Memory,14741411,252,133)
+  {
+  }
+  Add(Memory,14712539,364,133)
+  {
+  }
+  Add(Hub,12338709,301,196)
+  {
+   link(onEvent1,13936952:doOperation,[])
+   link(onEvent2,16490989:doWork3,[(323,209)(323,234)(242,234)])
+  }
+  Add(HubEx,16490989,238,133)
+  {
+   link(onEvent,14741411:doValue,[])
+  }
+  Add(HubEx,5739430,336,133)
+  {
+   link(onEvent,14712539:doValue,[])
+  }
+  Add(HubEx,12262618,245,63)
+  {
+   Angle=1
+   link(onEvent,14020852:doValue,[(249,90)])
+  }
+  Add(DoData,13643200,210,70)
+  {
+   link(onEventData,524466:doWork2,[])
+   link(Data,16521613:Value4,[(216,58)(171,58)(171,86)(132,86)])
+  }
+  Add(HubEx,524466,350,70)
+  {
+   Angle=1
+   link(onEvent,1054337:doValue,[(354,90)])
+  }
+  Add(MathParse,4587527,511,91)
+  {
+   MathStr="%1*1.001"
+   link(onResult,9256251:doCalc,[])
+   link(X1,5951237:Var1,[(517,83)(432,83)])
+  }
+  Add(GetDataEx,14189956,371,119)
+  {
+   link(Data,1054337:Value,[])
+  }
+  Add(MathParse,7517282,511,203)
+  {
+   MathStr="%1*1.001"
+   link(onResult,16060576:doCalc,[])
+   link(X1,15987805:Var3,[(517,180)])
+  }
+  Add(GetDataEx,5951237,426,119)
+  {
+   Angle=3
+   link(Data,14189956:Var3,[])
+  }
+  Add(Random,8473537,455,273)
+  {
+   Max=360
+   link(onRandom,9726966:doCalc,[])
+  }
+  Add(GetDataEx,9844230,259,175)
+  {
+   link(Data,14020852:Value,[])
+  }
+  Add(GetDataEx,15987805,504,175)
+  {
+   Angle=3
+   link(Data,9844230:Var3,[])
+  }
+  Add(Memory,9129347,154,147)
+  {
+  }
+  Add(Random,2949763,70,147)
+  {
+   Min=-100
+   link(onRandom,5599193:doOperation,[])
+  }
+  Add(Math,5599193,112,147)
+  {
+   OpType=3
+   Op2=1000
+   link(onResult,9129347:doValue,[])
+  }
+  Add(MathParse,9256251,574,91)
+  {
+   MathStr="%1 - %2*0.0003"
+   link(onResult,524466:doWork3,[(618,97)(618,76)])
+   link(X2,2169315:Var1,[(587,79)(629,79)])
+  }
+  Add(GetDataEx,2169315,623,231)
+  {
+   Angle=3
+   link(Data,9388557:Var3,[])
+  }
+  Add(MathParse,16060576,574,203)
+  {
+   MathStr="%1 - %2*0.0003"
+   link(onResult,12262618:doWork3,[(640,209)(640,69)])
+   link(X2,12842902:Var1,[(587,191)(622,191)])
+  }
+  Add(GetDataEx,12842902,616,238)
+  {
+   Angle=3
+   link(Data,141143:Var3,[])
+  }
+END_SDK
+Add(MT_Add,14775566,441,84)
+{
+ Data=String(base)
+ InputMT=1
+ link(onAdd,2966042:##add,[])
+}
+Add(HubEx,11464146,539,56)
+{
+ Angle=2
+ link(onEvent,14775566:doAdd,[(432,62)(432,90)])
+}
+Add(MT_AddData,16488834,1239,175)
+{
+ Count=4
+ Data=Real(0.008)
+ link(onAdd,11464146:doWork2,[(1277,181)(1277,62)])
+ link(Data1,10430654:Value,[])
+ link(Data2,7130919:Value,[])
+ link(Data3,9726966:Result,[(1259,154)(1118,154)(1118,215)(1133,215)])
+ link(Data4,1682944:Result,[(1266,153)(1293,153)(1293,224)(1189,224)])
+}
+Add(Hub,8017965,406,84)
+{
+ OutCount=4
+ link(onEvent1,16063514:doPushMatrix,[(430,90)(430,27)])
+ link(onEvent2,2966042:doDraw,[])
+ link(onEvent3,16041317:doRepeat,[(437,104)(437,139)])
+ link(onEvent4,1499067:doPointSize,[(433,111)(433,244)])
+}
+Add(DoData,1596456,546,133)
+{
+ Data=Integer(0)
+ link(onEventData,2966042:##delete,[(590,139)(590,121)(485,121)(485,104)])
+}
+Add(Repeat,16041317,497,133)
+{
+ Type=2
+ Op2=Integer(300)
+ link(onRepeat,1596456:doData,[])
+ link(Op1,2966042:##count,[])
+}
+Add(For,5717642,1071,175)
+{
+ End=360
+ Step=36
+ link(onEvent,9726966:doCalc,[])
+ link(onStop,7296785:doBeginList,[(1115,188)(1115,258)])
+}
+Add(MathParse,9726966,1127,175)
+{
+ MathStr="sin(%2/180*pi)/100"
+ link(onResult,1682944:doCalc,[])
+}
+Add(MathParse,1682944,1183,175)
+{
+ MathStr="cos(%2/180*pi)/100"
+ link(onResult,16488834:doAdd,[])
+ link(X2,5717642:Position,[(1196,163)(1168,163)(1168,223)(1077,223)])
+}
+Add(HubEx,6870310,1057,175)
+{
+ link(onEvent,5717642:doFor,[])
+}
+Add(Memory,10430654,1239,84)
+{
+ Default=Integer(0)
+}
+Add(Memory,7130919,1246,91)
+{
+ Default=Integer(0)
+}
+Add(Hub,1242491,1029,84)
+{
+ OutCount=3
+ link(onEvent1,5653615:doCalc,[])
+ link(onEvent2,4516823:doCalc,[])
+ link(onEvent3,6870310:doWork1,[(1061,104)])
+}
+Add(MathParse,5653615,1085,84)
+{
+ MathStr="%1/%2*2.5 - 1.25"
+ link(onResult,10430654:doValue,[])
+ link(X1,15290388:Var,[])
+ link(X2,14965433:Var,[])
+}
+Add(MathParse,4516823,1127,91)
+{
+ MathStr="(-%1/%2*2.5) + 1.25"
+ link(onResult,7130919:doValue,[])
+ link(X1,13484898:Var,[])
+ link(X2,3925869:Var,[])
+}
+Add(LineBreak,10983078,28,105)
+{
+ Caption="x"
+ Type=1
+ link(Data,15261923:MouseX,[])
+ Primary=[15290388,1057,-70]
+}
+Add(LineBreak,7365286,35,126)
+{
+ Caption="y"
+ Type=1
+ link(Data,15261923:MouseY,[])
+ Primary=[13484898,1092,-84]
+}
+Add(LineBreak,14146764,49,105)
+{
+ Caption="w"
+ Type=1
+ link(Data,15261923:Width,[])
+ Primary=[14965433,1043,-49]
+}
+Add(LineBreak,7423550,56,126)
+{
+ Caption="h"
+ Type=1
+ link(Data,15261923:Height,[])
+ Primary=[3925869,1078,-63]
+}
+Add(LineBreak,6899454,966,84)
+{
+ Caption="create"
+ link(Out,1242491:doEvent1,[])
+ Primary=[15558308,-889,0]
+}
+Add(Gl_Text,3060881,329,175)
+{
+ Depth=0.2
+ Font=[Times New Roman,5,0,32768,1]
+ Text="HiAsm"
+ link(onInit,5809249:doEnabled,[])
+ link(GLHandle,12986311:GLHandle,[(335,163)(371,163)(371,219)(174,219)])
+}
+Add(Gl_Scale,15125776,280,133)
+{
+ X=0.2
+ Y=0.2
+ Z=0.2
+ link(onScale,3060881:doDraw,[(320,139)(320,188)])
+}
+Add(GL_Rotate,7850863,350,70)
+{
+ X=1
+ Z=1
+ link(onRotate,8017965:doEvent1,[(394,76)(394,90)])
+}
+Add(Counter,5403708,301,70)
+{
+ Max=359
+ link(onNext,7850863:doRotate,[])
+}
+Add(GL_Color,9569537,224,133)
+{
+ Color=16777215
+ Alpha=0.8
+ link(onColor,15125776:doScale,[])
+}
+Add(Gl_Translate,4735152,175,133)
+{
+ X=-0.2
+ link(onTranslate,9569537:doColor,[])
+}
+Add(MultiElementEx,13402434,1183,252)
+{
+ link(onDraw,14389816:doEndList,[])
+}
+BEGIN_SDK
+  Add(EditMultiEx,2282357,21,21)
+  {
+   WorkCount=#7:doColor|
+   EventCount=#6:onDraw|
+   Width=524
+   Height=179
+   link(doColor,11936938:doColor,[(35,27)(35,104)])
+  }
+  Add(MultiElementEx,15019342,147,98)
+  {
+   link(onDraw,6259177:doDraw,[])
+  }
+  BEGIN_SDK
+    Add(EditMultiEx,5555358,21,21)
+    {
+     WorkCount=#6:doDraw|
+     EventCount=#6:onDraw|
+     Width=335
+     Height=333
+     link(doDraw,11225919:doDraw,[(35,27)(35,104)])
+    }
+    Add(GL_Cube2,12980814,140,203)
+    {
+     link(onDraw,13020190:doDraw,[])
+     link(Point1,11944132:Point3D,[])
+     link(Point2,15844996:Point3D,[(153,195)(188,195)])
+    }
+    Add(GL_Point3D,11944132,140,154)
+    {
+     X=-0.1
+     Y=-0.1
+     Z=0.3
+    }
+    Add(GL_Point3D,15844996,182,154)
+    {
+     X=0.1
+     Y=0.1
+     Z=0.31
+    }
+    Add(GL_Cube2,15359655,140,98)
+    {
+     link(onDraw,8888607:doDraw,[])
+     link(Point1,11967379:Point3D,[])
+     link(Point2,536052:Point3D,[(153,90)(188,90)])
+    }
+    Add(GL_Point3D,11967379,140,49)
+    {
+     X=-0.1
+     Y=-0.11
+     Z=0.3
+    }
+    Add(GL_Point3D,536052,182,49)
+    {
+     X=0.1
+     Y=-0.31
+     Z=0.31
+    }
+    Add(GL_Cube2,9000576,140,301)
+    {
+     link(onDraw,14925165:doDraw,[])
+     link(Point1,4744770:Point3D,[])
+     link(Point2,3777678:Point3D,[(153,293)(188,293)])
+    }
+    Add(GL_Point3D,4744770,140,252)
+    {
+     X=-0.1
+     Y=0.11
+     Z=0.3
+    }
+    Add(GL_Point3D,3777678,182,252)
+    {
+     X=0.1
+     Y=0.31
+     Z=0.31
+    }
+    Add(GL_Cube2,10328482,49,203)
+    {
+     link(onDraw,12980814:doDraw,[])
+     link(Point1,5662442:Point3D,[])
+     link(Point2,15535298:Point3D,[(62,195)(97,195)])
+    }
+    Add(GL_Point3D,5662442,49,154)
+    {
+     X=-0.11
+     Y=-0.1
+     Z=0.3
+    }
+    Add(GL_Point3D,15535298,91,154)
+    {
+     X=-0.31
+     Y=0.1
+     Z=0.31
+    }
+    Add(GL_Cube2,11225919,49,98)
+    {
+     link(onDraw,15359655:doDraw,[])
+     link(Point1,2791939:Point3D,[])
+     link(Point2,11723647:Point3D,[(62,90)(97,90)])
+    }
+    Add(GL_Point3D,2791939,49,49)
+    {
+     X=-0.11
+     Y=-0.11
+     Z=0.3
+    }
+    Add(GL_Point3D,11723647,91,49)
+    {
+     X=-0.31
+     Y=-0.31
+     Z=0.31
+    }
+    Add(GL_Cube2,8888607,231,98)
+    {
+     link(onDraw,8098732:doColor,[])
+     link(Point1,8039489:Point3D,[])
+     link(Point2,3188480:Point3D,[(244,90)(279,90)])
+    }
+    Add(GL_Point3D,8039489,231,49)
+    {
+     X=0.11
+     Y=-0.11
+     Z=0.3
+    }
+    Add(GL_Point3D,3188480,273,49)
+    {
+     X=0.31
+     Y=-0.31
+     Z=0.31
+    }
+    Add(GL_Cube2,13020190,231,203)
+    {
+     link(onDraw,7122781:doColor,[])
+     link(Point1,2945702:Point3D,[])
+     link(Point2,5440530:Point3D,[(244,195)(279,195)])
+    }
+    Add(GL_Point3D,2945702,231,154)
+    {
+     X=0.11
+     Y=-0.1
+     Z=0.3
+    }
+    Add(GL_Point3D,5440530,273,154)
+    {
+     X=0.31
+     Y=0.1
+     Z=0.31
+    }
+    Add(GL_Cube2,1564420,49,301)
+    {
+     link(onDraw,9000576:doDraw,[])
+     link(Point1,11143392:Point3D,[])
+     link(Point2,6609377:Point3D,[(62,293)(97,293)])
+    }
+    Add(GL_Point3D,11143392,49,252)
+    {
+     X=-0.11
+     Y=0.11
+     Z=0.3
+    }
+    Add(GL_Point3D,6609377,91,252)
+    {
+     X=-0.31
+     Y=0.31
+     Z=0.31
+    }
+    Add(GL_Cube2,14925165,231,301)
+    {
+     link(onDraw,5555358:onDraw,[(341,307)(341,27)])
+     link(Point1,3557306:Point3D,[])
+     link(Point2,5752354:Point3D,[(244,293)(279,293)])
+    }
+    Add(GL_Point3D,3557306,231,252)
+    {
+     X=0.11
+     Y=0.11
+     Z=0.3
+    }
+    Add(GL_Point3D,5752354,273,252)
+    {
+     X=0.31
+     Y=0.31
+     Z=0.31
+    }
+    Add(GL_Color,8098732,294,98)
+    {
+     Color=255
+     link(onColor,10328482:doDraw,[(338,104)(338,156)(37,156)(37,209)])
+    }
+    Add(GL_Color,7122781,294,203)
+    {
+     Color=16777215
+     link(onColor,1564420:doDraw,[(338,209)(338,258)(37,258)(37,307)])
+    }
+  END_SDK
+  Add(GL_Color,11936938,91,98)
+  {
+   Color=16777215
+   link(onColor,15019342:doDraw,[])
+  }
+  Add(MultiElementEx,6259177,203,98)
+  {
+   link(onDraw,12029490:doDraw,[])
+  }
+  BEGIN_SDK
+    Add(EditMultiEx,5555358,21,21)
+    {
+     WorkCount=#6:doDraw|
+     EventCount=#6:onDraw|
+     Width=335
+     Height=333
+     link(doDraw,11225919:doDraw,[(35,27)(35,104)])
+    }
+    Add(GL_Cube2,12980814,140,203)
+    {
+     link(onDraw,13020190:doDraw,[])
+     link(Point1,11944132:Point3D,[])
+     link(Point2,15844996:Point3D,[(153,195)(188,195)])
+    }
+    Add(GL_Point3D,11944132,140,154)
+    {
+     X=-0.1
+     Y=-0.1
+     Z=-0.3
+    }
+    Add(GL_Point3D,15844996,182,154)
+    {
+     X=0.1
+     Y=0.1
+     Z=-0.31
+    }
+    Add(GL_Cube2,15359655,140,98)
+    {
+     link(onDraw,8888607:doDraw,[])
+     link(Point1,11967379:Point3D,[])
+     link(Point2,536052:Point3D,[(153,90)(188,90)])
+    }
+    Add(GL_Point3D,11967379,140,49)
+    {
+     X=-0.1
+     Y=-0.11
+     Z=-0.3
+    }
+    Add(GL_Point3D,536052,182,49)
+    {
+     X=0.1
+     Y=-0.31
+     Z=-0.31
+    }
+    Add(GL_Cube2,9000576,140,301)
+    {
+     link(onDraw,14925165:doDraw,[])
+     link(Point1,4744770:Point3D,[])
+     link(Point2,3777678:Point3D,[(153,293)(188,293)])
+    }
+    Add(GL_Point3D,4744770,140,252)
+    {
+     X=-0.1
+     Y=0.11
+     Z=-0.3
+    }
+    Add(GL_Point3D,3777678,182,252)
+    {
+     X=0.1
+     Y=0.31
+     Z=-0.31
+    }
+    Add(GL_Cube2,10328482,49,203)
+    {
+     link(onDraw,12980814:doDraw,[])
+     link(Point1,5662442:Point3D,[])
+     link(Point2,15535298:Point3D,[(62,195)(97,195)])
+    }
+    Add(GL_Point3D,5662442,49,154)
+    {
+     X=-0.11
+     Y=-0.1
+     Z=-0.3
+    }
+    Add(GL_Point3D,15535298,91,154)
+    {
+     X=-0.31
+     Y=0.1
+     Z=-0.31
+    }
+    Add(GL_Cube2,11225919,49,98)
+    {
+     link(onDraw,15359655:doDraw,[])
+     link(Point1,2791939:Point3D,[])
+     link(Point2,11723647:Point3D,[(62,90)(97,90)])
+    }
+    Add(GL_Point3D,2791939,49,49)
+    {
+     X=-0.11
+     Y=-0.11
+     Z=-0.3
+    }
+    Add(GL_Point3D,11723647,91,49)
+    {
+     X=-0.31
+     Y=-0.31
+     Z=-0.31
+    }
+    Add(GL_Cube2,8888607,231,98)
+    {
+     link(onDraw,10328482:doDraw,[(275,104)(275,156)(37,156)(37,209)])
+     link(Point1,8039489:Point3D,[])
+     link(Point2,3188480:Point3D,[(244,90)(279,90)])
+    }
+    Add(GL_Point3D,8039489,231,49)
+    {
+     X=0.11
+     Y=-0.11
+     Z=-0.3
+    }
+    Add(GL_Point3D,3188480,273,49)
+    {
+     X=0.31
+     Y=-0.31
+     Z=-0.31
+    }
+    Add(GL_Cube2,13020190,231,203)
+    {
+     link(onDraw,1564420:doDraw,[(275,209)(275,258)(37,258)(37,307)])
+     link(Point1,2945702:Point3D,[])
+     link(Point2,5440530:Point3D,[(244,195)(279,195)])
+    }
+    Add(GL_Point3D,2945702,231,154)
+    {
+     X=0.11
+     Y=-0.1
+     Z=-0.3
+    }
+    Add(GL_Point3D,5440530,273,154)
+    {
+     X=0.31
+     Y=0.1
+     Z=-0.31
+    }
+    Add(GL_Cube2,1564420,49,301)
+    {
+     link(onDraw,9000576:doDraw,[])
+     link(Point1,11143392:Point3D,[])
+     link(Point2,6609377:Point3D,[(62,293)(97,293)])
+    }
+    Add(GL_Point3D,11143392,49,252)
+    {
+     X=-0.11
+     Y=0.11
+     Z=-0.3
+    }
+    Add(GL_Point3D,6609377,91,252)
+    {
+     X=-0.31
+     Y=0.31
+     Z=-0.31
+    }
+    Add(GL_Cube2,14925165,231,301)
+    {
+     link(onDraw,5555358:onDraw,[(309,307)(309,27)])
+     link(Point1,3557306:Point3D,[])
+     link(Point2,5752354:Point3D,[(244,293)(279,293)])
+    }
+    Add(GL_Point3D,3557306,231,252)
+    {
+     X=0.11
+     Y=0.11
+     Z=-0.3
+    }
+    Add(GL_Point3D,5752354,273,252)
+    {
+     X=0.31
+     Y=0.31
+     Z=-0.31
+    }
+  END_SDK
+  Add(MultiElementEx,12029490,266,98)
+  {
+   link(onDraw,10696761:doDraw,[])
+  }
+  BEGIN_SDK
+    Add(EditMultiEx,5555358,21,21)
+    {
+     WorkCount=#6:doDraw|
+     EventCount=#6:onDraw|
+     Width=335
+     Height=333
+     link(doDraw,11225919:doDraw,[(35,27)(35,104)])
+    }
+    Add(GL_Cube2,12980814,140,203)
+    {
+     link(onDraw,13020190:doDraw,[])
+     link(Point1,11944132:Point3D,[])
+     link(Point2,15844996:Point3D,[(153,195)(188,195)])
+    }
+    Add(GL_Point3D,11944132,140,154)
+    {
+     X=-0.1
+     Y=-0.3
+     Z=-0.1
+    }
+    Add(GL_Point3D,15844996,182,154)
+    {
+     X=0.1
+     Y=-0.31
+     Z=0.1
+    }
+    Add(GL_Cube2,15359655,140,98)
+    {
+     link(onDraw,8888607:doDraw,[])
+     link(Point1,11967379:Point3D,[])
+     link(Point2,536052:Point3D,[(153,90)(188,90)])
+    }
+    Add(GL_Point3D,11967379,140,49)
+    {
+     X=-0.1
+     Y=-0.3
+     Z=-0.11
+    }
+    Add(GL_Point3D,536052,182,49)
+    {
+     X=0.1
+     Y=-0.31
+     Z=-0.31
+    }
+    Add(GL_Cube2,9000576,140,301)
+    {
+     link(onDraw,14925165:doDraw,[])
+     link(Point1,4744770:Point3D,[])
+     link(Point2,3777678:Point3D,[(153,293)(188,293)])
+    }
+    Add(GL_Point3D,4744770,140,252)
+    {
+     X=-0.1
+     Y=-0.3
+     Z=0.11
+    }
+    Add(GL_Point3D,3777678,182,252)
+    {
+     X=0.1
+     Y=-0.31
+     Z=0.31
+    }
+    Add(GL_Cube2,10328482,49,203)
+    {
+     link(onDraw,12980814:doDraw,[])
+     link(Point1,5662442:Point3D,[])
+     link(Point2,15535298:Point3D,[(62,195)(97,195)])
+    }
+    Add(GL_Point3D,5662442,49,154)
+    {
+     X=-0.11
+     Y=-0.3
+     Z=-0.1
+    }
+    Add(GL_Point3D,15535298,91,154)
+    {
+     X=-0.31
+     Y=-0.31
+     Z=0.1
+    }
+    Add(GL_Cube2,11225919,49,98)
+    {
+     link(onDraw,15359655:doDraw,[])
+     link(Point1,2791939:Point3D,[])
+     link(Point2,11723647:Point3D,[(62,90)(97,90)])
+    }
+    Add(GL_Point3D,2791939,49,49)
+    {
+     X=-0.11
+     Y=-0.3
+     Z=-0.11
+    }
+    Add(GL_Point3D,11723647,91,49)
+    {
+     X=-0.31
+     Y=-0.31
+     Z=-0.31
+    }
+    Add(GL_Cube2,8888607,231,98)
+    {
+     link(onDraw,10328482:doDraw,[(275,104)(275,156)(37,156)(37,209)])
+     link(Point1,8039489:Point3D,[])
+     link(Point2,3188480:Point3D,[(244,90)(279,90)])
+    }
+    Add(GL_Point3D,8039489,231,49)
+    {
+     X=0.11
+     Y=-0.3
+     Z=-0.11
+    }
+    Add(GL_Point3D,3188480,273,49)
+    {
+     X=0.31
+     Y=-0.31
+     Z=-0.31
+    }
+    Add(GL_Cube2,13020190,231,203)
+    {
+     link(onDraw,1564420:doDraw,[(275,209)(275,258)(37,258)(37,307)])
+     link(Point1,2945702:Point3D,[])
+     link(Point2,5440530:Point3D,[(244,195)(279,195)])
+    }
+    Add(GL_Point3D,2945702,231,154)
+    {
+     X=0.11
+     Y=-0.3
+     Z=-0.1
+    }
+    Add(GL_Point3D,5440530,273,154)
+    {
+     X=0.31
+     Y=-0.31
+     Z=0.1
+    }
+    Add(GL_Cube2,1564420,49,301)
+    {
+     link(onDraw,9000576:doDraw,[])
+     link(Point1,11143392:Point3D,[])
+     link(Point2,6609377:Point3D,[(62,293)(97,293)])
+    }
+    Add(GL_Point3D,11143392,49,252)
+    {
+     X=-0.11
+     Y=-0.3
+     Z=0.11
+    }
+    Add(GL_Point3D,6609377,91,252)
+    {
+     X=-0.31
+     Y=-0.31
+     Z=0.31
+    }
+    Add(GL_Cube2,14925165,231,301)
+    {
+     link(onDraw,5555358:onDraw,[(320,307)(320,27)])
+     link(Point1,3557306:Point3D,[])
+     link(Point2,5752354:Point3D,[(244,293)(279,293)])
+    }
+    Add(GL_Point3D,3557306,231,252)
+    {
+     X=0.11
+     Y=-0.3
+     Z=0.11
+    }
+    Add(GL_Point3D,5752354,273,252)
+    {
+     X=0.31
+     Y=-0.31
+     Z=0.31
+    }
+  END_SDK
+  Add(InfoTip,14501771,133,84)
+  {
+   Info=#1:Z|
+   Width=113
+   Height=60
+  }
+  Add(InfoTip,9994759,252,84)
+  {
+   Info=#1:Y|
+   Width=113
+   Height=60
+  }
+  Add(InfoTip,51526,371,84)
+  {
+   Info=#1:X|
+   Width=113
+   Height=60
+  }
+  Add(MultiElementEx,13091462,378,98)
+  {
+   link(onDraw,7666647:doDraw,[])
+  }
+  BEGIN_SDK
+    Add(EditMultiEx,5555358,21,21)
+    {
+     WorkCount=#6:doDraw|
+     EventCount=#6:onDraw|
+     Width=335
+     Height=333
+     link(doDraw,11225919:doDraw,[(35,27)(35,104)])
+    }
+    Add(GL_Cube2,12980814,140,203)
+    {
+     link(onDraw,16352854:doColor,[])
+     link(Point1,11944132:Point3D,[])
+     link(Point2,15844996:Point3D,[(153,195)(188,195)])
+    }
+    Add(GL_Point3D,11944132,140,154)
+    {
+     X=0.3
+     Y=-0.1
+     Z=-0.1
+    }
+    Add(GL_Point3D,15844996,182,154)
+    {
+     X=0.31
+     Y=0.1
+     Z=0.1
+    }
+    Add(GL_Cube2,15359655,140,98)
+    {
+     link(onDraw,8888607:doDraw,[])
+     link(Point1,11967379:Point3D,[])
+     link(Point2,536052:Point3D,[(153,90)(188,90)])
+    }
+    Add(GL_Point3D,11967379,140,49)
+    {
+     X=0.3
+     Y=-0.11
+     Z=-0.1
+    }
+    Add(GL_Point3D,536052,182,49)
+    {
+     X=0.31
+     Y=-0.31
+     Z=0.1
+    }
+    Add(GL_Cube2,9000576,140,301)
+    {
+     link(onDraw,14925165:doDraw,[])
+     link(Point1,4744770:Point3D,[])
+     link(Point2,3777678:Point3D,[(153,293)(188,293)])
+    }
+    Add(GL_Point3D,4744770,140,252)
+    {
+     X=0.3
+     Y=0.11
+     Z=-0.1
+    }
+    Add(GL_Point3D,3777678,182,252)
+    {
+     X=0.31
+     Y=0.31
+     Z=0.1
+    }
+    Add(GL_Cube2,10328482,49,203)
+    {
+     link(onDraw,8098732:doColor,[])
+     link(Point1,5662442:Point3D,[])
+     link(Point2,15535298:Point3D,[(62,195)(97,195)])
+    }
+    Add(GL_Point3D,5662442,49,154)
+    {
+     X=0.3
+     Y=-0.1
+     Z=-0.11
+    }
+    Add(GL_Point3D,15535298,91,154)
+    {
+     X=0.31
+     Y=0.1
+     Z=-0.31
+    }
+    Add(GL_Cube2,11225919,49,98)
+    {
+     link(onDraw,15359655:doDraw,[])
+     link(Point1,2791939:Point3D,[])
+     link(Point2,11723647:Point3D,[(62,90)(97,90)])
+    }
+    Add(GL_Point3D,2791939,49,49)
+    {
+     X=0.3
+     Y=-0.11
+     Z=-0.11
+    }
+    Add(GL_Point3D,11723647,91,49)
+    {
+     X=0.31
+     Y=-0.31
+     Z=-0.31
+    }
+    Add(GL_Cube2,8888607,231,98)
+    {
+     link(onDraw,10328482:doDraw,[(275,104)(275,156)(37,156)(37,209)])
+     link(Point1,8039489:Point3D,[])
+     link(Point2,3188480:Point3D,[(244,90)(279,90)])
+    }
+    Add(GL_Point3D,8039489,231,49)
+    {
+     X=0.3
+     Y=-0.11
+     Z=0.11
+    }
+    Add(GL_Point3D,3188480,273,49)
+    {
+     X=0.31
+     Y=-0.31
+     Z=0.31
+    }
+    Add(GL_Cube2,13020190,231,203)
+    {
+     link(onDraw,1564420:doDraw,[(275,209)(275,258)(37,258)(37,307)])
+     link(Point1,2945702:Point3D,[])
+     link(Point2,5440530:Point3D,[(244,195)(279,195)])
+    }
+    Add(GL_Point3D,2945702,231,154)
+    {
+     X=0.3
+     Y=-0.1
+     Z=0.11
+    }
+    Add(GL_Point3D,5440530,273,154)
+    {
+     X=0.31
+     Y=0.1
+     Z=0.31
+    }
+    Add(GL_Cube2,1564420,49,301)
+    {
+     link(onDraw,9000576:doDraw,[])
+     link(Point1,11143392:Point3D,[])
+     link(Point2,6609377:Point3D,[(62,293)(97,293)])
+    }
+    Add(GL_Point3D,11143392,49,252)
+    {
+     X=0.3
+     Y=0.11
+     Z=-0.11
+    }
+    Add(GL_Point3D,6609377,91,252)
+    {
+     X=0.31
+     Y=0.31
+     Z=-0.31
+    }
+    Add(GL_Cube2,14925165,231,301)
+    {
+     link(onDraw,5555358:onDraw,[(309,307)(309,27)])
+     link(Point1,3557306:Point3D,[])
+     link(Point2,5752354:Point3D,[(244,293)(279,293)])
+    }
+    Add(GL_Point3D,3557306,231,252)
+    {
+     X=0.3
+     Y=0.11
+     Z=0.11
+    }
+    Add(GL_Point3D,5752354,273,252)
+    {
+     X=0.31
+     Y=0.31
+     Z=0.31
+    }
+    Add(GL_Color,8098732,98,203)
+    {
+     Color=255
+     link(onColor,12980814:doDraw,[])
+    }
+    Add(GL_Color,16352854,189,203)
+    {
+     Color=16777215
+     link(onColor,13020190:doDraw,[])
+    }
+  END_SDK
+  Add(MultiElementEx,7666647,427,98)
+  {
+   link(onDraw,2282357:onDraw,[(502,104)(502,27)])
+  }
+  BEGIN_SDK
+    Add(EditMultiEx,5555358,21,21)
+    {
+     WorkCount=#6:doDraw|
+     EventCount=#6:onDraw|
+     Width=335
+     Height=333
+     link(doDraw,11225919:doDraw,[(35,27)(35,104)])
+    }
+    Add(GL_Cube2,12980814,140,203)
+    {
+     link(onDraw,13020190:doDraw,[])
+     link(Point1,11944132:Point3D,[])
+     link(Point2,15844996:Point3D,[(153,195)(188,195)])
+    }
+    Add(GL_Point3D,11944132,140,154)
+    {
+     X=-0.31
+     Y=-0.1
+     Z=-0.1
+    }
+    Add(GL_Point3D,15844996,182,154)
+    {
+     X=-0.3
+     Y=0.1
+     Z=0.1
+    }
+    Add(GL_Cube2,15359655,140,98)
+    {
+     link(onDraw,8888607:doDraw,[])
+     link(Point1,11967379:Point3D,[])
+     link(Point2,536052:Point3D,[(153,90)(188,90)])
+    }
+    Add(GL_Point3D,11967379,140,49)
+    {
+     X=-0.31
+     Y=-0.11
+     Z=-0.1
+    }
+    Add(GL_Point3D,536052,182,49)
+    {
+     X=-0.3
+     Y=-0.31
+     Z=0.1
+    }
+    Add(GL_Cube2,9000576,140,301)
+    {
+     link(onDraw,14925165:doDraw,[])
+     link(Point1,4744770:Point3D,[])
+     link(Point2,3777678:Point3D,[(153,293)(188,293)])
+    }
+    Add(GL_Point3D,4744770,140,252)
+    {
+     X=-0.31
+     Y=0.11
+     Z=-0.1
+    }
+    Add(GL_Point3D,3777678,182,252)
+    {
+     X=-0.3
+     Y=0.31
+     Z=0.1
+    }
+    Add(GL_Cube2,10328482,49,203)
+    {
+     link(onDraw,12980814:doDraw,[])
+     link(Point1,5662442:Point3D,[])
+     link(Point2,15535298:Point3D,[(62,195)(97,195)])
+    }
+    Add(GL_Point3D,5662442,49,154)
+    {
+     X=-0.31
+     Y=-0.1
+     Z=-0.11
+    }
+    Add(GL_Point3D,15535298,91,154)
+    {
+     X=-0.3
+     Y=0.1
+     Z=-0.31
+    }
+    Add(GL_Cube2,11225919,49,98)
+    {
+     link(onDraw,15359655:doDraw,[])
+     link(Point1,2791939:Point3D,[])
+     link(Point2,11723647:Point3D,[(62,90)(97,90)])
+    }
+    Add(GL_Point3D,2791939,49,49)
+    {
+     X=-0.31
+     Y=-0.11
+     Z=-0.11
+    }
+    Add(GL_Point3D,11723647,91,49)
+    {
+     X=-0.3
+     Y=-0.31
+     Z=-0.31
+    }
+    Add(GL_Cube2,8888607,231,98)
+    {
+     link(onDraw,10328482:doDraw,[(275,104)(275,156)(37,156)(37,209)])
+     link(Point1,8039489:Point3D,[])
+     link(Point2,3188480:Point3D,[(244,90)(279,90)])
+    }
+    Add(GL_Point3D,8039489,231,49)
+    {
+     X=-0.31
+     Y=-0.11
+     Z=0.11
+    }
+    Add(GL_Point3D,3188480,273,49)
+    {
+     X=-0.3
+     Y=-0.31
+     Z=0.31
+    }
+    Add(GL_Cube2,13020190,231,203)
+    {
+     link(onDraw,1564420:doDraw,[(275,209)(275,258)(37,258)(37,307)])
+     link(Point1,2945702:Point3D,[])
+     link(Point2,5440530:Point3D,[(244,195)(279,195)])
+    }
+    Add(GL_Point3D,2945702,231,154)
+    {
+     X=-0.31
+     Y=-0.1
+     Z=0.11
+    }
+    Add(GL_Point3D,5440530,273,154)
+    {
+     X=-0.3
+     Y=0.1
+     Z=0.31
+    }
+    Add(GL_Cube2,1564420,49,301)
+    {
+     link(onDraw,9000576:doDraw,[])
+     link(Point1,11143392:Point3D,[])
+     link(Point2,6609377:Point3D,[(62,293)(97,293)])
+    }
+    Add(GL_Point3D,11143392,49,252)
+    {
+     X=-0.31
+     Y=0.11
+     Z=-0.11
+    }
+    Add(GL_Point3D,6609377,91,252)
+    {
+     X=-0.3
+     Y=0.31
+     Z=-0.31
+    }
+    Add(GL_Cube2,14925165,231,301)
+    {
+     link(onDraw,5555358:onDraw,[(309,307)(309,27)])
+     link(Point1,3557306:Point3D,[])
+     link(Point2,5752354:Point3D,[(244,293)(279,293)])
+    }
+    Add(GL_Point3D,3557306,231,252)
+    {
+     X=-0.31
+     Y=0.11
+     Z=0.11
+    }
+    Add(GL_Point3D,5752354,273,252)
+    {
+     X=-0.3
+     Y=0.31
+     Z=0.31
+    }
+  END_SDK
+  Add(MultiElementEx,10696761,315,98)
+  {
+   link(onDraw,13091462:doDraw,[])
+  }
+  BEGIN_SDK
+    Add(EditMultiEx,5555358,21,21)
+    {
+     WorkCount=#6:doDraw|
+     EventCount=#6:onDraw|
+     Width=391
+     Height=354
+     link(doDraw,8538055:doColor,[(28,27)(28,104)])
+    }
+    Add(GL_Cube2,12980814,168,203)
+    {
+     link(onDraw,2397396:doColor,[])
+     link(Point1,11944132:Point3D,[])
+     link(Point2,15844996:Point3D,[(181,195)(216,195)])
+    }
+    Add(GL_Point3D,11944132,168,154)
+    {
+     X=-0.1
+     Y=0.3
+     Z=-0.1
+    }
+    Add(GL_Point3D,15844996,210,154)
+    {
+     X=0.1
+     Y=0.31
+     Z=0.1
+    }
+    Add(GL_Cube2,15359655,168,98)
+    {
+     link(onDraw,8888607:doDraw,[])
+     link(Point1,11967379:Point3D,[])
+     link(Point2,536052:Point3D,[(181,90)(216,90)])
+    }
+    Add(GL_Point3D,11967379,168,49)
+    {
+     X=-0.1
+     Y=0.3
+     Z=-0.11
+    }
+    Add(GL_Point3D,536052,210,49)
+    {
+     X=0.1
+     Y=0.31
+     Z=-0.31
+    }
+    Add(GL_Cube2,9000576,168,301)
+    {
+     link(onDraw,14925165:doDraw,[])
+     link(Point1,4744770:Point3D,[])
+     link(Point2,3777678:Point3D,[(181,293)(216,293)])
+    }
+    Add(GL_Point3D,4744770,168,252)
+    {
+     X=-0.1
+     Y=0.3
+     Z=0.11
+    }
+    Add(GL_Point3D,3777678,210,252)
+    {
+     X=0.1
+     Y=0.31
+     Z=0.31
+    }
+    Add(GL_Cube2,10328482,77,203)
+    {
+     link(onDraw,4007904:doColor,[])
+     link(Point1,5662442:Point3D,[])
+     link(Point2,15535298:Point3D,[(90,195)(125,195)])
+    }
+    Add(GL_Point3D,5662442,77,154)
+    {
+     X=-0.11
+     Y=0.3
+     Z=-0.1
+    }
+    Add(GL_Point3D,15535298,119,154)
+    {
+     X=-0.31
+     Y=0.31
+     Z=0.1
+    }
+    Add(GL_Cube2,11225919,77,98)
+    {
+     link(onDraw,15359655:doDraw,[])
+     link(Point1,2791939:Point3D,[])
+     link(Point2,11723647:Point3D,[(90,90)(125,90)])
+    }
+    Add(GL_Point3D,2791939,77,49)
+    {
+     X=-0.11
+     Y=0.3
+     Z=-0.11
+    }
+    Add(GL_Point3D,11723647,119,49)
+    {
+     X=-0.31
+     Y=0.31
+     Z=-0.31
+    }
+    Add(GL_Cube2,8888607,259,98)
+    {
+     link(onDraw,8098732:doColor,[])
+     link(Point1,8039489:Point3D,[])
+     link(Point2,3188480:Point3D,[(272,90)(307,90)])
+    }
+    Add(GL_Point3D,8039489,259,49)
+    {
+     X=0.11
+     Y=0.3
+     Z=-0.11
+    }
+    Add(GL_Point3D,3188480,301,49)
+    {
+     X=0.31
+     Y=0.31
+     Z=-0.31
+    }
+    Add(GL_Cube2,13020190,259,203)
+    {
+     link(onDraw,16434137:doColor,[])
+     link(Point1,2945702:Point3D,[])
+     link(Point2,5440530:Point3D,[(272,195)(307,195)])
+    }
+    Add(GL_Point3D,2945702,259,154)
+    {
+     X=0.11
+     Y=0.3
+     Z=-0.1
+    }
+    Add(GL_Point3D,5440530,301,154)
+    {
+     X=0.31
+     Y=0.31
+     Z=0.1
+    }
+    Add(GL_Cube2,1564420,77,301)
+    {
+     link(onDraw,9000576:doDraw,[])
+     link(Point1,11143392:Point3D,[])
+     link(Point2,6609377:Point3D,[(90,293)(125,293)])
+    }
+    Add(GL_Point3D,11143392,77,252)
+    {
+     X=-0.11
+     Y=0.3
+     Z=0.11
+    }
+    Add(GL_Point3D,6609377,119,252)
+    {
+     X=-0.31
+     Y=0.31
+     Z=0.31
+    }
+    Add(GL_Cube2,14925165,259,301)
+    {
+     link(onDraw,3802695:doColor,[])
+     link(Point1,3557306:Point3D,[])
+     link(Point2,5752354:Point3D,[(272,293)(307,293)])
+    }
+    Add(GL_Point3D,3557306,259,252)
+    {
+     X=0.11
+     Y=0.3
+     Z=0.11
+    }
+    Add(GL_Point3D,5752354,301,252)
+    {
+     X=0.31
+     Y=0.31
+     Z=0.31
+    }
+    Add(GL_Color,8098732,315,98)
+    {
+     Color=16777215
+     link(onColor,10328482:doDraw,[(359,104)(359,156)(65,156)(65,209)])
+    }
+    Add(GL_Color,8538055,35,98)
+    {
+     Color=255
+     link(onColor,11225919:doDraw,[])
+    }
+    Add(GL_Color,4007904,126,203)
+    {
+     Color=255
+     link(onColor,12980814:doDraw,[])
+    }
+    Add(GL_Color,2397396,217,203)
+    {
+     Color=16777215
+     link(onColor,13020190:doDraw,[])
+    }
+    Add(GL_Color,16434137,308,203)
+    {
+     Color=255
+     link(onColor,1564420:doDraw,[(352,209)(352,258)(65,258)(65,307)])
+    }
+    Add(GL_Color,3802695,308,301)
+    {
+     Color=16777215
+     link(onColor,5555358:onDraw,[(376,307)(376,27)])
+    }
+  END_SDK
+END_SDK
+Add(Gl_BeginList,7296785,1127,252)
+{
+ Index=3
+ link(onBiginList,13402434:doColor,[])
+}
+Add(Gl_EndList,14389816,1232,252)
+{
+}
+Add(GL_CallList,12045822,553,21)
+{
+ Index=3
+ link(onCallList,3800534:doPopMatrix,[])
+}
+Add(Gl_Scale,3304690,497,21)
+{
+ X=0.2
+ Y=0.2
+ Z=0.2
+ link(onScale,12045822:doCallList,[])
+}
+Add(GL_GTools,16063514,441,21)
+{
+ Point(doPushMatrix)
+ link(onEvent,3304690:doScale,[])
+}
+Add(GL_GTools,3800534,602,21)
+{
+ Point(doPopMatrix)
+}
+Add(Gl_Particles,12207200,518,231)
+{
+ ColorStart=65535
+ Speed=0.03
+ Average=0.01
+ Count=60
+ link(onDraw,14526036:doDraw,[])
+}
+Add(GL_PrimSizes,1499067,476,231)
+{
+ link(onSize,12207200:doDraw,[])
+}
+Add(GL_PrimSizes,10455141,616,231)
+{
+ Size=2
+}
+Add(Gl_Particles,14526036,567,231)
+{
+ ColorStart=65535
+ Speed=-0.03
+ Average=0.01
+ Count=60
+ link(onDraw,10455141:doPointSize,[(607,237)(607,244)])
+}

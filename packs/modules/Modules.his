@@ -1,0 +1,8 @@
+function run() {
+  sys.addpack("modules","Modules","Создание различных модулей для HiAsm","hws");
+  sys.addproject("modules","HISEntryPoint","HIS","HiAsm Install Script","his","make_mod.dll");
+  sys.addproject("modules","MakeEntryPoint","Make","HiAsm Make DLL","dll","make_mod.dll");
+  sys.addproject("modules","MainForm","Шаблоны","Шаблоны диалогов HiAsm","","");
+}
+
+// made by "HiAsm 3.64 build 164"

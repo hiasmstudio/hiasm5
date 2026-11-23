@@ -1,0 +1,82 @@
+Make(cpp)
+Add(MainForm,1,28,28)
+{
+ Backend=1
+ Caption="TreeViewTrain tuples"
+ Width=480
+ Height=275
+ link(onCreate,4:doLoad,[])
+}
+Add(TreeViewTrain,2,28,119)
+{
+ Left=12
+ Top=12
+ Width=210
+ Height=210
+ Name="inventory"
+ CaptionIndex=2
+ ParentIDIndex=1
+ Numeric=-1
+ UseHashMap=0
+ Point(doExpand)
+}
+Add(DS_StaticData,3,28,70)
+{
+ Name="inventoryRows"
+ Columns=#2:ID|6:Parent|7:Caption|
+ Data=#12:1|-1|Kitchen|13:2|1|Cookbooks|11:3|-1|Garden|9:4|3|Seeds|
+}
+Add(TVT_DataSource,4,112,28)
+{
+ TreeView="inventory"
+ DataSource="inventoryRows"
+ Columns=#2:ID|6:Parent|7:Caption|
+ link(onLoad,2:doExpand,[])
+}
+Add(Button,5,28,175)
+{
+ Left=238
+ Top=12
+ Width=215
+ Caption="Show path for item 2"
+ link(onClick,6:doData,[])
+}
+Add(DoData,6,112,175)
+{
+ Data=Integer(2)
+ link(onEventData,7:doItemPath,[])
+}
+Add(TVT_ItemPath,7,196,175)
+{
+ TreeView="inventory"
+ Delimiter="/"
+ link(onItemPath,8:doText,[])
+}
+Add(Label,8,280,175)
+{
+ Left=238
+ Top=48
+ Width=215
+ Caption="Path appears here"
+}
+Add(Button,9,28,245)
+{
+ Left=238
+ Top=88
+ Width=215
+ Caption="Enumerate tuple IDs"
+ link(onClick,10:doEnum,[])
+}
+Add(TVT_EnumNodes,10,112,245)
+{
+ TreeView="inventory"
+ link(onEnum,11:doAdd,[])
+}
+Add(Memo,11,196,245)
+{
+ Left=238
+ Top=124
+ Width=215
+ Height=98
+ ReadOnly=0
+}

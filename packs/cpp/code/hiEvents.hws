@@ -1,0 +1,56 @@
+// Events: named Win32 synchronization event (CreateEvent/SetEvent/ResetEvent).
+// Windows-only, same pattern as Mutex.
+
+func Name()
+  if(linked('Name'))
+    return(d('Name'))
+  else
+    return(cstr(get('Name')))
+  end
+end
+
+func Handle()
+  return('reinterpret_cast<HANDLE>(static_cast<intptr_t>(hiasm_ll_state(' && _id_ && ', 0)))')
+end
+
+func Guard()
+  println('#if !defined(_WIN32)')
+  println('#error "Events is a Windows-only element"')
+  println('#endif')
+end
+
+func doCreate(_data)
+  Guard()
+  println('{')
+  block.inclvl()
+  println('HANDLE hiasm_evt', _id_, ' = CreateEventA(NULL, ', get('ManualReset'), ' ? TRUE : FALSE, FALSE, std::string(', Name(), ').c_str());')
+  println('hiasm_ll_state(', _id_, ', 0) = static_cast<long long>(reinterpret_cast<intptr_t>(hiasm_evt', _id_, '));')
+  event(onCreate)
+  block.declvl()
+  println('}')
+end
+
+func doSet(_data)
+  Guard()
+  println('SetEvent(', Handle(), ');')
+end
+
+func doReset(_data)
+  Guard()
+  println('ResetEvent(', Handle(), ');')
+end
+
+func doDestroy(_data)
+  Guard()
+  println('{')
+  block.inclvl()
+  println('HANDLE hiasm_evt', _id_, ' = ', Handle(), ';')
+  println('if(hiasm_evt', _id_, ') CloseHandle(hiasm_evt', _id_, ');')
+  println('hiasm_ll_state(', _id_, ', 0) = 0;')
+  block.declvl()
+  println('}')
+end
+
+func ObjHandle()
+  return('static_cast<int>(static_cast<intptr_t>(hiasm_ll_state(' && _id_ && ', 0)))')
+end

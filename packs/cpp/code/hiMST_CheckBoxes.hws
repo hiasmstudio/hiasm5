@@ -1,0 +1,25 @@
+include('qtMstClient')
+
+func doCheckBox(_data)
+  fvar(row, mode)
+  row = MstDefault(mt_arg(0), get('IndexRow'))
+  mode = MstDefault(mt_arg(MstNext('IndexRow', 0)), 0)
+  if(linked('IndexRow'))
+    row = d('IndexRow')
+  end
+  if(linked('Mode'))
+    mode = d('Mode')
+  end
+  MstBegin()
+  println('if (', MstLocal(), '->setChecked(', MstInt(row), ', ', MstInt(mode), ')) {')
+  event(onCheckBox)
+  println('} }')
+end
+
+func AllCheck()
+  return('(' && MstTarget() && ' ? ' && MstTarget() && '->rowFlags(true, true) : QVariantList())')
+end
+
+func CheckCount()
+  return('int(' && AllCheck() && '.size())')
+end

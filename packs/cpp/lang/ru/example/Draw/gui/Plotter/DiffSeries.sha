@@ -1,0 +1,126 @@
+*Пример построения графика разности двух заданных функций
+Make(cpp)
+Add(MainForm,16184661,84,161)
+{
+ Left=20
+ Top=105
+ Width=501
+ Height=412
+ Caption="sin - cos"
+ link(onCreate,14310219:doFor,[])
+}
+Add(For,14310219,140,175)
+{
+ End=200
+ link(onEvent,14546787:doOperation,[])
+ link(onStop,11033084:doDiff,[(180,188)(180,286)])
+}
+Add(Math,14546787,189,175)
+{
+ OpType=3
+ Op2=10
+ link(onResult,1964695:doEvent1,[])
+}
+Add(Math,14060830,280,175)
+{
+ OpType=13
+ link(onResult,7547227:doAdd,[])
+}
+Add(Plotter,10574215,189,112)
+{
+ Left=5
+ Top=40
+ Width=475
+ Height=340
+ Align=5
+ Name="Plotter"
+ GridColor=16777215
+}
+Add(PlotLines,7547227,336,175)
+{
+ Grapher="Plotter"
+ Step=0.1
+ Name="series1"
+ AddHint(96,75,62,13,Color)
+}
+Add(PlotAxis,4986410,294,91)
+{
+ Grapher="Plotter"
+ Color=0
+}
+Add(PlotAxis,7393577,343,91)
+{
+ Grapher="Plotter"
+ Color=0
+ Angle=90
+}
+Add(PlotAxis,8415170,476,105)
+{
+ Grapher="Plotter"
+ Color=0
+ Style=2
+ Y=1
+}
+Add(PlotAxis,10710613,476,147)
+{
+ Grapher="Plotter"
+ Color=0
+ Style=2
+ Y=-1
+}
+Add(InfoTip,5177955,280,70)
+{
+ Info=#9:main axis|
+ Width=113
+ Height=67
+}
+Add(InfoTip,1126987,462,77)
+{
+ Info=#12:tangent axis|
+ Height=116
+}
+Add(PlotLines,7674767,336,231)
+{
+ Grapher="Plotter"
+ Color=8388608
+ Step=0.1
+ Name="series2"
+ AddHint(99,-29,62,13,Color)
+}
+Add(Math,14816131,280,231)
+{
+ OpType=12
+ link(onResult,7674767:doAdd,[])
+}
+Add(Hub,1964695,238,175)
+{
+ link(onEvent1,14060830:doOperation,[])
+ link(onEvent2,14816131:doOperation,[(266,188)(266,237)])
+}
+Add(PlotLines,5773983,189,231)
+{
+ Grapher="Plotter"
+ Color=65535
+ Size=2
+ Name="result"
+ AddHint(243,67,62,13,Color)
+}
+Add(PlotDiffSeries,11033084,189,280)
+{
+ Series1="series1"
+ Series2="series2"
+ ResultSeries="result"
+}
+Add(InfoTip,5434630,434,210)
+{
+ Info=#1:-|
+ Font=[MS Sans Serif,30,0,0,1]
+ Frame=1
+ Height=25
+}
+Add(InfoTip,7177696,434,266)
+{
+ Info=#1:=|
+ Font=[MS Sans Serif,30,0,0,1]
+ Frame=1
+}

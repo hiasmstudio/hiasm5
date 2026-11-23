@@ -1,0 +1,260 @@
+func Arg(value)
+  if(len(value) > 0)
+    return(value)
+  else
+    return('""')
+  end
+end
+
+func doStart
+  if(is_qt_project())
+    qtStart()
+  else
+    gtkStart()
+  end
+end
+
+func qtTarget()
+  return('qt_widget<QPlainTextEdit>(form, "Memo' && _id_ && '")')
+end
+
+func qtStart
+  println('{')
+  block.inclvl()
+  println('auto *target = new QPlainTextEdit(widgetParent);')
+  println('target->setObjectName(QStringLiteral("Memo', _id_, '"));')
+  println('target->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+  if(get('Visible') == 'False')
+    println('target->hide();')
+  end
+  if(get('Enabled') == 'False')
+    println('target->setEnabled(false);')
+  end
+  if(isndef(Color))
+    println('if (auto color = QColor::fromString(qt_text(', cstr(get('Color')), ')); color.isValid()) { auto palette = target->palette(); palette.setColor(QPalette::Base, color); target->setPalette(palette); }')
+  end
+  if(isndef(Font) and get('ParentFont') != 'True')
+    println('const auto fontSpec = qt_text(', cstr(get('Font')), ');')
+    println('if (fontSpec.startsWith(QChar(91)) && fontSpec.endsWith(QChar(93))) {')
+    block.inclvl()
+    println('const auto fields = fontSpec.mid(1, fontSpec.size() - 2).split(QChar(44));')
+    println('const int size = fields.value(1).toInt();')
+    println('if (fields.size() >= 3 && size >= 1 && size <= 256) {')
+    block.inclvl()
+    println('QFont font(fields.first(), size);')
+    println('const int flags = fields.at(2).toInt();')
+    println('font.setBold(flags & 1);')
+    println('font.setItalic(flags & 2);')
+    println('font.setUnderline(flags & 4);')
+    println('font.setStrikeOut(flags & 8);')
+    println('target->setFont(font);')
+    block.declvl()
+    println('}')
+    block.declvl()
+    println('}')
+  end
+  if(get('Ctl3D') == 0)
+    println('target->setFrameShape(QFrame::NoFrame);')
+  end
+  if(get('ReadOnly') == 0)
+    println('target->setReadOnly(true);')
+  end
+  fvar(scroll)
+  scroll = get('ScrollBars')
+  if(scroll == 1 or scroll == 3)
+    println('target->setLineWrapMode(QPlainTextEdit::NoWrap);')
+  else
+    println('target->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);')
+  end
+  if(scroll < 2)
+    println('target->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);')
+  end
+  println('target->setPlainText(qt_text(', cstr(get('Strings')), '));')
+  if(linked(onChange))
+    println('QObject::connect(target, &QPlainTextEdit::textChanged, &form, [&form, target] {')
+    block.inclvl()
+    println('const QString memoText', _id_, ' = target->toPlainText().replace(QChar(10), QString(QChar(13)) + QChar(10));')
+    event(onChange, 'memoText' && _id_)
+    block.declvl()
+    println('});')
+  end
+  block.declvl()
+  println('}')
+end
+
+func gtkStart
+  println('{')
+  fvar(first, policy)
+  first = 0
+  switch(d('AddType'))
+    case 1: first = 1
+  end
+  policy = 'GTK_POLICY_AUTOMATIC'
+  println('GtkWidget *memo = gtk_text_view_new();')
+  println('hiasm_set_background(memo, ', cstr(d('Color')), ');')
+  println('hiasm_set_font(memo, ', cstr(d('Font')), ');')
+  println('GtkWidget *scroll = gtk_scrolled_window_new();')
+  switch(get('ScrollBars'))
+    case 0: println('gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll), GTK_POLICY_NEVER, GTK_POLICY_NEVER);')
+    case 1: println('gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll), GTK_POLICY_AUTOMATIC, GTK_POLICY_NEVER);')
+    case 2: println('gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);')
+    default: println('gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);')
+  end
+  switch(get('ReadOnly'))
+    case 0: println('gtk_text_view_set_editable(GTK_TEXT_VIEW(memo), FALSE);')
+  end
+  println('gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scroll), memo);')
+  println('hiasm_text_set(GTK_TEXT_VIEW(memo), ', cstr(Strings), ');')
+  println('hiasm_place_scroll("Memo', _id_, '", scroll, memo, ', Left, ', ', Top, ');')
+  if(linked(onChange))
+    println('g_signal_connect(gtk_text_view_get_buffer(GTK_TEXT_VIEW(memo)), "changed", G_CALLBACK(+[](GtkTextBuffer *, gpointer user_data) {')
+  println('if(!hiasm_form_ready) return;')
+    block.inclvl()
+    println('if(hiasm_view_text(GTK_TEXT_VIEW(user_data)).empty()) return;')
+    event(onChange, 'hiasm_view_text(GTK_TEXT_VIEW(user_data))')
+    block.declvl()
+    println('}), memo);')
+  end
+  println('}')
+end
+
+func First()
+  fvar(first)
+  first = 0
+  switch(get('AddType'))
+    case 1: first = 1
+  end
+  return(first)
+end
+
+func doAdd(_data)
+  if(is_qt_project())
+    println('{ auto *target = ', qtTarget(), ';')
+    println('const auto oldText = target->toPlainText(); const auto added = qt_text(', cstr(d('Str')), ');')
+    if(First())
+      println('target->setPlainText(oldText.isEmpty() ? added : added + QChar(10) + oldText); }')
+    else
+      println('target->setPlainText(oldText.isEmpty() ? added : oldText + QChar(10) + added); }')
+    end
+    return()
+  end
+  println('hiasm_text_add(GTK_TEXT_VIEW(hiasm_widget("Memo', _id_, '").get()), hiasm_text(', Arg(_data), ').c_str(), ', First(), ');')
+end
+
+func doText(_data)
+  if(is_qt_project())
+    println(qtTarget(), '->setPlainText(qt_text(', Arg(_data), '));')
+    return()
+  end
+  println('hiasm_text_set(GTK_TEXT_VIEW(hiasm_widget("Memo', _id_, '").get()), hiasm_text(', Arg(_data), ').c_str());')
+end
+
+func doClear(_data)
+  if(is_qt_project())
+    println(qtTarget(), '->clear();')
+    return()
+  end
+  println('hiasm_text_set(GTK_TEXT_VIEW(hiasm_widget("Memo', _id_, '").get()), "");')
+end
+
+func doDelete(_data)
+  if(is_qt_project())
+    println('{ auto *target = ', qtTarget(), '; auto lines = target->toPlainText().split(QChar(10));')
+    println('const int index = qt_text(', Arg(_data), ').toInt();')
+    println('if (index >= 0 && index < lines.size()) { lines.removeAt(index); target->setPlainText(lines.join(QChar(10))); } }')
+    return()
+  end
+  println('hiasm_text_remove(GTK_TEXT_VIEW(hiasm_widget("Memo', _id_, '").get()), static_cast<int>(', _data, '));')
+end
+
+func doLoad(_data)
+  if(is_qt_project())
+    println('{ QFile file(qt_text(', cstr(d('FileName')), '));')
+    println('if (file.open(QIODevice::ReadOnly)) { const auto text = QString::fromUtf8(file.readAll()); file.close();')
+    println(qtTarget(), '->setPlainText(text); } }')
+    return()
+  end
+  println('hiasm_text_set(GTK_TEXT_VIEW(hiasm_widget("Memo', _id_, '").get()), hiasm_read_file(', cstr(get('FileName')), ').c_str());')
+end
+
+func doSave(_data)
+  if(is_qt_project())
+    println('{ QFile file(qt_text(', cstr(d('FileName')), '));')
+    println('if (file.open(QIODevice::WriteOnly)) file.write(', qtTarget(), '->toPlainText().replace(QChar(10), QString(QChar(13)) + QChar(10)).toUtf8()); }')
+    return()
+  end
+  println('hiasm_write_file(', cstr(get('FileName')), ', hiasm_view_text(GTK_TEXT_VIEW(hiasm_widget("Memo', _id_, '").get())));')
+end
+
+func Text()
+  if(is_qt_project())
+    return(qtTarget() && '->toPlainText().replace(QChar(10), QString(QChar(13)) + QChar(10))')
+  end
+  return('hiasm_view_text(hiasm_text_view("Memo' && _id_ && '"))')
+end
+
+func Count()
+  if(is_qt_project())
+    return('([](QPlainTextEdit *memo) { return memo->document()->isEmpty() ? 0 : memo->blockCount(); }(' && qtTarget() && '))')
+  end
+  return('hiasm_view_lines(hiasm_text_view("Memo' && _id_ && '"))')
+end
+
+func Array()
+  if(is_qt_project())
+    return(qtTarget() && '->toPlainText().split(QChar(10))')
+  end
+  return('hiasm_text_lines(hiasm_text_view("Memo' && _id_ && '"))')
+end
+
+func EndIdx()
+  if(is_qt_project())
+    return('(' && Count() && ' - 1)')
+  end
+  return('(hiasm_view_lines(hiasm_text_view("Memo' && _id_ && '")) - 1)')
+end
+
+func doEnsureVisible(_data)
+  if(is_qt_project())
+    println(qtTarget(), '->ensureCursorVisible();')
+    return()
+  end
+  println('hiasm_text_ensure_visible(GTK_TEXT_VIEW(hiasm_widget("Memo', _id_, '").get()));')
+end
+
+func doKeyBack(_data)
+end
+
+func doSetSelect(_data)
+  if(is_qt_project())
+    println('{ auto cursor = ', qtTarget(), '->textCursor(); cursor.insertText(qt_text(', Arg(_data), ')); }')
+  end
+end
+
+func doSetSelStart(_data)
+  if(is_qt_project())
+    println('{ auto *target = ', qtTarget(), '; auto cursor = target->textCursor();')
+    println('cursor.setPosition(qBound(0, qt_text(', Arg(_data), ').toInt(), target->document()->characterCount() - 1)); target->setTextCursor(cursor); }')
+  end
+end
+
+func doSetSelLength(_data)
+  if(is_qt_project())
+    println('{ auto *target = ', qtTarget(), '; auto cursor = target->textCursor();')
+    println('const int start = cursor.selectionStart(); cursor.setPosition(start);')
+    println('const int length = qBound(0, qt_text(', Arg(_data), ').toInt(), target->document()->characterCount() - 1 - start);')
+    println('cursor.setPosition(start + length, QTextCursor::KeepAnchor); target->setTextCursor(cursor); }')
+  end
+end
+
+func SelText()
+  if(is_qt_project())
+    return(qtTarget() && '->textCursor().selectedText().replace(QChar(0x2029), QString(QChar(13)) + QChar(10))')
+  end
+end
+
+func Position()
+  if(is_qt_project())
+    return(qtTarget() && '->textCursor().position()')
+  end
+end

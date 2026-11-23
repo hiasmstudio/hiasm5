@@ -1,0 +1,8 @@
+Delete/copy/move/check for file presence on disk=Удaлeниe/кoпиpoвaниe/пepeмeщeниe/проверка наличия на диске фaйлa
+Moves file FileName to NewFileName=Перемещает файл FileName в NewFileName
+Copies file FileName to NewFileName=Копирует файл FileName в NewFileName
+Deletes a file named FileName=Удаляет файл с именем FileName
+Checks the presence of a file named FileName on disk and outputs the result to the stream: 1 - if the file exists, 0 - otherwise=Проверяет наличие на диске файла с именем FileName и выдает в поток результат: 1 - если файл существует, 0 - в противном случае
+The event occurs whenever an operation is performed on a file=Событие происходит всякий раз при выполнении операции над файлом
+Name of the file on which the operation is performed=Имя файла, над которым производится операция
+New file name for Move and Copy operations=Новое имя файла для операций Move и Copy

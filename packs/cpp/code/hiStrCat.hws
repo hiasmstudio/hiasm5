@@ -1,0 +1,7 @@
+func doStrCat(_data)
+  event(onStrCat, 'std::string(' && d('Str1') && ') + std::string(' && d('Str2') && ')')
+end
+
+func Result()
+  return('std::string(' && d('Str1') && ') + std::string(' && d('Str2') && ')')
+end

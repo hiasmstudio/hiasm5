@@ -1,0 +1,8 @@
+Raises an event at an index in a stream=Вызывает событие по индексу в потоке
+Sets the number of component events=Задает число событий компонента
+Default data emitted to the stream by onEvent events=Данные по умолчанию, выдаваемые в поток событиями onEvent
+Raises one of the onEvent events according to its index (superscript 0). If the index is greater than the number of onEvent points, then nothing happens=Вызывает одно из событий onEvent в соответствии с его индексом (верхний индекс равен 0). Если индекс больше, чем кол-во точек onEvent, то ничего не происходит
+Number (index) of the event being called=Номер (индекс) вызываемого события
+Data emitted to the stream by onEvent events=Данные, выдаваемые в поток событиями onEvent
+Number of channels=Количество каналов
+Last channel index=Индекс последнего канала

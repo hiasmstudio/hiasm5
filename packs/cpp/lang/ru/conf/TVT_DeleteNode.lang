@@ -1,0 +1,6 @@
+Removing an element from the tree=Удаление элемента из дерева
+Tree for removing elements from it=Дерево для удаления из него элементов
+Removes an element from the tree=Удаляет элемент из дерева
+The event occurs every time an element is removed from the tree=Событие происходит всякий раз после удаления элемента из дерева
+The event occurs every time after an unsuccessful removal of an element from the tree and produces a copy of the map to the stream=Событие происходит всякий раз после неудачного удаления элемента из дерева и выдает копию картежа в поток
+Cartridge that needs to be removed from the tree=Картеж, который необходимо удалить из дерева

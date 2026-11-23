@@ -1,0 +1,4 @@
+Page for page controller=Страница для контроллера страниц
+Tab title=Заголовок вкладки
+Index of the icon displayed on the tab=Индекс иконки, отображаемой на вкладке
+The event occurs whenever the current page changes and outputs its index to the ARG(Index) stream=Событие происходит всякий раз при изменении текущей страницы и выдает ее индекс в поток ARG(Index)

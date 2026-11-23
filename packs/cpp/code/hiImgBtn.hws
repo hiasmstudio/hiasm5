@@ -1,0 +1,50 @@
+func ImageButton()
+  return('qt_widget<HiasmImageButton>(form, "ImgBtn' && _id_ && '")')
+end
+
+func doStart
+  println('{')
+  println('auto *button = new HiasmImageButton(widgetParent);')
+  println('button->setObjectName(QStringLiteral("ImgBtn', _id_, '"));')
+  println('button->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+  println('button->setFlat(', get('Flat') == 'True', ');')
+  println('button->shaped = ', get('Split') == 'True', ';')
+  println('button->alpha = ', get('Alpha') == 'True', ';')
+  println('button->opacity = ', AlphaBlendValue, ';')
+  println('button->setPicture(0, qt_bitmap(qt_text(', cstr(get('Normal')), ')));')
+  println('button->setPicture(1, qt_bitmap(qt_text(', cstr(get('Select')), ')));')
+  println('button->setPicture(2, qt_bitmap(qt_text(', cstr(get('Down')), ')));')
+  println('button->setPicture(3, qt_bitmap(qt_text(', cstr(get('Enable')), ')));')
+  if(linked(onClick))
+    println('QObject::connect(button, &QPushButton::clicked, &form, [&form] {')
+    event(onClick)
+    println('});')
+  end
+  println('}')
+end
+
+func SetPicture(index, value)
+  if(len(value) > 0)
+    println(ImageButton(), '->setPicture(', index, ', ', value, ');')
+  end
+end
+
+func doNormal(_data)
+  SetPicture(0, _data)
+end
+
+func doSelect(_data)
+  SetPicture(1, _data)
+end
+
+func doDown(_data)
+  SetPicture(2, _data)
+end
+
+func doEnable(_data)
+  SetPicture(3, _data)
+end
+
+func Normal()
+  return(ImageButton() && '->pictures[0]')
+end

@@ -1,0 +1,8 @@
+Memory defragmentation=Дефрагментация памяти
+Memory representation dimension=Размерность представления памяти
+Begins memory defragmentation=Начинает дефрагментацию памяти
+Stops memory defragmentation=Останавливает дефрагментацию памяти
+The event occurs whenever the defragmenter's operating mode changes, issuing event code to the stream. 0 - memory filling and redirection, 1 - memory freeing, 2 - defragmentation completed, 3 - forced defragmentation stop. ARG(CurrentMode)=Событие происходит всякий раз при изменении режима работы дефрагментатора, выдавая код события в поток. 0 - заполнение и переадресация памяти, 1 - освобождение памяти, 2 - дефрагментация завершена, 3 - принудительная остановка дефрагментации. ARG(CurrentMode)
+The event occurs whenever the defragmentation completion percentage changes. ARG(Percent)=Событие происходит всякий раз при изменении процента завершения дефрагментации. ARG(Percent)
+Contains information about the computer's memory. ARG(MemoryLoad, TotalPhys, AvailPhys, UsePhys, TotalPageFile, AvailPageFile, UsePageFile, TotalVirtual, AvailVirtual, UseVirtual)=Содержит информацию о памяти компьютера. ARG(MemoryLoad, TotalPhys, AvailPhys, UsePhys, TotalPageFile, AvailPageFile, UsePageFile, TotalVirtual, AvailVirtual, UseVirtual)
+Upper limit of memory size in the current dimension for defragmentation=Верхний предел размера памяти в текущей размерности под дефрагментацию

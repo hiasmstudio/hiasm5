@@ -1,0 +1,6 @@
+Begin display list=Начало дисплейного списка
+Index of an element in the display list array=Индекс элемента в массиве дисплейного списка
+List creation method=Метод создания списка
+Begins a display list item=Начинает элемент дисплейного списка
+Removes the current element from the list=Удаляет текущий элемент из списка
+The event occurs after the command to start a display list element=Событие происходит после команды начала элемента дисплейного списка

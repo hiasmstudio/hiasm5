@@ -1,0 +1,130 @@
+Make(cpp)
+Add(Entry,1,28,28)
+{
+ link(onStart,2:doEvent,[])
+}
+Add(Hub,2,126,28)
+{
+ link(onFirst,3:doData,[])
+ link(onSecond,6:doEvent,[])
+ link(onThird,10:doEvent,[])
+}
+Add(Data,3,224,28)
+{
+ Value=String(Stored 世界)
+ link(onData,4:doValue,[])
+}
+Add(Memory,4,322,28)
+{
+ Default=String(Default)
+ link(onData,23:doWork1,[])
+}
+Add(Write,5,420,28)
+{
+}
+Add(Hub,6,126,126)
+{
+ link(onFirst,7:doWrite,[])
+ link(onSecond,4:doClear,[])
+ link(onThird,8:doFor,[])
+}
+Add(Write,7,224,126)
+{
+ link(Data,25:Var1,[])
+}
+Add(For,8,322,126)
+{
+ End=5
+ link(onEvent,9:doNext,[])
+}
+Add(Counter,9,420,126)
+{
+ Max=3
+ link(onNext,23:doWork2,[])
+}
+Add(Hub,10,126,224)
+{
+ link(onFirst,11:doOperation,[])
+ link(onSecond,14:doOperation,[])
+ link(onThird,15:doFor,[])
+}
+Add(Math,11,224,224)
+{
+ Right=2
+ link(Left,9:Count,[])
+ link(onResult,12:doValue,[])
+}
+Add(Memory,12,322,224)
+{
+ link(onData,23:doWork3,[])
+}
+Add(Write,13,420,224)
+{
+ link(Data,26:Var1,[])
+}
+Add(Math,14,224,322)
+{
+ Left=1
+ Operation=3
+ link(onError,16:doPrint,[])
+}
+Add(For,15,322,322)
+{
+ Start=3
+ End=0
+ Step=-1
+ link(onEvent,17:doEvent,[])
+ link(onStop,18:doEvent,[])
+}
+Add(Print,16,420,322)
+{
+ Text=division by zero
+}
+Add(Hub,17,322,420)
+{
+ link(onFirst,24:doWork1,[])
+ link(onSecond,15:doStop,[])
+}
+Add(Hub,18,518,28)
+{
+ link(onFirst,13:doWrite,[])
+ link(onSecond,19:doCompare,[])
+ link(onThird,22:doWrite,[])
+}
+Add(If,19,616,28)
+{
+ Right=3
+ link(Left,26:Var2,[])
+ link(onTrue,20:doStrCat,[])
+ link(onFalse,21:doPrint,[])
+}
+Add(StrCat,20,714,28)
+{
+ Right= checked
+ link(Left,25:Var2,[])
+ link(onResult,24:doWork2,[])
+}
+Add(Print,21,714,126)
+{
+ Text=wrong branch
+}
+Add(Write,22,616,224)
+{
+ link(Data,20:Result,[])
+}
+Add(HubEx,23,420,420)
+{
+ link(onEvent,24:doWork3,[])
+}
+Add(HubEx,24,518,420)
+{
+ link(onEvent,5:doWrite,[])
+}
+Add(GetDataEx,25,224,518)
+{
+ link(Data,4:Value,[])
+}
+Add(GetDataEx,26,322,518)
+{
+ link(Data,11:Result,[])
+}

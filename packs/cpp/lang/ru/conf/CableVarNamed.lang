@@ -1,0 +1,4 @@
+Access to individual streams in cable=Доступ к отдельным потокам в кабеле
+Contains a list of event names. Nesting is supported through '.' (example: doButton.btOk)=Содержит список имён событий. Поддерживается вложенность через '.' (пример: doButton.btOk)
+Groups a set of events under one name (creates one level of nesting in the cable)=Группирует набор событий под одним именем(создает один уровень вложенности в кабеле)
+Connecting the cable=Подключение кабеля

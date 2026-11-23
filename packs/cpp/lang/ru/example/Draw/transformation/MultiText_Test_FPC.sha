@@ -1,0 +1,42 @@
+Make(cpp)
+Add(MainForm,2953706,49,119)
+{
+ Position=1
+}
+Add(PaintBox,4568612,245,119)
+{
+ Left=55
+ Top=30
+ Width=290
+ Height=185
+ Color=16777215
+ link(onBeforeDraw,1017674:doDraw,[(286,125)(286,110)(233,110)(233,188)])
+}
+Add(Img_MultiText,1017674,245,182)
+{
+ X=100
+ Y=50
+ Font=[Microsoft Sans Serif,11,1,8421376,204]
+ Text="HiAsm\r\nThe\r\nBest"
+ Point(Transform)
+ link(onDraw,161800:doDraw,[])
+ link(Bitmap,15792714:Var2,[])
+}
+Add(Img_Rectangle,161800,294,182)
+{
+ Point1=3276900
+ Point2AsOffset=0
+ Point(Point2)
+ Point(Transform)
+ link(Bitmap,15792714:Var3,[(300,166)])
+ link(Point2,14460569:Point,[(314,165)(338,165)(338,279)(251,279)])
+}
+Add(GetDataEx,15792714,245,161)
+{
+ link(Data,4568612:Bitmap,[])
+}
+Add(PointXY,14460569,245,231)
+{
+ link(X,1017674:TextWidth,[])
+ link(Y,1017674:TextHeight,[])
+}

@@ -1,0 +1,7 @@
+Loading the tree=Загрузка дерева
+The tree into which you want to load the list of elements=Дерево, в которое требуется загрузить список элементов
+File Format=Формат файла
+File name=Имя файла
+File data separator=Разделитель данных в файле
+Loads the contents of the tree from file ARG(FileName)=Загружает содержимое дерева из файла ARG(FileName)
+The event occurs every time the element tree is loaded=Событие происходит всякий раз после загрузки дерева элементов

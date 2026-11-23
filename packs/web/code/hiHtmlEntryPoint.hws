@@ -1,0 +1,49 @@
+func doStart:html
+  gvar(BLK_HEAD, BLK_BODY, BLK_DEBUG)
+
+  BLK_HEAD  = "head" 
+  BLK_BODY  = "body" 
+  BLK_DEBUG = "debug"
+  // регистрируем два блока под функции и собственно тело приложения
+  block.reg(BLK_HEAD)
+  block.reg(BLK_BODY)
+  block.reg(BLK_DEBUG)
+
+  // выбираем в качестве текущего блок body(оператор print по-умолчанию будет печатать именно сюда)
+  block.select(BLK_BODY)
+  
+  event(onStart)
+  
+  block.select(block.reggen())
+  if(isndef(DocType))
+    println(DocType)
+  end 
+  
+  if(not block.isempty(BLK_HEAD))
+    println('<script language="javascript">')
+    block.inclvl()
+    block.copyhere(BLK_HEAD)
+    block.declvl()
+    println('</script>')
+    println('')
+  end
+  
+  if(not block.isempty(BLK_DEBUG))
+    println('<table style="background-color: lightgray; border: gray 1px solid; position: absolute; left: 0px; top: 0px;">')
+    block.inclvl()
+    block.copyhere(BLK_DEBUG)
+    block.declvl()  
+    println('</table>')
+    println('')
+  end
+  
+  block.copyhere(BLK_BODY)
+  // небольшая рекламка... :)
+  println('')
+  print("<!-- made by " + sys.hi_version("HiAsm %mj.%mn build %bl") + " -->")
+  
+  // удаляем все блоки, кроме целевого
+  block.delete(BLK_HEAD)
+  block.delete(BLK_BODY)
+  block.delete(BLK_DEBUG)
+end

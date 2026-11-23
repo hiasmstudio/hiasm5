@@ -1,0 +1,7 @@
+func doRead(_data)
+  event(onRead, Array && '[' && Index && ']')
+end
+
+func Item()
+  return(Array && '[' && Index && ']')
+end

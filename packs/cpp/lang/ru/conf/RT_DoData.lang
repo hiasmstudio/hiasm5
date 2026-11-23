@@ -1,0 +1,5 @@
+Writes data to a stream=Заносит данные в поток
+Stores default data placed into the stream using the doData method=Хранит данные по-умолчанию, помещаемые в поток методом doData
+Writes data from the Data field to the stream=Записывает в поток данные из поля Data
+The event occurs whenever data is written to the stream (see Data)=Событие происходит всякий раз при записи данных в поток (см. Data)
+Data to write to stream=Данные для записи в поток

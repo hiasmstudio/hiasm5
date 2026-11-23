@@ -1,0 +1,36 @@
+func Source(value)
+  if(linked('Data'))
+    return(d('Data'))
+  end
+  if(len(value) > 0)
+    return(value)
+  end
+  return('""')
+end
+
+func doData(_data)
+  println('{')
+  block.inclvl()
+  println('const std::string hiasm_mon', _id_, ' = hiasm_text(', Source(_data), ');')
+  println('if(hiasm_data_cmp(hiasm_mon', _id_, ', hiasm_str_state(', _id_, ')) != 0) {')
+  block.inclvl()
+  println('hiasm_str_state(', _id_, ') = hiasm_mon', _id_, ';')
+  println('const char *hiasm_send', _id_, ' = hiasm_mon', _id_, '.c_str();')
+  event(onData, 'hiasm_mon' && _id_)
+  block.declvl()
+  println('} else {')
+  block.inclvl()
+  event(onNoData, 'hiasm_mon' && _id_)
+  block.declvl()
+  println('}')
+  block.declvl()
+  println('}')
+end
+
+func DataExpr()
+  return('(hiasm_str_state(' && _id_ && ').empty() ? std::string(' && cstr(get('Data')) && ') : hiasm_str_state(' && _id_ && '))')
+end
+
+func Value()
+  return(DataExpr())
+end

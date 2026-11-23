@@ -1,0 +1,159 @@
+*Показывает некоторую системную информацию о компьютере
+Make(cpp)
+Pos(0,0)
+Add(Hub,4237,63,112)
+{
+ InCount=1
+ OutCount=4
+ link(onEvent1,29948:doData,[(121,118)(121,83)])
+ link(onEvent2,11916:doData,[])
+ link(onEvent3,71068:doData,[(114,132)(114,167)])
+ link(onEvent4,88576:doEvent2,[(106,139)(106,207)(309,207)(309,69)])
+}
+Add(DoData,29948,147,77)
+{
+ Data=Null()
+ link(onEventData,71273:doText,[])
+ link(Data,22602:CPU,[])
+}
+Add(MemoryStatus,99819,406,56)
+{
+ Scale=2
+}
+Add(FormatStr,30758,420,119)
+{
+ DataCount=2
+ Mask=PF: Total %1; Free %2
+ link(onFString,4595:doText,[])
+ link(Str1,99819:PageFile,[])
+ link(Str2,99819:PageFile_free,[])
+}
+Add(FormatStr,62902,406,203)
+{
+ DataCount=2
+ Mask=RAM: Total %1; Free %2
+ link(onFString,73782:doText,[])
+ link(Str1,99819:RAM,[])
+ link(Str2,99819:RAM_free,[])
+}
+Add(Label,76600,196,161)
+{
+ Left=40
+ Top=55
+ Width=50
+ Height=15
+ Align=0
+ Color=-16777201
+ Font=[Arial,8,0,0]
+ Transparent=1
+ Caption=Label
+ AutoSize=0
+ Alignment=0
+}
+Add(DoData,11916,140,119)
+{
+ Data=Null()
+ link(onEventData,40554:doText,[])
+ link(Data,22602:CompName,[])
+}
+Add(DoData,71068,133,161)
+{
+ Data=Null()
+ link(onEventData,76600:doText,[])
+ link(Data,22602:UserName,[])
+}
+Add(ComputerInfo,22602,133,21)
+{
+ Mask=Type: x%t Processor: %n
+}
+Add(Label,73782,476,203)
+{
+ Left=185
+ Top=35
+ Width=50
+ Height=15
+ Align=0
+ Color=-16777201
+ Font=[Arial,8,0,0]
+ Transparent=1
+ Caption=Label
+ AutoSize=0
+ Alignment=0
+}
+Add(Timer,99482,266,56)
+{
+ Interval=1000
+ Enable=0
+ AutoStop=0
+ link(onTimer,88576:doEvent1,[])
+}
+Add(Label,40554,196,119)
+{
+ Left=40
+ Top=35
+ Width=50
+ Height=15
+ Align=0
+ Color=-16777201
+ Font=[Arial,8,0,0]
+ Transparent=1
+ Caption=Label
+ AutoSize=0
+ Alignment=0
+}
+Add(Label,4595,476,119)
+{
+ Left=185
+ Top=15
+ Width=50
+ Height=15
+ Align=0
+ Color=-16777201
+ Font=[Arial,8,0,0]
+ Transparent=1
+ Caption=Label
+ AutoSize=0
+ Alignment=0
+}
+Add(Hub,88576,322,56)
+{
+ InCount=2
+ OutCount=3
+ link(onEvent1,99819:Refresh,[])
+ link(onEvent2,30758:doString,[(387,69)(387,125)])
+ link(onEvent3,62902:doString,[(380,76)(380,209)])
+}
+Add(Label,71273,196,77)
+{
+ Left=40
+ Top=15
+ Width=50
+ Height=15
+ Align=0
+ Color=-16777201
+ Font=[Arial,8,0,0]
+ Transparent=1
+ Caption=Label
+ AutoSize=0
+ Alignment=0
+}
+Add(MainForm,88026,13,77)
+{
+ Left=109
+ Top=185
+ Width=405
+ Height=109
+ Align=0
+ Color=-16777201
+ AlphaBlendValue=255
+ Caption=Form
+ BorderStyle=3
+ WindowsState=0
+ Icon=[]
+ ShowType=0
+ TaskBar=0
+ DragForm=0
+ Visible=0
+ Picture=[]
+ link(onCreate,4237:doEvent1,[])
+}

@@ -1,0 +1,9 @@
+Some information about the device=Некоторая информация об устройстве
+Requests processor information from the device=Запрашивает информацию о процессоре с устройства
+The event occurs every time after receiving information about the device=Событие происходит всякий раз после получения информации об устройстве
+Processor architecture=Архитектура процессора
+Architecture-specific processor type=Архитектурно-зависимый тип процессора
+Processor revision number=Номер ревизии процессора
+Contains the display width in pixels=Содержит ширину дисплея в пикселях
+Contains the display height in pixels=Содержит высоту дисплея в пикселях
+Contains the number of colors displayed by the display=Содержит количество цветов, отображаемых дисплеем

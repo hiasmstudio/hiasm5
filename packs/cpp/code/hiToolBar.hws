@@ -1,0 +1,35 @@
+func ToolBarWidget()
+  return('qt_widget<HiasmToolBar>(form, "ToolBar' && _id_ && '")')
+end
+
+func doStart
+  println('{')
+  println('auto *toolbar = new HiasmToolBar(widgetParent);')
+  println('toolbar->setObjectName(QStringLiteral("ToolBar', _id_, '"));')
+  println('toolbar->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+  println('toolbar->wrap = ', get('Wrapable') == 'True', ';')
+  println('toolbar->flat = ', get('Flat') == 'True', ';')
+  println('toolbar->textBelow = ', get('Caption') == 1, ';')
+  println('toolbar->load(qt_text(', cstr(get('Buttons')), '));')
+  if(linked(onClick))
+    println('toolbar->clicked = [&form](int index) {')
+    event(onClick, 'index')
+    println('};')
+  end
+  println('}')
+end
+
+func IndexArg(value)
+  if(len(value) > 0)
+    return('qt_text(' && value && ').toInt()')
+  end
+  return('0')
+end
+
+func doEnable(_data)
+  println(ToolBarWidget(), '->enable(', IndexArg(_data), ', true);')
+end
+
+func doDisable(_data)
+  println(ToolBarWidget(), '->enable(', IndexArg(_data), ', false);')
+end

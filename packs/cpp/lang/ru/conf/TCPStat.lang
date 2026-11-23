@@ -1,0 +1,9 @@
+Information on TCP and UDP protocols=Информация по TCP и UDP протоколам
+Starts listing TCP connection statistics on the local computer=Начинает перечисление статистики TCP соединений на локальном компьютере
+Starts listing UDP connection statistics on the local computer=Начинает перечисление статистики UDP соединений на локальном компьютере
+Checks the status of a TCP port with Port number and IP address=Проверяет состояние TCP-порта с номером Port и адресом IP
+The event occurs whenever another TCP connection is found, returning statistics data to the ARG(LocalIP, LocalPort, RemoteIP, RemotePort, Status) stream=Событие происходит всякий раз при нахождении очередного TCP соединения, возвращая данные статистики в поток ARG(LocalIP, LocalPort, RemoteIP, RemotePort, Status)
+The event occurs whenever another UDP connection is found, returning statistics data to the ARG(LocalIP, LocalPort) stream=Событие происходит всякий раз при нахождении очередного UDP соединения, возвращая данные статистики в поток ARG(LocalIP, LocalPort)
+Returns the state of a TCP port with Port number and IP address (1 - port open, 0 - port closed) ARG(State)=Возвращает состояние TCP-порта с номером Port и адресом IP (1 - порт открыт, 0 - порт закрыт) ARG(State)
+IP address for the doPortIsOpen method=IP-адрес для метода doPortIsOpen
+TCP port number for the doPortIsOpen method=Номер TCP-порта для метода doPortIsOpen

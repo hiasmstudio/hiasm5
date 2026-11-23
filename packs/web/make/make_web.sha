@@ -1,0 +1,21 @@
+Make(modules)
+Add(MakeEntryPoint,3565775,21,105)
+{
+ link(onStart,12031692:doEvent,[])
+}
+Add(GetParams,8294915,133,105)
+{
+}
+Add(MakeProject,8976005,133,154)
+{
+}
+Add(Complite,15007304,133,203)
+{
+}
+Add(Hub,12031692,77,105)
+{
+ OutCount=3
+ link(onEvent1,8294915:doDeclare,[])
+ link(onEvent2,8976005:doDeclare,[(121,118)(121,160)])
+ link(onEvent3,15007304:doDeclare,[(121,125)(121,209)])
+}

@@ -1,0 +1,13 @@
+include('tag_maker')
+
+section html
+
+func doPrint
+  include('tag_header')
+  s[1] = "input"
+  s &= " type=\"file\""
+  if(isset(Name))
+    s &= " name=\"" & Name & "\""
+  end
+  include('tag_footer')
+end

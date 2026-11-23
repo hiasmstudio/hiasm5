@@ -1,0 +1,12 @@
+func CurDir()
+  return('sys.curdir()')
+end
+
+func SysDir()
+  return('sys.sysdir()')
+end
+
+func HiAsmDir()
+  return('sys.hiasmdir()')
+end
+

@@ -1,0 +1,16 @@
+Storing Alpha pictures in memory=Хранение Alpha-картинки в памяти
+Defines the default Alpha image=Определяет Alpha-картинку по умолчанию
+Alpha image width to create by default=Ширина Alpha-картинки для создания по-умолчанию
+Alpha image height to create by default=Высота Alpha-картинки для создания по-умолчанию
+Default fill color of empty Alpha image=Цвет заливки пустой Alpha-картинки по-умолчанию
+Loads an Alpha image from a stream. ARG(AlphaBitmap)=Загружает Alpha-картинку из потока. ARG(AlphaBitmap)
+Creates an empty Alpha image with dimensions HWidth and HHeight and fills it with Color ARG(HWidth, HHeight, FillColor)=Cоздает пустую Alpha-картинку с размерами HWidth и HHeight и заливает ее цветом Color ARG(HWidth, HHeight, FillColor)
+The event occurs every time after loading an Alpha image from the stream, outputting this image to the stream ARG(Bitmap)=Событие происходит всякий раз после загрузки Alpha-картинки из потока, выдавая эту картинку в поток ARG(Bitmap)
+The event occurs after the creation of an empty Alpha image, issuing this image to the ARG(Bitmap) stream=Событие происходит после создания пустой Alpha-картинки, выдавая эту картинку в поток ARG(Bitmap)
+Clears the Alpha picture=Очищает Alpha-картинку
+Returns an Alpha image=Возвращает Alpha-картинку
+Contains the width of the Alpha image=Содержит ширину Alpha-картинки
+Contains the height of the Alpha image=Содержит высоту Alpha-картинки
+Alpha image width to create=Ширина Alpha-картинки для создания
+Alpha image height to create=Высота Alpha-картинки для создания
+Fill color of empty Alpha picture=Цвет заливки пустой Alpha-картинки

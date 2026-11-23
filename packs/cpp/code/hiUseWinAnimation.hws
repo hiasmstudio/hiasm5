@@ -1,0 +1,65 @@
+func Animation()
+  return('static_cast<HiasmWindowAnimation *>(form.findChild<QObject *>(QStringLiteral("UseWinAnimation' && _id_ && '")))')
+end
+
+func doStart
+  println('{')
+  println('auto *animation = new HiasmWindowAnimation(&form);')
+  println('animation->setObjectName(QStringLiteral("UseWinAnimation', _id_, '"));')
+  println('animation->duration = ', get('Time'), ';')
+  println('animation->activation = ', get('ActivationMode'), ';')
+  println('animation->center = ', get('CENTER') == 'True', ';')
+  println('animation->slide = ', get('SLIDE') == 'True', ';')
+  println('animation->leftToRight = ', get('HOR_POSITIVE') == 'True', ';')
+  println('animation->rightToLeft = ', get('HOR_NEGATIVE') == 'True', ';')
+  println('animation->topToBottom = ', get('VER_POSITIVE') == 'True', ';')
+  println('animation->bottomToTop = ', get('VER_NEGATIVE') == 'True', ';')
+  println('}')
+end
+
+func doAnimation(_data)
+  println(Animation(), '->run(qt_widget<QWidget>(form, ', cstr(get('qtControlTarget')), '));')
+end
+
+func doRedrawWindow(_data)
+  println('if (auto *target = qt_widget<QWidget>(form, ', cstr(get('qtControlTarget')), ')) {')
+  println('  target->update();')
+  println('  for (auto *child : target->findChildren<QWidget *>()) child->update();')
+  println('}')
+end
+
+func doActivationMode(_data)
+  if(len(_data) > 0)
+    println(Animation(), '->activation = qt_text(', _data, ').toInt() != 0;')
+  end
+end
+
+func SetFlag(field, value)
+  if(len(value) > 0)
+    println(Animation(), '->', field, ' = qt_flag(qt_text(', value, '));')
+  end
+end
+
+func doCENTER(_data)
+  SetFlag('center', _data)
+end
+
+func doSLIDE(_data)
+  SetFlag('slide', _data)
+end
+
+func doHOR_POSITIVE(_data)
+  SetFlag('leftToRight', _data)
+end
+
+func doHOR_NEGATIVE(_data)
+  SetFlag('rightToLeft', _data)
+end
+
+func doVER_POSITIVE(_data)
+  SetFlag('topToBottom', _data)
+end
+
+func doVER_NEGATIVE(_data)
+  SetFlag('bottomToTop', _data)
+end

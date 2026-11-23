@@ -1,0 +1,104 @@
+*Моделирование системы тел и гравитационного взаимодействия между ними
+Make(cpp)
+Add(MainForm,15261923,28,35)
+{
+ Left=20
+ Top=105
+ Width=440
+ Height=421
+ Caption="Universe"
+ Point(MouseX)
+ Point(MouseY)
+ Point(onMouseDown)
+ Point(onMouseUp)
+ Point(onMouseMove)
+ Point(onResize)
+ Point(Handle)
+ link(onCreate,16299401:doEvent1,[(86,55)(86,153)])
+ link(onMouseDown,7224192:doDown,[(297,62)(297,181)])
+ link(onMouseUp,7224192:doUp,[(290,69)(290,188)])
+ link(onMouseMove,7224192:doMove,[(285,76)(285,195)])
+ link(onResize,14551396:doWork1,[(158,83)])
+}
+Add(GL_Main,12986311,168,147)
+{
+ Color=16777215
+ link(onInit,12198675:doInit,[])
+ link(Handle,15261923:Handle,[(174,119)(48,119)])
+}
+Add(Timer,9506849,56,231)
+{
+ Interval=1
+ Enable=1
+ link(onTimer,1049454:doEvent1,[])
+}
+Add(GL_GTools,771925,168,231)
+{
+ Point(doClear)
+ Point(doPushMatrix)
+ Point(doPopMatrix)
+}
+Add(GL_GluTools,12198675,231,147)
+{
+ Texture=0
+ link(onInit,1101264:doEnabled,[])
+}
+Add(Hub,1049454,105,231)
+{
+ OutCount=6
+ link(onEvent1,771925:doClear,[])
+ link(onEvent2,771925:doPushMatrix,[])
+ link(onEvent3,14058394:doTranslate,[(186,251)(186,104)])
+ link(onEvent4,771925:doPopMatrix,[(152,258)(152,251)])
+ link(onEvent5,12986311:doFlip,[(156,265)(156,167)])
+ link(onEvent6,7224192:doProcess,[(408,272)(408,167)])
+}
+Add(Hub,16299401,98,147)
+{
+ OutCount=3
+ link(onEvent1,12986311:doInit,[])
+ link(onEvent2,14551396:doWork2,[])
+ link(onEvent3,9506849:doTimer,[(140,167)(140,205)(46,205)(46,237)])
+}
+Add(Gl_Translate,14058394,329,98)
+{
+ link(onTranslate,7224192:doDraw,[(386,104)(386,174)])
+}
+Add(GL_Options,1101264,280,147)
+{
+ Flag=7
+ link(onEvent,5809249:doEnabled,[])
+}
+Add(GL_Options,5809249,329,147)
+{
+ Flag=2
+}
+Add(HubEx,14551396,154,147)
+{
+ link(onEvent,12986311:doViewPort,[])
+}
+Add(InlineCode,7224192,448,154)
+{
+ WorkPoints=#43:doInit=Инициализация поля начальной фигурой|39:doProcess=Выполнение одного цикла жизни|21:doDraw=Отрисовка поля|6:doDown|4:doUp|6:doMove|
+ DataPoints=#21:X=Координата Х кубика|21:Y=Координата У кубика|
+ Code=#15:unit HiAsmUnit;|0:|9:interface|0:|36:uses windows,kol,Share,Debug,OpenGL;|0:|4:type|28: THiAsmClass = class(TDebug)|10:   private|0:|9:   public|21:    OnDraw:THI_Event;|25:    X,Y,Button:THI_Event;|0:|53:    procedure doProcess(var _Data:TData; Index:Word);|50:    procedure doInit(var _Data:TData; Index:Word);|50:    procedure doDraw(var _Data:TData; Index:Word);|0:|50:    procedure doDown(var _Data:TData; Index:Word);|50:    procedure doMove(var _Data:TData; Index:Word);|48:    procedure doUp(var _Data:TData; Index:Word);|5: end;|17: TRPoint = record|12:   x,y:real;|14:   kx,ky:real;|10:   m:real;|14:   mv:boolean;|5: end;|0:|0:|14:implementation|0:|17:uses hiMathParse;|0:|3:var|29: pt:array[0..200] of TRPoint;|16: pCount:integer;|16: mpt,lpt:TPoint;|12: tr:boolean;|0:|33:procedure nextPos(var p:TRPoint);|14:var j:integer;|22:    cx,cy,u,_p,F:real;|5:begin|21:   p.x := p.x + p.kx;|21:   p.y := p.y + p.ky;|0:|28:   for j := 0 to pCount-1 do|9:    begin|26:      cx := p.x - pt[j].x;|26:      cy := p.y - pt[j].y;|0:|26:      u := ArcTan2(cy,cx);|34:      _p := sqrt( cx*cx + cy*cy );|19:      _p := _p + 1;|32:      F := 0.005*p.m*pt[j].m/_p;|34:      p.kx := p.kx - F*cos(u)/p.m;|35:      p.ky := p.ky -+ F*sin(u)/p.m;|8:    end;|4:end;|0:|58:procedure THiAsmClass.doInit(var _Data:TData; Index:Word);|5:begin|23:    pt[pCount].x := 10;|23:    pt[pCount].y := 10;|25:    pt[pCount].kx := 0.0;|25:    pt[pCount].ky := 0.0;|25:    pt[pCount].m := 40.0;|16:    inc(pCount);|24:    pt[pCount].x := 100;|23:    pt[pCount].y := 20;|25:    pt[pCount].kx := 0.0;|25:    pt[pCount].ky := 0.0;|25:    pt[pCount].m := 40.0;|16:    inc(pCount);|24:    pt[pCount].x := 100;|23:    pt[pCount].y := 90;|25:    pt[pCount].kx := 0.0;|25:    pt[pCount].ky := 0.0;|25:    pt[pCount].m := 40.0;|16:    inc(pCount);|23:    pt[pCount].x := 10;|24:    pt[pCount].y := 100;|25:    pt[pCount].kx := 0.0;|25:    pt[pCount].ky := 0.0;|25:    pt[pCount].m := 40.0;|16:    inc(pCount);|23:    pt[pCount].x := 55;|23:    pt[pCount].y := 55;|25:    pt[pCount].kx := 0.5;|25:    pt[pCount].ky := 0.0;|25:    pt[pCount].m := 10.0;|26:    pt[pCount].mv := true;|16:    inc(pCount);|4:end;|0:|22:const zk:real = 200.0;|0:|58:procedure THiAsmClass.doDraw(var _Data:TData; Index:Word);|16:var i,k:integer;|14:    p:TRPoint;|5:begin|26:   glColor3f(0.0,0.0,0.0);|0:|28:   for i := 0 to pCount-1 do|9:    begin|38:     k := max( round(pt[i].m/10.0),1);|20:     glPointSize(k);|24:     glBegin(GL_POINTS);|63:     glVertex3f(pt[i].x/Applet.Children[0].ClientWidth*2 - 1.0,|70:                -pt[i].y/Applet.Children[0].ClientHeight*2 + 1.0,0.0);|11:     glEnd;|8:    end;|0:|26:   glBegin(GL_LINE_STRIP);|13:   if tr then|9:    begin|19:      p.x := mpt.x;|19:      p.y := mpt.y;|36:      p.kx := (lpt.x - mpt.x)/100.0;|36:      p.ky := (lpt.y - mpt.y)/100.0;|17:      p.m := 1.0;|60:      glVertex3f(p.x/Applet.Children[0].ClientWidth*2 - 1.0,|67:                 -p.y/Applet.Children[0].ClientHeight*2 + 1.0,0.0);|27:      for i := 0 to 4000 do|12:       begin|19:        nextPos(p);|62:        glVertex3f(p.x/Applet.Children[0].ClientWidth*2 - 1.0,|69:                   -p.y/Applet.Children[0].ClientHeight*2 + 1.0,0.0);|11:       end;|8:    end;|9:   glEnd;|4:end;|0:|58:procedure THiAsmClass.doDown(var _Data:TData; Index:Word);|5:begin|36:    mpt.x := ReadInteger(_data,x,0);|36:    mpt.y := ReadInteger(_data,y,0);|15:    tr := true;|4:end;|0:|58:procedure THiAsmClass.doMove(var _Data:TData; Index:Word);|5:begin|33:    _data.data_type := data_null;|36:    lpt.x := ReadInteger(_data,x,0);|36:    lpt.y := ReadInteger(_data,y,0);|4:end;|0:|56:procedure THiAsmClass.doUp(var _Data:TData; Index:Word);|22:var _x,_y,i,b:integer;|5:begin|33:    _x := ReadInteger(_data,x,0);|33:    _y := ReadInteger(_data,y,0);|37:    b := ReadInteger(_data,Button,0);|17:    if b = 0 then|10:     begin|28:      pt[pCount].x := mpt.x;|28:      pt[pCount].y := mpt.y;|42:      pt[pCount].kx := (_X - mpt.x)/100.0;|42:      pt[pCount].ky := (_Y - mpt.y)/100.0;|26:      pt[pCount].m := 1.0;|28:      pt[pCount].mv := true;|18:      inc(pCount);|8:     end|22:    else if b = 1 then|10:     begin|28:      pt[pCount].x := mpt.x;|28:      pt[pCount].y := mpt.y;|45:      pt[pCount].kx := 0;//(X - mpt.x)/100.0;|45:      pt[pCount].ky := 0;//(Y - mpt.y)/100.0;|27:      pt[pCount].m := 40.0;|29:      pt[pCount].mv := false;|18:      inc(pCount);|8:     end|8:    else|25:      for i := 0 to 30 do|12:       begin|30:        pt[pCount].x := mpt.x;|30:        pt[pCount].y := mpt.y;|40:        pt[pCount].kx := 0.8*sin(i/5.0);|40:        pt[pCount].ky := 0.8*cos(i/5.0);|28:        pt[pCount].m := 1.0;|30:        pt[pCount].mv := true;|20:        inc(pCount);|11:       end;|0:|15:   tr := false;|4:end;|0:|61:procedure THiAsmClass.doProcess(var _Data:TData; Index:Word);|16:var i,j:integer;|15:    cx,cy:real;|15:    u,p,F:real;|5:begin|0:|28:   for i := 0 to pCount-1 do|9:    begin|35:     pt[i].x := pt[i].x + pt[i].kx;|35:     pt[i].y := pt[i].y + pt[i].ky;|0:|30:     for j := 0 to pCount-1 do|34:      if (i <> j)and pt[i].mv then|12:       begin|32:        cx := pt[i].x - pt[j].x;|32:        cy := pt[i].y - pt[j].y;|74:        if (abs(round(cx)) < 0.00001) and (abs(round(cy)) < 0.00001 ) then|0:|12:        else|14:         begin|30:          u := ArcTan2(cy,cx);|37:          p := sqrt( cx*cx + cy*cy );|21:          p := p + 1;|39:          F := 0.005*pt[i].m*pt[j].m/p;|50:          pt[i].kx := pt[i].kx - F*cos(u)/pt[i].m;|50:          pt[i].ky := pt[i].ky - F*sin(u)/pt[i].m;|13:         end;|11:       end;|8:    end;|4:end;|0:|4:end.|
+ link(X,15261923:MouseX,[(454,115)(34,115)])
+ link(Y,15261923:MouseY,[(461,111)(41,111)])
+}
+Add(InfoTip,12415306,77,28)
+{
+ Info=#10:Гравитация|
+ Font=[Arial,14,1,0,1]
+ Frame=1
+ Width=428
+ Height=18
+}
+Add(InfoTip,14953920,21,287)
+{
+ Info=#23:Управление в программе:|77: Правая кнопка мыши - добавляет в систему неподвижное тело с массой 40 единиц|222: Левая кнопка мыши - добавляет в систему свободнодвижуещееся тело с массой в 1 единицу причем тут же в реальном времени показывает траекторию движения тела на 4000 шагов вперед в зависимости от положения других тел системы|98: Средняя кнопка мыши - добавляет систему тел с массой в 1 еденицу равномерно удаляющихся от центра|
+ Transparent=1
+ HAlign=0
+ Width=463
+ Height=102
+ Margin=3
+}

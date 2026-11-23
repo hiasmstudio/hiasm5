@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language id="sha" name="HiAsm scheme" version="2.0" section="Sources">
+  <metadata><property name="globs">*.sha</property></metadata>
+  <styles>
+    <style id="keyword" name="Keyword" map-to="def:keyword"/>
+    <style id="comment" name="Comment" map-to="def:comment"/>
+    <style id="string" name="String" map-to="def:string"/>
+  </styles>
+  <definitions>
+    <context id="sha"><include>
+      <context id="comment" style-ref="comment" end-at-line-end="true"><start>//</start></context>
+      <context id="string" style-ref="string" end-at-line-end="true"><start>&quot;</start><end>&quot;</end></context>
+      <context id="keyword" style-ref="keyword">
+        <keyword>Make</keyword><keyword>Add</keyword><keyword>BEGIN_SDK</keyword><keyword>END_SDK</keyword>
+        <keyword>link</keyword><keyword>Point</keyword><keyword>AddHint</keyword>
+      </context>
+    </include></context>
+  </definitions>
+</language>

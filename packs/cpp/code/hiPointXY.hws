@@ -1,0 +1,15 @@
+func Arg(name)
+  if(linked(name))
+    return(d(name))
+  else
+    return(get(name))
+  end
+end
+
+func Expr()
+  return('((' && Arg('Y') && ' << 16) | (' && Arg('X') && ' & 0xFFFF))')
+end
+
+func Point()
+  return(Expr())
+end

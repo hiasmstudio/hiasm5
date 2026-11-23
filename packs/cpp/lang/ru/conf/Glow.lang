@@ -1,0 +1,7 @@
+Generating a glow picture=Генерация свечения картинки
+Glow level=Уровень свечения
+The background color of the original image, for which the glow map is not calculated=Цвет фона исходной картинки, для которого не вычисляется карта свечения
+Generates a glow map and applies it to the image=Формирует карту свечения и применяет ее к картинки
+The event occurs after the operation has completed and outputs its result ARG(Bitmap) to the stream.=Событие происходит после выполнения операции и выдаёт в поток её результат ARG(Bitmap)
+Specifies an image to apply an effect to.=Определяет картинку для применения к ней эффекта
+Contains a modified picture=Содержит измененную картинку

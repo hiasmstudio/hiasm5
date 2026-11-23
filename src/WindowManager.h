@@ -15,12 +15,16 @@
 #include "FormEditor.h"
 #include "ProjectBuilder.h"
 
-#ifndef G_OS_WIN32
+#if defined(HIASM_GTK4) || !defined(G_OS_WIN32)
 	#define USE_GTK_SOURCE_VIEW
 #endif
 
 #ifdef USE_GTK_SOURCE_VIEW
+#ifdef HIASM_GTK4
+#include "GsvCompat.h"
+#else
 #include <gtksourceviewmm.h>
+#endif
 using namespace Gsv;
 #endif
 
@@ -122,7 +126,24 @@ class SI_ImageMenuItem : public ImageMenuItem {
 class WM_SDK_Editor : public WM_Tab, public CallBack {
 	private:
 		ProjectBuilder pbuilder;
-		Glib::Thread *runThread;
+        // A project created from a template lives in an isolated directory
+        // until the user chooses its permanent location with Save As.
+        ustring temporaryProjectDir;
+        bool temporaryProject = false;
+        struct SchemeState {
+            ustring text;
+            std::vector<int> path, selected, frozen;
+        };
+        std::vector<SchemeState> history;
+        size_t historyPosition = 0;
+        ustring savedScheme;
+        std::vector<int> savedFrozen;
+        bool restoringScheme = false;
+        sigc::connection historyIdle;
+		sigc::connection pathIdle;	/**< pending return to a level of the path line */
+        void recordSchemeState();
+        bool restoreSchemeState(size_t position);
+        bool processSchemeCommand(const ustring &cmd, const ustring &arg);
 
 		virtual bool on_sel_info_click(GdkEventButton *event);
 		void fillSelectionMenu();
@@ -131,7 +152,8 @@ class WM_SDK_Editor : public WM_Tab, public CallBack {
 		FileChooserDialog *saveDlg;	/**< save file dialog */
 		ScrolledWindow scroll;		/**< scroll widget for sde */
 		FormEditor *formEdit;		/**< FormEditor widget */
-		Label *sdkPath;				/**< SDK path panel */
+		HBox *sdkPath;				/**< SDK path line: ROOT and the names of the schemes down to the shown one */
+		std::vector<Label*> sdkPathItems;	/**< labels of the path line (names are links above the shown scheme) */
 		VBox *box;					/**< parent for all SDK_Editor widgets */
 		Label *elementsList;		/**< info about count of selected elements */
 		Menu selInfoMenu;			/**< list of selected elements */
@@ -144,11 +166,12 @@ class WM_SDK_Editor : public WM_Tab, public CallBack {
 		 * Save SDK to file
 		 * @param file_name file in which you want to save data
 		 */
-		void saveToFile(const ustring &file_name);
+		bool saveToFile(const ustring &file_name);
 		/**
 		 * Save SDK with the choice of filename. Open save file dialog.
 		 */
 		void saveToFileAs();
+        void cleanupTemporaryProject();
 
 		/**
 		 * Create and form editor for current SDK
@@ -158,12 +181,20 @@ class WM_SDK_Editor : public WM_Tab, public CallBack {
 		 * Close and destroy opened form editor
 		 */
 		void closeFormEditor();
+		/** Enter the scheme of a MultiElement; the form editor is closed while the current scheme changes */
+		void enterScheme(Element *container);
+		/** Rebuild the path line for the shown scheme */
+		void updateSdkPath(SDK *shown);
+		/** Add a piece of the path line; target is the scheme it leads to, nullptr for a separator or the shown scheme */
+		void addSdkPathItem(const ustring &text, SDK *target);
+		/** Return to an enclosing scheme; the form editor is closed while the scheme changes */
+		void leaveSchemeTo(SDK *target);
 
 		/**
 		 * Check running state of current project
 		 * @return running state
 		 */
-		inline bool isRun() { return runThread != NULL; }
+		inline bool isRun() { return pbuilder.isRunning(); }
 		/**
 		 * Run current project
 		 */
@@ -171,7 +202,6 @@ class WM_SDK_Editor : public WM_Tab, public CallBack {
 		/**
 		 * Call then project need to run in separate thread
 		 */
-		void on_run_thread();
 
 		/**
 		 * Call then user close form editor
@@ -181,11 +211,18 @@ class WM_SDK_Editor : public WM_Tab, public CallBack {
 	public:
 		SDK_Editor *sde;	/**< pointer to SDK_Editor widget */
 
+		/** Text of the path line, for example ROOT\name\ */
+		ustring sdkPathText() const;
+
 		/**
 		 * Constructor for WM_SDK_Editor
 		 * @param parent pointer to WindowManager object
 		 */
-		WM_SDK_Editor(WindowManager *parent):WM_Tab(parent), zoomSlider(40, 1000, 10) { type = WMT_SDK_EDITOR; runThread = NULL; }
+		WM_SDK_Editor(WindowManager *parent):WM_Tab(parent), zoomSlider(40, 1000, 10) {
+			type = WMT_SDK_EDITOR;
+			sdkPath = nullptr;
+			pbuilder.on_run_state += this;
+		}
 		~WM_SDK_Editor();
 		/**
 		 * Open *.sha file in this tab
@@ -205,6 +242,8 @@ class WM_SDK_Editor : public WM_Tab, public CallBack {
 		 * @return true if command was processed else false
 		 */
 		bool processCommand(const ustring &cmd, const ustring &arg);
+        bool isTemporaryProject() const { return temporaryProject; }
+        const ustring &temporaryProjectPath() const { return temporaryProjectDir; }
 		/**
 		 * Update commands state
 		 */
@@ -217,7 +256,7 @@ class WM_SDK_Editor : public WM_Tab, public CallBack {
 		 * Provide icon for tab
 		 * @return pointer to icon
 		 */
-		TypePixbuf icon() { return sde->sdk->pack->getSmallIcon(); }
+		TypePixbuf icon() { return sde->sdk->pack ? sde->sdk->pack->getSmallIcon() : TypePixbuf(); }
 };
 
 /*! \class WM_Text_Editor
@@ -230,6 +269,7 @@ class WM_Text_Editor : public WM_Tab {
 	protected:
 		ScrolledWindow *scroll;	/**< scroll widget for text editor */
 		ustring fName;			/**< name of opened file */
+        ustring searchText;
 
 		virtual void on_edit_changed();
 	public:
@@ -250,6 +290,8 @@ class WM_Text_Editor : public WM_Tab {
 		 * @return pointer to widget who insert to tab
 		 */
 		Widget *open(const ustring &file_name, bool asNew = false);
+        bool saveToFile(const ustring &file_name);
+        bool findNext(const ustring &text);
 		/**
 		 * Provide access to tab widget
 		 * @return pointer to ScrolledWindow
@@ -332,7 +374,7 @@ class WM_New_Project : public WM_Tab, public CallBack {
 		 * Provide access to tab widget
 		 * @return pointer to ScrolledWindow
 		 */
-		Widget *widget() { return &memo; }
+		Widget *widget() { return &paned; }
 		/**
 		 * Process receive command
 		 * @param cmd command name
@@ -365,6 +407,7 @@ typedef std::vector<WM_Tab*> WM_Tabs;
 
 class WindowManager : public Notebook, public CallBack {
 	private:
+		sigc::connection switchPageConnection;
 		FileChooserDialog *openDlg;	/**< open file dialog */
 		AboutDialog *aboutDlg;		/**< hiasm about dialog */
 
@@ -375,13 +418,15 @@ class WindowManager : public Notebook, public CallBack {
 		ProjectManager prjMan;		/**< new projects manager */
 
 		void switchToTab(WM_Tab *tab);
+        bool removeTab(WM_Tab *tab, bool prompt, bool createStartup);
+        bool confirmingClose = false;
 	protected:
 		/**
 		 * Call when user switch tab in Notebook
 		 * @param page current selected page
 		 * @param index page index
 		 */
-		void on_switch_page(Gtk::Widget *page, guint index);
+		void handleSwitchPage(Gtk::Widget *page, guint index);
 		/**
 		 * callback for receive commands
 		 * @param owner pointer to CommandManager
@@ -400,6 +445,7 @@ class WindowManager : public Notebook, public CallBack {
 		Event on_tab_close;		/**< call when tab has been closed (index CBT_TAB_CLOSE) */
 
 		WindowManager();
+		~WindowManager() override;
 		/**
 		 * Open new file in hiasm
 		 * @param file_name name of the file you want to open
@@ -416,6 +462,10 @@ class WindowManager : public Notebook, public CallBack {
 		 * @return pointer to current WM_Tab or NULL for empty manager
 		 */
 		WM_Tab *getCurrent();
+        bool closeCurrent();
+        bool closeAll();
+        // Preflight the native close request before removing any tabs.
+        bool canCloseAll();
 
 		/**
 		 * Update all command state
@@ -445,7 +495,7 @@ class WindowManager : public Notebook, public CallBack {
 		 * Run command by key shortcut
 		 * @param key information about key pressed
 		 */
-		void translateKey(GdkEventKey *key);
+		bool translateKey(GdkEventKey *key, bool globalOnly = false);
 
 		/**
 		 * Process command
@@ -458,6 +508,7 @@ class WindowManager : public Notebook, public CallBack {
 		 * Init window manager after load all classes
 		 */
 		void init();
+        bool openWelcome();
 
 		/**
 		 * Save all opened tabs

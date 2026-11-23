@@ -1,0 +1,24 @@
+section html
+
+func doPrint
+  fvar(s,old,env,enb)
+  s = "<script"
+  if(isset(Id))
+    s &= " id=\"" & Id & "\""
+  end 
+  if(isset(Language))
+    s &= " language=\"" & Language & "\""
+  end 
+  s &= ">"
+  println(s)
+  enb = block.lvlenabled()
+  old = block.select(block.reggen())
+  if(not enb)
+    block.lvloff()
+  end
+  event(onPrint:java)
+  env = block.astext()
+  block.delete(block.select(old))
+  println(env)
+  println("</script>")
+end

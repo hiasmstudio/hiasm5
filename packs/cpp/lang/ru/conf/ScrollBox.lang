@@ -1,0 +1,10 @@
+Scroll box=Панель прокрутки
+Outer Frame Type=Тип внешней рамки
+Moves the horizontal slider by the number of positions from the stream or HScroll field=Перемещает горизонтальный ползунок на количество позиций из потока или поля HScroll
+Moves the vertical slider by the number of positions from the stream or VScroll field=Перемещает вертикальный ползунок на количество позиций из потока или поля VScroll
+The event occurs every time after horizontal scrolling=Событие происходит всякий раз после горизонтального скроллинга
+The event occurs every time after vertical scrolling=Событие происходит всякий раз после вертикального скроллинга
+Number of positions horizontally=Количество позиций по горизонтали
+Number of vertical positions=Количество позиций по вертикали
+Current position of the horizontal slider=Текущее положение горизонтального ползунка
+Current position of the vertical slider=Текущее положение вертикального ползунка

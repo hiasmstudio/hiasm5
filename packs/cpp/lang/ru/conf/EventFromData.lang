@@ -1,0 +1,5 @@
+Generates an event when data is accessed=Генерирует событие при обращении к данным
+Remembers data from a stream=Запоминает данные из потока
+The event occurs every time before a GetData data point is accessed=Событие происходит всякий раз перед обращением к точке данных GetData
+Contains data saved by the doData method=Содержит данные, сохраненные методом doData
+Specifies data to be stored in memory=Определяет данные для сохранения в памяти

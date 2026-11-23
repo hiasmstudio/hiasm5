@@ -1,0 +1,56 @@
+*make.dll вызывающий ассоциированную с расширением программу
+Make(modules)
+ver(4.02 build 178)
+Add(MakeEntryPoint,3565775,21,105)
+{
+ link(onStart,12031692:doEvent,[])
+}
+Add(GetParams,8294915,133,105)
+{
+ Run=0
+ RunDebug=0
+}
+Add(MakeProject,8976005,133,154)
+{
+}
+Add(Complite,15007304,133,203)
+{
+}
+Add(Hub,12031692,77,105)
+{
+ OutCount=5
+ link(onEvent1,8294915:doDeclare,[])
+ link(onEvent2,8976005:doDeclare,[(121,118)(121,160)])
+ link(onEvent3,15007304:doDeclare,[(121,125)(121,209)])
+ link(onEvent4,15189190:doDeclare,[(121,132)(121,258)])
+ link(onEvent5,7859971:doDeclare,[(121,139)(121,321)])
+}
+Add(RunProject,15189190,133,252)
+{
+ link(onDeclare,5218996:doShellExecute,[])
+}
+Add(ShellExecuteEx,5218996,189,252)
+{
+ link(onShellExecute,6872406:doEvent,[])
+}
+Add(StopProject,7859971,133,315)
+{
+ link(onDeclare,4698014:doTerminateProcess,[])
+}
+Add(TerminateProcess,4698014,189,315)
+{
+}
+Add(Hub,6872406,245,252)
+{
+ link(onEvent1,15189190:doSaveData,[(289,258)(289,301)(126,301)(126,265)])
+ link(onEvent2,167862:doWhile,[])
+}
+Add(While,167862,315,259)
+{
+ link(Data,9976113:IsTimeOut,[])
+}
+Add(WaitObject,9976113,308,217)
+{
+ Point(IsTimeOut)
+ link(ObjHandle,5218996:Process,[(314,206)(231,206)(231,293)(195,293)])
+}

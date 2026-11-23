@@ -1,0 +1,66 @@
+func DataList()
+  return('qt_widget<HiasmDataList>(form, "MListBox' && _id_ && '")')
+end
+
+func doStart
+  println('{ auto *list = new HiasmDataList(widgetParent);')
+  println('list->setObjectName(QStringLiteral("MListBox', _id_, '"));')
+  println('list->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+  println('list->setEnabled(', get('Enabled') == 'True', ');')
+  println('list->setVisible(', get('Visible') == 'True', ');')
+  println('list->setToolTip(qt_text(', cstr(get('Hint')), '));')
+  if(get('Ctl3D') != 'True')
+    println('list->setFrameShape(QFrame::NoFrame);')
+  end
+  println('list->captionField = qt_text(', cstr(get('CaptionField')), ');')
+  println('list->dataField = qt_text(', cstr(get('DataField')), ');')
+  println('list->dataType = ', get('DataType'), ';')
+  println('list->itemHeight = ', ItemHeight, ';')
+  println('QTimer::singleShot(0, list, [&form, list] { qt_list_icons(list, form, qt_text(', cstr(get('qtIconsManager')), '), qt_text(', cstr(get('qtIndexManager')), ')); });')
+  println('QTimer::singleShot(0, list, [&form, list] { qt_box_draw(list, form, qt_text(', cstr(get('qtBoxDrawManager')), ')); });')
+  if(linked(onSelectChange))
+    fvar(listName, rowName, valueName)
+    listName = 'dataList' && _id_
+    rowName = 'dataRow' && _id_
+    valueName = 'dataValue' && _id_
+    println('QObject::connect(list, &QListWidget::currentRowChanged, &form, [&form, ', listName, ' = list](int ', rowName, ') {')
+    println('if (', rowName, ' < 0) return;')
+    println('if (', listName, '->dataType == 1) {')
+    event(onSelectChange, rowName)
+    println('} else {')
+    println('  const auto *item = ', listName, '->item(', rowName, ');')
+    println('  if (!item) return;')
+    println('  const auto ', valueName, ' = ', listName, '->dataType == 2 ? item->data(Qt::UserRole).toString() : item->text();')
+    event(onSelectChange, valueName)
+    println('} });')
+  end
+  println('}')
+end
+
+func doRefresh(_data)
+  println(DataList(), '->refresh(dynamic_cast<HiasmStaticData *>(form.findChild<QObject *>(qt_text(', cstr(get('qtDataSource')), '))));')
+end
+
+func doCaptionField(_data)
+  if(len(_data) > 0)
+    println(DataList(), '->captionField = qt_text(', _data, ');')
+  else
+    println(DataList(), '->captionField.clear();')
+  end
+end
+
+func doDataField(_data)
+  if(len(_data) > 0)
+    println(DataList(), '->dataField = qt_text(', _data, ');')
+  else
+    println(DataList(), '->dataField.clear();')
+  end
+end
+
+func doDataType(_data)
+  if(len(_data) > 0)
+    println(DataList(), '->dataType = qBound(0, qt_text(', _data, ').toInt(), 2);')
+  else
+    println(DataList(), '->dataType = 0;')
+  end
+end

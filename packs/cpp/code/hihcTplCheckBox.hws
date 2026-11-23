@@ -1,0 +1,28 @@
+func doStart
+  println('{')
+  fvar(active)
+  active = 0
+  switch(d('Checked'))
+    case 0: active = 1
+  end
+  println('GtkWidget *widget = gtk_check_button_new_with_label(', cstr(d('Caption')), ');')
+  println('gtk_check_button_set_active(GTK_CHECK_BUTTON(widget), ', active, ' ? TRUE : FALSE);')
+  println('hiasm_place("hcTplCheckBox', _id_, '", widget, ', Left, ', ', Top, ');')
+  if(linked(onCheck))
+    println('g_signal_connect(widget, "toggled", G_CALLBACK(+[](GtkCheckButton *button, gpointer) {')
+    println('if(!hiasm_form_ready) return;')
+    block.inclvl()
+    event(onCheck, 'gtk_check_button_get_active(button) ? 1 : 0')
+    block.declvl()
+    println('}), NULL);')
+  end
+  println('}')
+end
+
+func Checked()
+  return('gtk_check_button_get_active(GTK_CHECK_BUTTON(hiasm_widget("hcTplCheckBox' && _id_ && '").get())) ? 1 : 0')
+end
+
+func doCheck(_data)
+  println('gtk_check_button_set_active(GTK_CHECK_BUTTON(hiasm_widget("hcTplCheckBox', _id_, '").get()), (', _data, ') ? TRUE : FALSE);')
+end

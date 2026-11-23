@@ -1,0 +1,10 @@
+Manipulating the system menu of a form=Манипулирование системным меню формы
+Disables the Close [x] button in the window titlebar=Запрещает кнопку Close [x] в заголовке окна
+Disables the Minimize [_] button in the window titlebar=Запрещает кнопку Minimize [_] в заголовке окна
+Disables the Maximize button in the window title bar=Запрещает кнопку Maximize в заголовке окна
+Disables the form system menu=Запрещает системное меню формы
+Enables Close [x] button in window titlebar=Разрешает кнопку Close [x] в заголовке окна
+Enables the Minimize [_] button in the window titlebar=Разрешает кнопку Minimize [_] в заголовке окна
+Enables the Maximize button in the window titlebar=Разрешает кнопку Maximize в заголовке окна
+Allows the system menu of the form=Разрешает системное меню формы
+Defines the form ID=Определяет идентификатор формы

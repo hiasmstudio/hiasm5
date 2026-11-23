@@ -1,0 +1,18 @@
+Make(cpp)
+Add(InfoTip,900,24,18)
+{
+ @Width=680
+ @Height=145
+ Info=#17:Данные по запросу|0:|128:Обработчик вычисляет данные именно при запросе, а не хранит заранее готовое значение. Счётчик показывает два независимых вызова.|
+ HAlign=0
+ Margin=12
+}
+Add(Entry,1,42,196)
+{
+ link(onStart,2:doExecute,[])
+}
+Add(Code,2,196,196)
+{
+ Code=#17:int requests = 0;|86:auto getData = [&]() -> long long { return static_cast<long long>(++requests * 10); };|57:std::cout << "before request: " << requests << std::endl;|48:std::cout << hiasm_text(getData()) << std::endl;|48:std::cout << hiasm_text(getData()) << std::endl;|51:std::cout << "requests: " << requests << std::endl;|
+ Expression=input
+}

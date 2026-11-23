@@ -1,0 +1,12 @@
+Icon=Иконка
+Contains a default icon=Содержит иконку по-умолчанию
+The color with which the transparent areas of the icon will be filled when receiving it from a BMP image=Цвет, которым будет залиты прозрачные области иконки при получении ее из картинки формата BMP
+Loads an icon from a file=Загружает иконку из файла
+Saves the icon to a file=Сохраняет иконку в файле
+Loads an icon from a stream=Загружает иконку из потока
+Converts an icon to a BMP image=Конвертирует иконку в картинку формата BMP
+Converts an image in BMP format into an icon, with the transparency color specified in Transparent=Конвертирует картинку в формате BMP в иконку, с цветом прозрачности, указанном в Transparent
+Loads an icon from a data stream=Загружает иконку из потока данных
+The event occurs every time after an icon is converted into a BMP image and outputs it to the ARG(Bitmap) stream=Событие происходит всякий раз после конвертирования иконки в картинку формата BMP и выдаёт ее в поток ARG(Bitmap)
+Contains an icon=Содержит иконку
+Specifies the file name for reading and writing icons from disk=Определяет имя файла для чтения и записи иконки с диска

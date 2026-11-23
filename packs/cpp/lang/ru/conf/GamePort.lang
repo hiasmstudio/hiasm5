@@ -1,0 +1,7 @@
+Game port=Игровой порт
+Performs port polling=Осуществляет опрос порта
+The event occurs every time after polling the port and outputs a bitmask of pressed keys to the stream=Событие происходит всякий раз после опроса порта и выдаёт в поток битовую маску нажатых клавиш
+Contains the X axis value=Содержит значение оси X
+Contains the Y axis value=Содержит значение оси Y
+Contains the Z axis value=Содержит значение оси Z
+Contains the R axis value=Содержит значение оси R

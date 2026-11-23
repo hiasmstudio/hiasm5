@@ -1,0 +1,6 @@
+Monitoring the file system and disabling portable USB drives.=Мониторинг файловой системы и отключение переносных USB дисков.
+Drive letter=Буква диска
+Ejects portable drives or opens the CDROM tray=Производит отключение переносных дисков или открытие лотка CDROM
+The event occurs every time a USB device or CDROM is inserted and outputs its letter to the stream=Событие происходит всякий раз при вставке USB устройства либо CDROM и выдает его букву в поток
+The event occurs whenever a USB device or CDROM is removed and outputs its letter to the stream=Событие происходит всякий раз при удалении USB устройства либо CDROM и выдает его букву в поток
+The event occurs when a disk disconnection error occurs. Errors: 1-Invalid syntax, 2-No disk in system, 3-Disk busy, 4-Unmount, 5-Disable volume, 6-Open, 7-Complete operation=Событие происходит при ошибке отключения диска. Ошибки: 1-Неверный синтаксис, 2-Нет диска в системе, 3-Диск занят, 4-Размонтирования, 5-Отключения тома, 6-Открытия, 7-Завершения операции

@@ -1,0 +1,11 @@
+func doGetDC(_data)
+  println('#if !defined(_WIN32)')
+  println('#error "GetDC is a Windows-only element"')
+  println('#endif')
+  println('HDC hiasm_dc', _id_, ' = GetDC(reinterpret_cast<HWND>(static_cast<intptr_t>(', handle, ')));')
+  event(onResult, 'hiasm_dc' && _id_)
+end
+
+func HDC()
+  return('hiasm_dc' && _id_)
+end

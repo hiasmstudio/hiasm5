@@ -1,0 +1,13 @@
+CDROM management=Управление CDROM
+CDROM number=Номер диска CDROM
+Initializes the channel for working with CDROM=Инициализирует канала работы с CDROM
+Plays the track=Проигрывает трек
+Stops playing a track=Останавливает проигрывание трека
+Frees up all resources used for playing audio CDs=Освобождает все ресурсы, используемые для проигрывания аудио CD
+0 - close, 1 - open, 2 - lock, 3 - unlock CDROM door=0 - закрыть, 1 - открыть, 2 - заблокировать, 3 - разблокировать дверцу CDROM
+The event occurs in case of an error and outputs its number to the stream=Событие происходит в случае ошибки и выдает её номер в поток
+Contains the channel ID (always 0)=Содержит идентификатор канала (всегда 0)
+Contains number of tracks on CD=Содержит кол-во треков на CD
+Contains the length of the current track=Содержит длину текущего трека
+Specifies the drive letter to work with=Определяет букву диска для работы с ним
+Determines the track number to be played=Определяет номер трека для его проигрывания

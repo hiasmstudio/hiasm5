@@ -1,0 +1,559 @@
+*Администрирование базы данных MySQL
+Make(cpp)
+Add(ChildPanel,15746730,385,231)
+{
+ @Hint=#26:Организация запроса к базе|
+ link(onEvent1,13639393:doEvent1,[])
+ link(Data1,4333721:Var2,[])
+}
+BEGIN_SDK
+  Add(EditMulti,6739119,3,3)
+  {
+   EventCount=1
+   WorkCount=1
+   DataCount=1
+   Width=342
+   Height=249
+   link(doWork1,11281903:doEvent1,[(26,9)(26,27)])
+  }
+  Add(Panel,10858990,49,196)
+  {
+   Left=177
+   Top=54
+   Width=453
+   Height=275
+   Align=5
+   BevelInner=0
+   Point(doColor)
+  }
+  Add(dbMySQL_Query,24029,162,119)
+  {
+   link(onResult,13153837:doShow,[(204,125)(204,173)(152,173)(152,202)])
+   link(onError,85492:doMessage,[])
+   link(dbHandle,6739119:Data1,[(168,61)(9,61)])
+   link(QueryText,25877:Text,[])
+  }
+  Add(dbMySQL_ShowQuery,13153837,162,196)
+  {
+   link(Rows,24029:Rows,[])
+   link(Fields,24029:Fields,[])
+   link(StringTable,82693:StringTable,[(182,187)(301,187)])
+  }
+  Add(Message,85492,225,126)
+  {
+   Message="Execute error"
+  }
+  Add(StringTable,82693,281,126)
+  {
+   Left=5
+   Top=30
+   Width=425
+   Height=240
+   Align=5
+   Font=[Arial,8,0,0,1]
+   StrDelimiter="/0"
+   ClearAll=0
+   Redaction=1
+   Point(doAddColumn)
+   Point(StringTable)
+   Point(onColumnClick)
+   link(onColumnClick,6739119:onEvent1,[(329,139)(329,9)])
+  }
+  Add(Edit,25877,169,21)
+  {
+   Left=5
+   Top=5
+   Width=365
+   Align=2
+   Font=[Arial,8,0,0,1]
+   Text="select * from hi_progs limit 0,10"
+   link(onEnter,15899583:doEvent1,[])
+  }
+  Add(HubEx,5016816,120,112)
+  {
+   link(onEvent,24029:doQuery,[])
+  }
+  Add(Hub,15899583,231,28)
+  {
+   link(onEvent1,25877:doText2,[(273,34)(273,11)(159,11)(159,34)])
+   link(onEvent2,5016816:doWork1,[(273,41)(273,86)(124,86)])
+  }
+  Add(Hub,11281903,49,21)
+  {
+   link(onEvent1,25877:doText,[])
+   link(onEvent2,5016816:doWork2,[(100,34)(100,125)])
+  }
+END_SDK
+Add(MainForm,86114,14,140)
+{
+ Left=21
+ Top=105
+ Width=638
+ Height=354
+ Font=[Arial,8,0,0,1]
+ SavePosName="config"
+ Point(doAlphaBlendValue)
+}
+Add(ChildPanel,3571251,203,217)
+{
+ @Hint=#38:Отображение списка баз данных и таблиц|
+ link(onEvent1,13902095:doEvent1,[(247,223)(247,258)])
+ link(onEvent2,30101:doSelectDB,[(341,230)(341,174)])
+ link(onEvent3,9193725:doWork2,[])
+ link(Data1,4333721:Var1,[(209,205)])
+}
+BEGIN_SDK
+  Add(EditMulti,982850,3,3)
+  {
+   EventCount=3
+   WorkCount=1
+   DataCount=1
+   VarCount=1
+   Width=412
+   Height=316
+   link(doWork1,14356969:doEvent1,[(12,9)(12,90)])
+   link(Var1,4454207:Var1,[(9,233)])
+  }
+  Add(Panel,5174967,21,147)
+  {
+   Top=54
+   Width=177
+   Height=275
+   Align=1
+   BevelInner=0
+   Point(doColor)
+  }
+  Add(dbMySQL_Databases,6756319,63,84)
+  {
+   link(onEnum,5256146:doAdd,[])
+   link(dbHandle,5658404:Var1,[(69,44)])
+  }
+  Add(ComboBox,5256146,112,84)
+  {
+   Left=1
+   Top=1
+   Width=160
+   Height=21
+   Align=2
+   DataType=1
+   ReadOnly=0
+   link(onClick,15176711:doWork1,[(158,97)])
+  }
+  Add(dbMySQL_Tables,15058434,231,140)
+  {
+   link(onEnum,13399628:doAdd,[])
+   link(dbHandle,5658404:Var3,[(237,44)])
+   link(TableName,4454207:Var3,[(251,130)(343,130)(343,233)])
+  }
+  Add(Hub,3639731,168,133)
+  {
+   OutCount=3
+   link(onEvent1,13399628:doClear,[(289,139)(289,153)])
+   link(onEvent2,15058434:doEnum,[])
+   link(onEvent3,982850:onEvent2,[(222,153)(222,16)])
+  }
+  Add(HubEx,16423116,350,182)
+  {
+   link(onEvent,16091737:doWork3,[(368,195)])
+  }
+  Add(Hub,15683779,168,182)
+  {
+   link(onEvent1,15058434:doEmpty,[(224,188)(224,160)])
+   link(onEvent2,16423116:doWork2,[])
+  }
+  Add(ListBox,13399628,301,140)
+  {
+   Left=1
+   Top=22
+   Width=160
+   Height=281
+   Align=5
+   DataType=1
+   Point(String)
+   link(onClick,16091737:doWork2,[])
+  }
+  Add(GetDataEx,4454207,315,224)
+  {
+   link(Data,13399628:String,[])
+  }
+  Add(GetDataEx,5658404,196,35)
+  {
+   link(Data,982850:Data1,[(209,21)(9,21)])
+  }
+  Add(HubEx,15176711,154,126)
+  {
+   link(onEvent,3639731:doEvent1,[])
+  }
+  Add(Hub,14356969,21,84)
+  {
+   link(onEvent1,6756319:doEnum,[])
+   link(onEvent2,542189:doData,[(61,97)(61,153)])
+  }
+  Add(DoData,542189,77,147)
+  {
+   link(onEventData,15176711:doWork3,[(158,153)])
+   link(Data,5256146:String,[(83,138)(132,138)])
+  }
+  Add(ToolBar,12755703,105,273)
+  {
+   Left=1
+   Top=283
+   Width=160
+   Height=24
+   Align=4
+   Caption=0
+   Wrapable=1
+   Buttons=['Info'=[ZIP3604000078DA73F235636100033320D600620128666450804840E591C1FFFFFFE1B801C8C78791D562C394EAC7650EB1FA46F50F0E4C89FB29493B8321FD529AF6E91DFF00E68E4B63],'Browse'=[ZIP3604000078DA73F235636100033320D600620128666450804840E591C1FFFFFF071CE3730F21B782C081030718404C108DAC0E9F1CB21A983CCC3A62E450D5FCC7693F2E39743B60EAB0D98F4D0E861B1A1A30C2081B1B04406A718521B1F1848B8F4F8E1C3DF8DC84EC3752E488F5F360C917F4C000BBF7633C],'Empty'=[ZIP3604000078DA73F235636100033320D600620128666450804840E591C1FFFFFF31303E804D3DBA5E62E851FDA3FAA9AD9F1480CF6E62D338B96E20C60E74B388D5432A06002A420981]]
+   link(onClick,3152999:doEvent,[])
+  }
+  Add(IndexToChanel,3152999,168,273)
+  {
+   Count=3
+   link(onEvent1,12061158:doStrCat,[])
+   link(onEvent2,16423116:doWork3,[(354,286)])
+   link(onEvent3,15683779:doEvent1,[(210,293)(210,244)(160,244)(160,188)])
+  }
+  Add(HubEx,16091737,364,140)
+  {
+   link(onEvent,982850:onEvent1,[(383,153)(383,9)])
+  }
+  Add(StrCat,12061158,231,273)
+  {
+   Str1="show columns from "
+   link(onStrCat,982850:onEvent3,[(398,279)(398,23)])
+   link(Str2,4454207:Var2,[(244,254)(328,254)])
+  }
+END_SDK
+Add(dbMySQL,30101,385,154)
+{
+ Host=""
+ link(Host,12568762:Var,[(391,126)(348,126)])
+ link(Login,15008101:Var,[])
+ link(Password,5084853:Var,[(405,126)(474,126)])
+ link(onError,15646159:doMessage,[])
+}
+Add(IndexToChanel,16734946,70,203)
+{
+ link(onEvent1,1799571:doEvent1,[(117,209)(117,160)])
+ link(onEvent2,16095760:doWork1,[])
+}
+Add(GetDataEx,4333721,378,196)
+{
+ link(Data,30101:dbHandle,[])
+}
+Add(GlobalVar,5084853,468,84)
+{
+ Name="password"
+}
+Add(GlobalVar,15008101,392,84)
+{
+ Name="username"
+}
+Add(Hub,1799571,133,154)
+{
+ link(onEvent1,30101:doOpen,[])
+ link(onEvent2,3571251:doWork1,[(191,167)(191,223)])
+}
+Add(GlobalVar,12568762,342,84)
+{
+ Name="host"
+}
+Add(ChildForm,16095760,133,210)
+{
+}
+BEGIN_SDK
+  Add(EditMulti,7583217,3,3)
+  {
+   WorkCount=1
+   Width=384
+   Height=172
+   link(doWork1,5071824:doVisible,[(33,9)(33,111)])
+  }
+  Add(MainForm,5071824,168,77)
+  {
+   Left=35
+   Top=105
+   Width=280
+   Height=202
+   Visible=1
+   Caption="Connection settings"
+   BorderStyle=3
+   Point(Close)
+   Point(doVisible)
+   link(onCreate,7622175:doLoad,[])
+  }
+  Add(ChildGroupBox,15380857,336,112)
+  {
+  }
+  BEGIN_SDK
+    Add(EditMulti,1789377,3,3)
+    {
+     WorkCount=1
+     Width=356
+     Height=221
+     link(doWork1,7796760:doEvent1,[(26,9)(26,55)])
+    }
+    Add(GroupBox,9623165,28,154)
+    {
+     Left=5
+     Top=10
+     Width=260
+     Height=126
+     Caption=""
+     Point(doVisible)
+    }
+    Add(Edit,11810057,196,49)
+    {
+     Left=70
+     Top=25
+     Width=175
+     Text=""
+     link(onChange,15008101:doValue,[])
+     link(Str,15008101:Var,[(202,39)(243,39)(243,73)(265,73)])
+    }
+    Add(Label,6522382,140,14)
+    {
+     Left=15
+     Top=30
+     Caption="Username"
+    }
+    Add(Label,12953386,140,77)
+    {
+     Left=15
+     Top=60
+     Height=17
+     Caption="Password"
+    }
+    Add(Edit,13506764,196,112)
+    {
+     Left=70
+     Top=55
+     Width=175
+     Text=""
+     link(onChange,5084853:doValue,[])
+     link(Str,5084853:Var,[(202,102)(243,102)(243,136)(265,136)])
+    }
+    Add(Edit,6790490,196,168)
+    {
+     Left=70
+     Top=85
+     Width=175
+     Text=""
+     link(onChange,12568762:doValue,[])
+     link(Str,12568762:Var,[(202,158)(243,158)(243,192)(265,192)])
+    }
+    Add(Label,1524243,140,133)
+    {
+     Left=15
+     Top=90
+     Height=17
+     Caption="Host"
+    }
+    Add(GlobalVar,15008101,259,49)
+    {
+     Name="username"
+    }
+    Add(GlobalVar,5084853,259,112)
+    {
+     Name="password"
+    }
+    Add(GlobalVar,12568762,259,168)
+    {
+     Name="host"
+    }
+    Add(Hub,7796760,49,49)
+    {
+     OutCount=3
+     link(onEvent1,11810057:doText,[])
+     link(onEvent2,13506764:doText,[(124,62)(124,118)])
+     link(onEvent3,6790490:doText,[(106,69)(106,174)])
+    }
+  END_SDK
+  Add(Button,13078390,56,63)
+  {
+   Left=185
+   Top=145
+   Width=80
+   Height=25
+   Caption="OK"
+   link(onClick,8165197:doEvent1,[])
+  }
+  Add(GVarContainer,7622175,266,112)
+  {
+   Section="ConnectSettings"
+   FilleName="config.ini"
+   VarList=#8:username|8:password|4:host|
+   link(onLoad,15380857:doWork1,[])
+  }
+  Add(Hub,8165197,105,63)
+  {
+   link(onEvent1,7622175:doSave,[(222,69)(222,125)])
+   link(onEvent2,5071824:doClose,[(153,76)(153,104)])
+  }
+END_SDK
+Add(ToolBar,3213715,14,203)
+{
+ Width=630
+ Height=25
+ Align=2
+ Caption=0
+ Wrapable=1
+ Buttons=['Connect'=[ZIP3610000078DAEDD23D4CD4601807F007F9E8A9174420C071225F4139054488C709F2E19DF2513D2320903B8ACBB93531264D0CF116879A3874ECD8C97883435D4C13192E6C75306962344D5C1A1D4C07633ADEF8FA6F6100643D6EF0DEE6D7BEED7B97FFD33E6F321DAFA760C4EB8806716DDA5743A1BD851AA2AF8D7BFCB94FE479CA65B324E572940705F89C483951240D0AA0832449A4810E0664A53C89A0809ACF930E4530C10259964901153430C086A4A8D08AACE0B9428AA290014530C1021B1C702126A9F8AD4AA2A29204A6AA92053149A3585EA32448AA46AAA6910E16D8B0A214A8502850111C70412EE864EA3A59E0800B1EF4CA065986410E7820EA45B28B45F280D74C724D933C28816959E48007256020993679B64D25F01C87B2864B92E512735D921D8F14D723E679942D968895008764E3CCAAAA2A4FD81F0B6D93C2C1115B6B3CB470E5D1B5BDFB3B0FEBFD4BC3C8702DE74F06B3174E0967C3A7BBD69AA275FE83B9CBC445075ACF6D5C1C08770B42F8C6564D281A8DD6DEEB89B69C178496F68D51AEB5950BF50F0DF575609DBB1EE7B8FEC44C2291E88B084228141E4FCEA712376767A73BF1FFE6E5CC7A7A71899F9F991DC7B2D0797F73733DBDFC80E7A72341413DB7563399F5A55424B25FFAD8D4EDA9898948FB9983EF137FDC7DEC7D750F5455551D55FB9C63075522BFE3ED28EBFC305EB1FCAE7793AC6767AE62F9BDEF53ECD26EFA44F28FF6DB17DB5965239FB6D8716BE5C84FFF7AC9167FE6D9DC77894D7D7B1A18FBFC840DEF6658AF9E0CFAD1F6E66AD9F2D7FEBCFEA7063FDFFF067E1FBA3F4E976D3F86B79B0F7FE3670D410D892F62303FAAECFB01190B3F5E04359C44DE71F97E2FEE3ADB15CB5FF9FD2AA8A152F927D9EFFFD55FD25DB665],'Config'=[ZIP3610000078DAED944F881C4514C6BF40945130740E62AB8834219A16FCD310237D512815B55018DA45A141441B85D8C67FADA0B4E2A27D92F2D617D73282B1217B68729052105A3628E58AD07B10FA38D739CE718EF1EBD98C86B8B308D91D89A486DFBCFA5ED5D47B55EF31E29913D761364E1C048ED13A173980C1F6C201E08F43DBF4F31939298822253028B9570F30E8A938570E063D950387B8998B40B9F04A178E26950B973835FDB987B8F0E096C478F0721F61E92322BEF6212BCE895B13E3C3234205087580A00AA86989D71015F2DC1021F16D88B410709540A005F70B0823E817884B09A1257292D512CA48448D44D0D24611D22442D846083A5A12C731F22CE6D93112A28857C7906DCC75FA9204599AA0C8122892586A22BA049E4C91A6244B917429C4288524624C4BFC38A3CDE0CB1C419A43902CCB61748EA2A1B539F236473CCE91906892C31105FCA8409414708B026D5D2033A4A36F5220267C249EAD789E82520AA652CC85C58A4A783D4989745AC24F3464A19111AD49A511D41AD668F0B21810A4156B58419615AAAA4239EE7D3506C4CD6A78444F6AA8690D2733EC0FC33A1AF8BD55064169581303DB18D4937EBD61DE0D3CE2AA0649DDB00E0D2ADBB0772C1CE2F7B6B4109585B6963DD652B7F00974CB5EA3262E695BD2F5BE8EBDD5B14E1D7CE2D51D421293C476FC5987AEEB301AF57B46F0884F0409EA11241186342334DD88FB46184FB8A71EF39C3104090CE744908824CD18A9ED7D1348221A5A12D9096292DA5E4F21ED94BE292EF0135B7E5FB87AD95A34DE3B7989283E7DE9B3F5D7DECCE7FAFBF3F9D7E693B5D317E55B5F6CFE7ADE7C7776EDE4CB33FDC64FEDE6CFEF7E747AEDC3B767FA97DF367FFFF1E967D7BEFAA69CE9BB3EEFF57367CF9CD9DA7AE406B8E1FB3FD4E71E7B7E7D9D6BB70D8FDC11DEFDF07D1F3CF4C4975CDEBA69B8F26878FFD1C387EE99FDF4D8919595575FB9D971AEBF75A657DF797178EEE35B0EDEE83CB59D8B1C52DF7BF4F0EDF35C5F187EFBFA030F3EF9F765E4A9C78FDF39175773EDAE718DFF03F371A57BAE2CFEEAC2F3FBB1B1B1B16FF177CB6119B117E5B0CCD83BE5B0ECD8FFC59BEF167B514FEE655E978F4BEFBD530EDBAED53DCB61A7B1A81FFE1A7DFC3DCAE11F775BF0DE97C7DD8FDED835FE3CF61EBEFDA23AEC7AF77D8AFF6FDF7CF9FF45CB8FBB4CFE04D0B38859]]
+ link(onClick,16734946:doEvent,[])
+}
+Add(HubEx,13446818,308,294)
+{
+ link(onEvent,714479:doString,[])
+}
+Add(ChildPanel,1086820,210,301)
+{
+ @Hint=#17:Параметры запроса|
+ link(onEvent1,13446818:doWork2,[])
+}
+BEGIN_SDK
+  Add(EditMulti,14359027,3,3)
+  {
+   EventCount=1
+   VarCount=1
+   Width=258
+   Height=179
+   link(Var1,11125711:Text,[(9,150)(181,150)])
+  }
+  Add(Panel,9701931,63,105)
+  {
+   Top=25
+   Width=630
+   Height=29
+   Align=2
+   BevelInner=1
+   Point(doColor)
+  }
+  Add(Label,7938101,63,42)
+  {
+   Left=5
+   Top=10
+   Width=25
+   Height=17
+   Caption="Limit"
+  }
+  Add(Edit,11125711,175,42)
+  {
+   Left=35
+   Top=5
+   Width=40
+   Text="20"
+   link(onChange,14359027:onEvent1,[(234,48)(234,9)])
+  }
+  Add(UpDown,15903079,119,42)
+  {
+   Left=75
+   Top=5
+   Width=15
+   Max=1000
+   Min=1
+   Position=20
+   Step=10
+   link(onPosition,11125711:doText,[])
+  }
+END_SDK
+Add(FormatStr,714479,324,301)
+{
+ DataCount=3
+ Mask="select * from %1 %2 limit 0,%3"
+ link(onFString,9193725:doWork3,[(368,307)])
+ link(Str1,3571251:Var1,[(330,287)(209,287)])
+ link(Str2,14637202:Value,[(337,283)(573,283)])
+ link(Str3,1086820:Var1,[(344,291)(382,291)(382,345)(216,345)])
+}
+Add(HubEx,9193725,364,224)
+{
+ link(onEvent,15746730:doWork1,[])
+}
+Add(FormatStr,13910633,504,245)
+{
+ Mask="order by %1 %2"
+ link(onFString,14637202:doValue,[])
+ link(Str2,4621125:State,[(517,231)(559,231)])
+}
+Add(Memory,14637202,567,245)
+{
+ link(onData,13446818:doWork3,[(611,251)(611,340)(312,340)])
+}
+Add(ChangeMon,13273403,504,189)
+{
+ link(onData,4621125:doReset,[])
+}
+Add(Switch,4621125,553,182)
+{
+ DataOn=String(desc )
+ DataOff=String()
+ Point(State)
+}
+Add(Hub,13639393,434,231)
+{
+ OutCount=3
+ link(onEvent1,4621125:doSwitch,[(482,237)(482,188)])
+ link(onEvent2,13273403:doData,[(492,244)(492,195)])
+ link(onEvent3,13910633:doString,[])
+}
+Add(Hub,13902095,259,252)
+{
+ link(onEvent1,14637202:doClear,[])
+ link(onEvent2,13446818:doWork1,[(312,265)])
+}
+Add(InfoTip,10843319,112,21)
+{
+ Info=#36:Администрирование базы данных MySQL |
+ Font=[MS Sans Serif,18,1,0,1]
+ Frame=1
+ Transparent=1
+ Width=442
+ Height=25
+}
+Add(LinkTip,15486778,35,70)
+{
+ Link="Отображение списка баз данных и таблиц=multi://3571251"
+ Font=[MS Sans Serif,8,4,16711680,1]
+}
+Add(LinkTip,3889886,35,91)
+{
+ Link="Организация запроса к базе=multi://15746730"
+ Font=[MS Sans Serif,8,4,16711680,1]
+}
+Add(LinkTip,11323509,35,112)
+{
+ Link="Параметры запроса=multi://1086820"
+ Font=[MS Sans Serif,8,4,16711680,1]
+}
+Add(InfoTip,4107846,14,266)
+{
+ Info=#123: Для работы программы вам необходимо ввести имя сервера, логин и пароль для доступа к базе данных после запуска приложения.|
+ Transparent=1
+ Width=176
+ Height=74
+}
+Add(InfoTip,3139768,204,376)
+{
+ Info=#9:Внимание!|
+ Font=[MS Sans Serif,12,1,255,1]
+ Transparent=1
+ Width=232
+ Height=95
+}
+Add(LinkTip,9279260,218,446)
+{
+ Link="http://www.hiasm.com/down/libmysql.rar=load://http://www.hiasm.com/down/libmysql.rar"
+ Font=[MS Sans Serif,8,0,16711680,1]
+}
+Add(InfoTip,8392515,211,397)
+{
+ Info=#93:Для работы компонент библиотеки MySQL необходимо скачать DLL и скопировать её в папку Windows|
+ Frame=1
+ HAlign=0
+ Width=225
+ Height=39
+}
+Add(Message,15646159,441,154)
+{
+ Caption="MySQL Error"
+}

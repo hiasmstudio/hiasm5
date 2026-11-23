@@ -1,0 +1,51 @@
+include('tag_maker')
+
+section html
+
+func doPrint
+  include('tag_header')
+  
+  s[1] = "object"
+  tag = "object" 
+  s &= " classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\""
+  s &= " codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,29,0\""
+  
+  if(isndef(Width))
+    s &= " width=\"" & Width & "\""
+  end 
+  if(isndef(Height))
+    s &= " height=\"" & Height & "\""
+  end 
+  s &= ">" 
+
+  if(isndef(Src))
+    s &= "<param name=\"movie\" value=\"" & Src & "\">"
+  end 
+  if(isndef(Quality))
+    s &= "<param name=\"quality\" value=\"" & Quality & "\">"
+  end 
+  
+  s &= "<embed"
+  tag = "embed" 
+  if(isndef(Src))
+    s &= " src=\"" & Src & "\""
+  end 
+  if(isndef(Quality))
+    s &= " quality=\"" & Quality & "\""
+  end 
+  s &= " pluginspage=\"http://www.macromedia.com/go/getflashplayer\""
+  s &= " type=\"application/x-shockwave-flash\""
+  if(isndef(WindowMode))
+    s &= " wmode=\"transparent\""
+  end
+  if(isndef(Height))
+    s &= " height=\"" & Height & "\""
+  end 
+  if(isndef(Width))
+    s &= " width=\"" & Width & "\""
+  end 
+//  s &= ">"  
+//  s &= "</embed>"
+  
+  include("tag_footer")
+end

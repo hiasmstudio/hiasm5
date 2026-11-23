@@ -1,0 +1,26 @@
+func Expr(value)
+  return('std::string(' && value && ').insert((' && Position && ') - 1, ' && SubStr && ')')
+end
+
+func Source(value)
+  if(len(value) > 0)
+    return(value)
+  else
+    return(SrcStr)
+  end
+end
+
+func doInsert(_data)
+  fvar(src)
+  src = Source(_data)
+  println('auto hiasm_rtins', _id_, ' = ', Expr(src), ';')
+  event(onInsert, 'hiasm_rtins' && _id_)
+end
+
+func Result()
+  if(linked('doInsert'))
+    return('hiasm_rtins' && _id_)
+  else
+    return(Expr(SrcStr))
+  end
+end

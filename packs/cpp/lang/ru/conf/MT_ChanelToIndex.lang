@@ -1,0 +1,3 @@
+Returns the index of the activated entry point=Возвращает индекс активированной точки входа
+Sets the number of component methods=Задает число методов компонента
+The event occurs after calling one of the doWork methods and returns the index of this method along with the input data to the stream=Событие происходит после вызова одного из методов doWork и возвращает в поток индекс этого метода вместе с входными данными

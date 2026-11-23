@@ -1,0 +1,74 @@
+section java
+
+func doCaptureSplit(_data)
+  fvar(s, _obj, old, proc)
+  
+  if(not isset(split_proc) and isdef(CaptureProcs))
+    gvar(split_proc)
+    
+    old = block.select(block.reggen())
+    println('var axis = 0;')
+    println('var _split_obj_ = 0;')
+    println('function onMouseSplitterUp() {')
+    block.inclvl()
+      println('document.onmousemove = _old_onmousemove_;')
+      println('document.onmouseup = _old_onmouseup_;')
+      println('_split_obj_ = 0;')
+    block.declvl()
+    println('}')
+    
+    println('function onMouseSplitter(e) {')
+    block.inclvl()
+    println('if(typeof e != "undefined") event = e;')
+    println('if(axis == 1 || axis == 2) {')
+      println('dy = event.clientY - _old_my_;')
+      println('_old_my_ = event.clientY;')
+      println('_split_obj_.style.height = parseInt(_split_obj_.style.height) + dy + "px";')
+      println('if(_capture_event_) _capture_event_(_split_obj_, dy);')
+    println('}')
+    println('if(axis == 0 || axis == 2) {')
+      println('dx = event.clientX - _old_mx_;')
+      println('_old_mx_ = event.clientX;')
+      println('_split_obj_.style.width = parseInt(_split_obj_.style.width) + dx + "px";')
+      println('if(_capture_event_) _capture_event_(_split_obj_, dx);')
+    println('}')    
+    block.declvl()
+    println('}')
+    
+    println('function beginMove(a, obj, event, capture) {')
+    block.inclvl()
+    println('axis = a;')
+    println('_old_my_ = event.clientY;')
+    println('_old_mx_ = event.clientX;')
+    println('_split_obj_ = obj;')
+    println('if(obj.style.width.length == 0 && (axis == 0 || axis == 2)) obj.style.width = obj.offsetWidth + "px"')
+    println('if(obj.style.height.length == 0 && (axis == 1 || axis == 2)) obj.style.height = obj.offsetHeight + "px"')
+    println('_old_onmousemove_ = document.onmousemove;')
+    println('_old_onmouseup_ = document.onmouseup;')
+    println('_capture_event_ = capture;')
+    println('document.onmousemove = onMouseSplitter;')
+    println('document.onmouseup = onMouseSplitterUp;')
+    block.declvl()
+    println('}')
+    block.copyto(BLK_HEAD)
+    block.delete(block.select(old))
+  end
+  
+  _obj = Id
+  s = isdef(IdAsObject) ? ('document.getElementById(' && _obj && ')') : _obj
+  if(linked(onCapture))
+    proc = fcapture
+    old = block.select(block.reggen())
+    println('function ', fcapture, '(split_obj, x) {')
+    block.inclvl()    
+      event(onCapture, 'x')
+    block.declvl()
+    println('}')
+    block.copyto(BLK_HEAD)
+    block.delete(block.select(old))
+  else
+    proc = 0
+  end
+  println('beginMove(', Axis, ',', s, ',event,', proc, ');')
+end
+

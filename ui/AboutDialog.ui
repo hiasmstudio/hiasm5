@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AboutDialog</class>
+ <widget class="QDialog" name="AboutDialog">
+  <property name="geometry"><rect><x>0</x><y>0</y><width>480</width><height>390</height></rect></property>
+  <property name="windowTitle"><string>About HiAsm</string></property>
+  <layout class="QVBoxLayout" name="layout">
+   <item>
+    <widget class="QLabel" name="logo">
+     <property name="pixmap"><pixmap resource="../resources/qt_ide.qrc">:/hiasm/logo.png</pixmap></property>
+     <property name="alignment"><set>Qt::AlignCenter</set></property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="programName">
+     <property name="font"><font><pointsize>16</pointsize><bold>true</bold></font></property>
+     <property name="alignment"><set>Qt::AlignCenter</set></property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="description">
+     <property name="text"><string>HiAsm visual programming IDE</string></property>
+     <property name="alignment"><set>Qt::AlignCenter</set></property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="website">
+     <property name="text"><string notr="true">&lt;a href="https://hiasm.com"&gt;hiasm.com&lt;/a&gt;</string></property>
+     <property name="alignment"><set>Qt::AlignCenter</set></property>
+     <property name="openExternalLinks"><bool>true</bool></property>
+     <property name="textInteractionFlags"><set>Qt::LinksAccessibleByMouse|Qt::LinksAccessibleByKeyboard</set></property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QTabWidget" name="details">
+     <widget class="QWidget" name="creditsTab">
+      <attribute name="title"><string>Credits</string></attribute>
+      <layout class="QVBoxLayout" name="creditsLayout">
+       <item>
+        <widget class="QLabel" name="credits">
+         <property name="text"><string>Project owner: Dilma
+Co-author: ili4yov_ika
+Development and testing: Assasin, Nic, UtoECat
+Artwork: Nic</string></property>
+         <property name="wordWrap"><bool>true</bool></property>
+         <property name="alignment"><set>Qt::AlignTop|Qt::AlignLeft</set></property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="licenseTab">
+      <attribute name="title"><string>License</string></attribute>
+      <layout class="QVBoxLayout" name="licenseLayout">
+       <item>
+        <widget class="QPlainTextEdit" name="licenseText">
+         <property name="readOnly"><bool>true</bool></property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttons">
+     <property name="standardButtons"><set>QDialogButtonBox::Close</set></property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../resources/qt_ide.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>buttons</sender><signal>rejected()</signal>
+   <receiver>AboutDialog</receiver><slot>reject()</slot>
+  </connection>
+ </connections>
+</ui>

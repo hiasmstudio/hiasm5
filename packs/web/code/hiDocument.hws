@@ -1,0 +1,13 @@
+section java
+
+func Selection()
+  return('document.selection')
+end
+
+func doLocation(_data)
+  println('document.location = ', _data)
+end
+
+func Body()
+  return('document.body')
+end

@@ -1,0 +1,25 @@
+func Build()
+  fvar(items, i)
+  items = ''
+  i = 1
+  while(i <= get('DataCount'))
+    if(i > 1)
+      items = items && ', '
+    end
+    if(linked('Str' && i))
+      items = items && d('Str' && i)
+    else
+      items = items && get('Str' && i)
+    end
+    i = i + 1
+  end
+  return('hiasm_format(' && cstr(get('Mask')) && ', {' && items && '})')
+end
+
+func doString(_data)
+  event(onFString, Build())
+end
+
+func FString()
+  return(Build())
+end

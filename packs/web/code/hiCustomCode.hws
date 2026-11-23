@@ -1,0 +1,3 @@
+func doPrint(_data):any
+  inline(_arr.join(Lines, "\r\n"))
+end

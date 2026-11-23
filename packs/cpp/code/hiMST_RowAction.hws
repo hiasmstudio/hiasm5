@@ -1,0 +1,40 @@
+include('qtMstClient')
+
+func doRowAction(_data)
+  fvar(mode, row, table, i)
+  mode = get('Action')
+  table = MstLocal()
+  row = 'mstRow' && _id_
+  MstBegin()
+  println('QVariantList mstValues;')
+  for(i = 0; i < mt_count(); i++)
+    MstAppend(mt_arg(i))
+  end
+  if(mode == 0)
+    println(table, '->putRow(-1, mstValues, false);')
+    event(onChange)
+  elseif(mode == 1 or mode == 2)
+    println('if (!mstValues.isEmpty()) {')
+    println('const int ', row, ' = mstValues.takeFirst().toInt();')
+    println(table, '->putRow(', row, ', mstValues, ', mode == 2, ');')
+    println('}')
+    event(onChange)
+  else
+    if(linked('Index'))
+      println('const int ', row, ' = ', MstInt(d('Index')), ';')
+    else
+      println('const int ', row, ' = mstValues.value(0, QVariant(', get('Index'), ')).toInt();')
+    end
+    println('if (', table, '->validRow(', row, ')) {')
+    if(mode == 3)
+      println(table, '->removeRow(', row, ');')
+      event(onChange)
+    elseif(mode == 8 or mode == 9)
+      println('if (', table, '->moveRow(', row, ', ', mode == 8 ? '-1' : '1', ')) {')
+      event(onChange, row && (mode == 8 ? ' - 1' : ' + 1'))
+      println('}')
+    end
+    println('}')
+  end
+  println('}')
+end

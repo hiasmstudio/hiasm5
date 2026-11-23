@@ -1,0 +1,19 @@
+include('qtMstClient')
+
+func doStart()
+  println('{ auto *state = new QBuffer(&form);')
+  println('state->setObjectName(QStringLiteral("MST_File', _id_, '"));')
+  println('state->setProperty("delimiter", qt_text(', cstr(get('Delimiter')), ')); }')
+end
+
+func FileState()
+  return('form.findChild<QBuffer *>(QStringLiteral("MST_File' && _id_ && '"))')
+end
+
+func DelimiterValue()
+  return(FileState() && '->property("delimiter").toString()')
+end
+
+func doDelimiter(_data)
+  println(FileState(), '->setProperty("delimiter", ', MstText(_data), ');')
+end

@@ -1,0 +1,7 @@
+Connects to the MailSlot server on your computer=Подключается к серверу MailSlot на компьютере
+MailSlot name=Имя MailSlot-a
+The name of the computer to which you are connecting (for a local computer, use the "." symbol)=Имя компьютера, к которому производится подключение (для локального компьютера используйте символ ".")
+Sends data to a slot=Отсылает данные в слот
+Returns 1 if data was sent, 0 otherwise=Возвращает 1, если данные отправлены, и 0 - в противном случае
+Defines the text to be sent to the slot=Определяет текст для отправки в слот
+Specifies the name of the computer to which the connection is made=Определяет имя компьютера, к которому производится подключение

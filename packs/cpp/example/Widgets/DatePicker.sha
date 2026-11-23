@@ -1,0 +1,54 @@
+*DatePicker in calendar and time modes. Changing the date copies its date-time to the time picker.
+Make(cpp)
+Add(MainForm,7925207,105,105)
+{
+ Backend=1
+ Width=370
+ Height=142
+ Caption="DatePicker"
+}
+Add(DatePicker,285339,217,105)
+{
+ Left=16
+ Top=36
+ Width=190
+ Height=28
+ Style=1
+ Point(DateTime)
+ Point(CurrentDateTime)
+ Point(Data)
+ link(onChange,14266385:doSetDate,[])
+ link(Data,285339:CurrentDateTime,[(223,146)(230,146)])
+}
+Add(DatePicker,14266385,301,105)
+{
+ Left=222
+ Top=36
+ Width=130
+ Height=28
+ Time=0
+ SetDateOnChange=1
+ Point(Data)
+ link(Data,285339:DateTime,[(307,154)(223,154)])
+}
+Add(Button,14119056,147,105)
+{
+ Left=16
+ Top=80
+ Width=190
+ Height=28
+ Caption="Reset to current date and time"
+ link(onClick,285339:doSetDate,[])
+}
+Add(Label,1375568,217,35)
+{
+ Left=16
+ Top=12
+ Caption="Calendar"
+}
+Add(Label,10215645,301,35)
+{
+ Left=222
+ Top=12
+ Caption="Time"
+}

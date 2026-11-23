@@ -20,15 +20,11 @@
 
 extern Element *createElement(const ustring &name, SDK *sdk, gdouble x, gdouble y);
 
-class ElementWinElement : virtual public Element {
-	public:
-		ElementWinElement(PackElement *pe, SDK *sdk, gdouble x, gdouble y);
-		void place(int x, int y);
-};
-
 class ElementDynPoints : virtual public Element {
 	protected:
 		void on_change_property(ElementProperty *prop);
+		/** HiAsm 4 named points: a list property (InlineCode WorkPoints) gives one point per item. */
+		void syncNamedPoints(int type, const ustring &text);
 	public:
 		struct DynInfo {
 			ElementProperty *prop;
@@ -582,7 +578,7 @@ class ElementCoreTransmitter : public ElementDynPoints, public ElementCore {
 
 class ElementCoreStrList : public ElementCore, public DataArrayInterface {
 	private:
-		StringList list;
+		HStringList list;
 	public:
 		ElementCoreStrList(PackElement *pe, SDK *sdk, gdouble x, gdouble y);
 
@@ -627,8 +623,8 @@ class ElementCoreDS_SQLite : public ElementCore {
 		void do_work(ElementPoint *point, TData *data);
 		void exec(const ustring &sql);
 		sqlite3_stmt *query(const ustring &sql);
-		const char *error() { return sqlite3_errmsg(db); }
-		long lastId() { return sqlite3_last_insert_rowid(db); }
+		const char *error() { return db ? sqlite3_errmsg(db) : "SQLite database is not open"; }
+		long lastId() { return db ? sqlite3_last_insert_rowid(db) : 0; }
 };
 
 class ElementCoreDSC_Exec : public ElementCore {
@@ -717,6 +713,16 @@ class ElementTplWinControl : public ElementCore {
 		virtual Widget *createWidget(Element **parent) = 0;
 };
 
+// Control of the C++ package (Class=WinElement): its widget is chosen by the [Edit] class (Button, Label,
+// Edit, ...) and it is placed by Left and Top like the controls of the built-in designer.
+class ElementWinElement : public ElementTplWinControl {
+	public:
+		ElementWinElement(PackElement *pe, SDK *sdk, gdouble x, gdouble y);
+		void place(int x, int y);
+		void prepareForRun(Element **parent);
+		Widget *createWidget(Element **parent);
+};
+
 class ElementTplParent : public ElementTplWinControl, public CallBack {
 	protected:
 		virtual void addElement(Element *ie);
@@ -732,6 +738,8 @@ class ElementTplForm : public ElementTplParent {
 	private:
 		Window *form;
 		EventBox *eb;
+		Fixed *surface;
+		void applyFrame();
 	protected:
 		virtual bool on_delete_event(GdkEventAny *event);
 		virtual bool on_button_press(GdkEventButton* event);
@@ -744,9 +752,18 @@ class ElementTplForm : public ElementTplParent {
 		void do_work(ElementPoint *point, TData *data);
 		void insertElement(ElementTplWinControl *e);
 
+		void on_change_property(ElementProperty *prop);
+
 		inline Window *getForm() { return form; }
 
 		Widget *createWidget(Element **parent);
+};
+
+// Main window of the C++ package. Kept as a distinct class for its editor
+// identity; like the Core form it accepts any number of child controls.
+class ElementTplMainForm : public ElementTplForm {
+	public:
+		ElementTplMainForm(PackElement *pe, SDK *sdk, gdouble x, gdouble y);
 };
 
 class ElementTplDialog : public ElementTplParent {
@@ -774,7 +791,19 @@ class ElementTplGroupBox : public ElementTplParent {
 	public:
 		ElementTplGroupBox(PackElement *pe, SDK *sdk, gdouble x, gdouble y);
 
-		void insertElement(ElementTplWinControl *e) { frame->add(*e->ctl); }
+		void insertElement(ElementTplWinControl *e) { frame_set_child(*frame, *e->ctl); }
+
+		void do_work(ElementPoint *point, TData *data);
+
+		Widget *createWidget(Element **parent);
+};
+
+// GroupBox and Panel of the C++ package: a captioned frame that is an ordinary
+// control. Other controls sit on the form next to it (they are not its children),
+// so the form keeps accepting any number of controls.
+class ElementTplFrame : public ElementTplWinControl {
+	public:
+		ElementTplFrame(PackElement *pe, SDK *sdk, gdouble x, gdouble y);
 
 		void do_work(ElementPoint *point, TData *data);
 

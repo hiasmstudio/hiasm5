@@ -1,0 +1,4 @@
+func doPrint:html,java
+  print(code(Lines))
+  event(onPrint)
+end

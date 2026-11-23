@@ -1,0 +1,6 @@
+Adding an element to the tree=Добавление элемента в дерево
+Tree for adding elements to it=Дерево для добавления в него элементов
+Adds an element to the tree=Добавляет элемент в дерево
+The event occurs every time an element is added to the tree=Событие происходит всякий раз после добавления элемента в дерево
+The event occurs every time after an unsuccessful addition of an element to the tree and issues a copy of the map to the stream=Событие происходит всякий раз после неудачного добавления элемента в дерево и выдает копию картежа в поток
+Card to add to tree=Картеж для добавления в дерево

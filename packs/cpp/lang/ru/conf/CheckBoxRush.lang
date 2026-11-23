@@ -1,0 +1,12 @@
+Checkbox=Флажок
+Element transparency=Прозрачность элемента
+Sets the initial value of the checkbox=Задаёт начальное значение флажка
+Sets the text of the caption next to the checkbox=Задаёт текст надписи возле флажка
+Checkbox area size=Размер области флажка
+Check mark color=Цвет галочки
+Checks/unchecks a checkbox=Устанавливает/снимает флажок
+Sets the color scheme. The MT stream with parameters is taken from the stream=Устанавливает цвтовую схему. МТ-поток с параметрами берется из потока
+Redraws the control=Перерисовывает контрол
+The event occurs whenever the checkbox status changes=Событие происходит всякий раз при изменение статуса флажка
+The event occurs when an element is clicked=Событие происходит при клике на элементе
+Contains 1 if the checkbox is checked and 0 otherwise=Содержит 1, если флажок установлен и 0 - в противном случае

@@ -1,0 +1,71 @@
+// Clipboard: Win32 clipboard access. Text part is fully implemented
+// (doPutText/Text); bitmap and HDROP (file list) parts are stubs.
+// Windows-only, same pattern as Mutex.
+
+func Guard()
+  println('#if !defined(_WIN32)')
+  println('#error "Clipboard is a Windows-only element"')
+  println('#endif')
+end
+
+func PutTextExpr(_data)
+  if(linked('PutText'))
+    return(d('PutText'))
+  end
+  return(_data)
+end
+
+func doPutText(_data)
+  Guard()
+  println('{')
+  block.inclvl()
+  println('const std::string hiasm_cb', _id_, ' = hiasm_text(', PutTextExpr(_data), ');')
+  println('if(OpenClipboard(NULL)) {')
+  block.inclvl()
+  println('EmptyClipboard();')
+  println('HGLOBAL hiasm_hg', _id_, ' = GlobalAlloc(GMEM_MOVEABLE, hiasm_cb', _id_, '.size() + 1);')
+  println('if(hiasm_hg', _id_, ') {')
+  block.inclvl()
+  println('char *hiasm_p', _id_, ' = static_cast<char *>(GlobalLock(hiasm_hg', _id_, '));')
+  println('if(hiasm_p', _id_, ') {')
+  block.inclvl()
+  println('std::memcpy(hiasm_p', _id_, ', hiasm_cb', _id_, '.c_str(), hiasm_cb', _id_, '.size() + 1);')
+  println('GlobalUnlock(hiasm_hg', _id_, ');')
+  block.declvl()
+  println('}')
+  println('SetClipboardData(CF_TEXT, hiasm_hg', _id_, ');')
+  block.declvl()
+  println('}')
+  println('CloseClipboard();')
+  block.declvl()
+  println('}')
+  block.declvl()
+  println('}')
+end
+
+func Text()
+  return('[]() -> std::string { std::string out; if(!OpenClipboard(NULL)) return out; HANDLE h = GetClipboardData(CF_TEXT); if(h) { const char *p = static_cast<const char *>(GlobalLock(h)); if(p) { out = std::string(p); GlobalUnlock(h); } } CloseClipboard(); return out; }()')
+end
+
+func doPutBitmap(_data)
+end
+
+func Bitmap()
+  return('std::string()')
+end
+
+func doPutItems(_data)
+end
+
+func doGetItems(_data)
+end
+
+func doPutType(_data)
+end
+
+func doUnicode(_data)
+end
+
+func DropType()
+  return('std::string("0")')
+end

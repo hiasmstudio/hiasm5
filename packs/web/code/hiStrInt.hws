@@ -1,0 +1,35 @@
+func doStrInt(_data)
+  if(linked(Result))
+    println(_stoi_, ' = (int)(', Text, ');')
+    event(onStrInt,_stoi_)
+  else
+    event(onStrInt,'(int)(' && Text && ')')
+  end
+end
+
+func Result()
+  if(linked(doStrInt))
+    return(_stoi_)
+  else
+    return('(int)(' && Text && ')')
+  end
+end
+
+section java
+
+func doStrInt(_data)
+  if(linked(Result))
+    println(_stoi_, ' = parseInt(', Text, ');')
+    event(onStrInt,_stoi_)
+  else
+    event(onStrInt,'parseInt(' && Text && ')')
+  end
+end
+
+func Result()
+  if(linked(doStrInt))
+    return(_stoi_)
+  else
+    return('parseInt(' && Text && ')')
+  end
+end

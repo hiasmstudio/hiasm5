@@ -1,0 +1,8 @@
+Calculating the difference between two dates=Вычисление разницы между двумя датами
+Calculates the difference between two dates=Вычисляет разницу между двумя датами
+The event occurs whenever the difference between two dates is calculated and outputs this difference to the ARG(Raz,D,H,M,S) stream=Событие происходит всякий раз после подсчета разницы между двумя датами и выдает эту разницу в поток ARG(Raz,D,H,M,S)
+Date in Real format=Дата в формате Real
+Days left=Осталось дней
+Hours left=Осталось часов
+Minutes left=Осталось минут
+Seconds left=Осталось секунд

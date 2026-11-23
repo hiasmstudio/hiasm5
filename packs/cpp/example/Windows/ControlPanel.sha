@@ -1,0 +1,66 @@
+﻿*Пример показывает, как можно открыть некоторые стандартные окна настройки Windows. Все эти программы с расширением *.cpl можно найти в системной папке Windows.
+Make(cpp)
+Add(MainForm,71566,14,105)
+{
+ Left=20
+ Top=105
+ Width=375
+ Height=140
+ Caption="My Control Panel"
+ BorderStyle=3
+}
+Add(WinExec,34860,168,70)
+{
+ Mode=0
+ Point(doRunCpl)
+}
+Add(Button,87932,77,154)
+{
+ Left=60
+ Top=60
+ Width=250
+ Caption="IExplorer - настройка браузера IE"
+ Data=String(inetcpl.cpl)
+ link(onClick,14118714:doWork2,[])
+}
+Add(Button,49647,77,112)
+{
+ Left=60
+ Top=35
+ Width=250
+ Caption="Desktop - настройка рабочего стола"
+ Data=String(desk.cpl)
+ link(onClick,3089681:doWork2,[])
+}
+Add(HubEx,14118714,133,147)
+{
+ Angle=3
+ link(onEvent,3089681:doWork3,[])
+}
+Add(Button,45683,77,70)
+{
+ Left=60
+ Top=10
+ Width=250
+ Caption="Mouse - настройка мыши"
+ Data=String(main.cpl)
+ link(onClick,6122659:doWork2,[])
+}
+Add(Button,99410,77,196)
+{
+ Left=60
+ Top=85
+ Width=250
+ Caption="User - менеджер пользователей в XP"
+ Data=String(nusrmgr.cpl)
+ link(onClick,14118714:doWork3,[(137,202)])
+}
+Add(HubEx,6122659,133,63)
+{
+ link(onEvent,34860:doRunCpl,[(155,76)(155,90)])
+}
+Add(HubEx,3089681,133,105)
+{
+ Angle=3
+ link(onEvent,6122659:doWork3,[])
+}

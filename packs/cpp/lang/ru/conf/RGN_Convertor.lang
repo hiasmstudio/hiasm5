@@ -1,0 +1,5 @@
+Region conversion=Конвертирование региона
+RgnToStream - region->stream, StreamToRgn - stream->region=RgnToStream - регион->поток, StreamToRgn - поток->регион
+Converts input data according to the Mode parameter=Конвертирует входные данные согласно параметру Mode
+Outputs the result of an operation to a stream=Выдаёт результат операции в поток
+Data to convert=Данные для преобразования

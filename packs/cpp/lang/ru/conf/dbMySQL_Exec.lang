@@ -1,0 +1,9 @@
+Query to MySQL to change data=Запрос к MySQL на изменение данных
+True - the onGetBlob event contains the name of the requested blob field in the stream, False - the index=True - событие onGetBlob содержит в потоке имя, запрашиваемого blob поля, False - индекс
+Query a MySQL database to change fields=Выполняет запрос к базе данных MySQL на изменение полей
+The event occurs whenever a database query is successfully executed and outputs the number of changed fields to the stream.=Событие происходит всякий раз при успешном выполнении запроса к базе данных и выдаёт в поток количество изменённых полей
+Occurs when there is a request to write a blob field and outputs its name or index to the stream=Происходит при запросе на запись blob поля и выдаёт в поток его имя или индекс
+The event occurs whenever there is an error in a database query=Событие происходит всякий раз при ошибке в запросе к базе данных
+MySQL Database ID=Идентификатор базы данных MySQL
+Request text=Текст запроса
+Data of type Stream (BinaryLargeOBject) for writing to a binary field in a MySQL database=Данные типа Stream (BinaryLargeOBject) для записи в бинарное поле базы данных MySQL

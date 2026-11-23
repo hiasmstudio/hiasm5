@@ -1,0 +1,130 @@
+func Arg(value)
+  if(len(value) > 0)
+    return(value)
+  else
+    return('0')
+  end
+end
+
+func doStart
+  if(is_qt_project())
+    qtStart()
+  else
+    gtkStart()
+  end
+end
+
+func qtStart
+  println('{')
+  fvar(orientation)
+  orientation = 'Qt::Horizontal'
+  if(get('Kind') == 1)
+    orientation = 'Qt::Vertical'
+  end
+  println('auto *scroll = new QScrollBar(', orientation, ', widgetParent);')
+  println('scroll->setObjectName(QStringLiteral("ScrollBar', _id_, '"));')
+  println('scroll->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+  println('scroll->setRange(', Min, ', ', Max, ');')
+  println('scroll->setPageStep(', Page, ');')
+  println('scroll->setValue(', Position, ');')
+  if(get('ScrollMode') == 1)
+    println('scroll->setTracking(false);')
+  end
+  if(linked(onPosition))
+    println('QObject::connect(scroll, &QScrollBar::valueChanged, &form, [&form](int position) {')
+    event(onPosition, 'position')
+    println('});')
+  end
+  if(linked(onEndScroll))
+    println('QObject::connect(scroll, &QScrollBar::sliderReleased, &form, [&form] {')
+    event(onEndScroll)
+    println('});')
+  end
+  println('}')
+end
+
+func gtkStart
+  println('{')
+  fvar(orient, adjustment, mode)
+  orient = 'GTK_ORIENTATION_HORIZONTAL'
+  switch(d('Kind'))
+    case 1: orient = 'GTK_ORIENTATION_VERTICAL'
+  end
+  adjustment = 'hiasm_adjustment_' && _id_
+  println('GtkAdjustment *', adjustment, ' = gtk_adjustment_new(', d('Position'), ', ', d('Min'), ', ', d('Max'), ', 1, ', d('Page'), ', ', d('Page'), ');')
+  println('GtkWidget *widget = gtk_scrollbar_new(', orient, ', ', adjustment, ');')
+  println('hiasm_place("ScrollBar', _id_, '", widget, ', Left, ', ', Top, ');')
+  mode = 0
+  switch(d('ScrollMode'))
+    case 1: mode = 1
+  end
+  if(linked(onPosition))
+    if(mode)
+      println('GtkGesture *gesture = gtk_gesture_drag_new();')
+      println('g_signal_connect(gesture, "drag-end", G_CALLBACK(+[](GtkGestureDrag *, double, double, gpointer) {')
+      println('if(!hiasm_form_ready) return;')
+      block.inclvl()
+      event(onPosition, 'static_cast<int>(gtk_adjustment_get_value(' && adjustment && '))')
+      block.declvl()
+      println('}), NULL);')
+      println('gtk_widget_add_controller(widget, GTK_EVENT_CONTROLLER(gesture));')
+    else
+      println('g_signal_connect(', adjustment, ', "value-changed", G_CALLBACK(+[](GtkAdjustment *adjustment, gpointer) {')
+      println('if(!hiasm_form_ready) return;')
+      block.inclvl()
+      event(onPosition, 'static_cast<int>(gtk_adjustment_get_value(adjustment))')
+      block.declvl()
+      println('}), NULL);')
+    end
+  end
+  if(linked(onEndScroll))
+    println('GtkGesture *endgesture = gtk_gesture_drag_new();')
+    println('g_signal_connect(endgesture, "drag-end", G_CALLBACK(+[](GtkGestureDrag *, double, double, gpointer) {')
+    println('if(!hiasm_form_ready) return;')
+    block.inclvl()
+    event(onEndScroll)
+    block.declvl()
+    println('}), NULL);')
+    println('gtk_widget_add_controller(widget, GTK_EVENT_CONTROLLER(endgesture));')
+  end
+  println('}')
+end
+
+func doPosition(_data)
+  if(is_qt_project())
+    println('qt_widget<QScrollBar>(form, "ScrollBar', _id_, '")->setValue(qt_text(', Arg(_data), ').toInt());')
+  else
+    println('gtk_adjustment_set_value(hiasm_range("ScrollBar', _id_, '"), static_cast<double>(', Arg(_data), '));')
+  end
+end
+
+func doMin(_data)
+  if(is_qt_project())
+    println('qt_widget<QScrollBar>(form, "ScrollBar', _id_, '")->setMinimum(qt_text(', Arg(_data), ').toInt());')
+  else
+    println('gtk_adjustment_set_lower(hiasm_range("ScrollBar', _id_, '"), ', Arg(_data), ');')
+  end
+end
+
+func doMax(_data)
+  if(is_qt_project())
+    println('qt_widget<QScrollBar>(form, "ScrollBar', _id_, '")->setMaximum(qt_text(', Arg(_data), ').toInt());')
+  else
+    println('gtk_adjustment_set_upper(hiasm_range("ScrollBar', _id_, '"), ', Arg(_data), ');')
+  end
+end
+
+func doPage(_data)
+  if(is_qt_project())
+    println('qt_widget<QScrollBar>(form, "ScrollBar', _id_, '")->setPageStep(qt_text(', Arg(_data), ').toInt());')
+  else
+    println('gtk_adjustment_set_page_increment(hiasm_range("ScrollBar', _id_, '"), ', Arg(_data), ');')
+  end
+end
+
+func Position()
+  if(is_qt_project())
+    return('qt_widget<QScrollBar>(form, "ScrollBar' && _id_ && '")->value()')
+  end
+  return('static_cast<int>(hiasm_range_value("ScrollBar' && _id_ && '"))')
+end

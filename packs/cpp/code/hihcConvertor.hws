@@ -1,0 +1,18 @@
+func doConvert(_data)
+  fvar(expr)
+  switch(Mode)
+    case 0: expr = 'std::to_string(' && _data && ')'
+    case 1: expr = 'std::atoi(std::string(' && _data && ').c_str())'
+    case 2: expr = 'static_cast<int>(' && _data && ')'
+    case 3: expr = 'static_cast<int>(static_cast<unsigned char>(std::string(' && _data && ')[0]))'
+    case 4: expr = 'std::string(1, static_cast<char>(' && _data && '))'
+    case 5: expr = 'static_cast<int>(std::strtol(std::string(' && _data && ').c_str(), nullptr, 16))'
+    case 6: expr = '[](int value) { char buf[64]; std::snprintf(buf, sizeof(buf), "%0*X", ' && Digits && ', value); return std::string(buf); }(' && _data && ')'
+    case 7: expr = 'static_cast<int>(std::strtol(std::string(' && _data && ').c_str(), nullptr, 2))'
+    case 8: expr = '[](int value) { std::string out; do { out.insert(out.begin(), static_cast<char>(48 + value % 2)); value /= 2; } while(value); return out; }(' && _data && ')'
+    case 9: expr = 'std::to_string(' && _data && ')'
+    case 10: expr = 'std::atof(std::string(' && _data && ').c_str())'
+    default: expr = 'std::to_string(' && _data && ')'
+  end
+  event(onResult, expr)
+end

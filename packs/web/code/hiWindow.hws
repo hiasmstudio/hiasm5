@@ -1,0 +1,51 @@
+section java
+
+func doOpen(_data)
+  fvar(f)
+  f = ""
+  f &= "toolbar=" + (1-Toolbar)
+  if( isndef(Width) )
+    f &= ",width=" & Width 
+  end
+  if( isndef(Height) )
+    f &= ",height=" & Height
+  end  
+  if( isndef(Toolbar) )
+    f &= ",toolbar=1"
+  end
+  if( isndef(Location) )
+    f &= ",location=1"
+  end
+  if( isndef(Directoties) )
+    f &= ",directoties=1"
+  end
+  if( isndef(Status) )
+    f &= ",status=1"
+  end
+  if( isndef(Menubar) )
+    f &= ",menubar=1"
+  end
+  if( isndef(Scrollbars) )
+    f &= ",scrollbars=1"
+  end 
+  if( isndef(Resizable) )
+    f &= ",resizable=1"
+  end                                                
+  if(linked(doClose))
+    fvar(old)
+    old = block.select(BLK_HEAD)
+    println('var ', wnd, ' = null;')
+    block.select(old)
+    print(wnd, ' = ')
+  end
+  println('window.open(', URL, ',', Name, ',', f ,');')
+  event(onOpen)
+end
+
+func doClose(_data)  
+  println(linked(doOpen) ? wnd : 'window', '.close();')
+end
+
+func Location()
+  return('window.location.href')
+end

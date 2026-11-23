@@ -1,0 +1,163 @@
+Make(cpp)
+Add(MainForm,1,28,28)
+{
+ Backend=1
+ Caption="Polymorphic panels"
+ Width=490
+ Height=230
+}
+Add(ChildPanelPoly,2,224,70)
+{
+ Childrens=#4:Left|5:Right|
+ Selected="base"
+ WorkScheme=1
+ link(onValue,16:doText,[])
+ link(InitialText,9:Text,[])
+}
+BEGIN_SDK
+  Add(EditPolyMulti,10,21,21)
+  {
+   WorkCount=#5:##add|8:##select|8:##delete|7:##clear|8:doUpdate|
+   EventCount=#7:onValue|
+   VarCount=#7:##count|5:Value|
+   DataCount=#11:InitialText|
+  }
+END_SDK
+BEGIN_SDK
+  Add(EditPolyMulti,11,21,21)
+  {
+   WorkCount=#5:##add|8:##select|8:##delete|7:##clear|8:doUpdate|
+   EventCount=#7:onValue|
+   VarCount=#7:##count|5:Value|
+   DataCount=#11:InitialText|
+   link(##add,13:doText2,[])
+   link(doUpdate,13:doText,[])
+   link(Value,13:Text,[])
+  }
+  Add(Panel,12,70,70)
+  {
+   Left=16
+   Top=16
+   Width=212
+   Height=100
+  }
+  Add(Edit,13,119,70)
+  {
+   Left=12
+   Top=12
+   Width=180
+   link(Str,11:InitialText,[])
+   link(onChange,11:onValue,[])
+  }
+END_SDK
+BEGIN_SDK
+  Add(EditPolyMulti,21,21,21)
+  {
+   WorkCount=#5:##add|8:##select|8:##delete|7:##clear|8:doUpdate|
+   EventCount=#7:onValue|
+   VarCount=#7:##count|5:Value|
+   DataCount=#11:InitialText|
+   link(##add,23:doText2,[])
+   link(doUpdate,23:doText,[])
+   link(Value,23:Text,[])
+  }
+  Add(Panel,22,70,70)
+  {
+   Left=246
+   Top=16
+   Width=212
+   Height=100
+  }
+  Add(Edit,23,119,70)
+  {
+   Left=12
+   Top=12
+   Width=180
+   link(Str,21:InitialText,[])
+   link(onChange,21:onValue,[])
+  }
+END_SDK
+Add(Button,3,91,70)
+{
+ Left=16
+ Top=130
+ Width=88
+ Caption="Add panel"
+ link(onClick,17:doData,[])
+}
+Add(Edit,4,91,105)
+{
+ Left=112
+ Top=130
+ Width=88
+ Text="Left"
+}
+Add(Button,5,91,140)
+{
+ Left=208
+ Top=130
+ Width=100
+ Caption="Select first"
+ Data=Integer(0)
+ link(onClick,2:##select,[])
+}
+Add(Button,6,91,175)
+{
+ Left=316
+ Top=130
+ Width=142
+ Caption="Update both panels"
+ link(onClick,2:doUpdate,[])
+}
+Add(Button,7,91,210)
+{
+ Left=16
+ Top=166
+ Width=100
+ Caption="Read selected"
+ link(onClick,8:doText,[])
+}
+Add(Label,8,287,175)
+{
+ Left=260
+ Top=166
+ Width=198
+ Caption="Panel text"
+ link(Text,2:Value,[])
+}
+Add(Edit,9,154,252)
+{
+ Left=124
+ Top=166
+ Width=128
+ Text="Shared text"
+}
+Add(Button,14,91,245)
+{
+ Left=16
+ Top=196
+ Width=100
+ Caption="Delete first"
+ Data=Integer(0)
+ link(onClick,2:##delete,[])
+}
+Add(Button,15,91,280)
+{
+ Left=124
+ Top=196
+ Width=128
+ Caption="Clear panels"
+ link(onClick,2:##clear,[])
+}
+Add(Label,16,287,105)
+{
+ Left=260
+ Top=196
+ Width=198
+ Caption="Last edit event"
+}
+Add(DoData,17,168,70)
+{
+ link(Data,4:Text,[])
+ link(onEventData,2:##add,[])
+}

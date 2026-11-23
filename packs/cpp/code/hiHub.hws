@@ -1,0 +1,7 @@
+// The dynamic point index comes first; the event data follows it.
+func doEvent(index, _data)
+  fvar(i)
+  for(i = 1; i <= _event_count_; i++)
+    event('onEvent' && i, _data)
+  end
+end

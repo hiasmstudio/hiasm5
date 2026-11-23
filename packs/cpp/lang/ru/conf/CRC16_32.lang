@@ -1,0 +1,9 @@
+CRC16/32 counting=Подсчёт CRC16/32
+Source data type. ASCII - character string; HEX - hex values=Тип исходных данных. ASCII - строка символов; HEX - hex значения
+CRC calculation algorithm=Алгоритм подсчета CRC
+Polinomial=Полином
+Initial CRC value=Начальное значение CRC
+Result byte order (CRC16 only)=Порядок следования байтов результата(только для CRC16)
+CRC calculation=Подсчёт CRC
+The event occurs whenever a CRC is calculated and outputs a checksum to the ARG(CRC) stream=Событие происходит всякий раз после вычисления CRC и выдает контрольную сумму в поток ARG(CRC)
+Data for CRC calculation=Данные для вычисления CRC

@@ -1,0 +1,7 @@
+section cpp
+
+func doTerminateProcess(_data)
+  println('TerminateProcess((HANDLE)(', Process, '), 0);')
+  event(onTerminateProcess)
+end
+

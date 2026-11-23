@@ -1,0 +1,11 @@
+Replacing text in a string=Замена текста в строке
+Default string to replace=Строка по-умолчанию, которую нужно заменить
+Default string to replace with=Строка по-умолчанию, на которую нужно заменить
+Replaces the substring sub_str in the string str with the string dest (all found substrings are replaced)=Производит замену подстроки sub_str в строке str на строку dest (заменяются все найденные подстроки)
+The event occurs whenever a row replacement is completed=Событие происходит всякий раз при завершении замены строк
+The line in which the replacement occurs, before the next replacement is carried out=Строка, в которой происходит замена, до проведения очередной замены
+Position of the Sub_str fragment in the CurrentStr string, before replacement with Dest=Позиция фрагмента Sub_str в строке CurentStr, до проведения замены на Dest
+The line where the replacement occurs=Строка, в которой происходит замена
+Substring to be replaced=Подстрока, которую нужно заменить
+Substring to replace with=Подстрока, на которую нужно заменить
+When replacing, this field is checked for 0, and if it is 0, then the Sub_str fragment is replaced with the Dest string, otherwise - skip=При замене это поле проверяется на 0, и если оно равно 0, то фрагмент Sub_str заменяется на строку Dest, иначе - пропуск

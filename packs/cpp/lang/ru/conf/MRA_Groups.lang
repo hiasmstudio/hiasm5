@@ -1,0 +1,3 @@
+Mail.ru agent groups=Группы Mail.ru агента
+Defines Mail.ru agent for authorization on the server=Определяет Mail.ru agent для авторизации на сервере
+The event occurs every time after receiving the next group and issues it to the ARG(Name, ID) stream=Событие происходит всякий раз после получения очередной группы и выдает ее в поток ARG(Name, ID)

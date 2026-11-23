@@ -1,0 +1,7 @@
+Streaming audio=Потоковый звук
+Channel sampling rate=Частота дискретизации канала
+Creates an audio output channel=Создает канал вывода звука
+Destroys the channel=Уничтожает канал
+The event occurs in case of an error and outputs its number to the stream=Событие происходит в случае ошибки и выдаёт её номер в поток
+Contains channel ID=Содержит идентификатор канала
+Defines one word (i.e. 2 bytes) of data to fill the output buffer=Определяет одно слово (т.е. 2 байта) данных для заполнения буфера вывода

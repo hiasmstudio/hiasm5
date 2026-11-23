@@ -1,0 +1,402 @@
+*программа для расчета битрейта при конверте видео файла исходя из желаемых размеров длинне и битрейта звуковой дарожки#13#10вывод результата зделан специально так чтобы его можно было скопировать и вставить в настройки кодека#13#10ползунки специально для подгонки#13#10версия 0.2 добавлен расчет аспекта#13#10надеюсь программа будет полезна ешё кому то.
+Make(cpp)
+Add(MainForm,95768,49,224)
+{
+ Left=315
+ Top=261
+ Width=401
+ Height=223
+ Caption="программа на HIASM"
+ BorderStyle=3
+ TaskBar=1
+}
+Add(Memory,70624,322,147)
+{
+}
+Add(Memory,98994,427,280)
+{
+}
+Add(Label,86150,49,462)
+{
+ Left=15
+ Top=130
+ Width=60
+ Font=[Arial,8,0,0,1]
+ Caption="Ширина"
+}
+Add(ScrollBar,94204,266,462)
+{
+ Left=85
+ Top=150
+ Width=120
+ Height=15
+ Max=600
+ Position=480
+ link(onPosition,18701:doText,[(311,468)(311,671)])
+}
+Add(Math,22890,217,238)
+{
+ OpType=2
+ Op2=60
+ ResultType=0
+ link(onResult,35361:doValue,[(339,244)(339,230)])
+ link(Op1,46734:Position,[])
+}
+Add(Label,61448,49,532)
+{
+ Left=15
+ Top=150
+ Width=60
+ Font=[Arial,8,0,0,1]
+ Caption="Высота"
+}
+Add(Case,26473,350,21)
+{
+ Value=Integer(3)
+ link(onNextCase,17130:doCase,[])
+ link(onTrue,36881:doEvent1,[(414,34)(414,265)(327,265)(329,266)(329,286)])
+}
+Add(Math,53774,259,532)
+{
+ OpType=3
+ ResultType=0
+ link(onResult,70111:doValue,[(325,538)(325,475)])
+ link(Op1,2034:Value,[(265,464)(279,464)])
+ link(Op2,94204:Position,[])
+}
+Add(Memory,35361,427,224)
+{
+}
+Add(Label,21517,266,280)
+{
+ Left=5
+ Top=55
+ Width=30
+ Font=[Arial,8,0,0,1]
+ Caption="64"
+}
+Add(Timer,98441,84,21)
+{
+ Interval=50
+ link(onTimer,42419:doNext,[])
+}
+Add(ScrollBar,96022,217,84)
+{
+ Left=85
+ Top=15
+ Width=120
+ Height=15
+ Max=800
+ Min=1
+ Position=300
+ link(onPosition,2266:doText,[])
+}
+Add(Hub,97429,63,77)
+{
+ link(onEvent1,42419:doReset,[(131,83)(131,41)])
+ link(onEvent2,99578:doOperation,[(133,90)(133,349)])
+}
+Add(Math,41753,322,196)
+{
+ OpType=2
+ Op2=8
+ ResultType=0
+ link(onResult,47343:doValue,[])
+ link(Op1,70624:Value,[])
+}
+Add(Edit,64275,476,343)
+{
+ Left=10
+ Top=75
+ Width=70
+ Height=21
+ Font=[Arial,8,0,0,1]
+ Text=""
+}
+Add(Label,79920,98,378)
+{
+ Left=15
+ Top=170
+ Width=65
+ Font=[Arial,8,0,0,1]
+ Caption="Нуж. ширина"
+}
+Add(Label,86293,91,280)
+{
+ Left=210
+ Top=55
+ Width=170
+ Font=[Arial,8,0,0,1]
+ Caption="Битрейт звука"
+}
+Add(Math,99578,427,343)
+{
+ OpType=1
+ ResultType=0
+ link(onResult,64275:doText,[])
+ link(Op1,98994:Value,[])
+ link(Op2,51556:Position,[(440,336)(223,336)])
+}
+Add(Math,36067,371,280)
+{
+ OpType=3
+ ResultType=0
+ link(onResult,98994:doValue,[])
+ link(Op1,47343:Value,[])
+ link(Op2,35361:Value,[(384,269)(433,269)])
+}
+Add(Label,55263,91,210)
+{
+ Left=210
+ Top=15
+ Width=170
+ Font=[Arial,8,0,0,1]
+ Caption="Желаемый размер Avi"
+}
+Add(Case,17130,427,21)
+{
+ Value=Integer(4)
+ link(onTrue,97429:doEvent1,[(469,34)(469,73)(57,73)(57,83)])
+}
+Add(Case,30010,287,21)
+{
+ Value=Integer(2)
+ link(onNextCase,26473:doCase,[])
+ link(onTrue,5388:doEvent1,[(329,34)(329,138)(262,138)(262,209)])
+}
+Add(Counter,42419,161,21)
+{
+ link(onNext,52859:doCase,[])
+}
+Add(Label,327,91,175)
+{
+ Left=45
+ Top=35
+ Width=35
+ Font=[Arial,8,0,0,1]
+ Caption="Min"
+}
+Add(Label,2019,49,350)
+{
+ Left=20
+ Top=105
+ Width=100
+ Font=[Arial,8,0,0,1]
+ Caption="Аспект"
+}
+Add(Memory,2034,273,413)
+{
+}
+Add(ScrollBar,51556,217,280)
+{
+ Left=85
+ Top=55
+ Width=120
+ Height=15
+ Max=420
+ Position=64
+ link(onPosition,21517:doText,[])
+}
+Add(Edit,95562,504,511)
+{
+ Left=310
+ Top=145
+ Width=70
+ Height=21
+ Font=[Arial,8,0,0,1]
+ Text="90"
+}
+Add(Label,7777,91,245)
+{
+ Left=45
+ Top=15
+ Width=35
+ Font=[Arial,8,0,0,1]
+ Caption="Mb"
+}
+Add(Label,85226,91,315)
+{
+ Left=85
+ Top=80
+ Width=160
+ Font=[Arial,8,0,0,1]
+ Caption="максимально Kbit\s видео"
+}
+Add(Math,46950,217,147)
+{
+ OpType=2
+ Op2=1024
+ ResultType=0
+ link(onResult,70624:doValue,[])
+ link(Op1,96022:Position,[])
+}
+Add(Label,68276,427,189)
+{
+ Left=5
+ Top=35
+ Width=35
+ Font=[Arial,8,0,0,1]
+ Caption="100"
+}
+Add(Label,77690,49,385)
+{
+ Left=45
+ Top=55
+ Width=35
+ Font=[Arial,8,0,0,1]
+ Caption="Kbit\s"
+}
+Add(Edit,24870,504,469)
+{
+ Left=310
+ Top=125
+ Width=70
+ Height=21
+ Font=[Arial,8,0,0,1]
+ Text="160"
+}
+Add(Label,78830,49,497)
+{
+ Left=235
+ Top=130
+ Width=75
+ Font=[Arial,8,0,0,1]
+ Caption="Ширина расч."
+}
+Add(Label,48374,49,574)
+{
+ Left=235
+ Top=150
+ Width=75
+ Font=[Arial,8,0,0,1]
+ Caption="Высота расч."
+}
+Add(Label,1412,49,315)
+{
+ Left=210
+ Top=35
+ Width=170
+ Font=[Arial,8,0,0,1]
+ Caption="Длинна фильма"
+}
+Add(Case,52859,217,21)
+{
+ Value=Integer(1)
+ link(onNextCase,30010:doCase,[])
+ link(onTrue,2105:doEvent1,[(258,34)(258,144)(140,144)(140,174)])
+}
+Add(ScrollBar,46734,217,189)
+{
+ Left=85
+ Top=35
+ Width=120
+ Height=15
+ Max=360
+ Min=1
+ Position=100
+ link(onPosition,68276:doText,[])
+}
+Add(Memory,47343,371,196)
+{
+}
+Add(Hub,5388,266,203)
+{
+ OutCount=3
+ link(onEvent2,41753:doOperation,[(315,216)(315,202)])
+ link(onEvent3,53774:doOperation,[(316,223)(316,366)(220,366)(220,538)])
+}
+Add(Math,48012,231,413)
+{
+ OpType=2
+ Op2=1000
+ ResultType=0
+ link(onResult,2034:doValue,[])
+ link(Op1,44744:Position,[])
+}
+Add(Label,18701,336,665)
+{
+ Left=155
+ Top=105
+ Width=25
+ Font=[Arial,8,0,0,1]
+ Caption="480"
+}
+Add(ScrollBar,44744,231,364)
+{
+ Left=85
+ Top=130
+ Width=120
+ Height=15
+ Max=800
+ Position=640
+ link(onPosition,5231:doText,[(316,370)(316,636)])
+}
+Add(Label,38136,49,420)
+{
+ Left=5
+ Width=75
+ Font=[Arial,8,0,0,1]
+ Caption="битрейт"
+}
+Add(Math,96269,420,511)
+{
+ OpType=3
+ ResultType=0
+ link(onResult,95562:doText,[])
+ link(Op1,90046:Value,[])
+ link(Op2,70111:Value,[(433,505)(349,505)])
+}
+Add(Memory,70111,343,469)
+{
+ Default=Integer(0)
+}
+Add(Label,5231,336,630)
+{
+ Left=125
+ Top=105
+ Width=25
+ Font=[Arial,8,0,0,1]
+ Caption="640"
+}
+Add(Math,31842,371,616)
+{
+ OpType=2
+ Op2=1000
+ ResultType=0
+ link(onResult,90046:doValue,[(414,622)(414,468)])
+ link(Op1,97786:Position,[])
+}
+Add(Memory,90046,420,462)
+{
+}
+Add(ScrollBar,97786,371,560)
+{
+ Left=85
+ Top=170
+ Width=120
+ Height=15
+ Max=800
+ Position=160
+ link(onPosition,24870:doText,[(482,566)(482,475)])
+}
+Add(Hub,2105,147,168)
+{
+ OutCount=4
+ link(onEvent1,46950:doOperation,[(198,174)(198,153)])
+ link(onEvent2,22890:doOperation,[(201,181)(201,244)])
+ link(onEvent3,48012:doOperation,[(206,188)(206,419)])
+ link(onEvent4,31842:doOperation,[(195,195)(195,622)])
+}
+Add(Hub,36881,336,280)
+{
+ link(onEvent1,36067:doOperation,[(373,297)(373,297)])
+ link(onEvent2,96269:doOperation,[(374,293)(374,517)])
+}
+Add(Label,2266,280,84)
+{
+ Left=5
+ Top=15
+ Width=35
+ Font=[Arial,8,0,0,1]
+ Caption="300"
+}

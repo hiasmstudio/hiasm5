@@ -1,0 +1,188 @@
+*Использование тумана
+Make(cpp)
+Add(MainForm,15261923,14,63)
+{
+ Left=20
+ Top=105
+ Width=440
+ Height=421
+ Point(MouseX)
+ Point(MouseY)
+ Point(onResize)
+ Point(Handle)
+ link(onCreate,16299401:doEvent1,[(72,83)(72,174)])
+ link(onResize,5169264:doWork1,[(130,90)])
+}
+Add(GL_Main,12986311,147,168)
+{
+ link(onInit,12198675:doInit,[])
+ link(onViewPort,3410847:doPerspective,[(194,181)(194,216)])
+ link(Handle,15261923:Handle,[(153,139)(34,139)])
+}
+Add(Timer,9506849,35,252)
+{
+ Interval=33
+ Enable=1
+ link(onTimer,1049454:doEvent1,[])
+}
+Add(GL_GTools,771925,147,252)
+{
+ Point(doClear)
+ Point(doPushMatrix)
+ Point(doPopMatrix)
+}
+Add(Hub,1049454,84,252)
+{
+ OutCount=5
+ link(onEvent1,771925:doClear,[])
+ link(onEvent2,771925:doPushMatrix,[])
+ link(onEvent3,10714674:doWork1,[])
+ link(onEvent4,771925:doPopMatrix,[(142,279)(142,272)])
+ link(onEvent5,12986311:doFlip,[(135,286)(135,188)])
+}
+Add(Hub,16299401,77,168)
+{
+ OutCount=3
+ link(onEvent1,12986311:doInit,[])
+ link(onEvent2,5169264:doWork2,[])
+ link(onEvent3,9506849:doTimer,[(126,188)(126,226)(32,226)(32,258)])
+}
+Add(GL_Options,4378486,406,168)
+{
+ Flag=3
+ link(onEvent,14989894:doEnabled,[])
+}
+Add(GL_Options,5809249,357,168)
+{
+ Flag=2
+ link(onEvent,4378486:doEnabled,[])
+}
+Add(GL_GluTools,12198675,210,168)
+{
+ link(onInit,1101264:doEnabled,[])
+}
+Add(GL_Light,14989894,455,168)
+{
+ link(onEnabled,905492:doEnabled,[])
+}
+Add(GL_Options,1101264,259,168)
+{
+ link(onEvent,5851269:doEnabled,[])
+}
+Add(GL_Options,5851269,308,168)
+{
+ Flag=1
+ link(onEvent,5809249:doEnabled,[])
+}
+Add(MultiElement,10714674,203,266)
+{
+ link(onEvent1,8673534:doColor,[])
+ link(Data1,15261923:MouseX,[(209,117)(20,117)])
+ link(Data2,15261923:MouseY,[(216,111)(27,111)])
+}
+BEGIN_SDK
+  Add(EditMulti,4359962,3,3)
+  {
+   EventCount=1
+   WorkCount=1
+   DataCount=2
+   Width=167
+   Height=109
+   link(doWork1,3276760:doRotate,[(19,9)(19,55)])
+  }
+  Add(GL_Rotate,3276760,35,49)
+  {
+   Y=1
+   link(onRotate,8079493:doRotate,[])
+   link(Angle,4359962:Data1,[(41,26)(9,26)])
+  }
+  Add(GL_Rotate,8079493,84,49)
+  {
+   X=1
+   link(onRotate,4359962:onEvent1,[(137,55)(137,9)])
+   link(Angle,4359962:Data2,[(90,18)(16,18)])
+  }
+END_SDK
+Add(HubEx,5169264,126,168)
+{
+ link(onEvent,12986311:doViewPort,[])
+}
+Add(For,756551,532,266)
+{
+ Start=-2
+ End=2
+ link(onEvent,12504035:doFor,[])
+}
+Add(For,12504035,595,266)
+{
+ Start=-2
+ End=2
+ link(onEvent,14399419:doFor,[])
+}
+Add(GL_Sphere,5727587,805,266)
+{
+ Radius=0.1
+ Slices=10
+ Stacks=10
+ link(onDraw,7761074:doPopMatrix,[])
+}
+Add(GL_GTools,16770343,707,266)
+{
+ Point(doPushMatrix)
+ link(onEvent,15791438:doTranslate,[])
+}
+Add(Gl_Translate,15791438,756,266)
+{
+ link(onTranslate,5727587:doDraw,[])
+ link(X,756551:Position,[(762,244)(585,244)(585,308)(538,308)])
+ link(Y,12504035:Position,[(769,248)(646,248)(646,308)(601,308)])
+ link(Z,14399419:Position,[(776,256)(706,256)(706,307)(664,307)])
+}
+Add(GL_GTools,7761074,854,266)
+{
+ Point(doPopMatrix)
+}
+Add(GL_Color,3085022,476,266)
+{
+ Color=255
+ link(onColor,756551:doFor,[])
+}
+Add(For,14399419,658,266)
+{
+ Start=-2
+ End=2
+ link(onEvent,16770343:doPushMatrix,[])
+}
+Add(GL_Fog,905492,518,168)
+{
+ Color=12632256
+ Density=0.1
+}
+Add(GL_Cube,14824376,378,266)
+{
+ Size=7
+ link(onDraw,10785874:doDisabled,[(415,272)(415,279)])
+}
+Add(GL_CullFace,2145735,336,266)
+{
+ link(onCullFace,14824376:doDraw,[])
+}
+Add(GL_Options,4698222,294,266)
+{
+ Flag=9
+ link(onEvent,2145735:doCullFace,[])
+}
+Add(GL_Options,10785874,420,266)
+{
+ Flag=9
+ link(onEvent,3085022:doColor,[])
+}
+Add(GL_Color,8673534,252,266)
+{
+ Color=16777215
+ link(onColor,4698222:doEnabled,[])
+}
+Add(GL_Perspective,3410847,210,210)
+{
+ Fovy=40
+}

@@ -1,0 +1,16 @@
+func doNumRows
+  if(linked(Result))
+    println(rows, ' = mysql_num_rows(', Query, ');')
+    event(onNumRows, rows)
+  else
+    event(onNumRows, 'mysql_num_rows(' && Query && ')')
+  end
+end
+
+func Result
+  if(linked(doNumRows))
+    return(rows)
+  else
+    return('mysql_num_rows(' && Query && ')')
+  end
+end

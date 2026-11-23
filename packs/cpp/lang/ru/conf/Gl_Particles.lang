@@ -1,0 +1,17 @@
+Particles=Частицы
+Initial particle color value=Начальное значение цвета частиц
+Final particle color value=Конечное значение цвета частиц
+Parameters of the base particle production surface=Параметры базовой поверхности рождения частиц
+Body type=Тип фигуры
+Parameter 1=Параметр 1
+Parameter 2=Параметр 2
+Gravity=Гравитация
+X-axis acceleration=Ускорение по оси X
+Y-axis acceleration=Ускорение по оси Y
+Z-axis acceleration=Ускорение по оси Z
+Particle lifetime (number of iterations)=Время жизни частиц (количество итераций)
+Particle expansion speed (specified value per iteration)=Скорость разлета частиц (заданная величина за одну итерацию)
+The magnitude of particle fluctuations along all axes in one iteration=Величина флуктуации частиц по всем осям за одну итерацию
+Number of particles emitted from the site per iteration=Количество частиц, испускаемых с площадки за одну отерацию
+Renders particles=Отрисовывает частицы
+The event occurs every time after particles are drawn=Событие происходит всякий раз после отрисовки частиц

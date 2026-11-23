@@ -1,0 +1,167 @@
+func PopupTarget()
+  return('qt_widget<HiasmPopupMenuEx>(form, "PopupMenuEx' && _id_ && '")')
+end
+
+func doStart
+  println('{ auto *menu = new HiasmPopupMenuEx(widgetParent);')
+  println('menu->setObjectName(QStringLiteral("PopupMenuEx', _id_, '"));')
+  println('menu->indexedIcons = ', get('IconByIndex') == 'True', ';')
+  println('menu->iconShift = ', get('Shift'), ';')
+  println('menu->iconSize = qBound(1, int(', ImgSize, '), 256);')
+  if(get('qtExtendedMainMenu') == 1)
+    println('menu->attachBar();')
+    if(linked(MenuItemIdx) or linked(MenuItemName))
+      fvar(index, caption)
+      index = 'mainMenuIndex' && _id_
+      caption = 'mainMenuCaption' && _id_
+      println('menu->chosen = [&form](int ', index, ', const QString &', caption, ') {')
+      event(MenuItemName, caption)
+      event(MenuItemIdx, index)
+      println('};')
+    end
+  end
+  println('menu->setSavedImages(qt_text(', cstr(get('Bitmaps')), '));')
+  println('menu->rebuild(qt_text(', cstr(get('Menu')), '));')
+  if(linked('Bitmaps'))
+    println('QTimer::singleShot(0, menu, [&form, menu] { menu->images = ', d('Bitmaps'), '; menu->refreshIcons(); });')
+  end
+  println('}')
+end
+
+func doInitBmp(_data)
+  if(linked('Bitmaps'))
+    println('{ auto *menu = ', PopupTarget(), '; menu->images = ', d('Bitmaps'), '; menu->refreshIcons(); }')
+  else
+    println(PopupTarget(), '->setSavedImages(qt_text(', cstr(get('Bitmaps')), '));')
+  end
+end
+
+func PopupShow(position)
+  fvar(menu, index, caption)
+  menu = 'extendedPopup' && _id_
+  index = 'extendedPopupIndex' && _id_
+  caption = 'extendedPopupCaption' && _id_
+  println('{ auto *', menu, ' = ', PopupTarget(), ';')
+  println('const auto *selected = ', menu, '->exec(', position, ');')
+  println('const int ', index, ' = selected ? int(', menu, '->entries.indexOf(selected)) : -1;')
+  println('const QString ', caption, ' = ', index, ' >= 0 ? selected->text() : QString();')
+  event(onEndPopup)
+  println('if (', index, ' >= 0) {')
+  event(MenuItemName, caption)
+  event(MenuItemIdx, index)
+  println('} }')
+end
+
+func doPopupHere(_data)
+  PopupShow('QCursor::pos()')
+end
+
+func doPopup(_data)
+  if(len(_data) > 0)
+    println('{ const quint32 coordinates = quint32(qt_text(', _data, ').toLongLong());')
+    PopupShow('QPoint(int(coordinates & 65535u), int(coordinates >> 16))')
+    println('}')
+  end
+end
+
+func doClear(_data)
+  println(PopupTarget(), '->rebuild(QString());')
+end
+
+func doInit(_data)
+  println(PopupTarget(), '->rebuild(qt_text(', isnull(_data) ? '""' : _data, '));')
+end
+
+func doNameItems(_data)
+  fvar(caption)
+  caption = 'menuName' && _id_
+  println('{ QStringList names;')
+  println('for (const auto *action : ', PopupTarget(), '->entries) names.append(action->text());')
+  println('for (const auto &', caption, ' : names) {')
+  event(onNameItems, caption)
+  println('} }')
+end
+
+func ReportState(test, eventName)
+  fvar(index)
+  index = 'menuStateIndex' && _id_
+  println('{ QList<int> indexes;')
+  println('const auto actions = ', PopupTarget(), '->entries;')
+  println('for (int i = 0; i < actions.size(); ++i)')
+  println('  if (!actions[i]->isSeparator() && actions[i]->is', test, '()) indexes.append(i);')
+  println('for (int ', index, ' : indexes) {')
+  event(eventName, index)
+  println('} }')
+end
+
+func doEnabledItems(_data)
+  ReportState('Enabled', onEnabledItems)
+end
+
+func doVisibleItems(_data)
+  ReportState('Visible', onVisibleItems)
+end
+
+func doCheckItems(_data)
+  ReportState('Checked', onCheckItems)
+end
+
+func ChangeState(field, index, state)
+  println('if (auto *action = ', PopupTarget(), '->entries.value(qt_text(', index, ').toInt()); action && !action->isSeparator()) {')
+  if(field == 'Checked')
+    println('action->setCheckable(true);')
+  end
+  println('action->set', field, '(', state, '); }')
+end
+
+func doIdxCheck(_data)
+  if(mt_count() >= 2)
+    ChangeState('Checked', mt_arg(0), 'qt_flag(qt_text(' && mt_arg(1) && '))')
+  end
+end
+
+func doIdxEnabled(_data)
+  if(mt_count() >= 2)
+    ChangeState('Enabled', mt_arg(0), 'qt_flag(qt_text(' && mt_arg(1) && '))')
+  end
+end
+
+func doIdxVisible(_data)
+  if(mt_count() >= 2)
+    ChangeState('Visible', mt_arg(0), 'qt_flag(qt_text(' && mt_arg(1) && '))')
+  end
+end
+
+func ToggleState(field, index)
+  println('if (auto *action = ', PopupTarget(), '->entries.value(qt_text(', index, ').toInt()); action && !action->isSeparator()) {')
+  if(field == 'Checked')
+    println('action->setCheckable(true);')
+  end
+  println('action->set', field, '(!action->is', field, '()); }')
+end
+
+func doCheckIdx(_data)
+  fvar(index)
+  index = d('Index')
+  ToggleState('Checked', index)
+end
+
+func doEnablIdx(_data)
+  fvar(index)
+  index = d('Index')
+  ToggleState('Enabled', index)
+end
+
+func doVisiblIdx(_data)
+  fvar(index)
+  index = d('Index')
+  ToggleState('Visible', index)
+end
+
+func Count()
+  return('int(' && PopupTarget() && '->entries.size())')
+end
+
+func Handle()
+  return('reinterpret_cast<quintptr>(' && PopupTarget() && ')')
+end

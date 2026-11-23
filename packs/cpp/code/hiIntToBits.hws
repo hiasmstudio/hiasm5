@@ -1,0 +1,61 @@
+func Value(value)
+  if(linked('Value'))
+    return(d('Value'))
+  end
+  if(len(value) > 0)
+    return(value)
+  end
+  return('0')
+end
+
+func EmitBit(index)
+  if(get('ZeroBits') == "True")
+    println('if((hiasm_num', _id_, ' >> ', index - 1, ') & 1) {')
+    block.inclvl()
+    event('onBit' && index, get('Data_1'))
+    block.declvl()
+    println('} else {')
+    block.inclvl()
+    event('onBit' && index, get('Data_0'))
+    block.declvl()
+    println('}')
+  else
+    println('if((hiasm_num', _id_, ' >> ', index - 1, ') & 1) {')
+    block.inclvl()
+    event('onBit' && index, get('Data_1'))
+    block.declvl()
+    println('}')
+  end
+end
+
+func doBits(_data)
+  println('{')
+  block.inclvl()
+  println('const int hiasm_num', _id_, ' = static_cast<int>(', Value(_data), ');')
+  fvar(i)
+  i = 1
+  while(i <= get('Count'))
+    EmitBit(i)
+    i = i + 1
+  end
+  block.declvl()
+  println('}')
+end
+
+func doBitsRev(_data)
+  println('{')
+  block.inclvl()
+  println('const int hiasm_num', _id_, ' = static_cast<int>(', Value(_data), ');')
+  fvar(i)
+  i = get('Count')
+  while(i >= 1)
+    EmitBit(i)
+    i = i - 1
+  end
+  block.declvl()
+  println('}')
+end
+
+func doStop(_data)
+  println('break;')
+end

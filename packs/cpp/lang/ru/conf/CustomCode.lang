@@ -1,0 +1,7 @@
+Element for inserting arbitrary script text=Элемент для вставки произвольного текста скрипта
+Contains code=Содержит код
+Width of element in editor=Ширина элемента в редакторе
+Element height in editor=Высота элемента в редакторе
+Language=Язык
+Prints text onto a page=Печатает текст на страницу
+The event occurs every time the text is printed=Событие происходит всякий раз после печати текста

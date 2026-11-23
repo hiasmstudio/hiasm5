@@ -1,0 +1,3 @@
+func doReplace(_data)
+  event(onReplace, '[](std::string value) { const std::string from = ' && Source && '; const std::string to = ' && Dest && '; std::size_t p = 0; while((p = value.find(from, p)) != std::string::npos) { value.replace(p, from.size(), to); p += to.size(); } return value; }(' && _data && ')')
+end

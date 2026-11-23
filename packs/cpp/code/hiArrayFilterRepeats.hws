@@ -1,0 +1,60 @@
+func ArrayExpr()
+  if(get('ArrayType') == 0)
+    if(linked('Array'))
+      return(d('Array'))
+    else
+      return('std::vector<std::string>()')
+    end
+  else
+    if(get('ArrayType') == 1)
+      if(linked('Array'))
+        return(d('Array'))
+      else
+        return('std::vector<int>()')
+      end
+    else
+      if(linked('Array'))
+        return(d('Array'))
+      else
+        return('std::vector<double>()')
+      end
+    end
+  end
+end
+
+func Expr()
+  if(get('ArrayType') == 0)
+    return('[](std::vector<std::string> a) { std::vector<std::string> out; for(const std::string &x : a) if(std::find(out.begin(), out.end(), x) == out.end()) out.push_back(x); return out; }(' && ArrayExpr() && ')')
+  else
+    if(get('ArrayType') == 1)
+      return('[](std::vector<int> a) { std::vector<int> out; for(int x : a) if(std::find(out.begin(), out.end(), x) == out.end()) out.push_back(x); return out; }(' && ArrayExpr() && ')')
+    else
+      return('[](std::vector<double> a) { std::vector<double> out; for(double x : a) if(std::find(out.begin(), out.end(), x) == out.end()) out.push_back(x); return out; }(' && ArrayExpr() && ')')
+    end
+  end
+end
+
+func doFilter(_data)
+  println('{')
+  block.inclvl()
+  println('auto hiasm_source', _id_, ' = ', ArrayExpr(), ';')
+  println('decltype(hiasm_source', _id_, ') hiasm_seen', _id_, ';')
+  println('for(const auto &hiasm_value', _id_, ' : hiasm_source', _id_, ') {')
+  block.inclvl()
+  println('if(std::find(hiasm_seen', _id_, '.begin(), hiasm_seen', _id_, '.end(), hiasm_value', _id_, ') != hiasm_seen', _id_, '.end()) continue;')
+  println('hiasm_seen', _id_, '.push_back(hiasm_value', _id_, ');')
+  event(onFilter, 'hiasm_value' && _id_)
+  block.declvl()
+  println('}')
+  event(onEndFilter)
+  block.declvl()
+  println('}')
+end
+
+func ArrayFilter()
+  return(Expr())
+end
+
+func Count()
+  return('static_cast<int>(' && Expr() && '.size())')
+end

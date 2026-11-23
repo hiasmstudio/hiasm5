@@ -1,0 +1,28 @@
+func doRead(_data):java
+  fvar(s)
+  s = Array && '[' && Index && ']'
+  if(linked(Item))
+    println(arr_val, ' = ', s, ';')
+    event(onRead, arr_val)
+  else
+    event(onRead, s)
+  end
+end
+
+func Item:java
+  if(linked(doRead))
+    return(arr_val)
+  else
+    return(Array && '[' && Index && ']')
+  end
+end
+
+section html
+
+func doRead(_data)
+  event(onRead, Array[Index])
+end
+
+func item
+  return(Array[Index])
+end

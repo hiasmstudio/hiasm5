@@ -1,0 +1,745 @@
+*Прототип игры "Арканоид"
+Make(cpp)
+Add(MainForm,6678806,210,210)
+{
+ Left=20
+ Top=105
+ Width=389
+ Height=392
+ Font=[Arial,8,0,0,1]
+ Caption="Arcanoid"
+ link(onCreate,123294:doEvent1,[])
+}
+Add(PaintBox,14503369,406,77)
+{
+ Left=15
+ Top=5
+ Width=345
+ Height=325
+ Color=8421504
+ ClearBeforeDraw=0
+ link(onBeforeDraw,9939140:doEvent1,[(446,83)(446,66)(326,66)(326,167)])
+}
+Add(Timer,6305374,336,77)
+{
+ Interval=10
+ Enable=1
+ link(onTimer,14503369:doRefresh,[])
+}
+Add(Button,5217363,287,77)
+{
+ Left=270
+ Top=340
+ Width=100
+ Font=[Arial,8,0,0,1]
+ TabOrder=-1
+ Caption="Start"
+ link(onClick,6305374:doTimer,[])
+}
+Add(InfoTip,9467054,28,266)
+{
+ Info=#236: Данная схема представляет из себя упрощенный прототип игры Арканоид. Она демонстрирует простоту реализации взаимодействия между собой множеств однотипных объектов, а так же их динамическая вставка и удаление во время работы приложения.|
+ Font=[Arial,8,0,0,1]
+ Frame=1
+ HAlign=0
+ Width=302
+ Height=74
+}
+Add(MultiElement,7710337,420,161)
+{
+ @Hint=#30:Отрисовка и управление игроком|
+ link(Data1,6405390:Var3,[(426,128)])
+}
+BEGIN_SDK
+  Add(EditMulti,15470573,3,3)
+  {
+   WorkCount=1
+   DataCount=1
+   VarCount=1
+   Width=461
+   Height=284
+   link(doWork1,11625906:doEvent1,[(26,9)(26,153)])
+   link(Var1,14767604:Var3,[(9,266)(302,266)(302,100)])
+  }
+  Add(Img_Rectangle,10084868,329,231)
+  {
+   Point2AsOffset=0
+   Color=8388608
+   BgColor=32896
+   Style=1
+   Point(Point1)
+   Point(Point2)
+   link(Bitmap,15470573:Data1,[(335,199)(9,199)])
+   link(Point1,1421798:Point,[])
+   link(Point2,10425316:Point,[(356,205)(384,205)])
+  }
+  Add(Memory,4127392,343,49)
+  {
+   Default=Integer(10)
+  }
+  Add(Memory,5042254,413,63)
+  {
+   Default=Integer(300)
+  }
+  Add(PointXY,1421798,343,140)
+  {
+   link(X,5107857:Var2,[])
+   link(Y,5042254:Value,[(356,118)(419,118)])
+  }
+  Add(PointXY,10425316,378,140)
+  {
+   X=40
+   Y=10
+  }
+  Add(Hub,11625906,35,147)
+  {
+   OutCount=3
+   link(onEvent1,990216:doReadKey,[(86,153)(86,41)])
+   link(onEvent2,9199088:doReadKey,[(90,160)(90,125)])
+   link(onEvent3,10084868:doDraw,[(166,167)(166,237)])
+  }
+  Add(Keyboard,990216,98,35)
+  {
+   Key=39
+   link(onReadKey,13603696:doOperation,[])
+  }
+  Add(Math,7445188,203,35)
+  {
+   link(onResult,15442528:doCompare,[])
+   link(Op1,14767604:Var1,[(209,25)(247,25)(247,100)])
+  }
+  Add(Keyboard,9199088,98,119)
+  {
+   Key=37
+   link(onReadKey,3198912:doOperation,[])
+  }
+  Add(Math,1633192,203,119)
+  {
+   ResultType=0
+   link(onResult,4001815:doCompare,[])
+   link(Op1,14767604:Var2,[(209,112)(286,112)])
+  }
+  Add(GetDataEx,5107857,336,84)
+  {
+   link(Data,4127392:Value,[])
+  }
+  Add(GetDataEx,14767604,273,91)
+  {
+   link(Data,5107857:Var1,[(286,93)])
+  }
+  Add(If_else,4001815,259,119)
+  {
+   Type=4
+   link(onTrue,376733:doWork3,[(319,125)])
+  }
+  Add(Math,13603696,154,35)
+  {
+   OpType=2
+   Op2=2
+   ResultType=0
+   link(onResult,7445188:doOperation,[])
+  }
+  Add(Math,3198912,154,119)
+  {
+   OpType=2
+   Op2=-2
+   ResultType=0
+   link(onResult,1633192:doOperation,[])
+  }
+  Add(HubEx,376733,315,42)
+  {
+   link(onEvent,4127392:doValue,[])
+  }
+  Add(If_else,15442528,259,35)
+  {
+   Type=3
+   Op2=Integer(310)
+   link(onTrue,376733:doWork1,[(319,41)])
+  }
+END_SDK
+Add(Hub,9939140,336,161)
+{
+ OutCount=3
+ link(onEvent1,7710337:doWork1,[])
+ link(onEvent2,9808694:doWork2,[(387,174)(387,244)])
+ link(onEvent3,6598100:doWork2,[(383,181)(383,328)])
+}
+Add(MultiElement,9808694,406,231)
+{
+ @Hint=#28:Отрисовка и перемещение мяча|
+ link(Data1,6405390:Var2,[])
+ link(Data2,7710337:Var1,[(419,212)(426,212)])
+ link(Data3,6598100:Var1,[(426,221)(463,221)(463,351)(398,351)])
+}
+BEGIN_SDK
+  Add(EditMulti,11508079,3,3)
+  {
+   WorkCount=2
+   DataCount=3
+   VarCount=1
+   Width=440
+   link(doWork1,14227323:##add,[(28,32)(28,63)])
+   link(doWork2,9184855:doFor,[(21,34)(21,127)])
+   link(Var1,14227323:PointXY,[(9,170)(208,170)])
+  }
+  Add(MultiElementEx,14227323,195,57)
+  {
+   @Hint=#22:Реализация объекта Мяч|
+   Mode=1
+   link(Handle,11508079:Data1,[(201,21)(21,21)])
+   link(PlayerX,11508079:Data2,[(208,14)(24,14)])
+   link(Collise,11508079:Data3,[(215,8)(28,8)])
+  }
+  BEGIN_SDK
+    Add(EditMultiEx,10129213,3,3)
+    {
+     WorkCount=#5:##add|8:##select|6:doDraw|
+     VarCount=#7:##count|7:PointXY|
+     DataCount=#6:Handle|7:PlayerX|7:Collise|
+     Width=440
+     Height=319
+     Point(##add)
+     Point(##select)
+     Point(##count)
+     link(##add,2149117:doRandom,[(19,9)(19,55)])
+     link(doDraw,10271306:doDraw,[(11,23)(11,251)])
+     link(PointXY,5104466:Var1,[(16,205)])
+    }
+    Add(Img_Ellipse,10271306,91,245)
+    {
+     Point2AsOffset=0
+     BgColor=65535
+     Style=1
+     Point(Point1)
+     Point(Point2)
+     link(onDraw,14448362:doEvent1,[])
+     link(Bitmap,10129213:Handle,[(97,16)(9,16)])
+     link(Point1,5104466:Var2,[])
+     link(Point2,5914282:Point,[(111,233)(139,233)])
+    }
+    Add(PointXY,5914282,133,189)
+    {
+     X=10
+     Y=10
+    }
+    Add(Memory,7646524,126,49)
+    {
+     Default=Integer(11)
+    }
+    Add(Memory,10908804,217,49)
+    {
+     Default=Integer(5)
+    }
+    Add(PointXY,4655807,98,154)
+    {
+     link(X,6591336:Var1,[(104,114)])
+     link(Y,13022105:Var1,[(111,121)])
+    }
+    Add(MultiElement,2559567,203,245)
+    {
+     @Hint=#22:Обработка координаты Х|
+     link(onEvent1,2811565:doWork3,[(252,251)(252,292)(81,292)])
+     link(Data1,11126075:Var2,[])
+     link(Data2,16221653:Var1,[(216,226)])
+    }
+    BEGIN_SDK
+      Add(EditMulti,2784491,3,3)
+      {
+       EventCount=1
+       WorkCount=1
+       DataCount=2
+       Width=475
+       Height=172
+       link(doWork1,9908193:doEvent1,[(15,9)(15,41)])
+      }
+      Add(If_else,13198225,189,49)
+      {
+       Type=1
+       Op2=Integer(1)
+       link(onTrue,1277010:doWork2,[])
+       link(onFalse,4875620:doCompare,[])
+      }
+      Add(Switch,8043746,329,49)
+      {
+       DataOn=Integer(-2)
+       DataOff=Integer(2)
+       link(onSwitch,115467:doValue,[])
+      }
+      Add(If_else,4875620,252,56)
+      {
+       Type=2
+       Op2=Integer(340)
+       link(onTrue,1277010:doWork3,[(284,60)])
+      }
+      Add(HubEx,1277010,294,42)
+      {
+       link(onEvent,8043746:doSwitch,[])
+      }
+      Add(Memory,115467,392,49)
+      {
+       Default=Integer(1)
+       link(onData,9353368:doWork1,[(434,55)(434,106)(319,106)])
+      }
+      Add(If_else,1302195,133,42)
+      {
+       Op2=Integer(1)
+       link(onTrue,1277010:doWork1,[(298,48)])
+       link(onFalse,13198225:doCompare,[])
+       link(Op1,2784491:Data2,[(139,9)(25,9)])
+      }
+      Add(Math,2658985,385,119)
+      {
+       ResultType=0
+       link(onResult,2784491:onEvent1,[(452,125)(452,9)])
+       link(Op1,2784491:Data1,[(391,17)(20,17)])
+       link(Op2,115467:Value,[])
+      }
+      Add(HubEx,9353368,315,112)
+      {
+       link(onEvent,2658985:doOperation,[])
+      }
+      Add(Hub,9908193,28,35)
+      {
+       link(onEvent1,9353368:doWork2,[(73,41)(73,125)])
+       link(onEvent2,12146451:doData,[])
+      }
+      Add(DoData,12146451,84,42)
+      {
+       link(onEventData,1302195:doCompare,[])
+       link(Data,2658985:Result,[(90,33)(122,33)(122,159)(391,159)])
+      }
+      Add(InfoTip,11513987,126,28)
+      {
+       Info=#12:Границы поля|
+       Font=[Arial,8,0,0,1]
+       VAlign=2
+       Width=113
+       Height=95
+      }
+      Add(InfoTip,11935975,245,28)
+      {
+       Info=#7:Ракетка|
+       Font=[Arial,8,0,0,1]
+       VAlign=2
+       Height=95
+      }
+    END_SDK
+    Add(GetDataEx,11126075,196,133)
+    {
+     link(Data,6591336:Var3,[(209,114)])
+    }
+    Add(GetDataEx,5104466,91,196)
+    {
+     link(Data,4655807:Point,[])
+    }
+    Add(GetDataEx,6591336,119,105)
+    {
+     link(Data,7646524:Value,[])
+    }
+    Add(GetDataEx,16221653,238,217)
+    {
+     link(Data,10129213:Collise,[(251,23)(23,23)])
+    }
+    Add(GetDataEx,13022105,210,112)
+    {
+     link(Data,10908804:Value,[])
+    }
+    Add(MultiElement,2196150,350,252)
+    {
+     @Hint=#22:Обработка координаты У|
+     link(onEvent1,10908804:doValue,[(409,258)(409,35)(200,35)(200,55)])
+     link(Data1,13022105:Var3,[(356,121)])
+     link(Data2,16221653:Var3,[(363,226)])
+     link(Data3,10093418:Var1,[])
+    }
+    BEGIN_SDK
+      Add(EditMulti,2784491,3,3)
+      {
+       EventCount=1
+       WorkCount=1
+       DataCount=3
+       Width=538
+       Height=186
+       link(doWork1,9908193:doEvent1,[(10,9)(10,62)])
+      }
+      Add(If_else,13198225,196,70)
+      {
+       Type=1
+       Op2=Integer(2)
+       link(onTrue,13608265:doWork2,[])
+       link(onFalse,4875620:doCompare,[])
+      }
+      Add(Switch,8043746,385,70)
+      {
+       DataOn=Integer(-1)
+       DataOff=Integer(1)
+       link(onSwitch,115467:doValue,[])
+      }
+      Add(If_else,4875620,259,77)
+      {
+       Type=2
+       Op2=Integer(290)
+       link(onTrue,16725948:doCompare,[])
+      }
+      Add(Memory,115467,448,70)
+      {
+       Default=Integer(1)
+       link(onData,2384240:doWork1,[(490,76)(490,117)(375,117)])
+      }
+      Add(If_else,16725948,315,77)
+      {
+       Op2=Integer(1)
+       link(onTrue,13608265:doWork3,[(368,83)])
+       link(Op1,2784491:Data3,[(321,15)(35,15)])
+      }
+      Add(HubEx,13608265,364,63)
+      {
+       link(onEvent,8043746:doSwitch,[])
+      }
+      Add(If_else,1302195,126,63)
+      {
+       Op2=Integer(1)
+       link(onTrue,13608265:doWork1,[(368,69)])
+       link(onFalse,13198225:doCompare,[])
+       link(Op1,2784491:Data2,[(132,20)(26,20)])
+      }
+      Add(HubEx,2384240,371,133)
+      {
+       link(onEvent,2658985:doOperation,[])
+      }
+      Add(Hub,9908193,21,56)
+      {
+       link(onEvent1,2384240:doWork2,[(61,62)(61,146)])
+       link(onEvent2,10392667:doData,[])
+      }
+      Add(Math,2658985,441,140)
+      {
+       ResultType=0
+       link(onResult,2784491:onEvent1,[(507,146)(507,9)])
+       link(Op1,2784491:Data1,[(447,26)(15,26)])
+       link(Op2,115467:Value,[])
+      }
+      Add(DoData,10392667,77,63)
+      {
+       link(onEventData,1302195:doCompare,[])
+       link(Data,2658985:Result,[(83,54)(119,54)(119,181)(447,181)])
+      }
+      Add(InfoTip,6975946,112,35)
+      {
+       Info=#5:Блоки|
+       Font=[Arial,8,0,0,1]
+       VAlign=2
+       Height=95
+      }
+      Add(InfoTip,11513987,182,35)
+      {
+       Info=#12:Границы поля|
+       Font=[Arial,8,0,0,1]
+       VAlign=2
+       Width=120
+       Height=95
+      }
+      Add(InfoTip,11935975,308,35)
+      {
+       Info=#7:Ракетка|
+       Font=[Arial,8,0,0,1]
+       VAlign=2
+       Height=95
+      }
+    END_SDK
+    Add(Random,2149117,35,49)
+    {
+     Min=1
+     link(onRandom,2811565:doWork2,[])
+    }
+    Add(HubEx,2811565,77,42)
+    {
+     link(onEvent,7646524:doValue,[])
+    }
+    Add(MultiElement,10093418,364,98)
+    {
+     @Hint=#45:Проверка нахождения ракетки(игрока) под мячом|
+     link(Data1,10129213:PlayerX,[(370,12)(16,12)])
+     link(Data2,11126075:Var3,[(377,85)(288,85)(288,142)])
+    }
+    BEGIN_SDK
+      Add(EditMulti,10009710,3,3)
+      {
+       DataCount=2
+       VarCount=1
+       Width=370
+       link(Var1,4776942:GetData,[(9,156)(41,156)])
+      }
+      Add(EventFromData,4776942,35,98)
+      {
+       link(onEvent,6163046:doCompare,[])
+      }
+      Add(If_else,6163046,105,98)
+      {
+       Type=1
+       link(onTrue,10418635:doOperation,[])
+       link(onFalse,5595982:doWork2,[(148,111)(148,118)])
+       link(Op1,530333:Var2,[])
+       link(Op2,3092428:Var1,[(118,51)])
+      }
+      Add(If_else,4140590,217,98)
+      {
+       Type=2
+       link(onTrue,9629589:doWork2,[])
+       link(onFalse,5595982:doWork1,[(270,111)])
+       link(Op2,3092428:Var3,[(230,51)])
+      }
+      Add(Math,10418635,161,98)
+      {
+       Op2=40
+       link(onResult,4140590:doCompare,[])
+       link(Op1,530333:Var3,[(167,65)])
+      }
+      Add(GetDataEx,530333,98,56)
+      {
+       link(Data,10009710:Data1,[(111,32)(9,32)])
+      }
+      Add(GetDataEx,3092428,112,42)
+      {
+       link(Data,10009710:Data2,[(125,25)(16,25)])
+      }
+      Add(ChanelToIndex,9629589,301,91)
+      {
+       link(onIndex,4776942:doData,[(343,97)(343,151)(22,151)(22,104)])
+      }
+      Add(HubEx,5595982,266,105)
+      {
+       link(onEvent,9629589:doWork1,[(288,118)(288,97)])
+      }
+    END_SDK
+    Add(Hub,14448362,140,245)
+    {
+     link(onEvent1,2559567:doWork1,[])
+     link(onEvent2,2196150:doWork1,[])
+    }
+  END_SDK
+  Add(For,9184855,55,121)
+  {
+   IncludeEnd=1
+   link(onEvent,16252116:doEvent1,[])
+   link(End,14227323:##count,[(68,105)(201,105)])
+  }
+  Add(Hub,16252116,118,121)
+  {
+   link(onEvent1,14227323:##select,[(172,127)(172,70)])
+   link(onEvent2,14227323:doDraw,[(183,134)(183,77)])
+  }
+  Add(InfoTip,10531081,238,35)
+  {
+   Info=#267: Схема организована таким образом, чтобы корректно обрабатывать № мячей одновременно. Обработкой перемещения и столкновения с объектами сцены каждый мяч  производит сам, что дает возможность один раз написать алгоритм без его дальнейшего копирования для каждого мяча.|
+   Font=[Arial,8,0,0,1]
+   HAlign=0
+   Width=197
+   Height=137
+  }
+END_SDK
+Add(GetDataEx,6405390,399,119)
+{
+ link(Data,14503369:Bitmap,[])
+}
+Add(Hub,123294,273,224)
+{
+ link(onEvent1,6598100:doWork1,[(341,230)(341,321)])
+ link(onEvent2,9808694:doWork1,[])
+}
+Add(MultiElement,6598100,392,315)
+{
+ @Hint=#44:Отрисовка и обработка столкновений с блоками|
+ link(Data1,6405390:Var1,[(398,128)])
+ link(Data2,9808694:Var1,[(405,289)(412,289)])
+}
+BEGIN_SDK
+  Add(EditMulti,11508079,3,3)
+  {
+   WorkCount=2
+   DataCount=2
+   VarCount=1
+   Width=468
+   Height=305
+   link(doWork1,5993822:doFor,[(30,33)(30,63)])
+   link(doWork2,9184855:doFor,[(21,32)(21,148)])
+   link(Var1,3450176:GetData,[(9,276)(208,276)])
+  }
+  Add(MultiElementEx,15889519,195,57)
+  {
+   Mode=1
+   link(onCheck,7899793:doEvent1,[])
+   link(Handle,11508079:Data1,[(201,23)(26,23)])
+   link(PointXY,11508079:Data2,[(208,16)(27,16)])
+  }
+  BEGIN_SDK
+    Add(EditMultiEx,10129213,3,3)
+    {
+     WorkCount=#5:##add|8:##select|7:doCheck|8:##delete|
+     EventCount=#7:onCheck|
+     VarCount=#7:##count|
+     DataCount=#6:Handle|7:PointXY|
+     Width=440
+     Height=319
+     Point(##add)
+     Point(##select)
+     Point(##delete)
+     Point(##count)
+     link(##add,12095491:doEvent1,[(21,9)(21,41)])
+     link(##select,9749955:doDraw,[(16,16)(16,272)])
+     link(doCheck,12805257:doCheck,[(10,23)(10,251)])
+    }
+    Add(Img_Rectangle,9749955,126,266)
+    {
+     Point2AsOffset=0
+     BgColor=8421376
+     Style=1
+     Point(Point1)
+     Point(Point2)
+     link(Bitmap,10129213:Handle,[(132,12)(9,12)])
+     link(Point1,7716914:Var2,[])
+     link(Point2,10803475:Var1,[(146,240)])
+    }
+    Add(PointXY,5914282,168,182)
+    {
+     X=30
+     Y=10
+    }
+    Add(PointXY,4655807,133,140)
+    {
+     link(X,12258290:Value,[])
+     link(Y,2660768:Value,[(146,114)(251,114)])
+    }
+    Add(Memory,12258290,133,35)
+    {
+    }
+    Add(Memory,2660768,245,42)
+    {
+    }
+    Add(GetDataEx,10803475,161,231)
+    {
+     link(Data,5914282:Point,[])
+    }
+    Add(PointInRect,12805257,322,245)
+    {
+     Point2AsOffset=0
+     link(onTrue,10129213:onCheck,[(398,251)(398,9)])
+     link(Point,10129213:PointXY,[(328,8)(16,8)])
+     link(RPoint1,7716914:Var3,[(335,198)])
+     link(RPoint2,10803475:Var3,[(342,240)])
+    }
+    Add(GetDataEx,7716914,126,189)
+    {
+     link(Data,4655807:Point,[])
+    }
+    Add(MathParse,12334645,77,35)
+    {
+     DataCount=1
+     MathStr="(%1 mod 9)*30 + 30"
+     ResultType=0
+     link(onResult,12258290:doValue,[])
+    }
+    Add(Hub,12095491,28,35)
+    {
+     link(onEvent1,12334645:doCalc,[])
+     link(onEvent2,2903405:doCalc,[])
+    }
+    Add(MathParse,2903405,182,42)
+    {
+     DataCount=1
+     MathStr="(%1 div 9)*10 + 70"
+     ResultType=0
+     link(onResult,2660768:doValue,[])
+    }
+  END_SDK
+  Add(For,9184855,34,142)
+  {
+   IncludeEnd=1
+   link(onEvent,326209:doWork2,[])
+   link(End,12832596:Var1,[(47,107)])
+  }
+  Add(GetDataEx,6125187,364,126)
+  {
+   link(Data,12053453:Value,[])
+  }
+  Add(For,5993822,77,57)
+  {
+   Start=9
+   End=50
+   link(onEvent,15889519:##add,[])
+  }
+  Add(EventFromData,3450176,202,142)
+  {
+   link(onEvent,14117348:doEvent1,[])
+   link(Data,6125187:Var1,[(208,135)])
+  }
+  Add(DoData,3650650,301,57)
+  {
+   Data=Integer(1)
+   link(onEventData,12053453:doValue,[])
+  }
+  Add(Memory,12053453,371,57)
+  {
+   Default=Integer(0)
+   link(onData,3450176:doData,[(459,63)(459,212)(196,212)(196,148)])
+  }
+  Add(Hub,14117348,252,142)
+  {
+   link(onEvent1,12053453:doClear,[(318,148)(318,70)])
+   link(onEvent2,16468162:doFor,[])
+  }
+  Add(For,16468162,349,149)
+  {
+   IncludeEnd=1
+   link(onEvent,2206430:doEvent1,[(400,155)(400,205)(85,205)(85,169)])
+   link(onStop,10576871:doCompare,[(390,162)(390,258)])
+   link(End,12832596:Var3,[(362,107)])
+  }
+  Add(Hub,2206430,97,163)
+  {
+   link(onEvent1,326209:doWork3,[(137,169)])
+   link(onEvent2,15889519:doCheck,[(164,176)(164,77)])
+  }
+  Add(HubEx,326209,133,135)
+  {
+   link(onEvent,15889519:##select,[(151,148)(151,70)])
+  }
+  Add(GetDataEx,12832596,188,98)
+  {
+   link(Data,15889519:##count,[])
+  }
+  Add(Hub,7899793,245,57)
+  {
+   link(onEvent1,3650650:doData,[])
+   link(onEvent2,16468162:doStop,[(296,70)(296,162)])
+  }
+  Add(If_else,10576871,399,252)
+  {
+   Op2=Integer(1)
+   link(onTrue,15889519:##delete,[(441,258)(441,292)(181,292)(181,84)])
+   link(Op1,6125187:Var3,[(405,135)])
+  }
+END_SDK
+Add(InfoTip,12415306,77,21)
+{
+ Info=#24:Прототип игры "Арканоид"|
+ Font=[Arial,14,1,0,1]
+ Frame=1
+ Width=428
+ Height=18
+}
+Add(LinkTip,13149026,21,63)
+{
+ Link="Отрисовка и управление игроком=multi://7710337"
+ Font=[MS Sans Serif,8,4,16711680,1]
+}
+Add(LinkTip,16259595,21,84)
+{
+ Link="Отрисовка и перемещение мяча=multi://9808694"
+ Font=[MS Sans Serif,8,4,16711680,1]
+}
+Add(LinkTip,6662237,21,105)
+{
+ Link="Отрисовка и обработка столкновений с блоками=multi://6598100"
+ Font=[MS Sans Serif,8,4,16711680,1]
+}

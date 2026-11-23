@@ -1,0 +1,11 @@
+Rotate a picture=Поворот картинки
+Image rotation angle (in degrees)=Угол поворота картинки (в градусах)
+Background fill color when rotating the image=Цвет заливки фона при повороте картинки
+Rotates the image=Поворачивает картинку
+Reflects the image vertically=Отражает картинку по вертикали
+Reflects the image horizontally=Отражает картинку по горизонтали
+The event occurs after the image rotation operation is completed and outputs it to the ARG(Bitmap) stream=Событие происходит после выполнения операции поворота картинки и выдает ее в поток ARG(Bitmap)
+Defines the image to be rotated=Определяет картинку для поворота
+Contains the width of the resulting image=Содержит ширину полученной картинки
+Contains the height of the resulting image=Содержит высоту полученной картинки
+Contains a rotated image=Содержит повернутую картинку

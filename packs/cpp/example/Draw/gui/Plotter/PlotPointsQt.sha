@@ -1,0 +1,40 @@
+Make(cpp)
+Add(MainForm,1,28,28)
+{
+ Backend=1
+ Caption="Scatter plot"
+ Width=550
+ Height=310
+}
+Add(Plotter,2,210,84)
+{
+ Name="Chart"
+ Left=12
+ Top=12
+ Width=520
+ Height=240
+}
+Add(TrackBar,3,28,140)
+{
+ Left=12
+ Top=265
+ Width=320
+ Height=25
+ link(onPosition,4:doAdd,[])
+}
+Add(PlotPoints,4,140,140)
+{
+ Grapher="Chart"
+ Shape=2
+ Size=5
+ Step=1
+ MaxValues=25
+}
+Add(Button,5,140,196)
+{
+ Left=420
+ Top=265
+ Width=110
+ Caption="Clear"
+ link(onClick,2:doClear,[])
+}

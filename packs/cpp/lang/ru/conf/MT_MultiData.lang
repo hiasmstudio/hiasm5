@@ -1,0 +1,6 @@
+Decomposition of MT-stream into elements=Разложение MT-потока на элементы
+Arrange starting from Nth=Раскладывать, начиная с N-го
+Number of output channels=Количество выходных каналов
+Decomposes the MT stream into elements=Раскладывает MT-поток на элементы
+Input MT data=Входные MT-данные
+Remaining MT flux after decomposition=Оставшийся MT-поток после разложения

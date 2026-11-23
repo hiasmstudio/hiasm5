@@ -1,0 +1,6 @@
+Retrieving Audio Stream Tags=Получение тегов звукового потока
+Sound stream=Звуковой поток
+Return tag type=Тип возвращаемых тэгов
+Lists the tags of the specified audio stream=Пречисляет тэги указанного звукового потока
+The event occurs every time after receiving the next tag and outputs it to the ARG(Tag) stream=Событие происходит всякий раз после получения очередного тэга и выдает его в поток ARG(Tag)
+The event occurs every time after the end of tag searching=Событие происходит всякий раз после окончания перебора тэгов

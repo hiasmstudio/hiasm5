@@ -1,0 +1,15 @@
+Diagram=Диаграмма
+Coordinates of the upper left corner of the diagram=Координаты верхнего левого угра диаграммы
+Coordinates of the lower right corner of the diagram=Координаты нижнего правого угра диаграммы
+Count the coordinates of the second point relative to the first=Отсчитывать координаты второй точки относительно первой
+Defines the default color of the edge (outer border) of the arc (sector)=Определяет цвет кромки (внешней границы) дуги (сектора) по-умолчанию
+Shape fill style: bsClear - without fill, bsSolid - with BgColor color, bsManual - custom fill based on BgColors=Стиль заливки фигуры: bsClear - без заливки, bsSolid - цветом BgColor, bsManual - пользовательская заливка по св-ву BgColors
+Defines the color of the first sector of the chart=Определяет цвет первого сектора диаграммы
+The font in which the text will be drawn=Шрифт, которым будет нарисован текст
+Chart elements=Элементы диаграммы
+Mask used to form the title of one diagram element (%name% - name from the Items list, %per% - element value in percentage, %val% - direct element value)=Маска, по которой формируется заголовок одного элемента диаграммы (%name% - имя из списка Items, %per% - значение элемента в процентах, %val% - непосредственное значение элемента)
+Show legend=Показывать легенду
+Legend area size=Размер области, отводимой под легенду
+Display sector signature when the corresponding data value is 0%=Отображать подпись сектора при значении соответствующих данных равных 0%
+Defines the data to be displayed on the chart=Определяет данные для вывода на диаграмму
+Edge (outer border) color of the ellipse=Цвет кромки (внешней границы) эллипса

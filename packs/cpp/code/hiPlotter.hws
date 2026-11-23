@@ -1,0 +1,85 @@
+func Plot()
+  return('qt_widget<HiasmPlotter>(form, "Plotter' && _id_ && '")')
+end
+
+func doStart
+  if(is_qt_project())
+    println('{ auto *plotter = new HiasmPlotter(widgetParent);')
+    println('plotter->setObjectName(QStringLiteral("Plotter', _id_, '"));')
+    println('plotter->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+    println('plotter->setToolTip(qt_text(', cstr(get('Hint')), '));')
+    println('plotter->setEnabled(', get('Enabled') == 'True', ');')
+    println('plotter->setVisible(', get('Visible') == 'True', ');')
+    println('plotter->mouseControl = ', get('MouseControl') == 'True', ';')
+    println('plotter->gridX = ', GridX, '; plotter->gridY = ', GridY, ';')
+    println('plotter->minX = ', MinW, '; plotter->maxX = ', MaxW, ';')
+    println('plotter->minY = ', MinH, '; plotter->maxY = ', MaxH, ';')
+    println('plotter->margins = QMargins(qMax(0, int(', LeftMargin, ')), qMax(0, int(', TopMargin, ')), qMax(0, int(', RightMargin, ')), qMax(0, int(', BottomMargin, ')));')
+    if(isndef(GridColor))
+      println('plotter->gridColor = qt_led_color(qt_text(', cstr(get('GridColor')), '), plotter->gridColor);')
+    end
+    if(isndef(BorderColor))
+      println('plotter->borderColor = qt_led_color(qt_text(', cstr(get('BorderColor')), '), plotter->borderColor);')
+    end
+    if(isndef(AxisColor))
+      println('plotter->axisColor = qt_led_color(qt_text(', cstr(get('AxisColor')), '), plotter->axisColor);')
+    end
+    if(isndef(Color))
+      println('auto palette = plotter->palette();')
+      println('palette.setColor(QPalette::Window, qt_led_color(qt_text(', cstr(get('Color')), '), palette.window().color()));')
+      println('plotter->setPalette(palette);')
+    end
+    println('}')
+  end
+end
+
+func doClear(_data)
+  println(Plot(), '->clear();')
+end
+
+func doSaveToFile(_data)
+  fvar(path)
+  path = d('FileName')
+  if(len(path) > 0)
+    println(Plot(), '->save(qt_text(', path, '));')
+  end
+end
+
+func SetBound(xAxis, maximum, value)
+  if(len(value) == 0)
+    value = 0
+  end
+  println(Plot(), '->setBound(', xAxis, ', ', maximum, ', qt_plot_value(', value, '));')
+end
+
+func doMinH(_data)
+  SetBound('false', 'false', _data)
+end
+
+func doMaxH(_data)
+  SetBound('false', 'true', _data)
+end
+
+func doMinW(_data)
+  SetBound('true', 'false', _data)
+end
+
+func doMaxW(_data)
+  SetBound('true', 'true', _data)
+end
+
+func MinX()
+  return(Plot() && '->extreme(true, false)')
+end
+
+func MaxX()
+  return(Plot() && '->extreme(true, true)')
+end
+
+func MinY()
+  return(Plot() && '->extreme(false, false)')
+end
+
+func MaxY()
+  return(Plot() && '->extreme(false, true)')
+end

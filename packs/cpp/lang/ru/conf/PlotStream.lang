@@ -1,0 +1,8 @@
+Displaying a stream on a chart=Вывод потока на график
+The series into which you want to output the values from the stream=Серия, в которую необходимо вывести значения из потока
+Data size: Byte - byte(1), Word - word, SmallInt - signed word, Cardinal - double word, Integer - double signed word, Simple - single precision real, Double - double precision real=Размер данных: Byte - байт(1), Word - слово, SmallInt - знаковое слово, Cardinal - двойное слово, Integer - двойное знаковое слово, Simple - действительное одинарной точности, Double - действительное двойной точности
+Clear a series before adding values to it=Очищать серию перед добавлением значений в нее
+Increment of X-axis values=Приращение значений по оси X
+Displays the data stream on a chart ARG(Stream)=Выводит поток данных на график ARG(Stream)
+The event occurs every time the stream is output=Событие происходит всякий раз после вывода потока
+Stream for plotting=Поток для вывода на график

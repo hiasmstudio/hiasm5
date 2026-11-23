@@ -1,0 +1,139 @@
+Make(cpp)
+Add(Button,13708268,63,70)
+{
+ Left=10
+ Top=10
+ Caption="Record"
+ link(onClick,5066922:doStart,[])
+}
+Add(Button,14140950,63,119)
+{
+ Left=75
+ Top=10
+ Caption="Stop"
+ link(onClick,5066922:doStop,[(179,125)(179,83)])
+}
+Add(BASS_RecordStart,5066922,210,70)
+{
+ Freq=44100
+ Mode=1
+ link(onStart,8212518:doOpen,[])
+ link(onData,8212518:doSend,[(282,83)(282,90)])
+}
+Add(BASS_Version,10183901,196,224)
+{
+ link(onCheckOk,12302345:doInit,[])
+ link(onCheckFailed,109118:doMessage,[(240,237)(240,279)])
+}
+Add(Message,11232751,196,273)
+{
+ Message="Error BASS initialization"
+ Caption="Error"
+ Icon=1
+}
+Add(Message,109118,252,273)
+{
+ Message="Incorrect version of BASS library "
+ Caption="Error"
+ Icon=1
+}
+Add(MainForm,16358250,63,210)
+{
+ Width=511
+ Height=274
+ Caption="BASS sockets demo"
+ Point(Handle)
+ link(onCreate,4252681:doInit,[])
+}
+Add(BASS_Init,4252681,140,224)
+{
+ link(onInit,10183901:doCheck,[])
+ link(onError,11232751:doMessage,[(184,237)(184,279)])
+ link(Handle,16358250:Handle,[(160,212)(114,212)(114,254)(69,254)])
+}
+Add(BASS_RecordCenter,12302345,252,224)
+{
+ link(onInit,10295078:doOpen,[])
+ link(onError,11713735:doMessage,[(296,237)(296,279)])
+}
+Add(Message,11713735,308,273)
+{
+ Message="InitRecord failed!"
+ Caption="Error"
+ Icon=1
+}
+Add(TCP_Server,10295078,413,224)
+{
+ Port=152
+ DataType=3
+ link(onRead,3011513:doEvent1,[])
+ link(onConnect,14476773:doCreate,[(458,237)(458,293)])
+}
+Add(TCP_Client,8212518,322,70)
+{
+ Port=152
+ IP="127.0.0.1"
+ DataType=3
+}
+Add(Grapher,13475393,574,231)
+{
+ Left=10
+ Top=35
+ Width=485
+ Height=200
+ MaxH=0
+ LeftMargin=0
+ RightMargin=0
+ TopMargin=0
+ BottomMargin=0
+}
+Add(BASS_StreamCreate,14476773,518,287)
+{
+ DataType=1
+ Name="MainSound"
+ link(onCreate,3047460:doPlay,[])
+ link(Data,14690913:Stream,[])
+}
+Add(BASS_ChannelPlay,3047460,574,287)
+{
+ Channel="MainSound"
+}
+Add(Hub,3011513,462,224)
+{
+ link(onEvent1,14690913:doAdd,[])
+ link(onEvent2,13475393:doAdd,[])
+}
+Add(VolumeSummator,7708361,273,112)
+{
+ Level=20
+ Mode=1
+}
+Add(SoundBuffer,14690913,518,224)
+{
+ Size=200000
+}
+Add(Label,11744101,749,287)
+{
+ Left=315
+ Top=10
+ Width=10
+ Height=17
+ Caption="0"
+}
+Add(Timer,9591408,651,287)
+{
+ link(onTimer,1010683:doData,[])
+}
+Add(DoData,1010683,700,287)
+{
+ link(onEventData,11744101:doText,[])
+ link(Data,14690913:FullState,[(706,271)(531,271)])
+}
+Add(Label,6671871,749,336)
+{
+ Left=245
+ Top=10
+ Width=67
+ Height=17
+ Caption="Buffer usage:"
+}

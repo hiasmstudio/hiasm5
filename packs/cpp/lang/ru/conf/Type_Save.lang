@@ -1,0 +1,10 @@
+Saves the type to a file or stream=Сохраняет тип в файл или stream
+Defines the name of the file to save into; if empty, the result of saving will be a stream=Определяет имя файла для сохранения в него типа, если пустое, результатом сохранения будет поток
+Output stream format=Формат выходного потока
+Saves the type=Сохраняет тип
+Clears component memory=Очищает память компонента
+Event occurs after the type is saved=Событие происходит после сохранения типа
+The event occurs after an error occurs and outputs its code to the stream=Событие происходит после возникновения ошибки и выдает ее код в поток
+Specifies the type to convert=Определяет тип для преобразовывания
+Specifies the name of the file in which the type will be saved=Определяет имя файла, в который будет сохранен тип
+Contains the result if FileName is empty=Содержит результат при пустом FileName

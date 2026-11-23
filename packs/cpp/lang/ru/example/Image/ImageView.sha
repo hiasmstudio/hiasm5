@@ -1,0 +1,96 @@
+*Просмотр картинок
+Make(cpp)
+Add(MainForm,41807,56,224)
+{
+ Left=310
+ Top=259
+ Width=405
+ Height=263
+ Caption="Picture viewer"
+ BorderStyle=3
+ TaskBar=1
+}
+Add(HubEx,10449354,280,91)
+{
+ link(onEvent,71505:doLoad,[])
+}
+Add(DropFile,97222,119,154)
+{
+ link(onDropFile,16714778:doWork3,[(172,160)])
+}
+Add(Button,6334,56,91)
+{
+ Left=10
+ Top=10
+ Width=75
+ Font=[Arial,8,0,0,1]
+ TabOrder=-1
+ Caption="Open"
+ link(onClick,5049552:doExecute,[])
+}
+Add(ImageLoader,4434340,203,91)
+{
+ DrawSource=2
+ link(onLoad,4434340:doDraw,[(247,97)(247,75)(191,75)(191,104)])
+ link(onDraw,10449354:doWork2,[])
+}
+Add(InfoTip,72034,49,7)
+{
+ Info=#17:Просмотр картинок|
+ Font=[Times New Roman,16,1,0,1]
+ Frame=1
+ Width=302
+ Height=25
+}
+Add(ODialog,5049552,119,91)
+{
+ Filter="*.bmp|*.bmp"
+ link(onExecute,16714778:doWork2,[])
+}
+Add(ClipboardHook,92140,203,154)
+{
+ link(onBitmap,10449354:doWork3,[(284,167)])
+}
+Add(Image,71505,350,98)
+{
+ Left=105
+ Top=10
+ Width=285
+ Height=210
+ Color=16777215
+}
+Add(InfoTip,89592,42,49)
+{
+ Info=#11:Из файла...|
+ Font=[Times New Roman,9,0,0,1]
+ Width=288
+ Height=214
+}
+Add(InfoTip,22169,49,70)
+{
+ Info=#10:выбранного|
+ Font=[Times New Roman,9,0,0,1]
+ Width=113
+ Height=67
+}
+Add(InfoTip,64047,49,140)
+{
+ Info=#19:брошенного на форму|
+ Font=[Times New Roman,9,0,0,1]
+ VAlign=2
+ Width=134
+ Height=74
+}
+Add(InfoTip,85395,189,140)
+{
+ Info=#16:Из буфера обмена|
+ Font=[Times New Roman,9,0,0,1]
+ VAlign=2
+ HAlign=2
+ Width=127
+ Height=74
+}
+Add(HubEx,16714778,168,84)
+{
+ link(onEvent,4434340:doLoad,[])
+}

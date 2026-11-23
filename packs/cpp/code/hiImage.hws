@@ -1,0 +1,69 @@
+func doStart
+  println('{')
+  println('auto *image = new HiasmImage(widgetParent);')
+  println('image->setObjectName(QStringLiteral("Image', _id_, '"));')
+  println('image->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+  println('image->autoSize = ', get('AutoSize') == 'True', ';')
+  switch(get('ViewStyle'))
+    case 'Center': println('image->viewStyle = 0;')
+    case 'Stretch': println('image->viewStyle = 1;')
+    case 'Mosaic': println('image->viewStyle = 3;')
+    case 'None': println('image->viewStyle = 4;')
+    case 'ScaleMax': println('image->viewStyle = 5;')
+  end
+  println('image->smooth = ', get('HalfTone') == 'True', ';')
+  println('image->setAutoFillBackground(true);')
+  println('auto palette = image->palette();')
+  println('palette.setColor(QPalette::Window, qt_led_color(qt_text(', cstr(d('Color')), '), palette.color(QPalette::Window)));')
+  println('image->setPalette(palette);')
+  println('image->setBitmap(qt_bitmap(qt_text(', cstr(d('Picture')), ')));')
+  if(linked(onClick))
+    println('image->clicked = [&form] {')
+    event(onClick)
+    println('};')
+  end
+  println('}')
+end
+
+func doLoad(_data)
+  if(linked('Bitmap'))
+    println('qt_widget<HiasmImage>(form, "Image', _id_, '")->setBitmap(', d('Bitmap'), ');')
+  elseif(len(_data) > 0)
+    println('qt_widget<HiasmImage>(form, "Image', _id_, '")->setBitmap(', _data, ');')
+  end
+end
+
+func doClear(_data)
+  println('qt_widget<HiasmImage>(form, "Image', _id_, '")->setBitmap(QImage());')
+end
+
+func doRefresh(_data)
+  println('qt_widget<HiasmImage>(form, "Image', _id_, '")->update();')
+end
+
+func doViewStyle(_data)
+  if(len(_data) > 0)
+    println('{ auto *image = qt_widget<HiasmImage>(form, "Image', _id_, '");')
+    println('const int style = qt_text(', _data, ').toInt();')
+    println('if (style >= 0 && style <= 5) { image->viewStyle = style; image->update(); } }')
+  end
+end
+
+func doHalfTone(_data)
+  if(len(_data) > 0)
+    println('{ auto *image = qt_widget<HiasmImage>(form, "Image', _id_, '");')
+    println('image->smooth = qt_flag(qt_text(', _data, ')); image->update(); }')
+  end
+end
+
+func ImageBitmap()
+  return('qt_widget<HiasmImage>(form, "Image' && _id_ && '")->bitmap')
+end
+
+func ImageWidth()
+  return('qt_widget<HiasmImage>(form, "Image' && _id_ && '")->bitmap.width()')
+end
+
+func ImageHeight()
+  return('qt_widget<HiasmImage>(form, "Image' && _id_ && '")->bitmap.height()')
+end

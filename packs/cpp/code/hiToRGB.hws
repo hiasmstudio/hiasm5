@@ -1,0 +1,27 @@
+func ColorValue()
+  return('[](const std::string &text) { unsigned value = 0; if(text.size() >= 7 && text[0] == static_cast<char>(35)) value = static_cast<unsigned>(std::stoul(text.substr(1, 6), nullptr, 16)); else value = static_cast<unsigned>(std::strtoul(text.c_str(), nullptr, 10)); return static_cast<int>(value); }(' && cstr(get('Color')) && ')')
+end
+
+func doGetRGB(_data)
+  println('{')
+  block.inclvl()
+  println('const int hiasm_color', _id_, ' = ', ColorValue(), ';')
+  println('hiasm_int_state(', _id_, ' * 10 + 1, 0) = (hiasm_color', _id_, ' >> 16) & 0xFF;')
+  println('hiasm_int_state(', _id_, ' * 10 + 2, 0) = (hiasm_color', _id_, ' >> 8) & 0xFF;')
+  println('hiasm_int_state(', _id_, ' * 10 + 3, 0) = hiasm_color', _id_, ' & 0xFF;')
+  event(onResult, 'hiasm_color' && _id_)
+  block.declvl()
+  println('}')
+end
+
+func R()
+  return('hiasm_int_state(' && _id_ && ' * 10 + 1, 0)')
+end
+
+func G()
+  return('hiasm_int_state(' && _id_ && ' * 10 + 2, 0)')
+end
+
+func B()
+  return('hiasm_int_state(' && _id_ && ' * 10 + 3, 0)')
+end

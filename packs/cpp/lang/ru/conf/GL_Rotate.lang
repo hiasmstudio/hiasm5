@@ -1,0 +1,7 @@
+Rotation=Поворот
+Angle=Угол
+X coefficient=Коэффициент по X
+Y coefficient=Коэффициент по Y
+Z coefficient=Коэффициент по Z
+Rotates the coordinate system by a specified angle=Поворачивает систему координат на заданный угол
+The event occurs after the coordinate system is rotated=Событие происходит после поворота системы координат

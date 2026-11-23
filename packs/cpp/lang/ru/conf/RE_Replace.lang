@@ -1,0 +1,9 @@
+Replaces all substrings matching a regular expression with the given ones=Заменяет все подстроки, соответствующие регулярному выражению, на заданные
+Regular expression used to search for substrings=Регулярное выражение, по которому производится поиск подстрок
+The string to which each substring found in SourceStr is replaced. Using the notation $n, where n is the number of the found subgroup of the regular expression, you can substitute this very found subgroup into the resulting string=Строка, на которую заменяется каждая найденная в SourceStr подстрока. С помощью записи $n, где n - номер найденной подгруппы регулярного выражения, можно подставлять в результирующую строку эту самую найденную подгруппу
+Replaces all substrings in SourceStr with ReplaceStr=Заменяет все подстроки в SourceStr на ReplaceStr
+The event occurs after doReplace is called and outputs the result of the replacement to the stream.=Событие происходит после вызова doReplace и выдает в поток результат замены
+The line to be replaced=Строка, в которой необходимо произвести замену
+Defines a regular expression=Определяет регулярное выражение
+Specifies the string to be replaced with=Определяет строку, на которую будет производиться замена
+Contains the replacement result=Содержит результат замены

@@ -1,0 +1,8 @@
+Mail.ru agent authorization=Авторизация Mail.ru агента
+Defines Mail.ru agent for authorization on the server=Определяет Mail.ru agent для авторизации на сервере
+Mail.ru mailbox name=Имя почтового ящика на Mail.ru
+Mailbox password=Пароль от почтового ящика
+Client status bar=Строка состояния клиента
+Performs authorization on the Mail.ru server ARG(Mail, Password)=Производит авторизацию на сервере Mail.ru ARG(Mail, Password)
+The event occurs every time after successful authorization on the Mail.ru server=Событие происходит всякий раз после успешной авторизации на сервере Mail.ru
+The event occurs every time after unsuccessful authorization on the Mail.ru server=Событие происходит всякий раз после неудачной авторизации на сервере Mail.ru

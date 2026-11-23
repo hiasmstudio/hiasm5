@@ -1,0 +1,9 @@
+include('qtMstClient')
+
+func AllSelect()
+  return('(' && MstTarget() && ' ? ' && MstTarget() && '->rowFlags(false, true) : QVariantList())')
+end
+
+func SelCount()
+  return('int(' && AllSelect() && '.size())')
+end

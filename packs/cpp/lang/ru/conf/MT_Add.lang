@@ -1,0 +1,6 @@
+Adding an element to a multidimensional stream=Добавление элемента в многомерный поток
+Stores default data placed into the stream using the doAdd method=Хранит данные по-умолчанию, помещаемые в поток методом doAdd
+Using data from a stream: Head - to the head of the stream, Tail - to the tail of the stream, Nul - equivalent to NULL input data, SendUp - for function calls=Использование данных из потока: Head - в голову потока, Tail - в хвост потока, Nul - эквивалентно входным данным NULL, SendUp - для функциональных вызовов
+Adds data to a multidimensional stream=Добавляет данные в многомерный поток
+The event occurs after data has been added and outputs it to the stream=Событие происходит после добавления данных и выдает их в поток
+Data to add to stream=Данные для добавления в поток

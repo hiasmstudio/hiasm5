@@ -1,0 +1,10 @@
+Recording management=Управление записью
+WAV file name to record data=Имя WAV файла для записи данных
+Audio sampling rate=Частота дискретизации звукозаписи
+Number of sound recording channels=Количество каналов звукозаписи
+File - writing data to a file, Stream - outputting data to a stream=File - запись данных в файл, Stream - выдача данных в поток
+Audio stream name=Имя потока звукозаписи
+Starts recording=Начинает звукозапись
+Stops audio recording=Останавливает звукозапись
+The event occurs every time after the start of audio recording=Событие происходит всякий раз после начала звукозаписи
+The event occurs every time the next piece of data is received and outputs it to the stream ARG(Stream)=Событие происходит всякий раз при получении очередной порции данных и выдает их в поток ARG(Stream)

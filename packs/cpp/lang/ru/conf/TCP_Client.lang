@@ -1,0 +1,15 @@
+TCP client=TCP клиент
+Server port=Порт сервера
+Server IP address=IP адрес сервера
+Data type for transmission and reception=Тип данных для передачи и приёма
+Establishes a connection to the server=Устанавливает соединение с сервером
+Closes the connection=Закрывает соединение
+Sends data to the server port=Отсылает данные в порт сервера
+Receiving data from the port=Приём данных из порта
+The event occurs when the client connects to the server successfully=Событие происходит при успешном соединении клиента с сервером
+Event occurs when the client disconnects from the server=Событие происходит при отсоединении клиента от сервера
+The event occurs when there is an error working with sockets and outputs its number to the stream=Событие происходит при ошибке работы с сокетами и выдает её номер в поток
+Contains 1 if the connection is active, 0 otherwise=Содержит 1, если соединение активно, и 0 - в противном случае
+Defines the server IP address=Определяет IP адрес сервера
+Data to send to the server=Данные для отправки на сервер
+Defines the client port=Определяет порт клиента

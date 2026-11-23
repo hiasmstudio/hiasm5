@@ -1,0 +1,9 @@
+Installing effects per channel=Установка эффектов на канал
+Effect index=Индекс эффекта
+Set an effect with Index to a channel=Установить эффект с индексом Index на канал
+Remove an effect with identifier FXHandle from a channel=Снять эффект с идентификатором FXHandle с канала
+Returns the identifier of the installed effect=Возвращает идентификатор установленного эффекта
+ID of the last installed effect=Идентификатор последнего установленного эффекта
+Channel ID=Идентификатор канала
+Effect index from 0 to 8=Индекс эффекта от 0 до 8
+Effect ID=Идентификатор эффекта

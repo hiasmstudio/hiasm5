@@ -1,0 +1,1348 @@
+Make(cpp)
+Pos(1,1139)
+Add(InfoTip,12763557,83,563)
+{
+ Info=#13:Как работает:|
+ Font=[Arial,16,1,0,204]
+ Frame=2
+ Transparent=1
+ HAlign=0
+ Width=155
+ Margin=5
+}
+Add(InfoTip,4951329,83,591)
+{
+ Info=#372:  Для организаци кабеля используется технология из МТ потоков, а именно переменная ldata в структуре TData. При создании кабеля создается переменная TData с data_type := data_Cable, а входящие Data помещаются в "хвост" цепочки. Соответственно на выходе проверяется является ли data кабелем, ищется точка соответствующая условию(номер или имя) и на нее выдается Data.ldata.|368:  При образовании вложенности, в работе нумерованных и именованных кабелей есть отличия. Нумерованный кабель образуют цепочку из нескольких TData в зависимости от количества вложений. Именованные же всегда состоят из двух TData, а вложенность организованна через строковую переменную sdata, в которую, через разделитель помещаются имена точек (н-р:'MyVar.Colors.Red').|0:|143:  PS: В идеальном варианте сами элементы Cable не должны генерировать код в конечной программе, и на базе FTCG это думаю возможно реализовать. |
+ Font=[Arial,14,0,0,204]
+ Frame=2
+ Transparent=1
+ HAlign=0
+ Width=785
+ Height=258
+ Margin=5
+}
+Add(InfoTip,16284577,83,226)
+{
+ Info=#53:4.2 Для именованных кабелей есть два варианта вызова:|67:   - первый, как и в нумерованных кабелях, с зеркальной симметрией;|82:   - второй, по полному имени. В этом случае вложенность указывается через точку. |46:н-р: Panel1.SetText, MyVars.Colors.Red и т.д. |
+ Font=[Arial,14,0,0,204]
+ Frame=2
+ Transparent=1
+ HAlign=0
+ Width=785
+ Height=87
+ Margin=5
+}
+Add(InfoTip,7064307,83,-1069)
+{
+ Info=#207:   Основная идея - объединить несколько потоков HiAsm  в один. То есть, группировка потоков, сходных по каким либо признакам. Сам кабель не должен вносить какие либо изменения в проходящие через него потоки.|20:   Основные понятия:|76: - Cable или кабель - поток объединяющий в группу несколько других потоков. |45: - Wire или провод - любой поток  в  кабеле. |244:   Кабель может быть нумерованным, когда обращение к проводам  происходит по индексу или именованным - по имени. Так же кабеля поддерживают вложенность, т.е. кабель может содержать другие кабеля. На всех схемах кабель обозначен цветом clSkyBlue|64:Для просмотра примеров их необходимо скопировать в новый проект.|
+ Font=[Arial,14,0,0,204]
+ Frame=2
+ Transparent=1
+ HAlign=0
+ Width=785
+ Height=200
+ Margin=5
+}
+Add(InfoTip,10626558,83,9)
+{
+ Info=#
+ Frame=2
+ Width=302
+ Height=144
+}
+Add(Shape,2535992,615,-908)
+{
+ Height=11
+ Color=15780518
+ PColor=15780518
+}
+Add(ChildPanelEx,16282236,566,467)
+{
+ PColor(Cable,16744448)
+ link(Cable,5739982:Var3,[(572,446)])
+}
+BEGIN_SDK
+  Add(EditMultiEx,7971950,3,3)
+  {
+   WorkCount=#6:doData|
+   DataCount=#5:Cable|
+   Width=650
+   Height=410
+   link(doData,6831967:doEvent1,[(15,9)(15,251)])
+  }
+  Add(Panel,14454905,525,77)
+  {
+   Left=105
+   Top=50
+   Width=193
+   Height=193
+   Point(doColor)
+  }
+  Add(Label,2823395,133,224)
+  {
+   Left=45
+   Top=30
+   Height=20
+  }
+  Add(DoData,5835661,84,224)
+  {
+   link(onEventData,2823395:doText,[])
+   link(Data,14978276:Const.SysName,[])
+  }
+  Add(CableVarNamed,14978276,84,105)
+  {
+   Wire=#13:Const.SysName|8:Const.Pi|12:Const.Radius|
+   PColor(Cable,16744448)
+   link(Cable,8657400:Var2,[])
+  }
+  Add(FormatStr,14093371,427,259)
+  {
+   DataCount=3
+   Mask="%1; %2; %3 "
+   link(onFString,15749942:doText,[])
+   link(Str1,11513584:red,[])
+   link(Str2,11513584:green,[])
+   link(Str3,11513584:blue,[])
+  }
+  Add(Hub,6831967,28,245)
+  {
+   OutCount=3
+   link(onEvent1,12034504:doCalc,[(71,251)(71,174)])
+   link(onEvent2,5835661:doData,[(76,258)(76,230)])
+   link(onEvent3,14093371:doString,[(70,265)(70,265)])
+  }
+  Add(Label,15109296,455,21)
+  {
+   Left=10
+   Top=55
+   Width=93
+   Height=20
+   Caption="L=2*Pi*Radius;"
+  }
+  Add(MathParse,12034504,112,168)
+  {
+   MathStr="2*%1* %2"
+   link(onResult,1309971:doText,[])
+   link(X1,14978276:Const.Pi,[(118,152)(97,152)])
+   link(X2,14978276:Const.Radius,[(125,146)(104,146)])
+  }
+  Add(Label,1309971,175,168)
+  {
+   Left=100
+   Top=75
+  }
+  Add(Label,9817775,511,21)
+  {
+   Left=10
+   Top=75
+   Width=77
+   Height=20
+   Caption="Результат:"
+  }
+  Add(Label,4035436,574,21)
+  {
+   Left=10
+   Top=5
+   Width=74
+   Height=20
+   Caption="Константы"
+  }
+  Add(Label,5747186,574,203)
+  {
+   Left=10
+   Top=100
+   Width=44
+   Height=20
+   Caption="Цвета: "
+  }
+  Add(CableVarNamed,11513584,427,203)
+  {
+   Wire=#3:red|5:green|4:blue|
+   GroupName="Colors"
+   PColor(Cable,16744448)
+   link(Cable,8657400:Var3,[(433,51)])
+  }
+  Add(Label,2173645,574,98)
+  {
+   Left=10
+   Top=140
+   Width=71
+   Height=20
+   Caption="Значения:"
+  }
+  Add(Label,5581731,574,259)
+  {
+   Left=10
+   Top=120
+   Width=179
+   Height=20
+   Caption="Красный, Зеленый, Синий"
+  }
+  Add(GetDataEx,8657400,77,42)
+  {
+   PColor(Data,16744448)
+   link(Data,7971950:Cable,[(90,4)(9,4)])
+  }
+  Add(Label,15749942,490,259)
+  {
+   Left=80
+   Top=140
+   Width=95
+   Caption=""
+  }
+  Add(Label,2680553,574,147)
+  {
+   Left=10
+   Top=30
+   Width=23
+   Height=20
+   Caption="ОС"
+  }
+END_SDK
+Add(InfoTip,4435833,454,422)
+{
+ Info=#13:Кабель данных|
+ Frame=2
+ Width=113
+ Margin=2
+}
+Add(ChildPanelEx,15878795,444,467)
+{
+ PColor(Cable,16744448)
+ link(Cable,5739982:Var1,[(450,446)])
+}
+BEGIN_SDK
+  Add(EditMultiEx,14725351,3,3)
+  {
+   WorkCount=#6:doData|
+   DataCount=#5:Cable|
+   Width=482
+   Height=333
+   link(doData,3173455:doEvent1,[(13,41)(13,139)])
+  }
+  Add(Panel,92380,224,21)
+  {
+   Left=10
+   Top=50
+   Width=91
+   Height=194
+   Point(doColor)
+  }
+  Add(CableVarNamed,13069132,133,35)
+  {
+   Wire=#3:Key|5:rolex|5:Phone|
+   GroupName="pictures"
+   PColor(Cable,16744448)
+   link(Cable,14725351:Cable,[(139,19)(9,19)])
+  }
+  Add(Image,4518511,217,189)
+  {
+   Left=20
+   Top=25
+   Width=50
+   Height=50
+   link(Bitmap,13069132:Key,[(223,121)(139,121)])
+  }
+  Add(Hub,3173455,42,133)
+  {
+   OutCount=3
+   link(onEvent1,10525953:doLoad,[(201,139)(201,90)])
+   link(onEvent2,6468713:doLoad,[])
+   link(onEvent3,4518511:doLoad,[(201,153)(201,195)])
+  }
+  Add(Label,10362491,294,21)
+  {
+   Left=15
+   Top=5
+   Width=66
+   Height=20
+   Caption="Картинки"
+  }
+  Add(Image,10525953,245,84)
+  {
+   Left=20
+   Top=135
+   Width=50
+   Height=50
+   link(Bitmap,13069132:Phone,[(251,75)(153,75)])
+  }
+  Add(Image,6468713,231,140)
+  {
+   Left=20
+   Top=80
+   Width=50
+   Height=50
+   link(Bitmap,13069132:rolex,[(237,96)(146,96)])
+  }
+END_SDK
+Add(MultiElementEx,7362271,503,376)
+{
+}
+BEGIN_SDK
+  Add(EditMultiEx,12396046,3,3)
+  {
+   VarCount=#5:Cable|
+   Width=566
+   Height=305
+   link(Cable,7023458:Cable,[(9,278)(258,278)])
+  }
+  Add(CableDataNamed,7023458,252,217)
+  {
+   Wire=#6:Colors|5:Const|8:Pictures|
+   link(Colors,14025374:Cable,[(258,167)(97,167)])
+   link(Const,6373965:Cable,[])
+   link(Pictures,867850:Cable,[(272,167)(454,167)])
+  }
+  Add(CableDataNamed,14025374,91,84)
+  {
+   Wire=#3:Red|5:Green|4:Blue|
+   link(Red,6788324:Value,[(97,75)(55,75)])
+   link(Green,8251519:Value,[])
+   link(Blue,2736938:Value,[(111,75)(153,75)])
+  }
+  Add(Memory,6788324,49,28)
+  {
+   Default=Integer(6)
+  }
+  Add(Memory,8251519,98,28)
+  {
+   Default=Integer(10)
+  }
+  Add(Memory,2736938,147,28)
+  {
+   Default=Integer(2)
+  }
+  Add(CableDataNamed,6373965,259,84)
+  {
+   Wire=#2:Pi|6:Radius|7:SysName|
+   link(Pi,13012598:Value,[(265,72)(223,72)])
+   link(Radius,7580743:Value,[])
+   link(SysName,8702400:Value,[(279,72)(321,72)])
+  }
+  Add(Memory,13012598,217,28)
+  {
+   Default=Real(3.14159)
+  }
+  Add(Memory,7580743,266,28)
+  {
+   Default=Integer(100)
+  }
+  Add(Memory,8702400,315,28)
+  {
+   Default=String(Windows)
+  }
+  Add(CableDataNamed,867850,448,84)
+  {
+   Wire=#3:Key|5:Phone|5:Rolex|
+   link(Key,14043854:Bitmap,[(454,72)(405,72)])
+   link(Phone,12582569:Bitmap,[])
+   link(Rolex,39161:Bitmap,[(468,72)(510,72)])
+  }
+  Add(Bitmap,14043854,399,28)
+  {
+   Picture=[ZIP3610000078DAED964112C2200C45F5061EA14BF7CEF400EEBD46EFE49D7A27245868A0441A2C9F4D3313379DE13D48883C5FE3EDE262B479B7392C7975BF3696EF3C8C3167DAEC7D1E2E1E5337871C1FE922F191757131AFFB46D724F067B677347F7A7F931C880DE047413CEF8062D35E89973A20F9DE21F500D43E84E0819EC1E27954BA68FFF3448F8A7A843BE5D752AC1179240EAA35F8192A1D367784DFCF8207674B33B6AA863BFB23C7FFC741D31F12FB08FEDEFE68CD2FF6C72FFEC1B34DEC0FA9271ACED6C843EABDC6B3BDC8176AD39A5FBA1BB03338F9B8B745EE5D8FE4777C536F1C00774FF306FA001B028CFE]
+  }
+  Add(Bitmap,12582569,455,28)
+  {
+   Picture=[ZIP3610000078DAED96CD6DC3300C85D50D3A428FBD1BC80041AE3D7A05ADE059B49357F02CAAE48AC61343EAAFCAA935F012DB61F43D5114EDFBD7EDDD9CC72DE833E823E9EDFC0C47FA1D0FEF7D55DBB64D510BEB55EC110F2EE467FDA5463D44F60C491E5AD97BAC0F3BA6BDE0A1B4D6C4CFD8BB35DE2D97A43C973CD4F83C3F191FD8C43A8EE3499A8FDA1A487E243E679B746EE09EE4A1A506E235F6038DCF79DC0B9D1B53E7A307EC4386D71EB0517E319738BB87CFE7FE347F61EEC43D63D2391DB40E2D7C62F3F5A8CD9FD824CC412F9FE77F74FEA3FC9EFCD7D67F84DF92FF5AFDE3FDD6FDA7D5FFB4FD1F7D0B7CA9F715F33FD2FFA857035FEBF95AFE1DF25BFA3FFCDECBA7733E66C94355C0CE7C2A1E5693EFE95DF3805E244FACEEA431D5E70D8D99C6A5F807A8F6DCA7B8551AD3CA1E1CC6C1335FE2B7EAE2B331E3B7CA87FC65FD35F96FE1526CF67F9BEF496D0D30063DF87011B50BEBC9C56339DB697BC142ADE17FB0C6780D4AC258984B36BEF6EE69F377D7AC978C481AAFF5FDDFCE79FFEE626A5A961FCD8EFDD79FD73768390E50]
+  }
+  Add(Bitmap,39161,504,28)
+  {
+   Picture=[ZIP3610000078DAB597CD7184300C8549072921C329156C0119AE7BA485B4402DDCF6904268841E72DF03E179F6312F1AC1802D33A335B6853F49967FF6EB7E7B6FD2735BE573958F97BCA5DFF579F5EBB32CCB2969DBF6B49C1DF38A745DD70CC390649EE724AC6B7B0D3ED8CA87B0CD6B8FB6818C699AB672EF1D652D3EE23B8EE3167FEF3D9A4F76DFF7A90E8E977368473FF4226D001F715596CD3BF220E0533F8ACFF547D6CFE391385AAA1DD48F6693C7396FC6EFED5DED88B2816B895CE531D7B48E7EDA11B117914F9F7F9FCB3F26EA6A0BEBD02FE5ABEFEAA3326DBBAEC7D218A8EF36EE9E289BF350C2E73C7A713F62EB3C3006B97CCD751B77EE33CAE65E4C810EE308DD1CFF114BCF77EA681B98B0137D28F13DF7CF5CFF31CE5ECE715F563ED91C836764C9FC7B6B9D79A671B06722FD2F3D77C0F162409BA0CF35023DE67FAEEFCA870F476BDECB079DFB5CBE8D81B7BE98FB767D96FAEEC5C0CE03D8141BF708DFF5FCB3E7AEEEB7BAE7F3FCE377A57C1D43EF9947E77F245BEF3FDC0FB8EF59D17EE847F2EDFD4F59147BFF8BE2E7DC7F23D939F7FF1AFC2BFF7FA2F9B461EF3F9FB6D760936FEF043607D156937F56AE8CFB07BBD55ECF]
+  }
+END_SDK
+Add(InfoTip,14570293,363,349)
+{
+ Info=#14:рабочий пример|
+ Frame=2
+ VAlign=2
+ HAlign=2
+ Width=302
+ Height=200
+ Margin=3
+}
+Add(InfoTip,9009772,356,317)
+{
+ Info=#
+ Frame=3
+ Width=10
+ Height=235
+}
+Add(Button,3995271,111,452)
+{
+ Left=5
+ Top=105
+ Width=145
+ Height=21
+ Caption="Панель 2. Текст"
+ Data=String(Нажата кнопка 2)
+ link(onClick,13636893:Panel2.SetText,[(155,458)(155,437)])
+}
+Add(HubEx,13960903,489,-278)
+{
+ PColor(onEvent,16744448)
+ link(onEvent,9237293:Cable,[])
+}
+Add(InfoTip,11399905,48,-1097)
+{
+ Info=#1:1|
+ Font=[Arial,16,1,8388608,204]
+ Frame=3
+ Transparent=1
+ Width=24
+ Height=25
+ Margin=2
+}
+Add(InfoTip,14110772,83,-831)
+{
+ Info=#19:Кабель для событий.|74:Создается при соединении точек Cable элементов HiCableWork и HiCableEvent.|
+ Font=[Arial,14,0,0,204]
+ Frame=2
+ Transparent=1
+ HAlign=0
+ Width=330
+ Height=69
+ Margin=5
+}
+Add(MainForm,4428482,6,-1137)
+{
+ Left=20
+ Top=105
+ Width=420
+ Height=262
+}
+Add(InfoTip,11057147,83,-1097)
+{
+ Info=#36:Справка по элементам Cable (Кабель).|
+ Font=[Arial,18,1,0,204]
+ Frame=2
+ Transparent=1
+ HAlign=0
+ Width=400
+ Margin=5
+}
+Add(CableEvent,11404561,244,-698)
+{
+ Count=3
+ link(Wire1,14451401:doText,[(295,-692)(295,-727)])
+ link(Wire2,3755081:doText,[])
+ link(Wire3,11644329:doText,[(295,-678)(295,-643)])
+}
+Add(InfoTip,8392610,83,-859)
+{
+ Info=#7:Начало:|
+ Font=[Arial,16,1,0,204]
+ Frame=2
+ Transparent=1
+ HAlign=0
+ Width=99
+ Margin=5
+}
+Add(CableWork,6889040,181,-698)
+{
+ Count=3
+ PColor(Cable,16744448)
+ link(Cable,11404561:Cable,[])
+}
+Add(InfoTip,12039005,419,366)
+{
+ Info=#10:Все данные|12:и переменные|9:программы|
+ Frame=2
+ HAlign=0
+ Width=127
+ Height=53
+ Margin=2
+}
+Add(InfoTip,9620575,384,457)
+{
+ Info=#0:|0:|0:|55:Модули программы использующие общие данные и переменные|
+ Frame=2
+ Width=232
+ Height=74
+ Margin=3
+}
+Add(GetDataEx,5739982,496,437)
+{
+ PColor(Data,16744448)
+ link(Data,7362271:Cable,[])
+}
+Add(InfoTip,1372958,699,-1137)
+{
+ Info=#12:Автор: Chesh|19:e-mail: chesh@bk.ru|
+ Font=[Arial,14,0,0,204]
+ Frame=2
+ Transparent=1
+ HAlign=0
+ Width=169
+ Height=48
+ Margin=5
+}
+Add(Button,14128495,398,467)
+{
+ Left=10
+ Top=30
+ Width=90
+ Caption="Смотреть"
+ link(onClick,15878795:doData,[])
+}
+Add(CableEventNamed,421737,230,417)
+{
+ Wire=#6:Panel1|6:Panel2|
+ PColor(Panel1,16744448)
+ PColor(Panel2,16744448)
+ link(Panel1,14290657:doText,[(283,423)(283,400)])
+ link(Panel2,4356191:doText,[(283,430)(283,451)])
+}
+Add(InfoTip,8807409,83,-740)
+{
+ Info=#14:рабочий пример|
+ Frame=2
+ VAlign=2
+ HAlign=2
+ Width=302
+ Height=144
+ Margin=3
+}
+Add(InfoTip,7527128,426,-831)
+{
+ Info=#18:Кабель для данных.|71:Создается при соединении точек Cable элементов HiCableVar и HiCableData|
+ Font=[Arial,14,0,0,204]
+ Frame=2
+ Transparent=1
+ HAlign=0
+ Width=442
+ Height=69
+ Margin=5
+}
+Add(InfoTip,10576480,426,-740)
+{
+ Info=#14:рабочий пример|
+ Frame=2
+ VAlign=2
+ HAlign=2
+ Width=197
+ Height=242
+ Margin=3
+}
+Add(CableData,6764850,503,-670)
+{
+ Count=3
+ link(Wire1,13950521:Text,[(509,-679)(460,-679)])
+ link(Wire2,11377523:Text,[])
+ link(Wire3,15845224:Text,[(523,-679)(565,-679)])
+}
+Add(CableVar,15632428,503,-607)
+{
+ Count=3
+ PColor(Cable,16744448)
+ link(Cable,6764850:Cable,[])
+}
+Add(Edit,13950521,454,-726)
+{
+ Left=30
+ Top=20
+ Width=100
+ Text="строка один"
+}
+Add(Edit,11377523,510,-726)
+{
+ Left=140
+ Top=20
+ Width=100
+ Text="строка два"
+}
+Add(Edit,15845224,559,-726)
+{
+ Left=260
+ Top=20
+ Width=100
+ Text="строка три"
+}
+Add(FormatStr,14832726,503,-551)
+{
+ DataCount=3
+ Mask="%1 %2 %3"
+ link(onFString,3073776:doText,[])
+ link(Str1,15632428:Wire1,[])
+ link(Str2,15632428:Wire2,[])
+ link(Str3,15632428:Wire3,[])
+}
+Add(Button,1448623,454,-551)
+{
+ Left=30
+ Top=65
+ Width=145
+ Caption="Объединить строки"
+ link(onClick,14832726:doString,[])
+}
+Add(Label,3073776,552,-551)
+{
+ Left=30
+ Top=95
+ Width=330
+ Underline=0
+}
+Add(CableWorkNamed,1463645,181,-530)
+{
+ Wire=#3:one|3:two|5:three|
+ PColor(Cable,16744448)
+ link(Cable,720746:Cable,[])
+}
+Add(CableEventNamed,720746,244,-530)
+{
+ Wire=#3:one|3:two|5:three|
+ link(one,10985290:doText,[(295,-524)(295,-559)])
+ link(two,87896:doText,[])
+ link(three,4490164:doText,[(295,-510)(295,-475)])
+}
+Add(Button,6470611,118,-565)
+{
+ Left=25
+ Top=20
+ Width=70
+ Caption="Кнопка 1"
+ Data=String(Нажата кнопка 1)
+ link(onClick,1463645:one,[(166,-559)(166,-524)])
+}
+Add(Button,15648297,118,-523)
+{
+ Left=25
+ Top=50
+ Width=70
+ Caption="Кнопка 2"
+ Data=String(Нажата кнопка 2)
+ link(onClick,1463645:two,[])
+}
+Add(Button,16227963,118,-481)
+{
+ Left=25
+ Top=80
+ Width=70
+ Caption="Кнопка 3"
+ Data=String(Нажата кнопка 3)
+ link(onClick,1463645:three,[(166,-475)(166,-510)])
+}
+Add(Label,10985290,314,-565)
+{
+ Left=120
+ Top=25
+ Width=150
+}
+Add(Label,87896,314,-523)
+{
+ Left=120
+ Top=55
+ Width=150
+}
+Add(Label,4490164,314,-481)
+{
+ Left=120
+ Top=85
+ Width=150
+}
+Add(InfoTip,1807844,83,-572)
+{
+ Info=#14:рабочий пример|
+ Frame=2
+ VAlign=2
+ HAlign=2
+ Width=302
+ Height=144
+ Margin=3
+}
+Add(InfoTip,12384471,90,-761)
+{
+ Info=#14:Нумерованный: |
+ Font=[Arial,10,0,0,204]
+ Frame=2
+ Transparent=1
+ HAlign=0
+ Width=106
+ Height=25
+ Margin=5
+}
+Add(InfoTip,5316674,90,-593)
+{
+ Info=#13:Именованный: |
+ Font=[Arial,10,0,0,204]
+ Frame=2
+ Transparent=1
+ HAlign=0
+ Width=99
+ Height=25
+ Margin=5
+}
+Add(InfoTip,4537866,433,-761)
+{
+ Info=#14:Нумерованный: |
+ Font=[Arial,10,0,0,204]
+ Frame=2
+ Transparent=1
+ HAlign=0
+ Width=106
+ Height=25
+ Margin=5
+}
+Add(InfoTip,11755130,629,-740)
+{
+ Info=#14:рабочий пример|
+ Frame=2
+ VAlign=2
+ HAlign=2
+ Width=239
+ Height=242
+ Margin=3
+}
+Add(CableDataNamed,234493,727,-670)
+{
+ Wire=#3:one|3:two|5:three|
+ link(one,13875678:Text,[(733,-679)(684,-679)])
+ link(two,5603278:Text,[])
+ link(three,1425362:Text,[(747,-679)(789,-679)])
+}
+Add(CableVarNamed,14702627,727,-600)
+{
+ Wire=#3:one|3:two|5:three|
+ PColor(Cable,16744448)
+ link(Cable,234493:Cable,[])
+}
+Add(Edit,13875678,678,-726)
+{
+ Left=30
+ Top=20
+ Width=100
+ Text="строка один"
+}
+Add(Edit,5603278,734,-726)
+{
+ Left=140
+ Top=20
+ Width=100
+ Text="строка два"
+}
+Add(Edit,1425362,783,-726)
+{
+ Left=260
+ Top=20
+ Width=100
+ Text="строка три"
+}
+Add(FormatStr,4144009,727,-551)
+{
+ DataCount=3
+ Mask="%1 %2 %3"
+ link(onFString,13208373:doText,[])
+ link(Str1,14702627:one,[])
+ link(Str2,14702627:two,[])
+ link(Str3,14702627:three,[])
+}
+Add(Button,16277584,678,-551)
+{
+ Left=30
+ Top=65
+ Width=145
+ Caption="Объединить строки"
+ link(onClick,4144009:doString,[])
+}
+Add(Label,13208373,776,-551)
+{
+ Left=30
+ Top=95
+ Width=330
+ Underline=0
+}
+Add(InfoTip,5157059,636,-761)
+{
+ Info=#13:Именованный: |
+ Font=[Arial,10,0,0,204]
+ Frame=2
+ Transparent=1
+ HAlign=0
+ Width=99
+ Height=25
+ Margin=5
+}
+Add(InfoTip,10399610,391,-495)
+{
+ Info=#188:info: Для именованных кабелей не имеет значения  порядок точек и их количество. Событие или чтение данных произойдет только в том случае если совпадет имя провода(точки) на входе и выходе.|
+ Font=[Times New Roman,11,2,0,204]
+ Frame=2
+ Transparent=1
+ HAlign=0
+ Width=477
+ Height=67
+ Margin=5
+}
+Add(InfoTip,15948315,76,-859)
+{
+ Info=#
+ Frame=3
+ Width=10
+ Height=431
+}
+Add(InfoTip,1100613,419,-831)
+{
+ Info=#
+ Frame=3
+ Width=10
+ Height=333
+}
+Add(InfoTip,8547638,76,-1097)
+{
+ Info=#
+ Frame=3
+ Width=10
+ Height=228
+}
+Add(InfoTip,5384955,48,-859)
+{
+ Info=#1:2|
+ Font=[Arial,16,1,8388608,204]
+ Frame=3
+ Transparent=1
+ Width=24
+ Height=25
+ Margin=2
+}
+Add(InfoTip,15556178,83,-89)
+{
+ Info=#173:Кабеля поддерживают вложенность. Т.е. кабель может получить на входе не только поток (событие/данные), но другой кабель. И соответственно его же получим на выходе из кабеля.|28:4.1 Для нумерованных кабелей|
+ Font=[Arial,14,0,0,204]
+ Frame=2
+ Transparent=1
+ HAlign=0
+ Width=785
+ Height=69
+ Margin=5
+}
+Add(InfoTip,6894886,83,-117)
+{
+ Info=#12:Вложенность:|
+ Font=[Arial,16,1,0,204]
+ Frame=2
+ Transparent=1
+ HAlign=0
+ Width=155
+ Margin=5
+}
+Add(InfoTip,9244054,90,156)
+{
+ Info=#102:info: При вложенности нумерованных кабелей необходимо соблюдать зеркальную симметрию входов и выходов.|
+ Font=[Times New Roman,11,2,0,204]
+ Frame=2
+ Transparent=1
+ HAlign=0
+ Width=295
+ Height=60
+ Margin=5
+}
+Add(InfoTip,1005569,426,9)
+{
+ Info=#
+ Frame=2
+ Width=197
+ Height=207
+}
+Add(InfoTip,11610949,90,-12)
+{
+ Info=#7:События|
+ Font=[Arial,10,0,0,204]
+ Frame=2
+ Transparent=1
+ Width=190
+ Height=25
+ Margin=5
+}
+Add(InfoTip,13574412,433,-12)
+{
+ Info=#6:Данные|
+ Font=[Arial,10,0,0,204]
+ Frame=2
+ Transparent=1
+ Width=183
+ Height=25
+ Margin=5
+}
+Add(CableVar,12327938,552,170)
+{
+ PColor(Cable,16744448)
+ link(Cable,4239076:Wire2,[(558,162)(523,162)])
+}
+Add(CableVar,8429358,475,170)
+{
+ PColor(Cable,16744448)
+ link(Cable,4239076:Wire1,[(481,162)(516,162)])
+}
+Add(InfoTip,8487959,419,-19)
+{
+ Info=#
+ Frame=3
+ Width=10
+ Height=235
+}
+Add(InfoTip,2427802,48,-117)
+{
+ Info=#1:4|
+ Font=[Arial,16,1,8388608,204]
+ Frame=3
+ Transparent=1
+ Width=24
+ Height=25
+ Margin=2
+}
+Add(CableEvent,13065702,251,65)
+{
+ PColor(Wire1,16744448)
+ PColor(Wire2,16744448)
+ link(Wire1,174061:Cable,[(295,71)(295,50)])
+ link(Wire2,6435505:Cable,[(295,78)(295,92)])
+}
+Add(CableWork,15237128,195,65)
+{
+ PColor(Cable,16744448)
+ link(Cable,13065702:Cable,[])
+}
+Add(CableWork,9251337,125,86)
+{
+ PColor(Cable,16744448)
+ link(Cable,15237128:Wire2,[(176,92)(176,78)])
+}
+Add(CableWork,6559629,125,44)
+{
+ PColor(Cable,16744448)
+ link(Cable,15237128:Wire1,[(176,50)(176,71)])
+}
+Add(CableEvent,6435505,307,86)
+{
+}
+Add(CableEvent,174061,307,44)
+{
+}
+Add(CableVar,4239076,510,121)
+{
+ PColor(Cable,16744448)
+ link(Cable,13355891:Cable,[])
+}
+Add(CableData,13355891,510,72)
+{
+ PColor(Wire1,16744448)
+ PColor(Wire2,16744448)
+ link(Wire1,2065517:Cable,[(516,64)(481,64)])
+ link(Wire2,11009680:Cable,[(523,64)(551,64)])
+}
+Add(CableData,11009680,545,23)
+{
+}
+Add(CableData,2065517,475,23)
+{
+}
+Add(InfoTip,8317833,83,-391)
+{
+ Info=#228:Так как понятие "Кабель" достаточно условное, кабель это прежде всего обычный поток HiAsm, то кабеля работют со всеми стандартными элементами объединения, ветвления и доступа к данным, такими как Hub, HubEx, GetData и GetDataEx.|
+ Font=[Arial,14,0,0,204]
+ Frame=2
+ Transparent=1
+ HAlign=0
+ Width=785
+ Height=69
+ Margin=5
+}
+Add(InfoTip,10453796,83,-419)
+{
+ Info=#10:Ветвление:|
+ Font=[Arial,16,1,0,204]
+ Frame=2
+ Transparent=1
+ HAlign=0
+ Width=155
+ Margin=5
+}
+Add(InfoTip,15599487,83,-293)
+{
+ Info=#
+ Frame=2
+ Width=519
+ Height=116
+}
+Add(InfoTip,13874409,90,-174)
+{
+ Info=#44:info: Для именованных кабелей все тоже самое|
+ Font=[Times New Roman,11,2,0,204]
+ Frame=2
+ Transparent=1
+ HAlign=0
+ Width=435
+ Margin=5
+}
+Add(InfoTip,7478831,615,-293)
+{
+ Info=#
+ Frame=2
+ Width=253
+ Height=158
+}
+Add(InfoTip,465807,90,-314)
+{
+ Info=#7:События|
+ Font=[Arial,10,0,0,204]
+ Frame=2
+ Transparent=1
+ Width=190
+ Height=25
+ Margin=5
+}
+Add(InfoTip,12503427,622,-314)
+{
+ Info=#6:Данные|
+ Font=[Arial,10,0,0,204]
+ Frame=2
+ Transparent=1
+ Width=183
+ Height=25
+ Margin=5
+}
+Add(CableEvent,9237293,517,-271)
+{
+}
+Add(CableWork,11912002,440,-229)
+{
+ PColor(Cable,16744448)
+ link(Cable,13960903:doWork3,[(493,-223)])
+}
+Add(InfoTip,15415367,76,-419)
+{
+ Info=#
+ Frame=3
+ Width=10
+ Height=284
+}
+Add(InfoTip,11041295,608,-321)
+{
+ Info=#
+ Frame=3
+ Width=10
+ Height=186
+}
+Add(InfoTip,13303321,48,-419)
+{
+ Info=#1:3|
+ Font=[Arial,16,1,8388608,204]
+ Frame=3
+ Transparent=1
+ Width=24
+ Height=25
+ Margin=2
+}
+Add(CableEvent,15653716,209,-229)
+{
+}
+Add(CableWork,13006066,104,-271)
+{
+ PColor(Cable,16744448)
+ link(Cable,14273261:doEvent1,[])
+}
+Add(Button,2746413,118,-733)
+{
+ Left=25
+ Top=20
+ Width=70
+ Caption="Кнопка 1"
+ Data=String(Нажата кнопка 1)
+ link(onClick,6889040:Wire1,[(166,-727)(166,-692)])
+}
+Add(CableWork,12439940,440,-271)
+{
+ PColor(Cable,16744448)
+ link(Cable,13960903:doWork2,[])
+}
+Add(Button,5996522,517,467)
+{
+ Left=140
+ Top=30
+ Width=90
+ Caption="Смотреть"
+ link(onClick,16282236:doData,[])
+}
+Add(CableVar,10319611,713,-180)
+{
+ PColor(Cable,16744448)
+ link(Cable,10025307:Data2,[(719,-188)(677,-188)])
+}
+Add(Hub,14273261,153,-271)
+{
+ PColor(onEvent1,16744448)
+ PColor(onEvent2,16744448)
+ link(onEvent1,4404799:Cable,[])
+ link(onEvent2,15653716:Cable,[(197,-258)(197,-223)])
+}
+Add(CableEvent,4404799,209,-271)
+{
+}
+Add(Label,14451401,314,-733)
+{
+ Left=120
+ Top=25
+ Width=150
+}
+Add(Button,9838183,118,-649)
+{
+ Left=25
+ Top=80
+ Width=70
+ Caption="Кнопка 3"
+ Data=String(Нажата кнопка 3)
+ link(onClick,6889040:Wire3,[(166,-643)(166,-678)])
+}
+Add(Hub,15992231,321,-271)
+{
+ InCount=2
+ OutCount=1
+ PColor(onEvent1,16744448)
+ link(onEvent1,7210393:Cable,[])
+}
+Add(Button,8844142,118,-691)
+{
+ Left=25
+ Top=50
+ Width=70
+ Caption="Кнопка 2"
+ Data=String(Нажата кнопка 2)
+ link(onClick,6889040:Wire2,[])
+}
+Add(CableWork,14204321,272,-271)
+{
+ PColor(Cable,16744448)
+ link(Cable,15992231:doEvent1,[])
+}
+Add(CableEvent,7210393,377,-271)
+{
+}
+Add(CableWork,12028850,272,-229)
+{
+ PColor(Cable,16744448)
+ link(Cable,15992231:doEvent2,[(312,-223)(312,-258)])
+}
+Add(Label,3755081,314,-691)
+{
+ Left=120
+ Top=55
+ Width=150
+}
+Add(Label,11644329,314,-649)
+{
+ Left=120
+ Top=85
+ Width=150
+}
+Add(ChildPanelEx,14290657,304,394)
+{
+}
+BEGIN_SDK
+  Add(EditMultiEx,8523059,3,3)
+  {
+   WorkCount=#6:doText|
+   PColor(doText,16744448)
+   link(doText,10990261:Cable,[(26,9)(26,41)])
+  }
+  Add(Panel,15219517,210,140)
+  {
+   Left=160
+   Top=20
+   Width=163
+   Height=72
+   Caption="Первая панель"
+   Alignment=2
+   Point(doColor)
+  }
+  Add(Label,16772006,182,35)
+  {
+   Left=25
+   Top=10
+   Width=115
+   Alignment=2
+  }
+  Add(CableEventNamed,10990261,49,35)
+  {
+   Wire=#7:SetText|10:DoCheckBox|
+   link(SetText,16772006:doText,[])
+   link(DoCheckBox,7395533:doCheck,[(131,48)(131,97)])
+  }
+  Add(CheckBox,7395533,182,91)
+  {
+   Left=30
+   Top=45
+   Width=90
+  }
+END_SDK
+Add(GetData,10025307,664,-229)
+{
+ PColor(Data,16744448)
+ link(Data,16519099:Cable,[])
+}
+Add(ChildPanelEx,4356191,304,445)
+{
+}
+BEGIN_SDK
+  Add(EditMultiEx,4979029,3,3)
+  {
+   WorkCount=#6:doText|
+   PColor(doText,16744448)
+   link(doText,3068505:Cable,[(23,9)(23,48)])
+  }
+  Add(Panel,11827435,231,133)
+  {
+   Left=160
+   Top=95
+   Width=164
+   Height=72
+   Caption="Вторая панель"
+   Alignment=2
+   Point(doColor)
+  }
+  Add(Label,15488286,175,42)
+  {
+   Left=5
+   Top=10
+   Width=150
+   Alignment=2
+  }
+  Add(CableEventNamed,3068505,42,42)
+  {
+   Wire=#7:SetText|10:DoCheckBox|
+   link(SetText,15488286:doText,[])
+   link(DoCheckBox,7395533:doCheck,[(124,55)(124,104)])
+  }
+  Add(CheckBox,7395533,175,98)
+  {
+   Left=30
+   Top=45
+   Width=90
+  }
+END_SDK
+Add(CableWorkNamed,13636893,174,417)
+{
+ Wire=#14:Panel1.SetText|17:Panel1.DoCheckBox|14:Panel2.SetText|17:Panel2.DoCheckBox|
+ PColor(Cable,16744448)
+ link(Cable,421737:Cable,[])
+}
+Add(CableVar,3163689,797,-180)
+{
+ PColor(Cable,16744448)
+ link(Cable,16740440:Var3,[(803,-220)])
+}
+Add(CableVar,9890514,755,-180)
+{
+ PColor(Cable,16744448)
+ link(Cable,16740440:Var2,[])
+}
+Add(GetDataEx,16740440,748,-229)
+{
+ PColor(Data,16744448)
+ link(Data,246779:Cable,[])
+}
+Add(InfoTip,3932195,83,349)
+{
+ Info=#14:рабочий пример|
+ Frame=2
+ VAlign=2
+ HAlign=2
+ Width=267
+ Height=200
+ Margin=3
+}
+Add(InfoTip,262072,671,331)
+{
+ Info=#237:info: Подобная схема построения может рассматриваться как альтернатива GlobalVar и LineBreakEx. Основные отличия - это все таки наличие связей, так характерных для HiAsm, и возможность обращаться и группировать события/данные по именам. |
+ Font=[Times New Roman,11,2,0,204]
+ Frame=2
+ Transparent=1
+ HAlign=0
+ Width=197
+ Height=218
+ Margin=5
+}
+Add(Button,9407181,111,410)
+{
+ Left=5
+ Top=55
+ Width=145
+ Height=21
+ Caption="Панель 1. CheckBox"
+ Data=Integer(1)
+ link(onClick,13636893:Panel1.DoCheckBox,[(155,416)(155,430)])
+}
+Add(InfoTip,9523247,90,331)
+{
+ Info=#7:События|
+ Font=[Arial,10,0,0,204]
+ Frame=2
+ Transparent=1
+ Width=190
+ Height=25
+ Margin=5
+}
+Add(InfoTip,10176679,370,331)
+{
+ Info=#6:Данные|
+ Font=[Arial,10,0,0,204]
+ Frame=2
+ Transparent=1
+ Width=183
+ Height=25
+ Margin=5
+}
+Add(Button,5817917,111,494)
+{
+ Left=5
+ Top=130
+ Width=145
+ Height=21
+ Caption="Панель 2. CheckBox"
+ Data=Integer(1)
+ link(onClick,13636893:Panel2.DoCheckBox,[(159,500)(159,444)])
+}
+Add(Button,7834939,111,368)
+{
+ Left=5
+ Top=30
+ Width=145
+ Height=21
+ Caption="Панель 1. Текст"
+ Data=String(Нажата кнопка 1)
+ link(onClick,13636893:Panel1.SetText,[(159,374)(159,423)])
+}
+Add(CableData,246779,755,-278)
+{
+}
+Add(CableData,16519099,664,-278)
+{
+}
+Add(CableVar,5516511,664,-180)
+{
+ PColor(Cable,16744448)
+ link(Cable,10025307:Data1,[])
+}
+Add(InfoTip,7493937,76,-117)
+{
+ Info=#
+ Frame=3
+ Width=10
+ Height=669
+}
+Add(InfoTip,14535278,76,563)
+{
+ Info=#
+ Frame=3
+ Width=10
+ Height=284
+}
+Add(InfoTip,8041652,48,563)
+{
+ Info=#1:5|
+ Font=[Arial,16,1,8388608,204]
+ Frame=3
+ Transparent=1
+ Width=24
+ Height=25
+ Margin=2
+}

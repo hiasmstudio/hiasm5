@@ -1,0 +1,58 @@
+Make(cpp)
+Add(MainForm,1,56,56)
+{
+ Caption="Проверка файла"
+}
+Add(Edit,2,56,150)
+{
+ Left=20
+ Top=20
+ Width=480
+ Height=26
+ Text="missing-test-file.wav"
+}
+Add(Button,3,56,240)
+{
+ Left=510
+ Top=20
+ Width=110
+ Height=26
+ Caption="Проверить"
+ link(onClick,4:doExecute,[])
+}
+Add(Code,4,56,330)
+{
+ Code=#109:const std::string panex_path = std::string(gtk_editable_get_text(GTK_EDITABLE(hiasm_widget("Edit2").get())));|25:std::string panex_status;|28:std::error_code panex_error;|54:if(panex_path.empty()) panex_status = "Путь не задан";|101:else if(!std::filesystem::exists(panex_path, panex_error)) panex_status = "Не найден: " + panex_path;|108:else if(!std::filesystem::is_regular_file(panex_path, panex_error)) panex_status = "Не файл: " + panex_path;|131:else panex_status = "Найден: " + panex_path + ", " + std::to_string(std::filesystem::file_size(panex_path, panex_error)) + " байт";|
+ Expression=panex_status
+ link(onResult,5:doAdd,[])
+}
+Add(Memo,5,56,420)
+{
+ Left=20
+ Top=60
+ Width=600
+ Height=340
+ ScrollBars=2
+ ReadOnly=0
+}
+Add(Button,6,56,510)
+{
+ Left=20
+ Top=412
+ Width=110
+ Height=26
+ Caption="Сброс"
+ link(onClick,7:doExecute,[])
+}
+Add(Code,7,56,600)
+{
+ Code=#69:gtk_editable_set_text(GTK_EDITABLE(hiasm_widget("Edit2").get()), "");|63:hiasm_text_set(GTK_TEXT_VIEW(hiasm_widget("Memo5").get()), "");|
+}
+Add(Label,8,56,690)
+{
+ Left=20
+ Top=448
+ Width=600
+ Height=20
+ Caption="Проверка через std::filesystem; результат записывает Memo.doAdd."
+}

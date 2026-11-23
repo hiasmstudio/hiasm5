@@ -1,0 +1,30 @@
+func Data(value)
+  if(linked('Data'))
+    return(d('Data'))
+  end
+  if(len(value) > 0)
+    return(value)
+  end
+  return('""')
+end
+
+func KeyValue()
+  if(linked('Key'))
+    return(d('Key'))
+  else
+    return(cstr(get('Key')))
+  end
+end
+
+func Expr(value)
+  return('[](std::string data, const std::string &key) { if(key.empty()) return data; for(std::size_t i = 0; i < data.size(); ++i) data[i] = static_cast<char>(data[i] ^ key[i % key.size()]); return data; }(std::string(' && Data(value) && '), std::string(' && KeyValue() && '))')
+end
+
+func doCrypt(_data)
+  println('hiasm_str_state(', _id_, ') = ', Expr(_data), ';')
+  event(onCrypt, 'hiasm_str_state(' && _id_ && ')')
+end
+
+func Result()
+  return('hiasm_str_state(' && _id_ && ')')
+end

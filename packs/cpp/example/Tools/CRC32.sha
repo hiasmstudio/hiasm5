@@ -1,0 +1,390 @@
+*Расчет CRC различными методами#13#10_______#13#10Автор: jeka_kam@mail.ru
+Make(cpp)
+ver(4.03 build 180)
+Add(MainForm,4317713,42,28)
+{
+ Left=10
+ Top=10
+ Width=386
+ Height=555
+ Caption="CRCalc"
+ Position=1
+}
+Add(Edit,4573438,210,175)
+{
+ Left=10
+ Top=120
+ Width=232
+ Text="123456789"
+}
+Add(Edit,10417654,308,217)
+{
+ Left=250
+ Top=120
+ Width=90
+ Text=""
+}
+Add(Edit,8942470,210,14)
+{
+ Left=10
+ Top=30
+ Width=230
+ Text="123456789"
+}
+Add(Edit,678435,308,56)
+{
+ Left=250
+ Top=30
+ Width=90
+ Text=""
+}
+Add(Edit,8826676,210,259)
+{
+ Left=10
+ Top=165
+ Width=232
+ Text="123456789"
+}
+Add(Edit,16028020,308,301)
+{
+ Left=250
+ Top=165
+ Width=90
+ Text=""
+}
+Add(Edit,2775784,210,343)
+{
+ Left=10
+ Top=215
+ Width=232
+ Text="123456789"
+}
+Add(Edit,12316974,308,385)
+{
+ Left=250
+ Top=215
+ Width=90
+ Text=""
+}
+Add(Edit,14144167,322,504)
+{
+ Left=250
+ Top=325
+ Width=90
+ Text=""
+}
+Add(Edit,4599238,273,455)
+{
+ Left=70
+ Top=280
+ Width=102
+ Text="$1021"
+ ReadOnly=0
+}
+Add(Label,4171571,42,154)
+{
+ Left=10
+ Top=10
+ Width=297
+ Height=17
+ Caption="CRC-16 Standart init $0000 polynon $A001 Revert false ASCII"
+}
+Add(Label,9610502,42,147)
+{
+ Left=10
+ Top=285
+ Width=57
+ Height=17
+ Caption="POLYNOM"
+}
+Add(Label,3166566,42,140)
+{
+ Left=215
+ Top=285
+ Width=25
+ Height=17
+ Caption="INIT"
+}
+Add(Label,4995289,42,133)
+{
+ Left=10
+ Top=195
+ Width=323
+ Height=17
+ Caption="CRC-CCITT (XModem) init $0000 polynon $1021 Revert false ASCII"
+}
+Add(ComboBox,8661664,203,441)
+{
+ Left=10
+ Top=325
+ Width=232
+ Height=21
+ Ctl3D=0
+ Strings=#13:$Ab00CD01EF55|18:$AB 00 CD 01 ef 55|12:AB00CD01EF55|17:AB 00 CD 01 EF 55|
+ Text=""
+ DataType=1
+ Point(EditText)
+ link(onClick,1275485:doWork3,[(249,454)])
+}
+Add(ComboBox,14252167,329,441)
+{
+ Left=250
+ Top=280
+ Width=90
+ Height=21
+ Ctl3D=0
+ Strings=#5:$0000|5:$FFFF|5:$1D0F|
+ Text=""
+ ReadOnly=0
+ link(onClick,1275485:doWork1,[(387,454)(387,433)])
+}
+Add(Edit,12885773,308,133)
+{
+ Left=250
+ Top=75
+ Width=90
+ Text=""
+}
+Add(Edit,469093,210,91)
+{
+ Left=10
+ Top=75
+ Width=230
+ Text="123456789"
+}
+Add(Label,1225781,42,126)
+{
+ Left=10
+ Top=55
+ Width=296
+ Height=17
+ Caption="CRC-16 Standart init $0000 polynon $A001 Revert true  ASCII"
+}
+Add(Label,9672137,42,119)
+{
+ Left=10
+ Top=100
+ Width=348
+ Height=17
+ Caption="CRC-16 Standart init $FFFF (ModBus) polynon $A001 Revert false  ASCII"
+}
+Add(Label,9409092,42,112)
+{
+ Left=10
+ Top=145
+ Width=341
+ Height=17
+ Caption="CRC-16 Standart init $FFFF (ModBus) polynon $A001 Revert true ASCII"
+}
+Add(Label,9102363,42,105)
+{
+ Left=10
+ Top=260
+ Width=199
+ Height=17
+ Caption="CRC-CCITT (XModem)  Revert false HEX"
+}
+Add(Button,10896142,84,315)
+{
+ Left=285
+ Top=485
+ Caption="GO -->"
+ link(onClick,1598455:doEvent1,[])
+}
+Add(DoData,2831356,210,504)
+{
+ link(onEventData,13177716:doCalcCRC,[])
+ link(Data,8661664:EditText,[(216,495)(223,495)])
+}
+Add(Hub,1598455,133,315)
+{
+ OutCount=8
+ link(onEvent1,9964674:doData,[(167,321)(167,62)])
+ link(onEvent2,12550766:doData,[(173,328)(173,139)])
+ link(onEvent3,12154894:doData,[(179,335)(179,223)])
+ link(onEvent4,6593599:doData,[(184,342)(184,307)])
+ link(onEvent5,11884952:doData,[(184,349)(184,391)])
+ link(onEvent6,2447229:doWork1,[(179,356)])
+ link(onEvent7,10808789:doData,[(174,363)(174,601)])
+ link(onEvent8,12937557:doData,[(167,370)(167,685)])
+}
+Add(DoData,9964674,210,56)
+{
+ link(onEventData,4030343:doCalcCRC,[])
+ link(Data,8942470:Text,[])
+}
+Add(DoData,12550766,210,133)
+{
+ link(onEventData,13666622:doCalcCRC,[])
+ link(Data,469093:Text,[])
+}
+Add(DoData,12154894,210,217)
+{
+ link(onEventData,6552192:doCalcCRC,[])
+ link(Data,4573438:Text,[])
+}
+Add(DoData,6593599,210,301)
+{
+ link(onEventData,4185427:doCalcCRC,[])
+ link(Data,8826676:Text,[])
+}
+Add(DoData,11884952,210,385)
+{
+ link(onEventData,10389301:doCalcCRC,[])
+ link(Data,2775784:Text,[])
+}
+Add(HubEx,2447229,175,413)
+{
+ Angle=1
+ link(onEvent,2831356:doData,[(179,510)])
+}
+Add(HubEx,1275485,245,427)
+{
+ Angle=3
+ link(onEvent,2447229:doWork3,[(249,419)])
+}
+Add(Label,11820039,42,98)
+{
+ Left=35
+ Top=310
+ Width=190
+ Height=13
+ Font=[Times New Roman,8,7,32768,204]
+ Caption=" Допустимые варианты записи HEX"
+}
+Add(LinkTip,13666728,441,84)
+{
+ @Hint=#30:Нажмите удерживая клавишу Ctrl|
+ Link="http://www.lammertbies.nl/comm/info/crc-calculation.html"
+ Font=[MS Sans Serif,8,0,16711680,1]
+}
+Add(InfoTip,8610752,420,56)
+{
+ Info=#23:On-line CRC calculation|
+ Font=[MS Sans Serif,8,1,0,1]
+ Frame=3
+ Width=330
+ Height=53
+ Margin=10
+}
+Add(Label,4446685,42,91)
+{
+ Left=10
+ Top=365
+ Width=248
+ Height=17
+ Caption="CRC-32 init $FFFFFFFF polynon $EDB88320  ASCII"
+}
+Add(Label,15418922,42,84)
+{
+ Left=10
+ Top=420
+ Width=243
+ Height=17
+ Caption="CRC-32 init $FFFFFFFF polynon $EDB88320  HEX"
+}
+Add(Edit,8284780,210,553)
+{
+ Left=10
+ Top=385
+ Width=232
+ Text="123456789"
+}
+Add(Edit,2826904,329,595)
+{
+ Left=250
+ Top=385
+ Width=90
+ Text=""
+}
+Add(DoData,10808789,210,595)
+{
+ link(onEventData,2705104:doCalcCRC,[])
+ link(Data,8284780:Text,[])
+}
+Add(Edit,8688258,210,637)
+{
+ Left=10
+ Top=445
+ Width=232
+ Text="$AB 00 CD 01 EF 55"
+}
+Add(Edit,8585205,329,679)
+{
+ Left=250
+ Top=445
+ Width=90
+ Text=""
+}
+Add(DoData,12937557,210,679)
+{
+ link(onEventData,13510224:doCalcCRC,[])
+ link(Data,8688258:Text,[])
+}
+Add(CRC16_32,4030343,259,56)
+{
+ link(onResult,678435:doText,[])
+}
+Add(CRC16_32,6552192,259,217)
+{
+ Init="$FFFF"
+ link(onResult,10417654:doText,[])
+}
+Add(CRC16_32,4185427,259,301)
+{
+ Init="$FFFF"
+ Revert=1
+ link(onResult,16028020:doText,[])
+}
+Add(CRC16_32,10389301,259,385)
+{
+ Metod=3
+ Polynom="$1021"
+ link(onResult,12316974:doText,[])
+}
+Add(CRC16_32,13177716,266,504)
+{
+ Type=1
+ Metod=3
+ Point(Polynom)
+ Point(Init)
+ link(onResult,14144167:doText,[])
+ link(Polynom,4599238:Text,[])
+ link(Init,14252167:String,[(286,495)(342,495)])
+}
+Add(CRC16_32,2705104,273,595)
+{
+ Metod=4
+ Polynom="$EDB88320"
+ Init="$FFFFFFFF"
+ link(onResult,2826904:doText,[])
+}
+Add(CRC16_32,13510224,273,679)
+{
+ Type=1
+ Metod=4
+ Polynom="$EDB88320"
+ Init="$FFFFFFFF"
+ Revert=1
+ link(onResult,8585205:doText,[])
+}
+Add(CRC16_32,13666622,259,133)
+{
+ Revert=1
+ link(onResult,12885773:doText,[])
+}
+Add(Label,6967786,35,280)
+{
+ Left=10
+ Top=480
+ Width=154
+ Height=23
+ Font=[Comic Sans MS,10,1,8388608,204]
+ Caption="On-line CRC calculation"
+ Underline=0
+ link(onClick,1850770:doShellExec,[])
+}
+Add(WinExec,1850770,84,273)
+{
+ FileName="http://www.lammertbies.nl/comm/info/crc-calculation.html"
+}

@@ -1,0 +1,89 @@
+*”правлние звуком
+Make(cpp)
+Pos(0,0)
+Add(MainForm,25918,21,161)
+{
+ Left=313
+ Top=331
+ Width=398
+ Height=106
+ Caption="Volume control"
+ BorderStyle=3
+ link(onCreate,15808074:doWork3,[(298,202)])
+}
+Add(Label,72253,49,84)
+{
+ Left=5
+ Top=50
+ Width=30
+ Font=[Arial,8,0,0,1]
+ Caption="Right"
+}
+Add(HubEx,15808074,294,154)
+{
+ link(onEvent,49174:doGetVolume,[(314,167)(314,153)])
+}
+Add(ChanelToIndex,57463,175,154)
+{
+ link(onIndex,85660:doEvent1,[])
+}
+Add(Label,99275,49,42)
+{
+ Left=5
+ Top=25
+ Width=25
+ Font=[Arial,8,0,0,1]
+ Caption="Left"
+}
+Add(ScrollBar,64107,245,84)
+{
+ Left=40
+ Top=50
+ Width=340
+ Height=15
+ Max=65535
+ link(onPosition,75166:doEvent1,[])
+}
+Add(Hub,75166,301,84)
+{
+ InCount=2
+ OutCount=1
+ link(onEvent1,49174:doVolume,[(376,90)(376,146)])
+}
+Add(Hub,85660,238,154)
+{
+ link(onEvent1,49174:doDevide,[])
+ link(onEvent2,15808074:doWork2,[])
+}
+Add(RadioButton,78733,77,154)
+{
+ Left=25
+ Font=[Arial,8,0,0,1]
+ Selected=0
+ Caption="Wave"
+ link(onSelect,57463:doWork1,[])
+}
+Add(Volume,49174,420,140)
+{
+ Point(doDevide)
+ link(onLVolume,58354:doPosition,[(462,146)(462,64)(167,64)(167,97)])
+ link(onRVolume,64107:doPosition,[(471,153)(471,72)(235,72)(235,90)])
+ link(Left,58354:Position,[(426,133)(188,133)])
+ link(Right,64107:Position,[(433,128)(251,128)])
+}
+Add(ScrollBar,58354,182,91)
+{
+ Left=40
+ Top=25
+ Width=340
+ Height=15
+ Max=65535
+ link(onPosition,75166:doEvent2,[])
+}
+Add(RadioButton,92059,126,161)
+{
+ Left=160
+ Font=[Arial,8,0,0,1]
+ Caption="Midi"
+ link(onSelect,57463:doWork2,[])
+}

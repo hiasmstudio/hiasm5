@@ -1,0 +1,8 @@
+Explorer context menu extension=Расширение контекстного меню Explorer
+Application information=Информация о приложении
+Application name=Имя приложения
+Menu items, where one line is the name of the item displayed in the Explorer menu=Пункты меню, где одна строка - имя пункта, отображаемое в меню Explorer
+The file type for which the application is created (for example, txtfile for a text file or * for all files)=Тип файла для которого создается приложение (например, txtfile для текстового файла или * для всех файлов)
+The event occurs every time the Explorer context menu is expanded and displays the names of the selected files in a stream (one by one)=Событие происходит всякий раз при разворачивании контекстного меню Explorer и выдает в потоке имена выделенных файлов (по очереди)
+The event occurs whenever a menu item is selected and displays the number of the selected item in the stream (from 0 to Count-1, where Count is the number of items)=Событие происходит всякий раз при выборе пункта меню и выдает в потоке номер выбранного пункта (от 0 до Count-1, где Count - кол-во пунктов)
+The event occurs whenever the Explorer context menu is expanded (but before the onFileName event occurs) and streams the name of the current folder=Событие происходит всякий раз при разворачивании контекстного меню Explorer (но до наступления события onFileName) и выдает в потоке имя текущей папки

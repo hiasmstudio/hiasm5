@@ -1,0 +1,15 @@
+Chart Value Markers=Маркеры значений графика
+The chart on which you want to display the axis=График, на котором требуется вывести ось
+Caption style=Стиль надписи
+Frame style=Стиль рамки
+Frame color=Цвет рамки
+Fill style=Стиль заливки
+Fill color=Цвет заливки
+The font in which the text will be drawn=Шрифт, которым будет нарисован текст
+Horizontal alignment=Выравнивание по горизонтале
+Vertical alignment=Выравнивание по вертикале
+Marker values=Значения маркеров
+Series to which markers need to be placed=Серия, к которой необходимо проставить маркеры
+Sets the text of markers ARG(QueryText)=Устанавливает текст маркеров ARG(QueryText)
+The event occurs every time after setting the marker text=Событие происходит всякий раз после установки текста маркеров
+Request for market text for the series index value passed in the stream to the top=Запрос текста маркета для значения индекса серии, переданного в потоке наверх

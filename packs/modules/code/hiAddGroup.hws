@@ -1,0 +1,4 @@
+func doAddGroup(_data)
+  println('sys.addgroup(', Pack, ',', Name, ',', Tab, ');')
+  event(onAddGroup)
+end

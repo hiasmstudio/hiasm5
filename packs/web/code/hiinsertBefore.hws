@@ -1,0 +1,7 @@
+section java
+
+func doInsertBefore(_data)
+  println(Parent, '.insertBefore(', Node, ',', BeforeNode, ');')
+  event(onInsertBefore, Parent)
+end
+

@@ -1,0 +1,492 @@
+Make(cpp)
+Add(SimpleForm,2953706,98,56)
+{
+ Width=511
+ Height=495
+ Caption="Fractal snow"
+ Point(doCaption)
+ Point(onResize)
+ Point(onMouseMove)
+ Point(onMouseDown)
+ Point(onMouseUp)
+ Point(onMouseWheel)
+ Point(Handle)
+ Point(MouseY)
+ Point(MouseX)
+ link(onCreate,16299401:doEvent1,[(156,62)(156,286)])
+ link(onResize,14551396:doWork1,[(242,69)])
+ link(onMouseMove,14199263:doEvent1,[(149,76)(149,146)])
+ link(onMouseDown,10781328:doWork2,[(166,83)(166,97)])
+ link(onMouseUp,10781328:doWork1,[])
+ link(onMouseWheel,1073290:doCalc,[(144,97)(144,237)])
+}
+Add(GL_Options,10513853,511,280)
+{
+ Flag=2
+ link(onEvent,11450348:doBeginList,[])
+}
+Add(GL_Options,4378486,413,280)
+{
+ Flag=3
+ link(onEvent,14989894:doEnabled,[])
+}
+Add(GL_Light,14989894,462,280)
+{
+ link(onEnabled,10513853:doEnabled,[])
+}
+Add(GL_Main,12986311,252,280)
+{
+ Color=0
+ link(onInit,12198675:doInit,[])
+ link(onViewPort,3410847:doPerspective,[(307,293)(307,335)])
+ link(Handle,2953706:Handle,[(258,270)(104,270)])
+}
+Add(Timer,9506849,140,364)
+{
+ Interval=33
+ Enable=1
+ link(onTimer,1049454:doEvent1,[])
+}
+Add(GL_GTools,771925,252,364)
+{
+ Point(doClear)
+ Point(doPushMatrix)
+ Point(doPopMatrix)
+}
+Add(Hub,1049454,189,364)
+{
+ OutCount=5
+ link(onEvent1,771925:doClear,[])
+ link(onEvent2,771925:doPushMatrix,[])
+ link(onEvent3,10714674:doWork1,[(272,384)(272,244)])
+ link(onEvent4,771925:doPopMatrix,[(240,391)(240,384)])
+ link(onEvent5,12986311:doFlip,[(236,398)(236,300)])
+}
+Add(Hub,16299401,182,280)
+{
+ OutCount=3
+ link(onEvent1,12986311:doInit,[])
+ link(onEvent2,14551396:doWork2,[])
+ link(onEvent3,9506849:doTimer,[(224,300)(224,338)(130,338)(130,370)])
+}
+Add(MultiElement,10714674,315,238)
+{
+ link(onEvent1,10256708:doCallList,[])
+ link(Data1,4895490:Var2,[])
+ link(Data2,10150021:Var2,[])
+ link(Data3,15814968:Var2,[])
+}
+BEGIN_SDK
+  Add(EditMulti,4359962,17,17)
+  {
+   EventCount=1
+   WorkCount=1
+   DataCount=3
+   Width=223
+   Height=109
+   link(doWork1,188025:doTranslate,[(37,23)(37,69)])
+  }
+  Add(Gl_Translate,188025,56,63)
+  {
+   link(onTranslate,15065164:doScale,[])
+   link(X,4359962:Data1,[(62,40)(23,40)])
+   link(Y,4359962:Data2,[(69,40)(30,40)])
+  }
+  Add(Gl_Scale,15065164,105,63)
+  {
+   link(onScale,4359962:onEvent1,[(213,69)(213,23)])
+   link(X,4247964:Var2,[])
+   link(Y,16638256:Var2,[])
+   link(Z,16638256:Var3,[(125,40)])
+  }
+  Add(GetDataEx,4247964,105,35)
+  {
+   Angle=3
+   link(Data,4359962:Data3,[(37,40)])
+  }
+  Add(GetDataEx,16638256,112,35)
+  {
+   Angle=3
+   link(Data,4247964:Var3,[])
+  }
+END_SDK
+Add(GL_Perspective,3410847,315,329)
+{
+ Fovy=20
+}
+Add(HubEx,14551396,238,287)
+{
+ link(onEvent,12986311:doViewPort,[])
+}
+Add(GL_GluTools,12198675,315,280)
+{
+ Texture=0
+ link(onInit,5851269:doEnabled,[])
+}
+Add(Gl_BeginList,11450348,567,280)
+{
+ Index=1
+ link(onBiginList,11214287:doEvent1,[])
+}
+Add(Gl_EndList,2979237,651,350)
+{
+ link(onEndList,15114014:doData,[])
+}
+Add(MultiElementEx,9443348,763,280)
+{
+ Mode=2
+ link(onEvent,3890008:doWork1,[(807,286)(807,277)(746,277)])
+ link(onEvent1,2828855:doOperation,[])
+}
+BEGIN_SDK
+  Add(EditMultiEx,7985124,21,21)
+  {
+   WorkCount=#9:doCompare|
+   EventCount=#7:onEvent|8:onEvent1|
+   Width=601
+   Height=291
+   link(doCompare,6175205:doCompare,[(33,27)(33,90)])
+  }
+  Add(If_else,6175205,49,84)
+  {
+   Type=2
+   Op2=Integer(0)
+   link(onTrue,9141068:doValue,[])
+  }
+  Add(MT_MultiMem,9141068,105,84)
+  {
+   link(onData,9338565:doPushMatrix,[])
+  }
+  Add(MultiElement,13080908,329,84)
+  {
+   link(onEvent1,7985124:onEvent1,[(384,90)(384,34)])
+   link(Data1,13508334:Var1,[(335,72)(321,72)])
+   link(Data2,5547828:Var1,[(342,66)(251,66)])
+  }
+  BEGIN_SDK
+    Add(EditMulti,9100006,21,21)
+    {
+     EventCount=1
+     WorkCount=1
+     DataCount=2
+     Width=482
+     Height=130
+     link(doWork1,5441814:doOperation,[(31,27)(31,97)])
+    }
+    Add(Gl_Begin,14701665,182,91)
+    {
+     BlockType=1
+     link(onBegin,4255698:doData,[])
+    }
+    Add(Gl_End,6335969,448,91)
+    {
+     link(onEnd,9100006:onEvent1,[(492,97)(492,27)])
+    }
+    Add(GL_Vertex3D,15772613,294,91)
+    {
+     link(onVertex,3846487:doOperation,[])
+     link(X,1357572:Var2,[])
+     link(Y,5229847:Var2,[])
+    }
+    Add(GL_Vertex3D,14630100,399,91)
+    {
+     link(onVertex,6335969:doEnd,[])
+     link(X,1357572:Var3,[(405,75)])
+    }
+    Add(GL_Color,1685110,133,91)
+    {
+     Color=0
+     link(onColor,14701665:doBegin,[])
+    }
+    Add(RGB,1371559,91,91)
+    {
+     R=1
+     B=200
+     link(onRGB,1685110:doColor,[])
+    }
+    Add(Math,5441814,42,91)
+    {
+     OpType=2
+     Op2=50
+     link(onResult,1371559:doRGB,[])
+     link(Op1,9100006:Data2,[(48,56)(34,56)])
+    }
+    Add(Math,3846487,350,91)
+    {
+     OpType=1
+     link(onResult,14630100:doVertex,[])
+     link(Op2,5229847:Var3,[(363,65)])
+    }
+    Add(Memory,12302332,294,28)
+    {
+     Default=Real(0)
+    }
+    Add(GetDataEx,1357572,294,70)
+    {
+     link(Data,12302332:Value,[])
+    }
+    Add(GetDataEx,5229847,301,60)
+    {
+     Angle=3
+     link(Data,9100006:Data1,[(27,65)])
+    }
+    Add(DoData,4255698,231,91)
+    {
+     link(onEventData,15772613:doVertex,[])
+    }
+    Add(Math,11583638,42,133)
+    {
+     OpType=1
+     Op1=250
+    }
+  END_SDK
+  Add(For,10260440,203,84)
+  {
+   End=135
+   Step=45
+   link(onEvent,12951908:doEvent1,[])
+   link(onStop,8324915:doPopMatrix,[(247,97)(247,139)])
+  }
+  Add(GL_Rotate,9006529,280,84)
+  {
+   Z=1
+   link(onRotate,13080908:doWork1,[])
+  }
+  Add(MT_AddData,2782709,532,203)
+  {
+   Data=Integer(0)
+   InputMT=0
+   link(onAdd,11421605:doWork2,[])
+   link(Data1,14383919:Var1,[(538,191)(524,191)])
+   link(Data2,9594243:Var2,[(545,191)(572,191)])
+  }
+  Add(Math,9415723,245,203)
+  {
+   OpType=1
+   Op2=1
+   ResultType=0
+   link(onResult,13283267:doOperation,[])
+   link(Op1,5547828:Var2,[])
+  }
+  Add(Hub,6020279,462,203)
+  {
+   link(onEvent1,2247469:doTranslate,[])
+   link(onEvent2,12232718:doTranslate,[(483,216)(483,258)])
+  }
+  Add(MT_AddData,8948848,532,252)
+  {
+   Data=Integer(0)
+   InputMT=0
+   link(onAdd,11421605:doWork3,[(583,258)])
+   link(Data1,14383919:Var3,[(538,244)])
+   link(Data2,9594243:Var1,[(545,244)])
+  }
+  Add(HubEx,11421605,579,203)
+  {
+   Angle=3
+   link(onEvent,7985124:onEvent,[(583,27)])
+  }
+  Add(GL_GTools,9338565,154,84)
+  {
+   Point(doPushMatrix)
+   link(onEvent,10260440:doFor,[])
+  }
+  Add(GL_GTools,8324915,329,133)
+  {
+   Point(doPopMatrix)
+  }
+  Add(Hub,12951908,252,84)
+  {
+   OutCount=3
+   link(onEvent1,9006529:doRotate,[])
+   link(onEvent2,5984824:doPushMatrix,[(278,97)(278,153)(184,153)(184,209)])
+   link(onEvent3,6911768:doPopMatrix,[])
+  }
+  Add(Gl_Translate,2247469,490,203)
+  {
+   Y=0.2
+   link(onTranslate,2782709:doAdd,[])
+   link(Y,13508334:Var3,[(503,127)])
+  }
+  Add(Gl_Translate,12232718,490,252)
+  {
+   link(onTranslate,8948848:doAdd,[])
+   link(Y,7154028:Result,[(503,244)(363,244)])
+  }
+  Add(DoData,14827419,413,203)
+  {
+   link(onEventData,6020279:doEvent1,[])
+  }
+  Add(GetDataEx,14383919,518,239)
+  {
+   Angle=3
+   link(Data,9415723:Result,[(251,244)])
+  }
+  Add(GL_GTools,5984824,196,203)
+  {
+   Point(doPushMatrix)
+   link(onEvent,9415723:doOperation,[])
+  }
+  Add(GL_GTools,6911768,378,98)
+  {
+   Point(doPopMatrix)
+  }
+  Add(Math,13283267,301,203)
+  {
+   OpType=2
+   Op2=0.3
+   link(onResult,7154028:doCalc,[])
+   link(Op1,11800347:Var2,[])
+  }
+  Add(GetDataEx,9594243,566,239)
+  {
+   Angle=2
+   link(Data,13283267:Result,[(572,291)(307,291)])
+  }
+  Add(GetDataEx,11800347,301,188)
+  {
+   link(Data,10346348:Var2,[])
+  }
+  Add(FastMathParse,7154028,357,203)
+  {
+   DataCount=1
+   MathStr="-%1*2"
+   link(onResult,14827419:doData,[])
+   link(X1,11800347:Var3,[(363,193)])
+  }
+  Add(GetDataEx,10346348,301,122)
+  {
+   Angle=3
+   link(Data,9141068:Value2,[(304,127)(118,127)])
+  }
+  Add(GetDataEx,5547828,245,176)
+  {
+   Angle=3
+   link(Data,9141068:Value1,[(111,181)])
+  }
+  Add(GetDataEx,13508334,315,122)
+  {
+   Angle=3
+   link(Data,10346348:Var3,[])
+  }
+END_SDK
+Add(DoData,2118376,651,280)
+{
+ Data=Integer(5)
+ link(onEventData,13619766:doAdd,[])
+}
+Add(Hub,11214287,616,280)
+{
+ link(onEvent1,2118376:doData,[])
+ link(onEvent2,2979237:doEndList,[(640,293)(640,356)])
+}
+Add(GL_CallList,10256708,364,238)
+{
+ Index=1
+}
+Add(MT_AddData,13619766,700,280)
+{
+ Count=1
+ Data=Real(0.1)
+ InputMT=0
+ link(onAdd,3890008:doWork2,[])
+}
+Add(HubEx,3890008,742,280)
+{
+ link(onEvent,9443348:doCompare,[])
+}
+Add(Memory,141950,315,63)
+{
+}
+Add(Memory,8909578,322,98)
+{
+}
+Add(ChanelToIndex,10781328,203,84)
+{
+ link(onIndex,627474:doValue,[])
+}
+Add(Memory,627474,245,84)
+{
+}
+Add(MathParse,10491682,245,140)
+{
+ DataCount=3
+ MathStr="%3 + %1*%2/200"
+ link(onResult,141950:doValue,[(296,146)(296,69)])
+ link(X1,845544:Var2,[])
+ link(X3,4895490:Var1,[(265,131)])
+}
+Add(GetDataEx,4895490,315,126)
+{
+ link(Data,141950:Value,[])
+}
+Add(SampleDelta,13251656,196,140)
+{
+ link(onCalcDelta,10491682:doCalc,[])
+ link(Data,2953706:MouseX,[(202,120)(118,120)])
+}
+Add(Memory,8715308,329,147)
+{
+ Default=Integer(8)
+}
+Add(MathParse,11785336,252,189)
+{
+ DataCount=3
+ MathStr="%3 - %1*%2/200"
+ link(onResult,8909578:doValue,[(310,195)(310,104)])
+ link(X1,845544:Var3,[(258,124)])
+ link(X3,10150021:Var1,[(272,180)])
+}
+Add(SampleDelta,7222504,203,189)
+{
+ link(onCalcDelta,11785336:doCalc,[])
+ link(Data,2953706:MouseY,[(209,176)(111,176)])
+}
+Add(Hub,14199263,168,140)
+{
+ link(onEvent1,13251656:doCalcDelta,[])
+ link(onEvent2,7222504:doCalcDelta,[(192,153)(192,195)])
+}
+Add(GetDataEx,10150021,322,175)
+{
+ link(Data,8909578:Value,[])
+}
+Add(GetDataEx,845544,245,119)
+{
+ link(Data,627474:Value,[])
+}
+Add(MathParse,1073290,203,231)
+{
+ MathStr="%1/200 + %2"
+ link(onResult,8715308:doValue,[(295,237)(295,153)])
+ link(X2,15814968:Var1,[(216,222)])
+}
+Add(GetDataEx,15814968,329,217)
+{
+ link(Data,8715308:Value,[])
+}
+Add(GL_Options,5851269,364,280)
+{
+ Flag=10
+ link(onEvent,4378486:doEnabled,[])
+}
+Add(Math,2828855,826,287)
+{
+ Op2=1
+ link(Op1,5722181:Var3,[(832,275)(818,275)])
+}
+Add(DoData,15114014,812,350)
+{
+ link(onEventData,8675645:In,[])
+ link(Data,5722181:Var2,[])
+}
+Add(GetDataEx,5722181,812,329)
+{
+ Angle=1
+ link(Data,2828855:Result,[(832,334)])
+}
+Add(LineBreak,8551036,49,63)
+{
+ link(Out,2953706:doCaption,[])
+ Primary=[8675645,805,287]
+}

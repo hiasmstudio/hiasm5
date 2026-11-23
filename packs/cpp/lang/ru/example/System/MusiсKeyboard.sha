@@ -1,0 +1,52 @@
+*Делает из клавиатуры пианино
+Pos(0,0)
+Add(MainForm,12846,135,195)
+{
+ Left=312
+ Top=284
+ Width=271
+ Height=66
+ Align=0
+ AlphaBlendValue=255
+ Caption=Piano
+ BorderStyle=2
+ WindowsState=0
+ Icon=[]
+ ShowType=0
+ TaskBar=1
+}
+Add(Math,84417,75,85)
+{
+ OpType=2
+ Op1=0
+ Op2=30
+ ResultType=0
+ link(onResult,51895:doEvent1,[])
+}
+Add(Label,16262,185,60)
+{
+ Left=85
+ Top=15
+ Width=100
+ Height=15
+ Align=0
+ Caption=Label
+ AutoSize=0
+ Alignment=0
+}
+Add(Hub,51895,125,85)
+{
+ InCount=1
+ OutCount=2
+ link(onEvent1,16262:doText,[(171,91)(171,66)])
+ link(onEvent2,71798:doBeep,[(171,98)(171,116)])
+}
+Add(KeyHook,69767,25,85)
+{
+ link(onKeyDown,84417:doOperation,[])
+}
+Add(Beep,71798,185,110)
+{
+ Freq=0
+ Duration=50
+}

@@ -1,0 +1,5 @@
+func doAdd(_data)
+  println('sys.addcompiler(', Name, ',', Command, ',', AppName, ',', Ext, ');')
+  event(onAdd)
+end
+

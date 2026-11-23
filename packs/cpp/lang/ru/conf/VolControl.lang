@@ -1,0 +1,6 @@
+Sound controller=Контроллер звука
+Device type=Тип устройства
+Sets the device volume=Устанавливает громкость устройства
+On/off device=Вкл./выкл. устройство
+Device volume (the device index in the array coincides with the serial number in the Device property)=Громкость устройства (индекс устройства в массиве совпадает с порядковым номером в св-ве Device)
+On/off devices (the device index in the array coincides with the serial number in the Device property)=Вкл./выкл. устройствa (индекс устройства в массиве совпадает с порядковым номером в св-ве Device)

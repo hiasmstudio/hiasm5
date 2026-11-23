@@ -1,0 +1,10 @@
+func doPlotStream(_data)
+  fvar(stream)
+  stream = d('Stream')
+  if(isnull(stream))
+    return()
+  end
+  println('if (qt_plot_stream(dynamic_cast<HiasmPlotLines *>(form.findChild<QObject *>(qt_text(', cstr(get('qtPlotSeries')), '))), ', stream, ', ', get('DataType'), ', ', get('ClearSeries') == 'True', ', ', Step, ')) {')
+  event(onPlotStream)
+  println('}')
+end

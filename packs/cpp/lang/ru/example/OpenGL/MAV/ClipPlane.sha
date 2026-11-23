@@ -1,0 +1,603 @@
+Make(cpp)
+Add(MainForm,15261923,35,35)
+{
+ Left=20
+ Top=105
+ Width=600
+ Height=600
+ Caption="ClipPlane"
+ ClientSize=0
+ Position=1
+ Point(Handle)
+ Point(onResize)
+ link(onCreate,16299401:doEvent1,[(81,55)(81,69)])
+ link(onResize,16131419:doWork1,[(123,62)])
+}
+Add(GL_Main,12986311,175,63)
+{
+ TwoSide=0
+ link(onInit,12198675:doInit,[])
+ link(onViewPort,3410847:doPerspective,[(225,76)(225,118)])
+ link(Handle,15261923:Handle,[(181,51)(85,51)(85,79)(41,79)])
+}
+Add(Timer,9506849,56,112)
+{
+ Interval=10
+ Enable=1
+ link(onTimer,1049454:doEvent1,[])
+}
+Add(GL_GTools,771925,175,112)
+{
+ Point(doClear)
+ Point(doPushMatrix)
+ Point(doPopMatrix)
+}
+Add(Hub,1049454,98,112)
+{
+ OutCount=5
+ link(onEvent1,771925:doClear,[])
+ link(onEvent2,771925:doPushMatrix,[])
+ link(onEvent3,15807527:In,[])
+ link(onEvent4,771925:doPopMatrix,[(165,139)(165,132)])
+ link(onEvent5,12986311:doFlip,[(160,146)(160,83)])
+}
+Add(Hub,16299401,98,63)
+{
+ OutCount=3
+ link(onEvent1,12986311:doInit,[])
+ link(onEvent2,16131419:doWork2,[])
+ link(onEvent3,9506849:doTimer,[(130,83)(130,101)(50,101)(50,118)])
+}
+Add(GL_GluTools,12198675,231,63)
+{
+ link(onInit,1101264:doEnabled,[])
+}
+Add(GL_Light,14989894,406,63)
+{
+ link(onEnabled,14989894:doMove,[(443,69)(443,58)(398,58)(398,76)])
+ link(onMove,7428902:doEvent1,[])
+ link(Point,4897675:Point3D,[])
+}
+Add(GL_Options,1101264,273,63)
+{
+ link(onEvent,5851269:doEnabled,[])
+}
+Add(GL_Options,5851269,315,63)
+{
+ Flag=1
+ link(onEvent,5809249:doEnabled,[])
+}
+Add(GL_Options,5809249,357,63)
+{
+ Flag=2
+ link(onEvent,14989894:doEnabled,[])
+}
+Add(GL_Perspective,3410847,231,112)
+{
+ Fovy=30
+ zFar=1000
+}
+Add(HubEx,16131419,119,70)
+{
+ link(onEvent,12986311:doViewPort,[])
+}
+Add(Gl_Axis,4296558,105,252)
+{
+ TitleScale=0.4
+ link(onDraw,5484296:doEvent1,[])
+}
+Add(GL_Color,11811806,231,161)
+{
+ Color=4023676
+ link(onColor,12585209:doSet,[])
+}
+Add(InfoTip,9174045,97,21)
+{
+ Info=#40:Пример работы компонента "GL_ClipPlane".|
+ Font=[MS Sans Serif,8,1,0,1]
+ Width=295
+ Height=18
+}
+Add(GL_CallList,16692647,616,182)
+{
+ Index=1
+}
+Add(GL_Rotate,2520753,574,182)
+{
+ Angle=90
+ X=1
+ link(onRotate,16692647:doCallList,[])
+}
+Add(GL_Color,13419557,231,315)
+{
+ Color=16711680
+ Alpha=0.1
+ link(onColor,883993:doSet,[])
+}
+Add(Gl_Translate,13036140,532,182)
+{
+ link(onTranslate,2520753:doRotate,[])
+ link(X,16318177:Var1,[(538,166)])
+ link(Y,16318177:Var2,[])
+ link(Z,16318177:Var3,[(552,166)])
+}
+Add(For,2185209,476,203)
+{
+ End=3
+ link(onEvent,13036140:doTranslate,[(520,209)(520,188)])
+ link(onStop,12555355:doPopMatrix,[(519,216)(519,230)])
+}
+Add(For,6200425,658,224)
+{
+ End=3
+ link(onEvent,11348309:doTranslate,[])
+ link(onStop,3180328:doPopMatrix,[(698,237)(698,272)])
+}
+Add(GL_Rotate,2236169,616,224)
+{
+ Angle=90
+ Z=1
+ link(onRotate,6200425:doFor,[])
+}
+Add(GL_CallList,9995550,791,224)
+{
+ Index=1
+}
+Add(GL_Rotate,11257959,749,224)
+{
+ Angle=90
+ Y=1
+ link(onRotate,9995550:doCallList,[])
+}
+Add(GL_GTools,12555355,532,224)
+{
+ Point(doPopMatrix)
+ link(onEvent,5925099:doRotate,[])
+}
+Add(Gl_Translate,11348309,707,224)
+{
+ link(onTranslate,11257959:doRotate,[])
+ link(X,853762:Var1,[(713,208)])
+ link(Y,853762:Var2,[])
+ link(Z,853762:Var3,[(727,208)])
+}
+Add(GL_Rotate,5925099,574,224)
+{
+ Angle=270
+ X=1
+ link(onRotate,2236169:doRotate,[])
+}
+Add(Math,3570995,574,119)
+{
+ OpType=3
+ Op2=1000
+}
+Add(GetDataEx,16318177,539,161)
+{
+ link(Data,12342365:Var1,[(545,159)])
+}
+Add(GetDataEx,12342365,574,154)
+{
+ link(Data,3570995:Result,[])
+}
+Add(Counter,2890865,532,119)
+{
+ Max=10000
+ link(onNext,3570995:doOperation,[])
+}
+Add(GL_GTools,4341366,357,161)
+{
+ Point(doPushMatrix)
+ link(onEvent,4092348:doPushMatrix,[])
+}
+Add(GetDataEx,853762,714,203)
+{
+ link(Data,12342365:Var3,[(720,159)])
+}
+Add(Hub,9105123,441,161)
+{
+ link(onEvent1,10942848:doEvent,[])
+ link(onEvent2,2185209:doFor,[(465,174)(465,209)])
+}
+Add(GL_Material,12585209,273,161)
+{
+ Specular=11842740
+ Shininess=10
+ link(onSet,539342:doSet,[])
+}
+Add(GL_Material,539342,315,161)
+{
+ Side=1
+ Emission=89
+ link(onSet,4341366:doPushMatrix,[])
+}
+Add(Gl_Translate,12961218,182,315)
+{
+ link(onTranslate,13419557:doColor,[])
+ link(Y,1713317:Result,[])
+}
+Add(GL_GTools,4092348,399,161)
+{
+ Point(doPushMatrix)
+ link(onEvent,9105123:doEvent1,[])
+}
+Add(GL_GTools,3180328,707,266)
+{
+ Point(doPopMatrix)
+}
+Add(Math,1713317,189,259)
+{
+ OpType=1
+ Op2=0.01
+ link(onResult,9923794:doEvent1,[])
+ link(Op1,11650060:Value,[])
+}
+Add(Memory,11650060,189,217)
+{
+ Default=Integer(3)
+}
+Add(Hub,9923794,231,259)
+{
+ OutCount=3
+ link(onEvent1,11650060:doValue,[(255,265)(255,209)(182,209)(182,223)])
+ link(onEvent2,9580729:doCompare,[])
+ link(onEvent3,16488403:doData,[(256,279)(256,305)(125,305)(125,321)])
+}
+Add(GL_Material,883993,273,315)
+{
+ Specular=11842740
+ Shininess=10
+ link(onSet,6475818:doSet,[])
+}
+Add(GL_Material,6475818,315,315)
+{
+ Side=1
+ Emission=128
+ link(onSet,7491857:doPushMatrix,[])
+}
+Add(Hub,5484296,147,252)
+{
+ link(onEvent1,11811806:doColor,[(168,258)(168,167)])
+ link(onEvent2,1713317:doOperation,[])
+}
+Add(Hub,7428902,448,70)
+{
+ link(onEvent1,7573758:doWork1,[(469,76)(469,41)])
+ link(onEvent2,5047893:doWork1,[])
+}
+Add(DoData,16488403,133,315)
+{
+ link(onEventData,12961218:doTranslate,[])
+}
+Add(GL_Point3D,4897675,406,21)
+{
+ X=4
+ Y=4
+ Z=6
+}
+Add(Memory,367475,476,273)
+{
+ Default=Integer(0)
+}
+Add(If_else,9580729,273,266)
+{
+ Type=3
+ Op2=Real(0.6)
+ link(onTrue,14004527:doData,[])
+}
+Add(DoData,14004527,315,266)
+{
+ Data=Integer(1)
+ link(onEventData,6009332:doEvent1,[])
+}
+Add(IndexToChanel,10942848,476,161)
+{
+ Point(Index)
+ link(onEvent2,2890865:doNext,[(520,174)(520,125)])
+ link(Index,6703304:Value,[])
+}
+Add(MultiElement,7573758,476,35)
+{
+ @Hint=#47:Сектор мишени полученный с помощью GL_ClipPlane|
+ AddHint(49,5,169,26,@Hint)
+}
+BEGIN_SDK
+  Add(EditMulti,10832971,21,21)
+  {
+   EventCount=1
+   WorkCount=1
+   Width=622
+   Height=116
+   link(doWork1,2815265:doBeginList,[(32,27)(32,62)])
+  }
+  Add(GL_Options,3840497,127,56)
+  {
+   Flag=14
+   link(onEvent,13670128:doEnabled,[])
+  }
+  Add(GL_Options,10041025,428,56)
+  {
+   Flag=13
+   link(onEvent,1986049:doDisabled,[(468,62)(468,69)])
+  }
+  Add(GL_ClipPlane,15195482,295,56)
+  {
+   ClipPlane=1
+   Y=1
+   link(onClipPlane,15348425:doClipPlane,[])
+  }
+  Add(GL_ClipPlane,15348425,337,56)
+  {
+   ClipPlane=2
+   Z=1
+   link(onClipPlane,1267163:doDraw,[])
+  }
+  Add(GL_Options,1986049,477,56)
+  {
+   Flag=14
+   link(onEvent,9950954:doDisabled,[(517,62)(517,69)])
+  }
+  Add(GL_Options,13290200,85,56)
+  {
+   Flag=13
+   link(onEvent,3840497:doEnabled,[])
+  }
+  Add(GL_Options,13670128,169,56)
+  {
+   Flag=15
+   link(onEvent,911748:doData,[])
+  }
+  Add(GL_ClipPlane,1376969,253,56)
+  {
+   X=1
+   link(onClipPlane,15195482:doClipPlane,[])
+  }
+  Add(GL_Options,9950954,526,56)
+  {
+   Flag=15
+   link(onEvent,2318679:doEndList,[])
+  }
+  Add(Gl_BeginList,2815265,43,56)
+  {
+   Index=1
+   link(onBiginList,13290200:doEnabled,[])
+  }
+  Add(Gl_EndList,2318679,568,56)
+  {
+   link(onEndList,10832971:onEvent1,[(622,62)(622,27)])
+  }
+  Add(DoData,911748,211,56)
+  {
+   Data=Integer(1)
+   link(onEventData,1376969:doClipPlane,[])
+  }
+  Add(GL_Sphere,1267163,379,56)
+  {
+   Radius=0.4
+   Slices=80
+   Stacks=80
+   link(onDraw,10041025:doEnabled,[])
+  }
+END_SDK
+Add(MultiElement,5047893,476,77)
+{
+ @Hint=#48:Сектор снаряда полученный с помощью GL_ClipPlane|
+ AddHint(49,-6,171,26,@Hint)
+}
+BEGIN_SDK
+  Add(EditMulti,10968849,21,21)
+  {
+   EventCount=1
+   WorkCount=1
+   Width=615
+   Height=95
+   link(doWork1,9195218:doBeginList,[(32,27)(32,48)])
+  }
+  Add(GL_Options,9823713,127,42)
+  {
+   Flag=14
+   link(onEvent,6804666:doEnabled,[])
+  }
+  Add(GL_Options,13470799,428,42)
+  {
+   Flag=13
+   link(onEvent,9721075:doDisabled,[(468,48)(468,55)])
+  }
+  Add(GL_ClipPlane,7061656,295,42)
+  {
+   ClipPlane=1
+   Y=1
+   link(onClipPlane,2955964:doClipPlane,[])
+  }
+  Add(GL_ClipPlane,2955964,337,42)
+  {
+   ClipPlane=2
+   Z=1
+   link(onClipPlane,5627420:doDraw,[])
+  }
+  Add(GL_Options,9721075,477,42)
+  {
+   Flag=14
+   link(onEvent,13244571:doDisabled,[(517,48)(517,55)])
+  }
+  Add(GL_Options,8052121,85,42)
+  {
+   Flag=13
+   link(onEvent,9823713:doEnabled,[])
+  }
+  Add(GL_Options,6804666,169,42)
+  {
+   Flag=15
+   link(onEvent,13307210:doData,[])
+  }
+  Add(GL_ClipPlane,6796244,253,42)
+  {
+   X=1
+   link(onClipPlane,7061656:doClipPlane,[])
+  }
+  Add(GL_Options,13244571,526,42)
+  {
+   Flag=15
+   link(onEvent,4842888:doEndList,[])
+  }
+  Add(Gl_BeginList,9195218,43,42)
+  {
+   Index=2
+   link(onBiginList,8052121:doEnabled,[])
+  }
+  Add(Gl_EndList,4842888,568,42)
+  {
+   link(onEndList,10968849:onEvent1,[(618,48)(618,27)])
+  }
+  Add(DoData,13307210,211,42)
+  {
+   Data=Integer(1)
+   link(onEventData,6796244:doClipPlane,[])
+  }
+  Add(GL_Sphere,5627420,379,42)
+  {
+   Radius=0.2
+   Slices=40
+   Stacks=40
+   link(onDraw,13470799:doDisabled,[(419,48)(419,55)])
+  }
+END_SDK
+Add(LineBreak,11101914,434,119)
+{
+ Caption="c"
+ link(Out,6703304:doValue,[])
+ Primary=[2289228,-21,147]
+}
+Add(Memory,6703304,476,119)
+{
+ Default=Integer(0)
+}
+Add(Hub,6009332,392,266)
+{
+ link(onEvent1,2289228:In,[])
+ link(onEvent2,367475:doValue,[])
+}
+Add(GL_Rotate,16234715,63,252)
+{
+ Angle=60
+ Y=1
+ Z=1
+ link(onRotate,4296558:doDraw,[])
+}
+Add(GL_CallList,15217423,616,336)
+{
+ Index=2
+}
+Add(GL_Rotate,8096544,574,336)
+{
+ Angle=90
+ X=1
+ link(onRotate,15217423:doCallList,[])
+}
+Add(Gl_Translate,16243531,532,336)
+{
+ link(onTranslate,8096544:doRotate,[])
+ link(X,11557814:Var1,[(538,320)])
+ link(Y,11557814:Var2,[])
+ link(Z,11557814:Var3,[(552,320)])
+}
+Add(For,5813060,476,357)
+{
+ End=3
+ link(onEvent,16243531:doTranslate,[(520,363)(520,342)])
+ link(onStop,5530464:doPopMatrix,[(520,370)(520,384)])
+}
+Add(For,13360855,658,378)
+{
+ End=3
+ link(onEvent,13167636:doTranslate,[])
+ link(onStop,1082776:doPopMatrix,[(698,391)(698,426)])
+}
+Add(GL_Rotate,2050871,616,378)
+{
+ Angle=90
+ Z=1
+ link(onRotate,13360855:doFor,[])
+}
+Add(GL_CallList,13522350,791,378)
+{
+ Index=2
+}
+Add(GL_Rotate,1800419,749,378)
+{
+ Angle=90
+ Y=1
+ link(onRotate,13522350:doCallList,[])
+}
+Add(GL_GTools,5530464,532,378)
+{
+ Point(doPopMatrix)
+ link(onEvent,14314736:doRotate,[])
+}
+Add(Gl_Translate,13167636,707,378)
+{
+ link(onTranslate,1800419:doRotate,[])
+ link(X,11407398:Var1,[(713,362)])
+ link(Y,11407398:Var2,[])
+ link(Z,11407398:Var3,[(727,362)])
+}
+Add(GL_Rotate,14314736,574,378)
+{
+ Angle=270
+ X=1
+ link(onRotate,2050871:doRotate,[])
+}
+Add(Math,13069278,574,273)
+{
+ OpType=3
+ Op2=150
+}
+Add(GetDataEx,11557814,539,315)
+{
+ link(Data,11773172:Var1,[(545,313)])
+}
+Add(GetDataEx,11773172,574,308)
+{
+ link(Data,13069278:Result,[])
+}
+Add(Counter,10429757,532,273)
+{
+ Max=10000
+ link(onNext,13069278:doOperation,[])
+}
+Add(GL_GTools,7491857,357,315)
+{
+ Point(doPushMatrix)
+ link(onEvent,9006594:doPushMatrix,[])
+}
+Add(GetDataEx,11407398,714,357)
+{
+ link(Data,11773172:Var3,[(720,313)])
+}
+Add(Hub,9310034,448,315)
+{
+ link(onEvent1,16106042:doEvent,[])
+ link(onEvent2,5813060:doFor,[(469,328)(469,363)])
+}
+Add(GL_GTools,9006594,399,315)
+{
+ Point(doPushMatrix)
+ link(onEvent,9310034:doEvent1,[])
+}
+Add(GL_GTools,1082776,707,420)
+{
+ Point(doPopMatrix)
+}
+Add(IndexToChanel,16106042,476,315)
+{
+ Point(Index)
+ link(onEvent2,10429757:doNext,[(520,328)(520,279)])
+ link(Index,367475:Value,[])
+}
+Add(LineBreak,15935082,14,252)
+{
+ Caption="draw"
+ Color=5151158
+ link(Out,16234715:doRotate,[])
+ Primary=[15807527,105,-126]
+}

@@ -1,0 +1,7 @@
+func doGetSize(_data)
+  event(onGetSize, 'static_cast<int>(' && Array && '.size())')
+end
+
+func Size()
+  return('static_cast<int>(' && Array && '.size())')
+end

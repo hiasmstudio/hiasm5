@@ -1,0 +1,59 @@
+func doSearch(_data)
+  fvar(repl, user)
+  user = 0
+  switch(d('UserReplace'))
+    case "True": user = 1
+  end
+  println('std::string hiasm_block', _id_, ' = std::string(', _data, ');')
+  println('std::size_t hiasm_from', _id_, ' = 0;')
+  println('bool hiasm_found', _id_, ' = false;')
+  println('while(true) {')
+  block.inclvl()
+  println('std::size_t hiasm_p1', _id_, ' = hiasm_block', _id_, '.find(', StartBlock, ', hiasm_from', _id_, ');')
+  println('if(hiasm_p1', _id_, ' == std::string::npos) break;')
+  println('std::size_t hiasm_p2', _id_, ' = hiasm_block', _id_, '.find(', EndBlock, ', hiasm_p1', _id_, ' + std::string(', StartBlock, ').size());')
+  println('if(hiasm_p2', _id_, ' == std::string::npos) break;')
+  println('std::size_t hiasm_end', _id_, ' = hiasm_p2', _id_, ' + std::string(', EndBlock, ').size();')
+  println('std::string hiasm_full', _id_, ' = hiasm_block', _id_, '.substr(hiasm_p1', _id_, ', hiasm_end', _id_, ' - hiasm_p1', _id_, ');')
+  println('std::string hiasm_inner', _id_, ' = hiasm_block', _id_, '.substr(hiasm_p1', _id_, ' + std::string(', StartBlock, ').size(), hiasm_p2', _id_, ' - hiasm_p1', _id_, ' - std::string(', StartBlock, ').size());')
+  println('hiasm_found', _id_, ' = true;')
+  switch(IncludeBlock)
+    case "True":
+      event(onSearch, 'hiasm_full' && _id_)
+      repl = '"' && code(ReplaceStr) && '"'
+    default:
+      event(onSearch, 'hiasm_inner' && _id_)
+      repl = '"' && code(StartBlock) && code(ReplaceStr) && code(EndBlock) && '"'
+  end
+  switch(d('Delete'))
+    case "True":
+      if(user)
+        if(linked('Replace'))
+          println('if(', Replace, ') {')
+          block.inclvl()
+          println('hiasm_block', _id_, '.replace(hiasm_p1', _id_, ', hiasm_full', _id_, '.size(), ', repl, ');')
+          block.declvl()
+          println('}')
+        else
+          println('hiasm_block', _id_, '.replace(hiasm_p1', _id_, ', hiasm_full', _id_, '.size(), ', repl, ');')
+        end
+      else
+        println('hiasm_block', _id_, '.replace(hiasm_p1', _id_, ', hiasm_full', _id_, '.size(), ', repl, ');')
+      end
+      println('hiasm_from', _id_, ' = hiasm_p1', _id_, ' + 1;')
+    default:
+      println('hiasm_from', _id_, ' = hiasm_end', _id_, ';')
+  end
+  block.declvl()
+  println('}')
+  println('if(!hiasm_found', _id_, ') {')
+  block.inclvl()
+  event(onNotFind)
+  block.declvl()
+  println('}')
+  event(onEndSearch, 'hiasm_block' && _id_)
+end
+
+func doStop(_data)
+  println('break;')
+end

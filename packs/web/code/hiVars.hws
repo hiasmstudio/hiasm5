@@ -1,0 +1,19 @@
+func Post
+  return('$_POST[' && Name && ']')
+end
+
+func Get
+  return('$_GET[' && Name && ']')
+end
+
+func PostFiles
+  return('$_FILES[' && Name && '][' && Param && ']')
+end
+
+func Server
+  return('$_SERVER[' && Name && ']')
+end
+
+func Session
+  return('$_SESSION[' && Name && ']')
+end

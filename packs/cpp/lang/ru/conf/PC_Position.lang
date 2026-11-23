@@ -1,0 +1,10 @@
+Controller for the position of an element in document space=Контроллер положения элемента в пространстве документа
+Defines the name of the element=Определяет имя элемента
+Defines a document template=Определяет шаблон документа
+Sets the position of the element named name ARG(X, Y)=Устанавливает позицию элемента с именем name ARG(X, Y)
+The event occurs every time the element's position is set=Событие происходит всякий раз после установки позиции элемента
+Contains the current X position of the element=Содержит текущую X позицию элемента
+Contains the current Y position of the element=Содержит текущую Y позицию элемента
+Defines the X coordinate=Определяет координату X
+Defines the Y coordinate=Определяет координату Y
+Defines an object to change its position=Определяет объект для изменения его позиции

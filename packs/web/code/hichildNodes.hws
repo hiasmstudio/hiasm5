@@ -1,0 +1,17 @@
+section java
+
+func doGetElement(_data)
+  event(onGetElement, Parent && '.childNodes[' && Index && ']')
+end
+
+func Elements()
+  return(Parent && '.childNodes')
+end
+
+func Count()
+  return(Parent && '.childNodes.length')
+end
+
+func Item()
+  return(Parent && '.childNodes[' && Index && ']')
+end

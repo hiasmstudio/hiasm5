@@ -1,0 +1,80 @@
+Make(cpp)
+Add(MainForm,1,28,28)
+{
+ Backend=1
+ Caption="PopupMenu Qt"
+ Width=350
+ Height=205
+}
+Add(PopupMenu,2,182,98)
+{
+ Menu=#5:First|1:-|6:Second|
+ Point(onSelectStr)
+ Point(onEndPopup)
+ Point(Bitmaps)
+ link(onClick,7:doText,[])
+ link(onSelectStr,8:doText,[])
+ link(onEndPopup,9:doText,[])
+ link(Bitmaps,10:IconArray,[])
+}
+Add(Button,3,42,42)
+{
+ Left=12
+ Top=12
+ Width=145
+ Caption="Open at cursor"
+ link(onClick,2:doPopupHere,[])
+}
+Add(Button,4,42,91)
+{
+ Left=165
+ Top=12
+ Width=145
+ Caption="Open at (200, 150)"
+ Data=Integer(9830600)
+ link(onClick,2:doPopup,[])
+}
+Add(Button,5,42,140)
+{
+ Left=12
+ Top=48
+ Width=145
+ Caption="Add item"
+ Data=String(Added)
+ link(onClick,2:doAddItem,[])
+}
+Add(Button,6,42,189)
+{
+ Left=165
+ Top=48
+ Width=145
+ Caption="Clear items"
+ link(onClick,2:doClear,[])
+}
+Add(Label,7,294,98)
+{
+ Left=12
+ Top=92
+ Width=310
+ AutoSize=1
+ Caption="Selection index"
+}
+Add(Label,8,294,147)
+{
+ Left=12
+ Top=118
+ Width=310
+ AutoSize=1
+ Caption="Selection caption"
+}
+Add(Label,9,294,196)
+{
+ Left=12
+ Top=144
+ Width=310
+ AutoSize=1
+ Caption="This line clears when the menu closes"
+}
+Add(IconsManager,10,182,189)
+{
+}

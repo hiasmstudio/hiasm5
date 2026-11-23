@@ -1,0 +1,5 @@
+Informant=Информатор
+Information line=Строка информации
+Generates a message output=Формирует выдачу сообщения
+The event occurs after onInfo and outputs the data received at the input of the component to the stream.=Событие происходит после onInfo и выдаёт в поток поступившие на вход компонента данные
+The event occurs after calling the doInfo method and issues a message from the Data property to the stream=Событие происходит после вызова метода doInfo и выдаёт в поток сообщение из св-ва Data

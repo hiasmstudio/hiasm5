@@ -1,0 +1,5 @@
+Getting the context of an element (form) by its identifier=Получение контекста элемента (формы) по его идентификатору
+Gets the element's context=Получает контекст элемента
+The event occurs whenever the element's context is received and returns it to the stream=Событие происходит всякий раз после получения контекста элемента и возвращает его в поток
+Contains the element's context=Содержит контекст элемента
+Element or window ID=Идентификатор элемента или окна

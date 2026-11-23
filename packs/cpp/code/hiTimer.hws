@@ -1,0 +1,81 @@
+func doStart
+  if(is_qt_project())
+    println('{')
+    println('auto *timer = new HiasmTimer(widgetParent);')
+    println('timer->setObjectName(QStringLiteral("Timer', _id_, '"));')
+    println('timer->setInterval(qMax(1, int(', Interval, ')));')
+    println('timer->setAutoStop(', AutoStop, ');')
+    println('timer->defer = ', get('OverCall') == 1, ';')
+    if(linked(onTimer))
+      println('timer->onTick = [&form] {')
+      event(onTimer)
+      println('};')
+    end
+    if(linked(onStop))
+      println('timer->onStop = [&form] {')
+      event(onStop)
+      println('};')
+    end
+    if(get('Enable') == 'True')
+      println('timer->restart();')
+    end
+    println('}')
+  else
+    gtkStart()
+  end
+end
+
+func gtkStart
+  fvar(enabled)
+  enabled = '"' && code(d('Enable')) && '"'
+  println('hiasm_timer("hcTimer', _id_, '", ', d('Interval'), ', ', enabled, ', +[](gpointer) -> gboolean {')
+  block.inclvl()
+  println('static int hiasm_ticks', _id_, ' = 0;')
+  event(onTimer)
+  println('++hiasm_ticks', _id_, ';')
+  println('if(', d('AutoStop'), ' > 0 && hiasm_ticks', _id_, ' >= ', d('AutoStop'), ') {')
+  block.inclvl()
+  event(onStop)
+  println('return G_SOURCE_REMOVE;')
+  block.declvl()
+  println('}')
+  println('return G_SOURCE_CONTINUE;')
+  block.declvl()
+  println('});')
+end
+
+func doStop(_data)
+  if(is_qt_project())
+    println(QtTimer(), '->finish(false);')
+  else
+    println('hiasm_timer_stop("hcTimer', _id_, '");')
+  end
+end
+
+func QtTimer()
+  return('static_cast<HiasmTimer *>(form.findChild<QTimer *>(QStringLiteral("Timer' && _id_ && '")))')
+end
+
+func doTimer(_data)
+  println(QtTimer(), '->restart();')
+end
+
+func doStopAll(_data)
+  println(QtTimer(), '->finish(true);')
+end
+
+func doInterval(_data)
+  if(len(_data) > 0)
+    println(QtTimer(), '->setInterval(qMax(1, qt_text(', _data, ').toInt()));')
+  end
+end
+
+func doAutoStop(_data)
+  if(len(_data) > 0)
+    println(QtTimer(), '->setAutoStop(qt_text(', _data, ').toInt());')
+  end
+end
+
+func Enabled()
+  return('int(' && QtTimer() && '->isActive())')
+end

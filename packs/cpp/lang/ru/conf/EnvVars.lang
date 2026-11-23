@@ -1,0 +1,17 @@
+Working with Environment Variables=Работа с переменными окружения
+Default conversion string=Строка для преобразования по умолчанию
+Default environment variable name=Имя переменной окружения по умолчанию
+Default environment variable value for doSet method=Значение переменной окружения для метода doSet по умолчанию
+Expands environment variables in String ARG(String)=Разворачивает переменные окружения в строке String ARG(String)
+Lists available environment variables=Перечисляет доступные переменные окружения
+Gets the value of the environment variable named Name ARG(Name)=Получает значение переменной окружения по имени Name ARG(Name)
+Sets the Name environment variable to a new Value (current process only) ARG(Name, Value)=Устанавливает переменной окружения Name новое значение Value (только для текущего процесса) ARG(Name, Value)
+Removes the Name environment variable (current process only) ARG(Name)=Удаляет переменную окружения Name (только для текущего процесса) ARG(Name)
+The event occurs whenever the environment variables in a string are expanded, outputting the resulting string to the ARG(String) stream=Событие происходит всякий раз после разворачивания переменных окружения в строке, выдавая результирующую строку в поток ARG(String)
+The event occurs every time the next environment variable is received, outputting its name and value to the ARG(EnvVarString) stream=Событие происходит всякий раз при получении очередной переменной окружения, выдавая ее имя и значение в поток ARG(EnvVarString)
+The event occurs after the enumeration of all environment variables is completed=Событие происходит после завершения перебора всех переменных окружения
+The event occurs whenever the value of an environment variable is retrieved by the doGet method, outputting the resulting value to the ARG(Value) stream.=Событие происходит всякий раз при получении значения переменной окружения методом doGet, выдавая полученное значение в поток ARG(Value)
+Contains the result of the current operation=Содержит результат выполнения текущей операции
+String to convert=Строка для преобразования
+Environment variable name=Имя переменной окружения
+Environment variable value for doSet method=Значение переменной окружения для метода doSet

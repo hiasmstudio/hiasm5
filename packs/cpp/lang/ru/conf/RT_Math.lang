@@ -1,0 +1,12 @@
+Arithmetic operations +,-,*,/,... (etc. according to the list in OpType)=Арифметические операции +,-,*,/,... (и т.п. по списку в OpType)
+Defines an arithmetic operation=Определяет арифметическую операцию
+Defines the default operand 1=Определяет операнд 1 по умолчанию
+Defines the default operand 2=Определяет операнд 2 по умолчанию
+Defines the type of the result=Определяет тип результата
+Initial result values=Начальные значения результата
+Units for trigonometric functions=Единицы для тригонометрических функций
+Calculates the sum, or the difference, or... (etc. according to the list in OpType)=Вычисляет сумму, или разность, или... (и т.д. по списку в OpType)
+Outputs the result of the mathematical operation to the stream=Выдаёт в поток результат матоперации
+Operand 1=Операнд 1
+Operand 2=Операнд 2
+Contains the result of the operation after it has been calculated by the doOperation method=Содержит результат операции после его вычисления методом doOperation

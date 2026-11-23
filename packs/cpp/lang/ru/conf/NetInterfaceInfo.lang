@@ -1,0 +1,11 @@
+Network interface information=Информация о сетевом интерфейсе
+Index of the interface about which information needs to be obtained=Индекс интерфейса, информацию о котором необходимо получить
+Reads information about the specified interface=Читает информацию об указанном интерфейсе
+The event occurs every time after reading information about a network interface=Событие происходит всякий раз после чтения информации о сетевом интерфейсе
+Contains the physical address of the interface (MAC address)=Содержит физический адрес интерфейса (MAC-адрес)
+Contains the data transfer rate (bits/sec)=Содержит скорость передачи данных (биты/сек)
+Contains the largest packet size of transmitted data=Содержит наибольший размер пакета передаваемых данных
+Contains the number of bytes received through the interface=Содержит количество байт, принятых через интерфейс
+Contains the number of received packets containing errors=Содержит количество принятых пакетов, содержащих ошибки
+Contains the number of bytes sent through the interface=Содержит количество байт, отправленных через интерфейс
+Contains the number of packets sent containing errors=Содержит количество отправленых пакетов, содержащих ошибки

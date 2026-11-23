@@ -1,0 +1,25 @@
+include('tag_maker')
+
+section html
+
+func doPrint
+  include('tag_header')
+  s[1] = "input"
+  s &= " type=\"radio\""
+  if(isset(Name))
+    s &= " name=\"" & Name & "\""
+  end
+  if(isset(Value))
+    s &= " value=\"" & Value & "\""
+  end
+  if(Checked = 0)
+    s &= " checked"
+  end
+  include('tag_footer')
+end
+
+section java
+
+func IsChecked()
+  return('document.getElementById(' && Id && ').checked')
+end

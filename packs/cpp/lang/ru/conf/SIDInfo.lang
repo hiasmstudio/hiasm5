@@ -1,0 +1,5 @@
+Getting a username and domain by its SID=Получение имени пользователя и домена по его SID
+Retrieves information about the user by his SID=Получает информацию о пользователе по его SID
+The event occurs every time after receiving information about the user and outputs it to the stream=Событие происходит всякий раз после получения информации о пользователе и выдает её в поток
+Contains the result of the element's operation=Содержит результат работы элемента
+Determines the user SID to obtain information about him=Определяет SID пользователя для получения информации о нем

@@ -1,0 +1,8 @@
+Adds new variables to the selected type=Добавляет новые переменные к выбранному типу
+List of variables=Список переменных
+Type name=Имя типа
+Default data inserted into variable=Данные по умолчанию, вставляемые в переменную
+True - use both the GType point and the stream to determine the type into which the variables will be inserted, False - determine the type only from the stream=True - использовать и точку GType и поток для определения типа, в который будут вставлены переменные, False - определять тип только из потока
+Adds variables to a type=Добавляет переменные к типу
+The event occurs after adding variables to the type=Событие происходит после добавления переменных в тип
+The event occurs when an error occurs and outputs its code to the streamARG(err_code,info)=Событие происходит при возникновении ошибки и выдает ее код в потокARG(err_code,info)

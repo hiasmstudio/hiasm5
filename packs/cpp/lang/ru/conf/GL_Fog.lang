@@ -1,0 +1,6 @@
+Fog=Туман
+Color=Цвет
+Display function: Exp - exponential, Linear - linear=Функция отображения: Exp - экспоненциальная, Linear - линейная
+Density=Плотность
+On/off fog output=Вкл./выкл. вывод тумана
+The event occurs every time after on/off. fog=Событие происходит всякий раз после вкл./выкл. тумана

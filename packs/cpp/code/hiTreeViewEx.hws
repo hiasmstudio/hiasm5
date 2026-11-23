@@ -1,0 +1,98 @@
+include('hiTreeView')
+
+func doExpand(_data)
+  println('if (auto *item = ', Tree(), '->rows().value(qt_text(', Arg(_data), ').toInt())) item->setExpanded(true);')
+end
+
+func doCollapse(_data)
+  println('if (auto *item = ', Tree(), '->rows().value(qt_text(', Arg(_data), ').toInt())) item->setExpanded(false);')
+end
+
+func doExpandToggle(_data)
+  println('if (auto *item = ', Tree(), '->rows().value(qt_text(', Arg(_data), ').toInt())) item->setExpanded(!item->isExpanded());')
+end
+
+func doSort(_data)
+  println(Tree(), '->sortItems(0, Qt::AscendingOrder);')
+end
+
+func doItemBold(_data)
+  println('if (auto *item = ', Tree(), '->rows().value(qt_text(', Arg(_data), ').toInt())) {')
+  println('  auto font = item->font(0); font.setBold(!font.bold()); item->setFont(0, font);')
+  println('}')
+end
+
+func doItemHasChild(_data)
+  println('if (auto *item = ', Tree(), '->rows().value(qt_text(', Arg(_data), ').toInt())) item->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);')
+end
+
+func doItemPath(_data)
+  println('if (auto *item = ', Tree(), '->rows().value(qt_text(', Arg(_data), ').toInt())) {')
+  println('  QStringList parts;')
+  println('  for (; item; item = item->parent()) parts.prepend(item->text(0));')
+  println('  auto separator = qt_text(', cstr(get('Delimiter')), ');')
+  println('  if (separator.isEmpty()) separator = QChar(92);')
+  println('  const auto path = (separator == QChar(92) ? separator : QString()) + parts.join(separator);')
+  event(onItemPath, 'path')
+  println('}')
+end
+
+func doAddChild(_data)
+  fvar(parentIndex, iconIndex)
+  parentIndex = '0'
+  iconIndex = '0'
+  if(linked('Parent'))
+    parentIndex = d('Parent')
+  end
+  if(linked('IconID'))
+    iconIndex = d('IconID')
+  end
+  println('{ auto *tree = ', Tree(), ';')
+  println('auto *parent = tree->rows().value(qt_text(', parentIndex, ').toInt());')
+  println('tree->append(parent ? parent : tree->invisibleRootItem(), qt_text(', cstr(d('Str')), '), qt_text(', iconIndex, ').toInt());')
+  event(onChange)
+  println('}')
+end
+
+func doInsert(_data)
+  fvar(childIndex, iconIndex, caption)
+  childIndex = Arg(_data)
+  iconIndex = '0'
+  caption = '""'
+  if(linked('Child'))
+    childIndex = d('Child')
+    if(len(_data) > 0)
+      caption = _data
+    end
+  end
+  if(linked('Str'))
+    caption = d('Str')
+  end
+  if(linked('IconID'))
+    iconIndex = d('IconID')
+  end
+  println('{ auto *tree = ', Tree(), ';')
+  println('auto *after = tree->rows().value(qt_text(', childIndex, ').toInt());')
+  println('auto *parent = after ? after->parent() : nullptr;')
+  println('tree->append(parent ? parent : tree->invisibleRootItem(), qt_text(', caption, '), qt_text(', iconIndex, ').toInt(), after);')
+  event(onChange)
+  println('}')
+end
+
+func ItemParent()
+  fvar(index)
+  index = '0'
+  if(linked('Child'))
+    index = d('Child')
+  end
+  return('([](HiasmTree *tree, int index) { const auto rows = tree->rows(); const auto *item = rows.value(index); return item ? int(rows.indexOf(item->parent())) : -1; }(' && Tree() && ', qt_text(' && index && ').toInt()))')
+end
+
+func ItemChild()
+  fvar(index)
+  index = '0'
+  if(linked('Parent'))
+    index = d('Parent')
+  end
+  return('([](HiasmTree *tree, int index) { const auto rows = tree->rows(); const auto *item = rows.value(index); return item ? int(rows.indexOf(item->child(0))) : -1; }(' && Tree() && ', qt_text(' && index && ').toInt()))')
+end

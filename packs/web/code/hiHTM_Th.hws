@@ -1,0 +1,15 @@
+include('tag_maker')
+
+section html
+
+func doPrint
+  include('tag_header')
+  if(isndef(ColSpan))
+    s &= " colspan=\"" & ColSpan & "\""
+  end 
+  if(isndef(RowSpan))
+    s &= " rowspan=\"" & RowSpan & "\""
+  end 
+
+  include('tag_footer')
+end

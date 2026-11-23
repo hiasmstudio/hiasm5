@@ -1,0 +1,9 @@
+Make(cpp)
+Add(Entry,1,56,56)
+{
+ link(onStart,2:doPrint,[])
+}
+Add(Print,2,147,56)
+{
+ Text=Hello from C++17
+}

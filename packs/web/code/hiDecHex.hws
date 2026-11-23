@@ -1,0 +1,17 @@
+func doDecHex(_data)
+  if(linked(Result))
+    println(rslt, ' = dechex(', Value, ');')
+    event(onHexDec, rslt)
+  else
+    event(onHexDec, 'dechex(' && Value && ')')
+  end 
+end
+
+func Result()
+  if(linked(doHexDec))
+    return(rslt)
+  else
+    return('dechex(' && Value && ')')
+  end
+end
+

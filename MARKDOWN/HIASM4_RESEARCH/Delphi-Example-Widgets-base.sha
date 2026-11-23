@@ -1,0 +1,247 @@
+Make(delphi)
+ver(4.05 build 186)
+Add(MainForm,2953706,7,7)
+{
+ Width=513
+ Height=645
+}
+Add(Label,3850683,77,7)
+{
+ Left=15
+ Top=15
+}
+Add(Edit,9680450,119,7)
+{
+ Left=75
+ Top=15
+}
+Add(CheckBox,6466503,161,7)
+{
+ Left=140
+ Top=10
+}
+Add(RadioButton,1438164,203,7)
+{
+ Left=205
+ Top=10
+}
+Add(Button,10781784,245,7)
+{
+ Left=270
+ Top=10
+}
+Add(BitBtn,13071940,77,49)
+{
+ Left=15
+ Top=45
+}
+Add(ToolBar,14150274,119,49)
+{
+ Left=85
+ Top=45
+ Width=35
+ Buttons=[]
+}
+Add(TabControl,7300330,161,49)
+{
+ Left=140
+ Top=45
+ Height=95
+ Bitmaps=[]
+}
+Add(ComboBox,13476600,203,49)
+{
+ Left=300
+ Top=45
+ Height=21
+}
+Add(ColorBox,3877713,245,49)
+{
+ Left=380
+ Top=40
+ Height=21
+}
+Add(DriveBox,4243317,77,98)
+{
+ Left=15
+ Top=150
+ Height=21
+}
+Add(FontBox,12699674,119,98)
+{
+ Left=90
+ Top=150
+ Height=21
+}
+Add(DatePicker,6977302,161,98)
+{
+ Left=165
+ Top=150
+ Height=21
+}
+Add(ListBox,7898326,203,98)
+{
+ Left=245
+ Top=150
+ Width=100
+ Height=45
+}
+Add(Memo,2181052,245,98)
+{
+ Left=360
+ Top=145
+ Width=100
+ Height=40
+}
+Add(RichEdit,8658158,77,154)
+{
+ Left=15
+ Top=210
+ Width=95
+ Height=70
+}
+Add(StringTable,16398446,119,154)
+{
+ Left=125
+ Top=210
+ Width=80
+ Height=75
+}
+Add(TreeView,9996670,161,154)
+{
+ Left=215
+ Top=210
+ Width=70
+ Height=70
+ Icons=[]
+}
+Add(Splitter,13063348,203,154)
+{
+ Left=305
+ Top=210
+ Width=20
+ Height=60
+}
+Add(ScrollBar,977460,245,154)
+{
+ Left=350
+ Top=210
+}
+Add(ChildScrollBox,10864632,77,203)
+{
+}
+BEGIN_SDK
+  Add(EditMulti,1620220,21,21)
+  {
+  }
+  Add(ScrollBox,13386549,35,105)
+  {
+   Left=20
+   Top=295
+  }
+END_SDK
+Add(UpDown,13961208,119,203)
+{
+ Left=95
+ Top=290
+ Height=35
+}
+Add(TrackBar,13263100,161,203)
+{
+ Left=130
+ Top=295
+}
+Add(ProgressBar,13151016,203,203)
+{
+ Left=245
+ Top=295
+}
+Add(Menu,2109284,245,203)
+{
+}
+Add(WebBrowser,13478788,245,245)
+{
+ Left=390
+ Top=260
+ Width=105
+ Height=90
+}
+Add(Flash,12479211,77,287)
+{
+ Left=20
+ Top=360
+ Width=90
+ Height=40
+}
+Add(Image,120257,119,287)
+{
+ Left=125
+ Top=365
+}
+Add(AlphaImage,6463764,161,287)
+{
+ Left=200
+ Top=365
+}
+Add(PaintBox,1815398,203,287)
+{
+ Left=275
+ Top=365
+}
+Add(CtrlPalette,12803972,245,287)
+{
+ Left=350
+ Top=360
+ Height=30
+}
+Add(HilightMemo,14769838,77,329)
+{
+ Left=25
+ Top=425
+ Width=130
+ Height=60
+ Font=[Courier New,8,0,0,1]
+ HilightFont=[Courier New,8,0,0,1]
+}
+Add(StatusBar,6018860,77,245)
+{
+}
+Add(ChildForm,4284748,119,245)
+{
+}
+BEGIN_SDK
+  Add(EditMulti,9589464,21,21)
+  {
+  }
+  Add(MainForm,9384344,35,105)
+  {
+   Left=35
+   Top=105
+  }
+END_SDK
+Add(ChildPanel,13009590,161,245)
+{
+}
+BEGIN_SDK
+  Add(EditMulti,7818640,21,21)
+  {
+  }
+  Add(Panel,2420667,35,105)
+  {
+   Left=175
+   Top=430
+  }
+END_SDK
+Add(ChildGroupBox,8965345,203,245)
+{
+}
+BEGIN_SDK
+  Add(EditMulti,15989326,21,21)
+  {
+  }
+  Add(GroupBox,5249998,35,105)
+  {
+   Left=250
+   Top=430
+  }
+END_SDK

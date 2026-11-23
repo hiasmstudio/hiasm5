@@ -1,0 +1,5 @@
+func doSetPath(_data)
+  println('session_save_path(', Path, ');')
+  event(onSetPath)
+end
+

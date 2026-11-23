@@ -1,0 +1,101 @@
+*Бегущий огонек на клавиатуре.
+Make(cpp)
+Pos(0,0)
+Add(MainForm,50080,150,157)
+{
+ Left=312
+ Top=284
+ Width=328
+ Height=76
+ Caption="Counter"
+ BorderStyle=3
+ TaskBar=1
+ link(onCreate,46602:doWork4,[(262,198)(262,168)])
+}
+Add(Timer,8201,61,81)
+{
+ Interval=300
+ Point(doInterval)
+ link(onTimer,47479:doNext,[])
+}
+Add(Counter,47479,111,81)
+{
+ Min=1
+ Max=3
+ link(onNext,7056:doCase,[])
+}
+Add(Case,7056,168,81)
+{
+ Value=Integer(1)
+ link(onNextCase,84085:doCase,[])
+ link(onTrue,46602:doWork3,[(217,94)(217,161)])
+}
+Add(Case,84085,222,81)
+{
+ Value=Integer(2)
+ link(onNextCase,5972:doCase,[])
+ link(onTrue,46602:doWork2,[(265,94)(265,154)])
+}
+Add(Case,5972,274,81)
+{
+ Value=Integer(3)
+ link(onTrue,46602:doWork1,[(317,94)(317,147)])
+}
+Add(ScrollBar,2167,10,82)
+{
+ Left=20
+ Top=20
+ Width=277
+ Height=14
+ Max=1000
+ Position=300
+ link(onPosition,8201:doInterval,[])
+}
+Add(InfoTip,26503,70,7)
+{
+ Info='Класический "Бегущий огонь", вошедший в 3 версию Конструктора без изменений. Для просмотра его усовершенствованной версии откройте проект CounterEx.sha','',''
+ Font=[Times New Roman,11,0,0]
+ Width=386
+ Height=53
+}
+Add(MultiElement,46602,343,141)
+{
+ @Hint=Коммутатор для переключения диодов на клавиатуре
+}
+BEGIN_SDK
+Pos(0,0)
+  Add(EditMulti,32949,3,3)
+  {
+   WorkCount=4
+   Width=380
+   Height=171
+   link(doWork1,89188:doEvent1,[(61,9)(61,27)])
+   link(doWork2,36748:doEvent1,[(52,16)(52,69)])
+   link(doWork3,44658:doEvent1,[(44,23)(44,111)])
+  }
+  Add(Hub,36748,119,63)
+  {
+   link(onEvent1,75704:doEvent2,[(191,69)(191,132)])
+   link(onEvent2,28729:doCapsLock,[(222,76)(222,66)])
+  }
+  Add(Hub,89188,119,21)
+  {
+   link(onEvent1,75704:doEvent1,[(203,27)(203,125)])
+   link(onEvent2,28729:doNumLock,[(303,34)(303,59)])
+  }
+  Add(Hub,75704,245,119)
+  {
+   InCount=3
+   OutCount=1
+   link(onEvent1,28729:doReset,[(301,125)(301,80)])
+  }
+  Add(Hub,44658,119,105)
+  {
+   link(onEvent1,75704:doEvent3,[(179,111)(179,139)])
+   link(onEvent2,28729:doScrollLock,[(238,118)(238,73)])
+  }
+  Add(LedKey,28729,339,53)
+  {
+   Point(doReset)
+  }
+END_SDK

@@ -1,0 +1,8 @@
+Creating a music audio stream from a file=Создание музыкального звукового потока из файла
+Format file name MO3, IT, XM, S3M, MTM, MOD, UMX=Имя файла формата MO3, IT, XM, S3M, MTM, MOD, UMX
+Music Stream Options=Параметры музыкального потока
+Music stream name=Имя музыкального потока
+Creates an audio stream from the specified file=Создает звуковой поток по указанному файлу
+The event occurs every time a sound stream is created=Событие происходит всякий раз после создания звукового потока
+The event occurs every time after the audio stream has finished playing=Событие происходит всякий раз после окончания проигрывания звукового потока
+The event occurs whenever an error occurs during the creation of an audio stream and produces its code ARG(Error)=Событие происходит всякий раз при возникновении ошибки в процессе создания звукового потока и выдает ее код ARG(Error)

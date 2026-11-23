@@ -1,0 +1,21 @@
+include('tag_maker')
+
+section html
+
+func doPrint
+  include('tag_header')
+  s &= " method=\"" & str(Method) & "\""
+  if(isset(Action))
+    s &= " action=\"" & Action & "\""
+  end
+  if(isset(Enctype))
+    s &= " enctype=\"" & Enctype & "\""
+  end
+  if(isset(Target))
+    s &= " target=\"" & Target & "\""
+  end
+  if(linked(onSubmit))
+    s &= makeevent("onsubmit")
+  end
+  include('tag_footer')
+end

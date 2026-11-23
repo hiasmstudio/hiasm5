@@ -1,0 +1,26 @@
+func doQuery
+  if(linked(Result))
+    println(r, ' = mssql_query(', SQL, ');')
+    event(onQuery, r)
+  else
+    event(onQuery, 'mssql_query(' && SQL && ')')
+  end
+end
+
+func doExec
+  println('mssql_query(', SQL, ');')
+  event(onQuery)  
+end
+
+func Result
+  if(linked(doQuery))
+    return(r)
+  else
+    return('mssql_query(' && SQL && ')')
+  end
+end
+
+func LastInsertId()
+  return('mssql_insert_id()')
+end
+

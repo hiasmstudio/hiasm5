@@ -1,0 +1,41 @@
+Make(_base)
+Add(InfoTip,1,24,20)
+{
+ @Width=680
+ @Height=116
+ Info=#23:Welcome to HiAsm Studio|0:|39:Visual programming with C++17 and GTK4.|73:This Core document is a tutorial: it does not need to be compiled or run.|
+ HAlign=0
+ Margin=12
+}
+Add(InfoTip,2,24,148)
+{
+ @Width=680
+ @Height=116
+ Info=#19:1. Create a project|0:|56:File → New: choose the C++ package and application type.|84:A new project and its build outputs live in a temporary directory until you save it.|
+ HAlign=0
+ Margin=12
+}
+Add(InfoTip,3,24,276)
+{
+ @Width=680
+ @Height=116
+ Info=#29:2. Connect events and actions|0:|57:Drag components from the Elements panel onto the diagram.|82:Connect event outputs to action inputs; edit properties in the panel on the right.|
+ HAlign=0
+ Margin=12
+}
+Add(InfoTip,4,24,404)
+{
+ @Width=680
+ @Height=116
+ Info=#22:3. Save, build and run|0:|52:File → Save As selects a permanent project location.|104:Make(cpp) lessons in packs/_base/example/tutorial and example/plugs can be built. Libraries need a host.|
+ HAlign=0
+ Margin=12
+}
+Add(InfoTip,5,24,532)
+{
+ @Width=680
+ @Height=116
+ Info=#24:4. Explore the workspace|0:|34:Use View to restore hidden panels.|81:Project repository works with Git; connected HiAsm 4 packages retain SVN support.|89:See packs/_base/README.md. Original HiAsm 4 content is preserved in the research archive.|
+ HAlign=0
+ Margin=12
+}

@@ -1,0 +1,169 @@
+section html
+
+func Create():java
+  fvar(s)
+  //------------------- Font ---------------------------
+  if(isndef(Color))
+    s &= " color: " & Color & ";"
+  end
+  if(isndef(FontWeight))
+    s &= " font-weight: " & FontWeight & ";"
+  end  
+  if(isndef(FontStyle))
+    s &= " font-style: " & str(FontStyle) & ";"
+  end
+  if(isndef(FontVariant))
+    s &= " font-variant: " & str(FontVariant) & ";"
+  end
+  if(isndef(FontSize))
+    s &= " font-size: " & FontSize & ";"
+  end  
+  if(isndef(FontFamily))
+    s &= " font-family: " & FontFamily & ";"
+  end 
+  //------------------- Text ---------------------------
+  if(isndef(TextAlign))
+    s &= " text-align: " & str(TextAlign) & ";"
+  end  
+  if(isndef(TextDecoration))
+    s &= " text-decoration: " & str(TextDecoration) & ";"
+  end  
+  if(isndef(TextIndent))
+    s &= " text-indent: " & TextIndent & ";"
+  end 
+  if(isndef(TextTransform))
+    s &= " text-transform: " & str(TextTransform) & ";"
+  end 
+  //------------------- Border ---------------------------
+  if(isndef(BorderColor))
+    s &= " border-color: " & BorderColor & ";"
+  end  
+  if(isndef(BorderWidth))
+    s &= " border-width: " & BorderWidth & ";"
+  end  
+  if(isndef(BorderStyle))
+    s &= " border-style: " & str(BorderStyle) & ";"
+  end 
+  if(isndef(BorderCollapse))
+    s &= " border-collapse: " & BorderCollapse & ";"
+  end 
+  if(isndef(BorderSpacing))
+    s &= " border-spacing: " & BorderSpacing & ";"
+  end 
+  //------------------- Background ---------------------------
+  if(isndef(BgColor))
+    s &= " background-color: " & BgColor & ";"
+  end 
+  if(isndef(BgImage))
+    s &= " background-image: url('" & BgImage + "');"
+  end
+  if(isndef(BgAttachment))
+    s &= " background-attachment: " & str(BgAttachment) & ";"
+  end 
+  if(isndef(BgRepeat))
+    s &= " background-repeat: " & str(BgRepeat) & ";"
+  end 
+  if(isndef(BgPosition))
+    s &= " background-position: " & str(BgPosition) & ";"
+  end 
+  //------------------- Size ---------------------------
+  if(isndef(Width))
+    s &= " width: " & Width & ";"
+  end 
+  if(isndef(Height))
+    s &= " height: " & Height & ";"
+  end 
+  //------------------- Place ---------------------------
+  if(isndef(Position))
+    s &= " position: " & str(Position) & ";"
+  end 
+  if(isndef(Left))
+    s &= " left: " & str(Left) & ";"
+  end 
+  if(isndef(Top))
+    s &= " top: " & str(Top) & ";"
+  end 
+  //------------------- Margin ---------------------------
+  if(isndef(MLeft))
+    s &= " margin-left: " & str(MLeft) & ";"
+  end 
+  if(isndef(MTop))
+    s &= " margin-top: " & str(MTop) & ";"
+  end 
+  if(isndef(MRight))
+    s &= " margin-right: " & str(MRight) & ";"
+  end 
+  if(isndef(MBottom))
+    s &= " margin-bottom: " & str(MBottom) & ";"
+  end 
+  //------------------- Padding ---------------------------
+  if(isndef(PLeft))
+    s &= " padding-left: " & str(PLeft) & ";"
+  end 
+  if(isndef(PTop))
+    s &= " padding-top: " & str(PTop) & ";"
+  end 
+  if(isndef(PRight))
+    s &= " padding-right: " & str(PRight) & ";"
+  end 
+  if(isndef(PBottom))
+    s &= " padding-bottom: " & str(PBottom) & ";"
+  end 
+  //------------------- Other ---------------------------
+  if(isndef(Cursor))
+    s &= " cursor: " & str(Cursor) & ";"
+  end 
+  if(isndef(Float))
+    s &= " float: " & str(Float) & ";"
+  end 
+  if(isndef(EmptyCells))
+    s &= " empty-cells: " & str(EmptyCells) & ";"
+  end 
+  if(isndef(Overflow))
+    s &= " overflow: " & str(Overflow) & ";"
+  end 
+  if(isndef(VerticalAlign))
+    s &= " vertical-align: " & VerticalAlign & ";"
+  end 
+  if(isndef(Visibility))
+    s &= " visibility: " & str(Visibility) & ";"
+  end 
+  if(isndef(WhiteSpace))
+    s &= " white-space: " & str(WhiteSpace) & ";"
+  end 
+  if(isndef(LetterSpacing))
+    s &= " letter-spacing: " & LetterSpacing & ";"
+  end 
+  if(isndef(WordSpacing))
+    s &= " word-spacing: " & WordSpacing & ";"
+  end 
+  if(isndef(Display))
+    s &= " display: " & str(Display) & ";"
+  end
+  
+  return(s)
+end
+
+func doPrint()
+  fvar(s)
+   
+  if(isndef(Tag))
+    s = Tag
+  else
+    s = ""
+  end
+  if(isndef(Name))
+    s &= "." & Name
+  end  
+  if(isndef(Mode))
+    s &= ":" & Mode
+  end
+  s &= " { " & Create() & " }"
+  
+  println(s)
+  event(onPrint)
+end
+
+func Style():java
+  return(Create())
+end

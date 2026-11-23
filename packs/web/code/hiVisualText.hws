@@ -1,0 +1,14 @@
+func doPrint:java
+  event(onPrint, Lines)
+end
+
+func Text:html,java
+  return(Lines)
+end
+
+section html
+
+func doPrint
+  print(code(Lines))
+  event(onPrint)
+end

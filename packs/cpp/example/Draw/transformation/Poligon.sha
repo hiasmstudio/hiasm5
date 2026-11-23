@@ -1,0 +1,125 @@
+Make(cpp)
+Add(Img_Polygon,6430044,203,294)
+{
+ PointsArray=['0'=3276850,'0'=3276890,'0'=3932260,'0'=3276910,'0'=3276950,'0'=6553725,'0'=9830550,'0'=9830520,'0'=9175160,'0'=9175120,'0'=9830480,'0'=9830450,'0'=6553675]
+ Style=1
+ Point(Offset)
+ Point(Transform)
+ link(Bitmap,15950500:Bitmap,[(209,251)(160,251)])
+ link(Offset,5846594:Point,[(223,281)(62,281)])
+ link(Transform,15199743:Transform,[])
+}
+Add(MainForm,4560334,154,154)
+{
+ Width=808
+ Height=502
+ Position=1
+}
+Add(PaintBox,15950500,154,196)
+{
+ Top=175
+ Width=882
+ Height=359
+ Color=32768
+ Layout="ver_01"
+ HeightScale=100
+ ClearBeforeDraw=0
+ link(onBeforeDraw,6430044:doDraw,[(194,202)(194,300)])
+}
+Add(HubEx,146509,133,196)
+{
+ link(onEvent,15950500:doRefresh,[])
+}
+Add(Label,3890185,56,42)
+{
+ Left=15
+ Top=50
+ Height=17
+ Layout="gor_10"
+ Caption="слева:"
+ AutoSize=1
+}
+Add(Edit,16279673,56,154)
+{
+ Left=55
+ Top=50
+ Layout="gor_10"
+ Text="100"
+ DataType=2
+ link(onChange,1750075:doWork1,[(102,160)])
+}
+Add(Label,13979721,56,84)
+{
+ Left=15
+ Top=75
+ Height=17
+ Layout="gor_11"
+ Caption="сверху:"
+ AutoSize=1
+}
+Add(Edit,10008463,63,196)
+{
+ Left=55
+ Top=75
+ Layout="gor_11"
+ Text="160"
+ DataType=2
+ link(onChange,1750075:doWork2,[])
+}
+Add(Label,14871794,112,42)
+{
+ Left=115
+ Top=50
+ Height=17
+ Layout="gor_10"
+ Caption="ширина:"
+ AutoSize=1
+}
+Add(Label,4175453,112,84)
+{
+ Left=115
+ Top=75
+ Height=17
+ Layout="gor_11"
+ Caption="высота: "
+ AutoSize=1
+}
+Add(HBoxLayout,5838153,308,147)
+{
+ Name="gor_10"
+ Space=2
+ Layout="ver_01"
+}
+Add(HBoxLayout,13328277,308,189)
+{
+ Name="gor_11"
+ Space=2
+ Layout="ver_01"
+}
+Add(VBoxLayout,16736310,308,231)
+{
+ Name="ver_01"
+}
+Add(PointXY,5846594,56,238)
+{
+ link(X,16279673:Text,[])
+ link(Y,10008463:Text,[])
+}
+Add(HubEx,1750075,98,196)
+{
+ link(onEvent,146509:doWork2,[])
+}
+Add(ScrollBar,15237750,231,154)
+{
+ Left=305
+ Top=60
+ Width=260
+ Layout="gor_10"
+ Max=360
+ link(onPosition,146509:doWork1,[(273,160)(273,141)(137,141)])
+}
+Add(Img_UseRotate,15199743,224,231)
+{
+ Angle=90
+ link(Angle,15237750:Position,[])
+}

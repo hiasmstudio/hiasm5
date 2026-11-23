@@ -1,0 +1,40 @@
+Make(web)
+Add(HtmlEntryPoint,16423016,21,133)
+{
+ link(onStart,488304:doPrint,[])
+}
+Add(HTM_Html,488304,70,133)
+{
+ link(onPrint,12802238:doPrint,[])
+}
+Add(HTM_Body,12802238,119,133)
+{
+ Id="root"
+ link(onPrint,8616440:doPrint,[])
+}
+Add(HTM_Submit,8616440,168,133)
+{
+ Point(onClick)
+ link(onClick,12979682:doCreate,[])
+}
+Add(GetElementById,4618902,266,91)
+{
+ Id="root"
+}
+Add(CreateElement,12979682,217,140)
+{
+ Name="input"
+ link(onCreate,13305094:doAppend,[])
+}
+Add(appendChild,13305094,266,140)
+{
+ link(Parent,4618902:Object,[])
+}
+Add(InfoTip,1140264,42,49)
+{
+ Info=#40:Пример работы с DOM структурой документа|
+ HAlign=0
+ Width=253
+ Height=25
+ Margin=4
+}

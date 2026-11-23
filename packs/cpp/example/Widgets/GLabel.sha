@@ -1,0 +1,586 @@
+*Пример работы компонента GLabel с возможностью управления его свойствами в реальном времени
+Make(cpp)
+Add(MainForm,15573324,56,112)
+{
+ Left=20
+ Top=105
+ Width=476
+ Height=410
+ Caption="GLabel"
+ Icon=[ZIP5E07000078DAE594B10AC23010864F14BA88A374ABA3A30F20B8FA56ED6B3959044110044110C441848220886E0EE279E9D936A58DC9B9897FBFBFA497CB915E49011A74F93EA83B8C3D802E00F4C9148201705CA9E7C1FF29AA932821D5A44A39D39AC09AD6A2A5591372CDEA1025E49A3386772FE5D8FABD600C5D2D661D3EDDD28A5B9D9515B73AA4F5679CEB6C984AC33719EEDA325A9D6AC4453B46DB5211119EB93D93952A1EE5C7F7C8A46BF5B1540993AE4D32BEF98D009C74849B399B10D6B9989037E766E037849A0E430F63BF995A8DAF61807708F0F1F653B933426C935BE4881C2B878810D23C1BB5AA2F75FE1244]
+ Position=1
+ link(onCreate,2686175:doEvent1,[])
+}
+Add(DoData,12561256,196,126)
+{
+ Data=String(GLabel)
+ link(onEventData,245980:doWork2,[])
+}
+Add(ColorBox,6140139,308,182)
+{
+ Left=90
+ Top=145
+ Width=150
+ Height=21
+ DefColor=-16777201
+ IndentImg=1
+ link(onClick,6014601:doData,[(352,188)(352,209)(296,209)(296,230)])
+}
+Add(Label,15521436,56,49)
+{
+ Left=5
+ Top=150
+ Width=80
+ Height=20
+ Font=[MS Sans Serif,8,1,0,1]
+ Caption="FonColor"
+ AutoSize=1
+ Alignment=1
+}
+Add(ColorBox,4816636,196,168)
+{
+ Left=90
+ Top=170
+ Width=150
+ Height=21
+ DefColor=-16777195
+ IndentImg=1
+ link(onClick,1312192:doData,[(240,174)(240,195)(184,195)(184,216)])
+}
+Add(Label,14513080,63,49)
+{
+ Left=5
+ Top=175
+ Width=80
+ Height=17
+ Font=[MS Sans Serif,8,1,0,1]
+ Caption="ColorShadow"
+ AutoSize=1
+ Alignment=1
+}
+Add(Font,1234416,427,84)
+{
+ Font=[Arial,48,1,255,0]
+ link(onFont,3921771:doFont,[(517,90)(517,244)])
+ link(Color,8793752:CurrentColor,[])
+ link(Name,5347331:CurrentFont,[(447,72)(398,72)(398,128)(349,128)])
+}
+Add(ColorBox,5431750,252,175)
+{
+ Left=90
+ Top=195
+ Width=150
+ Height=21
+ DefColor=16711680
+ IndentImg=1
+ link(onClick,15582537:doData,[(296,181)(296,202)(240,202)(240,223)])
+}
+Add(DoData,15582537,252,217)
+{
+ link(onEventData,3921771:doColorHover,[])
+ link(Data,5431750:CurrentColor,[])
+}
+Add(DoData,6014601,308,224)
+{
+ link(onEventData,3921771:doColor,[(351,230)(351,265)])
+ link(Data,6140139:CurrentColor,[])
+}
+Add(DoData,1312192,196,210)
+{
+ link(onEventData,3921771:doColorShadow,[])
+ link(Data,4816636:CurrentColor,[])
+}
+Add(ColorBox,8793752,434,42)
+{
+ Left=90
+ Top=220
+ Width=150
+ Height=21
+ DefColor=255
+ IndentImg=1
+ link(onClick,6650061:doWork1,[(475,48)(475,33)(403,33)])
+}
+Add(Label,2981227,70,49)
+{
+ Left=280
+ Top=145
+ Width=95
+ Height=17
+ Font=[MS Sans Serif,8,1,0,1]
+ Caption="HAlign"
+ AutoSize=1
+ Alignment=1
+}
+Add(Label,6354326,77,49)
+{
+ Left=280
+ Top=170
+ Width=95
+ Height=17
+ Font=[MS Sans Serif,8,1,0,1]
+ Caption="VAlign"
+ AutoSize=1
+ Alignment=1
+}
+Add(ComboBox,9986273,252,266)
+{
+ Left=380
+ Top=145
+ Width=80
+ Height=21
+ Strings=#6:taLeft|7:taRight|8:taCenter|
+ Text="Alignment"
+ Point(doSelect)
+ link(onClick,3921771:doAlignment,[(398,279)(398,139)])
+}
+Add(ComboBox,14656924,252,336)
+{
+ Left=380
+ Top=170
+ Width=80
+ Height=21
+ Strings=#8:vaCenter|5:vaTop|8:vaBottom|
+ Text="VAlignment"
+ Point(doSelect)
+ link(onClick,3921771:doVAlignment,[(403,349)(403,146)])
+}
+Add(Label,11205168,84,49)
+{
+ Left=5
+ Top=200
+ Width=80
+ Height=17
+ Font=[MS Sans Serif,8,1,0,1]
+ Caption="ColorHover"
+ AutoSize=1
+ Alignment=1
+}
+Add(DoData,7614659,196,308)
+{
+ Data=Integer(2)
+ link(onEventData,9986273:doSelect,[])
+}
+Add(Label,6355447,91,49)
+{
+ Left=5
+ Top=225
+ Width=80
+ Height=17
+ Font=[MS Sans Serif,8,1,0,1]
+ Caption="TextColor"
+ AutoSize=1
+ Alignment=1
+}
+Add(Hub,2686175,112,126)
+{
+ OutCount=4
+ link(onEvent1,12561256:doData,[])
+ link(onEvent2,7614659:doData,[(170,139)(170,314)])
+ link(onEvent3,4898423:doData,[(162,146)(162,384)])
+ link(onEvent4,14452844:doText,[(328,153)(328,384)])
+}
+Add(DoData,4898423,196,378)
+{
+ Data=Integer(0)
+ link(onEventData,14656924:doSelect,[])
+}
+Add(UpDown,3846136,154,413)
+{
+ Left=380
+ Top=195
+ Max=20
+ Min=-20
+ Position=3
+ link(onPosition,3499364:doText,[])
+}
+Add(Edit,3499364,196,413)
+{
+ Left=400
+ Top=195
+ Width=60
+ Text="3"
+ link(onChange,3921771:doDepthShadow,[(357,419)(357,153)])
+}
+Add(Label,752873,98,49)
+{
+ Left=280
+ Top=195
+ Width=95
+ Height=17
+ Font=[MS Sans Serif,8,1,0,1]
+ Caption="DepthShadow"
+ AutoSize=1
+ Alignment=1
+}
+Add(Button,7278388,231,427)
+{
+ Left=10
+ Top=275
+ Width=90
+ Font=[MS Sans Serif,8,1,0,1]
+ TabOrder=-1
+ Caption="FonGradient"
+ link(onClick,11061705:doSwitch,[])
+}
+Add(Switch,11061705,273,427)
+{
+ DataOn=Integer(1)
+ DataOff=Integer(0)
+ Default=0
+ link(onSwitch,3921771:doFonGradient,[(408,433)(408,160)])
+}
+Add(Button,13667911,154,448)
+{
+ Left=10
+ Top=300
+ Width=90
+ Font=[MS Sans Serif,8,1,0,1]
+ TabOrder=-1
+ Caption="InvFonGrad"
+ link(onClick,10703523:doSwitch,[])
+}
+Add(Switch,10703523,196,448)
+{
+ DataOn=Integer(1)
+ DataOff=Integer(0)
+ link(onSwitch,3921771:doInvFonGrad,[(363,454)(363,167)])
+}
+Add(Button,13000162,231,462)
+{
+ Left=10
+ Top=325
+ Width=90
+ Font=[MS Sans Serif,8,1,0,1]
+ TabOrder=-1
+ Caption="HorizFonGrad"
+ link(onClick,12546399:doSwitch,[])
+}
+Add(Switch,12546399,273,462)
+{
+ DataOn=Integer(1)
+ DataOff=Integer(0)
+ link(onSwitch,3921771:doHorizFonGrad,[(414,468)(414,174)])
+}
+Add(Label,4008743,105,49)
+{
+ Left=280
+ Top=220
+ Width=95
+ Height=17
+ Font=[MS Sans Serif,8,1,0,1]
+ Caption="ContrastFon"
+ AutoSize=1
+ Alignment=1
+}
+Add(Edit,16700847,196,483)
+{
+ Left=400
+ Top=220
+ Width=60
+ Text="100"
+ link(onChange,3921771:doContrastFon,[(369,489)(369,181)])
+}
+Add(UpDown,6351501,154,483)
+{
+ Left=380
+ Top=220
+ Max=100
+ Position=100
+ link(onPosition,16700847:doText,[])
+}
+Add(Edit,451560,273,497)
+{
+ Left=400
+ Top=245
+ Width=60
+ Text="80"
+ link(onChange,3921771:doContrast,[(425,503)(425,209)])
+}
+Add(UpDown,13936577,231,497)
+{
+ Left=380
+ Top=245
+ Max=100
+ Position=80
+ link(onPosition,451560:doText,[])
+}
+Add(Label,6767715,112,49)
+{
+ Left=280
+ Top=245
+ Width=95
+ Height=17
+ Font=[MS Sans Serif,8,1,0,1]
+ Caption="ContrastText"
+ AutoSize=1
+ Alignment=1
+}
+Add(Button,53890,154,518)
+{
+ Left=105
+ Top=275
+ Width=90
+ Font=[MS Sans Serif,8,1,0,1]
+ TabOrder=-1
+ Caption="GradientText"
+ link(onClick,12903391:doSwitch,[])
+}
+Add(Switch,12903391,196,518)
+{
+ DataOn=Integer(1)
+ DataOff=Integer(0)
+ Default=0
+ link(onSwitch,3921771:doTextGradient,[(375,524)(375,188)])
+}
+Add(Button,1818755,231,532)
+{
+ Left=105
+ Top=300
+ Width=90
+ Font=[MS Sans Serif,8,1,0,1]
+ TabOrder=-1
+ Caption="InversGrad"
+ link(onClick,16514268:doSwitch,[])
+}
+Add(Switch,16514268,273,532)
+{
+ DataOn=Integer(1)
+ DataOff=Integer(0)
+ link(onSwitch,3921771:doInversGrad,[(420,538)(420,195)])
+}
+Add(Button,11099212,154,553)
+{
+ Left=105
+ Top=325
+ Width=90
+ Font=[MS Sans Serif,8,1,0,1]
+ TabOrder=-1
+ Caption="Horizontal"
+ link(onClick,13238784:doSwitch,[])
+}
+Add(Switch,13238784,196,553)
+{
+ DataOn=Integer(1)
+ DataOff=Integer(0)
+ link(onSwitch,3921771:doHorizontal,[(380,559)(380,202)])
+}
+Add(Button,10893592,231,567)
+{
+ Left=10
+ Top=350
+ Width=90
+ Font=[MS Sans Serif,8,1,0,1]
+ TabOrder=-1
+ Caption="Underline"
+ link(onClick,14975348:doSwitch,[])
+}
+Add(Switch,14975348,273,567)
+{
+ DataOn=Integer(1)
+ DataOff=Integer(0)
+ Default=0
+ link(onSwitch,3921771:doUnderline,[(439,573)(439,230)])
+}
+Add(Button,3638199,154,588)
+{
+ Left=105
+ Top=350
+ Width=90
+ Font=[MS Sans Serif,8,1,0,1]
+ TabOrder=-1
+ Caption="AntiAliased"
+ link(onClick,10246471:doSwitch,[])
+}
+Add(Switch,10246471,196,588)
+{
+ DataOn=Integer(1)
+ DataOff=Integer(0)
+ Default=0
+ link(onSwitch,3921771:doAntialiased,[(386,594)(386,237)])
+}
+Add(Edit,14452844,511,378)
+{
+ Left=200
+ Top=350
+ Width=90
+ Text="Handle"
+ link(Str,3921771:Handle,[(517,324)(601,324)])
+}
+Add(Edit,14472393,497,294)
+{
+ Left=320
+ Top=350
+ Width=30
+ Text=""
+ link(Str,3921771:MouseX,[(503,282)(587,282)])
+}
+Add(Edit,9422287,504,336)
+{
+ Left=375
+ Top=350
+ Width=30
+ Text=""
+ link(Str,3921771:MouseY,[(510,302)(594,302)])
+}
+Add(Label,10622390,119,49)
+{
+ Left=360
+ Top=350
+ Width=12
+ Height=17
+ Font=[MS Sans Serif,8,1,0,1]
+ Caption="Y"
+}
+Add(Label,5555371,126,49)
+{
+ Left=305
+ Top=350
+ Width=12
+ Height=17
+ Font=[MS Sans Serif,8,1,0,1]
+ Caption="X"
+}
+Add(Hub,2960608,441,294)
+{
+ link(onEvent1,14472393:doText,[])
+ link(onEvent2,9422287:doText,[(489,307)(489,342)])
+}
+Add(Edit,14375767,196,77)
+{
+ Left=90
+ Top=120
+ Width=370
+ Text="Привет Всем!"
+ link(onEnter,215450:doEvent1,[])
+}
+Add(Label,1940599,133,49)
+{
+ Left=5
+ Top=120
+ Width=80
+ Height=17
+ Font=[MS Sans Serif,8,1,0,1]
+ Caption="Text"
+ AutoSize=1
+ Alignment=1
+}
+Add(Hub,215450,245,84)
+{
+ link(onEvent1,14375767:doText2,[(289,90)(289,68)(184,68)(184,90)])
+ link(onEvent2,245980:doWork1,[(333,97)])
+}
+Add(HubEx,245980,329,119)
+{
+ link(onEvent,3921771:doText,[])
+}
+Add(Label,9758798,140,49)
+{
+ Left=280
+ Top=270
+ Width=95
+ Height=17
+ Font=[MS Sans Serif,8,1,0,1]
+ Caption="DepthGrad"
+ AutoSize=1
+ Alignment=1
+}
+Add(UpDown,5743203,231,602)
+{
+ Left=380
+ Top=270
+ Max=255
+ Min=-10
+ Position=100
+ link(onPosition,11219138:doText,[])
+}
+Add(Edit,11219138,273,602)
+{
+ Left=400
+ Top=270
+ Width=60
+ Text="100"
+ link(onChange,3921771:doDepthGrad,[(446,608)(446,251)])
+}
+Add(Label,1610059,147,49)
+{
+ Left=5
+ Top=250
+ Width=80
+ Height=17
+ Font=[MS Sans Serif,8,1,0,1]
+ Caption="Font"
+ AutoSize=1
+ Alignment=1
+}
+Add(FontBox,5347331,343,84)
+{
+ Left=90
+ Top=245
+ Width=150
+ Height=21
+ Font=[Arial,48,1,0,204]
+ link(onResult,6650061:doWork2,[])
+}
+Add(HubEx,6650061,399,77)
+{
+ link(onEvent,1234416:doFont,[])
+}
+Add(Button,850132,154,623)
+{
+ Left=200
+ Top=325
+ Width=90
+ Font=[MS Sans Serif,8,1,0,1]
+ TabOrder=-1
+ Caption="HSymbolGrad"
+ link(onClick,14272060:doSwitch,[])
+}
+Add(Switch,14272060,196,623)
+{
+ DataOn=Integer(1)
+ DataOff=Integer(0)
+ link(onSwitch,3921771:doHSymbolGrad,[(392,629)(392,258)])
+}
+Add(GLabel,3921771,574,126)
+{
+ Width=468
+ Height=115
+ Align=2
+ Font=[Arial,48,1,255,204]
+ Cursor=2
+ Hint="GLabel"
+ ColorHover=16711680
+ Caption=""
+ AutoSize=1
+ Alignment=2
+ VAlignment=0
+ Underline=0
+ DepthShadow=3
+ FonGradient=0
+ TextGradient=0
+ Antialiased=0
+ Point(doAlignment)
+ Point(doVAlignment)
+ Point(doDepthShadow)
+ Point(doFonGradient)
+ Point(doInvFonGrad)
+ Point(doHorizFonGrad)
+ Point(doContrastFon)
+ Point(doTextGradient)
+ Point(doInversGrad)
+ Point(doHorizontal)
+ Point(doContrast)
+ Point(doColorShadow)
+ Point(doColorHover)
+ Point(doUnderline)
+ Point(doAntialiased)
+ Point(doFont)
+ Point(doDepthGrad)
+ Point(doHSymbolGrad)
+ Point(MouseX)
+ Point(MouseY)
+ Point(Handle)
+ Point(onMouseMove)
+ Point(doColor)
+ link(onMouseMove,2960608:doEvent1,[(619,139)(619,418)(432,418)(432,300)])
+}

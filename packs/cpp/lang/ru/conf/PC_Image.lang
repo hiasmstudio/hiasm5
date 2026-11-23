@@ -1,0 +1,8 @@
+Picture controller=Контроллер картинок
+Defines the name of the element for printing a picture from the specified template=Определяет имя элемента для печати картинки из указанного шаблона
+Defines a document template=Определяет шаблон документа
+Sets the image in the print element named name ARG(Picture)=Устанавливает картинку в элементе печати с именем name ARG(Picture)
+The event occurs every time after setting the image=Событие происходит всякий раз после установки картинки
+Contains the current image in a print element=Содержит текущую картинку в элементе печати
+Defines an image to be installed in a print element=Определяет картинку для установки в элементе печати
+Defines an object to change the image in it=Определяет объект для изменения картинки в нем

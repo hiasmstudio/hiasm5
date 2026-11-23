@@ -1,0 +1,23 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "HiAsm: Debug Qt",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/qt69-native-debug/hiasm.exe",
+            "args": [],
+            "cwd": "${workspaceFolder}/build/qt69-native-debug",
+            "environment": [
+                {
+                    "name": "PATH",
+                    "value": "C:/Qt/6.9.3/llvm-mingw_64/bin;C:/Qt/Tools/llvm-mingw1706_64/bin;${env:SystemRoot}/System32;${env:SystemRoot}"
+                }
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "miDebuggerPath": "C:/Qt/Tools/mingw1310_64/bin/gdb.exe",
+            "preLaunchTask": "HiAsm: build Qt Debug"
+        }
+    ]
+}

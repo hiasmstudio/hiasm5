@@ -1,0 +1,34 @@
+func Expr(value)
+  return('std::string(' && value && ').erase(' && Position && ', ' && CharCount && ')')
+end
+
+func Source(value)
+  if(len(value) > 0)
+    return(value)
+  else
+    return(SrcStr)
+  end
+end
+
+func doDelete(_data)
+  fvar(src)
+  src = Source(_data)
+  println('auto hiasm_rtdel', _id_, ' = ', Expr(src), ';')
+  event(onDelete, 'hiasm_rtdel' && _id_)
+end
+
+func Result()
+  if(linked('doDelete'))
+    return('hiasm_rtdel' && _id_)
+  else
+    return(Expr(SrcStr))
+  end
+end
+
+func Rusult()
+  if(linked('doDelete'))
+    return('hiasm_rtdel' && _id_)
+  else
+    return(Expr(SrcStr))
+  end
+end

@@ -1,0 +1,8 @@
+Splits a string into parts separated by a given character=Разбиение строки на части, разделенные заданным символом
+Separator character=Символ-разделитель
+True - onPart is issued after onSplit, False - onSplit is issued after onPart=True - onPart выдается после onSplit, False - onSplit выдается после onPart
+The event occurs after the left side of the string has been separated and outputs its right side to the stream.=Событие происходит после отделения левой части строки и выдает в поток её правую часть
+The event occurs when there is no delimiter character in the line=Событие происходит в случае отсутствия символа-разделителя в строке
+Contains the left side of the expression=Содержит левую часть выражения
+Contains the right side of the expression=Содержит правую часть выражения
+Specifies a string to split into parts=Определяет строку для разделения на части

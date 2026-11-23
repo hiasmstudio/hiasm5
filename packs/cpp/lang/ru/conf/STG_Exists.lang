@@ -1,0 +1,6 @@
+Availability check=Проверка наличия
+Structured Storage Management=Управление структуированным хранилищем
+Checks for the presence of the element ARG(InPath)=Проверяет наличие элемента ARG(InPath)
+The event occurs each time the presence of an element is checked, giving the element's type to the stream; -1 - no element, 0 - folder, 1 - file, 3 - root folder ARG(Type)=Событие происходит всякий раз после проверки наличия элемента, выдавая в поток тип элемента; -1 - нет элемента, 0 - папка, 1 - файл, 3 - корневая папка ARG(Type)
+Path to storage element=Путь к элементу хранилища
+Stores the element type after checking for presence=Хранит тип элемента после проверки наличия

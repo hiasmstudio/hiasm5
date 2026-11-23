@@ -1,0 +1,7 @@
+Full path to the element=Полный путь к элементу
+Tree for adding elements to it=Дерево для добавления в него элементов
+Element separator=Разделитель элементов
+Gets the full path from the root element to the specified element ARG(ID)=Получает полный путь от корневого элемента к указанному элементу ARG(ID)
+The event occurs whenever the full path is received and outputs it to the ARG(Path) stream=Событие происходит всякий раз после получения полного пути и выдает его в поток ARG(Path)
+The event occurs whenever the specified element is unsuccessfully received=Событие происходит всякий раз после неудачного получения указанного элемента
+Defines the ID of the element, the path to which must be obtained=Определяет ID элемента, путь к которуму необходимо получить

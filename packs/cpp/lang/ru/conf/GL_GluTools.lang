@@ -1,0 +1,7 @@
+GLU extension settings=Настройки GLU расширения
+GLU object rendering style=Стиль отрисовки GLU объектов
+Orientation of normals of GLU objects=Ориентация нормалей GLU объектов
+Surface drawing method=Метод вывода поверхностей
+Initializes the GLU library extension=Инициализирует GLU расширение библиотеки
+Frees memory used during library initialization=Освобождает память, занятую при инициализации библиотеки
+The event occurs after the GLU library is initialized=Событие происходит после инициализации GLU библиотеки

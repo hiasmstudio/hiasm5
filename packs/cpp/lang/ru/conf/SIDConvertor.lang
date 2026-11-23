@@ -1,0 +1,5 @@
+SID converter=Конвертор SID
+Conversion direction=Направление конвертирования
+Converts data in accordance with St. Mode=Конвертирует данные в соответствии со св-ом Mode
+The event occurs every time after data conversion and outputs the resulting result to the stream=Событие происходит всякий раз после конвертации данных и выдает полученный результат в поток
+Data to convert=Данные для конвертирования

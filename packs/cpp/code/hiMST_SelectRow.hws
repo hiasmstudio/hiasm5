@@ -1,0 +1,66 @@
+include('qtMstClient')
+
+func doStart()
+  println('{ auto *state = new QObject(&form);')
+  println('state->setObjectName(QStringLiteral("MST_SelectRow', _id_, '"));')
+  println('state->setProperty("auto", ', get('AutoMakeVisible') == 'True', '); }')
+end
+
+func AutoVisible()
+  return('form.findChild<QObject *>(QStringLiteral("MST_SelectRow' && _id_ && '"))->property("auto").toBool()')
+end
+
+func doAutoMakeVisible(_data)
+  println('form.findChild<QObject *>(QStringLiteral("MST_SelectRow', _id_, '"))->setProperty("auto", ', MstInt(_data), ' != 0);')
+end
+
+func doSelect(_data)
+  fvar(row)
+  row = MstDefault(mt_arg(0), get('IndexSelect'))
+  if(linked('IndexSelect'))
+    row = d('IndexSelect')
+  end
+  MstBegin()
+  println('if (', MstLocal(), '->selectMstRow(', MstInt(row), ', ', AutoVisible(), ', ', get('ModeMakeVisible'), ')) {')
+  event(onSelectRow)
+  println('} }')
+end
+
+func doSelEndStr(_data)
+  MstBegin()
+  println('if (', AutoVisible(), ' && ', MstLocal(), '->rowCount() && ', MstLocal(), '->columnCount()) {')
+  println(MstLocal(), '->setCurrentCell(', MstLocal(), '->rowCount() - 1, 0, QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Rows);')
+  println(MstLocal(), '->showRow(', MstLocal(), '->rowCount() - 1);')
+  event(onSelectRow)
+  println('} }')
+end
+
+func ApplySelection(mode)
+  MstBegin()
+  println('if (', MstLocal(), '->selectRows(', mode, ')) {')
+  event(onSelectRow)
+  println('} }')
+end
+
+func doSelectOut(_data)
+  ApplySelection(0)
+end
+
+func doSelectAll(_data)
+  ApplySelection(1)
+end
+
+func doSelectInvert(_data)
+  ApplySelection(2)
+end
+
+func doEnsureVisible(_data)
+  MstBegin()
+  println('if (!', AutoVisible(), ') ', MstLocal(), '->showRow(', MstInt(_data), ');')
+  println('}')
+end
+
+func doSetFocus(_data)
+  MstBegin()
+  println(MstLocal(), '->setFocus(); }')
+end

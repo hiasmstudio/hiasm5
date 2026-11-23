@@ -1,0 +1,9 @@
+Splitting a string into memory=Разбиение строки в память
+Separator character=Символ-разделитель
+Remember starting from the Nth=Запоминать, начиная с N-го
+Number of memorized parts=Количество запоминаемых частей
+Separation direction=Направление разделения
+Clears memory=Очищает память
+The event occurs after the string is split and outputs the remaining part of it to the stream.=Событие происходит после разделения строки и выдает в поток её оставшуюся часть
+The event occurs when there is no delimiter in the line=Событие происходит в случае отсутствия разделителя в строке
+Specifies a string to split into parts=Определяет строку для разделения на части

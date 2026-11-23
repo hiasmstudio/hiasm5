@@ -1,0 +1,10 @@
+Checking the computer's availability on the network=Проверка доступности компьютера в сети
+Determines the default network name of the searched computer=Определяет сетевое имя искомого компьютера по-умолчанию
+Number of bytes to send to the remote host=Количество байт для отправки на удалённый хост
+Waiting time for a response from the server=Время ожидания ответа от сервера
+Starts the verification procedure (ping) ARG(Name)=Начинает процедуру проверки (пинга) ARG(Name)
+The event occurs if the computer has been found and outputs its network IP address ARG(IP) to the stream.=Событие происходит в том случае, если компьютер был найден и выдает в поток его сетевой IP адрес ARG(IP)
+The event occurs if the host search is unsuccessful and issues an error code ARG(ErrorCode) to the stream.=Событие происходит в случае безуспешного поиска хоста и выдает в поток код ошибки ARG(ErrorCode)
+Ping time (i.e. the time between sending and receiving data)=Время пинга (т.е. время между отправкой и приёмом данных)
+Number of bytes received (must be equal to the number of bytes sent)=Кол-во принятых байт (должно равняться кол-ву отосланных байт)
+Specifies the computer network name or Internet address that needs to be checked (for example, localhost)=Определяет сетевое имя компьютера или Internet адрес, которое требуется проверить (например, localhost)

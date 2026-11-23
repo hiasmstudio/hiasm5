@@ -1,0 +1,12 @@
+Adding Rows and Columns to MTStrTbl=Добавление строк и столбцов в MTStrTbl
+Managing the MTStrTbl element=Управление элементом MTStrTbl
+Adds a row to the table=Добавляет строку в таблицу
+Adds columns to a table=Добавляет столбцы в таблицу
+Clears the table=Очищает таблицу
+Clears a table by removing all columns=Очищает таблицу с удалением всех столбцов
+The event occurs whenever the list of table rows is changed=Событие происходит всякий раз при изменении списка строк таблицы
+The event occurs whenever the list of table columns changes=Событие происходит всякий раз при изменении списка столбцов таблицы
+Contains the number of rows in the table=Содержит количество строк в таблице
+Contains the index of the last row in the table=Содержит индекс последней строки в таблице
+Contains the number of columns in the table=Содержит количество столбцов в таблице
+Contains the index of the last column in the table=Содержит индекс последнего столбца в таблице

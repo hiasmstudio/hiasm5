@@ -1,0 +1,24 @@
+func Source(value)
+  if(len(value) > 0)
+    return(value)
+  else
+    return(cstr(get('String')))
+  end
+end
+
+func Expr(value)
+  return('[](std::string value, std::string pad, int length, int type) { if(length <= static_cast<int>(value.size()) || pad.empty()) return value; int need = length - static_cast<int>(value.size()); std::string add; while(static_cast<int>(add.size()) < need) add += pad; if(type == 0) return add.substr(0, need) + value; if(type == 1) return value + add.substr(0, need); int left = need / 2; if(type == 2) return add.substr(0, left) + value + add.substr(0, need - left); std::string mirror = add.substr(0, left); std::reverse(mirror.begin(), mirror.end()); return mirror + value + add.substr(0, need - left); }(' && value && ', ' && cstr(get('PadString')) && ', ' && get('PadLength') && ', ' && get('PadType') && ')')
+end
+
+func doStrPad(_data)
+  println('auto hiasm_rtpad', _id_, ' = ', Expr(Source(_data)), ';')
+  event(onStrPad, 'hiasm_rtpad' && _id_)
+end
+
+func Result()
+  if(linked('doStrPad'))
+    return('hiasm_rtpad' && _id_)
+  else
+    return(Expr(cstr(get('String'))))
+  end
+end

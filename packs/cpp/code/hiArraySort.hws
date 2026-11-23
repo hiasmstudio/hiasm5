@@ -1,0 +1,55 @@
+func ArrayExpr()
+  if(get('ArrayType') == 0)
+    if(linked('Array'))
+      return(d('Array'))
+    else
+      return('std::vector<std::string>()')
+    end
+  else
+    if(get('ArrayType') == 1)
+      if(linked('Array'))
+        return(d('Array'))
+      else
+        return('std::vector<int>()')
+      end
+    else
+      if(linked('Array'))
+        return(d('Array'))
+      else
+        return('std::vector<double>()')
+      end
+    end
+  end
+end
+
+func Sensitive()
+  if(get('CaseSensitive') == "True")
+    return(1)
+  else
+    return(0)
+  end
+end
+
+func Expr()
+  if(get('ArrayType') == 0)
+    return('[](std::vector<std::string> a, int cs) { if(cs) std::sort(a.begin(), a.end()); else std::sort(a.begin(), a.end(), [](const std::string &x, const std::string &y) { std::string lx = x, ly = y; for(char &c : lx) c = static_cast<char>(std::tolower(static_cast<unsigned char>(c))); for(char &c : ly) c = static_cast<char>(std::tolower(static_cast<unsigned char>(c))); return lx < ly; }); return a; }(' && ArrayExpr() && ', ' && Sensitive() && ')')
+  else
+    if(get('ArrayType') == 1)
+      return('[](std::vector<int> a) { std::sort(a.begin(), a.end()); return a; }(' && ArrayExpr() && ')')
+    else
+      return('[](std::vector<double> a) { std::sort(a.begin(), a.end()); return a; }(' && ArrayExpr() && ')')
+    end
+  end
+end
+
+func doSort(_data)
+  event(onEndSort, Expr())
+end
+
+func ArraySort()
+  return(Expr())
+end
+
+func Count()
+  return('static_cast<int>(' && Expr() && '.size())')
+end

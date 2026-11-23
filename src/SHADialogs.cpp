@@ -15,7 +15,9 @@ ElementCoreTransmitter *SDKDialog::run(const ustring &name) {
 			return sl->e;
 
 	MSDK *sdk = new MSDK();
-	ustring f = dataDir + LANG_PATH"en/" + name + ".sha";
+	ustring f = dataDir + LANG_PATH + ui_language() + "/" + name + ".sha";
+	if(!file_test(f, FILE_TEST_EXISTS))
+		f = dataDir + LANG_PATH"en/" + name + ".sha";
 	if(file_test(f, FILE_TEST_EXISTS)) {
 		sdk->loadFromFile(f);
 		for(ElementsList::iterator e = sdk->elements.begin(); e != sdk->elements.end(); e++)

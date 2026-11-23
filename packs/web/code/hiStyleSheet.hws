@@ -1,0 +1,34 @@
+section java 
+
+func doInsertRule(_data) 
+  println(rtxt, ' = ', RText, ';')
+  println('if(document.styleSheets[0].insertRule)')
+  block.inclvl()
+    println('document.styleSheets[', Index, '].insertRule(', RSelector & "{" & rtxt & "}", ',', RIndex, ');')
+  block.declvl()
+  println('else')
+  block.inclvl()
+    println('document.styleSheets[', Index, '].addRule(', RSelector, ',',  rtxt, ',', RIndex, ');')
+  block.declvl()
+
+  event(onComplite)
+end
+
+func doDeleteRule(_data)
+  println('if(document.styleSheets[0].deleteRule)')
+  block.inclvl()
+    println('document.styleSheets[', Index, '].deleteRule(', RIndex, ');')
+  block.declvl()
+  println('else')
+  block.inclvl()
+    println('document.styleSheets[', Index, '].removeRule(', RIndex, ');')
+  block.declvl()
+
+  event(onComplite)
+end
+
+func cssRules()
+  println(css, ' = (document.styleSheets[0].cssRules) ? document.styleSheets[0].cssRules : document.styleSheets[0].rules')
+  return(css)
+end
+

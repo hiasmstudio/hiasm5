@@ -1,0 +1,9 @@
+func doSwitch(_data):any
+  if(isdef(State))
+    block.lvlon()
+  else
+    block.lvloff()
+  end
+  event(onSwitch)
+end
+

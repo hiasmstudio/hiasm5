@@ -1,0 +1,14 @@
+Looping through string elements=Перебор элементов строки
+Separator character. If not specified, then the string is iterated in groups of characters with Step steps=Символ-разделитель. Если не задан, то строка перебирается группами символов с шагом Step
+Return elements starting from the Nth NumSubStr=Выдавать элементы, начиная с N-го NumSubStr
+String iteration step when iterating over groups of characters=Шаг перебора строки при переборе группами символов
+True - show only multiple groups, False - show all groups=True - выдавать только кратные группы, False - выдавать все группы
+Direction of iterating over row elements=Направление перебора элементов строки
+True - after doStop the onBreak event is called, but onEndEnum is not called=True - после doStop вызывается событие onBreak, а onEndEnum - не вызывается
+Starts iterating over the elements of a string=Начинает перебор элементов строки
+Stops iterating over the elements of a row=Останавливает перебор элементов строки
+Outputs the next line element to the stream=Выдает в поток очередной элемент строки
+The event occurs after iterating through all the elements of the string=Событие происходит после завершения перебора всех элементов строки
+Defines the string to iterate over=Определяет строку для перебора
+Contains the number of the current line element (from the beginning or from the end, depending on the Direct property) after the onEnum event is called and starts from 1=Содержит номер текущего элемента строки (от начала или от конца, в зависимости от свойства Direct) после вызова события onEnum и начинается с 1
+Contains the current row element=Содержит текущий элемент строки

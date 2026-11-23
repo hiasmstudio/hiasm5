@@ -1,0 +1,6 @@
+Returns the index of the activated entry point=Возвращает индекс активированной точки входа
+Sets the number of component methods=Задает число методов компонента
+The event occurs after calling one of the doWork methods and returns the index of this method to the stream (superscript is 0)=Событие происходит после вызова одного из методов doWork и возвращает в поток индекс этого метода (верхний индекс равен 0)
+Input stream data stored before onIndex call=Данные входного потока, запомненные перед вызовом onIndex
+Number of channels=Количество каналов
+Last channel index=Индекс последнего канала

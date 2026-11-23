@@ -1,0 +1,11 @@
+Contains an array of integers=Содержит массив целых чисел
+Array of integers=Массив целых чисел
+True - allow access to array elements by their names and indexes, False - access only by indexes (fast)=True - разрешить доступ к элементам массива по их именам и по индексам, False - доступ только по индексам (быстрый)
+File name to save/load array=Имя файла для сохранения/загрузки массива
+Array File Format=Формат файла массива
+Saves an array to a file=Сохраняет массив в файле
+Loads an array from a file=Загружает массив из файла
+Clears an array=Очищает массив
+Sorts an array by values=Сортирует массив по значениям
+Provides access to array elements=Предоставляет доступ к элементам массива
+Contains the number of array elements=Содержит кол-во элементов массива

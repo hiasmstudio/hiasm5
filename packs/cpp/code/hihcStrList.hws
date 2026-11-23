@@ -1,0 +1,91 @@
+func ListLines()
+  return(split(Strings, "\n"))
+end
+
+func Init()
+  fvar(parts, i, items)
+  parts = ListLines()
+  items = ''
+  i = 0
+  while(i < parts.size())
+    if(i > 0)
+      items = items && ', '
+    end
+    items = items && cstr(parts.get(i))
+    i = i + 1
+  end
+  println('hiasm_list_init(', _id_, ', {', items, '});')
+end
+
+func Array()
+  Init()
+  return('hiasm_list_ref(' && _id_ && ')')
+end
+
+func Count()
+  Init()
+  return('static_cast<int>(hiasm_list_ref(' && _id_ && ').size())')
+end
+
+func Text()
+  Init()
+  return('hiasm_list_text(' && _id_ && ')')
+end
+
+func doAdd(_data)
+  Init()
+  println('hiasm_list_ref(', _id_, ').push_back(std::string(', d('Str'), '));')
+  println('hiasm_list_ready[', _id_, '] = true;')
+  event(onChange)
+end
+
+func doText(_data)
+  println('{')
+  block.inclvl()
+  println('std::string hiasm_text', _id_, ' = std::string(', _data, ');')
+  println('std::vector<std::string> &hiasm_lines', _id_, ' = hiasm_list_ref(', _id_, ');')
+  println('hiasm_lines', _id_, '.clear();')
+  println('std::size_t hiasm_pos', _id_, ' = 0;')
+  println('while((hiasm_pos', _id_, ' = hiasm_text', _id_, '.find(static_cast<char>(10))) != std::string::npos) {')
+  block.inclvl()
+  println('hiasm_lines', _id_, '.push_back(hiasm_text', _id_, '.substr(0, hiasm_pos', _id_, '));')
+  println('hiasm_text', _id_, '.erase(0, hiasm_pos', _id_, ' + 1);')
+  block.declvl()
+  println('}')
+  println('if(!hiasm_text', _id_, '.empty()) hiasm_lines', _id_, '.push_back(hiasm_text', _id_, ');')
+  println('hiasm_list_ready[', _id_, '] = true;')
+  block.declvl()
+  println('}')
+  event(onChange)
+end
+
+func doClear(_data)
+  Init()
+  println('hiasm_list_ref(', _id_, ').clear();')
+  println('hiasm_list_ready[', _id_, '] = true;')
+  event(onChange)
+end
+
+func doLoad(_data)
+  println('{')
+  block.inclvl()
+  println('std::ifstream hiasm_file', _id_, '(std::string(', cstr(d('FileName')), '));')
+  println('std::vector<std::string> &hiasm_lines', _id_, ' = hiasm_list_ref(', _id_, ');')
+  println('hiasm_lines', _id_, '.clear();')
+  println('std::string hiasm_line', _id_, ';')
+  println('while(std::getline(hiasm_file', _id_, ', hiasm_line', _id_, ')) hiasm_lines', _id_, '.push_back(hiasm_line', _id_, ');')
+  println('hiasm_list_ready[', _id_, '] = true;')
+  block.declvl()
+  println('}')
+  event(onChange)
+end
+
+func doSave(_data)
+  Init()
+  println('{')
+  block.inclvl()
+  println('std::ofstream hiasm_file', _id_, '(std::string(', cstr(d('FileName')), '));')
+  println('for(const std::string &hiasm_line', _id_, ' : hiasm_list_ref(', _id_, ')) hiasm_file', _id_, ' << hiasm_line', _id_, ' << static_cast<char>(10);')
+  block.declvl()
+  println('}')
+end

@@ -1,0 +1,154 @@
+*Программа для проигрывания музыки через встроенный спикер компьютера.
+Pos(2,1)
+Add(MainForm,86754,32,258)
+{
+ Left=383
+ Top=234
+ Width=190
+ Color=-16777205
+ Caption="Midi musik"
+ BorderStyle=3
+}
+Add(InfoTip,21778,404,307)
+{
+ Info="Параметр 2(длительность)"
+ Font=[Times New Roman,9,0,0]
+ VAlign=2
+ HAlign=2
+ Width=176
+ Height=60
+}
+Add(StrPart,71770,355,132)
+{
+ Char=" "
+ link(onSplit,2494:doOperation,[(415,138)(415,320)])
+ link(onPart,10512:doOperation,[(427,145)(427,264)])
+}
+Add(Beep,64902,516,314)
+{
+ Freq=400
+ Duration=0
+ link(Freq,2242:Value,[])
+}
+Add(ListBox,89365,348,202)
+{
+ Left=75
+ Top=10
+ Width=100
+ Height=260
+ Font=[Arial,8,0,0]
+ AddType=1
+}
+Add(StrCat,25638,138,62)
+{
+ link(onStrCat,81925:doLoad,[(192,68)(192,89)])
+ link(Str1,63762:CurrentDir,[])
+}
+Add(Memory,2242,516,258)
+{
+}
+Add(InfoTip,3207,103,125)
+{
+ Info=" Перебор всех строк по очереди"
+ Font=[Times New Roman,8,0,0]
+ VAlign=2
+ HAlign=0
+ Width=169
+ Height=67
+}
+Add(Math,2494,453,314)
+{
+ OpType=2
+ Op2=1
+ ResultType=0
+ link(onResult,64902:doBeep,[])
+}
+Add(InfoTip,86105,404,237)
+{
+ Info="Параметр 1(частота)"
+ Font=[Times New Roman,9,0,0]
+ HAlign=2
+ Width=176
+ Height=60
+}
+Add(StrList,81925,215,55)
+{
+ link(onChange,1485:doEvent1,[(263,61)(263,117)(88,117)(88,138)])
+}
+Add(Hub,1485,110,132)
+{
+ link(onEvent1,5839:doStart,[])
+ link(onEvent2,89365:doClear,[(150,145)(150,215)])
+}
+Add(Button,94273,26,97)
+{
+ Left=10
+ Top=40
+ Font=[Arial,8,0,0]
+ Caption="Space"
+ Data=String(1.txt)
+ link(onClick,87261:doEvent2,[(77,103)(77,75)])
+}
+Add(Math,10512,467,258)
+{
+ OpType=2
+ Op2=1
+ ResultType=0
+ link(onResult,2242:doValue,[])
+}
+Add(ArrayEnum,83000,229,132)
+{
+ link(onItem,42928:doEvent1,[])
+ link(Array,81925:Array,[])
+}
+Add(Hub,87261,89,62)
+{
+ InCount=2
+ OutCount=1
+ link(onEvent1,25638:doStrCat,[])
+}
+Add(InfoTip,14154,68,6)
+{
+ Info="Загрузка файла"
+ Font=[Times New Roman,8,0,0]
+ HAlign=2
+ Width=211
+ Height=102
+}
+Add(Button,49944,26,62)
+{
+ Left=10
+ Top=15
+ Font=[Arial,8,0,0]
+ Caption="Holms"
+ Data=String(Holms.txt)
+ link(onClick,87261:doEvent1,[])
+}
+Add(InfoTip,95455,446,139)
+{
+ Info="Поскольку параметры в строке разделены пробелом, то ищем его позицию"
+ Font=[Times New Roman,8,0,0]
+ Width=99
+ Height=74
+}
+Add(Dir,63762,138,6)
+{
+}
+Add(Thread,5839,173,132)
+{
+ Delay=0
+ FastStop=0
+ link(onExec,83000:doEnum,[])
+}
+Add(InfoTip,44608,306,41)
+{
+ Info="Программа для проигрывания музыки через встроенный спикер компьютера. Так же она демонстрирует, как считать данные из файла и использовать их в своей программе."
+ Font=[Times New Roman,9,1,32768]
+ Width=260
+ Height=60
+}
+Add(Hub,42928,285,132)
+{
+ link(onEvent1,71770:doSplit,[])
+ link(onEvent2,89365:doAdd,[(332,145)(332,208)])
+}

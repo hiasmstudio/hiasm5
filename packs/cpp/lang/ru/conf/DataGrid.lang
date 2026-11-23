@@ -1,0 +1,14 @@
+Data grid=Таблица
+Element position and dimensions=Позиция и габариты элемента
+Element left indent=Отступ элемента слева
+Element right indent=Отступ элемента справа
+Element width=Ширина элемента
+Element height=Высота элемента
+Element Alignment=Выравнивание элемента
+Defines the focus queue when pressing Tab=Определяет очередь передачи фокуса при нажатии Tab
+Item color=Цвет элемента
+When set to False, a 3-dimensional frame around the element will not be drawn=При установленном False 3-х мерная рамка вокруг элемента рисоваться не будет
+Tooltip=Всплывающая подсказка
+Element font=Шрифт элемента
+Updates the table state=Обновляет состояние таблицы
+Defines the data to be output to the table=Определяет данные для вывода в таблицу

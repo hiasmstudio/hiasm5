@@ -1,0 +1,11 @@
+Multiple replacement=Множественная замена
+List of default replacements=Список замен по умолчанию
+Element separator in each replacement line=Разделитель элементов в каждой строке замены
+The end character of each replacement line=Символ окончания каждой строки замены
+Line feed replacement tag for multiline replacements=Тег замещения перевода строки для мультистрочных замен
+1-Way - single-pass mode (mode of sequential replacements, does not exclude the occurrence of the “replacement within replacement” effect); 2-Way - two-pass mode (independent replacement mode, eliminates the “replacement within replacement” effect)=1-Way - однопроходный режим (режим последовательных замен, не исключает возникновение эффекта "замена в замене"); 2-Way - двухпроходный режим (режим независимых замен, исключает возникновение эффекта "замена в замене")
+Begins multiple replacement in the text ARG(Text, ReplaceList)=Начинает множественную замену в тексте ARG(Text, ReplaceList)
+The event occurs every time after the completion of multiple replacement, outputting the resulting text to the ARG(Text) stream=Событие происходит всякий раз после окончания множественной замены, выдавая полученный текст в поток ARG(Text)
+Contains the result of multiple replacement=Содержит результат множественной замены
+Text for multiple replacement=Текст для множественной замены
+List of replacements=Список замен

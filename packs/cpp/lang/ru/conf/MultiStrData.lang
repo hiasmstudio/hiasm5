@@ -1,0 +1,8 @@
+Splitting a string into a stream=Разбиение строки в поток
+Separator character=Символ-разделитель
+Issue starting from Nth=Выдавать, начиная с N-го
+Number of output channels=Количество выходных каналов
+Separation direction=Направление разделения
+Splits a string into parts=Разделяет строку на части
+Defines a string to split into parts=Определяет строку для разбиения на части
+Remaining line after split=Оставшаяся строка после разделения

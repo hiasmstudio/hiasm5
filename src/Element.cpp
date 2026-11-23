@@ -108,8 +108,12 @@ void LinkHints::free() {
 
 Gdk::Rectangle LinkHints::drawRect() {
 	Gdk::Rectangle r;
+	bool first = true;
 	for(iterator h = begin(); h != end(); h++)
-		r.join((*h)->drawRect());
+	{
+		r = first ? (*h)->drawRect() : r.join((*h)->drawRect());
+		first = false;
+	}
 	return r;
 }
 
@@ -120,7 +124,7 @@ void LinkHints::saveToText(ustring &text, const ustring offset) {
 			text += offset +  " AddHint(" + int_to_str((*h)->x) + "," +
 											int_to_str((*h)->y) + "," +
 											int_to_str((*h)->width) + "," +
-											int_to_str((*h)->height) + "," + pref + (*h)->prop->name + ")"LINE_END;
+											int_to_str((*h)->height) + "," + pref + (*h)->prop->name + ")" LINE_END;
 		}
 }
 
@@ -144,7 +148,7 @@ void LinkHints::change(ElementProperty *prop) {
 			ch = true;
 		}
 	if(ch) {
-		r.join(prop->parent->drawRect());
+		r = r.join(prop->parent->drawRect());
 		prop->parent->parent->on_redraw_rect.run(&r);
 	}
 }
@@ -153,7 +157,7 @@ void LinkHints::change(ElementProperty *prop) {
 
 void roundRect(DrawContext dc, gdouble x, gdouble y, int w, int h) {
 	static const int r = 5;
-	static const double degrees = M_PI / 180.0;
+	static const double degrees = G_PI / 180.0;
 
 	dc->begin_new_sub_path();
 	dc->arc(x + w - r, y + r, r, -90 * degrees, 0 * degrees);
@@ -233,7 +237,7 @@ void LinkHint::draw(DrawContext dc) {
 	//dc->rectangle(r.get_x(), r.get_y(), r.get_width(), r.get_height());
 	//dc->clip();
 
-	dc->set_source_rgb(0, 0, 0);
+	Gdk::Cairo::set_source_rgba(dc, hintColor);
 	dc->move_to(r.get_x() + 3, r.get_y() + 3);
 	textLayout->show_in_cairo_context(dc);
 
@@ -258,7 +262,7 @@ void LinkHint::updateText() {
 			break;
 		case data_combo:
 		case data_comboEx: {
-			StringList list;
+			HStringList list;
 			list.split(prop->list.c_str(), ',');
 			text = list[prop->readInt()];
 			break;
@@ -311,9 +315,10 @@ Element::Element(PackElement *pe, SDK *sdk, gdouble x, gdouble y):
 	buildFromTemplate();
 
 	sysProps.push_back(new ElementProperty(this, "Hint", "Element description", data_list));
+	sysProps.push_back(new ElementProperty(this, "Group", "Selection group identifier", data_int));
 	ElementProperty *c = new ElementProperty(this, "Color", "Element color", data_color);
 	sysProps.push_back(c);
-	color = (Gdk::RGBA*)c->value;
+	color = (TypeColor*)c->value;
 	*color = sysColors.btnFace;
 	colorLight = sysColors.btnLight;
 	colorDark = sysColors.btnDark;
@@ -347,6 +352,10 @@ Element::~Element() {
 	hints.free();
 }
 
+int Element::groupId() {
+	return sysProps.getByName("Group")->readInt();
+}
+
 void Element::initView() {
 	viewProp = tpl->conf->view.empty() ? NULL : props.getByName(tpl->conf->view);
 	if(viewProp) {
@@ -356,7 +365,7 @@ void Element::initView() {
 			case data_real:	viewText = double_to_str(viewProp->readInt()); break;
 			case data_combo:
 			case data_comboEx: {
-				StringList l;
+				HStringList l;
 				l.split(viewProp->list.c_str(), ',');
 				viewText = l[viewProp->readInt()]; break;
 				break;
@@ -386,12 +395,18 @@ void Element::draw(DrawContext dc, double zoom) {
 }
 
 void Element::drawBody(DrawContext dc, double zoom) {
-	hints.draw(dc);
+    ElementProperty *bodyColor = sysProps.getByName("Color");
+    if(bodyColor && bodyColor->isDefault()) {
+        // Keep the serialized default untouched when changing the UI theme.
+        colorLight = sysColors.btnLight;
+        colorDark = sysColors.btnDark;
+    }
+	if(parent->getMSDK()->showLinkHints) hints.draw(dc);
 
 	if(flag & ELEMENT_FLG_IS_SELECT)
 		Gdk::Cairo::set_source_rgba(dc, colorDark);
 	else
-		Gdk::Cairo::set_source_rgba(dc, *color);
+		Gdk::Cairo::set_source_rgba(dc, bodyColor && bodyColor->isDefault() ? sysColors.btnFace : *color);
 
 /*
 	//----------
@@ -452,7 +467,11 @@ void Element::drawIcon(DrawContext dc) {
 			Cairo::TextExtents te;
 			dc->get_text_extents(viewText, te);
 		//}
-		dc->set_source_rgb(0, 0, 0);
+        auto *bodyColor = sysProps.getByName("Color");
+        const auto fill = bodyColor && bodyColor->isDefault() ? sysColors.btnFace : *color;
+        Gdk::RGBA textColor;
+        textColor.set(fill.get_red()*0.2126 + fill.get_green()*0.7152 + fill.get_blue()*0.0722 < 0.45 ? "white" : "black");
+        Gdk::Cairo::set_source_rgba(dc, textColor);
 		dc->move_to(x - 2 + width / 2 - te.width / 2, y + 10 + height / 2 - te.height / 2);
 		dc->show_text(viewText);
 	}
@@ -617,14 +636,24 @@ void Element::move(gdouble dx, gdouble dy) {
 }
 
 void Element::injectElementAtLine(ElementPoint *pl1, ElementPoint *pl2, ElementPoint *pl3, PointPos *p1) {
+	if(!pl1 || !pl1->point || !pl2 || !pl3 || pl2->point || pl3->point) return;
 	ElementPoint *pl4 = pl1->point;
+	if(pl2 == pl3 || pl1->getPair() != pl2->type || pl4->getPair() != pl3->type) return;
 	PointPos *p2 = p1->next;
+	// Split an existing wire without freeing its route. connect() requires
+	// vacant endpoints; the two retained route halves are stitched below.
+	PointPos *oldNext = pl1->pos->next;
+	PointPos *oldPrev = pl4->pos->prev;
+	pl1->point = NULL;
+	pl4->point = NULL;
+	pl1->pos->next = NULL;
+	pl4->pos->prev = NULL;
 
 	PointPos *op;
-	if(pl1->pos->next == pl4->pos)
+	if(oldNext == pl4->pos)
 		op = NULL;
 	else
-		op = pl1->pos->next;
+		op = oldNext;
 
 	pl1->connect(pl2);
 
@@ -634,10 +663,10 @@ void Element::injectElementAtLine(ElementPoint *pl1, ElementPoint *pl2, ElementP
 		pl2->pos->prev = p1;
 	}
 
-	if(pl4->pos->prev == pl1->pos)
+	if(oldPrev == pl1->pos)
 		op = NULL;
 	else
-		op = pl4->pos->prev;
+		op = oldPrev;
 
 	pl4->connect(pl3);
 
@@ -789,7 +818,7 @@ bool Element::getObjectAtPos(gdouble x, gdouble y, ObjectType *obj) {
 				else pb = pb->next;
 		}
 
-	if(hints.getObjectAtPos(x, y, obj))
+	if(parent->getMSDK()->showLinkHints && hints.getObjectAtPos(x, y, obj))
 		return true;
 
 	if( !(y < this->y-3 || y > this->y + height+3 || x < this->x-3 || x > this->x + width + 3) ) {
@@ -818,10 +847,10 @@ bool Element::checkColliseRect(gdouble x1, gdouble y1, gdouble x2, gdouble y2) {
 Gdk::Rectangle Element::drawRect() {
 	Gdk::Rectangle r(x - POINT_OFF, y - POINT_OFF, width + POINT_SPACE, height + POINT_SPACE);
 	for(ElementPoints::iterator p = points.begin(); p != points.end(); p++)
-		r.join((*p)->drawRect());
+		r = r.join((*p)->drawRect());
 
 	if(hints.size())
-		r.join(hints.drawRect());
+		r = r.join(hints.drawRect());
 
 	return r;
 }
@@ -861,30 +890,30 @@ int Element::getPointsCount(int type) {
 }
 
 void Element::saveToText(ustring &text, const ustring offset, int flags) {
-	text += offset + "Add(" + tpl->name + "," + int_to_str(id) + "," + int_to_str((int)x) + "," + int_to_str((int)y) + ")"LINE_END;
-	text += offset + "{"LINE_END;
+	text += offset + "Add(" + tpl->name + "," + int_to_str(id) + "," + int_to_str((int)x) + "," + int_to_str((int)y) + ")" LINE_END;
+	text += offset + "{" LINE_END;
 	if(isELink()) {
 		if(isMainELink()) {
 			if(elinkList->size() > 1)
-				text += offset + "  @IsLib=true"LINE_END;
+				text += offset + "  @IsLib=true" LINE_END;
 		}
 		else
-			text += offset + "  elink(" + int_to_str(getMainELink()->id) + ")"LINE_END;
+			text += offset + "  elink(" + int_to_str(getMainELink()->id) + ")" LINE_END;
 	}
 	saveSysParamsToText(text, offset, flags);
 	saveParamsToText(text, offset, flags);
 	savePointsToText(text, offset, flags);
 	hints.saveToText(text, offset);
-	text += offset + "}"LINE_END;
+	text += offset + "}" LINE_END;
 }
 
 void Element::saveAsLink(ustring &text) {
-	text += "Add(" + tpl->name + "," + int_to_str(parent->getMSDK()->genNextID()) + "," + int_to_str((int)x) + "," + int_to_str((int)y) + ")"LINE_END;
-	text += "{"LINE_END;
-	text += "  elink("+ int_to_str(isELink() ? getMainELink()->id : id) + ")"LINE_END;
+	text += "Add(" + tpl->name + "," + int_to_str(parent->getMSDK()->genNextID()) + "," + int_to_str((int)x) + "," + int_to_str((int)y) + ")" LINE_END;
+	text += "{" LINE_END;
+	text += "  elink("+ int_to_str(isELink() ? getMainELink()->id : id) + ")" LINE_END;
 	saveSysParamsToText(text, "  ", ELEMENT_SAVE_CHANGED);
 	saveParamsToText(text, "  ", ELEMENT_SAVE_CHANGED);
-	text += "}"LINE_END;
+	text += "}" LINE_END;
 
 	parent->getMSDK()->sdkLib.add(this);
 }
@@ -904,12 +933,12 @@ void Element::saveSysParamsToText(ustring &text, const ustring offset, int flags
 void Element::savePointsToText(ustring &text, const ustring offset, int flags) {
 	for(ElementPoints::iterator p = points.begin(); p != points.end(); p++) {
 		if(props.getByPointName((*p)->name) || tpl->conf->def.getByName((*p)->name))
-			text += offset + " Point(" + (*p)->name + ")"LINE_END;
+			text += offset + " Point(" + (*p)->name + ")" LINE_END;
 
 		if((*p)->point && (*p)->isPrimary() && (!(flags&ELEMENT_SAVE_SELECTED) || (*p)->point->parent->isSelect()))
 			text += offset + " link(" + (*p)->name + "," +
 								int_to_str((*p)->point->parent->id) + ":" + (*p)->point->name + ",[" +
-								(*p)->serializePath() + "])"LINE_END;
+								(*p)->serializePath() + "])" LINE_END;
 	}
 }
 

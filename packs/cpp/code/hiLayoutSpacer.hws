@@ -1,0 +1,3 @@
+func doStart
+  // The owning layout reserves the space without creating a widget.
+end

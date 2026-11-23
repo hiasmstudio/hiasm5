@@ -1,0 +1,38 @@
+func String(value)
+  if(linked('String'))
+    return(d('String'))
+  end
+  if(len(value) > 0)
+    return(value)
+  end
+  return('""')
+end
+
+func Init()
+  println('hiasm_str_state(', _id_, ') = std::string();')
+end
+
+func doLoad(_data)
+  println('hiasm_str_state(', _id_, ') = std::string(', String(_data), ');')
+  event(onLoad)
+end
+
+func doGetStr(_data)
+  event(onGetStr, 'hiasm_str_state(' && _id_ && ')')
+end
+
+func doClear(_data)
+  println('hiasm_str_state(', _id_, ') = std::string();')
+end
+
+func Array()
+  return('[](const std::string &s) { return std::vector<char>(s.begin(), s.end()); }(hiasm_str_state(' && _id_ && '))')
+end
+
+func Count()
+  return('static_cast<int>(hiasm_str_state(' && _id_ && ').size())')
+end
+
+func Str()
+  return('hiasm_str_state(' && _id_ && ')')
+end

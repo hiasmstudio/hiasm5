@@ -1,0 +1,19 @@
+func doRedraw(_data)
+  println('if (auto *control = qt_widget<QWidget>(form, ', cstr(get('qtControlTarget')), ')) control->update();')
+end
+
+func doBeginUpdate(_data)
+  println('if (auto *control = qt_widget<QWidget>(form, ', cstr(get('qtControlTarget')), ')) {')
+  println('  const int depth = control->property("hiasmUpdateDepth").toInt();')
+  println('  control->setProperty("hiasmUpdateDepth", depth + 1);')
+  println('  if (!depth) control->setUpdatesEnabled(false);')
+  println('}')
+end
+
+func doEndUpdate(_data)
+  println('if (auto *control = qt_widget<QWidget>(form, ', cstr(get('qtControlTarget')), ')) {')
+  println('  const int depth = control->property("hiasmUpdateDepth").toInt();')
+  println('  if (depth > 0) control->setProperty("hiasmUpdateDepth", depth - 1);')
+  println('  if (depth == 1) control->setUpdatesEnabled(true);')
+  println('}')
+end

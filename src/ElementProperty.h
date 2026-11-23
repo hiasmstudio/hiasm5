@@ -16,10 +16,10 @@ extern const char *empty;
 
 typedef struct _FontRecord {
 	ustring name;
-	int color;
-	int size;
-	int style;
-	int charset;
+	int color = 0;
+	int size = 0;
+	int style = 0;
+	int charset = 0;
 
 	bool operator == (const _FontRecord &src) {
 		return name == src.name && color == src.color && size == src.size && style == src.style && charset == src.charset;
@@ -63,25 +63,26 @@ class DataValue {
 		 * @param value data to parse
 		 * @param text string with format #<len1>:<text1>|<len2>:<text2>|...
 		 */
-		static void parseStrList(const ustring &text, void *value);
+		static bool parseStrList(const ustring &text, void *value);
 		/**
 		 * Parse pixbuf
 		 * @param value data to parse
 		 * @param text string in base64 format
 		 */
-		static void parsePixbuf(const ustring &text, void *value);
+		static bool parsePixbuf(const ustring &text, void *value);
 		/**
 		 * Parse array
 		 * @param value data to parse
 		 * @param text string
+		 * @param legacy items use HiAsm 4 syntax
 		 */
-		static void parseArray(const ustring &text, void *value);
+		static bool parseArray(const ustring &text, void *value, bool legacy);
 		/**
 		 * Parse font record
 		 * @param value font to parse
 		 * @param text string
 		 */
-		static void parseFont(const ustring &text, void *value);
+		static bool parseFont(const ustring &text, void *value);
 	public:
 		DataType type;	/**< property type i.e. data_int, data_str, data_real, ... */
 		void *value;	/**< pointer to property value (determined by field type) */
@@ -120,8 +121,10 @@ class DataValue {
 		 * @param type of value
 		 * @param value data to parse
 		 * @param text data for value parse
+		 * @param legacy text comes from an external HiAsm 4 package: colors are
+		 *        Delphi TColor (clBtnFace, -16777201, $00FF00) and fonts use the v4 rules
 		 */
-		static void parse(const ustring &text, DataType type, void *value);
+		static bool parse(const ustring &text, DataType type, void *value, bool legacy = false);
 };
 
 /*! \class ElementProperty
@@ -136,6 +139,8 @@ class ElementProperty : public DataValue {
 	private:
 		void *defValue;	/**< pointer to default value */
 		bool lock;		/**< lock property for change */
+		/** True if the parent element belongs to an external HiAsm 4 package */
+		bool legacy() const;
 	public:
 		Element *parent;/**< pointer to parent Element */
 		ustring name;	/**< the name of property */
@@ -153,7 +158,7 @@ class ElementProperty : public DataValue {
 		 * @param text value of property in text record
 		 * @param isDefault if true the text set as default value for this property
 		 */
-		void initFromText(const ustring &text, bool isDefault = false);
+		bool initFromText(const ustring &text, bool isDefault = false);
 		/**
 		 * Store property data as string (require for save in text)
 		 * @return formatted value of the property
@@ -225,10 +230,29 @@ class ArrayValue : public std::vector<ArrayValueItem> {
 	public:
 		DataType type;
 
-		ArrayValue() { }
+		ArrayValue() : type(data_str) { }
+		ArrayValue(const ArrayValue &source) : type(source.type) {
+			for(const auto &item : source)
+				DataValue::copyValue(type, add(item.name), item.data);
+		}
+		ArrayValue &operator=(const ArrayValue &source) {
+			if(this != &source) {
+				ArrayValue copy(source);
+				std::swap(type, copy.type);
+				swap(copy);
+			}
+			return *this;
+		}
+		~ArrayValue() { clear(); }
+		void clear() {
+			for(const auto &item : *this) DataValue::destroyValue(type, item.data);
+			std::vector<ArrayValueItem>::clear();
+		}
 
 		void *add(const ustring &name = ustring()) {
+			if(type <= data_null || type >= data_count) return NULL;
 			void *value = DataValue::createValue(type);
+			if(!value) return NULL;
 			push_back(ArrayValueItem(name.empty() ? dataNames[type] : name, value));
 			return value;
 		}

@@ -1,0 +1,71 @@
+func doCompare(data)
+  fvar(id, op, od)
+  
+  op = Op1
+  if(isdef(Type) and isnset(Op2) and isdef(Op2))
+    println('if(', op, ') {')
+  else
+    println('if(', op, Type, Op2, ') {')
+  end
+  block.inclvl()
+  od = isndef(OutData) ? "" : _data_
+  event(onTrue, od)
+  block.declvl()
+  println('}')
+  if(linked(onFalse))
+    id = cgt.pt_get_parent(cgt.pt_get_link_point(cgt.get_point_id(onFalse)))
+    if(cgt.el_get_class_name(id) = "If_else")
+      print('else ')
+      event(onFalse, od)
+    else
+      println('else {')
+      block.inclvl()
+      event(onFalse, od)
+      block.declvl()
+      println('}')
+    end 
+  end
+end
+
+func Result():cpp
+  return(Op1 && Type && Op2)
+end
+
+section cpp
+
+func doCompare(data)
+  fvar(id, _op1, _op2, od, t)
+  
+  _op1 = Op1
+  if(isdef(Type) and isnset(Op2) and isdef(Op2))
+    println('if(', _op1, ') {')
+  else
+    t = (typeof(_op1) = 19) ? expof(_op1) : typeof(_op1)
+    trace(typeof(Op2))
+    switch(t)
+      case 1: _op2 = e_int(Op2)
+      case 2: _op2 = e_str(Op2)
+      case 7: _op2 = e_real(Op2)
+    end  
+//    trace("op2 :" + _op2)
+    println('if(', _op1, Type, _op2, ') {')
+  end
+  block.inclvl()
+  od = isndef(OutData) ? "" : _data_
+  event(onTrue, od)
+  block.declvl()
+  println('}')
+  if(linked(onFalse))
+    id = cgt.pt_get_parent(cgt.pt_get_link_point(cgt.get_point_id(onFalse)))
+    if(cgt.el_get_class_name(id) = "If_else")
+      print('else ')
+      event(onFalse, od)
+    else
+      println('else {')
+      block.inclvl()
+      event(onFalse, od)
+      block.declvl()
+      println('}')
+    end 
+  end
+end

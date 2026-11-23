@@ -1,0 +1,10 @@
+Compares two types based on specified conditions=Сравнивает два типа по заданным условиям
+Type data comparison type=Тип сравнения данных типа
+Whether to compare the number of elements. In some cases this leads to faster comparison speed=Сравнивать ли количество элементов. В некоторых случаях это ведет к большей скорости сравнения
+Whether to compare the element index. In some cases this leads to faster comparison speed=Сравнивать ли индекс элементов. В некоторых случаях это ведет к большей скорости сравнения
+Compares two typesARG(GType1,GType2)=Сравнивает два типаARG(GType1,GType2)
+The event occurs when the conditions after comparison are true=Событие происходит при истинности условий после сравнения
+The event occurs when the comparison condition is not met=Событие происходит при невыполнении условия сравнения
+The event occurs when an error occurs and outputs its code to the streamARG(err_code,info)=Событие происходит при возникновении ошибки и выдает ее код в потокARG(err_code,info)
+Defines the type that is being compared=Определяет тип, который сравнивают
+Specifies the type to compare to=Определяет тип, с которым сравнивают

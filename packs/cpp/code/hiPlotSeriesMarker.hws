@@ -1,0 +1,18 @@
+func doStart
+  println('{ auto *marker = new HiasmPlotAxis(widgetParent);')
+  println('marker->setObjectName(QStringLiteral("PlotSeriesMarker', _id_, '"));')
+  println('marker->target = qt_text(', cstr(get('qtPlotterTarget')), ');')
+  println('marker->seriesTarget = qt_text(', cstr(get('qtPlotSeries')), ');')
+  println('marker->marker = true;')
+  println('marker->labels = qt_text(', cstr(get('TextList')), ').split(QChar(10));')
+  println('marker->framePen = QPen(qt_led_color(qt_text(', cstr(get('FrameColor')), '), Qt::black));')
+  println('const Qt::PenStyle styles[] = {Qt::SolidLine, Qt::DashLine, Qt::DotLine, Qt::DashDotLine, Qt::DashDotDotLine, Qt::NoPen, Qt::SolidLine};')
+  println('marker->framePen.setStyle(styles[qBound(0, int(', FrameStyle, '), 6)]);')
+  println('marker->background = qt_led_color(qt_text(', cstr(get('BgColor')), '), Qt::white);')
+  println('marker->filled = ', get('BgStyle') == 0, ';')
+  println('marker->horizontalAlign = ', HAlign, '; marker->verticalAlign = ', VAlign, ';')
+  println('QWidget fontSource(widgetParent);')
+  println('qt_apply_font(&fontSource, qt_text(', cstr(get('Font')), '));')
+  println('marker->font = fontSource.font();')
+  println('marker->foreground = fontSource.palette().color(fontSource.foregroundRole()); }')
+end

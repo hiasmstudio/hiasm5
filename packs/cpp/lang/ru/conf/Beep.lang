@@ -1,0 +1,7 @@
+Playing sound in the system speaker=Проигрывание звука в системном динамике
+Sets the default sound frequency=Задаёт частоту звука по-умолчанию
+Sets the default sound duration=Задаёт длительность звука по-умолчанию
+Outputs sound frequency Freq and duration Duration to the system speaker=Выводит звук частотой Freq и длительностью Duration в системный динамик
+The event occurs every time the sound ends=Событие происходит всякий раз после окончания воспроизведения звука
+Determines the frequency of sound=Определяет частоту звука
+Determines the duration of the sound=Определяет длительность звука

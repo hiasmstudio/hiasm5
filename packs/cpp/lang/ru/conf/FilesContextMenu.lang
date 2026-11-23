@@ -1,0 +1,4 @@
+File context menu=Контекстное меню файлов
+Expands the context menu at the point where the cursor is ARG(FileName)=Разворачивает контекстное меню в точке, в которой находится курсор ARG(FileName)
+Occurs after a menu item is selected and contains its name in the stream ARG(CommandName)=Происходит после выбора пункта меню и содержит в потоке его имя ARG(CommandName)
+Full path to the file or folder=Полный путь к файлу или папке

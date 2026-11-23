@@ -1,0 +1,5 @@
+func doWrite(_data):java
+  println(Array, '[', Index, '] = ', Value, ';')
+  event(onWrite, Array && '[' && Index && ']')
+end
+

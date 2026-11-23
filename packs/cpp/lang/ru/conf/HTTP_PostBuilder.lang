@@ -1,0 +1,11 @@
+POST request builder=Построитель POST запроса
+Data for sending a request=Данные для отправки запроса
+Address of the page from the site root that processes the request=Адрес страницы от корня сайта, обрабатывающей запрос
+Name of the host processing the request=Имя хоста, обрабатывающего запрос
+Address of the page from which the request is sent=Адрес страницы, с которой отправляется запрос
+User-Agent field=Поле User-Agent
+Generates a POST request to send to the server=Формирует POST запрос для отправки на сервер
+The event occurs every time a POST request is generated and outputs it to the ARG(PostText) stream=Событие происходит всякий раз после формирования POST запроса и выдает его в поток ARG(PostText)
+Address of the page processing the request=Адрес страницы, обрабатывающей запрос
+Session ID=ID сессии
+String containing cookies=Строка, содержащая cookies

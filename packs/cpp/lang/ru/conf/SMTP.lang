@@ -1,0 +1,16 @@
+Sending mail=Отправка почты
+Mail sending server address=Адрес сервера отправки почты
+Who is the letter from?=От кого письмо
+To whom is the letter=Кому письмо
+Subject of the letter=Тема письма
+Server port=Порт сервера
+Login=Логин
+Password=Пароль
+Authentication method used by the server=Способ авторизации, используемый сервером
+The greeting sent to the server to start a session.=Приветствие, посылаемое серверу для начала сессии
+How to introduce yourself to the server during greeting. Some servers may require a domain name or sender address=Как представиться серверу во время приветствия. Некоторые серверы могут требовать доменное имя или адрес отправителя
+Sends a letter=Отправляет письмо
+The event occurs after sending a letter and outputs a message string about failure, or empty data if successful.=Событие происходит после отправки письма и выдает в поток строку сообщения об отказе, или пустые данные - при успехе
+Displaying information about the progress of the email sending process=Вывод информации о ходе процесса отправки письма
+Body of the letter=Тело письма
+List of attached files=Список присоединенных файлов

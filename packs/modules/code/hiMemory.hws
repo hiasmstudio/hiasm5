@@ -1,0 +1,26 @@
+func Init
+  fvar(old)
+  if(isndef(Default) and (linked(doValue) or linked(doClear)))
+    old = block.select((isset(BLK_FUNC) and isndef(Extern)) ? BLK_FUNC : BLK_HEAD)
+    println(issec("php") ? '' : 'var ', val, ' = ', Default, ';')
+    block.select(old)
+  end 
+end
+
+func doValue(data)
+  println(val, ' = ', data, ';') 
+  event(onData, val)
+end
+
+func doClear
+  println(val, ' = ', Default, ';')
+  event(onData, val)
+end
+
+func Value
+  if(linked(doValue) or linked(doClear))
+    return(val)
+  else
+    return(Default)
+  end
+end

@@ -1,0 +1,9 @@
+Layer=Слой
+Layer name=Имя слоя
+Distance between layer elements=Расстояние между элементами слоя
+Indentation of elements from the edges of the parent container=Отступ элементов от краев родительского контейнера
+Layer Options=Слой
+Fraction of element width in layer=Доля ширины элемента в слое
+Fraction of element height in layer=Доля высоты элемента в слое
+Initiates recalculation of positions and sizes of layer elements=Инициирует пересчет позиций и размеров элементов слоя
+Re-sorts the layer elements to redefine their order=Заново сортирует элементы слоя для переопределения порядка их следования

@@ -1,0 +1,12 @@
+Sending a file to the server via HTTP=Отправка файла на сервер по протоколу HTTP
+File name to send to server=Имя файла для отправки на сервер
+Address of the page processing the request=Адрес страницы, обрабатывающей запрос
+Name of the host processing the request=Имя хоста, обрабатывающего запрос
+Name of the field storing the file name=Имя поля, хранящего название файла
+User-Agent field=Поле User-Agent
+List of variables=Список переменных
+Generates a POST request to upload a file to the server=Формирует POST запрос для закачки файла на сервер
+The event occurs every time a POST request is generated and outputs it to the ARG(PostText) stream=Событие происходит всякий раз после формирования POST запроса и выдает его в поток ARG(PostText)
+Session ID=ID сессии
+Gets the value of a variable by its name=Получает значение переменной по ее имени
+String containing cookies=Строка, содержащая cookies

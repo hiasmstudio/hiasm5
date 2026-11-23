@@ -1,0 +1,8 @@
+Structured storage=Структуированное хранилище
+Element name=Имя элемента
+Path to the default storage file=Путь к файлу хранилища по-умолчанию
+Opens the storage file ARG(StgFilePath)=Открывает файл хранилища ARG(StgFilePath)
+Closes the current repository=Закрывает текущее хранилище
+The event occurs whenever the repository ARG(StgFilePath) is successfully opened=Событие происходит всякий раз при успешном открытии хранилища ARG(StgFilePath)
+The event occurs whenever an error occurs ARG(ErrorCode)=Событие происходит всякий раз при возникновении ошибки ARG(ErrorCode)
+Path to storage file=Путь к файлу хранилища

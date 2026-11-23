@@ -1,0 +1,124 @@
+*ѕример создани€ динамически измен€емого региона во врем€ выполнени€ программы
+Make(cpp)
+Add(MainForm,2953706,63,259)
+{
+ Width=275
+ Height=109
+ Point(Width)
+ Point(Height)
+ Point(Handle)
+ Point(onResize)
+ link(onResize,7016542:doEvent1,[])
+}
+Add(RGN_SetToWindow,14825844,511,280)
+{
+ link(Handle,2953706:Handle,[(517,268)(498,268)(498,343)(83,343)])
+}
+Add(Counter,1981269,357,77)
+{
+ Max=400
+ Default=20
+ Point(doMax)
+ link(onNext,11223037:doWork1,[(401,83)(401,59)(158,59)])
+}
+Add(PointXY,521731,364,224)
+{
+ link(X,7550783:reCalc,[])
+}
+Add(PointXY,1395023,406,224)
+{
+ X=2
+ link(Y,4860916:Var1,[(419,210)(59,210)(59,317)])
+}
+Add(RGN_Rect,9494334,385,280)
+{
+ Point2AsOffset=0
+ link(onCreateRect,11328078:doCombine,[])
+ link(Point1,521731:Point,[(391,268)(370,268)])
+ link(Point2,1395023:Point,[(398,268)(412,268)])
+}
+Add(Timer,4679723,308,77)
+{
+ Interval=100
+ link(onTimer,1981269:doNext,[])
+}
+Add(RGN_Rect,1545626,252,280)
+{
+ link(onCreateRect,15989778:doCreateRect,[])
+ link(Point2,152639:Point,[(265,265)(238,265)(238,389)(69,389)])
+}
+Add(PointXY,152639,63,350)
+{
+ link(X,15870719:Var2,[])
+ link(Y,4860916:Var2,[])
+}
+Add(GetDataEx,4860916,70,312)
+{
+ link(Data,2953706:Height,[])
+}
+Add(HubEx,11223037,154,280)
+{
+ link(onEvent,16199055:doData,[])
+}
+Add(DoData,16199055,196,280)
+{
+ link(onEventData,1545626:doCreateRect,[])
+}
+Add(Hub,7016542,112,280)
+{
+ link(onEvent1,11223037:doWork2,[])
+ link(onEvent2,10324267:doData,[(143,293)(143,104)])
+}
+Add(DoData,10324267,182,98)
+{
+ link(onEventData,1981269:doMax,[])
+ link(Data,15870719:Var1,[(188,65)(52,65)(52,310)])
+}
+Add(GetDataEx,15870719,63,305)
+{
+ link(Data,2953706:Width,[])
+}
+Add(RGN_MultiCombine,11328078,455,280)
+{
+ Count=3
+ Mode=2
+ link(onCombine,14825844:doSetRegion,[])
+ link(Region1,1545626:Result,[(461,264)(360,264)(360,336)(258,336)])
+ link(Region2,15989778:Result,[(468,268)(439,268)(439,330)(314,330)])
+}
+Add(RGN_Rect,15989778,308,280)
+{
+ Point2AsOffset=0
+ link(onCreateRect,9494334:doCreateRect,[])
+ link(Point1,2408328:Point,[(314,268)(279,268)])
+ link(Point2,16164360:Point,[])
+}
+Add(PointXY,2408328,273,224)
+{
+ Y=40
+ link(X,16081038:Var1,[(279,138)])
+ link(Y,50625:reCalc,[(286,202)(300,202)])
+}
+Add(PointXY,16164360,315,224)
+{
+ X=40
+ Y=40
+}
+Add(GetDataEx,16081038,357,133)
+{
+ link(Data,1981269:Count,[])
+}
+Add(MathParse,7550783,357,154)
+{
+ DataCount=1
+ MathStr="%1 + 20"
+ Point(reCalc)
+ link(X1,16081038:Var2,[])
+}
+Add(MathParse,50625,287,154)
+{
+ DataCount=1
+ MathStr="(%1 - 40 + 26) div 2"
+ Point(reCalc)
+ link(X1,4860916:Var3,[(293,132)(186,132)(186,317)])
+}

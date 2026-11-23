@@ -1,0 +1,6 @@
+Index Manager=Менеджер индексов
+Element name=Имя элемента
+Array of indexes (-1 - empty index)=Массив индексов (-1 - пустой индекс)
+Clears the index array=Очищает массив индексов
+Removes index number from the stream=Удаляет индекс с номером из потока
+Contains an array of manager indexes=Содержит массив индексов менеджера

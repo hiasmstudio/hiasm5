@@ -1,0 +1,9 @@
+Form size limitation=Ограничение размеров формы
+Enable/disable form size limitation=Включить/выключить ограничение размеров формы
+True - Maximizing the form window is bound to the form coordinates, False - Maximizing the form window is bound to the MaxLeft and MaxTop coordinates=True - Разворачивание окна формы привязывается к координатам формы, False - Разворачивание окна формы привязывается к координатам MaxLeft и MaxTop
+Sets the position of the left side of the maximized form window=Устанавливает позицию левой стороны развернутого окна формы
+Sets the position of the top of the maximized form window=Устанавливает позицию верхней части развернутого окна формы
+Minimum form width. (0 is default size)=Минимальная ширина формы. (0 - размер по-умолчанию)
+Minimum form height. (0 is default size)=Минимальная высота формы. (0 - размер по-умолчанию)
+Maximum width of the form. (0 is default size)=Максимальная ширина формы. (0 - размер по-умолчанию)
+Maximum form height. (0 is default size)=Максимальная высота формы. (0 - размер по-умолчанию)

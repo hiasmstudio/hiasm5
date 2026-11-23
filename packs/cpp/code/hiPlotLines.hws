@@ -1,0 +1,92 @@
+func Series()
+  return('dynamic_cast<HiasmPlotLines *>(form.findChild<QObject *>(QStringLiteral("PlotLines' && _id_ && '")))')
+end
+
+func doStart
+  if(is_qt_project())
+    println('{ auto *series = new HiasmPlotLines(widgetParent);')
+    println('series->setObjectName(QStringLiteral("PlotLines', _id_, '"));')
+    println('series->seriesName = qt_text(', cstr(get('Name')), ');')
+    println('series->target = qt_text(', cstr(get('qtPlotterTarget')), ');')
+    println('series->color = qt_led_color(qt_text(', cstr(get('Color')), '), series->color);')
+    println('series->penWidth = qMax(0, int(', Size, '));')
+    println('series->marker = ', get('qtPlotMarker'), ';')
+    if(get('qtPlotHistogram') == 1)
+      println('series->histogram = true;')
+      println('series->baselineAxis = qt_text(', cstr(get('qtPlotBaseline')), ');')
+      println('series->offset = ', get('Offset'), ';')
+      println('series->fill = qt_led_color(qt_text(', cstr(get('BgColor')), '), Qt::white);')
+    end
+    println('series->step = ', Step, ';')
+    println('series->setLimit(', MaxValues, '); }')
+  end
+end
+
+func doAdd(_data)
+  fvar(y, x)
+  y = 0
+  x = 0
+  if(linked('ValueY'))
+    y = d('ValueY')
+  elseif(len(_data) > 0)
+    y = _data
+  end
+  if(linked('ValueX'))
+    x = d('ValueX')
+  elseif(linked('ValueY') and len(_data) > 0)
+    x = _data
+  end
+  println('{')
+  block.inclvl()
+  println('const double y = qt_plot_value(', y, ');')
+  println('const double x = qt_plot_value(', x, ');')
+  println('if (', Series(), '->add(y, x)) {')
+  block.inclvl()
+  event(onAdd)
+  block.declvl()
+  println('}')
+  block.declvl()
+  println('}')
+end
+
+func doClear(_data)
+  println(Series(), '->clear();')
+end
+
+func doShow(_data)
+  if(len(_data) > 0)
+    println('{ auto *series = ', Series(), '; series->shown = qt_flag(qt_text(', _data, ')); series->redraw(); }')
+  else
+    println('{ auto *series = ', Series(), '; series->shown = false; series->redraw(); }')
+  end
+end
+
+func doColor(_data)
+  if(len(_data) > 0)
+    println('{ auto *series = ', Series(), '; series->color = qt_led_color(qt_text(', _data, '), series->color); series->redraw(); }')
+  end
+end
+
+func doMaxValues(_data)
+  if(len(_data) > 0)
+    println(Series(), '->setLimit(QVariant(', _data, ').toInt());')
+  else
+    println(Series(), '->setLimit(0);')
+  end
+end
+
+func MinX()
+  return(Series() && '->extreme(true, false)')
+end
+
+func MaxX()
+  return(Series() && '->extreme(true, true)')
+end
+
+func MinY()
+  return(Series() && '->extreme(false, false)')
+end
+
+func MaxY()
+  return(Series() && '->extreme(false, true)')
+end

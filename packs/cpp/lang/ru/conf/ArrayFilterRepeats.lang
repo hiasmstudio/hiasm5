@@ -1,0 +1,8 @@
+Filter for element repetitions in arrays=Фильтр повторений элементов в массивах
+Array type=Тип массива
+Filters repetitions of elements in the array ARG(Array)=Фильтрует повторения элементов в массиве ARG(Array)
+The event occurs whenever the next non-repeating element is found, issuing it to the ARG(Value) stream=Событие происходит всякий раз при нахождении следующего неповторяющегося элемента, выдавая его в поток ARG(Value)
+The event occurs every time element repetition filtering is completed=Событие происходит всякий раз по окончанию фильтрации повторения элементов
+An array in which you want to filter out duplicate elements=Массив, в котором необходимо отфильтровать повторения элементов
+Contains a filtered array. Read-only=Содержит отфильтрованный массив. Доступен только для чтения
+Contains the number of elements in the filtered array=Содержит количество элементов в отфильтрованном массиве

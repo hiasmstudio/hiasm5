@@ -1,0 +1,17 @@
+func doCheck(_data)
+  if(linked(Result))
+    println(str, ' = sys.extelement(', Pack, ',', Name, ');')
+    event(onCheck, str)
+  else
+    event(onCheck, 'sys.extelement(' && Pack && ',' && Name && ')')
+  end
+end
+
+func Result()
+  if(linked(doCheck))
+    return(str)
+  else
+    return('sys.extelement(' && Pack && ',' && Name && ')')
+  end
+end
+

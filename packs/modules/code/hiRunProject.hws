@@ -1,0 +1,56 @@
+section cpp
+
+func doDeclare(_data)
+  fvar(old, old_var, mb)
+  
+  old_var = BLK_FUNC
+  BLK_FUNC = block.reggen()
+  
+  mb = block.reggen() 
+  old = block.select(mb)
+  event(onDeclare, 'string(params.FileName)')
+  
+  block.select(BLK_HEAD)
+  println('extern "C" __declspec(dllexport) int buildRunProc(TBuildRunRec &params)') 
+  lng.begin()
+    block.select(BLK_FUNC)
+    if(not block.empty())
+      block.select(BLK_HEAD)
+      block.copyhere(BLK_FUNC)
+    end
+    block.delete(BLK_FUNC)
+    BLK_FUNC = old_var
+    block.select(BLK_HEAD)
+    
+    block.copyhere(mb)    
+    block.delete(mb)
+    println('return CG_SUCCESS;')
+  lng.end()
+  println('')
+  
+  block.select(old)
+end
+
+func doSaveData()
+  println('params.data = (void *)(', Data, ');')
+end
+
+func FileName()
+  return('string(params.FileName)')
+end
+
+func ProjectPath()
+  return('string(ExtractFilePath(params.FileName))')
+end
+
+func Mode()
+  return('params.Mode')
+end
+
+func ServerPort()
+  return('params.ServerPort')
+end
+
+func ClientPort()
+  return('params.ClientPort')
+end

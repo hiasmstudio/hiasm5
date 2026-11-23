@@ -1,0 +1,515 @@
+*Первая игра без кода - "Пятнашки".
+Make(cpp)
+Add(MainForm,68437,49,210)
+{
+ Left=340
+ Top=278
+ Width=223
+ Height=212
+ Font=[Arial,8,0,0,1]
+ Caption="Fiftin"
+ BorderStyle=3
+ link(onCreate,50478:doEvent1,[(100,230)(100,251)])
+}
+Add(GetDataEx,16169652,427,126)
+{
+ link(Data,56340:Matrix,[])
+}
+Add(PaintBox,10740673,364,21)
+{
+ Left=50
+ Top=30
+ Width=120
+ Height=120
+ Point(MouseX)
+ Point(MouseY)
+ Point(onMouseDown)
+ link(onMouseDown,18897:doOperation,[])
+}
+Add(LinkTip,71189,28,112)
+{
+ Link="Проверка состояния доски=multi://48587"
+ Font=[MS Sans Serif,8,4,16711680,1]
+}
+Add(Math,18897,413,28)
+{
+ OpType=7
+ Op2=30
+ ResultType=0
+ link(onResult,41274:doOperation,[(455,34)(455,79)(361,79)(361,153)])
+ link(Op1,10740673:MouseY,[(419,18)(405,18)(405,63)(384,63)])
+}
+Add(GetDataEx,15319643,217,217)
+{
+ Angle=1
+ link(Data,9343031:Var1,[])
+}
+Add(InfoTip,11936,28,357)
+{
+ Info=#261:С введением компонент для рисования простейших фигур и текста в картинках, в HiAsm стало возможно собирать небольшие игры! Поскольку концепция Конструктора все же лежит в несколько иной плоскости, то сборка игровых схем - работа достаточно сложная и трудоемкая.|
+ Font=[Microsoft Sans Serif,8,0,0,1]
+ Transparent=1
+ HAlign=0
+ Width=435
+ Height=60
+ Margin=5
+}
+Add(GetDataEx,9343031,427,217)
+{
+ link(Data,16169652:Var2,[])
+}
+Add(LinkTip,75193,28,49)
+{
+ Link="Вычисление возможности сдвига=multi://90393"
+ Font=[MS Sans Serif,8,4,16711680,1]
+}
+Add(Matrix,56340,434,91)
+{
+ Col=4
+ Row=4
+}
+Add(Math,41274,371,147)
+{
+ OpType=7
+ Op2=30
+ ResultType=0
+ link(onResult,8553378:doWork1,[])
+ link(Op1,10740673:MouseX,[])
+}
+Add(Hub,59364,308,245)
+{
+ OutCount=3
+ link(onEvent1,82920:doWork1,[])
+ link(onEvent2,1528683:doWork3,[(351,258)(351,295)(207,295)])
+ link(onEvent3,45184:doPlay,[(365,265)(365,314)])
+}
+Add(GetDataEx,9179712,406,112)
+{
+ link(Data,18897:Result,[])
+}
+Add(PlaySound,45184,399,308)
+{
+ Sound=[ZIP060A000078DADDD5FB3FD3FB0307F0F7666C185B6D63582E1B32F7E294FA8ACDB5102A67B99C83B9E4EE5B52381E65D22691AFB9E456276A7C5D560D2314994B8712D374DCCAC9D15938E5E49CE8A63EDFCFCE7F71BEAF1F3EEFC7FBF378BF1F8FF7F37D3D7CC0C3E3AB2A0047992CF76349A986FA00806F0112505900300C0040C0752CFC45C2A5142E4F281F6347A6A2E01A49078028762ABB0FEE0DFDC50900849B11731B820A04A701F1EE36036EA1D51212AFA64ABDA4CB6C8B4620F7F32FCE5FEA660CDD7A6E90847F9FE8177E4EF38744DF17608BE18BBD88FA706024E95FAA3A86678E945C4F43E14FCAAE67A28CC6FDFCA67752DE6DC86C414E0E77D97ED430A764FB9D7A7CAEA9D635A8E7F9B3ACD5D537984C5F283DF7EE2FF3B4E7F39F0D7366EC0706B0381C6ECBC2C202CF1387034BE9E9ECCADCFF40A38E69727D7D84F4EDDB013B9C01F41510A900B1052FF2B18676E52E5E2C40EA6F7188497C82C9AD18C3C09E543DF2845EE0B3C74B5B108648D16D0E004B239ED0E8D2F43020922543D0E6AA939D0B12A5734A9ED1B7760DDA9DAF045A4EC692292953D0077C0DA9CB9E460D1FD4B769CAD79641D0E8AF762A0E435E3BCFF9B42EA8A67BB9DC1720B2206833FEC3F20E633959D4E23249F6E706F0860F8C9F3D3E96A74722C61E86E07CAC50732C505345D4483C4A456E9C9A70D545AF44AF5ABE59041A791E94139C5D094538E8EFFC91601D331FB339FEF164798FF951F8C7579083C51C445E6BAC0D998C5678D4B5F9F460CCE358007BC40A8FED79CD787F30906148143E9D51B264310CA91B5BAB826AE4E1754C5AC1B3B658F2E8564D0C7BAAA255059FDD4B7473BF50C908FF4669C2B50A59770EEF1CBFABECC2AA0AC5CC36952A556585671309B68C9FFFF5D8B420D0E34165BCB8271F85291F58436BAC9F29538AA81A4BF1265CF432B9B3D0603275F87DC4E590D042953A41C5D507999446C8F9915EE91F83DD7636B9F23D63A16D917FFE92B2EABC91153CE0681E53EEFC6723CFE0B2FDFB84D0BF553487887692C2A34CB22204A35EBF049C06D8D30740E0248953533A98A8B3767C36814E56B698B73F18C289928A7AAE035413F361B1086F2CB963FC03EB54BAA32A27B0D5FC1EF938153FAC3187EE4427574448794E09D863E78CD585FE4D66376436EAA596EC6FBC76E58C4837EEE328197D65E3DEA1BB7B93874C17CA40D4F2D8A260EF600C9999F2907FF7C4BD95B00B91A70BDF6C5ACE4D99FF7CFBAE5E7F4ABD306DDF2BA17356A639F66DD7917D415D9196AB11A56DCE1014D7BC42BDF2A0D2B18279534A8C79455EF972E257858748C8D3090691F4CB1C11527C0B3E3E0111D9C81E795635066125180C72657DCE98EE475456AF6BDC31D16CC6EA0CC7BC4CEF0DDBFD9AA2DA961DB07E765DC9253C699149C27068C62474DC4361CBC4C26986AFEBBB6ECB9F2871DE5771A62B12BAEBD25BD12B93F28E27571AC73BFA572A5BE87BE8585D5B813FDFB67FA92062C2FBC7110BFF76A334F978557EB7FD19AE3A534F3B049EF698C4F5991043F7A68D7D93CA287ACF6919F5409357733B0D553E3A384B3F9928F36828E119F03F19A8102AAFE5611E283CB684C66D2C908015C01EA1C2439FFD9234A4C40B8F7B786977B6CB45F975971717B0A51ADCA29A684E15D2DA2109E2B959F07D0FEF625B5B777C19D789DC178D5D3B63E648913B902A52EFA79C38E4A4CB10A6F9BA9A17E043664DC382FB6B4383F61ECB1C9FFEE8336A10BB237A9DBB36B7E7E360B3CE8906093C68CBFCCDAF750B31BAB2AFB5F50EF1CA2CBE345CB4DB9635A011659E16A4E4EF69F67B2E35E737FFC6866A6AC0412B718E41177738E494B96E9C56FF245A0B7B1E1FDC8C6CE403553B025AE1F12632750240F4723FA70FD9A0F050C28C2254785A19EAEC9796C972F2F2D3AD61C33F5E2FC888432EBB59B974D269DF76E6DE8B366862A15550EDC1C27D53CFE9A63B9B7ED2E91257C888ECADA63EED94E2AD7173E268568D38596B252B69D822C09DAD986E8B1D990386FC47E62F30187B23C6F0994DCE3C46F63E895BE7529FC7CDE97DD1F3A67FEF46DFEFA4994CA3A994B34E7D158250AFDB84C6EF1D25859EDCE2E0A275ADC9EEC1C843E73FC41BF5F20E3D2DAED4349E405E2B7E8A39E7D038DCEABBF394C2C326466FF305312AC99C4EE4158567F8F18DA4211AA23E6A7D66BA4F5A3726286BFB6EFB8A8799E5ED8E104DC6BFFFFA42EB7267B482111E8D5DF0DCDDBDDB33714EEFBCB88CE8506E7FB14BA4A77670021E3A276CBA7927CBB0A6BFCFE943D092555CDD0E53F1606980D87A916C9BE7F13D2B60ED5635AEAD64874D4A947549E81D65BB4A25F1171F895F46E691DF04C2A3C66647D893120F86063516C4FB57C8EB6FA80BBBD8563384EF3CCF8066B672DDDB239A678F16973BDA204FD968ADE5D999DC6C19F63051784E1346486E80CD93C2FBED82C243B8273CB807B59F33CD23D687769240F3409E89AFC7A1A48CA61BC51949C566ED238F4A8E174B5CE19B581D3DA4B4585BE3A682664A8F7B986D778C537BF2C8B235081A892C310B4FB6FDAF5F1EAD4860ADCB6BAD9D1D7ABD9D9D2F97CB3EF776DC6C92D103435F26DF8A565359D24772DDB97086B23E71CF3A5A1A107185BC6C3C791B9A2921D75C591358785BB68EC44026853EB5D99DFD579D8C0B5D8A3AE3751FE626688BAEF26CAAABFD563FCD7634FBD4B133F98AF7B4488D7217038C130389074EE355F64F8BBABB4ACDF46AD2D5485A70B449D00A09FAC704F634627D105645F0BA800664A0627DA07F70600FA48DFDBFF1FC0F78F5A873]
+ link(onEndPlay,48587:doWork1,[])
+}
+Add(HubEx,1528683,203,245)
+{
+ link(onEvent,38482:doWork1,[])
+}
+Add(Message,27156,504,308)
+{
+ Message="Вы прошли игру!!!"
+ Caption="End Game"
+}
+Add(MultiElement,82920,406,245)
+{
+ @Hint=#60:Перестановка местами двух ячеек матрици=Перестановка местами|
+ link(Data1,41274:Result,[(412,202)(377,202)])
+ link(Data2,9179712:Var2,[])
+ link(Data3,8553378:Var1,[])
+ link(Data4,8553378:Var2,[])
+ link(Data5,9343031:Var2,[])
+}
+BEGIN_SDK
+  Add(EditMulti,44532,3,3)
+  {
+   WorkCount=1
+   DataCount=5
+   Width=209
+   Height=193
+   link(doWork1,74175:doRead,[(16,25)(16,111)])
+  }
+  Add(MatrixRW,580,35,140)
+  {
+   link(Matrix,8657691:Var1,[(41,93)])
+   link(X,44532:Data3,[(55,48)(23,48)])
+   link(Y,44532:Data4,[(62,43)(30,43)])
+  }
+  Add(Hub,3804,147,105)
+  {
+   link(onEvent1,580:doWrite,[(200,111)(200,182)(26,182)(26,153)])
+   link(onEvent2,74175:doWrite,[(188,118)(188,144)(88,144)(88,118)])
+  }
+  Add(GetDataEx,8657691,91,84)
+  {
+   link(Data,44532:Data5,[(104,8)(37,8)])
+  }
+  Add(Memory,67166,140,21)
+  {
+   Default=Integer(0)
+  }
+  Add(MatrixRW,74175,98,105)
+  {
+   link(onRead,3804:doEvent1,[])
+   link(Matrix,8657691:Var2,[])
+   link(Value,67166:Value,[(111,90)(146,90)])
+   link(X,44532:Data1,[(118,26)(9,26)])
+   link(Y,44532:Data2,[(125,19)(16,19)])
+  }
+END_SDK
+Add(LinkTip,6071,28,70)
+{
+ Link="Перестановка фишек местами=multi://82920"
+ Font=[MS Sans Serif,8,4,16711680,1]
+}
+Add(LinkTip,12599,28,91)
+{
+ Link="Отрисовка игрового поля=multi://38482"
+ Font=[MS Sans Serif,8,4,16711680,1]
+}
+Add(Button,2936,49,252)
+{
+ Left=75
+ Top=160
+ Width=80
+ Font=[Arial,8,0,0,1]
+ TabOrder=-1
+ link(onClick,50478:doEvent2,[])
+}
+Add(LinkTip,63312,28,28)
+{
+ Link="Формирование игрового поля=multi://45091"
+ Font=[MS Sans Serif,8,4,16711680,1]
+}
+Add(MultiElement,45091,161,252)
+{
+ @Hint=#56:Заполнение матрицы случайными числами=Заполнение матрицы|
+ link(onEvent1,1528683:doWork2,[])
+ link(Data1,15319643:Var1,[(167,226)])
+}
+BEGIN_SDK
+  Add(EditMulti,23293,3,3)
+  {
+   EventCount=1
+   WorkCount=1
+   DataCount=1
+   Width=433
+   Height=221
+   link(doWork1,57988:doFor,[(21,30)(21,111)])
+  }
+  Add(Math,37022,392,112)
+  {
+   OpType=8
+   Op2=4
+   ResultType=0
+  }
+  Add(Hub,95496,287,105)
+  {
+   OutCount=3
+   link(onEvent1,5973:doOperation,[(334,111)(334,55)])
+   link(onEvent2,37022:doOperation,[])
+   link(onEvent3,79499:doRead,[(338,125)(338,167)])
+  }
+  Add(MatrixRW,79499,357,161)
+  {
+   link(onRead,2740502:doValue,[(401,167)(401,199)(76,199)(76,62)])
+   link(Matrix,23293:Data1,[(363,26)(29,26)])
+   link(Value,57988:Position,[(370,149)(90,149)])
+   link(X,5973:Result,[])
+   link(Y,37022:Result,[(384,153)(398,153)])
+  }
+  Add(Math,5973,371,49)
+  {
+   OpType=7
+   Op2=4
+   ResultType=0
+  }
+  Add(Memory,2740502,182,56)
+  {
+  }
+  Add(Repeat,67316,182,105)
+  {
+   Op2=Integer(0)
+   Check=1
+   link(onRepeat,1666:doRandom,[])
+   link(Op1,2740502:Value,[])
+  }
+  Add(Hub,7880,133,105)
+  {
+   link(onEvent1,67316:doRepeat,[])
+   link(onEvent2,79499:doWrite,[(172,118)(172,174)])
+  }
+  Add(For,57988,84,105)
+  {
+   End=15
+   link(onEvent,7880:doEvent1,[])
+   link(onStop,23293:onEvent1,[(123,118)(123,9)])
+  }
+  Add(Random,1666,231,105)
+  {
+   Max=15
+   link(onRandom,95496:doEvent1,[])
+  }
+END_SDK
+Add(MultiElement,48587,455,308)
+{
+ @Hint=#53:Проверка позиций первых 15 фишек=Проверка расстановки|
+ link(onEvent1,27156:doMessage,[])
+ link(Data1,9343031:Var3,[(461,226)])
+}
+BEGIN_SDK
+  Add(EditMulti,16863,3,3)
+  {
+   EventCount=1
+   WorkCount=1
+   DataCount=1
+   Width=440
+   Height=228
+   link(doWork1,9606:doFor,[(10,17)(10,62)])
+  }
+  Add(Math,28866,98,56)
+  {
+   OpType=1
+   Op2=1
+   ResultType=0
+   link(onResult,25977:doEvent1,[])
+  }
+  Add(Hub,25977,154,56)
+  {
+   OutCount=3
+   link(onEvent1,12114:doOperation,[])
+   link(onEvent2,86165:doOperation,[])
+   link(onEvent3,29913:doRead,[(208,76)(208,132)])
+  }
+  Add(MatrixRW,29913,238,126)
+  {
+   link(onRead,73041:doCompare,[])
+   link(Matrix,16863:Data1,[(244,13)(15,13)])
+   link(X,86165:Result,[])
+   link(Y,12114:Result,[(265,111)(300,111)])
+  }
+  Add(Math,86165,252,63)
+  {
+   OpType=8
+   Op2=4
+   ResultType=0
+  }
+  Add(Math,12114,294,56)
+  {
+   OpType=7
+   Op2=4
+   ResultType=0
+  }
+  Add(If_else,73041,294,126)
+  {
+   link(onTrue,25459:doNext,[])
+   link(Op2,9606:Position,[(307,118)(280,118)(280,171)(48,171)])
+  }
+  Add(Counter,25459,371,126)
+  {
+  }
+  Add(For,9606,42,56)
+  {
+   Start=1
+   End=15
+   link(onEvent,28866:doOperation,[])
+   link(onStop,43487:doEvent1,[(86,69)(86,188)])
+  }
+  Add(If_else,17273,371,182)
+  {
+   Op2=Integer(15)
+   link(onTrue,16863:onEvent1,[(421,188)(421,9)])
+   link(Op1,25459:Count,[])
+  }
+  Add(Hub,43487,308,182)
+  {
+   link(onEvent1,17273:doCompare,[])
+   link(onEvent2,25459:doReset,[(349,195)(349,146)])
+  }
+END_SDK
+Add(Hub,50478,112,245)
+{
+ InCount=2
+ link(onEvent1,56340:doClear,[(289,251)(289,104)])
+ link(onEvent2,45091:doWork1,[])
+}
+Add(MultiElement,38482,224,252)
+{
+ @Hint=#45:Отрисовка матрицы на экране=Отрисовка матрицы|
+ link(onEvent1,10740673:doRefresh,[(278,258)(278,27)])
+ link(Data1,15319643:Var2,[])
+ link(Data2,10740673:Bitmap,[(237,69)(370,69)])
+}
+BEGIN_SDK
+  Add(EditMulti,28367,3,3)
+  {
+   EventCount=1
+   WorkCount=1
+   DataCount=2
+   Width=426
+   Height=270
+   link(doWork1,5276:doFor,[(10,21)(10,69)])
+  }
+  Add(For,16938,203,63)
+  {
+   End=4
+   link(onEvent,81253:doOperation,[])
+  }
+  Add(For,5276,63,63)
+  {
+   End=4
+   link(onEvent,67085:doOperation,[])
+   link(onStop,28367:onEvent1,[(104,76)(104,9)])
+  }
+  Add(Case,91439,231,217)
+  {
+   Value=Integer(0)
+   link(onNextCase,12904:doDraw,[])
+  }
+  Add(MatrixRW,51857,350,63)
+  {
+   link(onRead,35301:doDraw,[(392,69)(392,259)(101,259)(101,223)])
+   link(Matrix,28367:Data1,[(356,16)(9,16)])
+   link(X,5276:Position,[(370,47)(112,47)(112,105)(69,105)])
+   link(Y,16938:Position,[(377,54)(244,54)(244,105)(209,105)])
+  }
+  Add(PointXY,16470785,168,161)
+  {
+   X=30
+   Y=30
+  }
+  Add(PointXY,94418,119,161)
+  {
+   link(X,67085:Result,[])
+   link(Y,81253:Result,[(132,128)(258,128)])
+  }
+  Add(Math,81253,252,63)
+  {
+   OpType=2
+   Op2=30
+   ResultType=0
+   link(onResult,84539:doOperation,[])
+  }
+  Add(Math,67085,119,63)
+  {
+   OpType=2
+   Op2=30
+   ResultType=0
+   link(onResult,40405:doOperation,[])
+  }
+  Add(Math,40405,161,63)
+  {
+   Op2=5
+   ResultType=0
+   link(onResult,16938:doFor,[])
+  }
+  Add(Img_Text,12904,280,217)
+  {
+   Font=[Comic Sans MS,10,1,255,1]
+   Point(X)
+   Point(Y)
+   link(Bitmap,9287215:Var3,[(286,205)])
+   link(X,40405:Result,[(300,136)(167,136)])
+   link(Y,84539:Result,[])
+  }
+  Add(Img_Rectangle,35301,112,217)
+  {
+   Point2AsOffset=0
+   BgColor=15780518
+   Style=1
+   Point(Point1)
+   Point(Point2)
+   link(onDraw,91439:doCase,[])
+   link(Bitmap,9287215:Var2,[])
+   link(Point1,94418:Point,[])
+   link(Point2,16470785:Point,[(132,200)(174,200)])
+  }
+  Add(GetDataEx,9287215,105,196)
+  {
+   link(Data,28367:Data2,[(118,193)(16,193)])
+  }
+  Add(Math,84539,301,63)
+  {
+   Op2=5
+   ResultType=0
+   link(onResult,51857:doRead,[])
+  }
+END_SDK
+Add(Label,38732,161,189)
+{
+ Left=40
+ Top=5
+ Width=145
+ Height=20
+ Font=[Microsoft Sans Serif,12,1,0,1]
+ Caption="Игра "Пятнашки""
+}
+Add(MultiElement,8553378,420,147)
+{
+ @Hint=#81:Вычисление позиции пустого поля относительно выбранной клетки=Вычисление пустышки|
+ link(onEvent1,59364:doEvent1,[(462,153)(462,219)(298,219)(298,251)])
+ link(Data1,9179712:Var3,[(426,121)])
+ link(Data2,16169652:Var1,[(433,135)])
+}
+BEGIN_SDK
+  Add(EditMulti,41428,3,3)
+  {
+   EventCount=1
+   WorkCount=1
+   DataCount=2
+   VarCount=2
+   Width=566
+   Height=214
+   link(doWork1,11232986:doValue,[(14,21)(14,125)])
+   link(Var1,11033628:Var1,[(9,170)])
+   link(Var2,5716247:Result,[(16,191)(335,191)])
+  }
+  Add(IntegerArray,13587807,280,28)
+  {
+   IntArray=['0'=0,'0'=1,'0'=0,'0'=-1]
+  }
+  Add(IntegerArray,13042579,168,28)
+  {
+   IntArray=['0'=1,'0'=0,'0'=-1,'0'=0]
+  }
+  Add(ArrayRW,7210191,168,119)
+  {
+   link(onRead,447598:doOperation,[])
+   link(Array,13042579:Array,[])
+  }
+  Add(For,307779,98,119)
+  {
+   End=3
+   link(onEvent,7210191:doRead,[])
+  }
+  Add(Memory,11232986,35,119)
+  {
+   link(onData,307779:doFor,[])
+  }
+  Add(Math,447598,224,119)
+  {
+   link(onResult,6162826:doRead,[])
+   link(Op1,11232986:Value,[(230,109)(146,109)(146,161)(41,161)])
+  }
+  Add(ArrayRW,6162826,280,119)
+  {
+   link(onRead,5716247:doOperation,[])
+   link(Array,13587807:Array,[])
+   link(Index,307779:Position,[(293,100)(138,100)(138,156)(104,156)])
+  }
+  Add(Math,5716247,329,119)
+  {
+   link(onResult,4781291:doRead,[])
+   link(Op1,41428:Data1,[(335,22)(19,22)])
+  }
+  Add(MatrixRW,4781291,392,119)
+  {
+   link(onRead,85993:doCase,[])
+   link(Matrix,41428:Data2,[(398,17)(25,17)])
+   link(X,11033628:Var3,[(412,109)(322,109)(322,170)])
+  }
+  Add(Case,85993,452,119)
+  {
+   Value=Integer(0)
+   link(onTrue,4650613:doEvent1,[])
+  }
+  Add(Hub,4650613,504,126)
+  {
+   link(onEvent1,41428:onEvent1,[(549,132)(549,9)])
+   link(onEvent2,307779:doStop,[(549,139)(549,178)(86,178)(86,132)])
+  }
+  Add(GetDataEx,11033628,217,161)
+  {
+   link(Data,447598:Result,[])
+  }
+END_SDK

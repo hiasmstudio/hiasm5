@@ -1,0 +1,8 @@
+Data source query=Запрос к источнику данных
+Contains the request text=Содержит текст запроса
+Data Source Manager=Менеджер источника данных
+Executes a query string in SQL language=Выполняет строку запроса на языке SQL
+The event occurs after a request to the data source is executed and outputs the resulting results to the stream ARG(Data)=Событие происходит после выполнения запроса к источнику данных и выдает в поток полученные результаты ARG(Data)
+Stream column names ARG(Fields)=Выдает в поток имена столбцов ARG(Fields)
+The event occurs in case of an error and outputs its description to the stream=Событие происходит в случае ошибки и выдает её описание в поток
+Query text in SQL language=Текст запроса на языке SQL

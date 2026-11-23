@@ -1,0 +1,8 @@
+Query a data source to get the value of one table cell=Запрос к источнику данных для получения значения одной ячейки таблицы
+Contains the request text=Содержит текст запроса
+Data Source Manager=Менеджер источника данных
+Executes a query string in SQL language=Выполняет строку запроса на языке SQL
+The event occurs after a database query has been executed and outputs the value of the resulting cell ARG(Data) to the stream.=Событие происходит после выполнения запроса к базе данных и выдает в поток значение полученной ячейки ARG(Data)
+The event occurs in case of an error and outputs its description to the stream=Событие происходит в случае ошибки и выдает её описание в поток
+Contains the cell value=Содержит значение ячейки
+Query text in SQL language=Текст запроса на языке SQL

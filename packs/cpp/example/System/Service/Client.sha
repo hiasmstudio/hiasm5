@@ -1,0 +1,53 @@
+*Клиентская программа, выполняющая запросы к фоновому приложению-сервису#13#10(перед использованием запустите программу Client)
+Pos(0,0)
+Add(UDP,148941,315,119)
+{
+ LocalPort=32456
+ RemotePort=32457
+ RemoteIP="127.0.0.1"
+ AutoConnect=0
+ ReceiveMode=1
+}
+Add(Button,20375,175,126)
+{
+ Left=30
+ Top=15
+ Hint="Проверить состояние сервиса"
+ Font=[Arial,8,0,0]
+ Caption="Ping"
+ Data=String(ping)
+ link(onClick,95323:doEvent1,[])
+}
+Add(Hub,95323,252,126)
+{
+ InCount=2
+ OutCount=1
+ link(onEvent1,148941:doSend,[])
+}
+Add(Button,87024,175,175)
+{
+ Left=30
+ Top=40
+ Hint="Остановить сервис"
+ Font=[Arial,8,0,0]
+ Caption="Stop"
+ Data=String(stop)
+ link(onClick,95323:doEvent2,[(229,181)(229,139)])
+}
+Add(InfoTip,31368,105,28)
+{
+ Info='Демонстрация построения программы Клиент для связи с фоновым приложением-Сервером.'
+ Font=[Times New Roman,11,2,0]
+ Width=253
+ Height=53
+}
+Add(MainForm,44727,104,119)
+{
+ Left=447
+ Top=331
+ Width=131
+ Height=107
+ Font=[MS Sans Serif,8,0,0]
+ BorderStyle=3
+ link(onCreate,148941:doOpen,[(167,160)(167,125)])
+}

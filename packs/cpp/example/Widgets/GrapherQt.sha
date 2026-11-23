@@ -1,0 +1,33 @@
+Make(cpp)
+Add(MainForm,1,28,28)
+{
+ Backend=1
+ Caption="Grapher"
+ Width=380
+ Height=250
+}
+Add(Grapher,2,210,84)
+{
+ Left=12
+ Top=12
+ Width=350
+ Height=175
+ MaxValues=20
+}
+Add(TrackBar,3,28,84)
+{
+ Left=12
+ Top=200
+ Width=220
+ Height=26
+ link(onPosition,2:doAdd,[])
+}
+Add(Button,5,28,196)
+{
+ Left=248
+ Top=200
+ Width=105
+ Height=26
+ Caption="Clear"
+ link(onClick,2:doClear,[])
+}

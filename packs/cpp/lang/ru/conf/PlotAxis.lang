@@ -1,0 +1,11 @@
+Axis on the chart=Ось на графике
+The chart on which you want to display the axis=График, на котором требуется вывести ось
+Element name=Имя элемента
+Centerline color=Цвет осевой линии
+Centerline size=Размер осевой линии
+Centerline style=Стиль осевой линии
+X coordinate of the point through which the axis passes=Координата X точки, через которую проходит ось
+Y coordinate of the point through which the axis passes=Координата Y точки, через которую проходит ось
+Angle of inclination of the axis relative to the abscissa axis=Угол наклона оси относительно оси абсцисс
+Sets the plotting options for the axis ARG(X, Y, Angle)=Устанавливает параметры вывода оси на графике ARG(X, Y, Angle)
+The event occurs every time after setting the axes parameters=Событие происходит всякий раз после установки параметров осей

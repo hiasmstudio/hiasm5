@@ -1,0 +1,59 @@
+func doFormat
+  fvar(s)
+  s = 'strftime(' && Mask && ',' && Time && ')'
+  if(linked(Result))
+    print(res, ' = ', s, ';')
+    event(onFormat, res)
+  else
+    event(onFormat, s)
+  end
+end
+
+func Result
+  if(linked(doFormat))
+    return(res)
+  else
+    return('strftime(' && Mask && ',' && Time && ')')
+  end
+end
+
+func ServerTime
+  return('time()')
+end
+
+func MicroTime
+  return('microtime()')
+end
+
+section java
+
+func init()
+
+end
+
+func doFormat
+  fvar(s)
+  s = 'new Date()'
+  if(linked(Result))
+    print(res, ' = ', s, ';')
+    event(onFormat, res)
+  else
+    event(onFormat, s)
+  end
+end
+
+func Result
+  if(linked(doFormat))
+    return(res)
+  else
+    return('new Date()')
+  end
+end
+
+func MicroTime
+  return('(new Date()).getTime()')
+end
+
+func ServerTime
+  return('(new Date()).getTime()')
+end

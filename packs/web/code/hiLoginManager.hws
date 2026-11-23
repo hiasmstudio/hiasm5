@@ -1,0 +1,145 @@
+func printSection(evn)
+  fvar(old,s)
+  
+  old = block.select(block.reggen())
+  block.lvloff()
+  event(evn:html)
+  s = block.astext() 
+  block.delete(block.select(old))
+  println('echo ', s, ';')
+end
+
+func beginForm()
+  fvar(p)   
+  _SCOPE_ = code(_id_)
+  println('echo "<form onsubmit=\'return(false);\' id=\"' + code("mform" + _id_) + '\" action=\"?form=' + _SITE_  + '\" method=\"post\">";')
+  println('echo "<input type=\"hidden\" id=\"id' + code(_id_) + '\" name=\"id\">";')
+end
+
+func doPrint(_data)
+  if(isdef(AuthDataSource))
+    return('')
+  end
+  include("dm_head")
+  
+  beginForm()
+  
+  fvar(old)
+  old = block.select(BLK_HEAD)
+  println('session_start();')
+  block.select(old)
+  println('if(!session_is_registered("log_user")) {')
+  block.inclvl()
+    println('session_register("log_user");')
+    println('$_SESSION["log_user"] = ' + GuestID + ';')
+  block.declvl()
+  println('}')
+  
+  println('$do_cmd = isset($_GET["cmd"]) && isset($_GET["form"]) && $_GET["form"] == ' + _SITE_ + ';')
+  println('if($do_cmd) {')
+  block.inclvl()
+    println('if($_GET["cmd"] == "cancel") {')
+    block.inclvl()
+      println('$_SESSION["log_user"] = ' + GuestID + ';')
+      println('session_unregister("log_user_ok");')
+    block.declvl()
+    println('}')
+    println('if($_GET["cmd"] == "ok") {')
+    block.inclvl()
+      sys.event(AuthDataSource, 'ds_select', _id_, '')
+      if(isdef(LoginField) and isdef(PassField))
+        println('if(' + sys.event(AuthDataSource, 'ds_count', _id_) + ') {')
+        block.inclvl()
+          sys.event(AuthDataSource, 'ds_fetch', _id_)
+          println('$_SESSION["log_user"] = ' + f + '[' + UserIDField + '];')
+          println('session_register("log_user_ok");')
+        block.declvl()
+        println('}')
+      else
+        println('for($i = 0; $i < ' + sys.event(AuthDataSource, 'ds_count', _id_) + '; $i++) {')
+        block.inclvl()
+            sys.event(AuthDataSource, 'ds_fetch', _id_)
+            fvar(s)
+            if(isndef(LoginField))
+              s = f + '[' + LoginField + '] == $_POST[' + (LoginField + _id_) + ']'          
+            else
+              s = ''
+            end
+            if(isndef(PassField))
+              if(s)
+                s += ' && '
+              end
+              s += f + '[' + PassField + '] == '
+              if(isndef(Encrypt))
+                s += code(Encrypt) + '('
+              end
+              s += '$_POST[' + (PassField + _id_) + ']'
+              if(isndef(Encrypt))
+                s += ')'
+              end          
+            end
+            println('if(' + s + ') {')
+            block.inclvl()
+              println('$_SESSION["log_user"] = ' + f + '[' + UserIDField + '];')
+              println('session_register("log_user_ok");')
+              println('break;')
+            block.declvl()
+            println('}')
+        block.declvl()
+        println('}')
+      end
+    block.declvl()
+    println('}')
+  block.declvl()
+  println('}')
+
+  //------------------- SESSION -----------------------------------
+  if(isndef(SessionDataSource))
+    println(f + ' = array();')
+    println(f + '[' + SessionIDField + '] = session_id();')
+    println(f + '["id"] = session_id();')
+    println(f + '[' + SUserIDField + '] = $_SESSION["log_user"];')
+    if(isndef(IPField))
+      println(f + '[' + IPField + '] = $_SERVER["REMOTE_ADDR"];')
+    end
+    sys.event(SessionDataSource, 'ds_select', _id_, '')
+    println('if(' + sys.event(SessionDataSource, 'ds_count', _id_) + ') {')
+    block.inclvl()
+      sys.event(SessionDataSource, 'ds_update', _id_)
+    block.declvl()
+    println('} else {')
+    block.inclvl()
+      sys.event(SessionDataSource, 'ds_insert', _id_)
+    block.declvl()
+    println('}')
+  end
+  //------------------- USER INFO -----------------------------------
+  println(f + ' = array();')
+  println(f + '[' + UserIDField + '] = $_SESSION["log_user"];')
+  println(f + '["id"] = $_SESSION["log_user"];')
+  if(isndef(InfoDataSource))
+    sys.event(InfoDataSource, 'ds_select', _id_, '')
+    sys.event(InfoDataSource, 'ds_fetch', _id_)
+  end
+  //------------------- FORM -----------------------------------
+  println('if(session_is_registered("log_user_ok")) {')
+  block.inclvl()
+    printSection("onAuthForm")
+  block.declvl()
+  println('} else {')
+  block.inclvl()
+    printSection("onLoginForm")
+  block.declvl()
+  println('}')
+  println('echo "</form>";')
+  
+  include("dm_tail")
+end
+
+func UserData()
+  return(f)
+end
+
+func IsAuth()
+  return('session_is_registered("log_user_ok")')
+end

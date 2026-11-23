@@ -1,0 +1,35 @@
+func doSplit(_data)
+  if(linked(Array))
+    println(arr, ' = split(', Delimiter, ', ', String, ');')
+    event(onSplit, arr)
+  else
+    event(onSplit, 'split(' && Delimiter && ', ' && String && ')')
+  end
+end
+
+func Array()
+  if(linked(doSplit))
+    return(arr)
+  else
+    return('split(' && Delimiter && ', ' && String && ')')
+  end
+end
+
+section java
+
+func doSplit(_data)
+  if(linked(Array))
+    println(arr, ' = ', String, '.split(', Delimiter, ');')
+    event(onSplit, arr)
+  else
+    event(onSplit, String && '.split(' && Delimiter && ')')
+  end
+end
+
+func Array()
+  if(linked(doSplit))
+    return(arr)
+  else
+    return(String && '.split(' && Delimiter && ')')
+  end
+end

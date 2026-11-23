@@ -1,0 +1,177 @@
+Make(cpp)
+Add(RadioButton,1546786,196,385)
+{
+ Left=5
+ Top=10
+ Width=140
+ Selected=0
+ Caption="Не комбинировать"
+ link(onSelect,4879519:doWork6,[(240,391)(240,293)])
+}
+Add(MainForm,2953706,336,84)
+{
+ Width=439
+ Height=257
+ Caption="Комбинирование регионов"
+ Position=1
+ link(onCreate,8596732:doCreateElliptic,[])
+}
+Add(RGN_Combine,2932187,434,245)
+{
+ Point(doMode)
+ link(onCombine,5237873:doDraw,[])
+ link(Region1,11896609:Var2,[])
+ link(Region2,6252676:Var2,[])
+}
+Add(RGN_Elliptic,8596732,399,98)
+{
+ Point1=655370
+ Point2=9830550
+ Point2AsOffset=0
+ link(onCreateElliptic,3284982:doCreateElliptic,[])
+}
+Add(RGN_Elliptic,3284982,441,98)
+{
+ Point1=655460
+ Point2=9830550
+ Point2AsOffset=0
+ link(onCreateElliptic,445788:doData,[])
+}
+Add(PaintBox,2387023,511,175)
+{
+ Left=160
+ Top=10
+ Width=265
+ Height=170
+ Color=15793151
+}
+Add(RGN_Draw,5237873,511,245)
+{
+ Style=6
+ Color=255
+ BgColor=65535
+ link(Bitmap,15010382:Var2,[])
+}
+Add(Hub,7001783,392,252)
+{
+ link(onEvent1,2932187:doMode,[])
+ link(onEvent2,2932187:doCombine,[(422,265)(422,251)])
+}
+Add(StrList,15096853,364,315)
+{
+ Strings=#57:[Пересечение] попадают только общие точки двух регионов. |47:[Объединение] попадают все точки двух регионов.|69:[Исключающие] поподают все точки двух регионов, за исключением общих.|79:[Вычитание] поподают точки первого региона которые не общие со вторым регионом.|76:[Копия] попадают все точеки первого региона (точки второго не используются).|57:Два региона круглой формы с несколькими общими точками.  |
+ Point(doGetString)
+ Point(onGetString)
+ link(onGetString,6883854:doText,[])
+}
+Add(Label,6883854,413,322)
+{
+ Left=5
+ Top=190
+ Width=420
+ Height=40
+ AutoSize=1
+}
+Add(RadioButton,8229660,175,196)
+{
+ Left=5
+ Top=65
+ Caption="AND"
+ link(onSelect,4879519:doWork1,[(228,202)(228,258)])
+ AddHint(-59,9,38,13,Caption)
+}
+Add(RadioButton,13684895,175,231)
+{
+ Left=5
+ Top=85
+ Caption="OR"
+ link(onSelect,4879519:doWork2,[(219,237)(219,265)])
+ AddHint(-60,8,31,13,Caption)
+}
+Add(RadioButton,13181171,175,266)
+{
+ Left=5
+ Top=105
+ Caption="XOR"
+ link(onSelect,4879519:doWork3,[])
+ AddHint(-59,8,38,13,Caption)
+}
+Add(RadioButton,5263975,175,301)
+{
+ Left=5
+ Top=125
+ Caption="DIFF"
+ link(onSelect,4879519:doWork4,[(222,307)(222,279)])
+ AddHint(-60,7,38,13,Caption)
+}
+Add(RadioButton,6404307,175,336)
+{
+ Left=5
+ Top=145
+ Caption="COPY"
+ link(onSelect,4879519:doWork5,[(232,342)(232,286)])
+ AddHint(-61,5,44,13,Caption)
+}
+Add(ChanelToIndex,4879519,252,252)
+{
+ Count=6
+ link(onIndex,3290623:doEvent2,[])
+}
+Add(RGN_Draw,11323970,546,287)
+{
+ Style=4
+ Color=16711935
+ BgColor=12639424
+ link(Bitmap,15010382:Var3,[(552,229)])
+ link(Region,6252676:Var3,[(559,152)])
+}
+Add(GetDataEx,6252676,441,147)
+{
+ link(Data,3284982:Result,[])
+}
+Add(Hub,3290623,301,245)
+{
+ InCount=2
+ OutCount=4
+ link(onEvent1,2387023:doClear,[(323,251)(323,188)])
+ link(onEvent2,10992538:doCase,[])
+ link(onEvent3,15096853:doGetString,[(336,265)(336,363)])
+ link(onEvent4,2387023:doRefresh,[(331,272)(331,181)])
+}
+Add(RGN_Draw,9695028,476,287)
+{
+ Style=3
+ Color=8388608
+ BgColor=15780518
+ link(onDraw,11323970:doDraw,[])
+ link(Bitmap,15010382:Var1,[(482,229)])
+ link(Region,11896609:Var3,[(489,166)])
+}
+Add(GetDataEx,11896609,434,161)
+{
+ link(Data,8596732:Result,[(440,136)(405,136)])
+}
+Add(Case,10992538,343,252)
+{
+ Value=Integer(5)
+ link(onNextCase,7001783:doEvent1,[])
+ link(onTrue,9695028:doDraw,[(387,265)(387,293)])
+ AddHint(2,-24,21,13,Value)
+}
+Add(GetDataEx,15010382,511,224)
+{
+ link(Data,2387023:Bitmap,[])
+}
+Add(DoData,445788,483,98)
+{
+ Data=Integer(5)
+ link(onEventData,3290623:doEvent1,[(534,104)(534,70)(293,70)(293,251)])
+ AddHint(1,-24,21,13,Data)
+}
+Add(Label,11472371,175,154)
+{
+ Left=5
+ Top=45
+ Width=115
+ Caption="Комбинировать:"
+}

@@ -1,0 +1,1207 @@
+Make(cpp)
+Pos(240,0)
+Add(MainForm,11728387,-170,196)
+{
+ Left=20
+ Top=105
+ Width=510
+ Caption="Test_All_Img_Draw"
+ BorderStyle=1
+ Position=1
+ link(onCreate,7726315:doSelect,[])
+}
+Add(Button,10438601,-177,448)
+{
+ Left=355
+ Top=240
+ Width=75
+ Font=[MS Sans Serif,8,1,0,1]
+ TabOrder=-1
+ Caption="Paint"
+ link(onClick,11469761:doWork2,[])
+}
+Add(Img_Rectangle,11532844,341,266)
+{
+ Point1=655370
+ Point2=2097184
+ Point2AsOffset=0
+ DrawSource=2
+ Size=2
+ Color=-16777210
+ BgColor=15780518
+ Style=1
+ Point(doDrawSource)
+ link(onDraw,12788739:doDraw,[])
+ link(Bitmap,7567120:Var2,[])
+}
+Add(Printer,14309344,355,140)
+{
+ Point(doSettings)
+ Point(CurDPIY)
+ link(onPrint,9060961:doWork,[])
+}
+Add(Bitmap,15662418,488,70)
+{
+ Picture=[ZIP3610000078DABD57596C545518EE402B45405091802851885B146B4880C00321042298187D304A08092426263EF820E18127051F80A80D8BB295402AD4628116DBE94C9759EECCDCCE4C3B946EB4A514DAA12B6B2950F696FE7EDF3F739B96D4C8A29EE4E7F6CE39F77CFFF7FDCB392CFA78CE84041D73606FC35E8B9B4DFFC588CF0F1EF284E3C18307B27DBB4F5A5B5BA5BFBF5FFECF71FEFC4D79F7DD83326EDC0F525E5E2E77EFDEFD5F7C20C68103A7C5664B938484DD929CBC49F1EFDDBB27F7EFDF574DFE2B3FC8F1C30F0B817D00960EDB27A346FD3C80DFDBDBAB76EE5CB7F4F5F5FFAB9CAF5EBD2A0E875392920E8177262C03F61BF0B7C9F1E3C787E03B9D8DF2E69BE588D1BDA7C6A69ED16854EAEAEAC4E53264C4886CE01E86FD01EC2C993E3D4DFC7E536EDEBCA9FA133F148A62DE843E21C9CABAFC44F1E0371D1DDDD2D0D02067CE9C91A6A626318C20F6CCC3DEC764EA543BB03364E4C88DE2F104A4ADAD4D2E5FBEACF8B5B51D58E38785B03E289F7D56A73C1E75F4F53D9075EB2A65F5EA5CC4F29CD617F7378C08F42F9469D3FE94316332B0372D1571F1CBAD5BB7E4DAB56BD2DEDE2ECDCD9DF2CC3386F28F59401A1BDBB06FDF3F6AD1DADA035E76F8FEA7AC59E3410CCFCB850B17F4999F5F26CF3F7F0C7339B023B043D87B9BD8ED86F4F4F4C8EDDBB73547A3D1169932A538CE3F8467890483D181357FE74343C335AC676C73614ED9B8B154BABABAE4D2A54BB2695358264EDC877907E6F2E23E64E17D87E25FBF7E5D73E0CE9D3B8A3379B213E6825EA6E2E7E434EA3C35A20D37F2F2DAB11FB10B606ED9BDBB12B97456E6CE75E3BD08F97610F39CCB577D12128E4A62E21E7CE7D13D6FDCB8A118B469D3C83F081D3C304376EDAAD3DFB986B5349C06BFFEDAACFBDB6C1EECEB92254B9CE82F1EBC7B612EE067E2590C736A1E8E1F6F97175F4C93CC4CA75CBC7871880FEFBFEFC29A12B5B163FD929A1A518DA80DD70D87BF664DBDEE9F9C6C077E3E72C8AEB99390E08379F07B96FA919454841C71C80B2FFC8E7ADC26070F3AB5469B9B9BA5BBBB5B7D58B2C41BAF41539F5F7D1591CECE4ECD23FA315C3D7CF249181CA9BFA19C99EBF43F564B06F81E854FC53261C231D45D36B073E0E74EE03BE4CA952B6AF4A1A3A343962FE73781B8FF01EC1D545D984FAC29F68A87C75B6F11D7A7F9326284177BBBB57EF9FDC4897E993F3F073ED9353F1213EDD03517E7CF5EC9C87068ED736FC696F5B27265117C65DC627ECC9BE753EDA90DF9B30E1EEE3749495ED58B9889891E703494FFCC995EE4EF49F9E51753F51F39B2509E7BCE891EE490575FFD4DD2D3ED5A23960F8CC1D75F97205E05885101FC08C81B6F78F57762D3582783476F6FBFC639C63724CF3EEB466E15CB8F3F5641D76EE5B5658B095DDCE05C2CAFBC52242929C5F2C10759B26347B6E61F7D600CE8C377DF85356E369B21932615C87BEF15E93CB1997FEC5783474F4F5F3C5E41F0F38157AEB4B474A99FFC867BFEF45340468FF6684DA5A478E5A38F4C59B4284776EECCD6DC1AECC3D6AD11E4921FFEFAD58FD1A38BD1974FE93CF1B9E7D0FBC45D8DFDA8510EC4A1187AB9F54CB3FA2AB5DDBCD9849E5E79E71D43BEF8222C5F7E69485A5A0572BF554E9F3EADBD973E70ED9E3DC791A77EE8E8C79E01E5545D1DEBE5AC95877B4043C375ACCB8FD76C5066CFF6698E58FD22D6034DE5BE6041117A53057CBE32C085C6BCE659C5B5E9E9E5F2D24B3EE42D7D36912F26CEA946CD016AC93AE159650D97AB2BAE7F89E6FFD2A5A6E62BD7930F733A35D5404F8EE02CBAA43E0D675C4B2DF6ED2B41FEB8E5F5D74B6041C43328870FD7EB1AEE49A3BED6D8BFBF339E2FB17A5DB52AA4DC184B9EBDE4D5D6D68E9C68D158F377620D36F2660C62BDA855366C08C98C1905E8DF65326B56043ED50C60D306D7E0F7DF37C5FB8E4F9FDF7E5BAA67AEA527FDB67A0CFB0BF5632CD9CF68C4A49F9CE37AEA45ABAB6B92B56B0DF9F4D3A0ECDD5B3D049FB1B5C68A1535DAF7D9F7D8E3D6AFF72B3E352036636671648E716F6A515A5A8D73B9527953173EF91D7DE33C7382BEBA5C65C0F7EABB7506725F6BA4A404512B05DAB74DB345634F1CEE61DD6DF84EAEC40804EAE59B6F42F2F2CB6EF42A872C5BE696DCDCAA8173C08A597D7DBDDEA1F84EECAAAA2ABDAF721F72B1EE780B17BAA5B0B05963629D9356AE72EDD9B367718769441FAC462FF7A10715214EF6F87D2C57CF639E070B16E4A11F87E4E4C9938A4D1F988FFCBBB6B6566A6A6AA4A2A242BC5EAF44229121FD976702712D6D2CCEE4CB7DA2D173929D5D278B171701EB98DE036DB66CBD07F04E9A9C7C583EFFBC10F7DF4ABDAF9E387102355FAD9C2B2B2B9577595999FAC17AE57D6CB87B27EB92F8D49E9CA92963CB77FE4D73BBAB70C614E00CCA444F38A277B570B8467992237169C16010F7633FEE3121E5418E8F7A1F665C9807565FA18EA74E9D526ED49738A5A515D0331653EACA27750D87C38A4D1F18C7A7F93F11BF655E3087A829B5A4A63462F237E29AA6893BB2A17CA9D5E3707D543F181BE60439921F3189475CFAF5B45C1FC717E62A31ADFBCC93E2FE05BEC1FD12]
+ Point(Width)
+ Point(Height)
+}
+Add(Img_Bmp,4383238,565,266)
+{
+ X=172
+ Y=10
+ DrawSource=2
+ Point(doDrawSource)
+ link(onDraw,14743768:doWork1,[])
+ link(Bitmap,1019228:Var2,[])
+ link(SourceBitmap,9876764:getVar,[])
+}
+Add(PaintBox,5517251,341,70)
+{
+ Left=10
+ Top=10
+ Width=270
+ Height=150
+ Color=16777215
+ Ctl3D=0
+ Point(Handle)
+ Point(onMouseMove)
+ Point(MouseX)
+ Point(MouseY)
+ link(onMouseMove,12496027:doWork,[])
+}
+Add(ChanelToIndex,295863,-72,245)
+{
+ Count=3
+ link(onIndex,16253353:doValue,[])
+}
+Add(GetDataEx,7567120,334,231)
+{
+ link(Data,15323537:Var,[])
+}
+Add(Img_Ellipse,12788739,397,266)
+{
+ Point1=655410
+ Point2=2097184
+ Point2AsOffset=0
+ DrawSource=2
+ Color=-16777210
+ BgColor=12639424
+ Style=1
+ Point(doDrawSource)
+ link(onDraw,5653898:doDraw,[])
+ link(Bitmap,9893600:Var2,[])
+}
+Add(GetDataEx,9893600,390,231)
+{
+ Angle=3
+ link(Data,7567120:Var3,[])
+}
+Add(Img_Line,5653898,453,266)
+{
+ Point1=655450
+ Point2=2097184
+ Point2AsOffset=0
+ DrawSource=2
+ Size=2
+ Color=128
+ Point(doDrawSource)
+ link(onDraw,11883915:doDraw,[])
+ link(Bitmap,14521999:Var2,[])
+}
+Add(Img_Gradient,11883915,509,266)
+{
+ Point1=655490
+ Point2=2097184
+ Point2AsOffset=0
+ DrawSource=2
+ Size=2
+ GradientStyle=12
+ Point(doDrawSource)
+ link(onDraw,4383238:doDraw,[])
+ link(Bitmap,6469035:Var2,[])
+}
+Add(GetDataEx,6469035,502,231)
+{
+ Angle=3
+ link(Data,14521999:Var3,[])
+}
+Add(GetDataEx,14521999,446,231)
+{
+ Angle=3
+ link(Data,9893600:Var3,[])
+}
+Add(RadioButton,15746156,-121,252)
+{
+ Left=115
+ Top=195
+ Width=75
+ Font=[MS Sans Serif,8,1,0,1]
+ TabOrder=-1
+ Caption="Hanle"
+ link(onSelect,295863:doWork2,[])
+}
+Add(RadioButton,5605980,-121,294)
+{
+ Left=190
+ Top=195
+ Width=75
+ Font=[MS Sans Serif,8,1,0,1]
+ TabOrder=-1
+ Caption="Printer"
+ link(onSelect,295863:doWork3,[(-81,300)(-81,265)])
+}
+Add(GetIndexData,15323537,341,189)
+{
+ Count=3
+ link(Data1,5517251:Bitmap,[])
+ link(Data2,5517251:Handle,[])
+ link(Data3,14309344:Context,[])
+}
+Add(IndexToChanel,7958709,-79,448)
+{
+ Count=3
+ Point(Index)
+ link(onEvent1,3916319:doEvent1,[(-35,454)(-35,412)])
+ link(onEvent2,1882163:doEvent1,[])
+ link(onEvent3,8519921:doEvent1,[(-35,468)(-35,510)])
+ link(Index,8277983:getVar,[(-73,434)(-87,434)])
+}
+Add(Hub,15606448,33,245)
+{
+ OutCount=8
+ link(onEvent1,3311607:doWork,[(77,251)(77,216)])
+ link(onEvent2,5088279:doWork,[(77,258)(77,230)])
+ link(onEvent3,12460491:doWork,[(77,265)(77,244)])
+ link(onEvent4,7054218:doWork,[(77,272)(77,258)])
+ link(onEvent5,9911123:doWork,[(77,279)(77,272)])
+ link(onEvent6,15372601:doWork,[])
+ link(onEvent7,13354072:doWork,[(77,293)(77,300)])
+ link(onEvent8,7147016:doWork,[(77,300)(77,314)])
+}
+Add(Memory,16253353,-23,245)
+{
+ link(onData,15606448:doEvent1,[])
+}
+Add(LineBreakEx,8779489,278,266)
+{
+ Caption="Draw"
+ Type=1
+ link(OnEvent,11532844:doDraw,[])
+}
+Add(ChanelToIndex,12295185,89,469)
+{
+ Count=3
+ link(onIndex,11645275:doEvent1,[])
+}
+Add(LineBreakEx,13962325,614,301)
+{
+ Caption="DS_7"
+ Type=1
+ link(OnEvent,15355933:doDrawSource,[(669,307)(669,279)])
+}
+Add(Hub,1882163,-23,455)
+{
+ OutCount=3
+ link(onEvent1,12295185:doWork2,[(58,461)(58,482)])
+ link(onEvent2,13812373:doWork,[])
+ link(onEvent3,4750521:doWork2,[(66,475)(66,440)])
+}
+Add(Hub,8519921,-23,504)
+{
+ link(onEvent1,12295185:doWork3,[(57,510)(57,489)])
+ link(onEvent2,8442154:doWork,[])
+}
+Add(RadioButton,7726315,-121,210)
+{
+ Left=40
+ Top=195
+ Width=75
+ Font=[MS Sans Serif,8,1,0,1]
+ TabOrder=-1
+ Selected=0
+ Caption="Bitmap"
+ link(onSelect,295863:doWork1,[(-81,216)(-81,251)])
+}
+Add(Hub,3916319,-23,406)
+{
+ OutCount=4
+ link(onEvent1,12295185:doWork1,[(73,412)(73,475)])
+ link(onEvent2,36014:doWork,[(17,419)(17,398)])
+ link(onEvent3,5888040:doWork,[(17,426)(17,419)])
+ link(onEvent4,4750521:doWork1,[])
+}
+Add(LineBreakEx,36014,26,392)
+{
+ Caption="Draw"
+}
+Add(Img_GetPoint,3504169,705,581)
+{
+ Point(doDrawSource)
+ link(onGetPixel,5656218:doText,[])
+ link(Bitmap,5669697:getVar,[])
+ link(X,4455359:Text,[])
+ link(Y,5992733:Text,[(725,562)(767,562)])
+}
+Add(LineBreakEx,7054218,89,252)
+{
+ Caption="Select"
+}
+Add(LineBreakEx,10880616,278,189)
+{
+ Caption="Select"
+ Type=1
+ link(OnEvent,15323537:doIndex,[])
+}
+Add(MultiElement,14743768,621,266)
+{
+ @Hint=#20:Triangle from Points|
+ link(onEvent1,15355933:doDraw,[])
+ link(Data1,6233269:Var2,[])
+}
+BEGIN_SDK
+  Add(EditMulti,6152300,10,10)
+  {
+   EventCount=1
+   WorkCount=2
+   DataCount=1
+   Width=601
+   Height=249
+   link(doWork1,11532844:doDraw,[(34,27)(34,118)])
+   link(doWork2,7394315:doEvent1,[(31,34)(31,167)])
+  }
+  Add(Img_Point,6341118,105,112)
+  {
+   X=26
+   Y=86
+   DrawSource=2
+   Color=32768
+   Point(doDrawSource)
+   link(onDraw,2999895:doDraw,[])
+   link(Bitmap,635981:Var2,[])
+  }
+  Add(Img_Point,2999895,161,112)
+  {
+   X=25
+   Y=87
+   DrawSource=2
+   Color=32768
+   Point(doDrawSource)
+   link(onDraw,8387268:doDraw,[])
+   link(Bitmap,2362875:Var2,[])
+  }
+  Add(Img_Point,8387268,217,112)
+  {
+   X=27
+   Y=87
+   DrawSource=2
+   Color=32768
+   Point(doDrawSource)
+   link(onDraw,1295785:doDraw,[])
+   link(Bitmap,11891999:Var2,[])
+  }
+  Add(Img_Point,1295785,273,112)
+  {
+   X=24
+   Y=88
+   DrawSource=2
+   Color=32768
+   Point(doDrawSource)
+   link(onDraw,14582704:doDraw,[])
+   link(Bitmap,10059261:Var2,[])
+  }
+  Add(Img_Point,6792184,385,112)
+  {
+   X=23
+   Y=89
+   DrawSource=2
+   Color=32768
+   Point(doDrawSource)
+   link(onDraw,6869669:doDraw,[])
+   link(Bitmap,10633845:Var2,[])
+  }
+  Add(Img_Point,6869669,441,112)
+  {
+   X=25
+   Y=89
+   DrawSource=2
+   Color=32768
+   Point(doDrawSource)
+   link(onDraw,5406652:doDraw,[])
+   link(Bitmap,5760180:Var2,[])
+  }
+  Add(Img_Point,5406652,497,112)
+  {
+   X=27
+   Y=89
+   DrawSource=2
+   Color=32768
+   Point(doDrawSource)
+   link(onDraw,16733690:doDraw,[])
+   link(Bitmap,6076610:Var2,[])
+  }
+  Add(Img_Point,14582704,329,112)
+  {
+   X=28
+   Y=88
+   DrawSource=2
+   Color=32768
+   Point(doDrawSource)
+   link(onDraw,6792184:doDraw,[])
+   link(Bitmap,16587645:Var2,[])
+  }
+  Add(Hub,7394315,49,161)
+  {
+   OutCount=10
+   link(onEvent1,6341118:doDrawSource,[(91,167)(91,125)])
+   link(onEvent2,2999895:doDrawSource,[(149,174)(149,125)])
+   link(onEvent3,8387268:doDrawSource,[(208,181)(208,125)])
+   link(onEvent4,1295785:doDrawSource,[(259,188)(259,125)])
+   link(onEvent5,14582704:doDrawSource,[(316,195)(316,125)])
+   link(onEvent6,6792184:doDrawSource,[(373,202)(373,125)])
+   link(onEvent7,6869669:doDrawSource,[(426,209)(426,125)])
+   link(onEvent8,5406652:doDrawSource,[(484,216)(484,125)])
+   link(onEvent9,16733690:doDrawSource,[(539,223)(539,125)])
+   link(onEvent10,11532844:doDrawSource,[(91,230)(91,255)(35,255)(35,125)])
+  }
+  Add(GetDataEx,5760180,434,84)
+  {
+   Angle=3
+   link(Data,10633845:Var3,[])
+  }
+  Add(GetDataEx,10633845,378,84)
+  {
+   Angle=3
+   link(Data,16587645:Var3,[])
+  }
+  Add(GetDataEx,16587645,322,84)
+  {
+   Angle=3
+   link(Data,10059261:Var3,[])
+  }
+  Add(GetDataEx,10059261,266,84)
+  {
+   Angle=3
+   link(Data,11891999:Var3,[])
+  }
+  Add(GetDataEx,11891999,210,84)
+  {
+   Angle=3
+   link(Data,2362875:Var3,[])
+  }
+  Add(GetDataEx,2362875,154,84)
+  {
+   Angle=3
+   link(Data,635981:Var3,[])
+  }
+  Add(GetDataEx,635981,98,84)
+  {
+   Angle=3
+   link(Data,8050587:Var3,[])
+  }
+  Add(Img_Point,16733690,553,112)
+  {
+   X=29
+   Y=89
+   DrawSource=2
+   Color=32768
+   Point(doDrawSource)
+   link(onDraw,6152300:onEvent1,[(603,118)(603,27)])
+   link(Bitmap,6076610:Var3,[(559,93)])
+  }
+  Add(GetDataEx,6076610,490,84)
+  {
+   Angle=3
+   link(Data,5760180:Var3,[])
+  }
+  Add(Img_Rectangle,11532844,49,112)
+  {
+   Point1=4718602
+   Point2=2097184
+   Point2AsOffset=0
+   DrawSource=2
+   Color=-16777210
+   BgColor=15780518
+   Point(doDrawSource)
+   Point(Point1)
+   Point(Point2)
+   link(onDraw,6341118:doDraw,[])
+   link(Bitmap,8050587:Var2,[])
+  }
+  Add(GetDataEx,8050587,42,84)
+  {
+   Angle=3
+   link(Data,6152300:Data1,[(27,93)])
+  }
+END_SDK
+Add(GetDataEx,6233269,614,231)
+{
+ Angle=3
+ link(Data,1019228:Var3,[])
+}
+Add(LineBreakEx,3311607,89,210)
+{
+ Caption="Clear_1"
+}
+Add(Img_Text,15355933,719,266)
+{
+ X=52
+ Y=72
+ DrawSource=2
+ Font=[MS Sans Serif,18,1,0,1]
+ Text="Привет"
+ Point(doDrawSource)
+ Point(doFont)
+ link(onDraw,15108760:doDraw,[(803,272)(803,54)(670,54)(670,167)])
+ link(Bitmap,15075733:Var2,[])
+}
+Add(GetDataEx,1019228,558,231)
+{
+ Angle=3
+ link(Data,6469035:Var3,[])
+}
+Add(ChanelToIndex,4750521,89,427)
+{
+ link(onIndex,6172691:doWork,[])
+}
+Add(LineBreakEx,11830633,495,119)
+{
+ Caption="Width"
+ Type=3
+ link(_Data,15662418:Width,[])
+}
+Add(LineBreakEx,4269987,544,119)
+{
+ Caption="Height"
+ Type=3
+ link(_Data,15662418:Height,[(550,111)(508,111)])
+}
+Add(LineBreakEx,2026906,411,413)
+{
+ Caption="Width"
+ Type=2
+}
+Add(LineBreakEx,8528270,467,413)
+{
+ Caption="Height"
+ Type=2
+}
+Add(MathParse,11373841,558,504)
+{
+ MathStr="((%2 * 65536) + %1) * 6"
+ ResultType=0
+ link(X1,13934729:Var3,[(564,492)])
+ link(X2,5161177:Position,[(571,485)(466,485)])
+}
+Add(Img_Point,2079203,390,539)
+{
+ X=26
+ Y=58
+ Point(doDrawSource)
+ Point(Pixels)
+ link(Bitmap,7916144:getVar,[])
+}
+Add(LineBreakEx,11395370,453,119)
+{
+ Caption="bmp"
+ Type=3
+ link(_Data,15662418:Bitmap,[(459,111)(494,111)])
+}
+Add(MatrixRW,447789,390,588)
+{
+ link(onRead,5884453:doEvent1,[])
+ link(Matrix,2079203:Pixels,[])
+ link(X,13934729:Var2,[])
+}
+Add(For,5706388,404,441)
+{
+ IncludeEnd=1
+ link(onEvent,5161177:doFor,[])
+ link(End,2026906:getVar,[])
+}
+Add(For,5161177,460,441)
+{
+ IncludeEnd=1
+ link(onEvent,447789:doRead,[(526,447)(526,397)(337,397)(337,594)])
+ link(End,8528270:getVar,[])
+}
+Add(GetDataEx,13934729,397,483)
+{
+ link(Data,5706388:Position,[])
+}
+Add(LineBreakEx,5088279,89,224)
+{
+ Caption="Clear_2"
+}
+Add(ChildGroupBox,7226157,516,518)
+{
+}
+BEGIN_SDK
+  Add(EditMulti,11364058,10,10)
+  {
+   WorkCount=2
+   VarCount=1
+   Width=223
+   Height=214
+   link(doWork1,16606499:doWork2,[(73,27)(73,118)])
+   link(doWork2,4618415:doEvent1,[(49,34)(49,125)])
+   link(Var1,1875606:Bitmap,[(27,189)(162,189)])
+  }
+  Add(GroupBox,3278591,154,70)
+  {
+   Left=285
+   Top=5
+   Width=212
+   Height=216
+   Font=[MS Sans Serif,8,1,8388608,1]
+   Caption="PointMatrix"
+  }
+  Add(PaintBox,1875606,156,112)
+  {
+   Left=10
+   Top=15
+   Width=192
+   Height=192
+   Point(Handle)
+  }
+  Add(Hub,4618415,77,119)
+  {
+   link(onEvent1,1875606:doClear,[])
+   link(onEvent2,16606499:doWork3,[(130,132)])
+  }
+  Add(HubEx,16606499,126,105)
+  {
+   link(onEvent,1875606:doRefresh,[])
+  }
+END_SDK
+Add(Img_Rectangle,7959786,537,602)
+{
+ Point2=458759
+ Point2AsOffset=0
+ Color=-16777194
+ BgColor=0
+ Style=1
+ Point(doDrawSource)
+ Point(BgColor)
+ Point(Point1)
+ Point(Point2)
+ link(Bitmap,7226157:Var1,[(543,569)(522,569)])
+ link(BgColor,10143580:Value,[])
+ link(Point1,11373841:Result,[])
+}
+Add(LineBreakEx,8442154,26,511)
+{
+ Caption="Printer"
+}
+Add(LineBreakEx,6313721,432,525)
+{
+ Caption="Clear_2"
+ Type=1
+ link(OnEvent,7226157:doWork2,[])
+}
+Add(LineBreakEx,16314810,285,140)
+{
+ Caption="Printer"
+ Type=1
+ link(OnEvent,14309344:doPrint,[])
+}
+Add(LineBreakEx,13812373,26,462)
+{
+ Caption="Draw"
+}
+Add(LineBreakEx,4803026,264,84)
+{
+ Caption="Clear_1"
+ Type=1
+ link(OnEvent,5517251:doClear,[(330,90)(330,83)])
+}
+Add(LineBreakEx,9060961,404,140)
+{
+ Caption="Draw"
+}
+Add(Hub,5884453,439,588)
+{
+ OutCount=4
+ link(onEvent1,11373841:doCalc,[(495,594)(495,510)])
+ link(onEvent2,10143580:doValue,[(511,601)(511,559)])
+ link(onEvent3,7959786:doDraw,[])
+ link(onEvent4,7226157:doWork1,[(503,615)(503,524)])
+}
+Add(Edit,4455359,712,504)
+{
+ Left=30
+ Top=165
+ Width=35
+ Font=[MS Sans Serif,8,1,0,1]
+ Text=""
+ Alignment=2
+ link(onChange,5992733:doText,[])
+ link(Str,3652170:Var,[])
+}
+Add(Edit,5992733,761,504)
+{
+ Left=100
+ Top=165
+ Width=35
+ Font=[MS Sans Serif,8,1,0,1]
+ Text=""
+ Alignment=2
+ link(onChange,3504169:doGetPixel,[(806,510)(806,469)(690,469)(690,587)])
+ link(Str,15008831:Var,[])
+}
+Add(Label,8513625,-170,70)
+{
+ Left=80
+ Top=167
+ Width=16
+ Height=17
+ Font=[MS Sans Serif,8,1,0,1]
+ Caption="Y:"
+}
+Add(Edit,5656218,761,581)
+{
+ Left=185
+ Top=165
+ Width=95
+ Font=[MS Sans Serif,8,1,0,1]
+ Text=""
+ Alignment=2
+ Point(doColor)
+ link(onChange,5656218:doColor,[(805,587)(805,594)(749,594)(749,601)])
+}
+Add(LineBreakEx,12460491,89,238)
+{
+ Caption="Refresh"
+}
+Add(LineBreakEx,13048676,628,504)
+{
+ Caption="MMove"
+ Type=1
+ link(OnEvent,4455359:doText,[])
+}
+Add(LineBreakEx,12496027,390,77)
+{
+ Caption="MMove"
+}
+Add(LineBreak,5806213,355,119)
+{
+ Caption="X"
+ Type=1
+ link(Data,5517251:MouseX,[])
+ Primary=[3652170,357,357]
+}
+Add(LineBreak,263705,390,119)
+{
+ Caption="Y"
+ Type=1
+ link(Data,5517251:MouseY,[(396,111)(368,111)])
+ Primary=[15008831,371,357]
+}
+Add(LineBreakEx,5888040,26,413)
+{
+ Caption="Refresh"
+}
+Add(LineBreakEx,9876764,572,217)
+{
+ Caption="bmp"
+ Type=2
+}
+Add(LineBreakEx,7916144,390,511)
+{
+ Caption="bmp"
+ Type=2
+}
+Add(LineBreakEx,458544,754,252)
+{
+ Caption="DC"
+ Type=3
+ link(_Data,15075733:Var3,[(760,240)])
+}
+Add(LineBreakEx,5669697,705,546)
+{
+ Caption="DC"
+ Type=2
+}
+Add(GetDataEx,15075733,712,231)
+{
+ Angle=3
+ link(Data,6233269:Var3,[])
+}
+Add(LineBreakEx,6172691,138,427)
+{
+ Caption="Matrix"
+}
+Add(LineBreakEx,1276174,341,441)
+{
+ Caption="Matrix"
+ Type=1
+ link(OnEvent,5706388:doFor,[])
+}
+Add(LineBreakEx,1364483,264,70)
+{
+ Caption="Refresh"
+ Type=1
+ link(OnEvent,5517251:doRefresh,[])
+}
+Add(Label,2647802,26,182)
+{
+ Left=190
+ Top=217
+ Width=75
+ Height=17
+ Font=[MS Sans Serif,8,1,0,1]
+ Caption=""
+ AutoSize=1
+ Alignment=2
+}
+Add(LineBreakEx,9911123,89,266)
+{
+ Caption="PDPI"
+}
+Add(LineBreakEx,11957547,-86,182)
+{
+ Caption="PDPI"
+ Type=1
+ link(OnEvent,2752773:doString,[])
+}
+Add(FormatStr,2752773,-23,182)
+{
+ DataCount=1
+ Mask="%1 dpi"
+ link(onFString,2647802:doText,[])
+ link(Str1,1366040:getVar,[])
+}
+Add(Label,347587,26,119)
+{
+ Left=75
+ Top=217
+ Width=75
+ Height=17
+ Font=[MS Sans Serif,8,1,0,1]
+ Caption=""
+ AutoSize=1
+ Alignment=2
+}
+Add(Screen,12201288,-44,70)
+{
+ Point(CurDPIY)
+}
+Add(FormatStr,7808328,-23,119)
+{
+ DataCount=1
+ Mask="%1 dpi"
+ link(onFString,347587:doText,[])
+ link(Str1,12201288:CurDPIY,[])
+}
+Add(LineBreakEx,15372601,89,280)
+{
+ Caption="SDPI"
+}
+Add(LineBreakEx,14835889,-86,119)
+{
+ Caption="SDPI"
+ Type=1
+ link(OnEvent,7808328:doString,[])
+}
+Add(LineBreakEx,1835229,-23,294)
+{
+ Caption="Index"
+ Type=3
+ link(_Data,16253353:Value,[])
+}
+Add(LineBreakEx,8277983,-93,406)
+{
+ Caption="Index"
+ Type=2
+}
+Add(Label,5271033,-170,112)
+{
+ Left=10
+ Top=167
+ Width=16
+ Height=17
+ Font=[MS Sans Serif,8,1,0,1]
+ Caption="X:"
+}
+Add(Label,5081537,-170,154)
+{
+ Left=145
+ Top=167
+ Width=37
+ Height=17
+ Font=[MS Sans Serif,8,1,0,1]
+ Caption="Color:"
+}
+Add(LineBreakEx,11884591,446,301)
+{
+ Caption="DS_4"
+ Type=1
+ link(OnEvent,11883915:doDrawSource,[(501,307)(501,279)])
+}
+Add(LineBreakEx,2844165,502,301)
+{
+ Caption="DS_5"
+ Type=1
+ link(OnEvent,4383238:doDrawSource,[(557,307)(557,279)])
+}
+Add(Hub,8849045,180,476)
+{
+ InCount=2
+ OutCount=10
+ link(onEvent1,10986023:doWork,[(228,482)(228,454)])
+ link(onEvent2,16234867:doWork,[(228,489)(228,468)])
+ link(onEvent3,7946551:doWork,[(228,496)(228,482)])
+ link(onEvent4,6416647:doWork,[(228,503)(228,496)])
+ link(onEvent5,3931999:doWork,[])
+ link(onEvent6,12933212:doWork,[(228,517)(228,524)])
+ link(onEvent7,14233799:doWork,[(228,524)(228,538)])
+ link(onEvent8,10702267:doWork,[(228,531)(228,552)])
+ link(onEvent9,2373637:doWork,[(228,538)(228,566)])
+ link(onEvent10,8537203:doWork,[(228,545)(228,580)])
+}
+Add(LineBreakEx,10986023,243,448)
+{
+ Caption="DS_1"
+}
+Add(LineBreakEx,16234867,243,462)
+{
+ Caption="DS_2"
+}
+Add(LineBreakEx,7946551,243,476)
+{
+ Caption="DS_3"
+}
+Add(LineBreakEx,12933212,243,518)
+{
+ Caption="DS_6"
+}
+Add(LineBreakEx,10702267,243,546)
+{
+ Caption="DS_8"
+}
+Add(LineBreakEx,14233799,243,532)
+{
+ Caption="DS_7"
+}
+Add(LineBreakEx,6416647,243,490)
+{
+ Caption="DS_4"
+}
+Add(LineBreakEx,3931999,243,504)
+{
+ Caption="DS_5"
+}
+Add(LineBreakEx,8728695,278,301)
+{
+ Caption="DS_1"
+ Type=1
+ link(OnEvent,11532844:doDrawSource,[(333,307)(333,279)])
+}
+Add(LineBreakEx,15498467,334,301)
+{
+ Caption="DS_2"
+ Type=1
+ link(OnEvent,12788739:doDrawSource,[(389,307)(389,279)])
+}
+Add(LineBreakEx,4554182,390,301)
+{
+ Caption="DS_3"
+ Type=1
+ link(OnEvent,5653898:doDrawSource,[(445,307)(445,279)])
+}
+Add(LineBreakEx,3547144,558,301)
+{
+ Caption="DS_6"
+ Type=1
+ link(OnEvent,14743768:doWork2,[(613,307)(613,279)])
+}
+Add(LineBreakEx,15511671,670,196)
+{
+ Caption="DS_9"
+ Type=1
+ link(OnEvent,8309217:doDrawSource,[(732,202)(732,174)])
+}
+Add(LineBreakEx,1366040,-23,154)
+{
+ Caption="PDPI_V"
+ Type=2
+}
+Add(LineBreakEx,15827688,376,189)
+{
+ Caption="PDPI_V"
+ Type=3
+ link(_Data,14309344:CurDPIY,[(382,181)(368,181)])
+}
+Add(InfoTip,6282046,-205,28)
+{
+ Info=#0:|19:Селектор контекстов|
+ Font=[MS Sans Serif,8,1,128,1]
+ Frame=3
+ Width=414
+ Height=319
+}
+Add(InfoTip,7188545,215,28)
+{
+ Info=#0:|28:Модуль отрисовки изображений|
+ Font=[MS Sans Serif,8,1,32768,1]
+ Frame=3
+ Width=603
+ Height=319
+}
+Add(InfoTip,15249908,-205,357)
+{
+ Info=#0:|27:Коммандный модуль отрисовки|
+ Font=[MS Sans Serif,8,1,8388608,1]
+ Frame=3
+ Width=512
+ Height=333
+}
+Add(InfoTip,3245480,313,357)
+{
+ Info=#0:|26:Модуль матричной отрисовки|
+ Font=[MS Sans Serif,8,1,8421376,1]
+ Frame=3
+ Width=295
+ Height=333
+}
+Add(InfoTip,7172144,614,357)
+{
+ Info=#0:|21:Модуль цветовой пробы|
+ Font=[MS Sans Serif,8,1,8388736,1]
+ Frame=3
+ Width=204
+ Height=333
+}
+Add(Button,15334633,-177,567)
+{
+ Left=10
+ Top=240
+ Width=75
+ Font=[MS Sans Serif,8,1,0,1]
+ TabOrder=-1
+ Caption="SetFont"
+ link(onClick,6787091:doFont,[])
+}
+Add(LineBreakEx,4440703,614,315)
+{
+ Caption="SFont"
+ Type=1
+ link(OnEvent,15355933:doFont,[(676,321)(676,286)])
+}
+Add(LineBreakEx,15242599,-23,553)
+{
+ Caption="SFont"
+}
+Add(Font,6787091,-128,567)
+{
+ FontDialog=0
+ link(onFont,5031617:doEvent1,[])
+ link(Size,3892941:Value,[])
+ link(Style,15159841:Value,[(-101,555)(-80,555)])
+}
+Add(Memory,15159841,-86,511)
+{
+ Default=Integer(1)
+}
+Add(Memory,3892941,-128,511)
+{
+ Default=Integer(18)
+}
+Add(LineBreakEx,7475162,-23,581)
+{
+ Caption="Refresh"
+}
+Add(LineBreakEx,9617514,-23,567)
+{
+ Caption="Clear_1"
+}
+Add(Label,9637042,-128,70)
+{
+ Left=95
+ Top=242
+ Width=66
+ Height=17
+ Font=[MS Sans Serif,8,1,0,1]
+ Caption="TextWidth:"
+}
+Add(Edit,12499742,145,630)
+{
+ Left=165
+ Top=240
+ Width=45
+ Font=[MS Sans Serif,8,1,0,1]
+ Text=""
+ Alignment=2
+ link(Str,12948475:getVar,[])
+}
+Add(Edit,15575612,201,637)
+{
+ Left=295
+ Top=240
+ Width=45
+ Font=[MS Sans Serif,8,1,0,1]
+ Text=""
+ Alignment=2
+ link(Str,1437107:getVar,[])
+}
+Add(Label,3999975,-128,112)
+{
+ Left=220
+ Top=242
+ Width=70
+ Height=17
+ Font=[MS Sans Serif,8,1,0,1]
+ Caption="TextHeight:"
+}
+Add(Hub,12038561,89,630)
+{
+ link(onEvent1,12499742:doText,[])
+ link(onEvent2,15575612:doText,[])
+}
+Add(LineBreakEx,13736501,691,315)
+{
+ Caption="TWidth"
+ Type=3
+ link(_Data,15355933:TextWidth,[(697,307)(725,307)])
+}
+Add(LineBreakEx,6817245,747,315)
+{
+ Caption="THeight"
+ Type=3
+ link(_Data,15355933:TextHeight,[(753,307)(732,307)])
+}
+Add(LineBreakEx,12948475,145,602)
+{
+ Caption="TWidth"
+ Type=2
+}
+Add(LineBreakEx,1437107,201,602)
+{
+ Caption="THeight"
+ Type=2
+}
+Add(LineBreakEx,7147016,89,308)
+{
+ Caption="InitDC"
+}
+Add(Hub,5031617,-72,567)
+{
+ OutCount=5
+ link(onEvent1,15242599:doWork,[(-32,573)(-32,559)])
+ link(onEvent2,9617514:doWork,[(-32,580)(-32,573)])
+ link(onEvent3,7475162:doWork,[])
+ link(onEvent4,3143789:doProcessMessages,[(-32,594)(-32,608)])
+ link(onEvent5,9551386:In,[(-32,601)(-32,643)])
+}
+Add(HubEx,11469761,-107,441)
+{
+ link(onEvent,7958709:doEvent,[])
+}
+Add(LineBreakEx,2311245,26,630)
+{
+ Caption="TSize"
+ Type=1
+ link(OnEvent,12038561:doEvent1,[])
+}
+Add(LineBreakEx,3925945,180,448)
+{
+ Caption="TSize"
+}
+Add(LineBreakEx,18984,110,504)
+{
+ Caption="InitDC"
+ Type=1
+ link(OnEvent,8849045:doEvent2,[(169,510)(169,489)])
+}
+Add(LineBreak,6643825,-177,483)
+{
+ Caption="Paint"
+ link(Out,11469761:doWork3,[(-103,489)])
+ Primary=[9551386,154,154]
+}
+Add(Application,3143789,-23,602)
+{
+}
+Add(Hub,11645275,131,469)
+{
+ link(onEvent1,3925945:doWork,[(171,475)(171,454)])
+ link(onEvent2,8849045:doEvent1,[])
+}
+Add(Memory,10143580,551,553)
+{
+}
+Add(Img_Polygon,15108760,684,161)
+{
+ PointsArray=[]
+ BgColor=0
+ Offset=4718764
+ Style=1
+ DrawSource=2
+ Size=2
+ Point(BgColor)
+ Point(doDrawSource)
+ link(onDraw,8309217:doDraw,[])
+ link(Bitmap,9333311:Var2,[])
+ link(PointsArray,7438410:Array,[])
+ link(BgColor,12779041:Result,[])
+}
+Add(IntegerArray,7438410,691,63)
+{
+ IntArray=['0'=10,'1'=23,'2'=2162721,'3'=2162688,'4'=10]
+}
+Add(ColorShade,12779041,698,98)
+{
+ Depth=50
+ Color=32896
+ Mode=0
+}
+Add(LineBreakEx,2373637,243,560)
+{
+ Caption="DS_9"
+}
+Add(LineBreakEx,2292109,607,196)
+{
+ Caption="DS_8"
+ Type=1
+ link(OnEvent,15108760:doDrawSource,[(669,202)(669,174)])
+}
+Add(LineBreakEx,13354072,89,294)
+{
+ Caption="InitShade"
+}
+Add(LineBreakEx,13685094,600,98)
+{
+ Caption="InitShade"
+ Type=1
+ link(OnEvent,12779041:doShade,[])
+}
+Add(Img_Arc,8309217,747,161)
+{
+ Point1=4718816
+ Point2=6881537
+ DrawSource=2
+ Size=2
+ Point3=4718816
+ Point4=6226177
+ Mode=1
+ Direction=1
+ BgColor=65535
+ Style=1
+ Point(doDrawSource)
+ link(Bitmap,9333311:Var3,[(753,142)])
+}
+Add(LineBreakEx,14878795,628,588)
+{
+ Caption="DS_10"
+ Type=1
+ link(OnEvent,3504169:doDrawSource,[])
+}
+Add(LineBreakEx,8537203,243,574)
+{
+ Caption="DS_10"
+}
+Add(GetDataEx,9333311,677,133)
+{
+ Angle=3
+ link(Data,6233269:Var1,[(627,142)])
+}

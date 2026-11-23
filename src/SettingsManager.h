@@ -15,6 +15,7 @@ enum SettingsIDS {
 	IDS_MASK_OF_NAME = 134,
 	IDS_PROJECTS_DIR = 135,
 	IDS_NEW_PROJECT  = 136,
+	IDS_FORM_EDITOR  = 137,
 };
 
 class SettingsManager : public Dialog, public CallBack {
@@ -26,6 +27,14 @@ class SettingsManager : public Dialog, public CallBack {
 		HPaned hpaned;
 		VPaned vpaned;
 		TextView info;
+#ifdef HIASM_GTK4
+        Gtk::Box appearanceRow{Gtk::Orientation::HORIZONTAL, 8};
+        Gtk::Label appearanceLabel{"Interface theme"};
+        Gtk::ComboBoxText appearanceChoice;
+        Gtk::Box languageRow{Gtk::Orientation::HORIZONTAL, 8};
+        Gtk::Label languageLabel{"Language"};
+        Gtk::ComboBoxText languageChoice;
+#endif
 
 		Glib::RefPtr<ListStore> menuStore;
 		const struct MenuModelColumns : public TreeModelColumnRecord {
@@ -50,6 +59,12 @@ class SettingsManager : public Dialog, public CallBack {
 
 		static void show();
 		static void init();
+        static void loadAppearance();
+        static void setAppearance(int mode);
+        static int appearanceMode();
+        enum FormBinding { BindEdges, BindCenter, BindPadding };
+        static bool formBinding(FormBinding mode);
+        static void setFormBinding(FormBinding mode, bool enabled);
 
 		static int readInt(SettingsIDS id);
 		static double readReal(SettingsIDS id);

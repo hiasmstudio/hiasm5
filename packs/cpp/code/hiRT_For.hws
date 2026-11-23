@@ -1,0 +1,24 @@
+func doFor(_data)
+  fvar(counter, endvalue, startvalue, compare)
+  counter = 'hiasm_i' && _id_
+  endvalue = End
+  startvalue = Start
+  switch(IncludeEnd)
+    case "False": compare = ' < '
+    default: compare = ' <= '
+  end
+  println('for(int ', counter, ' = ', startvalue, '; ', counter, compare, endvalue, '; ++', counter, ') {')
+  block.inclvl()
+  event(onEvent, counter)
+  block.declvl()
+  println('}')
+  event(onStop)
+end
+
+func doStop(_data)
+  println('break;')
+end
+
+func Position()
+  return('hiasm_i' && _id_)
+end

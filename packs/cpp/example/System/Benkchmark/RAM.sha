@@ -1,0 +1,122 @@
+Make(cpp)
+Add(MainForm,10690639,252,119)
+{
+ Width=492
+ Caption="RAM benchmark"
+ BorderStyle=3
+ link(onCreate,8100601:doString,[])
+}
+Add(Button,12689665,161,189)
+{
+ Left=5
+ Top=20
+ Caption="Start"
+ link(onClick,16437976:doEvent1,[])
+}
+Add(ListBox,12557048,364,133)
+{
+ Left=75
+ Top=20
+ Width=395
+ Height=240
+}
+Add(Button,13716277,301,357)
+{
+ Left=5
+ Top=60
+ Caption="Copy"
+ link(onClick,4101020:doString,[])
+}
+Add(Clipboard,9415504,420,357)
+{
+ Point(PutText)
+}
+Add(FormatStr,4101020,364,357)
+{
+ DataCount=1
+ Mask="[scode]\r\n%1\r\n[/code]"
+ link(onFString,9415504:doPutText,[])
+ link(Str1,12557048:Text,[])
+}
+Add(StrCat,9330820,301,189)
+{
+ Str1="Read Mb\s: "
+ link(onStrCat,16181375:doWork2,[])
+}
+Add(HubEx,999432,343,126)
+{
+ link(onEvent,12557048:doAdd,[])
+}
+Add(BenchmarkRAM,5678862,252,189)
+{
+ MemoryCount=8
+ link(onBenchmark,9330820:doStrCat,[])
+}
+Add(StrCat,3636559,301,231)
+{
+ Str1="Write Mb\s: "
+ link(onStrCat,7886755:doWork2,[])
+}
+Add(BenchmarkRAM,15380653,252,231)
+{
+ MemoryCount=8
+ Mode=1
+ link(onBenchmark,3636559:doStrCat,[])
+}
+Add(StrCat,14697096,301,273)
+{
+ Str1="Copy Mb\s: "
+ link(onStrCat,12021884:doWork2,[])
+}
+Add(BenchmarkRAM,14549217,252,273)
+{
+ MemoryCount=8
+ Mode=2
+ link(onBenchmark,14697096:doStrCat,[])
+}
+Add(StrCat,9077251,301,315)
+{
+ Str1="Fill Mb\s: "
+ link(onStrCat,12021884:doWork3,[(347,321)])
+}
+Add(BenchmarkRAM,7833250,252,315)
+{
+ MemoryCount=8
+ link(onBenchmark,9077251:doStrCat,[])
+}
+Add(HubEx,16181375,343,182)
+{
+ Angle=3
+ link(onEvent,999432:doWork3,[])
+}
+Add(HubEx,7886755,343,224)
+{
+ Angle=3
+ link(onEvent,16181375:doWork3,[])
+}
+Add(HubEx,12021884,343,266)
+{
+ Angle=3
+ link(onEvent,7886755:doWork3,[])
+}
+Add(FormatStr,8100601,301,133)
+{
+ DataCount=4
+ Mask="%1 (%2Ããö), L2 = %3x%4"
+ link(onFString,999432:doWork2,[])
+ link(Str1,6578321:ExtendedCpuName,[])
+ link(Str2,6578321:Frequency,[])
+ link(Str3,6578321:ExtendedL2Cache,[])
+ link(Str4,6578321:CPUCount,[])
+}
+Add(CPU,6578321,301,77)
+{
+}
+Add(Hub,16437976,217,189)
+{
+ OutCount=4
+ link(onEvent1,5678862:doStartBenchmark,[])
+ link(onEvent2,15380653:doStartBenchmark,[(241,202)(241,237)])
+ link(onEvent3,14549217:doStartBenchmark,[(241,209)(241,279)])
+ link(onEvent4,7833250:doStartBenchmark,[(241,216)(241,321)])
+}

@@ -1,0 +1,78 @@
+func MstTarget()
+  return('qt_widget<HiasmMstTable>(form, ' && cstr(get('qtMstTarget')) && ')')
+end
+
+func MstLocal()
+  return('mstTable' && _id_)
+end
+
+func MstBegin()
+  println('if (auto *', MstLocal(), ' = ', MstTarget(), ') {')
+end
+
+func MstDefault(value, fallback)
+  if(isnull(value))
+    return(fallback)
+  end
+  return(value)
+end
+
+func MstNext(name, index)
+  if(linked(name) == 0)
+    return(index + 1)
+  end
+  return(index)
+end
+
+func MstInt(value)
+  if(isnull(value))
+    return('0')
+  end
+  return('qt_mst_value(' && value && ').toInt()')
+end
+
+func MstText(value)
+  if(isnull(value))
+    return('QString()')
+  end
+  return('qt_mst_value(' && value && ').toString()')
+end
+
+func MstAppend(value)
+  if(isnull(value))
+    println('mstValues.append(QVariant());')
+  else
+    println('qt_mst_append(mstValues, ', value, ');')
+  end
+end
+
+func Count()
+  return('(' && MstTarget() && ' ? ' && MstTarget() && '->rowCount() : 0)')
+end
+
+func CountCol()
+  return('(' && MstTarget() && ' ? ' && MstTarget() && '->columnCount() : 0)')
+end
+
+func EndIdx()
+  return('(' && Count() && ' - 1)')
+end
+
+func EndIdxCol()
+  return('(' && CountCol() && ' - 1)')
+end
+
+func Index()
+  return('(' && MstTarget() && ' ? ' && MstTarget() && '->currentRow() : -1)')
+end
+
+func Select()
+  return('(' && MstTarget() && ' ? ' && MstTarget() && '->rowTuple(' && Index() && ') : QVariantList())')
+end
+
+func MstClear(columns)
+  MstBegin()
+  println(MstLocal(), '->clearTable(', columns, ');')
+  event(onChange)
+  println('}')
+end

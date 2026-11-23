@@ -1,0 +1,5 @@
+Packing data for writing to a stream=Упаковка данных для записи в поток
+Packaging data=Данные для упаковки
+Packs data=Упаковывает данные
+The event occurs whenever data is packed and returns the resulting stream ARG(Stream)=Событие происходит всякий раз после упаковки данных и возвращает полученный поток ARG(Stream)
+Contains a formed package=Содержит сформированный пакет

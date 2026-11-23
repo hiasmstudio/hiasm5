@@ -1,0 +1,5 @@
+func doDelete(_data)
+  println('sys.delpack(', Name, ');')
+  event(onDelete)
+end
+

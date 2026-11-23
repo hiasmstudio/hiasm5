@@ -1,0 +1,99 @@
+func Palette()
+  return('qt_widget<HiasmControlPalette>(form, "CtrlPalette' && _id_ && '")')
+end
+
+func doStart
+  println('{ auto *palette = new HiasmControlPalette(widgetParent);')
+  println('palette->setObjectName(QStringLiteral("CtrlPalette', _id_, '"));')
+  println('palette->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+  println('palette->title->setText(qt_text(', cstr(get('Caption')), '));')
+  println('qt_apply_font(palette->title, qt_text(', cstr(get('CFont')), '));')
+  println('auto colors = palette->title->palette();')
+  println('colors.setColor(QPalette::Button, qt_led_color(qt_text(', cstr(d('CColor')), '), colors.color(QPalette::Button)));')
+  println('palette->title->setPalette(colors);')
+  println('palette->itemHeight = qBound(1, int(', ItemHeight, '), 4096);')
+  println('palette->padding = qBound(0, int(', Padding, '), 4096);')
+  println('palette->collapseOnSelect = ', get('CollapseOnSelect') == 'True', ';')
+  println('palette->setStrings(qt_text(', cstr(get('Strings')), '));')
+  println('palette->setExpanded(', get('DefDropDown') == 'True', ', false);')
+  println('palette->setEnabled(', get('Enabled') == 'True', ');')
+  println('palette->setVisible(', get('Visible') == 'True', ');')
+  println('QTimer::singleShot(0, palette, [&form, palette] { qt_list_icons(palette->list, form, qt_text(', cstr(get('qtIconsManager')), '), qt_text(', cstr(get('qtIndexManager')), ')); });')
+  println('QTimer::singleShot(0, palette, [&form, palette] { qt_box_draw(palette->list, form, qt_text(', cstr(get('qtBoxDrawManager')), ')); });')
+  if(linked(onClick))
+    println('palette->clicked = [&form](const QString &paletteText', _id_, ') {')
+    event(onClick, 'paletteText' && _id_)
+    println('};')
+  end
+  if(linked(onChangeState))
+    println('palette->stateChanged = [&form](int paletteState', _id_, ') {')
+    event(onChangeState, 'paletteState' && _id_)
+    println('};')
+  end
+  println('}')
+end
+
+func doCaption(_data)
+  println('{ auto *palette = ', Palette(), '; palette->title->setText(qt_text(', isnull(_data) ? '""' : _data, ')); palette->updateHeight(); }')
+end
+
+func doStrings(_data)
+  println(Palette(), '->setStrings(qt_text(', isnull(_data) ? '""' : _data, '));')
+  event(onChange)
+end
+
+func doAdd(_data)
+  println('{ auto *palette = ', Palette(), '; palette->insertText(palette->list->count(), qt_text(', cstr(d('Str')), ')); palette->updateHeight(); }')
+  event(onChange)
+end
+
+func doClear(_data)
+  println(Palette(), '->setStrings(QString());')
+  event(onChange)
+end
+
+func doDelete(_data)
+  println('{ auto *palette = ', Palette(), '; const int row = qt_text(', isnull(_data) ? '0' : _data, ').toInt();')
+  println('if (row >= 0 && row < palette->list->count()) {')
+  println('delete palette->list->takeItem(row); palette->updateHeight();')
+  event(onChange)
+  println('} }')
+end
+
+func doReplace(_data)
+  println('if (auto *item = ', Palette(), '->list->item(qt_text(', isnull(_data) ? '0' : _data, ').toInt())) {')
+  println('item->setText(qt_text(', cstr(d('Str')), '));')
+  event(onChange)
+  println('}')
+end
+
+func doInsert(_data)
+  println('{ auto *palette = ', Palette(), '; const int row = qt_text(', isnull(_data) ? '0' : _data, ').toInt();')
+  println('palette->insertText(qBound(0, row, palette->list->count()), qt_text(', cstr(d('Str')), ')); palette->updateHeight(); }')
+  event(onChange)
+end
+
+func doLoad(_data)
+  println('{ QFile file(qt_text(', cstr(d('FileName')), '));')
+  println('if (file.open(QIODevice::ReadOnly)) {')
+  println(Palette(), '->setStrings(QString::fromUtf8(file.readAll()));')
+  event(onChange)
+  println('} }')
+end
+
+func doSave(_data)
+  println('{ QSaveFile file(qt_text(', cstr(d('FileName')), ')); const auto bytes = ', Palette(), '->strings().toUtf8();')
+  println('if (file.open(QIODevice::WriteOnly) && file.write(bytes) == bytes.size()) file.commit(); }')
+end
+
+func Strings()
+  return(Palette() && '->strings()')
+end
+
+func Count()
+  return(Palette() && '->list->count()')
+end
+
+func EndIdx()
+  return('(' && Palette() && '->list->count() - 1)')
+end

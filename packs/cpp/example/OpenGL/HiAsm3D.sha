@@ -1,0 +1,653 @@
+*HiAsm 3D - построение SHA схем в 3D пространстве
+Make(cpp)
+Pos(0,0)
+Add(MainForm,15261923,28,63)
+{
+ Left=20
+ Top=105
+ Width=440
+ Height=421
+ Point(MouseX)
+ Point(MouseY)
+ link(onResize,14551396:doWork1,[(158,97)])
+ link(onCreate,16299401:doEvent1,[(86,104)(86,209)])
+}
+Add(GL_Main,12986311,168,203)
+{
+ Color=0
+ link(onInit,12198675:doInit,[])
+ link(onViewPort,3410847:doPerspective,[(223,216)(223,258)])
+ link(Handle,15261923:Handle,[(174,176)(34,176)])
+}
+Add(Timer,9506849,56,287)
+{
+ Interval=33
+ Enable=1
+ link(onTimer,1049454:doEvent1,[])
+}
+Add(GL_GTools,771925,168,287)
+{
+ Point(doClear)
+ Point(doPushMatrix)
+ Point(doPopMatrix)
+}
+Add(GL_GluTools,12198675,231,203)
+{
+ Texture=0
+ link(onInit,1101264:doEnabled,[])
+}
+Add(Hub,1049454,105,287)
+{
+ OutCount=5
+ link(onEvent1,771925:doClear,[])
+ link(onEvent2,771925:doPushMatrix,[])
+ link(onEvent3,10714674:doWork1,[(182,307)(182,160)])
+ link(onEvent4,771925:doPopMatrix,[(156,314)(156,307)])
+ link(onEvent5,12986311:doFlip,[(152,321)(152,223)])
+}
+Add(Hub,16299401,98,203)
+{
+ OutCount=3
+ link(onEvent1,12986311:doInit,[])
+ link(onEvent2,14551396:doWork2,[])
+ link(onEvent3,9506849:doTimer,[(140,223)(140,261)(46,261)(46,293)])
+}
+Add(MultiElement,10714674,231,154)
+{
+ @Hint=#13:Поворот сцены|
+ link(onEvent1,10036663:doDraw,[])
+ link(Data1,15261923:MouseX,[(237,138)(41,138)])
+ link(Data2,15261923:MouseY,[(244,132)(48,132)])
+}
+BEGIN_SDK
+  Add(EditMulti,4359962,3,3)
+  {
+   EventCount=1
+   WorkCount=1
+   DataCount=2
+   Width=223
+   Height=109
+   link(doWork1,3276760:doRotate,[(19,9)(19,55)])
+  }
+  Add(GL_Rotate,3276760,35,49)
+  {
+   Y=1
+   link(onRotate,8079493:doRotate,[])
+   link(Angle,4359962:Data1,[(41,26)(9,26)])
+  }
+  Add(GL_Rotate,8079493,112,49)
+  {
+   X=1
+   link(onRotate,4359962:onEvent1,[(189,55)(189,9)])
+   link(Angle,4359962:Data2,[(118,19)(16,19)])
+  }
+END_SDK
+Add(GL_Light,14989894,476,203)
+{
+ link(onEnabled,7940219:doParse,[])
+}
+Add(MultiElementEx,7940219,525,203)
+{
+ @Hint=#40:Разбор текстовога файла с описание схемы|
+}
+BEGIN_SDK
+  Add(EditMultiEx,3012564,3,3)
+  {
+   WorkCount=#7:doParse|
+   Width=580
+   Height=256
+   link(doParse,5854177:doBeginList,[(12,9)(12,90)])
+  }
+  Add(Hub,15059345,63,84)
+  {
+   link(onEvent1,893988:doLoad,[])
+   link(onEvent2,8848054:doPushMatrix,[(107,97)(107,125)])
+  }
+  Add(StrList,893988,217,56)
+  {
+   FileName="test.txt"
+  }
+  Add(GL_GTools,8848054,119,119)
+  {
+   Point(doPushMatrix)
+   link(onEvent,4271124:doTranslate,[])
+  }
+  Add(Gl_Translate,4271124,175,119)
+  {
+   X=-1
+   Y=-1
+   link(onTranslate,3232117:doEnum,[])
+  }
+  Add(ArrayEnum,3232117,231,119)
+  {
+   link(onItem,16504249:doCopy,[])
+   link(onEndEnum,9576301:doEndList,[(275,132)(275,181)])
+   link(Array,893988:Array,[])
+  }
+  Add(Copy,16504249,287,119)
+  {
+   Position=1
+   Count=1
+   link(onCopy,13581651:doCase,[])
+  }
+  Add(Case,13581651,343,119)
+  {
+   Value=String(c)
+   link(onNextCase,12244351:doCase,[])
+   link(onTrue,8422889:doParseCube,[(383,132)(383,181)])
+  }
+  Add(MultiElementEx,8422889,399,175)
+  {
+   @Hint=#23:Отрисовка тела элемента|
+   link(Str,11129088:Var2,[])
+  }
+  BEGIN_SDK
+    Add(EditMultiEx,6655489,3,3)
+    {
+     WorkCount=#11:doParseCube|
+     DataCount=#3:Str|
+     Width=384
+     Height=284
+     link(doParseCube,13987498:doSplit,[(20,9)(20,41)])
+    }
+    Add(StrPart,13987498,37,35)
+    {
+     Char="("
+     link(onSplit,2225525:doSplit,[])
+     link(Str,6655489:Str,[(43,26)(9,26)])
+    }
+    Add(StrPart,2225525,84,35)
+    {
+     Char=","
+     link(onSplit,5253954:doSplit,[])
+     link(onPart,1794114:doOperation,[(131,48)(131,118)])
+    }
+    Add(StrPart,5253954,161,35)
+    {
+     Char=","
+     link(onSplit,2404519:doSplit,[])
+     link(onPart,4719522:doOperation,[(205,48)(205,118)])
+    }
+    Add(StrPart,2404519,217,35)
+    {
+     Char=","
+     link(onSplit,2241939:doSplit,[])
+     link(onPart,5404906:doOperation,[(261,48)(261,118)])
+    }
+    Add(StrPart,2241939,273,35)
+    {
+     Char=")"
+     link(onSplit,4954070:doColor,[(370,41)(370,270)(79,270)(79,230)])
+     link(onPart,9144448:doOperation,[(317,48)(317,118)])
+    }
+    Add(GetDataEx,5727235,273,91)
+    {
+     Angle=3
+     link(Data,1641791:Var3,[])
+    }
+    Add(GlobalVar,6360240,147,77)
+    {
+     Name="scale"
+     Data=Integer(200)
+    }
+    Add(Math,9144448,329,112)
+    {
+     OpType=3
+     link(Op2,5727235:Var3,[(342,100)])
+    }
+    Add(Math,1794114,140,112)
+    {
+     OpType=3
+     link(Op2,2188994:Var2,[])
+    }
+    Add(GetDataEx,1641791,217,91)
+    {
+     Angle=3
+     link(Data,2188994:Var3,[])
+    }
+    Add(Math,4719522,217,112)
+    {
+     OpType=3
+     link(Op2,1641791:Var2,[])
+    }
+    Add(Math,5404906,273,112)
+    {
+     OpType=3
+     link(Op2,5727235:Var2,[])
+    }
+    Add(GetDataEx,2188994,140,91)
+    {
+     link(Data,6360240:Var,[])
+    }
+    Add(GL_Color,4954070,91,224)
+    {
+     link(onColor,14976088:doDraw,[])
+    }
+    Add(GL_Cube2,14976088,140,224)
+    {
+     link(Point1,1998671:Point3D,[])
+     link(Point2,554231:Point3D,[(153,212)(279,212)])
+    }
+    Add(GL_Point3D,1998671,140,168)
+    {
+     link(X,1794114:Result,[])
+     link(Y,4719522:Result,[(153,157)(223,157)])
+    }
+    Add(GL_Point3D,554231,273,168)
+    {
+     Z=0.04
+     link(X,5404906:Result,[])
+     link(Y,9144448:Result,[(286,153)(335,153)])
+    }
+  END_SDK
+  Add(Case,12244351,399,119)
+  {
+   Value=String(s)
+   link(onNextCase,5414558:doCase,[])
+   link(onTrue,1134145:doParseSphere,[(443,132)(443,181)])
+  }
+  Add(MultiElementEx,1134145,462,175)
+  {
+   @Hint=#24:Отрисовка точек элемента|
+   link(Str,15663745:Var2,[])
+  }
+  BEGIN_SDK
+    Add(EditMultiEx,7822111,3,3)
+    {
+     WorkCount=#13:doParseSphere|
+     DataCount=#3:Str|
+     Width=433
+     Height=179
+     link(doParseSphere,13987498:doSplit,[(13,9)(13,48)])
+    }
+    Add(StrPart,13987498,23,42)
+    {
+     Char="("
+     link(onSplit,2225525:doSplit,[])
+     link(Str,7822111:Str,[(29,26)(9,26)])
+    }
+    Add(StrPart,2225525,70,42)
+    {
+     Char=","
+     link(onSplit,2241939:doSplit,[])
+     link(onPart,1794114:doOperation,[(117,55)(117,125)])
+    }
+    Add(GlobalVar,6360240,140,84)
+    {
+     Name="scale"
+    }
+    Add(GetDataEx,2188994,133,98)
+    {
+     link(Data,6360240:Var,[])
+    }
+    Add(StrPart,2241939,133,42)
+    {
+     Char=")"
+     link(onSplit,13401630:doColor,[])
+     link(onPart,9144448:doOperation,[(177,55)(177,125)])
+    }
+    Add(Math,9144448,189,119)
+    {
+     OpType=3
+     link(Op2,2188994:Var3,[(202,107)])
+    }
+    Add(Math,1794114,133,119)
+    {
+     OpType=3
+     link(Op2,2188994:Var2,[])
+    }
+    Add(GL_Color,13401630,189,42)
+    {
+     Color=65280
+     link(onColor,9571494:doPushMatrix,[])
+    }
+    Add(GL_GTools,9571494,238,42)
+    {
+     Point(doPushMatrix)
+     link(onEvent,11830802:doTranslate,[])
+    }
+    Add(Gl_Translate,11830802,287,42)
+    {
+     Z=0.02
+     link(onTranslate,485636:doDraw,[])
+     link(X,1794114:Result,[(293,32)(122,32)(122,160)(139,160)])
+     link(Y,9144448:Result,[(300,32)(330,32)(330,161)(195,161)])
+    }
+    Add(GL_Sphere,485636,336,42)
+    {
+     Radius=0.02
+     Slices=5
+     Stacks=5
+     link(onDraw,8370912:doPopMatrix,[])
+    }
+    Add(GL_GTools,8370912,385,42)
+    {
+     Point(doPopMatrix)
+    }
+  END_SDK
+  Add(GetDataEx,11129088,392,154)
+  {
+   Angle=3
+   link(Data,3232117:Item,[(237,163)])
+  }
+  Add(Gl_BeginList,5854177,21,84)
+  {
+   Index=1020
+   link(onBiginList,15059345:doEvent1,[])
+  }
+  Add(Gl_EndList,9576301,287,175)
+  {
+  }
+  Add(Case,5414558,462,119)
+  {
+   Value=String(p)
+   link(onTrue,4353870:doParsePoint,[(506,132)(506,181)])
+  }
+  Add(MultiElementEx,4353870,525,175)
+  {
+   @Hint=#16:Отрисовка связей|
+   link(Str,15663745:Var3,[(531,163)])
+  }
+  BEGIN_SDK
+    Add(EditMultiEx,7822111,3,3)
+    {
+     WorkCount=#12:doParsePoint|
+     DataCount=#3:Str|
+     Width=727
+     Height=207
+     link(doParsePoint,4242409:doDisabled,[(26,9)(26,76)])
+    }
+    Add(StrPart,13987498,198,63)
+    {
+     Char="("
+     link(onSplit,14387279:doEvent1,[])
+     link(Str,7822111:Str,[(204,26)(9,26)])
+    }
+    Add(StrPart,2225525,413,63)
+    {
+     Char=","
+     link(onSplit,2241939:doSplit,[])
+     link(onPart,1794114:doOperation,[(460,76)(460,146)])
+    }
+    Add(GlobalVar,6360240,483,28)
+    {
+     Name="scale"
+    }
+    Add(GetDataEx,2188994,476,112)
+    {
+     link(Data,6360240:Var,[])
+    }
+    Add(StrPart,2241939,511,63)
+    {
+     Char=")"
+     link(onSplit,15563332:doEvent1,[])
+     link(onPart,9144448:doOperation,[(555,76)(555,146)])
+    }
+    Add(Math,9144448,567,140)
+    {
+     OpType=3
+     link(Op2,2188994:Var3,[(580,121)])
+    }
+    Add(Math,1794114,476,140)
+    {
+     OpType=3
+     link(Op2,2188994:Var2,[])
+    }
+    Add(GL_Options,4242409,49,63)
+    {
+     link(onEvent,11907314:doColor,[])
+    }
+    Add(GL_Color,11907314,98,63)
+    {
+     Color=16711680
+     link(onColor,12990514:doBegin,[])
+    }
+    Add(Gl_Begin,12990514,147,63)
+    {
+     BlockType=3
+     link(onBegin,13987498:doSplit,[])
+    }
+    Add(Repeat,10609368,301,63)
+    {
+     Type=5
+     Op2=String(()
+     Check=1
+     link(onRepeat,321548:doDelete,[])
+     link(Op1,6233519:Value,[])
+    }
+    Add(Delete,321548,357,63)
+    {
+     Count=1
+     link(onDelete,2225525:doSplit,[])
+     link(Str,7576194:Value,[])
+    }
+    Add(GL_Vertex3D,13189587,623,63)
+    {
+     Z=0.02
+     link(X,1794114:Result,[(629,53)(526,53)(526,185)(482,185)])
+     link(Y,9144448:Result,[(636,53)(712,53)(712,183)(573,183)])
+    }
+    Add(Hub,15563332,567,63)
+    {
+     OutCount=3
+     link(onEvent1,13189587:doVertex,[])
+     link(onEvent2,13441173:doCopy,[(615,76)(615,111)])
+     link(onEvent3,8877063:doWork3,[(609,83)(609,104)(340,104)])
+    }
+    Add(Copy,13441173,623,105)
+    {
+     Position=1
+     Count=1
+     link(onCopy,13953735:In,[])
+    }
+    Add(Memory,6233519,301,7)
+    {
+    }
+    Add(LineBreak,9688955,245,7)
+    {
+     link(Out,6233519:doValue,[])
+     Primary=[13953735,427,98]
+    }
+    Add(Hub,14387279,245,63)
+    {
+     OutCount=3
+     link(onEvent1,8877063:doWork2,[(286,69)(286,27)])
+     link(onEvent2,10609368:doRepeat,[(292,76)(292,69)])
+     link(onEvent3,7570246:doEnd,[(289,83)(289,132)])
+    }
+    Add(Memory,7576194,357,21)
+    {
+    }
+    Add(HubEx,8877063,336,14)
+    {
+     link(onEvent,7576194:doValue,[])
+    }
+    Add(Gl_End,7570246,301,126)
+    {
+     link(onEnd,13097824:doEnabled,[])
+    }
+    Add(GL_Options,13097824,357,126)
+    {
+    }
+  END_SDK
+  Add(GetDataEx,15663745,455,154)
+  {
+   Angle=3
+   link(Data,11129088:Var3,[])
+  }
+  Add(LinkTip,8740169,294,21)
+  {
+   Link="Отрисовка тела элемента=multi://8422889"
+   Font=[MS Sans Serif,8,4,16711680,1]
+  }
+  Add(LinkTip,10449757,294,42)
+  {
+   Link="Отрисовка точек элемента=multi://1134145"
+   Font=[MS Sans Serif,8,4,16711680,1]
+  }
+  Add(LinkTip,2270564,294,63)
+  {
+   Link="Отрисовка связей=multi://4353870"
+   Font=[MS Sans Serif,8,4,16711680,1]
+  }
+END_SDK
+Add(MultiElementEx,575588,329,154)
+{
+ @Hint=#20:Движение по стрелкам|
+ link(onTrans,307811:doCallList,[])
+}
+BEGIN_SDK
+  Add(EditMultiEx,3877728,3,3)
+  {
+   WorkCount=#7:doTrans|
+   EventCount=#7:onTrans|
+   Width=363
+   Height=242
+   link(doTrans,5112558:doEvent1,[(15,9)(15,48)])
+  }
+  Add(Gl_Translate,2535417,294,203)
+  {
+   link(onTranslate,3877728:onTrans,[(345,209)(345,9)])
+   link(X,7575323:Result,[])
+   link(Y,8626852:Result,[])
+  }
+  Add(Keyboard,16348793,119,42)
+  {
+   Key=39
+   link(onReadKey,14326073:doCase,[])
+  }
+  Add(Case,14326073,175,42)
+  {
+   Value=Integer(0)
+   link(onNextCase,16121427:doNext,[])
+  }
+  Add(Counter,16121427,238,42)
+  {
+   Min=-200
+   Max=200
+   link(onNext,7575323:doOperation,[])
+  }
+  Add(Keyboard,1433895,119,91)
+  {
+   Key=37
+   link(onReadKey,9907698:doCase,[])
+  }
+  Add(Case,9907698,175,91)
+  {
+   Value=Integer(0)
+   link(onNextCase,16121427:doPrev,[(222,97)(222,55)])
+  }
+  Add(Math,7575323,294,42)
+  {
+   OpType=3
+   Op2=20
+  }
+  Add(Hub,5112558,28,42)
+  {
+   OutCount=5
+   link(onEvent1,16348793:doReadKey,[])
+   link(onEvent2,1433895:doReadKey,[(108,55)(108,97)])
+   link(onEvent3,15336481:doReadKey,[(100,62)(100,153)])
+   link(onEvent4,4395848:doReadKey,[(89,69)(89,202)])
+   link(onEvent5,2535417:doTranslate,[(72,76)(72,209)])
+  }
+  Add(Keyboard,15336481,119,147)
+  {
+   Key=38
+   link(onReadKey,15718529:doCase,[])
+  }
+  Add(Case,15718529,175,147)
+  {
+   Value=Integer(0)
+   link(onNextCase,7968343:doNext,[])
+  }
+  Add(Counter,7968343,238,147)
+  {
+   Min=-200
+   Max=200
+   link(onNext,8626852:doOperation,[])
+  }
+  Add(Keyboard,4395848,119,196)
+  {
+   Key=40
+   link(onReadKey,13597393:doCase,[])
+  }
+  Add(Case,13597393,175,196)
+  {
+   Value=Integer(0)
+   link(onNextCase,7968343:doPrev,[(222,202)(222,160)])
+  }
+  Add(Math,8626852,301,147)
+  {
+   OpType=3
+   Op2=20
+  }
+END_SDK
+Add(GL_Perspective,3410847,231,252)
+{
+ Fovy=20
+}
+Add(GL_Options,4378486,427,203)
+{
+ Flag=3
+ link(onEvent,14989894:doEnabled,[])
+}
+Add(GL_Options,5809249,378,203)
+{
+ Flag=2
+ link(onEvent,4378486:doEnabled,[])
+}
+Add(GL_CallList,307811,378,154)
+{
+ Index=1020
+}
+Add(GL_Options,5851269,329,203)
+{
+ Flag=1
+ link(onEvent,5809249:doEnabled,[])
+}
+Add(GL_Options,1101264,280,203)
+{
+ link(onEvent,5851269:doEnabled,[])
+}
+Add(Gl_Axis,10036663,280,154)
+{
+ TitleScale=0.5
+ link(onDraw,575588:doTrans,[])
+}
+Add(HubEx,14551396,154,203)
+{
+ link(onEvent,12986311:doViewPort,[])
+}
+Add(InfoTip,7127373,119,21)
+{
+ Info=#48:HiAsm 3D - построение SHA схем в 3D пространстве|
+ Font=[MS Sans Serif,18,1,0,1]
+ Frame=1
+ Transparent=1
+ Width=393
+ Height=25
+}
+Add(LinkTip,8740169,252,63)
+{
+ Link="Поворот сцены=multi://10714674"
+ Font=[MS Sans Serif,8,4,16711680,1]
+}
+Add(LinkTip,12384399,252,84)
+{
+ Link="Движение по стрелкам=multi://575588"
+ Font=[MS Sans Serif,8,4,16711680,1]
+}
+Add(LinkTip,1847794,252,105)
+{
+ Link="Разбор текстовога файла с описание схемы=multi://7940219"
+ Font=[MS Sans Serif,8,4,16711680,1]
+}
+Add(InfoTip,13391347,280,252)
+{
+ Info=#194: Для работы примера необходимо наличие файла test.txt в папке с программой. Кроме того, вы можете самостоятельно сделать такой файл из любой схемы SHA выполнив команду make3d в открытом проекте.|
+ Transparent=1
+ Width=274
+ Height=74
+ Margin=3
+}

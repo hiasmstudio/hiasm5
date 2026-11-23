@@ -1,0 +1,262 @@
+Make(cpp)
+Add(InfoTip,3139768,56,14)
+{
+ Info=#9:Внимание!|
+ Font=[MS Sans Serif,12,1,255,1]
+ Transparent=1
+ Width=232
+ Height=95
+}
+Add(MainForm,93829,21,147)
+{
+ Left=21
+ Top=105
+ Width=397
+ Height=270
+ Font=[Arial,8,0,0,1]
+ link(onCreate,86720:doEvent1,[])
+}
+Add(Hub,86720,77,161)
+{
+ link(onEvent1,19809:doInit,[])
+ link(onEvent2,19809:doStart,[])
+}
+Add(BASS_Global,19809,126,161)
+{
+ link(onError,65006:doMessage,[])
+}
+Add(LinkTip,9279260,70,84)
+{
+ Link="http://www.hiasm.com/down/bass.dll=load://http://www.hiasm.com/down/bass.dll"
+ Font=[MS Sans Serif,8,0,16711680,1]
+}
+Add(Hub,80383,196,280)
+{
+ OutCount=3
+ link(onEvent1,49366:doCreate,[])
+ link(onEvent2,4846:doPlay,[(240,293)(240,349)])
+ link(onEvent3,10751631:doAttributes,[(240,300)(240,398)])
+}
+Add(InfoTip,8392515,63,35)
+{
+ Info=#92:Для работы компонент библиотеки BASS необходимо скачать DLL и скопировать её в папку Windows|
+ Frame=1
+ HAlign=0
+ Width=218
+ Height=39
+}
+Add(Hub,670,350,343)
+{
+ link(onEvent1,620696:doRefresh,[])
+ link(onEvent2,14812060:doRefresh,[])
+}
+Add(BASS_ChlVisibleSpectrum,53838,567,350)
+{
+ Width=2
+ Mode=1
+ link(WindowsHandle,14812060:Bitmap,[(573,340)(559,340)(559,392)(524,392)])
+ link(ChannelHandle,6907527:Var3,[(580,324)])
+}
+Add(GetDataEx,6907527,462,315)
+{
+ Angle=3
+ link(Data,6720739:Var3,[])
+}
+Add(BASS_ChlVisibleOcilloScope,64679,462,343)
+{
+ Res=1
+ link(WindowsHandle,620696:Bitmap,[(468,333)(450,333)(450,385)(412,385)])
+ link(ChannelHandle,6907527:Var2,[])
+}
+Add(Message,65006,175,161)
+{
+}
+Add(Message,93305,301,280)
+{
+}
+Add(BASS_StreamPlayer,4846,252,343)
+{
+ link(Handle,6720739:Var2,[])
+}
+Add(PaintBox,620696,406,343)
+{
+ Left=30
+ Top=65
+ Width=345
+ Height=75
+ link(onBeforeDraw,64679:doDraw,[])
+}
+Add(Button,74264,147,280)
+{
+ Left=20
+ Top=25
+ Font=[Arial,8,0,0,1]
+ link(onClick,80383:doEvent1,[])
+}
+Add(BASS_StreamSound,49366,252,280)
+{
+ link(onError,93305:doMessage,[])
+ link(Data,6212927:getdata,[])
+}
+Add(Timer,37612,301,343)
+{
+ Interval=33
+ link(onTimer,670:doEvent1,[])
+}
+Add(PaintBox,14812060,518,350)
+{
+ Left=30
+ Top=145
+ Width=345
+ Height=90
+ link(onBeforeDraw,53838:doDraw,[])
+}
+Add(Label,75448,399,161)
+{
+ Left=330
+ Top=15
+ Font=[Arial,8,0,0,1]
+}
+Add(Hub,2542160,301,161)
+{
+ link(onEvent1,64790:doStrCat,[])
+ link(onEvent2,6212927:doFreq,[(345,174)(345,206)(243,206)(243,237)])
+}
+Add(FTCG_Tools,6212927,252,231)
+{
+}
+BEGIN_SDK
+  Add(EditMultiEx,16524994,21,21)
+  {
+   WorkCount=#6:doFreq|8:doVolume|
+   VarCount=#7:getdata|
+   Width=503
+   Height=228
+   link(doFreq,1584974:doValue,[(56,27)(56,69)])
+   link(doVolume,15470044:doValue,[(49,34)(49,76)])
+   link(getdata,9423444:GetData,[(27,172)(69,172)])
+  }
+  Add(FT_Math,11805699,210,126)
+  {
+   OpType=2
+   link(onResult,8788767:doOperation,[])
+   link(Op2,1584974:Value,[])
+  }
+  Add(FT_Math,9082239,112,126)
+  {
+   Op2=1
+   link(onResult,7153045:doEvent1,[])
+   link(Op1,9082239:Result,[(118,114)(107,114)(107,169)(118,169)])
+  }
+  Add(FT_Math,8788767,259,126)
+  {
+   OpType=2
+   Op2=3.1415
+   link(onResult,5967425:doOperation,[])
+  }
+  Add(FT_Math,5967425,308,126)
+  {
+   OpType=13
+   link(onResult,15902:doOperation,[])
+  }
+  Add(FT_Hub,7153045,161,126)
+  {
+   link(onEvent1,11805699:doOperation,[])
+   link(onEvent2,13547133:doOperation,[(201,139)(201,188)])
+  }
+  Add(FT_Math,15902,357,126)
+  {
+   OpType=2
+   link(Op2,15470044:Value,[])
+  }
+  Add(FT_EventFromData,9423444,63,126)
+  {
+   link(onEvent,9082239:doOperation,[])
+  }
+  Add(FT_Memory,1584974,217,63)
+  {
+   Default=Integer(0)
+  }
+  Add(FT_Memory,15470044,364,70)
+  {
+   Default=Integer(0)
+  }
+  Add(FT_Math,13547133,210,182)
+  {
+   OpType=2
+   Op2=200
+   link(onResult,5692889:doOperation,[])
+  }
+  Add(FT_Math,5692889,259,182)
+  {
+   OpType=2
+   Op2=3.1415
+   link(onResult,7770315:doOperation,[])
+  }
+  Add(FT_Math,7770315,308,182)
+  {
+   OpType=13
+   link(onResult,10728165:doOperation,[])
+  }
+  Add(FT_Math,5391929,406,182)
+  {
+   link(onResult,9423444:doData,[(450,188)(450,223)(54,223)(54,132)])
+   link(Op1,15902:Result,[(412,170)(363,170)])
+  }
+  Add(FT_Math,10728165,357,182)
+  {
+   OpType=2
+   Op2=8000
+   link(onResult,5391929:doOperation,[])
+  }
+END_SDK
+Add(GetDataEx,6720739,245,315)
+{
+ link(Data,49366:Handle,[])
+}
+Add(ScrollBar,1413,252,161)
+{
+ Left=90
+ Top=20
+ Width=235
+ Max=5000
+ Position=2500
+ link(onPosition,2542160:doEvent1,[])
+}
+Add(Hub,4502827,504,161)
+{
+ link(onEvent1,68167:doOperation,[])
+ link(onEvent2,6212927:doVolume,[(547,174)(547,299)(244,299)(244,244)])
+}
+Add(StrCat,64790,350,161)
+{
+ Str2="Гц"
+ link(onStrCat,75448:doText,[])
+}
+Add(Math,68167,553,161)
+{
+ OpType=3
+ Op2=327.67
+ ResultType=0
+ link(onResult,85961:doText,[])
+}
+Add(Label,85961,602,161)
+{
+ Left=330
+ Top=40
+ Font=[Arial,8,0,0,1]
+}
+Add(ScrollBar,3421,455,161)
+{
+ Left=90
+ Top=40
+ Width=235
+ Max=32767
+ Position=10000
+ link(onPosition,4502827:doEvent1,[])
+}
+Add(BASS_ChlAttributes,10751631,252,392)
+{
+ Volume=5
+ link(Handle,6720739:Var1,[(258,381)(245,381)(245,324)])
+}

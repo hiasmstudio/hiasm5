@@ -1,0 +1,7 @@
+func doCheck(_data)
+  event(onCheck, 'isset(' && Var && ')')
+end
+
+func Result()
+  return('isset(' && Var && ')')
+end

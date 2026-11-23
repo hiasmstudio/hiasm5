@@ -1,0 +1,73 @@
+﻿*Запуск одной копии приложения с передачей параметров запуска первой копии.
+Make(cpp)
+Add(MainForm,22692,49,105)
+{
+ Left=312
+ Top=234
+ link(onCreate,84548:doEvent1,[])
+}
+Add(UDP,15267150,154,140)
+{
+ LocalPort=1001
+ Point(onError)
+ link(onReceive,6564606:doWork2,[])
+}
+Add(DoData,34666,161,196)
+{
+ link(onEventData,22883:doEvent,[])
+ link(Data,15267150:Activate,[])
+}
+Add(HubEx,6564606,371,133)
+{
+ link(onEvent,69773:doAdd,[])
+}
+Add(ArrayEnum,14146495,322,252)
+{
+ link(onItem,6564606:doWork3,[(375,258)])
+ link(Array,2185295:Var3,[(328,184)])
+}
+Add(IndexToChanel,22883,203,196)
+{
+ link(onEvent1,27758:doEvent1,[])
+ link(onEvent2,14146495:doEnum,[(250,209)(250,258)])
+}
+Add(ArrayEnum,665248,308,203)
+{
+ link(onItem,4505262:doSend,[])
+ link(Array,2185295:Var2,[])
+}
+Add(GetDataEx,2185295,301,175)
+{
+ link(Data,12584:Params,[])
+}
+Add(Application,12584,301,98)
+{
+}
+Add(ListBox,69773,392,140)
+{
+ Left=35
+ Top=20
+ Width=335
+ Height=230
+ Font=[Arial,8,0,0,1]
+}
+Add(UDP,4505262,392,196)
+{
+ LocalPort=1002
+ RemotePort=1001
+ RemoteIP="127.0.0.1"
+ AutoConnect=0
+ ReceiveMode=1
+}
+Add(Hub,84548,98,140)
+{
+ link(onEvent1,15267150:doOpen,[])
+ link(onEvent2,34666:doData,[(142,153)(142,202)])
+}
+Add(Hub,27758,259,196)
+{
+ OutCount=3
+ link(onEvent1,4505262:doOpen,[])
+ link(onEvent2,665248:doEnum,[])
+ link(onEvent3,22692:doClose,[(301,216)(301,245)(36,245)(36,132)])
+}

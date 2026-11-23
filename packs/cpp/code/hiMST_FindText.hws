@@ -1,0 +1,70 @@
+include('qtMstClient')
+
+func doStart()
+  println('{ auto *state = new HiasmMstFind(&form);')
+  println('state->setObjectName(QStringLiteral("MST_FindText', _id_, '")); }')
+end
+
+func FindState()
+  return('dynamic_cast<HiasmMstFind *>(form.findChild<QObject *>(QStringLiteral("MST_FindText' && _id_ && '")))')
+end
+
+func EmitFind(state)
+  event(onFindText, state && '->row', state && '->col', state && '->result', state && '->positions')
+end
+
+func doFindText(_data)
+  fvar(state, rowArg, colArg, needle, row, col, replacement)
+  state = 'mstFind' && _id_
+  MstBegin()
+  println('auto *', state, ' = ', FindState(), ';')
+  rowArg = MstNext('FindText', 0)
+  colArg = MstNext('StartRow', rowArg)
+  needle = MstDefault(mt_arg(0), cstr(get('FindText')))
+  row = MstDefault(mt_arg(rowArg), get('StartRow'))
+  col = MstDefault(mt_arg(colArg), get('StartCol'))
+  if(linked('FindText'))
+    needle = d('FindText')
+  end
+  if(linked('StartRow'))
+    row = d('StartRow')
+  end
+  if(linked('StartCol'))
+    col = d('StartCol')
+  end
+  println(state, '->needle = ', MstText(needle), ';')
+  println('const int row = ', MstInt(row), ';')
+  println('const int col = ', MstInt(col), ';')
+  if(get('ReplaceFind') == 'True')
+    replacement = MstDefault(mt_arg(MstNext('StartCol', colArg)), cstr(get('ReplaceText')))
+    if(linked('ReplaceText'))
+      replacement = d('ReplaceText')
+    end
+    println(state, '->replacement = ', MstText(replacement), ';')
+  end
+  println(state, '->find(', MstLocal(), ', row, col, ', get('ReplaceFind') == 'True', ', ', get('SelectFind') == 'True', ');')
+  EmitFind(state)
+  println('}')
+end
+
+func doFindNext(_data)
+  fvar(state)
+  state = 'mstFind' && _id_
+  MstBegin()
+  println('auto *', state, ' = ', FindState(), ';')
+  println(state, '->next(', MstLocal(), ', ', get('ReplaceFind') == 'True', ', ', get('SelectFind') == 'True', ');')
+  EmitFind(state)
+  println('}')
+end
+
+func doEnsureVisible(_data)
+  if(get('SelectFind') == 'True')
+    MstBegin()
+    println(MstLocal(), '->showRow(', FindState(), '->row); }')
+  end
+end
+
+func doSetFocus(_data)
+  MstBegin()
+  println(MstLocal(), '->setFocus(); }')
+end

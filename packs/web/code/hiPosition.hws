@@ -1,0 +1,39 @@
+func doSearch
+  fvar(s)
+  s = 'strpos(' && Text && ',' && Target && ')' 
+  if(linked(Position))    
+    println(spos, ' = ', s, ';')
+    event(onSearch, spos)
+  else
+    event(onSearch, s)
+  end
+end
+
+func Position
+  if(linked(doSearch))
+    return(spos)
+  else
+    return('strpos(' && Text && ',' && Target && ')')
+  end
+end
+
+section java
+
+func doSearch
+  fvar(s)
+  s = Text && '.indexOf(' && Target && ')' 
+  if(linked(Position))
+    println(spos, ' = ', s, ';')
+    event(onSearch, spos)
+  else
+    event(onSearch, s)
+  end
+end
+
+func Position
+  if(linked(doSearch))
+    return(spos)
+  else
+    return(Text && '.indexOf(' && Target && ')')
+  end
+end

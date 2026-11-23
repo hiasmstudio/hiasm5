@@ -1,0 +1,6 @@
+List of system fonts=Список системных шрифтов
+Parameter separator in the list of system fonts=Разделитель параметров в списке системных шрифтов
+Font name to filter the general list by font name. An empty field means no filtering by font name=Имя шрифта для фильтрации общего списка по имени шрифта. Пустое поле означает отсутствие фильтрации по имени шрифта
+Character set code for filtering the general list by character sets (0 - select only the standard character set, 1 - allow all character sets, 2..255 - select only a specific character set)=Код набора символов для фильтрации общего списка по наборам символов (0 - отбирать только стандартный набор символов, 1 - разрешить все наборы символов, 2..255 - отбирать только конкретный набор символов)
+Rereads the list of system fonts, filtering the list by font name and character sets=Перечитывает список системных шрифтов, фильтруя список по имени шрифта и наборам символов
+Contains a list of system font parameters separated by a separator=Содержит список парметров системных шрифтов разделенных разделителем

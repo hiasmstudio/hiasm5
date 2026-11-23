@@ -1,0 +1,14 @@
+Sound recording=Запись звука
+Audio input device number=Номер устройства ввода звука
+Audio sampling rate=Частота дискретизации звука
+Number of channels=Количество каналов
+File name=Имя файла
+Send data to stream=Выдавать данные в поток
+Initializes audio recording devices=Инициализирует устройства записи звука
+Frees up resources and recording devices=Освобождает ресурсы и устройства записи
+Starts audio recording=Начинает запись звука
+Stops audio recording and saving to a file=Останавливает запись звука и сохранение в файле
+The event occurs every time after data is read from the device and outputs it to the stream=Событие происходит всякий раз после считывания данных с устройства и выдает их в поток
+The event occurs whenever an error occurs=Событие происходит всякий раз при возникновении ошибки
+Array of device status flags: 1 - writing allowed, 0 - not allowed=Массив флагов состояния устройств: 1 - запись разрешена, 0 - не разрешена
+Array of names available for writing devices=Массив имён, доступных для записи устройств

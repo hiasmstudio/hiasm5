@@ -1,0 +1,86 @@
+*Построение окружности в полярных координатах и функции логарифма
+Make(cpp)
+Add(MainForm,16184661,112,168)
+{
+ Left=20
+ Top=105
+ Width=501
+ Height=412
+ Caption="Plot functions"
+ link(onCreate,14310219:doFor,[])
+}
+Add(For,14310219,168,182)
+{
+ End=360
+ IncludeEnd=1
+ link(onEvent,13627719:doEvent1,[])
+}
+Add(MathParse,2890843,322,182)
+{
+ DataCount=1
+ MathStr="sin(%1/180*3.1415)"
+}
+Add(Hub,13627719,224,182)
+{
+ OutCount=4
+ link(onEvent1,2890843:doCalc,[])
+ link(onEvent2,1355863:doCalc,[(252,195)(252,244)])
+ link(onEvent3,8323612:doOperation,[(252,202)(252,286)])
+ link(onEvent4,3415471:doOperation,[(252,209)(252,349)])
+}
+Add(MathParse,1355863,266,238)
+{
+ DataCount=1
+ MathStr="cos(%1/180*3.1415)"
+ link(onResult,14528495:doAdd,[])
+}
+Add(Math,8323612,266,280)
+{
+ OpType=3
+ Op2=100
+}
+Add(Math,3415471,266,343)
+{
+ OpType=28
+ link(onResult,14610587:doAdd,[])
+ link(Op1,9866387:Var2,[])
+}
+Add(GetDataEx,9866387,259,322)
+{
+ link(Data,8323612:Result,[])
+}
+Add(Plotter,2147361,168,119)
+{
+ Left=165
+ Top=115
+ Align=5
+ Name="plotter"
+}
+Add(PlotLines,14528495,322,238)
+{
+ Grapher="plotter"
+ link(ValueY,2890843:Result,[])
+}
+Add(PlotLines,14610587,322,343)
+{
+ Grapher="plotter"
+ Color=16711680
+ link(ValueX,9866387:Var3,[(335,331)])
+}
+Add(PlotAxis,4986410,322,105)
+{
+ Grapher="Plotter"
+ Color=0
+}
+Add(PlotAxis,7393577,371,105)
+{
+ Grapher="Plotter"
+ Color=0
+ Angle=90
+}
+Add(InfoTip,5177955,308,84)
+{
+ Info=#9:main axis|
+ Width=113
+ Height=67
+}

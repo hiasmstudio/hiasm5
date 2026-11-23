@@ -1,0 +1,31 @@
+Make(cpp)
+Add(MainForm,2953706,21,105)
+{
+ Width=235
+ Height=208
+ Caption="Detect devices"
+ BorderStyle=3
+}
+Add(Button,8010849,112,105)
+{
+ Left=10
+ Top=10
+ Caption="Search"
+ link(onClick,2669301:doSearch,[])
+}
+Add(KE_DetectDevices,2669301,161,105)
+{
+ link(onSearch,14266507:doString,[])
+}
+Add(FormatStr,14266507,210,105)
+{
+ Mask="%1 - COM%2"
+ link(onFString,1094670:doAdd,[])
+}
+Add(ListBox,1094670,266,105)
+{
+ Left=10
+ Top=35
+ Width=210
+ Height=140
+}

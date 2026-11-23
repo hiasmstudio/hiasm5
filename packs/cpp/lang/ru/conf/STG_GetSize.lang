@@ -1,0 +1,7 @@
+Getting the size=Получение размера
+Getting the folder size=Получение размера папки
+Structured Storage Management=Управление структуированным хранилищем
+Gets the element size ARG(InPath)=Получает размер элемента ARG(InPath)
+The event occurs whenever the element size ARG(Size) is successfully retrieved=Событие происходит всякий раз после успешного получения размера элемента ARG(Size)
+Path to storage element=Путь к элементу хранилища
+Contains the resulting element size=Содержит полученный размер элемента

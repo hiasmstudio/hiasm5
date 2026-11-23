@@ -1,0 +1,6 @@
+Forming a string using a mask=Формирование строки по маске
+Number of substrings (in the mask, substrings are numbered starting from 1: from %1 to %DataCount)=Кол-во подстрок (в маске подстроки нумеруются с 1: от %1 до %DataCount)
+Formed string mask=Маска формируемой строки
+Generates a string using the mask Mask=Формирует строку по маске Mask
+Outputs a generated string to the stream=Выдаёт в поток сформированную строку
+The result of forming a string using a mask=Результат формирования строки по маске

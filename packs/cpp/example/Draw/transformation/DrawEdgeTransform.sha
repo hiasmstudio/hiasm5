@@ -1,0 +1,194 @@
+Make(cpp)
+Add(MainForm,4560334,259,133)
+{
+ Width=697
+ Height=477
+ Position=1
+ link(onCreate,6860766:doData,[])
+}
+Add(PaintBox,15950500,315,196)
+{
+ Top=80
+ Width=682
+ Height=364
+ ClearBeforeDraw=0
+ link(onBeforeDraw,9677755:doDraw,[(362,202)(362,241)(303,241)(303,321)])
+}
+Add(ScrollBar,14706639,441,56)
+{
+ Left=410
+ Top=30
+ Width=270
+ Layout="gor_02"
+ WidthScale=100
+ Max=360
+ Position=45
+ link(onPosition,12568787:doEvent1,[])
+}
+Add(HubEx,146509,238,196)
+{
+ link(onEvent,4015480:doWork2,[])
+}
+Add(Hub,12568787,483,56)
+{
+ link(onEvent1,146509:doWork1,[(505,62)(505,33)(242,33)])
+ link(onEvent2,7225363:doStrCat,[])
+}
+Add(Label,16736062,560,63)
+{
+ Left=360
+ Top=30
+ Width=40
+ Caption="угол: 0"
+ AutoSize=1
+}
+Add(StrCat,7225363,511,63)
+{
+ Str1="угол: "
+ link(onStrCat,16736062:doText,[])
+}
+Add(Label,3890185,126,56)
+{
+ Left=5
+ Top=10
+ Height=17
+ Caption="слева:"
+ AutoSize=1
+}
+Add(Edit,16279673,126,189)
+{
+ Left=45
+ Top=10
+ Text="250"
+ DataType=2
+ link(onChange,1750075:doWork1,[(172,195)])
+}
+Add(Label,13979721,126,98)
+{
+ Left=5
+ Top=35
+ Height=17
+ Caption="сверху:"
+ AutoSize=1
+}
+Add(Edit,10008463,133,231)
+{
+ Left=45
+ Top=35
+ Text="100"
+ DataType=2
+ link(onChange,1750075:doWork2,[])
+}
+Add(Label,14871794,182,56)
+{
+ Left=105
+ Top=10
+ Height=17
+ Caption="ширина:"
+ AutoSize=1
+}
+Add(Edit,1703155,182,154)
+{
+ Left=155
+ Top=10
+ Text="200"
+ DataType=2
+ link(onChange,7524583:doWork1,[(228,160)])
+}
+Add(Label,4175453,182,98)
+{
+ Left=105
+ Top=35
+ Height=17
+ Caption="высота: "
+ AutoSize=1
+}
+Add(Edit,13628516,189,196)
+{
+ Left=155
+ Top=35
+ Text="100"
+ DataType=2
+ link(onChange,7524583:doWork2,[])
+}
+Add(PointXY,5846594,126,280)
+{
+ link(X,16279673:Text,[])
+ link(Y,10008463:Text,[])
+}
+Add(PointXY,7582050,182,245)
+{
+ link(X,1703155:Text,[])
+ link(Y,13628516:Text,[])
+}
+Add(LineBreakEx,1640916,126,322)
+{
+ Caption="p1"
+ Type=3
+ link(_Data,5846594:Point,[])
+}
+Add(LineBreakEx,12961841,182,287)
+{
+ Caption="p2"
+ Type=3
+ link(_Data,7582050:Point,[])
+}
+Add(LineBreakEx,10626233,322,259)
+{
+ Caption="p1"
+ Type=2
+}
+Add(LineBreakEx,15465188,329,273)
+{
+ Caption="p2"
+ Type=2
+}
+Add(HubEx,7524583,224,196)
+{
+ link(onEvent,146509:doWork2,[])
+}
+Add(HubEx,1750075,168,231)
+{
+ link(onEvent,7524583:doWork3,[(228,237)])
+}
+Add(Img_Edge,9677755,315,315)
+{
+ Point2AsOffset=0
+ Point(Transform)
+ link(Bitmap,15950500:Bitmap,[])
+ link(Point1,10626233:getVar,[])
+ link(Point2,15465188:getVar,[])
+ link(Transform,4092901:Transform,[(349,293)(440,293)])
+}
+Add(Img_UseRotate,4092901,434,112)
+{
+ Point(doMode)
+ link(Angle,14706639:Position,[])
+}
+Add(HubEx,4015480,252,196)
+{
+ link(onEvent,15950500:doRefresh,[])
+}
+Add(Hub,1100385,399,112)
+{
+ link(onEvent1,4092901:doMode,[])
+ link(onEvent2,4015480:doWork1,[(421,125)(421,188)(256,188)])
+}
+Add(ListBox,5804276,350,105)
+{
+ Left=230
+ Top=5
+ Width=120
+ Height=70
+ Color=-16777201
+ WinStyle=2
+ Strings=#5:Центр|18:Верхний левый угол|19:Верхний правый угол|18:Нижний правый угол|17:Нижний левый угол|
+ Point(doSelect)
+ link(onClick,1100385:doEvent1,[])
+}
+Add(DoData,6860766,301,147)
+{
+ Data=Integer(0)
+ link(onEventData,5804276:doSelect,[])
+ AddHint(4,-21,21,13,Data)
+}

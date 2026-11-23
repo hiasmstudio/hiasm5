@@ -1,0 +1,23 @@
+func Init()
+  if(isndef(Init))
+    println('srand(microtime()*1000000);')
+  end
+end
+
+func doRand(_data)
+  if(linked(Result))
+    println(rnd, ' = rand(', Min, ',', Max, ');')
+    event(onRand, rnd)
+  else
+    event(onRand, 'rand(' && Min && ',' && Max && ')')
+  end 
+end
+
+func Result()
+  if(linked(doRand))
+    return(rnd)
+  else
+    return('rand(' && Min && ',' && Max && ')')
+  end
+end
+

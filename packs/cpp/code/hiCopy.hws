@@ -1,0 +1,38 @@
+func Source(value)
+  if(linked('Str'))
+    return(d('Str'))
+  end
+  if(len(value) > 0)
+    return(value)
+  end
+  return('""')
+end
+
+func Arg(name)
+  if(linked(name))
+    return(d(name))
+  else
+    return(get(name))
+  end
+end
+
+func Expr(value)
+  if(get('Direction') == 1)
+    return('[](std::string s, int position, int count) { if(count < 0) count = 0; int start = static_cast<int>(s.size()) - position - count; if(start < 0) start = 0; return s.substr(static_cast<std::size_t>(start), static_cast<std::size_t>(count)); }(' && Source(value) && ', ' && Arg('Position') && ', ' && Arg('Count') && ')')
+  else
+    return('std::string(' && Source(value) && ').substr(static_cast<std::size_t>(' && Arg('Position') && '), static_cast<std::size_t>(' && Arg('Count') && '))')
+  end
+end
+
+func doCopy(_data)
+  println('auto hiasm_cp', _id_, ' = ', Expr(_data), ';')
+  event(onCopy, 'hiasm_cp' && _id_)
+end
+
+func Result()
+  if(linked('doCopy'))
+    return('hiasm_cp' && _id_)
+  else
+    return(Expr(''))
+  end
+end

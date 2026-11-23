@@ -1,0 +1,10 @@
+Checking the location of a point in a region=Проверка нахождения точки в регионе
+X coordinate of the point=Координата X точки
+Y coordinate of the point=Координата Y точки
+Use packed X and Y coordinates=Использовать упакованные координаты X и Y
+Checks whether a point is inside a region=Проверяет нахождение точки внутри региона
+The event occurs whenever a point is found inside the region ARG(Region)=Событие происходит всякий раз при нахождении точки внутри региона ARG(Region)
+The event occurs whenever a point does not fall inside the region=Событие происходит всякий раз при непопадании точки внутрь региона
+The event occurs after checking whether a point is included in the region and produces: 0 - if it is not included, 1 - if it is included=Событие происходит после проверки вхождения точки в регион и выдает: 0 - если не входит, 1 - если входит
+Contains the result of checking whether a point is included in the region (0 - the point is not included in the region, 1 - the point is included in the region)=Содержит результат проверки вхождения точки в регион (0 - точка не входит в регион, 1 - точка входит в регион)
+Defines the region=Определяет регион

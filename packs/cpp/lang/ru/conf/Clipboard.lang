@@ -1,0 +1,14 @@
+Windows Clipboard=Буфер Обмена Windows
+Place and get Unicode string=Поместить и получить строку в формате Unicode
+Type of operation for placing on the clipboard using the doPutItems method=Тип операции помещения в буфер обмена методом doPutItems
+Writes data to the Clipboard=Заносит данные в Буфер Обмена
+Saves the image to the Clipboard=Заносит картинку в Буфер Обмена
+Places a list of file system objects on the clipboard=Помещает список объектов файловой системы в буфер обмена
+Retrieves file system objects from the clipboard=Получает объекты файловой системы из буфера обмена
+Returns full paths to file system objects from the clipboard ARG(FullPath)=Выдаёт полные пути к объектам файловой системы из буфера обмена ARG(FullPath)
+Occurs after the entire buffer has been received and contains the number of objects received in the stream=Происходит после получения всего буфера и содержит в потоке количество полученных объектов
+Contains a text string from the Clipboard=Содержит текстовую строку из Буфера Обмена
+Contains an image from the Clipboard=Содержит картинку из Буфера Обмена
+Text to be placed on the Clipboard=Текст для помещения в Буфер Обмена
+Image to be placed on the Clipboard=Картинка для помещения в Буфер Обмена
+List of objects to be placed on the clipboard using the doPutItems method=Список объектов для помещения в буфер обмена методом doPutItems

@@ -1,0 +1,58 @@
+func doCheck(_data)
+  fvar(f,e,ms)
+  f = '$_FILES[' + FileName + ']'  
+  println('$err = 0;')
+  if(isset(MaxSize))
+    println('if(filesize(', f,'["tmp_name"]) <= ', MaxSize, ') {')
+    block.inclvl()
+    ms = 1
+  else
+    ms = 0
+  end
+  if(isndef(Extensions))
+    e = Extensions
+    e = replace(e, ',', '", "')
+    println('$extlist = array(' + e + ');')
+    println('$ex_in = 0;')
+    println('foreach ($extlist as $item)')
+    println('  if(preg_match("/$item\$/i", ', f, '["name"])) {')
+    println('    $ex_in = 1;')
+    println('    break;')
+    println('  }')
+    
+    println('if($ex_in) {')
+    block.inclvl()
+  end
+  event(onCheck)
+  if(isndef(Extensions)) 
+    block.declvl()
+    println('}')
+    if(linked(onError))
+      println('else {')
+      block.inclvl()
+        println('$err = 2;')
+      block.declvl()
+      println('}')
+    end
+  end  
+  if(ms)
+    block.declvl()
+    println('}')
+    if(linked(onError))
+      println('else {')
+      block.inclvl()
+        println('$err = 1;')
+      block.declvl()
+      println('}')
+    end
+  end
+  
+  if(linked(onError))
+    println('if($err) {')
+    block.inclvl()
+      event(onError, '$err')
+    block.declvl()
+    println('}')
+  end
+end
+

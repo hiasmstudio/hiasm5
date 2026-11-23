@@ -1,0 +1,11 @@
+func doCase(_data)
+  println('if(hiasm_text(', _data, ') == hiasm_text(', get('Value'), ')) {')
+  block.inclvl()
+  event(onTrue, get('DataOnTrue'))
+  block.declvl()
+  println('} else {')
+  block.inclvl()
+  event(onNextCase, _data)
+  block.declvl()
+  println('}')
+end

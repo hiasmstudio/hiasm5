@@ -1,0 +1,13 @@
+Debugging the program=Отладка программы
+The time during which the WEName dot will be highlighted in the debugging window after an event arrives at the doEvent input (if you specify 0, the line will not be highlighted)=Время, в течении которого в окне отладки будет подсвечена точка WEName после прихода события на вход doEvent (при указании 0 - строчка подсвечиваться не будет)
+Work-Event control point name (if a name is not specified, the point will not be displayed)=Имя контрольной точки Work-Event (если имя не задано, точка отображена не будет)
+The name of the Var-Data breakpoint for the returned data (if a name is not specified, the point will not be displayed)=Имя контрольной точки Var-Data для возвращаемых данных (если имя не задано, точка отображена не будет)
+The name of the Var-Data breakpoint for the request data (if a name is not specified, the point will not be displayed)=Имя контрольной точки Var-Data для данных запроса (если имя не задано, точка отображена не будет)
+Number of entries in the logs (if 0 the log will be disabled)=Количество записей в логах (при 0 лог будет отключен)
+Log entry format: %time - time of arrival of the event and entry into the log, %type - type of data received in the stream, %data - data itself=Формат записи в лог: %time - время прихода события и записи в лог, %type - тип данных, пришедших в потоке, %data - собственно данные
+On/off debug points=Вкл.\выкл. точки отладки
+Enable synchronous debugger mode (delay application operation)=Включить синхронный режим работы отладчика (задержка работы приложения)
+Debugging an Event Stream=Отладка потока-события
+The event occurs immediately after calling the doEvent method and outputs the data received as input to the stream (Data - not used!)=Событие происходит сразу после вызова метода doEvent и выдает в поток данные, которые поступили на вход (Data - не задействуется!)
+Contains data from the Data input=Содержит данные с входа Data
+Data flow control=Контроль прохождения данных

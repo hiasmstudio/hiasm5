@@ -1,0 +1,5 @@
+Polygon mode=Режим вывода полигонов
+The side of the object for which the polygon output mode is set=Сторона объекта, для которой устанавливается режим вывода полигонов
+Polygon output mode=Режим вывода полигонов
+Sets the current polygon output mode=Устанавливает текущий режим вывода полигонов
+The event occurs after setting the polygon output mode=Событие происходит после установки режима вывода полигонов

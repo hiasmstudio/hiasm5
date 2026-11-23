@@ -1,0 +1,9 @@
+Looping through multidimensional stream data=Перебор данных многомерного потока
+Direction of enumeration of elements Inc - from first to last, Dec - from last to first=Направление перебора элементов Inc - от первого до последнего, Dec - от последнего к первому
+True - after doStop the onBreak event is called, but onEndEnum is not called=True - после doStop вызывается событие onBreak, а onEndEnum - не вызывается
+Starts iterating over the elements of a multidimensional stream=Начинает перебор элементов многомерного потока
+Stops iterating over elements=Останавливает перебор элементов
+Outputs the next element of a multidimensional stream into the stream=Выдает в поток очередной элемент многомерного потока
+Contains the last multidimensional stream item read after the onItem event was called=Содержит последний считанный элемент многомерного потока после вызова события onItem
+Contains the index of the current MT element after calling the onItem event=Содержит индекс текущего элемента МТ после вызова события onItem
+The stream whose elements need to be iterated=Поток, элементы которого требуется перебрать

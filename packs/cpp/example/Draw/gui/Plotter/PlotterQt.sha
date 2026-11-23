@@ -1,0 +1,59 @@
+Make(cpp)
+Add(MainForm,1,21,21)
+{
+ Backend=1
+ Caption="Plotter and line series"
+ Width=560
+ Height=350
+}
+Add(Plotter,2,245,147)
+{
+ Name="Chart"
+ Left=12
+ Top=12
+ Width=520
+ Height=240
+ Color=16777215
+ BottomMargin=25
+ LeftMargin=42
+ GridX=8
+ GridY=6
+ FileName="PlotterQt.bmp"
+ Point(doSaveToFile)
+}
+Add(TrackBar,3,21,91)
+{
+ Left=12
+ Top=274
+ Width=256
+ Height=26
+ Min=-50
+ Max=50
+ link(onPosition,4:doAdd,[])
+}
+Add(PlotLines,4,133,91)
+{
+ Name="Slider"
+ Grapher="Chart"
+ Step=0.5
+ MaxValues=25
+ Size=2
+}
+Add(Button,5,21,147)
+{
+ Left=280
+ Top=274
+ Width=108
+ Height=26
+ Caption="Clear"
+ link(onClick,2:doClear,[])
+}
+Add(Button,6,21,203)
+{
+ Left=400
+ Top=274
+ Width=132
+ Height=26
+ Caption="Save BMP"
+ link(onClick,2:doSaveToFile,[])
+}

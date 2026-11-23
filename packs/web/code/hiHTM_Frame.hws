@@ -1,0 +1,11 @@
+include('tag_maker')
+
+section html
+
+func doPrint
+  include('tag_header')
+  if(isset(Source))
+    s &= " src=\"" & Source & "\""
+  end 
+  include('tag_footer')
+end

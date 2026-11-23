@@ -1,0 +1,17 @@
+Data compression/recovery using the LZMA algorithm=Сжатие/восстановление данных по алгоритму LZMA
+Fastbytes order (5 to 273). Typically, a larger number gives a small increase in the compression percentage and slows down the encoding process=Порядок fastbytes (от 5 до 273). Обычно, большее число дает небольшой прирост процента сжатия и замедляет процесс кодирования
+Hash calculation algorithm=Алгоритм вычисления хэша
+Write data about its termination to the end of the stream. If False, a record of its original size will be made in the stream header=Записывать в конец потока данные о его окончании. При False, в заголовок потока будет сделана запись о его исходном размере
+Interval for generating an event informing about the status of encoding progress=Интервал создания события, информирующего о состоянии прогресса кодирования
+Compresses data ARG(Stream, DictionarySize, NumFastBytes, ProgressInterval)=Сжимает данные ARG(Stream, DictionarySize, NumFastBytes, ProgressInterval)
+Recovers data ARG(Stream, ProgressInterval)=Восстанавливает данные ARG(Stream, ProgressInterval)
+The event occurs every time after data is compressed/restored and returns it to the ARG(Stream) stream=Событие происходит всякий раз после сжатия/восстановления данных и возвращает их в поток ARG(Stream)
+The event occurs after a specified ProgressInterval and outputs the number of the byte being encoded ARG(Progress) to the stream.=Событие происходит через заданный промежуток ProgressInterval и выдает в поток номер кодируемого байта ARG(Progress)
+The event occurs once before the stream starts encoding and displays its initial size ARG(ProgressMax)=Событие происходит один раз перед началом кодирования потока и выдает его изначальный размер ARG(ProgressMax)
+The event occurs when an error occurs and outputs its code to the ARG(Error) stream=Событие происходит в случае возникновении ошибки, и выдает ее код в поток ARG(Error)
+Defines the data area identifier=Определяет идентификатор области данных
+Dictionary size for data recovery (from 0 to 28)=Размер словаря для восстановления данных (от 0 до 28)
+Fastbytes order (5 to 273)=Порядок fastbytes (от 5 до 273)
+Contains the size of the data after the operation=Содержит размер данных после операции
+Contains the current progress position while coding is running=Содержит текущую позицию прогресса во время выполнения кодирования
+Contains the size of the original data, updated immediately after encoding starts=Содержит размер исходных данных, обновляется сразу после начала кодирования

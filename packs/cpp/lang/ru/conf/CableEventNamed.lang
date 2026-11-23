@@ -1,0 +1,3 @@
+Outputs multiple named events from a cable.=Выводит несколько именованных событий из кабеля.
+Contains a list of event names. Nesting is supported through '.' (example: doButton.btOk)=Содержит список имён событий. Поддерживается вложенность через '.' (пример: doButton.btOk)
+Connecting the incoming cable=Подключение входящего кабеля

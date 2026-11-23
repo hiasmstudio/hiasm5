@@ -1,0 +1,8 @@
+Counting repetitions of elements in arrays=Подсчет повторений элементов в массивах
+Array type=Тип массива
+Counts repetitions of elements in an array=Считает повторения элементов в массиве
+The event occurs whenever repetitions of an element have been counted, outputting the value of the element and the number of repetitions to the ARG(Value, Count) stream=Событие происходит всякий раз после подсчета повторений элемента, выдавая значение элемента и количество повторений в поток ARG(Value, Count)
+The event occurs every time the counting of repetitions of elements ends=Событие происходит всякий раз по окончанию подсчета повторений элементов
+An array in which to count repetitions of elements=Массив, в котором необходимо посчитать повторения элементов
+Contains an MT array of elements and the number of their repetitions. Read-only=Содержит MT-массив элементов и количества их повторений. Доступен только для чтения
+Contains the number of elements in the MT array of repetitions=Содержит количество элементов в MT-массиве повторений

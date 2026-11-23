@@ -1,0 +1,8 @@
+Checks a string against a regular expression=Проверяет строку на совпадение с регулярным выражением
+Regular expression=Регулярное выражение
+True - checks the entire string against the expression. False - checks for the presence of a fragment matching the expression in the string=True - проверяет всю строку целиком на соответствие выражению. False - проверяет наличие совпадающего с выражением фрагмента в строке
+Check a string using a regular expression=Проверить строку по регулярному выражению
+Event occurs if the string matches the regular expression=Событие происходит, если строка соответствует регулярному выражению
+Event occurs if the string does not match the regular expression=Событие происходит, если строка не соответствует регулярному выражению
+A string that is checked against a regular expression=Строка, которая проверяется по регулярному выражению
+Defines the regular expression used to check=Определяет регулярное выражение, по которому производится проверка

@@ -1,0 +1,496 @@
+Make(cpp)
+Add(MainForm,2953706,112,224)
+{
+ Width=758
+ Height=466
+ Caption="Пример использования компонента Img_TextInRect"
+ Position=1
+}
+Add(Img_TextInRect,15165379,329,203)
+{
+ Text="&HiAsm или Конструктор программ это прежде всего система визуального проектирования и разработки приложений, не требующая от пользователя знания языков программирования и особенностей функционирования ОС, позволяющая быстро и легко писать (рисовать) небольшие программы.\r\n&Очевидно, что с помощью HiAsm довольно легко и быстро пишутся (точнее рисуются) небольшие разовые программы и утилиты, не требующие особого упора на интерфейс и сложные математические алгоритмы."
+ OffsetLeft=5
+ OffsetRight=5
+ OffsetTop=5
+ OffsetBottom=5
+ Point(doAlignHorizon)
+ Point(doAlignvertical)
+ Point(doWordBreak)
+ Point(doEllipsis)
+ Point(doRtlReading)
+ Point(doNoPrefix)
+ Point(doSingleLine)
+ Point(doOffsetLeft)
+ Point(doOffsetRight)
+ Point(doOffsetTop)
+ Point(doOffsetBottom)
+ Point(doFont)
+ link(onTextRect,14710611:doEvent1,[])
+ link(Bitmap,2145718:Var1,[(335,148)])
+ link(Point2,8512111:Point,[])
+}
+Add(PaintBox,5743918,343,98)
+{
+ Left=35
+ Top=35
+ Width=491
+ Height=369
+ Align=5
+ Color=12639424
+ ClearBeforeDraw=0
+ Point(onResize)
+ Point(Width)
+ Point(Height)
+ link(onBeforeDraw,15165379:doDraw,[(397,104)(397,193)(316,193)(316,209)])
+ link(onResize,3820427:doWork3,[(387,111)(387,141)(326,141)])
+}
+Add(PointXY,8512111,350,154)
+{
+ link(X,5743918:Width,[])
+ link(Y,5743918:Height,[])
+}
+Add(HubEx,3820427,322,98)
+{
+ link(onEvent,5743918:doRefresh,[])
+}
+Add(ChildPanelEx,9904646,252,203)
+{
+ link(onReDraw,3820427:doWork2,[(296,209)(296,104)])
+ link(onAlignHorizon,15165379:doAlignHorizon,[])
+ link(onAlignVertical,15165379:doAlignvertical,[])
+ link(onWordBreak,15165379:doWordBreak,[])
+ link(onEllipsis,15165379:doEllipsis,[])
+ link(onRtlReading,15165379:doRtlReading,[])
+ link(onNoPrefix,15165379:doNoPrefix,[])
+ link(onSingleLine,15165379:doSingleLine,[])
+ link(onOffset,10690574:doEvent1,[])
+ link(onFont,15165379:doFont,[(295,272)(295,293)])
+}
+BEGIN_SDK
+  Add(EditMultiEx,6915046,21,21)
+  {
+   EventCount=#8:onReDraw|14:onAlignHorizon|15:onAlignVertical|11:onWordBreak|10:onEllipsis|12:onRtlReading|10:onNoPrefix|12:onSingleLine|8:onOffset|6:onFont|
+   Width=482
+   Height=655
+  }
+  Add(Panel,6106190,28,35)
+  {
+   Left=526
+   Top=35
+   Width=224
+   Height=369
+   Align=3
+   BevelInner=0
+  }
+  Add(Button,10837706,196,49)
+  {
+   Left=50
+   Top=10
+   Width=165
+   Height=30
+   Caption="по горизонтали слева"
+   Point(doCaption)
+   link(onClick,3579869:doNext,[])
+  }
+  Add(Button,10906095,196,119)
+  {
+   Left=50
+   Top=45
+   Width=165
+   Height=30
+   Caption="по вертикали сверху"
+   Point(doCaption)
+   link(onClick,5507574:doNext,[])
+  }
+  Add(Button,3998598,196,196)
+  {
+   Left=50
+   Top=80
+   Width=165
+   Height=30
+   Caption="перенос слов - да"
+   Point(doCaption)
+   link(onClick,613283:doNext,[])
+  }
+  Add(Hub,1479762,280,49)
+  {
+   OutCount=3
+   link(onEvent1,12963295:doGetString,[(306,55)(306,36)(92,36)(92,90)])
+   link(onEvent2,6915046:onAlignHorizon,[(324,62)(324,34)])
+   link(onEvent3,4322837:doWork2,[])
+  }
+  Add(Hub,9205514,280,119)
+  {
+   OutCount=3
+   link(onEvent1,14099846:doGetString,[(306,125)(306,105)(95,105)(95,160)])
+   link(onEvent2,6915046:onAlignVertical,[(333,132)(333,41)])
+   link(onEvent3,297795:doWork2,[])
+  }
+  Add(Hub,7566070,280,196)
+  {
+   OutCount=3
+   link(onEvent1,11976482:doGetString,[(306,202)(306,181)(96,181)(96,237)])
+   link(onEvent2,6915046:onWordBreak,[(345,209)(345,48)])
+   link(onEvent3,2578654:doWork2,[])
+  }
+  Add(HubEx,4322837,309,63)
+  {
+   Angle=3
+   link(onEvent,6915046:onReDraw,[(313,27)])
+  }
+  Add(HubEx,297795,309,133)
+  {
+   Angle=3
+   link(onEvent,4322837:doWork3,[])
+  }
+  Add(Button,235836,196,273)
+  {
+   Left=50
+   Top=115
+   Width=165
+   Height=30
+   Caption="обрезать слова"
+   Point(doCaption)
+   link(onClick,4312821:doNext,[])
+  }
+  Add(Hub,12626516,280,273)
+  {
+   OutCount=3
+   link(onEvent1,10683245:doGetString,[(301,279)(301,252)(144,252)(144,314)])
+   link(onEvent2,6915046:onEllipsis,[(357,286)(357,55)])
+   link(onEvent3,11164537:doWork2,[])
+  }
+  Add(HubEx,2578654,309,210)
+  {
+   Angle=3
+   link(onEvent,297795:doWork3,[])
+  }
+  Add(CounterEx,3579869,238,49)
+  {
+   Max=2
+   link(onNext,1479762:doEvent1,[])
+  }
+  Add(CounterEx,5507574,238,119)
+  {
+   Max=2
+   link(onNext,9205514:doEvent1,[])
+  }
+  Add(CounterEx,613283,238,196)
+  {
+   Max=1
+   Default=1
+   link(onNext,7566070:doEvent1,[])
+  }
+  Add(CounterEx,4312821,238,273)
+  {
+   Max=1
+   Default=1
+   link(onNext,12626516:doEvent1,[])
+  }
+  Add(Button,7171296,196,350)
+  {
+   Left=50
+   Top=150
+   Width=165
+   Height=30
+   Caption="текст слева направо"
+   Point(doCaption)
+   link(onClick,13458251:doNext,[])
+  }
+  Add(Hub,13806952,280,350)
+  {
+   OutCount=3
+   link(onEvent1,9129307:doGetString,[(306,356)(306,336)(141,336)(141,391)])
+   link(onEvent2,6915046:onRtlReading,[(371,363)(371,62)])
+   link(onEvent3,9705286:doWork2,[])
+  }
+  Add(Button,10181812,196,427)
+  {
+   Left=50
+   Top=185
+   Width=165
+   Height=30
+   Caption="префикс влючен"
+   Point(doCaption)
+   link(onClick,10839509:doNext,[])
+  }
+  Add(Hub,11761765,280,427)
+  {
+   OutCount=3
+   link(onEvent1,13616183:doGetString,[(306,433)(306,412)(100,412)(100,468)])
+   link(onEvent2,6915046:onNoPrefix,[(385,440)(385,69)])
+   link(onEvent3,1958789:doWork2,[])
+  }
+  Add(CounterEx,13458251,238,350)
+  {
+   Max=1
+   link(onNext,13806952:doEvent1,[])
+  }
+  Add(CounterEx,10839509,238,427)
+  {
+   Max=1
+   link(onNext,11761765:doEvent1,[])
+  }
+  Add(HubEx,11164537,309,287)
+  {
+   Angle=3
+   link(onEvent,2578654:doWork3,[])
+  }
+  Add(HubEx,9705286,309,364)
+  {
+   Angle=3
+   link(onEvent,11164537:doWork3,[])
+  }
+  Add(Button,9745098,196,504)
+  {
+   Left=50
+   Top=220
+   Width=165
+   Height=30
+   Caption="многострочно"
+   Point(doCaption)
+   link(onClick,15108102:doNext,[])
+  }
+  Add(Hub,4280865,280,504)
+  {
+   OutCount=3
+   link(onEvent1,89657:doGetString,[(302,510)(302,488)(142,488)(142,545)])
+   link(onEvent2,6915046:onSingleLine,[(398,517)(398,76)])
+   link(onEvent3,3714867:doWork2,[])
+  }
+  Add(CounterEx,15108102,238,504)
+  {
+   Max=1
+   link(onNext,4280865:doEvent1,[])
+  }
+  Add(HubEx,1958789,309,441)
+  {
+   Angle=3
+   link(onEvent,9705286:doWork3,[])
+  }
+  Add(Edit,1974384,238,560)
+  {
+   Left=110
+   Top=290
+   Width=40
+   Text="5"
+   Alignment=1
+   DataType=2
+   MaxLenField=2
+   link(onChange,16146600:doEvent1,[])
+  }
+  Add(Label,15952772,196,560)
+  {
+   Left=50
+   Top=292
+   Width=57
+   Height=22
+   Caption="Отступ"
+  }
+  Add(Hub,16146600,280,560)
+  {
+   link(onEvent1,6915046:onOffset,[(412,566)(412,83)])
+   link(onEvent2,14465530:doWork2,[])
+  }
+  Add(HubEx,3714867,309,518)
+  {
+   Angle=3
+   link(onEvent,1958789:doWork3,[])
+  }
+  Add(Button,2387206,196,609)
+  {
+   Left=50
+   Top=255
+   Width=165
+   Height=30
+   Caption="шрифт"
+   link(onClick,1861115:doFont,[])
+  }
+  Add(Font,1861115,238,609)
+  {
+   FontDialog=0
+   link(onFont,14561050:doEvent1,[])
+  }
+  Add(Hub,14561050,280,609)
+  {
+   link(onEvent1,6915046:onFont,[(429,615)(429,90)])
+   link(onEvent2,14465530:doWork3,[(313,622)])
+  }
+  Add(HubEx,14465530,309,567)
+  {
+   Angle=3
+   link(onEvent,3714867:doWork3,[])
+  }
+  Add(StrList,10683245,154,266)
+  {
+   Strings=#17:не обрезать слова|14:обрезать слова|
+   Point(onGetString)
+   Point(doGetString)
+   link(onGetString,235836:doCaption,[])
+  }
+  Add(StrList,12963295,112,42)
+  {
+   Strings=#5:слева|6:справа|9:по центру|
+   Point(onGetString)
+   Point(doGetString)
+   link(onGetString,1615787:doStrCat,[])
+  }
+  Add(StrCat,1615787,154,49)
+  {
+   Str1="по горизонтали "
+   link(onStrCat,10837706:doCaption,[])
+  }
+  Add(StrList,14099846,112,112)
+  {
+   Strings=#6:сверху|5:снизу|9:по центру|
+   Point(onGetString)
+   Point(doGetString)
+   link(onGetString,15793786:doStrCat,[])
+  }
+  Add(StrCat,15793786,154,119)
+  {
+   Str1="по вертикали "
+   link(onStrCat,10906095:doCaption,[])
+  }
+  Add(StrList,11976482,112,189)
+  {
+   Strings=#3:нет|2:да|
+   Point(onGetString)
+   Point(doGetString)
+   link(onGetString,763354:doStrCat,[])
+  }
+  Add(StrCat,763354,154,196)
+  {
+   Str1="перенос слова - "
+   link(onStrCat,3998598:doCaption,[])
+  }
+  Add(StrList,9129307,154,343)
+  {
+   Strings=#19:текст слева направо|19:текст справа налево|
+   Point(onGetString)
+   Point(doGetString)
+   link(onGetString,7171296:doCaption,[])
+  }
+  Add(StrList,13616183,112,420)
+  {
+   Strings=#7:включен|8:выключен|
+   Point(onGetString)
+   Point(doGetString)
+   link(onGetString,11986103:doStrCat,[])
+  }
+  Add(StrCat,11986103,154,427)
+  {
+   Str1="префикс "
+   link(onStrCat,10181812:doCaption,[])
+  }
+  Add(StrList,89657,154,497)
+  {
+   Strings=#12:многострочно|13:одной строкой|
+   Point(onGetString)
+   Point(doGetString)
+   link(onGetString,9745098:doCaption,[])
+  }
+END_SDK
+Add(ChildPanelEx,13358665,196,203)
+{
+}
+BEGIN_SDK
+  Add(EditMultiEx,8560782,21,21)
+  {
+  }
+  Add(Panel,10804727,35,105)
+  {
+   Width=750
+   Height=35
+   Align=2
+   BevelInner=0
+  }
+  Add(Label,9751894,84,105)
+  {
+   Left=5
+   Top=5
+   Width=725
+   Height=25
+   Caption="С помощью сплитера (красной полосы) можно изменить размер поля для отрисовки текста"
+   AutoSize=1
+  }
+END_SDK
+Add(ChildPanelEx,41039,196,245)
+{
+}
+BEGIN_SDK
+  Add(EditMultiEx,8269355,21,21)
+  {
+  }
+  Add(Panel,5149810,35,105)
+  {
+   Top=404
+   Width=750
+   Height=35
+   Align=4
+   BevelInner=0
+  }
+END_SDK
+Add(ChildPanelEx,1688247,154,224)
+{
+}
+BEGIN_SDK
+  Add(EditMultiEx,11987316,21,21)
+  {
+  }
+  Add(Panel,6941298,35,105)
+  {
+   Width=35
+   Height=35
+   Align=1
+   ModeSp=3
+   ColorSp=255
+   BevelInner=0
+  }
+END_SDK
+Add(Hub,10690574,301,259)
+{
+ OutCount=4
+ link(onEvent1,15165379:doOffsetLeft,[])
+ link(onEvent2,15165379:doOffsetRight,[])
+ link(onEvent3,15165379:doOffsetTop,[])
+ link(onEvent4,15165379:doOffsetBottom,[])
+}
+Add(Img_Rectangle,13191140,441,329)
+{
+ Style=1
+ Color=15780518
+ BgColor=15780518
+ Point(Point1)
+ Point(Point2)
+ link(Bitmap,2145718:Var3,[(447,148)])
+ link(Point1,15432966:Point,[])
+ link(Point2,3683932:Point,[(468,321)(475,321)])
+}
+Add(GetDataEx,2145718,343,143)
+{
+ link(Data,5743918:Bitmap,[])
+}
+Add(PointXY,15432966,455,280)
+{
+ link(X,14545532:Value1,[])
+ link(Y,14545532:Value2,[])
+}
+Add(PointXY,3683932,469,280)
+{
+ link(X,14545532:Value3,[])
+ link(Y,14545532:Value4,[])
+}
+Add(MT_MultiMem,14545532,455,210)
+{
+ Count=4
+}
+Add(Hub,14710611,371,210)
+{
+ link(onEvent1,14545532:doValue,[])
+ link(onEvent2,15163495:doData,[(392,223)(392,335)])
+}
+Add(DoData,15163495,399,329)
+{
+ link(onEventData,13191140:doDraw,[])
+}

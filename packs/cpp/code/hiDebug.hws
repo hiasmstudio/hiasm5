@@ -1,0 +1,15 @@
+func Var()
+  if(linked('Data'))
+    return(d('Data'))
+  else
+    return('std::string()')
+  end
+end
+
+func doEvent(_data)
+  if(get('Enabled') == "True")
+    println('std::fputs(hiasm_text(', _data, ').c_str(), stderr);')
+    println('std::fputc(static_cast<char>(10), stderr);')
+  end
+  event(onEvent, _data)
+end

@@ -1,0 +1,8 @@
+Inserting text=Вставка текста
+Contains text=Содержит текст
+Element length in editor=Длина элемента в редакторе
+Element height in editor=Высота элемента в редакторе
+Caption font=Шрифт надписи
+Writes data from the Lines field to the stream=Записывает в поток данные из поля Lines
+The event occurs whenever data is written to the stream (see Lines)=Событие происходит всякий раз при записи данных в поток (см. Lines)
+Contains the component text=Содержит текст компонента

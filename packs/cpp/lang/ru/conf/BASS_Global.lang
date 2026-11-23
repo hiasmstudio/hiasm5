@@ -1,0 +1,8 @@
+General configuration and stream control=Общая настройка и управления потоками
+Audio output device number=Номер устройства вывода звука
+Audio sampling rate=Частота дискретизации звука
+Initializes output devices=Инициализирует устройства вывода
+Allows output of all active channels to the device=Разрешает вывод всех активных каналов на устройство
+Pauses all channels=Приостанавливает вывод всех каналов
+Stops output of all channels to the device=Останавливает вывод всех каналов на устройство
+The event occurs in case of an error and outputs its number to the stream=Событие происходит в случае ошибки и выдает её номер в поток

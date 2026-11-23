@@ -1,0 +1,977 @@
+*Радар - отображаем пользователей
+Make(cpp)
+Add(MainForm,15261923,21,77)
+{
+ Left=20
+ Top=105
+ Width=440
+ Height=440
+ Caption="Radar online"
+ Point(onResize)
+ Point(Handle)
+ link(onCreate,16299401:doEvent1,[(80,97)(80,181)])
+ link(onResize,14551396:doWork1,[(151,104)])
+}
+Add(GL_Main,12986311,161,175)
+{
+ Color=0
+ link(onInit,12198675:doInit,[])
+ link(onViewPort,3410847:doPerspective,[(208,188)(208,230)])
+ link(Handle,15261923:Handle,[(167,148)(27,148)])
+}
+Add(Timer,9506849,49,259)
+{
+ Interval=33
+ Enable=1
+ link(onTimer,1049454:doEvent1,[])
+}
+Add(GL_GTools,771925,161,259)
+{
+ Point(doClear)
+ Point(doPushMatrix)
+ Point(doPopMatrix)
+}
+Add(Hub,1049454,98,259)
+{
+ OutCount=5
+ link(onEvent1,771925:doClear,[])
+ link(onEvent2,771925:doPushMatrix,[])
+ link(onEvent3,10714674:doWork1,[(177,279)(177,125)])
+ link(onEvent4,771925:doPopMatrix,[(150,286)(150,279)])
+ link(onEvent5,12986311:doFlip,[(146,293)(146,195)])
+}
+Add(Hub,16299401,91,175)
+{
+ OutCount=4
+ link(onEvent1,12986311:doInit,[])
+ link(onEvent2,14551396:doWork2,[])
+ link(onEvent3,9506849:doTimer,[(134,195)(134,240)(40,240)(40,265)])
+ link(onEvent4,15933538:doDownload,[(125,202)(125,20)])
+}
+Add(HubEx,14551396,147,182)
+{
+ link(onEvent,12986311:doViewPort,[])
+}
+Add(MultiElement,10714674,224,119)
+{
+ link(onEvent1,8944887:doWork1,[])
+}
+BEGIN_SDK
+  Add(EditMulti,4359962,3,3)
+  {
+   EventCount=1
+   WorkCount=1
+   DataCount=2
+   Width=223
+   Height=109
+   link(doWork1,3276760:doRotate,[(19,9)(19,55)])
+  }
+  Add(GL_Rotate,3276760,35,49)
+  {
+   Y=1
+   link(onRotate,8079493:doRotate,[])
+   link(Angle,4359962:Data1,[(62,15)(9,15)])
+  }
+  Add(GL_Rotate,8079493,112,49)
+  {
+   X=1
+   link(onRotate,4359962:onEvent1,[(189,55)(189,9)])
+   link(Angle,4359962:Data2,[(139,8)(16,8)])
+  }
+END_SDK
+Add(GL_Perspective,3410847,224,224)
+{
+ Fovy=20
+}
+Add(Gl_EndList,13807074,518,273)
+{
+ link(onEndList,1555668:doBeginList,[(559,279)(559,312)(312,312)(312,335)])
+}
+Add(GL_GluTools,12198675,224,175)
+{
+ Texture=0
+ link(onInit,5851269:doEnabled,[])
+}
+Add(Gl_End,14692656,861,119)
+{
+}
+Add(GL_Options,10513853,420,175)
+{
+ Flag=1
+ link(onEvent,9069909:doEnabled,[])
+}
+Add(GL_Options,4378486,371,175)
+{
+ Flag=3
+ link(onEvent,10513853:doEnabled,[])
+}
+Add(GL_Options,5809249,322,175)
+{
+ Flag=2
+ link(onEvent,4378486:doEnabled,[])
+}
+Add(GL_Vertex3D,11863830,763,119)
+{
+ X=0.97
+ Y=0.98
+ link(onVertex,16515681:doVertex,[])
+}
+Add(GL_Options,5851269,273,175)
+{
+ Flag=9
+ link(onEvent,5809249:doEnabled,[])
+}
+Add(GL_Vertex3D,13823482,714,119)
+{
+ link(onVertex,11863830:doVertex,[])
+}
+Add(Gl_Begin,16243406,665,119)
+{
+ BlockType=4
+ link(onBegin,13823482:doVertex,[])
+}
+Add(GL_Color,760544,567,119)
+{
+ Color=32768
+ Alpha=0
+ link(onColor,6259277:doRotate,[])
+}
+Add(For,14388869,469,119)
+{
+ Start=5
+ End=25
+ link(onEvent,4049447:doOperation,[])
+}
+Add(GL_Vertex3D,16515681,812,119)
+{
+ X=0.95
+ Y=1
+ link(onVertex,14692656:doEnd,[])
+}
+Add(GL_Options,9069909,469,175)
+{
+ Flag=8
+ link(onEvent,15104080:doEnabled,[])
+}
+Add(GL_Rotate,6259277,616,119)
+{
+ Angle=1
+ Z=0.5
+ link(onRotate,16243406:doBegin,[])
+}
+Add(Math,4049447,518,119)
+{
+ OpType=3
+ Op2=25
+ link(onResult,760544:doColor,[])
+}
+Add(Counter,10146942,322,119)
+{
+ Max=359
+ link(onNext,2385019:doEvent1,[])
+}
+Add(GL_Rotate,4097940,420,119)
+{
+ Z=1
+ link(onRotate,14388869:doFor,[])
+}
+Add(MultiElement,8944887,273,119)
+{
+ @Hint=#12:Сетка радара|
+ link(onEvent1,10146942:doNext,[])
+}
+BEGIN_SDK
+  Add(EditMulti,13158388,3,3)
+  {
+   EventCount=1
+   WorkCount=1
+   Width=1147
+   Height=176
+   link(doWork1,210787:doPushMatrix,[(12,9)(12,41)])
+  }
+  Add(GL_PrimSizes,11279011,266,35)
+  {
+   Size=2
+   link(onSize,5589694:doColor,[])
+  }
+  Add(GL_Color,5589694,315,35)
+  {
+   Color=32768
+   link(onColor,16249947:doCallList,[])
+  }
+  Add(GL_PrimSizes,4536422,462,35)
+  {
+   link(onSize,8594840:doScale,[])
+  }
+  Add(GL_CallList,16249947,364,35)
+  {
+   Index=1
+   link(onCallList,6569591:doCallList,[])
+  }
+  Add(GL_CallList,13675162,560,35)
+  {
+   Index=1
+   link(onCallList,4929147:doPopMatrix,[])
+  }
+  Add(Gl_Scale,8594840,511,35)
+  {
+   X=0.95
+   Y=0.95
+   Z=0.95
+   link(onScale,13675162:doCallList,[])
+  }
+  Add(GL_GTools,210787,21,35)
+  {
+   Point(doPushMatrix)
+   link(onEvent,1016609:doTranslate,[])
+  }
+  Add(GL_GTools,4929147,609,35)
+  {
+   Point(doPopMatrix)
+   link(onEvent,8593706:doFor,[])
+  }
+  Add(GL_CallList,6553767,903,35)
+  {
+   Index=1
+   link(onCallList,6607780:doPopMatrix,[])
+  }
+  Add(Gl_Scale,8965384,854,35)
+  {
+   X=0.8
+   Y=0.8
+   Z=0.01
+   link(onScale,6553767:doCallList,[])
+   link(X,16289721:Var2,[])
+   link(Y,16289721:Var3,[(867,23)])
+  }
+  Add(Gl_Begin,13965954,903,84)
+  {
+   BlockType=3
+   link(onBegin,14711754:doVertex,[])
+  }
+  Add(GL_Vertex3D,14711754,952,84)
+  {
+   Y=-1.33
+   Z=-0.1
+   link(onVertex,6834085:doVertex,[])
+  }
+  Add(GL_Vertex3D,6834085,1001,84)
+  {
+   Y=1.33
+   Z=-0.1
+   link(onVertex,9014830:doEnd,[])
+  }
+  Add(Gl_End,9014830,1050,84)
+  {
+  }
+  Add(For,14106268,756,84)
+  {
+   End=12
+   IncludeEnd=1
+   link(onEvent,3555132:doWork1,[])
+   link(onStop,8568996:doPopMatrix,[(796,97)(796,146)])
+  }
+  Add(GL_Rotate,1385130,854,84)
+  {
+   Angle=15
+   X=0.00001
+   Y=0.00001
+   Z=1
+   link(onRotate,13965954:doBegin,[])
+  }
+  Add(GL_Color,1826597,119,35)
+  {
+   Color=11008
+   link(onColor,4090809:doDraw,[])
+  }
+  Add(GL_Disk,4090809,168,35)
+  {
+   OutRadius=1.44
+   Slices=30
+   Stacks=5
+   link(onDraw,10404541:doTranslate,[])
+  }
+  Add(Gl_Translate,1016609,70,35)
+  {
+   Z=-0.3
+   link(onTranslate,1826597:doColor,[])
+  }
+  Add(Gl_Translate,10404541,217,35)
+  {
+   Z=0.1
+   link(onTranslate,11279011:doLineSize,[])
+  }
+  Add(GL_CallList,6569591,413,35)
+  {
+   Index=2
+   link(onCallList,4536422:doLineSize,[])
+  }
+  Add(GL_GTools,7986016,707,84)
+  {
+   Point(doPushMatrix)
+   link(onEvent,14106268:doFor,[])
+  }
+  Add(GL_GTools,8568996,805,140)
+  {
+   Point(doPopMatrix)
+   link(onEvent,13158388:onEvent1,[(1115,146)(1115,9)])
+  }
+  Add(MultiElement,3555132,805,84)
+  {
+   @Hint=#36:Чередуем яркую линию с более темными|
+   link(onEvent1,1385130:doRotate,[])
+  }
+  BEGIN_SDK
+    Add(EditMulti,6403842,3,3)
+    {
+     EventCount=1
+     WorkCount=1
+     Width=279
+     Height=137
+     link(doWork1,16019875:doOperation,[(19,9)(19,41)])
+    }
+    Add(Math,16019875,35,35)
+    {
+     OpType=8
+     Op2=3
+     link(onResult,8924154:doCompare,[])
+    }
+    Add(If_else,8924154,84,35)
+    {
+     Op2=Integer(2)
+     link(onTrue,3197390:doColor,[])
+     link(onFalse,1645776:doColor,[(124,48)(124,90)])
+    }
+    Add(GL_Color,3197390,133,35)
+    {
+     Color=32768
+     link(onColor,114918:doWork1,[(179,41)])
+    }
+    Add(GL_Color,1645776,133,84)
+    {
+     Color=20736
+     link(onColor,114918:doWork3,[(179,90)])
+    }
+    Add(HubEx,114918,175,63)
+    {
+     link(onEvent,6403842:onEvent1,[(250,69)(250,9)])
+    }
+  END_SDK
+  Add(For,8593706,658,35)
+  {
+   End=8
+   IncludeEnd=1
+   link(onEvent,12576825:doOperation,[])
+   link(onStop,7986016:doPushMatrix,[(697,48)(697,90)])
+  }
+  Add(GL_GTools,1191328,805,35)
+  {
+   Point(doPushMatrix)
+   link(onEvent,8965384:doScale,[])
+  }
+  Add(GL_GTools,6607780,952,35)
+  {
+   Point(doPopMatrix)
+  }
+  Add(Math,12576825,707,35)
+  {
+   OpType=3
+   Op2=8
+   link(onResult,3565595:doWork1,[])
+  }
+  Add(GetDataEx,16289721,854,18)
+  {
+   Angle=3
+   link(Data,12576825:Result,[(745,23)(745,76)(713,76)])
+  }
+  Add(MultiElement,3565595,756,35)
+  {
+   @Hint=#36:Чередуем яркую линию с более темными|
+   link(onEvent1,1191328:doPushMatrix,[])
+   link(Data1,8593706:Position,[(762,25)(702,25)(702,76)(664,76)])
+  }
+  BEGIN_SDK
+    Add(EditMulti,6403842,3,3)
+    {
+     EventCount=1
+     WorkCount=1
+     DataCount=1
+     Width=279
+     Height=137
+     link(doWork1,16019875:doOperation,[(19,9)(19,41)])
+    }
+    Add(Math,16019875,35,35)
+    {
+     OpType=8
+     Op2=3
+     link(onResult,8924154:doCompare,[])
+     link(Op1,6403842:Data1,[(41,19)(9,19)])
+    }
+    Add(If_else,8924154,84,35)
+    {
+     Op2=Integer(2)
+     link(onTrue,3197390:doColor,[])
+     link(onFalse,1645776:doColor,[(124,48)(124,90)])
+    }
+    Add(GL_Color,3197390,133,35)
+    {
+     Color=32768
+     link(onColor,114918:doWork1,[(179,41)])
+    }
+    Add(GL_Color,1645776,133,84)
+    {
+     Color=20736
+     link(onColor,114918:doWork3,[(179,90)])
+    }
+    Add(HubEx,114918,175,63)
+    {
+     link(onEvent,6403842:onEvent1,[(250,69)(250,9)])
+    }
+  END_SDK
+  Add(InfoTip,1555326,63,14)
+  {
+   Info=#27:Внешний обод и ребра к нему|
+   Width=386
+   Height=60
+  }
+  Add(InfoTip,14112026,455,14)
+  {
+   Info=#15:Внутренний обод|
+   Width=148
+   Height=60
+  }
+  Add(InfoTip,11443240,651,7)
+  {
+   Info=#42:Концентрические круги, сходящиеся к центру|
+   Width=344
+   Height=67
+  }
+  Add(InfoTip,2060931,693,77)
+  {
+   Info=#11:Спицы обода|
+   VAlign=2
+   Width=407
+   Height=60
+   Margin=2
+  }
+END_SDK
+Add(GL_Options,15104080,518,175)
+{
+ Flag=6
+ link(onEvent,5789747:doEnabled,[])
+}
+Add(Gl_BeginList,8423090,322,224)
+{
+ Index=1
+ link(onBiginList,15174855:doBegin,[])
+}
+Add(For,6005511,420,224)
+{
+ End=43
+ link(onEvent,547168:doCalc,[])
+ link(onStop,13723747:doEnd,[(461,237)(461,279)])
+}
+Add(Gl_Begin,15174855,371,224)
+{
+ BlockType=2
+ link(onBegin,6005511:doFor,[])
+}
+Add(GL_Vertex3D,9137398,567,224)
+{
+ Z=-0.01
+ link(X,547168:Result,[(573,214)(558,214)(558,266)(475,266)])
+}
+Add(MathParse,547168,469,224)
+{
+ DataCount=1
+ MathStr="sin(%1/7)*1.42"
+ link(onResult,1772560:doCalc,[])
+}
+Add(MathParse,1772560,518,224)
+{
+ DataCount=1
+ MathStr="cos(%1/7)*1.42"
+ link(onResult,9137398:doVertex,[])
+ link(X1,6005511:Position,[(524,214)(466,214)(466,266)(426,266)])
+}
+Add(Gl_End,13723747,469,273)
+{
+ link(onEnd,13807074:doEndList,[])
+}
+Add(Convertor,10369850,182,21)
+{
+ Mode=11
+ link(onResult,9485866:doCharset,[])
+}
+Add(GL_Options,5789747,567,175)
+{
+ Flag=7
+ link(onEvent,3498423:doInit,[])
+}
+Add(Gl_Text,3498423,616,175)
+{
+ Font=[Times New Roman,8,0,32896,1]
+ link(onInit,8423090:doBeginList,[(658,181)(658,211)(312,211)(312,230)])
+ link(GLHandle,12986311:GLHandle,[(622,165)(199,165)(199,215)(167,215)])
+}
+Add(For,14020911,371,70)
+{
+ IncludeEnd=1
+ link(onEvent,8548295:doEvent1,[])
+ link(End,8521697:##count,[(384,58)(475,58)])
+}
+Add(Hub,2385019,371,119)
+{
+ link(onEvent1,14020911:doFor,[(413,125)(413,111)(361,111)(361,76)])
+ link(onEvent2,4097940:doRotate,[(415,132)(415,125)])
+}
+Add(MultiElementEx,8521697,469,14)
+{
+ @Hint=#14:Цели на радаре|
+ Mode=1
+}
+BEGIN_SDK
+  Add(EditMultiEx,4418688,3,3)
+  {
+   WorkCount=#5:##add|8:##select|9:doCompare|
+   EventCount=#7:onEvent|
+   VarCount=#7:##count|
+   Width=1060
+   Height=228
+   Point(##add)
+   Point(##select)
+   Point(##count)
+   link(##add,9683031:doValue,[(12,9)(12,13)])
+   link(##select,1885792:doCompare,[(36,16)(36,167)])
+   link(doCompare,4468510:doCompare,[(11,23)(11,118)])
+  }
+  Add(Gl_Begin,6784383,266,63)
+  {
+   link(onBegin,15544539:doVertex,[])
+  }
+  Add(Gl_End,8341139,364,63)
+  {
+   link(onEnd,8426070:doPointSize,[(404,69)(404,76)])
+  }
+  Add(GL_Vertex3D,15544539,315,63)
+  {
+   link(onVertex,8341139:doEnd,[])
+   link(X,317030:Var2,[])
+   link(Y,317030:Var3,[(328,51)])
+  }
+  Add(GL_PrimSizes,789690,217,63)
+  {
+   Size=5
+   link(onSize,6784383:doBegin,[])
+  }
+  Add(GL_PrimSizes,8426070,413,63)
+  {
+   link(onSize,4151713:doTranslate,[])
+  }
+  Add(Gl_Text,3498423,609,63)
+  {
+   Depth=0.2
+   Font=[MS Sans Serif,1,0,32768,1]
+   link(onDraw,14251696:doPopMatrix,[(653,76)(653,69)])
+   link(Text,2337073:Var3,[(622,44)])
+  }
+  Add(If_else,4468510,21,112)
+  {
+   link(onTrue,10307284:doEvent1,[])
+   link(Op1,1046391:Var1,[(27,55)])
+  }
+  Add(GL_GTools,14251696,665,63)
+  {
+   Point(doPopMatrix)
+  }
+  Add(Gl_Scale,13809058,511,63)
+  {
+   X=0.1
+   Y=0.1
+   Z=0.1
+   link(onScale,281085:doRotate,[])
+  }
+  Add(Gl_Translate,4151713,462,63)
+  {
+   link(onTranslate,13809058:doScale,[])
+   link(X,13845441:Var2,[])
+   link(Y,13845441:Var3,[(475,51)])
+  }
+  Add(Math,9409044,119,161)
+  {
+   OpType=1
+   Op2=0.003
+   link(onResult,14887133:doEvent1,[(161,167)(161,205)(15,205)(15,69)])
+   link(Op1,8676842:Var2,[])
+  }
+  Add(Memory,6326902,119,105)
+  {
+   Default=Real(1)
+  }
+  Add(GL_Color,16374679,168,63)
+  {
+   Color=32768
+   link(onColor,789690:doPointSize,[(208,69)(208,76)])
+   link(Alpha,8676842:Var3,[(181,53)(164,53)(164,149)])
+  }
+  Add(If_else,1885792,70,161)
+  {
+   Type=2
+   Op2=Real(0)
+   link(onTrue,9409044:doOperation,[])
+   link(Op1,8676842:Var1,[(76,149)])
+  }
+  Add(GetDataEx,8676842,119,144)
+  {
+   link(Data,6326902:Value,[])
+  }
+  Add(GetDataEx,1046391,119,50)
+  {
+   link(Data,15486668:Value,[(125,29)])
+  }
+  Add(Hub,14887133,21,63)
+  {
+   link(onEvent1,11337623:doPushMatrix,[])
+   link(onEvent2,6326902:doValue,[(62,76)(62,111)])
+  }
+  Add(Memory,15486668,119,7)
+  {
+   link(onData,10913383:doEvent1,[])
+  }
+  Add(GL_Rotate,4097940,119,63)
+  {
+   Z=1
+   link(onRotate,16374679:doColor,[])
+   link(Angle,1046391:Var2,[])
+  }
+  Add(GL_GTools,11337623,70,63)
+  {
+   Point(doPushMatrix)
+   link(onEvent,4097940:doRotate,[])
+  }
+  Add(Random,1461668,266,7)
+  {
+   Max=80
+   link(onRandom,13717365:doWork2,[(301,13)])
+  }
+  Add(Math,11070334,315,7)
+  {
+   OpType=3
+   Op2=100
+   link(onResult,9644319:doOperation,[])
+  }
+  Add(GetDataEx,317030,315,46)
+  {
+   link(Data,11070334:Result,[(320,36)])
+  }
+  Add(Math,9644319,462,7)
+  {
+   Op2=0.05
+  }
+  Add(GetDataEx,13845441,462,46)
+  {
+   link(Data,9644319:Result,[])
+  }
+  Add(GL_Rotate,281085,560,63)
+  {
+   Z=-1
+   link(onRotate,3498423:doDraw,[(600,69)(600,76)])
+   link(Angle,1046391:Var3,[(566,55)])
+  }
+  Add(Random,14229232,70,7)
+  {
+   Max=359
+   link(onRandom,15486668:doValue,[])
+  }
+  Add(Memory,9683031,21,7)
+  {
+   link(onData,14229232:doRandom,[])
+  }
+  Add(Hub,10307284,70,112)
+  {
+   link(onEvent1,6326902:doClear,[])
+   link(onEvent2,789456:doNext,[])
+  }
+  Add(HTTP_Get,15933538,315,119)
+  {
+   link(onDownload,10369850:doConvert,[(356,132)(356,125)])
+  }
+  Add(Counter,789456,168,119)
+  {
+   Max=1
+  }
+  Add(If_else,1135601,217,119)
+  {
+   Op2=Integer(1)
+   link(onTrue,8498167:doStrCat,[])
+  }
+  Add(StrCat,8498167,266,119)
+  {
+   Str1="http://www.hiasm.com/users.php?user="
+   link(onStrCat,15933538:doDownload,[])
+   link(Str2,2337073:Var2,[])
+  }
+  Add(GetDataEx,2337073,273,39)
+  {
+   Angle=3
+   link(Data,9683031:Value,[(27,44)])
+  }
+  Add(Convertor,10369850,364,119)
+  {
+   Mode=11
+   link(onResult,13717365:doWork3,[(407,125)(407,103)(305,103)])
+  }
+  Add(HubEx,13717365,301,7)
+  {
+   link(onEvent,11070334:doOperation,[])
+  }
+  Add(GL_Texture,14234746,511,168)
+  {
+   Index=11
+   link(onSet,1397646:doBegin,[(551,181)(551,174)])
+  }
+  Add(Bitmap,950318,413,119)
+  {
+  }
+  Add(Hub,10913383,168,7)
+  {
+   link(onEvent1,1461668:doRandom,[])
+  }
+  Add(Gl_Begin,1397646,560,168)
+  {
+   BlockType=7
+   link(onBegin,5832741:doTexCoord,[])
+  }
+  Add(Img_Text,10861147,462,168)
+  {
+   Font=[MS Sans Serif,8,0,65535,1]
+   Text="111"
+   link(onDraw,14234746:doCreate,[])
+  }
+  Add(GL_Vertex3D,13234197,658,168)
+  {
+   link(onVertex,4047880:doTexCoord,[])
+  }
+  Add(Resize,10096321,413,168)
+  {
+   Width=128
+   Height=16
+   link(onResult,10861147:doDraw,[])
+   link(Bitmap,950318:Bitmap,[])
+  }
+  Add(GL_VertexTexture,8410006,903,168)
+  {
+   T=1
+   link(onTexCoord,7164515:doVertex,[])
+  }
+  Add(GL_Vertex3D,7164515,952,168)
+  {
+   Y=1
+   link(onVertex,16226316:doEnd,[])
+  }
+  Add(GL_VertexTexture,4612391,805,168)
+  {
+   S=1
+   T=1
+   link(onTexCoord,10009330:doVertex,[])
+  }
+  Add(GL_Vertex3D,10009330,854,168)
+  {
+   X=8
+   Y=1
+   link(onVertex,8410006:doTexCoord,[])
+  }
+  Add(GL_VertexTexture,4047880,707,168)
+  {
+   S=1
+   link(onTexCoord,14063594:doVertex,[])
+  }
+  Add(GL_Vertex3D,14063594,756,168)
+  {
+   X=8
+   link(onVertex,4612391:doTexCoord,[])
+  }
+  Add(GL_VertexTexture,5832741,609,168)
+  {
+   link(onTexCoord,13234197:doVertex,[])
+  }
+  Add(Gl_End,16226316,1001,168)
+  {
+  }
+  Add(GL_Options,5851269,511,119)
+  {
+   Flag=10
+   link(onEvent,14234746:doSet,[(553,125)(553,159)(501,159)(501,181)])
+  }
+  Add(GL_Options,6690020,724,63)
+  {
+   Flag=10
+  }
+  Add(InfoTip,7877037,406,105)
+  {
+   Info=#46:На будущее: отрисовка текста с помощью текстур|
+   Width=645
+   Height=102
+  }
+END_SDK
+Add(Hub,8548295,420,70)
+{
+ link(onEvent1,8521697:##select,[(460,76)(460,27)])
+ link(onEvent2,82802:doData,[])
+}
+Add(DoData,82802,469,77)
+{
+ link(onEventData,8521697:doCompare,[(511,83)(511,59)(463,59)(463,34)])
+ link(Data,10146942:Count,[(475,66)(463,66)(463,160)(328,160)])
+}
+Add(StrList,14302862,273,14)
+{
+ link(onChange,15953701:doEnum,[])
+}
+Add(ArrayEnum,15953701,322,14)
+{
+ link(onItem,8521697:##add,[])
+ link(Array,14302862:Array,[(328,4)(314,4)(314,69)(293,69)])
+}
+Add(HTTP_Get,15933538,140,14)
+{
+ URL="http://www.hiasm.com/users.php"
+ Wait=0
+ link(onDownload,10369850:doConvert,[])
+}
+Add(GL_Vertex3D,8703977,714,329)
+{
+ Z=-0.01
+ link(onVertex,10340272:doEnd,[])
+ link(X,12957903:Result,[(720,319)(633,319)(633,371)(475,371)])
+ link(Y,12599389:Result,[(727,319)(682,319)(682,371)(573,371)])
+}
+Add(Gl_EndList,14697901,420,378)
+{
+}
+Add(Gl_BeginList,1555668,322,329)
+{
+ Index=2
+ link(onBiginList,5794520:doFor,[])
+}
+Add(For,5794520,371,329)
+{
+ End=43
+ link(onEvent,8373660:doCalc,[])
+ link(onStop,14697901:doEndList,[(412,342)(412,384)])
+}
+Add(Gl_Begin,2073665,616,329)
+{
+ BlockType=3
+ link(onBegin,3027954:doVertex,[])
+}
+Add(GL_Vertex3D,3027954,665,329)
+{
+ Z=-0.01
+ link(onVertex,8703977:doVertex,[])
+ link(X,8373660:Result,[(671,319)(558,319)(558,371)(426,371)])
+ link(Y,9059825:Result,[(678,319)(633,319)(633,371)(524,371)])
+}
+Add(MathParse,8373660,420,329)
+{
+ DataCount=1
+ MathStr="sin(%1/7)*1.42"
+ link(onResult,12957903:doOperation,[])
+}
+Add(MathParse,9059825,518,329)
+{
+ DataCount=1
+ MathStr="cos(%1/7)*1.42"
+ link(onResult,12599389:doOperation,[])
+ link(X1,5794520:Position,[(524,319)(417,319)(417,371)(377,371)])
+}
+Add(Gl_End,10340272,763,329)
+{
+}
+Add(Math,12957903,469,329)
+{
+ OpType=2
+ Op2=0.95
+ link(onResult,9059825:doCalc,[])
+}
+Add(Math,12599389,567,329)
+{
+ OpType=2
+ Op2=0.95
+ link(onResult,2073665:doBegin,[])
+}
+Add(InfoTip,15011929,287,315)
+{
+ Info=#37:Создание списка ребер на ободе радара|
+ VAlign=2
+ Width=533
+ Height=116
+ Margin=2
+}
+Add(InfoTip,9148397,287,217)
+{
+ Info=#6:Эллипс|
+ VAlign=2
+ HAlign=0
+ Width=330
+ Height=95
+ Margin=3
+}
+Add(InfoTip,14561046,511,98)
+{
+ Info=#38:Луч радара с градиентной прозрачностью|
+ Width=393
+ Height=60
+ Margin=3
+}
+Add(InfoTip,6023478,133,7)
+{
+ Info=#30:Получение списка пользователей|
+ VAlign=2
+ Width=225
+ Height=81
+ Margin=3
+}
+Add(InfoTip,7127373,518,14)
+{
+ Info=#32:Радар - отображаем пользователей|
+ Font=[MS Sans Serif,18,1,0,1]
+ Frame=1
+ Transparent=1
+ Width=393
+ Height=25
+}
+Add(LinkTip,8740169,532,49)
+{
+ Link="Цели на радаре=multi://8521697"
+ Font=[MS Sans Serif,8,4,16711680,1]
+}
+Add(LinkTip,9734389,532,70)
+{
+ Link="Сетка радара=multi://8944887"
+ Font=[MS Sans Serif,8,4,16711680,1]
+}
+Add(InfoTip,6685351,14,343)
+{
+ @Group=152808136
+ Info=#9:Внимание!|
+ Font=[MS Sans Serif,10,1,255,1]
+ Transparent=1
+ Width=225
+ Height=81
+ Margin=2
+}
+Add(InfoTip,12075799,21,364)
+{
+ @Group=152808136
+ Info=#133:Полноценная работа примера может быть обеспечена только при наличие выхода в Internet. Если такового нет, то на радаре не будет целей|
+ Frame=1
+ HAlign=0
+ Width=211
+ Height=53
+}
+Add(Charset,9485866,224,21)
+{
+ Type=7
+ link(onCharset,14302862:doText,[(264,27)(264,41)])
+}

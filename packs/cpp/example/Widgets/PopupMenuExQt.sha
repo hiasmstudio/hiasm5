@@ -1,0 +1,29 @@
+Make(cpp)
+Add(MainForm,1,28,28)
+{
+ Backend=1
+ Caption="Extended popup menu"
+ Width=360
+ Height=140
+}
+Add(PopupMenuEx,2,165,84)
+{
+ Menu=#7:Actions|1:(|4:Open|1:-|4:Save|1:)|5:Close|
+ Point(MenuItemName)
+ link(MenuItemName,4:doText,[])
+}
+Add(Button,3,28,84)
+{
+ Left=12
+ Top=12
+ Width=150
+ Caption="Open menu"
+ link(onClick,2:doPopupHere,[])
+}
+Add(Label,4,250,84)
+{
+ Left=12
+ Top=55
+ Width=320
+ Caption="Select an action"
+}

@@ -1,0 +1,5 @@
+Unpacking data when reading from a stream=Распаковка данных при чтении из потока
+Unpacked data=Распакованные данные
+Unpacks data from stream ARG(Stream)=Распаковывает данные из потока ARG(Stream)
+The event occurs every time the data is unpacked and returns the original Stream to the stream ARG(Stream)=Событие происходит всякий раз после распаковки данных и возвращает исходный Stream в поток ARG(Stream)
+Data Retrieval Stream=Поток для извлечения данных

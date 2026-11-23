@@ -27,6 +27,8 @@ typedef enum {
 
 
 #define CGT_SIZE 85
+// Legacy GetParam supplies no length; all string callers must reserve 256 bytes.
+#define CGT_PARAM_TEXT_CAPACITY 256
 
 #define GetCGTools CGT
 #define GetCGT_Count CGT_SIZE

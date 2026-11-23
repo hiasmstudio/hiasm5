@@ -1,0 +1,114 @@
+Make(cpp)
+Add(MainForm,13868957,462,301)
+{
+ Width=241
+ Height=326
+ link(onCreate,1840341:doInit,[])
+}
+Add(PaintBox,16464149,308,154)
+{
+ Left=15
+ Top=65
+ Width=200
+ Height=200
+ Point(MouseX)
+ Point(MouseY)
+ Point(onMouseMove)
+ link(onBeforeDraw,10:doProcess,[])
+ link(onMouseMove,7686781:doDraw,[(353,167)(353,279)])
+}
+Add(Img_Bmp,14265880,434,154)
+{
+ link(onDraw,14136332:doDraw,[(478,160)(478,212)(289,212)(289,279)])
+ link(Bitmap,16464149:Bitmap,[(440,142)(292,142)(292,198)(314,198)])
+}
+Add(Timer,9416628,245,154)
+{
+ Interval=33
+ link(onTimer,16464149:doRefresh,[])
+}
+Add(Img_Rectangle,7686781,378,273)
+{
+ Point2=655370
+ Point2AsOffset=0
+ Color=16777215
+ BgColor=0
+ Point(Point1)
+ link(Bitmap,9351547:Var2,[])
+ link(Color,9090755:Value,[])
+ link(Point1,13678798:Point,[])
+}
+Add(PointXY,13678798,392,217)
+{
+ link(X,16464149:MouseX,[(398,201)(321,201)])
+ link(Y,16464149:MouseY,[(405,201)(328,201)])
+}
+Add(GetDataEx,9351547,371,231)
+{
+ link(Data,10:Bitmap,[])
+}
+Add(BASS_ChannelVisibleOcilloScope,14136332,315,273)
+{
+ SoundStream="main"
+ ScaleY=130
+ Pen=16711935
+ FrameClear=1
+ link(WindowsHandle,9351547:Var1,[(321,240)])
+}
+Add(BASS_Init,1840341,511,315)
+{
+}
+Add(BASS_StreamCreateFile,8550269,679,315)
+{
+ Name="main"
+ link(onCreate,10627324:doPlay,[])
+}
+Add(BASS_ChannelPlay,10627324,728,315)
+{
+ Channel="main"
+}
+Add(ODialog,9865709,623,315)
+{
+ Filter="*.mp3|*.mp3"
+ StartDir=""
+ FileName=""
+ link(onExecute,8550269:doCreate,[])
+}
+Add(ScrollBar,2033181,308,98)
+{
+ Left=15
+ Top=273
+ Width=200
+ Height=17
+ Max=8
+ link(onPosition,10:doMode,[(359,104)(359,167)])
+}
+Add(Memory,9090755,385,56)
+{
+ Default=Integer(255)
+}
+Add(ColorDialog,7627590,329,56)
+{
+ link(onSelect,9090755:doValue,[])
+}
+Add(Button,12054569,273,56)
+{
+ Left=10
+ Top=5
+ Width=80
+ Caption="Select color"
+ link(onClick,7627590:doOpen,[])
+}
+Add(VectorFields,10,378,154)
+{
+ Point(doMode)
+ link(onProcess,14265880:doDraw,[])
+}
+Add(Button,11462510,567,315)
+{
+ Left=10
+ Top=30
+ Width=80
+ Caption="Select mp3"
+ link(onClick,9865709:doExecute,[])
+}

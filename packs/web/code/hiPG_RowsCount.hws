@@ -1,0 +1,17 @@
+func doGetCount(_data)
+  if(linked(Result))
+    println(rows, ' = pg_num_rows(', Result, ');')
+    event(onGetCount, rows)
+  else
+    event(onGetCount, 'pg_num_rows(' && Result && ')')
+  end
+end
+
+func Count()
+  if(linked(doGetCount))
+    return(rows)
+  else
+    return('pg_num_rows(' && Result && ')')
+  end
+end
+

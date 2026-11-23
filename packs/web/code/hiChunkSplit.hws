@@ -1,0 +1,17 @@
+func doChunkSplit(_data)
+  if(linked(Result))
+    println(rslt, ' = chunk_split(', Value, ',', ChunkLen, ',', EndString, ');')
+    event(onChunkSplit, rslt)
+  else
+    event(onChunkSplit, 'chunk_split(' && Value && ',' && ChunkLen && ',' && EndString && ')')
+  end 
+end
+
+func Result()
+  if(linked(doChunkSplit))
+    return(rslt)
+  else
+    return('chunk_split(' && Value && ',' && ChunkLen && ',' && EndString && ')')
+  end
+end
+

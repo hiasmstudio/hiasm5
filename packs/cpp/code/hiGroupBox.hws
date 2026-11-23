@@ -1,0 +1,43 @@
+func doStart
+  if(is_qt_project())
+    println('{')
+    println('auto *group = new HiasmClickable<QGroupBox>(qt_text(', cstr(d('Caption')), '), widgetParent);')
+    println('group->setObjectName(QStringLiteral("GroupBox', _id_, '"));')
+    println('group->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+    if(get('Flat') == 'True')
+      println('group->setFlat(true);')
+    end
+    if(linked(onClick))
+      println('group->clicked = [&form] {')
+      event(onClick)
+      println('};')
+    end
+    if(sys.inner_parent())
+      println('QWidget *widgetParent = group;')
+      sys.run_all('dostart')
+    end
+    println('}')
+  else
+    gtkStart()
+  end
+end
+
+func gtkStart
+  println('{')
+  println('GtkWidget *group = gtk_frame_new(', Caption, ');')
+  if(linked(onClick))
+    println('hiasm_place("GroupBox', _id_, '", group, ', Left, ', ', Top, ');')
+    println('GtkGesture *gesture = gtk_gesture_click_new();')
+    println('g_signal_connect(gesture, "pressed", G_CALLBACK(+[](GtkGestureClick *, int, double, double, gpointer) {')
+  println('if(!hiasm_form_ready) return;')
+    block.inclvl()
+    event(onClick)
+    block.declvl()
+    println('}), NULL);')
+    println('gtk_widget_add_controller(group, GTK_EVENT_CONTROLLER(gesture));')
+  else
+    println('gtk_widget_set_can_target(group, FALSE);')
+    println('hiasm_place("GroupBox', _id_, '", group, ', Left, ', ', Top, ');')
+  end
+  println('}')
+end
