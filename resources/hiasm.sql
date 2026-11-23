@@ -1733,8 +1733,10 @@ INSERT INTO projects(pack_id,entry,name_id,info_id,ext,make)
  SELECT id,'Gui',900004,900003,'cpp','make_text.so' FROM packs WHERE codename='cpp'
  AND NOT EXISTS(SELECT 1 FROM projects WHERE entry='Gui' AND pack_id=packs.id);
 -- 900007 belongs to the "Terminal" command (src/MainDataBase.cpp); the form project uses 900008.
-INSERT INTO info_id_en(id,info) SELECT 900008,'GTK4 form application' WHERE NOT EXISTS(SELECT 1 FROM info_id_en WHERE id=900008);
-INSERT INTO info_id_ru(id,info) SELECT 900008,'Приложение с формой (GTK4)' WHERE NOT EXISTS(SELECT 1 FROM info_id_ru WHERE id=900008);
+INSERT INTO info_id_en(id,info) SELECT 900008,'Qt 6.9 form application' WHERE NOT EXISTS(SELECT 1 FROM info_id_en WHERE id=900008);
+INSERT INTO info_id_ru(id,info) SELECT 900008,'Приложение с формой (Qt 6.9)' WHERE NOT EXISTS(SELECT 1 FROM info_id_ru WHERE id=900008);
+UPDATE info_id_en SET info='Qt 6.9 form application' WHERE id=900008 AND info='GTK4 form application';
+UPDATE info_id_ru SET info='Приложение с формой (Qt 6.9)' WHERE id=900008 AND info='Приложение с формой (GTK4)';
 INSERT INTO projects(pack_id,entry,name_id,info_id,ext,make)
  SELECT id,'MainForm',900008,900003,'cpp','make_text.so' FROM packs WHERE codename='cpp'
  AND NOT EXISTS(SELECT 1 FROM projects WHERE entry='MainForm' AND pack_id=packs.id);

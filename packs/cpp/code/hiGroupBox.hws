@@ -1,4 +1,28 @@
 func doStart
+  if(is_qt_project())
+    println('{')
+    println('auto *group = new HiasmClickable<QGroupBox>(qt_text(', cstr(d('Caption')), '), widgetParent);')
+    println('group->setObjectName(QStringLiteral("GroupBox', _id_, '"));')
+    println('group->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+    if(get('Flat') == 'True')
+      println('group->setFlat(true);')
+    end
+    if(linked(onClick))
+      println('group->clicked = [&form] {')
+      event(onClick)
+      println('};')
+    end
+    if(sys.inner_parent())
+      println('QWidget *widgetParent = group;')
+      sys.run_all('dostart')
+    end
+    println('}')
+  else
+    gtkStart()
+  end
+end
+
+func gtkStart
   println('{')
   println('GtkWidget *group = gtk_frame_new(', Caption, ');')
   if(linked(onClick))

@@ -1,0 +1,25 @@
+include('qtDataReader')
+
+func doEnum(_data)
+  fvar(sourceName, readerName, columnName, indexName)
+  sourceName = 'enumSource' && _id_
+  readerName = 'enumReader' && _id_
+  columnName = 'enumColumn' && _id_
+  indexName = 'enumIndex' && _id_
+  println('if (auto *', sourceName, ' = ', Source(), '; ', sourceName, ' && ', sourceName, '->beginRead()) {')
+  println('  auto *', readerName, ' = ', Reader(), ';')
+  println('  const auto ', columnName, ' = ', sourceName, '->columns.indexOf(', readerName, '->column);')
+  println('  ', readerName, '->index = -1;')
+  println('  ', readerName, '->item.clear();')
+  println('  if (', columnName, ' >= 0) for (int ', indexName, ' = 0; ', indexName, ' < ', sourceName, '->rows.size(); ++', indexName, ') {')
+  println('    ', readerName, '->index = ', indexName, ';')
+  println('    ', readerName, '->item = ', sourceName, '->rows[', indexName, '].value(', columnName, ');')
+  event(onEnum, readerName && '->item')
+  println('  }')
+  println('  ', sourceName, '->endRead();')
+  println('}')
+end
+
+func Index()
+  return(Reader() && '->index')
+end

@@ -1,0 +1,43 @@
+func doStart
+  println('{')
+  println('auto *led = new HiasmLed(widgetParent);')
+  println('led->setObjectName(QStringLiteral("LED', _id_, '"));')
+  println('led->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+  println('led->lit = ', get('Value') == 'True', ';')
+  println('led->circle = ', get('Shape') == 'lsCircle', ';')
+  println('led->highlight = ', get('Blick') == 'True', ';')
+  println('led->litColor = qt_led_color(qt_text(', cstr(d('ColorOn')), '), led->litColor);')
+  println('led->dimColor = qt_led_color(qt_text(', cstr(d('ColorOff')), '), led->dimColor);')
+  println('led->shine = qt_led_color(qt_text(', cstr(d('ColorBlick')), '), led->shine);')
+  if(linked(onChange))
+    println('led->changed = [&form](int state) {')
+    event(onChange, 'state')
+    println('};')
+  end
+  if(linked(onClick))
+    println('led->clicked = [&form] {')
+    event(onClick)
+    println('};')
+  end
+  println('}')
+end
+
+func doOn(_data)
+  println('qt_widget<HiasmLed>(form, "LED', _id_, '")->setLit(true);')
+end
+
+func doOff(_data)
+  println('qt_widget<HiasmLed>(form, "LED', _id_, '")->setLit(false);')
+end
+
+func doChangeValue(_data)
+  println('{ auto *led = qt_widget<HiasmLed>(form, "LED', _id_, '"); led->setLit(!led->lit); }')
+end
+
+func doSendToBack(_data)
+  println('qt_widget<HiasmLed>(form, "LED', _id_, '")->lower();')
+end
+
+func Value()
+  return('int(qt_widget<HiasmLed>(form, "LED' && _id_ && '")->lit)')
+end

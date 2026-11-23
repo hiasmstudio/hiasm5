@@ -82,6 +82,11 @@ int main(int argc, char **argv) {
     drain();
     CHECK(tab->sde && tab->sde->sdk && tab->sde->sdk->pack == owner);
     CHECK(tab->sde->sdk->elements.size() == 1);
+    auto *backend = tab->sde->sdk->elements.front()->props.getByName("Backend");
+    CHECK(backend && backend->readInt() == 1);
+    // Keep the legacy GTK frame checks below on the GTK backend.
+    int gtkBackend = 0;
+    backend->setValue(&gtkBackend);
     // Building the new project must produce a program.
     gchar *buildDir = g_dir_make_tmp("hiasm-newproject-build-XXXXXX", nullptr); CHECK(buildDir);
     tab->sde->sdk->fileName = ustring(buildDir) + "/MainForm.sha";

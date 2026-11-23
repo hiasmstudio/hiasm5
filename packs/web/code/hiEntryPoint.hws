@@ -22,4 +22,7 @@ func doStart
   println('')
   println('  // made by ' + sys.hi_version("HiAsm %mj.%mn build %bl"))
   print('?>')
+  block.select(block.reggen())
+  block.copyhere(BLK_HEAD)
+  block.copyhere(BLK_BODY)
 end

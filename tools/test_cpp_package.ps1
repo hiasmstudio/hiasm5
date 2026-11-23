@@ -2,13 +2,53 @@
 param([string]$Runtime = '', [string]$Python = 'python', [string]$Output = '')
 $ErrorActionPreference = 'Stop'
 $root = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
-if(-not $Runtime) { $Runtime = Join-Path $root 'build/toolchains/mingw64-v2' }
+if(-not $Runtime) { throw 'Specify -Runtime pointing to the staged packs/cpp/compiler directory' }
 $Runtime = (Resolve-Path -LiteralPath $Runtime).Path
 if(-not $Output) { $Output = Join-Path $root ('build/qa/standalone-' + [guid]::NewGuid().ToString('N')) }
 $Output = [IO.Path]::GetFullPath($Output)
 if(Test-Path -LiteralPath $Output) { throw 'Output must not exist' }
 $fixture = Join-Path $root ('build/qa/package-source-' + [guid]::NewGuid().ToString('N'))
 $null = New-Item -ItemType Directory -Path $fixture
+if (Test-Path -LiteralPath (Join-Path $Runtime 'qt6/bin/windeployqt.exe')) {
+    $saved = @{}
+    foreach ($key in 'PATH','QT_QPA_PLATFORM','QT_PLUGIN_PATH','QT_QPA_PLATFORM_PLUGIN_PATH') {
+        $saved[$key] = [Environment]::GetEnvironmentVariable($key)
+    }
+    try {
+        $pythonTool = (Get-Command $Python -ErrorAction Stop).Source
+        $qt = Join-Path $Runtime 'qt6'
+        $llvm = Join-Path $Runtime 'llvm-mingw/bin'
+        $bin = Join-Path $Runtime 'tools/bin'
+        $env:PATH = "$qt/bin;$llvm;$bin;$env:SystemRoot/System32;$env:SystemRoot"
+        $options = @("-DCMAKE_PREFIX_PATH=$qt", "-DCMAKE_CXX_COMPILER=$llvm/clang++.exe",
+            "-DCMAKE_MAKE_PROGRAM=$bin/ninja.exe", "-DHIASM_SOURCE=$root/tests/cpp_qt_toolchain_probe.cpp",
+            '-DHIASM_TOOLCHAIN_PROBE=ON')
+        & "$bin/cmake.exe" -S "$root/packs/cpp/qt" -B $fixture -G Ninja @options
+        if ($LASTEXITCODE) { throw 'Qt program configure failed' }
+        & "$bin/cmake.exe" --build $fixture
+        if ($LASTEXITCODE) { throw 'Qt program compilation failed' }
+        & $pythonTool "$PSScriptRoot/package_cpp_windows.py" --executable "$fixture/program.exe" --runtime $Runtime --output $Output
+        if ($LASTEXITCODE) { throw 'Packaging failed' }
+        $manifest = Get-Content "$Output/distribution.json" -Raw -Encoding UTF8 | ConvertFrom-Json
+        foreach ($file in $manifest.files) {
+            if ((Get-FileHash -LiteralPath (Join-Path $Output $file.path)).Hash -ne $file.sha256) {
+                throw "Hash mismatch: $($file.path)"
+            }
+        }
+        $env:PATH = "$env:SystemRoot/System32;$env:SystemRoot"
+        $env:QT_QPA_PLATFORM = 'offscreen'
+        $env:QT_PLUGIN_PATH = $null
+        $env:QT_QPA_PLATFORM_PLUGIN_PATH = $null
+        & "$Output/program.exe" | Out-Host
+        if ($LASTEXITCODE -ne 0) { throw "Packaged program failed ($LASTEXITCODE)" }
+        Write-Output "OK: standalone Qt Widgets program with a system-only PATH: $Output"
+    } finally {
+        foreach ($entry in $saved.GetEnumerator()) {
+            [Environment]::SetEnvironmentVariable($entry.Key, $entry.Value, 'Process')
+        }
+    }
+    return
+}
 $oldPath = $env:PATH
 $savedEnvironment = @{}
 $proc = $null

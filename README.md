@@ -1,79 +1,78 @@
-![ScreenShot](docs/main_ui.png)
+<h1 align="center">HiAsm Studio</h1>
 
-HiAsm - desktop IDE to create programs with a graphical programming
+<!--
+<p align="center">
+  <a href="README.md">English</a> |
+  <a href="README.zh.md">简体中文</a> |
+  <a href="README.ja.md">日本語</a> |
+  <a href="README.ru.md">Русский</a>
+</p>
+-->
 
-http://hiasm.com
+[![CI](https://github.com/ili4yov-ika/hiasm/actions/workflows/ci.yml/badge.svg)](https://github.com/ili4yov-ika/hiasm/actions/workflows/ci.yml)
 
-## Building on Windows (MSYS2 UCRT64)
+![Main window](docs/main_ui.png)
+# 
 
-Install the toolchain and dependencies:
+HiAsm — среда визуального программирования на C++ и Qt6.9.3. Проект хранится в текстовой схеме `.sha`. В редакторе можно добавлять элементы из палитры, перемещать их и открывать вложенные схемы. Двойной щелчок по значению свойства в инспекторе позволяет его изменить. Доступны также правка исходного текста схемы и отмена изменений.
 
-```sh
-pacman -S --needed mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-pkgconf \
-  mingw-w64-ucrt-x86_64-gtk4 mingw-w64-ucrt-x86_64-gtkmm-4.0 \
-  mingw-w64-ucrt-x86_64-sqlite3 mingw-w64-ucrt-x86_64-ninja mingw-w64-ucrt-x86_64-make \
-  mingw-w64-ucrt-x86_64-cmake
-```
+## Быстрый старт в Windows
 
-Build with CMake:
-
-```sh
-cmake --preset windows-mingw-gtk4-debug
-cmake --build --preset windows-mingw-gtk4-debug
-```
-
-Or with Make:
+Установите Qt 6.9.3 для LLVM-MinGW x64, соответствующий LLVM-MinGW, CMake и Ninja из Qt SDK, а также Python 3 для создания каталогов SQLite. Откройте обычный терминал Windows в корне проекта.
 
 ```bat
-tools\make_windows.bat
+tools\build_windows.bat release
 ```
 
-The build stages `resources/` and `packs/` into
-`build/Windows_MinGW-x64-GTK4-Debug/packs` and regenerates the package element databases.
-Runtime compilers belong to `packs/<package>/compiler`; the C++17 RTCG
-generator stages `CodeGen.dll`/`libCodeGen.so` there for the `cpp`, `web` and
-`modules` packages. The legacy FTCG generator can still be built for
-development with `-DHIASM_BUILD_FTCG=ON` when Free Pascal is installed, but it
-is not staged into any package.
-Run the GTK4 result with `tools\run-debug.bat` (sets the UCRT64 runtime `PATH`).
+После сборки скрипт запускает `build\qt69-native-release\hiasm.exe`. Запустить его можно и напрямую. Для сборки без открытия окна используйте `tools\build_windows.bat release build-only`. Менеджер проектов открывается в IDE по Ctrl+N. Компиляция схем встроена в `hiasm.exe`. В комплект входят RTCG и библиотека виджетов Core. Для сборки, отладки и запуска этих программ MSYS2, GTK3 и GTK4 не требуются.
 
-The helper script wraps configure/build and can also build the installer:
+В окне «Создание проекта» сверху выбирают пакет, снизу — его шаблон. Для пакетов HiAsm 4 IDE читает список установок из `packs/_hiasm4/paths.ini`. Чтобы указать другой список, задайте `HIASM4_ROOTS` с путями через точку с запятой. Например, при выборе «HiAsm 4: cnet → Console» откроется новая схема с палитрой CNET. Шаблон в установке HiAsm 4 сохраняется в исходном виде. Для компиляции внешних пакетов нужен 32-битный мост к генераторам HiAsm 4. В Qt-версии подключены открытие и редактирование таких схем.
+
+**F7** собирает текущую схему, **F9** собирает и запускает программу, **Shift+F9** останавливает её. Для схемы без имени IDE берёт содержимое вкладки и использует отдельную временную папку для сборки и запуска. Первое сохранение выполняется через «Сохранить» или «Сохранить как». После сохранения результаты сборки появляются в `build/qt-native/` рядом с файлом схемы. Примеры для проверки — `packs/cpp/example/hello.sha` и `packs/cpp/new/QtForm.sha`.
+
+Команда **Вид → Редактор формы** и кнопка с карандашом открывают конструктор. В Delphi-примере `Elements/delphi/Example/Forms/Notepad.sha` панель инструментов закреплена сверху, а поле заметок занимает свободную область. Потяните за нижний маркер панели, чтобы изменить её высоту. Выберите `ChildForm` в меню **⋯** рядом с путём внизу, чтобы открыть окно About.
+
+В конструктор элемент также можно перетащить из палитры. Щелчок по размещённому элементу открывает его свойства. Двойной щелчок по значению позволяет его изменить. Перетаскивание перемещает элемент, а маркеры выделения меняют размер с учётом выравнивания. Delete удаляет выбранный элемент, Ctrl+Z отменяет правку.
+
+В панели «Элементы» группы и подгруппы раскрываются щелчком по заголовку. Выберите элемент одним щелчком и перенесите указатель на схему или форму. Полуперекрестье со значком показывает место вставки. Щёлкните для размещения или нажмите Esc, чтобы отменить его. Двойной щелчок по значку добавляет элемент сразу.
+
+Чтобы создать связь, протяните её мышью между двумя совместимыми зелёными точками. Чтобы отсоединить конец связи, перетащите занятую точку на свободное место или выберите «Удалить связь» в меню этой точки. Перетащите на свободную совместимую точку, чтобы переподключить конец. Ctrl+Z восстанавливает прежнюю связь вместе с её маршрутом.
+
+Масштаб меняется ползунком под схемой или сочетанием Ctrl + колесо мыши. Цвета окна, схемы и редактора форм меняются через **Вид → Тема**. Выбор сохраняется между запусками.
+
+Панели доступны в меню **Вид** и на вкладках по краям редактора. «Каталог проектов» открывает примеры встроенных пакетов и установленных пакетов HiAsm 4. Изменённые примеры из установки HiAsm 4 сохраняются через «Сохранить как». «Репозиторий проекта» показывает схемы из текущего или выбранного каталога и запускает действия установленного Git или SVN. В «Настройке сборки» можно выбрать Debug или Release для C++-схемы и указать компилятор C++. «Ошибки» показывает диагностику сборки. Двойной щелчок по ошибке синтаксиса открывает строку схемы.
+
+В «Терминале» выберите доступную оболочку, введите команду и нажмите Enter. Сеанс запускается в каталоге активной схемы и сохраняет переменные и переходы между каталогами между командами. Вывод программы, запущенной по F9, доступен на вкладке «Вывод программы».
+
+Вкладки «Схема», «Исходник» и «Форма» используют общий путь внизу окна. Наведите указатель на `ROOT` или на имя одного из родительских уровней и щёлкните по подчёркнутому названию. Меню **⋯** открывает дочерние уровни. Во вкладке «Исходник» переход устанавливает курсор в начале выбранного уровня. При переключении вкладок уровень сохраняется.
+
+Чтобы открыть содержимое `ChildPanel`, дважды щёлкните по контейнеру на схеме или форме. Размер внутренней рамки меняется перетаскиванием правой или нижней границы. В числовой рамке `EditMulti` можно протянуть связь от контакта элемента к свободному месту на совместимой стороне рамки. Например, протяните `onClick` кнопки к правой границе. После возврата по пути к родительской схеме у контейнера появится соответствующий выход `onEvent1`. Создание контакта и связи отменяется одним Ctrl+Z. Для C++-форм сборка Qt поддерживает ChildPanel с панелью Panel и поддерживаемыми виджетами, включая связи событий и данных через рамку.
+
+Схемы прежних версий в Windows-1251 открываются с сохранением кодировки и перевода строк. Если при редактировании добавлен символ вне Windows-1251, редактор записывает файл в UTF-8 с BOM.
+
+Из командной строки тот же исполняемый файл собирает схему без открытия окна:
 
 ```bat
-tools\build_windows.bat debug
-tools\build_windows.bat release run
-tools\build_windows.bat installer
+build\qt69-native-release\hiasm.exe --build packs\cpp\example\hello.sha hello.exe
+build\qt69-native-release\hiasm.exe --generate packs\cpp\new\QtForm.sha form.cpp
 ```
 
-GTK4 is the default Windows backend. Use `tools\build_windows.bat gtk3 debug`
-only when the legacy GTK3 profile is required.
+## Редакторы и установка
 
-### VS Code and Zed
+- **Qt Creator** открывает корневой `CMakeLists.txt` или `HiAsm.pro`. Выберите комплект Qt 6.9 и цель запуска `hiasm`.
+- **VS Code** использует задачу `HiAsm: build Qt Debug` и профиль `HiAsm: Debug Qt` с GDB из Qt SDK.
+- **Zed** использует задачу `HiAsm: build Qt Debug` и профиль `HiAsm Qt (Debug)` с CodeLLDB.
+- **Установщик Windows** собирается командой `tools\build_windows.bat installer`. Для неё нужен NSIS 3. Результат — `build\HiAsm_Setup_Qt.exe`. Установщик включает Qt, компилятор C++ и пакеты.
 
-The repository includes project-local configurations for both IDEs:
+Инструкции по путям SDK, переносимой установке и тестам приведены в [руководстве по сборке](MARKDOWN/BUILD_WINDOWS.md). Возможности пакета описаны в [документации C++](docs/cpp.md), состояние переноса — в [чеклисте](MARKDOWN/CHECKLIST.md).
 
-- VS Code: select a CMake configure/build preset from the CMake Tools status bar.
-  The HiAsm: build GTK4 Debug task is the default build task; Run and Debug
-  contains HiAsm GTK4 (Debug) and HiAsm GTK3 (Debug) GDB launch profiles.
-- Zed: use the task picker (Ctrl+Shift+R) for build/run tasks or the debugger
-  panel (Ctrl+Shift+D) for the GTK4/GTK3 GDB profiles. Zed reads
-  .zed/tasks.json and .zed/debug.json from the project root.
+## Linux и macOS
 
-Both IDE configurations use C:\msys64\ucrt64\bin\gdb.exe and prepend
-the MSYS2 UCRT64 runtime directories to PATH. Set MSYS2_ROOT when MSYS2 is
-installed elsewhere, or update the IDE environment entries accordingly.
-The CMake presets generate compile_commands.json for clangd/IntelliSense in
-each selected build directory.
-
-`tools\build_windows_installer.bat gtk4` builds the GTK4 Release tree, copies
-the GTK/GLib runtime into `build\windows-installer\gtk4-install` and produces
-`build\HiAsm_Setup_GTK4.exe` (requires NSIS 3.x). Use `gtk3` for the legacy
-installer. Technical details: [`MARKDOWN/BUILD_WINDOWS.md`](MARKDOWN/BUILD_WINDOWS.md).
-
-On macOS install GTK3/gtkmm3, gtksourceviewmm3 and sqlite with Homebrew, then:
+Нужны CMake, Ninja, компилятор C++, Python 3 и комплект Qt 6.9 или новее с Widgets, Sql (с драйвером SQLite) и LinguistTools. При установке Qt в отдельный каталог передайте его в `CMAKE_PREFIX_PATH`.
 
 ```sh
-bash tools/build_macos.sh debug
-bash tools/build_macos.sh release run
+cmake -S . -B build/qt -G Ninja -DCMAKE_BUILD_TYPE=Release
+cmake --build build/qt
+ctest --test-dir build/qt --output-on-failure
+./build/qt/hiasm
 ```
-

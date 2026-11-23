@@ -1,0 +1,84 @@
+func doStart
+  println('{')
+  println('auto *status = new HiasmStatusBar(widgetParent);')
+  println('status->setObjectName(QStringLiteral("StatusBar', _id_, '"));')
+  println('status->setSizeGripEnabled(', get('SizeGrip') == 'True', ');')
+  println('status->messages = qt_text(', cstr(d('Strings')), ').split(QLatin1Char(10));')
+  println('const auto panels = qt_text(', cstr(d('Panels')), ').split(QLatin1Char(10), Qt::SkipEmptyParts);')
+  println('const Qt::Alignment alignments[] = {Qt::AlignLeft, Qt::AlignHCenter, Qt::AlignRight};')
+  println('for (const auto &line : panels) {')
+  println('  const auto separator = line.lastIndexOf(QLatin1Char(61));')
+  println('  bool fixed = false;')
+  println('  const int width = separator < 0 ? 0 : line.mid(separator + 1).toInt(&fixed);')
+  println('  auto *panel = new QLabel(fixed ? line.left(separator) : line, status);')
+  println('  panel->setTextFormat(Qt::PlainText);')
+  println('  panel->setAlignment(alignments[qBound(0, int(', get('TextAlign'), '), 2)] | Qt::AlignVCenter);')
+  println('  if (fixed && width > 0) panel->setFixedWidth(width);')
+  println('  status->panels.append(panel);')
+  println('  status->addWidget(panel, fixed && width > 0 ? 0 : 1);')
+  println('}')
+  println('status->summary = new QLabel(qt_text(', cstr(d('Text')), '), status);')
+  println('status->summary->setTextFormat(Qt::PlainText);')
+  println('status->summary->setAlignment(alignments[qBound(0, int(', get('TextAlign'), '), 2)] | Qt::AlignVCenter);')
+  println('status->addWidget(status->summary, 1);')
+  println('status->setVisible(', get('Visible') == 'True', ');')
+  println('status->place();')
+  println('}')
+end
+
+func PanelIndex()
+  if(linked('Panel'))
+    return('qt_text(' && d('Panel') && ').toInt()')
+  end
+  return('0')
+end
+
+func doText(_data)
+  fvar(value)
+  value = _data
+  if(linked('Text') or len(value) == 0)
+    value = cstr(d('Text'))
+  end
+  println('qt_widget<HiasmStatusBar>(form, "StatusBar', _id_, '")->setPanelText(', PanelIndex(), ', qt_text(', value, '));')
+  event(onText)
+end
+
+func doIndexText(_data)
+  println('{')
+  println('auto *status = qt_widget<HiasmStatusBar>(form, "StatusBar', _id_, '");')
+  if(len(_data) > 0)
+    println('const int index = qt_text(', _data, ').toInt();')
+  else
+    println('const int index = 0;')
+  end
+  println('status->setPanelText(', PanelIndex(), ', status->messages.value(index));')
+  println('}')
+  event(onText)
+end
+
+func doWidth(_data)
+  fvar(value)
+  value = _data
+  if(linked('Width'))
+    value = d('Width')
+  end
+  if(len(value) == 0)
+    value = '0'
+  end
+  println('if (auto *panel = qt_widget<HiasmStatusBar>(form, "StatusBar', _id_, '")->panels.value(', PanelIndex(), '))')
+  println('  panel->setFixedWidth(qMax(0, qt_text(', value, ').toInt()));')
+end
+
+func doVisible(_data)
+  if(len(_data) > 0)
+    println('qt_widget<HiasmStatusBar>(form, "StatusBar', _id_, '")->setVisible(qt_flag(qt_text(', _data, ')));')
+  end
+end
+
+func Count()
+  return('int(qt_widget<HiasmStatusBar>(form, "StatusBar' && _id_ && '")->panels.size())')
+end
+
+func Handle()
+  return('qt_widget<HiasmStatusBar>(form, "StatusBar' && _id_ && '")->winId()')
+end

@@ -13,6 +13,7 @@
 
 #include "SDK.h"
 #include "Elements.h"
+#include "CoreQtRuntime.h"
 #include "SchemeSyntax.h"
 #include "LegacyPackCatalog.h"
 
@@ -403,7 +404,15 @@ SDKParseError SDK::loadFromText(gchar *&text, int &line, int flag) {
 			gdouble x = atof(getTok(&text, ','));
 			gdouble y = atof(getTok(&text, ')'));
 
-			if((flag & ELEMENT_LOAD_PASTE) || e || elements.empty())
+			// A container already creates its inner parent. Reuse it before notifying
+			// single-child containers about additions to the scheme.
+			Element *innerParent = parent ? parent->getParentElement() : nullptr;
+			if(!(flag & ELEMENT_LOAD_PASTE) && innerParent && innerParent->tpl->name == name) {
+				e = innerParent;
+				e->move(x - e->x, y - e->y);
+				e->clearLinks();
+			}
+			else if((flag & ELEMENT_LOAD_PASTE) || e || elements.empty())
 				e = add(name, x, y);
 			else if((*elements.begin())->tpl->name == name) {
 				e = *elements.begin();
@@ -417,14 +426,6 @@ SDKParseError SDK::loadFromText(gchar *&text, int &line, int flag) {
 
 			// TODO check it wo element add
 			if(!e) return SDK_PERR_SYNTAX;
-			Element *pe = parent ? parent->getParentElement() : NULL;
-			if(elements.size() > 2 && pe != NULL && pe->tpl->name == e->tpl->name) {
-				Element *t = parent->getParentElement();
-				t->move(e->x - t->x, e->y - t->y);
-				remove(e);
-				e = t;
-				e->clearLinks();
-			}
 
 			if(flag&ELEMENT_LOAD_PASTE) {
 				selMan->add(e);
@@ -691,37 +692,50 @@ SDKParseError SDK::loadFromText(gchar *&text, int &line, int flag) {
 void SDK::prepareForRun(Element **parent) {
 	Element *main = NULL;
 	for(ElementsList::iterator e = elements.begin(); e != elements.end(); e++)
-		if((*e)->isParent() && (*e)->isCore()) {
+		if((*e)->isParent() && ((*e)->isCore() || (CoreQtRuntime::active() && CoreQtRuntime::isWidget(*e)))) {
 			main = *e;
 			break;
 		}
 
-	if(main)
-		dynamic_cast<ElementCore*>(main)->prepareForRun(parent);
+	if(main) {
+		if(CoreQtRuntime::prepare(main, *parent)) *parent = main;
+		else if(auto *core = dynamic_cast<ElementCore*>(main)) core->prepareForRun(parent);
+	}
 
-	for(ElementsList::iterator e = elements.begin(); e != elements.end(); e++)
-		if((*e)->isCore() && *e != main) {
+	for(ElementsList::iterator e = elements.begin(); e != elements.end(); e++) {
+		if(*e == main) continue;
+		if(CoreQtRuntime::prepare(*e, *parent)) continue;
+		if((*e)->isCore()) {
 			dynamic_cast<ElementCore*>(*e)->prepareForRun(parent);
 		}
+		else if(CoreQtRuntime::active() && ((*e)->tpl->name == "hcChildForm" || (*e)->tpl->name == "hcChildPanel") && (*e)->sdk) {
+			Element *owner = *parent;
+			(*e)->sdk->prepareForRun(&owner);
+		}
+	}
 
-	if(main)
-		dynamic_cast<ElementTplParent*>(main)->run();
+	if(main && !CoreQtRuntime::show(main))
+		if(auto *control = dynamic_cast<ElementTplParent*>(main)) control->run();
 }
 
 void SDK::stopRun() {
 	Element *main = NULL;
 	for(ElementsList::iterator e = elements.begin(); e != elements.end(); e++)
-		if((*e)->isParent() && (*e)->isCore()) {
+		if((*e)->isParent() && ((*e)->isCore() || CoreQtRuntime::owns(*e))) {
 			main = *e;
 			break;
 		}
 
-	for(ElementsList::iterator e = elements.begin(); e != elements.end(); e++)
-		if((*e)->isCore() && *e != main) {
+	for(ElementsList::iterator e = elements.begin(); e != elements.end(); e++) {
+		if(*e == main) continue;
+		if((*e)->isCore() && !CoreQtRuntime::owns(*e)) {
 			dynamic_cast<ElementCore*>(*e)->stopRun();
 		}
+		else if(CoreQtRuntime::active() && ((*e)->tpl->name == "hcChildForm" || (*e)->tpl->name == "hcChildPanel") && (*e)->sdk)
+			(*e)->sdk->stopRun();
+	}
 
-	if(main)
+	if(main && !CoreQtRuntime::owns(main))
 		dynamic_cast<ElementCore*>(main)->stopRun();
 }
 

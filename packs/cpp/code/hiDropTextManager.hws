@@ -1,0 +1,45 @@
+func DropManager()
+  return('static_cast<HiasmDropManager *>(form.findChild<QObject *>(QStringLiteral("DropTextManager' && _id_ && '")))')
+end
+
+func doStart
+  println('{')
+  println('auto *manager = new HiasmDropManager(&form);')
+  println('manager->setObjectName(QStringLiteral("DropTextManager', _id_, '"));')
+  println('manager->mode = ', get('DropType'), ';')
+  if(linked(onDrop))
+    println('manager->dropped = [&form](const QString &text) {')
+    event(onDrop, 'text')
+    println('};')
+  end
+  if(linked(onDragEnter))
+    println('manager->entered = [&form](int state) {')
+    event(onDragEnter, 'state')
+    println('};')
+  end
+  if(linked(onDragOver))
+    println('manager->moved = [&form](int state) {')
+    event(onDragOver, 'state')
+    println('};')
+  end
+  if(linked(onDragLeave))
+    println('manager->left = [&form] {')
+    event(onDragLeave)
+    println('};')
+  end
+  println('}')
+end
+
+func doListen(_data)
+  println(DropManager(), '->listen(qt_widget<QWidget>(form, ', cstr(get('qtControlTarget')), '));')
+end
+
+func doStop(_data)
+  println(DropManager(), '->stopListening();')
+end
+
+func doDropType(_data)
+  if(len(_data) > 0)
+    println(DropManager(), '->mode = qt_text(', _data, ').toInt();')
+  end
+end

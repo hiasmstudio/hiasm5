@@ -1,0 +1,34 @@
+include('qtCommandFamily')
+
+func doSetState(_data)
+  // The Delphi readers consume stream items only when their property default is empty/zero.
+  fvar(command, available, selected, streamIndex)
+  command = get('Name')
+  available = get('Enabled')
+  selected = get('Checked')
+  streamIndex = 0
+  if(linked('Name'))
+    command = d('Name')
+  elseif(command == '' and isnull(mt_arg(streamIndex)) == 0)
+    command = mt_arg(streamIndex)
+    streamIndex = streamIndex + 1
+  end
+  if(linked('Enabled'))
+    available = d('Enabled')
+  elseif(available == 0 and isnull(mt_arg(streamIndex)) == 0)
+    available = mt_arg(streamIndex)
+    streamIndex = streamIndex + 1
+  end
+  if(linked('Checked'))
+    selected = d('Checked')
+  elseif(selected == 0 and isnull(mt_arg(streamIndex)) == 0)
+    selected = mt_arg(streamIndex)
+  end
+  println('{')
+  println('const auto commandName = qt_text(', cstr(command), ');')
+  println('const bool commandEnabled = qt_command_nonzero(', cstr(available), ');')
+  println('const bool commandChecked = qt_command_nonzero(', cstr(selected), ');')
+  println('if (auto *center = ', QtCommandCenterTarget(), ') center->state(commandName, commandEnabled, commandChecked);')
+  println('}')
+  event(onSetState)
+end

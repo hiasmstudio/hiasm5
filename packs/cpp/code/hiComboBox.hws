@@ -7,6 +7,91 @@ func Arg(value)
 end
 
 func doStart
+  if(is_qt_project())
+    qtStart()
+  else
+    gtkStart()
+  end
+end
+
+func qtTarget()
+  return('qt_widget<QComboBox>(form, "ComboBox' && _id_ && '")')
+end
+
+func qtFill(text)
+  println('target->clear();')
+  println('if (const auto text = ', text, '; !text.isEmpty())')
+  println('  target->addItems(QString(text).remove(QChar(13)).split(QChar(10)));')
+  qtSort()
+  println('target->setCurrentIndex(-1);')
+end
+
+func qtSort()
+  if(get('Sort') == 'True')
+    println('target->model()->sort(0);')
+  end
+end
+
+func qtSelection(point, target)
+  fvar(payload)
+  payload = 'comboSelection' && _id_
+  if(get('DataType') == 1)
+    println('const auto ', payload, ' = ', target, '->itemText(', target, '->currentIndex());')
+  else
+    println('const auto ', payload, ' = ', target, '->currentIndex();')
+  end
+  event(point, payload)
+end
+
+func qtStart
+  println('{')
+  block.inclvl()
+  println('auto *target = new QComboBox(widgetParent);')
+  println('target->setObjectName(QStringLiteral("ComboBox', _id_, '"));')
+  println('target->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+  if(get('ReadOnly') != 0)
+    println('target->setEditable(true);')
+    println('target->setInsertPolicy(QComboBox::NoInsert);')
+  end
+  println('target->setMaxVisibleItems(qMax(1, int(', get('DropDownCount'), ')));')
+  if(get('ItemHeight') > 0)
+    println('target->view()->setStyleSheet(QStringLiteral("QAbstractItemView::item { min-height: ', get('ItemHeight'), 'px; }"));')
+  end
+  if(isndef(Color))
+    println('if (auto color = QColor::fromString(qt_text(', cstr(get('Color')), ')); color.isValid()) { auto palette = target->palette(); palette.setColor(QPalette::Base, color); palette.setColor(QPalette::Button, color); target->setPalette(palette); }')
+  end
+  if(get('Visible') == 'False')
+    println('target->hide();')
+  end
+  if(get('Enabled') == 'False')
+    println('target->setEnabled(false);')
+  end
+  qtFill('qt_text(' && cstr(get('Strings')) && ')')
+  println('QTimer::singleShot(0, target, [&form, target] { qt_list_icons(target, form, qt_text(', cstr(get('qtIconsManager')), '), qt_text(', cstr(get('qtIndexManager')), ')); });')
+  println('QTimer::singleShot(0, target, [&form, target] { qt_box_draw(target->view(), form, qt_text(', cstr(get('qtBoxDrawManager')), ')); });')
+  println('const auto initial = qt_text(', cstr(get('Text')), ');')
+  println('if (!target->isEditable()) target->setPlaceholderText(initial);')
+  println('target->setCurrentIndex(target->findText(initial));')
+  println('if (target->isEditable()) target->setEditText(initial);')
+  if(linked(onClick))
+    println('QObject::connect(target, &QComboBox::activated, &form, [&form, target](int) {')
+    block.inclvl()
+    qtSelection(onClick, 'target')
+    block.declvl()
+    println('});')
+  end
+  if(linked(onChangeText))
+    println('QObject::connect(target, &QComboBox::editTextChanged, &form, [&form](const QString &text) {')
+    block.inclvl()
+    event(onChangeText, 'text')
+    block.declvl()
+    println('});')
+  end
+  block.declvl()
+  println('}')
+end
+
+func gtkStart
   println('{')
   fvar(first, parts, i)
   first = 0
@@ -68,41 +153,157 @@ func First()
 end
 
 func doAdd(_data)
+  if(is_qt_project())
+    println('{ auto *target = ', qtTarget(), ';')
+    println('const QSignalBlocker blocker(target);')
+    println('target->insertItem(', 1 - First(), ' ? target->count() : 0, qt_text(', cstr(d('Str')), '));')
+    qtSort()
+    println('}')
+    event(onChange)
+    return()
+  end
   println('hiasm_combo_add(GTK_COMBO_BOX(hiasm_widget("ComboBox', _id_, '").get()), hiasm_text(', Arg(_data), ').c_str(), ', First(), ');')
   event(onChange)
 end
 
 func doText(_data)
+  if(is_qt_project())
+    println('{ auto *target = ', qtTarget(), ';')
+    println('const QSignalBlocker blocker(target);')
+    qtFill('qt_text(' && Arg(_data) && ')')
+    println('}')
+    event(onChange)
+    return()
+  end
   println('hiasm_combo_from_text(GTK_COMBO_BOX(hiasm_widget("ComboBox', _id_, '").get()), hiasm_text(', Arg(_data), ').c_str(), ', First(), ');')
   event(onChange)
 end
 
 func doClear(_data)
+  if(is_qt_project())
+    println('{ auto *target = ', qtTarget(), '; const QSignalBlocker blocker(target); target->clear(); }')
+    event(onChange)
+    return()
+  end
   println('hiasm_combo_clear(GTK_COMBO_BOX(hiasm_widget("ComboBox', _id_, '").get()));')
   event(onChange)
 end
 
 func doSelect(_data)
+  if(is_qt_project())
+    println('{ auto *target = ', qtTarget(), ';')
+    println('const int index = qt_text(', Arg(_data), ').toInt();')
+    println('{ const QSignalBlocker blocker(target); target->setCurrentIndex(index >= 0 && index < target->count() ? index : -1); }')
+  if(linked(onSelect))
+    qtSelection(onSelect, 'target')
+  end
+    println('}')
+    return()
+  end
   println('gtk_combo_box_set_active(GTK_COMBO_BOX(hiasm_widget("ComboBox', _id_, '").get()), static_cast<int>(', _data, '));')
   event(onSelect, _data)
 end
 
 func doReplace(_data)
+  if(is_qt_project())
+    println('{ auto *target = ', qtTarget(), '; const QSignalBlocker blocker(target);')
+    println('const int index = qt_text(', Arg(_data), ').toInt();')
+    if(linked('Str'))
+      println('if (index >= 0 && index < target->count()) {')
+      println('target->setItemText(index, qt_text(', cstr(d('Str')), '));')
+      qtSort()
+      println('}')
+    end
+    println('}')
+    return()
+  end
   println('hiasm_combo_replace(GTK_COMBO_BOX(hiasm_widget("ComboBox', _id_, '").get()), hiasm_text(', Arg(_data), ').c_str());')
   event(onChange)
 end
 
 func doAddDir(_data)
+  if(is_qt_project())
+    println('{ auto *target = ', qtTarget(), '; const QSignalBlocker blocker(target);')
+    println('const auto directory = qt_text(', Arg(_data), ');')
+    println('if (!directory.isEmpty()) { target->clear(); target->addItems(QDir(directory).entryList(QDir::Files, QDir::Name));')
+    qtSort()
+    println('target->setCurrentIndex(-1); } }')
+    return()
+  end
   println('hiasm_combo_add_dir(GTK_COMBO_BOX(hiasm_widget("ComboBox', _id_, '").get()), hiasm_text(', Arg(_data), ').c_str());')
   event(onChange)
 end
 
 func doEditText(_data)
+  if(is_qt_project())
+    println('{ auto *target = ', qtTarget(), ';')
+    println('if (target->isEditable()) {')
+    println('{ const QSignalBlocker blocker(target); target->setEditText(qt_text(', Arg(_data), ')); }')
+    qtEditSelection()
+    if(linked(onChangeText))
+      println('const auto comboEditText', _id_, ' = target->currentText();')
+      event(onChangeText, 'comboEditText' && _id_)
+    end
+    println('} }')
+    return()
+  end
   println('{ GtkWidget *entry = gtk_combo_box_get_child(GTK_COMBO_BOX(hiasm_widget("ComboBox', _id_, '").get())); if(entry && GTK_IS_EDITABLE(entry)) gtk_editable_set_text(GTK_EDITABLE(entry), hiasm_text(', Arg(_data), ').c_str()); }')
 end
 
 func doEditTextNoEvents(_data)
-  doEditText(_data)
+  if(is_qt_project())
+    println('{ auto *target = ', qtTarget(), ';')
+    println('if (target->isEditable()) {')
+    println('const QSignalBlocker blocker(target);')
+    println('target->setEditText(qt_text(', Arg(_data), '));')
+    qtEditSelection()
+    println('} }')
+  else
+    doEditText(_data)
+  end
+end
+
+func qtEditSelection()
+  if(get('EditSelectMode') == 0)
+    println('target->lineEdit()->selectAll();')
+  else
+    println('target->lineEdit()->end(false);')
+  end
+end
+
+func doDelete(_data)
+  if(is_qt_project())
+    println('{ auto *target = ', qtTarget(), '; const QSignalBlocker blocker(target); target->removeItem(qt_text(', Arg(_data), ').toInt()); }')
+    event(onChange)
+  end
+end
+
+func doSelectString(_data)
+  if(is_qt_project())
+    println('{ auto *target = ', qtTarget(), '; const QSignalBlocker blocker(target);')
+    println('auto text = qt_text(', Arg(_data), ');')
+    println('if (!text.isEmpty()) { const auto star = text.indexOf(QChar(42)); target->setCurrentIndex(star < 0 ? target->findText(text, Qt::MatchFixedString) : target->findText(text.left(star), Qt::MatchStartsWith)); } }')
+  end
+end
+
+func doLoad(_data)
+  if(is_qt_project())
+    println('{ QFile file(qt_text(', cstr(d('FileName')), '));')
+    println('if (file.open(QIODevice::ReadOnly)) {')
+    println('{ auto *target = ', qtTarget(), '; const QSignalBlocker blocker(target);')
+    qtFill('QString::fromUtf8(file.readAll())')
+    println('file.close();')
+    println('}')
+    event(onChange)
+    println('} }')
+  end
+end
+
+func doSave(_data)
+  if(is_qt_project())
+    println('{ QFile file(qt_text(', cstr(d('FileName')), '));')
+    println('if (file.open(QIODevice::WriteOnly)) file.write((', Text(), ').toUtf8()); }')
+  end
 end
 
 func Array()
@@ -110,26 +311,43 @@ func Array()
 end
 
 func String()
+  if(is_qt_project())
+    return('([](QComboBox *box) { return box->itemText(box->currentIndex()); }(' && qtTarget() && '))')
+  end
   return('hiasm_combo_text(hiasm_combo("ComboBox' && _id_ && '"))')
 end
 
 func Index()
+  if(is_qt_project())
+    return(qtTarget() && '->currentIndex()')
+  end
   return('gtk_combo_box_get_active(hiasm_combo("ComboBox' && _id_ && '"))')
 end
 
 func Text()
+  if(is_qt_project())
+    return('([](QComboBox *box) { QStringList lines; for (int i = 0; i < box->count(); ++i) lines.append(box->itemText(i)); return lines.join(QString(QChar(13)) + QChar(10)); }(' && qtTarget() && '))')
+  end
   return('hiasm_join_lines(hiasm_combo_lines(hiasm_combo("ComboBox' && _id_ && '")))')
 end
 
 func Count()
+  if(is_qt_project())
+    return(qtTarget() && '->count()')
+  end
   return('static_cast<int>(hiasm_combo_lines(hiasm_combo("ComboBox' && _id_ && '")).size())')
 end
 
 func EndIdx()
+  if(is_qt_project())
+    return('(' && Count() && ' - 1)')
+  end
   return('(static_cast<int>(hiasm_combo_lines(hiasm_combo("ComboBox' && _id_ && '")).size()) - 1)')
 end
 
 func EditText()
+  if(is_qt_project())
+    return(qtTarget() && '->currentText()')
+  end
   return('std::string(gtk_editable_get_text(GTK_EDITABLE(gtk_combo_box_get_child(GTK_COMBO_BOX(hiasm_combo("ComboBox' && _id_ && '"))))))')
 end
-

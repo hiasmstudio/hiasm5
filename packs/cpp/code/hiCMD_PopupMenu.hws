@@ -1,0 +1,38 @@
+include('qtCommandFamily')
+
+func doStart
+  println('{')
+  println('auto *popup = new QMenu(widgetParent);')
+  println('popup->setObjectName(QStringLiteral("CMD_PopupMenu', _id_, '"));')
+  println('HiasmCommandBindings::get(form)->pending.append([&form, guard = QPointer<QMenu>(popup)] {')
+  println('if (!guard) return;')
+  println('if (auto *center = ', QtCommandCenterTarget(), ') {')
+  QtCommandMonitor('guard.data()')
+  QtCommandAction()
+  println('qsizetype index = 0;')
+  println('center->buildMenu(*guard, HiasmCommandCenter::lines(qt_text(', cstr(get('Menu')), ')), index, localAction);')
+  println('}')
+  println('});')
+  println('}')
+end
+
+func QtCommandPopup(position)
+  println('qt_command_bind(form);')
+  println('if (auto *popup = qt_widget<QMenu>(form, "CMD_PopupMenu', _id_, '")) popup->exec(', position, ');')
+end
+
+func doPopupHere(_data)
+  QtCommandPopup('QCursor::pos()')
+end
+
+func doPopup(_data)
+  if(mt_count() >= 2)
+    QtCommandPopup('QPoint(qt_text(' && cstr(mt_arg(0)) && ').toInt(), qt_text(' && cstr(mt_arg(1)) && ').toInt())')
+  elseif(mt_count() == 1)
+    println('{ const quint32 position = quint32(qt_text(', cstr(mt_arg(0)), ').toLongLong());')
+    QtCommandPopup('QPoint(qint16(position & 0xffffu), qint16(position >> 16))')
+    println('}')
+  else
+    QtCommandPopup('QCursor::pos()')
+  end
+end

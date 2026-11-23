@@ -1,0 +1,13 @@
+include('qtTVT')
+
+func doItemPath(_data)
+  fvar(path)
+  path = 'tvtPath' && _id_
+  println('{ const auto id = qt_tvt_id(', TVArg('ID', _data), '); auto *tree = ', TVTree(), ';')
+  println('if (auto *item = tree ? tree->find(id) : nullptr) {')
+  println('const auto ', path, ' = HiasmTreeViewTrain::path(item, qt_text(', cstr(get('Delimiter')), '));')
+  event(onItemPath, path)
+  println('} else {')
+  event(onError)
+  println('} }')
+end

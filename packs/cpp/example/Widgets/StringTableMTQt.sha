@@ -1,0 +1,30 @@
+Make(cpp)
+Add(MainForm,1,28,28)
+{
+ Backend=1
+ Caption="MT column metadata"
+ Width=520
+ Height=230
+ link(onCreate,2:doGetCol_MT,[])
+}
+Add(StringTableMT,2,168,84)
+{
+ Left=12
+ Top=12
+ Width=170
+ Height=165
+ Columns=#13:Name=140=-1=2|
+ Point(doGetCol_MT)
+ Point(onMT_GetCol)
+ link(onMT_GetCol,3:doMT_Add,[])
+}
+Add(StringTableMT,3,280,84)
+{
+ Left=195
+ Top=12
+ Width=310
+ Height=165
+ ColumnWidth=58
+ Columns=#5:Index|4:Name|5:Width|4:Icon|5:Align|
+ Point(doMT_Add)
+}

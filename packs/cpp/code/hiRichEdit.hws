@@ -1,0 +1,298 @@
+// The Qt preamble needs QTextEdit, QTextCharFormat and QTextBlock in addition
+// to the headers shared with Memo (QTextCursor, QTextDocument, QFile, etc.).
+func qtTarget()
+  return('qt_widget<QTextEdit>(form, "RichEdit' && _id_ && '")')
+end
+
+func CRLF()
+  return('.replace(QChar(10), QString(QChar(13)) + QChar(10))')
+end
+
+func doStart
+  if(not is_qt_project())
+    return()
+  end
+  println('{')
+  block.inclvl()
+  println('auto *target = new QTextEdit(widgetParent);')
+  println('target->setObjectName(QStringLiteral("RichEdit', _id_, '"));')
+  println('target->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+  if(get('Visible') == 'False')
+    println('target->hide();')
+  end
+  if(get('Enabled') == 'False')
+    println('target->setEnabled(false);')
+  end
+  if(isndef(Color))
+    println('if (const auto color = QColor::fromString(qt_text(', cstr(get('Color')), ')); color.isValid()) {')
+    block.inclvl()
+    println('auto palette = target->palette();')
+    println('palette.setColor(QPalette::Base, color);')
+    println('target->setPalette(palette);')
+    block.declvl()
+    println('}')
+  end
+  if(isndef(Font) and get('ParentFont') != 'True')
+    println('const auto fontSpec = qt_text(', cstr(get('Font')), ');')
+    println('if (fontSpec.startsWith(QChar(91)) && fontSpec.endsWith(QChar(93))) {')
+    block.inclvl()
+    println('const auto fields = fontSpec.mid(1, fontSpec.size() - 2).split(QChar(44));')
+    println('const int size = fields.value(1).toInt();')
+    println('if (fields.size() >= 3 && size >= 1 && size <= 256) {')
+    block.inclvl()
+    println('QFont font(fields.first(), size);')
+    println('const int flags = fields.at(2).toInt();')
+    println('font.setBold(flags & 1);')
+    println('font.setItalic(flags & 2);')
+    println('font.setUnderline(flags & 4);')
+    println('font.setStrikeOut(flags & 8);')
+    println('target->setFont(font);')
+    block.declvl()
+    println('}')
+    block.declvl()
+    println('}')
+  end
+  if(get('Ctl3D') == 0)
+    println('target->setFrameShape(QFrame::NoFrame);')
+  end
+  if(get('ReadOnly') == 0)
+    println('target->setReadOnly(true);')
+  end
+  println('target->setTabChangesFocus(', get('WantTab') != 0, ');')
+  fvar(scroll)
+  scroll = get('ScrollBars')
+  if(scroll == 1 or scroll == 3)
+    println('target->setLineWrapMode(QTextEdit::NoWrap);')
+  else
+    println('target->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);')
+  end
+  if(scroll < 2)
+    println('target->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);')
+  end
+  println('target->setPlainText(qt_text(', cstr(get('Strings')), '));')
+  if(linked(onChange))
+    println('QObject::connect(target, &QTextEdit::textChanged, &form, [&form, target] {')
+    block.inclvl()
+    println('const QString richText', _id_, ' = target->toPlainText()', CRLF(), ';')
+    event(onChange, 'richText' && _id_)
+    block.declvl()
+    println('});')
+  end
+  block.declvl()
+  println('}')
+end
+
+func charFormat()
+  // Unlinked Color and Style default to 0, independently of the event data.
+  if(linked('Color'))
+    println('const unsigned color = unsigned(qt_text(', cstr(d('Color')), ').toLongLong());')
+  else
+    println('const unsigned color = 0;')
+  end
+  if(linked('Style'))
+    println('const int style = qt_text(', cstr(d('Style')), ').toInt();')
+  else
+    println('const int style = 0;')
+  end
+  println('QTextCharFormat format;')
+  println('format.setForeground(QColor(color & 255, (color >> 8) & 255, (color >> 16) & 255));')
+  println('format.setFontWeight((style & 1) ? QFont::Bold : QFont::Normal);')
+  println('format.setFontItalic((style & 2) != 0);')
+  println('format.setFontUnderline((style & 4) != 0);')
+end
+
+func doAdd(_data)
+  if(not is_qt_project())
+    return()
+  end
+  println('{')
+  block.inclvl()
+  println('auto *target = ', qtTarget(), ';')
+  println('auto cursor = target->textCursor();')
+  println('auto text = qt_text(', cstr(d('Str')), ');')
+  charFormat()
+  if(get('AddType') == 1)
+    println('cursor.movePosition(QTextCursor::Start);')
+    if(get('InsertCRLF') == 0)
+      println('if (!target->document()->isEmpty()) text.append(QChar(10));')
+    end
+  else
+    println('cursor.movePosition(QTextCursor::End);')
+    if(get('InsertCRLF') == 0)
+      println('if (!target->document()->isEmpty()) text.prepend(QChar(10));')
+    end
+  end
+  println('cursor.insertText(text, format);')
+  println('target->setTextCursor(cursor);')
+  block.declvl()
+  println('}')
+end
+
+func doFormatSel(_data)
+  if(not is_qt_project())
+    return()
+  end
+  println('{')
+  block.inclvl()
+  println('auto cursor = ', qtTarget(), '->textCursor();')
+  println('if (cursor.hasSelection()) {')
+  block.inclvl()
+  charFormat()
+  println('cursor.mergeCharFormat(format);')
+  block.declvl()
+  println('}')
+  block.declvl()
+  println('}')
+end
+
+func doText(_data)
+  if(is_qt_project())
+    println(qtTarget(), '->setPlainText(qt_text(', cstr(_data), '));')
+  end
+end
+
+func doClear(_data)
+  if(is_qt_project())
+    println('{ auto cursor = ', qtTarget(), '->textCursor();')
+    println('  cursor.select(QTextCursor::Document); cursor.removeSelectedText(); }')
+  end
+end
+
+func doDelete(_data)
+  if(not is_qt_project())
+    return()
+  end
+  println('{')
+  block.inclvl()
+  println('auto *doc = ', qtTarget(), '->document();')
+  println('bool validIndex = false;')
+  println('const int index = qt_text(', cstr(_data), ').toInt(&validIndex);')
+  println('if (validIndex && index >= 0 && index < doc->blockCount() && !doc->isEmpty()) {')
+  block.inclvl()
+  println('const auto line = doc->findBlockByNumber(index);')
+  println('QTextCursor cursor(line);')
+  println('if (line.next().isValid()) {')
+  println('  cursor.setPosition(line.next().position(), QTextCursor::KeepAnchor);')
+  println('} else {')
+  println('  if (line.previous().isValid()) cursor.movePosition(QTextCursor::PreviousCharacter);')
+  println('  cursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);')
+  println('}')
+  println('cursor.removeSelectedText();')
+  block.declvl()
+  println('}')
+  block.declvl()
+  println('}')
+end
+
+func openFile()
+  println('QFile file(qt_text(', cstr(d('FileName')), '));')
+  // Avoid interpreting or saving plain text under the Delphi RTF extension.
+  println('const auto path = file.fileName();')
+  println('const bool html = path.endsWith(QStringLiteral(".html"), Qt::CaseInsensitive) || path.endsWith(QStringLiteral(".htm"), Qt::CaseInsensitive);')
+end
+
+func doLoad(_data)
+  if(not is_qt_project())
+    return()
+  end
+  println('{')
+  block.inclvl()
+  openFile()
+  println('if (!path.endsWith(QStringLiteral(".rtf"), Qt::CaseInsensitive) && file.open(QIODevice::ReadOnly)) {')
+  block.inclvl()
+  println('const auto bytes = file.readAll();')
+  println('const bool readOk = file.error() == QFileDevice::NoError;')
+  println('file.close();')
+  println('if (readOk) {')
+  println('  auto *target = ', qtTarget(), ';')
+  println('  if (html) target->setHtml(QString::fromUtf8(bytes));')
+  println('  else target->setPlainText(QString::fromUtf8(bytes));')
+  println('}')
+  block.declvl()
+  println('}')
+  block.declvl()
+  println('}')
+end
+
+func doSave(_data)
+  if(not is_qt_project())
+    return()
+  end
+  println('{')
+  block.inclvl()
+  openFile()
+  println('if (!path.endsWith(QStringLiteral(".rtf"), Qt::CaseInsensitive) && file.open(QIODevice::WriteOnly)) {')
+  println('  auto *target = ', qtTarget(), ';')
+  println('  const auto text = html ? target->toHtml() : target->toPlainText()', CRLF(), ';')
+  println('  file.write(text.toUtf8());')
+  println('}')
+  block.declvl()
+  println('}')
+end
+
+func doSetSelect(_data)
+  if(is_qt_project())
+    println(qtTarget(), '->insertPlainText(qt_text(', cstr(_data), '));')
+  end
+end
+
+func doSetSelStart(_data)
+  if(is_qt_project())
+    println('{ auto *target = ', qtTarget(), '; auto cursor = target->textCursor();')
+    println('  cursor.setPosition(qBound(0, qt_text(', cstr(_data), ').toInt(), target->document()->characterCount() - 1));')
+    println('  target->setTextCursor(cursor); }')
+  end
+end
+
+func doSetSelLength(_data)
+  if(is_qt_project())
+    println('{ auto *target = ', qtTarget(), '; auto cursor = target->textCursor();')
+    println('  const int start = cursor.selectionStart();')
+    println('  const int length = qBound(0, qt_text(', cstr(_data), ').toInt(), target->document()->characterCount() - 1 - start);')
+    println('  cursor.setPosition(start);')
+    println('  cursor.setPosition(start + length, QTextCursor::KeepAnchor);')
+    println('  target->setTextCursor(cursor); }')
+  end
+end
+
+func doUndo(_data)
+  if(is_qt_project())
+    println(qtTarget(), '->undo();')
+  end
+end
+
+func doRedo(_data)
+  if(is_qt_project())
+    println(qtTarget(), '->redo();')
+  end
+end
+
+func Text()
+  if(is_qt_project())
+    return(qtTarget() && '->toPlainText()' && CRLF())
+  end
+end
+
+func Count()
+  if(is_qt_project())
+    return('([](const QTextDocument *doc) { return doc->isEmpty() ? 0 : doc->blockCount(); }(' && qtTarget() && '->document()))')
+  end
+end
+
+func EndIdx()
+  if(is_qt_project())
+    return('(' && Count() && ' - 1)')
+  end
+end
+
+func Position()
+  if(is_qt_project())
+    return(qtTarget() && '->textCursor().position()')
+  end
+end
+
+func SelText()
+  if(is_qt_project())
+    return(qtTarget() && '->textCursor().selectedText().replace(QChar(0x2029), QChar(10)).replace(QChar(0x2028), QChar(10))' && CRLF())
+  end
+end

@@ -1,0 +1,57 @@
+func ScrollTarget()
+  return('qt_widget<QScrollBar>(form, "ScrollBarEx' && _id_ && '")')
+end
+
+func doStart
+  println('{')
+  fvar(orientation)
+  orientation = 'Qt::Horizontal'
+  if(get('Kind') == 1)
+    orientation = 'Qt::Vertical'
+  end
+  println('auto *scroll = new QScrollBar(', orientation, ', widgetParent);')
+  println('scroll->setObjectName(QStringLiteral("ScrollBarEx', _id_, '"));')
+  println('scroll->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+  println('scroll->setRange(', Min, ', ', Max, ');')
+  println('scroll->setValue(', get('Position'), ');')
+  println('auto palette = scroll->palette();')
+  println('palette.setColor(QPalette::Window, qt_led_color(qt_text(', cstr(d('Color')), '), palette.color(QPalette::Window)));')
+  println('palette.setColor(QPalette::Light, qt_led_color(qt_text(', cstr(d('LightColor')), '), palette.color(QPalette::Light)));')
+  println('palette.setColor(QPalette::Dark, qt_led_color(qt_text(', cstr(d('DarkColor')), '), palette.color(QPalette::Dark)));')
+  println('palette.setColor(QPalette::Button, qt_led_color(qt_text(', cstr(d('FaceColor')), '), palette.color(QPalette::Button)));')
+  println('palette.setColor(QPalette::ButtonText, qt_led_color(qt_text(', cstr(d('ArrowColor')), '), palette.color(QPalette::ButtonText)));')
+  println('scroll->setPalette(palette);')
+  if(get('ScrollMode') == 1)
+    println('scroll->setTracking(false);')
+  end
+  if(linked(onPosition))
+    println('QObject::connect(scroll, &QScrollBar::valueChanged, &form, [&form](int value) {')
+    event(onPosition, 'value')
+    println('});')
+  end
+  println('}')
+end
+
+func doPosition(_data)
+  if(len(_data) > 0)
+    println(ScrollTarget(), '->setValue(qt_text(', _data, ').toInt());')
+  else
+    println(ScrollTarget(), '->setValue(0);')
+  end
+end
+
+func doMin(_data)
+  if(len(_data) > 0)
+    println(ScrollTarget(), '->setMinimum(qt_text(', _data, ').toInt());')
+  end
+end
+
+func doMax(_data)
+  if(len(_data) > 0)
+    println(ScrollTarget(), '->setMaximum(qt_text(', _data, ').toInt());')
+  end
+end
+
+func Position()
+  return(ScrollTarget() && '->value()')
+end

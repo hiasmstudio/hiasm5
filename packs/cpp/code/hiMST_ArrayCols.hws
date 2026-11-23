@@ -1,0 +1,9 @@
+include('qtMstClient')
+
+func ColumnArray()
+  return('([](HiasmMstTable *table) { QVariantList columns; if (table) for (int col = 0; col < table->columnCount(); ++col) columns.append(table->columnFields(col).join(table->separator)); return columns; }(' && MstTarget() && '))')
+end
+
+func MTCols()
+  return(ColumnArray())
+end

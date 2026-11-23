@@ -1,15 +1,19 @@
+func curlResultName()
+  return('$curlResult' && _id_)
+end
+
 func doExec(_data)
 	// TODO
 	fvar(s)
 	s = 'curl_exec('+cURLID+');'
 	
 	if (linked(onExec) or linked(onError))
-		println (result, ' = ', s)
+		println (curlResultName(), ' = ', s)
 		if (linked(onExec))
-			println ('if (', result, ' !== FALSE)')
+			println ('if (', curlResultName(), ' !== FALSE)')
 			println ('{')
 			block.inclvl()
-			event(onExec, result)
+			event(onExec, curlResultName())
 			block.declvl()
 			println('}')
 			if (linked (onError))
@@ -21,7 +25,7 @@ func doExec(_data)
 				println('}')
 			end
 		else
-			println ('if (', result, ' === FALSE)')
+			println ('if (', curlResultName(), ' === FALSE)')
 			println ('{')
 			block.inclvl()
 			event(onError, 'curl_errno('+cURLID+')')

@@ -1,0 +1,11 @@
+include('qtMstClient')
+
+func doEditEnd(_data)
+  fvar(mode)
+  mode = mt_arg(0)
+  if(linked('EditEnd'))
+    mode = d('EditEnd')
+  end
+  MstBegin()
+  println(MstLocal(), '->finishEdit(', MstInt(mode), ' != 0); }')
+end

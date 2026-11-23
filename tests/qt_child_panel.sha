@@ -1,0 +1,60 @@
+Make(cpp)
+Add(MainForm,1,21,21)
+{
+ Caption="Nested Qt panel"
+}
+Add(ChildPanel,2,112,77)
+{
+ link(onEvent1,1:doClose,[])
+ link(Data1,7:Caption,[])
+}
+BEGIN_SDK
+ Add(EditMulti,3,14,14)
+ {
+  WorkCount=1
+  EventCount=1
+  DataCount=1
+  link(doWork1,5:doText,[])
+ }
+ Add(Panel,4,56,56)
+ {
+  Width=180
+  Height=80
+ }
+ Add(Edit,5,98,63)
+ {
+  Text="Before"
+  link(Str,3:Data1,[])
+  link(onChange,3:onEvent1,[])
+ }
+END_SDK
+Add(Label,7,21,112)
+{
+ Caption="After"
+}
+Add(GroupBox,9,40,140)
+{
+ Caption="Options"
+ Flat=0
+}
+Add(ChildForm,10,80,140)
+{
+ link(onEvent1,2:doWork1,[])
+}
+BEGIN_SDK
+ Add(EditMulti,11,14,14)
+ {
+  EventCount=1
+ }
+ Add(MainForm,12,56,56)
+ {
+  Caption="Separate window"
+  link(onCreate,13:doText,[])
+  link(onClose,11:onEvent1,[])
+ }
+ Add(Edit,13,98,63)
+ {
+  Text="Child edit"
+  link(onChange,12:doClose,[])
+ }
+END_SDK

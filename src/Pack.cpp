@@ -217,7 +217,7 @@ PackElement *Pack::addElement(const ustring &name, const ustring &info) {
 	if(!pe->image)
 		pe->image = loadIconFile(dataDir + ELEMENTS_NIL_FILE);
 	if(!pe->image)
-		pe->image = Gdk::Pixbuf::create(Gdk::Colorspace::RGB, true, 8, 16, 16);
+		pe->image = Gdk::Pixbuf::create(static_cast<Gdk::Colorspace>(GDK_COLORSPACE_RGB), true, 8, 16, 16);
 #endif
 
 	elements.push_back(pe);

@@ -1,0 +1,32 @@
+Make(cpp)
+Add(MainForm,1,28,28)
+{
+ Backend=1
+ Caption="Link palette"
+ Width=320
+ Height=200
+}
+Add(CtrlPalette,2,140,84)
+{
+ Left=12
+ Top=12
+ Width=150
+ Caption="Categories"
+ Strings=#5:First|6:Second|
+ CollapseOnSelect=0
+ BoxDrawManager="selection"
+ link(onClick,3:doText,[])
+}
+Add(Label,3,250,84)
+{
+ Left=175
+ Top=12
+ Caption="Select an item"
+}
+Add(BoxDrawManager,7,140,196)
+{
+ Name="selection"
+ Horizontal=0
+ LightColor=#cfe8ff
+ DarkColor=#3983bf
+}

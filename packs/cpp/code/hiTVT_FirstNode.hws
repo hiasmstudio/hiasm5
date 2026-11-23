@@ -1,0 +1,16 @@
+include('qtTVT')
+
+func doFirstNode(_data)
+  fvar(row)
+  row = 'tvtRow' && _id_
+  println('{ const auto id = qt_tvt_id(', TVArg('ID', _data), '); auto *tree = ', TVTree(), ';')
+  println('if (auto *parent = tree ? tree->find(id) : nullptr) {')
+  println('if (auto *first = parent->child(0)) {')
+  println('const auto ', row, ' = HiasmTreeViewTrain::tuple(first);')
+  event(onFirstNode, row)
+  println('} else {')
+  event(onEmpty)
+  println('} } else {')
+  event(onError)
+  println('} }')
+end

@@ -81,12 +81,16 @@ WidgetEditorEx::WidgetEditorEx(SDK *sdk, SDK_Editor *sde) {
 			if(Gtk::Frame *frame = dynamic_cast<Gtk::Frame*>(main->ctl)) {
 				panelField = new Gtk::Fixed();
 				// The field has the designer's dot grid and a border, as the field of a form.
-				panelField->add_css_class("hiasm-panel-field");
+				panelField->get_style_context()->add_class("hiasm-panel-field");
 				panelCss = Gtk::CssProvider::create();
 				panelCss->load_from_data(".hiasm-panel-field { border: 1px solid #8a8a8a; "
 					"background-image: radial-gradient(circle, #9a9a9a 1px, transparent 1px); background-size: 8px 8px; }\n");
 				panelField->get_style_context()->add_provider(panelCss, G_MAXUINT);
+#ifdef HIASM_GTK4
 				frame->set_child(*panelField);
+#else
+				frame->add(*panelField);
+#endif
 				main->on_property_change += this;
 				applyPanelSize(main);
 			}
@@ -224,8 +228,8 @@ void WidgetEditorEx::applyPanelSize(Element *panel) {
 		else
 			frame->set_label(text);
 		frame->set_size_request(width ? width->readInt() : 60, height ? height->readInt() : 50);
-		frame->set_halign(Gtk::Align::START);
-		frame->set_valign(Gtk::Align::START);
+		gtk_widget_set_halign(GTK_WIDGET(frame->gobj()), GTK_ALIGN_START);
+		gtk_widget_set_valign(GTK_WIDGET(frame->gobj()), GTK_ALIGN_START);
 		frame->set_hexpand(false);
 		frame->set_vexpand(false);
 	}
@@ -678,28 +682,42 @@ bool WidgetEditorEx::drawSelection(const Cairo::RefPtr<Cairo::Context> &cr) {
 // The form is drawn like the window of HiAsm 4: a title bar (icon, Caption and the window buttons) above the
 // client area. Which parts show follows BorderStyle (applyFormStyle).
 void WidgetEditorEx::buildFormFrame() {
-	formFrame = new Gtk::Box(Gtk::Orientation::VERTICAL);
-	formFrame->add_css_class("hiasm-form-frame");
-	formTitle = new Gtk::Box(Gtk::Orientation::HORIZONTAL, 4);
-	formTitle->add_css_class("hiasm-form-title");
+	formFrame = new VBox();
+	formFrame->get_style_context()->add_class("hiasm-form-frame");
+	formTitle = new HBox(false, 4);
+	formTitle->get_style_context()->add_class("hiasm-form-title");
 	// The HiAsm icon, as the window of HiAsm 4 shows it in the title bar.
+	#ifdef HIASM_GTK4
 	auto icon = new Gtk::Picture();
+	#else
+	auto icon = Gtk::manage(new Gtk::Image());
+	#endif
 	const ustring logo = dataDir + INT_PATH"hiasm.png";
+	#ifdef HIASM_GTK4
 	if(g_file_test(logo.c_str(), G_FILE_TEST_IS_REGULAR)) icon->set_filename(logo.raw());
-	icon->set_size_request(16, 16);
 	icon->set_can_shrink(false);
-	formTitle->append(*icon);
+	#else
+	if(g_file_test(logo.c_str(), G_FILE_TEST_IS_REGULAR)) icon->set(Gdk::Pixbuf::create_from_file(logo, 16, 16));
+	#endif
+	icon->set_size_request(16, 16);
+	box_pack_start(*formTitle, *icon, false, false, 0);
 	formTitleText = new Gtk::Label();
 	formTitleText->set_hexpand(true);
 	formTitleText->set_xalign(0);
-	formTitle->append(*formTitleText);
+	box_pack_start(*formTitle, *formTitleText, true, true, 0);
 	auto windowButton = [this](const char *iconName) {
 		auto button = new Gtk::Button();
+		#ifdef HIASM_GTK4
 		button->set_icon_name(iconName);
-		button->add_css_class("flat");
-		button->add_css_class("hiasm-window-button");
+		#else
+		auto image = Gtk::manage(new Gtk::Image());
+		image->set_from_icon_name(iconName, Gtk::ICON_SIZE_BUTTON);
+		button->set_image(*image);
+		#endif
+		button->get_style_context()->add_class("flat");
+		button->get_style_context()->add_class("hiasm-window-button");
 		button->get_style_context()->add_provider(formCss, G_MAXUINT);
-		formTitle->append(*button);
+		box_pack_start(*formTitle, *button, false, false, 0);
 		return button;
 	};
 	formMinimize = windowButton("window-minimize-symbolic");
@@ -707,8 +725,8 @@ void WidgetEditorEx::buildFormFrame() {
 	windowButton("window-close-symbolic");
 	formTitle->get_style_context()->add_provider(formCss, G_MAXUINT);
 	formFrame->get_style_context()->add_provider(formCss, G_MAXUINT);
-	formFrame->append(*formTitle);
-	formFrame->append(*formSurface);
+	box_pack_start(*formFrame, *formTitle, false, false, 0);
+	box_pack_start(*formFrame, *formSurface, false, false, 0);
 }
 
 void WidgetEditorEx::applyFormStyle(Element *form) {
@@ -729,9 +747,9 @@ void WidgetEditorEx::applyFormStyle(Element *form) {
 	formMinimize->set_visible(sizable);
 	formMaximize->set_visible(sizable);
 	if(style == 0)
-		formFrame->add_css_class("hiasm-noframe");
+		formFrame->get_style_context()->add_class("hiasm-noframe");
 	else
-		formFrame->remove_css_class("hiasm-noframe");
+		formFrame->get_style_context()->remove_class("hiasm-noframe");
 
 	ElementProperty *color = form->props.getByName("Color");
 	std::string css = ".hiasm-noframe { border-width: 0; }\n"

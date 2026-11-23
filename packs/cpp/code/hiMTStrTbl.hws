@@ -1,0 +1,194 @@
+include('qtMstClient')
+
+func MstTarget()
+  return('qt_widget<HiasmMstTable>(form, "MTStrTbl' && _id_ && '")')
+end
+
+func doStart()
+  fvar(table, row, col, value, style, align)
+  table = MstLocal()
+  row = 'mstRow' && _id_
+  col = 'mstColumn' && _id_
+  value = 'mstValue' && _id_
+  println('{ auto *', table, ' = new HiasmMstTable(widgetParent);')
+  println(table, '->setObjectName(QStringLiteral("MTStrTbl', _id_, '"));')
+  println(table, '->virtualMode = ', get('VirtualTab') == 'True', ';')
+  println('QTimer::singleShot(0, ', table, ', [&form, ', table, '] {')
+  println('  const auto name = qt_text(', cstr(get('qtMstDrawManager')), ');')
+  println('  if (!name.isEmpty()) qt_mst_attach_draw(', table, ', dynamic_cast<HiasmMstDraw *>(form.findChild<QObject *>(name)));')
+  println('});')
+  println(table, '->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+  println(table, '->setVisible(', get('Visible') == 'True', ');')
+  println(table, '->setEnabled(', get('Enabled') == 'True', ');')
+  println(table, '->setToolTip(qt_text(', cstr(get('Hint')), '));')
+  println('qt_apply_font(', table, ', qt_text(', cstr(get('Font')), '));')
+  if(not isdef(Color))
+    println('qt_mst_palette(', table, ', QPalette::Base, qt_text(', cstr(get('Color')), '));')
+  end
+  if(get('Ctl3D') != 'True')
+    println(table, '->setFrameShape(QFrame::NoFrame);')
+  end
+  println(table, '->verticalHeader()->hide();')
+  println(table, '->horizontalHeader()->setMinimumSectionSize(0);')
+  println(table, '->horizontalHeader()->setSectionsClickable(true);')
+  println(table, '->horizontalHeader()->setSectionsMovable(', get('HeaderDragDrop') == 'True', ');')
+  println(table, '->setWidthChange(', get('ChangeWidth') == 'True', ');')
+  style = 3
+  if(get('Style') != 'lvsDetail')
+    style = 4
+  end
+  println(table, '->setTableStyle(', style, ');')
+  println(table, '->setShowGrid(', get('Grid') == 'True', ');')
+  println(table, '->setMulti(', get('MultiSelect') == 'True', ');')
+  println(table, '->setMouseTracking(', get('TrackSelect') == 'True', ');')
+  println(table, '->infoTip = ', get('InfoTip') == 'True', ';')
+  println(table, '->checkRows = ', get('CheckBoxes') == 'True', ';')
+  println(table, '->colorRows = ', get('ColorItems') == 'True', ';')
+  println(table, '->colorPosition = ', NColorRow, ';')
+  println(table, '->clickEnabled = ', get('EnableOnClick') == 'True', ';')
+  println(table, '->defaultWidth = ', ColumnWidth, ';')
+  align = 0
+  if(get('TextAlign') == 'taRight')
+    align = 1
+  elseif(get('TextAlign') == 'taCenter')
+    align = 2
+  end
+  println(table, '->defaultAlignment = ', align, ';')
+  println('if (const auto delimiter = qt_text(', cstr(get('ColDelimiter')), '); !delimiter.isEmpty()) ', table, '->separator = delimiter;')
+  if(get('Scroll') != 'True')
+    println(table, '->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);')
+    println(table, '->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);')
+  end
+  if(get('Redaction') != 'True')
+    println(table, '->setEditTriggers(QAbstractItemView::NoEditTriggers);')
+  end
+  if(get('RowSelect') == 'True')
+    println(table, '->setSelectionBehavior(QAbstractItemView::SelectRows);')
+  end
+  println('for (auto definition : qt_text(', cstr(get('Columns')), ').split(QChar(10), Qt::SkipEmptyParts)) {')
+  println('  if (definition.endsWith(QChar(13))) definition.chop(1);')
+  println('  ', table, '->column(', table, '->columnCount(), definition, true);')
+  println('}')
+  if(linked(onClick))
+    println('QObject::connect(', table, ', &QTableWidget::cellPressed, &form, [&form, ', table, '](int ', row, ', int) {')
+    println('if (', table, '->clickEnabled) {')
+    event(onClick, row)
+    println('} });')
+  end
+  if(linked(onSelect))
+    println('QObject::connect(', table, ', &QTableWidget::currentCellChanged, &form, [&form](int ', row, ', int, int previous, int) {')
+    println('if (', row, ' >= 0 && ', row, ' != previous) {')
+    event(onSelect, row)
+    println('} });')
+  end
+  if(linked(onColumnClick))
+    println('QObject::connect(', table, '->horizontalHeader(), &QHeaderView::sectionClicked, &form, [&form, ', table, '](int ', col, ') {')
+    if(get('ColumnClick') == 1)
+      event(onColumnClick, col)
+    else
+      println('const auto ', value, ' = ', table, '->columnFields(', col, ').value(0);')
+      event(onColumnClick, value)
+    end
+    println('});')
+  end
+  println('QObject::connect(', table, ', &QTableWidget::cellChanged, &form, [&form, ', table, '](int ', row, ', int ', col, ') {')
+  println('auto *cell = ', table, '->item(', row, ', ', col, ');')
+  println('if (!cell) return;')
+  println('auto *meta = ', table, '->verticalHeaderItem(', row, ');')
+  println('if (', col, ' == 0 && meta && ', table, '->checkRows && meta->data(Qt::CheckStateRole) != cell->data(Qt::CheckStateRole)) {')
+  println('  meta->setData(Qt::CheckStateRole, cell->data(Qt::CheckStateRole));')
+  event(onCheck, row, table && '->checked(' && row && ')')
+  println('  return;')
+  println('}')
+  println('{ const QSignalBlocker blocker(', table, '); cell->setToolTip(', table, '->infoTip ? cell->text() : QString()); }')
+  if(linked(onLineChange))
+    println('const auto ', value, ' = ', table, '->rowTuple(', row, ');')
+    event(onLineChange, value)
+  end
+  println('});')
+  println('}')
+end
+
+func doClientRect(_data)
+  fvar(rect, row, col)
+  rect = 'mstRectangle' && _id_
+  row = MstDefault(mt_arg(0), get('Row'))
+  col = MstDefault(mt_arg(MstNext('Row', 0)), get('Col'))
+  if(linked('Row'))
+    row = d('Row')
+  end
+  if(linked('Col'))
+    col = d('Col')
+  end
+  println('{ const auto ', rect, ' = ', MstTarget(), '->cellRect(', MstInt(row), ', ', MstInt(col), ');')
+  event(onClientRect, rect && '.x()', rect && '.y()', rect && '.width()', rect && '.height()')
+  println('}')
+end
+
+func doGrid(_data)
+  println(MstTarget(), '->setShowGrid(', MstInt(_data), ' != 0);')
+end
+
+func doStyle(_data)
+  println(MstTarget(), '->setTableStyle(', MstInt(_data), ');')
+end
+
+func doInfoTip(_data)
+  println(MstTarget(), '->updateTips(', MstInt(_data), ' != 0);')
+end
+
+func doTrackSelect(_data)
+  println(MstTarget(), '->setMouseTracking(', MstInt(_data), ' != 0);')
+end
+
+func doMultiSelect(_data)
+  println(MstTarget(), '->setMulti(', MstInt(_data), ' != 0);')
+end
+
+func doEnableOnClick(_data)
+  println(MstTarget(), '->clickEnabled = ', MstInt(_data), ' != 0;')
+end
+
+func doChangeWidth(_data)
+  println(MstTarget(), '->setWidthChange(', MstInt(_data), ' != 0);')
+end
+
+func doNColorRow(_data)
+  println(MstTarget(), '->colorPosition = ', MstInt(_data), ';')
+end
+
+func doColor(_data)
+  println('qt_mst_palette(', MstTarget(), ', QPalette::Base, ', MstText(_data), ');')
+end
+
+func doSetFocus(_data)
+  println(MstTarget(), '->setFocus();')
+end
+
+func doVisible(_data)
+  println(MstTarget(), '->setVisible(', MstInt(_data), ' != 0);')
+end
+
+func doEnabled(_data)
+  println(MstTarget(), '->setEnabled(', MstInt(_data), ' != 0);')
+end
+
+func doHint(_data)
+  println(MstTarget(), '->setToolTip(', MstText(_data), ');')
+end
+
+func ItemAtPos()
+  return(MstTarget() && '->rowAt(' && MstTarget() && '->viewport()->mapFromGlobal(QCursor::pos()).y())')
+end
+
+func TopItem()
+  return(MstTarget() && '->rowAt(0)')
+end
+
+func PerPage()
+  return(MstTarget() && '->perPage()')
+end
+
+func MTStrTbl()
+  return(MstTarget())
+end

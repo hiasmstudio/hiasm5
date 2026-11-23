@@ -8,6 +8,7 @@
 #include "ElementPoint.h"
 #include "Data.h"
 #include "Elements.h"
+#include "CoreQtRuntime.h"
 #include <set>
 
 ElementPoint::ElementPoint(Element *parent, const ustring &name, const ustring &info, int type) {
@@ -443,7 +444,7 @@ ElementPoint *ElementPoint::getRealPointWithPath() {
 void ElementPoint::on_event(TData *data) {
 	if(point) {
 		Element *e = point->parent;
-		if(e->isCore()) {
+		if(!CoreQtRuntime::work(point, data) && e->isCore()) {
 			dynamic_cast<ElementCore*>(e)->do_work(point, data);
 		}
 	}
@@ -452,7 +453,7 @@ void ElementPoint::on_event(TData *data) {
 void ElementPoint::get_data(TData *data) {
 	if(point) {
 		Element *e = point->parent;
-		if(e->isCore()) {
+		if(!CoreQtRuntime::read(point, data) && e->isCore()) {
 			dynamic_cast<ElementCore*>(e)->read_var(point, data);
 		}
 	}

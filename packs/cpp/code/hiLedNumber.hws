@@ -1,0 +1,94 @@
+func NumberTarget()
+  return('qt_widget<HiasmLedNumber>(form, "LedNumber' && _id_ && '")')
+end
+
+func doStart
+  println('{')
+  println('auto *display = new HiasmLedNumber(widgetParent);')
+  println('display->setObjectName(QStringLiteral("LedNumber', _id_, '"));')
+  println('display->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+  println('display->text = qt_text(', cstr(get('Text')), ');')
+  switch(get('Alignment'))
+    case 'taLeft': println('display->alignment = 0;')
+    case 'taCenter': println('display->alignment = 2;')
+  end
+  println('display->showLines = ', get('ShowLines') == 'True', ';')
+  println('display->colorHover = ', get('ColorHover') == 'True', ';')
+  println('display->background = qt_led_color(qt_text(', cstr(d('FonColor')), '), display->background);')
+  println('display->foreground = qt_led_color(qt_text(', cstr(d('SegColor')), '), display->foreground);')
+  println('display->inactive = qt_led_color(qt_text(', cstr(d('NoSegColor')), '), display->inactive);')
+  println('display->hoverBackground = qt_led_color(qt_text(', cstr(d('FonHover')), '), display->hoverBackground);')
+  println('display->hoverForeground = qt_led_color(qt_text(', cstr(d('SegHover')), '), display->hoverForeground);')
+  println('display->hoverInactive = qt_led_color(qt_text(', cstr(d('NoSegHover')), '), display->hoverInactive);')
+  if(linked(onClick))
+    println('display->clicked = [&form] {')
+    event(onClick)
+    println('};')
+  end
+  println('}')
+end
+
+func doText(_data)
+  fvar(value)
+  value = _data
+  if(linked('Text'))
+    value = d('Text')
+  elseif(len(value) == 0)
+    value = '""'
+  end
+  println('{ auto *display = ', NumberTarget(), '; display->text = qt_text(', value, '); display->update(); }')
+end
+
+func Caption()
+  return(NumberTarget() && '->text')
+end
+
+func doAlignment(_data)
+  if(len(_data) > 0)
+    println('{ auto *display = ', NumberTarget(), '; display->alignment = qBound(0, qt_text(', _data, ').toInt(), 2); display->update(); }')
+  end
+end
+
+func SetFlag(field, value)
+  if(len(value) > 0)
+    println('{ auto *display = ', NumberTarget(), '; display->', field, ' = qt_flag(qt_text(', value, ')); display->update(); }')
+  end
+end
+
+func doShowLines(_data)
+  SetFlag('showLines', _data)
+end
+
+func doColorHover(_data)
+  SetFlag('colorHover', _data)
+end
+
+func SetColor(field, value)
+  if(len(value) > 0)
+    println('{ auto *display = ', NumberTarget(), '; display->', field, ' = qt_led_color(qt_text(', value, '), display->', field, '); display->update(); }')
+  end
+end
+
+func doFonColor(_data)
+  SetColor('background', _data)
+end
+
+func doSegColor(_data)
+  SetColor('foreground', _data)
+end
+
+func doNoSegColor(_data)
+  SetColor('inactive', _data)
+end
+
+func doFonHover(_data)
+  SetColor('hoverBackground', _data)
+end
+
+func doSegHover(_data)
+  SetColor('hoverForeground', _data)
+end
+
+func doNoSegHover(_data)
+  SetColor('hoverInactive', _data)
+end

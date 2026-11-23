@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Сборка HiAsm Studio на macOS (CMake, GTK3/gtkmm3 из Homebrew).
+# Сборка HiAsm Studio на macOS (CMake, Qt 6.9+).
 #
 # Использование:
 #   bash tools/build_macos.sh              # Debug
@@ -11,13 +11,6 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
-ENV_FILE="${HOME}/.hiasm_macos_env.sh"
-
-if [[ -f "$ENV_FILE" ]]; then
-    # shellcheck disable=SC1090
-    source "$ENV_FILE"
-fi
-
 BUILD_TYPE="Debug"
 RUN_TEST=0
 RUN_APP=0
@@ -59,6 +52,5 @@ fi
 
 if [[ "$RUN_APP" -eq 1 ]]; then
     echo "=== Запуск HiAsm Studio ==="
-    # Программа ищет int/, elements/, gtkrc рядом с текущим каталогом.
     (cd "$BUILD_DIR" && "$APP_BIN")
 fi

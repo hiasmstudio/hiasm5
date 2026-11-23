@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SchemeEditor</class>
+ <widget class="QWidget" name="SchemeEditor">
+  <layout class="QVBoxLayout" name="editorLayout">
+   <property name="leftMargin"><number>0</number></property>
+   <property name="topMargin"><number>0</number></property>
+   <property name="rightMargin"><number>0</number></property>
+   <property name="bottomMargin"><number>0</number></property>
+   <item>
+    <widget class="QTabWidget" name="editorViews">
+     <property name="documentMode"><bool>true</bool></property>
+     <widget class="QWidget" name="diagramPage">
+      <attribute name="title"><string>Diagram</string></attribute>
+      <layout class="QVBoxLayout" name="diagramLayout">
+       <item>
+        <widget class="QLabel" name="diagramError">
+         <property name="wordWrap"><bool>true</bool></property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGraphicsView" name="canvas">
+         <property name="alignment"><set>Qt::AlignLeft|Qt::AlignTop</set></property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="sourcePage">
+      <attribute name="title"><string>Source</string></attribute>
+      <layout class="QVBoxLayout" name="sourceLayout">
+       <property name="leftMargin"><number>0</number></property>
+       <property name="topMargin"><number>0</number></property>
+       <property name="rightMargin"><number>0</number></property>
+       <property name="bottomMargin"><number>0</number></property>
+       <item>
+        <widget class="QPlainTextEdit" name="sourceEditor">
+         <property name="lineWrapMode"><enum>QPlainTextEdit::NoWrap</enum></property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="formPage">
+      <attribute name="title"><string>Form</string></attribute>
+      <layout class="QVBoxLayout" name="formLayout">
+       <item><widget class="QLabel" name="formHint"><property name="text"><string>Drag a control to move it. Drag a selection handle to resize.</string></property><property name="wordWrap"><bool>true</bool></property></widget></item>
+       <item><widget class="QScrollArea" name="formScroll"><property name="widgetResizable"><bool>true</bool></property></widget></item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="navigationLayout" stretch="1,0,0,0">
+     <property name="leftMargin"><number>9</number></property>
+     <property name="rightMargin"><number>9</number></property>
+     <property name="bottomMargin"><number>6</number></property>
+     <item>
+      <widget class="QScrollArea" name="pathScroll">
+       <property name="frameShape"><enum>QFrame::NoFrame</enum></property>
+       <property name="verticalScrollBarPolicy"><enum>Qt::ScrollBarAlwaysOff</enum></property>
+       <property name="widgetResizable"><bool>true</bool></property>
+       <widget class="QWidget" name="schemePath">
+        <layout class="QHBoxLayout" name="pathLayout">
+         <property name="spacing"><number>0</number></property>
+         <property name="leftMargin"><number>0</number></property>
+         <property name="topMargin"><number>0</number></property>
+         <property name="rightMargin"><number>0</number></property>
+         <property name="bottomMargin"><number>0</number></property>
+         <item>
+          <widget class="QToolButton" name="childLevels">
+           <property name="text"><string notr="true">⋯</string></property>
+           <property name="toolTip"><string>Nested schemes</string></property>
+           <property name="accessibleName"><string>Nested schemes</string></property>
+           <property name="autoRaise"><bool>true</bool></property>
+           <property name="popupMode"><enum>QToolButton::InstantPopup</enum></property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="zoomValue">
+       <property name="text"><string notr="true">100%</string></property>
+       <property name="alignment"><set>Qt::AlignRight|Qt::AlignVCenter</set></property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSlider" name="zoomSlider">
+       <property name="accessibleName"><string>Zoom</string></property>
+       <property name="toolTip"><string>Zoom</string></property>
+       <property name="maximumSize"><size><width>120</width><height>16777215</height></size></property>
+       <property name="minimum"><number>30</number></property>
+       <property name="maximum"><number>400</number></property>
+       <property name="singleStep"><number>5</number></property>
+       <property name="value"><number>100</number></property>
+       <property name="orientation"><enum>Qt::Horizontal</enum></property>
+      </widget>
+     </item>
+     <item><widget class="QLabel" name="selectionCount"/></item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

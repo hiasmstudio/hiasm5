@@ -1,0 +1,38 @@
+Make(cpp)
+Add(MainForm,1,28,28)
+{
+ Backend=1
+ Caption="Grid layout"
+ Width=340
+ Height=150
+}
+Add(GridLayout,2,140,28)
+{
+ Name="fields"
+ Cols=2
+ Padding=12
+ Space=8
+}
+Add(Label,3,224,84)
+{
+ Layout="fields"
+ Width=80
+ Caption="First name"
+}
+Add(Edit,4,224,140)
+{
+ Layout="fields"
+ WidthScale=100
+ Text="Ada"
+}
+Add(Label,5,224,196)
+{
+ Layout="fields"
+ Width=80
+ Caption="Last name"
+}
+Add(Edit,6,224,252)
+{
+ Layout="fields"
+ Text="Lovelace"
+}

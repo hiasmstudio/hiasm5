@@ -1,0 +1,24 @@
+include('qtTVT')
+
+func doStart()
+  TVStartState()
+end
+
+func doGetNode(_data)
+  fvar(id, row)
+  id = 'tvtID' && _id_
+  row = 'tvtRow' && _id_
+  println('{ const auto ', id, ' = qt_tvt_id(', TVArg('ID', _data), ');')
+  println('auto *tree = ', TVTree(), ';')
+  println('if (auto *item = tree ? tree->find(', id, ') : nullptr) {')
+  println('const auto ', row, ' = HiasmTreeViewTrain::tuple(item);')
+  TVRecord(row)
+  event(onGetNode, row)
+  println('} else {')
+  event(onGetFailed, id)
+  println('} }')
+end
+
+func Node()
+  return(TVNode())
+end

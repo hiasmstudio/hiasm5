@@ -1,0 +1,5 @@
+func doStart
+  println('{ auto *source = new HiasmStaticData(&form);')
+  println('source->setObjectName(QStringLiteral("DS_StaticData', _id_, '"));')
+  println('source->load(qt_text(', cstr(get('Columns')), '), qt_text(', cstr(get('Data')), ')); }')
+end

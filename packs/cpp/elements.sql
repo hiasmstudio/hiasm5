@@ -869,7 +869,222 @@ INSERT INTO "planned_elements" VALUES('WinEnum','Перебор окон','Windo
 INSERT INTO "planned_elements" VALUES('WindowAnimation','Анимация окон','Windows','WindowAnimation.ico');
 DELETE FROM sqlite_sequence;
 INSERT INTO "sqlite_sequence" VALUES('groups',36);
-INSERT INTO "sqlite_sequence" VALUES('elements',955);
+INSERT INTO "sqlite_sequence" VALUES('elements',957);
+-- Section markers are ordered within Widgets, as in the Delphi palette.
+INSERT INTO elements(name,info,tab,pos,hash) VALUES
+ ('*Widgets_Rush','Rush-Контролы',1,100,''),
+ ('*Widgets_Graphics','Графические',1,200,''),
+ ('*Widgets_Dynamic','Динамические',1,300,''),
+ ('*Widgets_Extended','Расширенные',1,400,''),
+ ('*Widgets_Managers','Менеджеры',1,500,''),
+ ('*Widgets_Layouts','Слои',1,600,''),
+ ('*Widgets_Experiments','Experiments',1,700,''),
+ ('*Widgets_TupleTree','Дерево картежей',1,800,''),
+ ('*Widgets_MTTable','Строковая таблица MT',1,900,''),
+ ('*Widgets_Plotting','Графопостроитель',1,1000,''),
+ ('*Widgets_Commands','Центр команд',1,1100,'');
+
+UPDATE elements SET pos=CASE name
+ WHEN 'ComboBox' THEN 9 WHEN 'ListBox' THEN 14 WHEN 'Memo' THEN 15
+ WHEN 'ScrollBar' THEN 20 WHEN 'TrackBar' THEN 23 WHEN 'ProgressBar' THEN 24
+ WHEN 'ChildForm' THEN 27 WHEN 'ChildPanel' THEN 28 WHEN 'GroupBox' THEN 30
+ ELSE pos END WHERE tab=1 AND pos<100;
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,CASE name WHEN 'BitBtn' THEN 6 WHEN 'FontBox' THEN 12 WHEN 'DatePicker' THEN 13 WHEN 'Image' THEN 17 WHEN 'UpDown' THEN 22 WHEN 'StatusBar' THEN 26 WHEN 'ChildGroupBox' THEN 29 WHEN 'LED' THEN 203 WHEN 'ChildFormEx' THEN 301 ELSE 302 END,''
+ FROM planned_elements WHERE name IN ('BitBtn','FontBox','DatePicker','Image','UpDown','StatusBar','ChildGroupBox','ChildFormEx','ChildPanelEx','LED');
+DELETE FROM planned_elements WHERE name IN ('BitBtn','FontBox','DatePicker','Image','UpDown','StatusBar','ChildGroupBox','ChildFormEx','ChildPanelEx','LED');
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,205,'' FROM planned_elements WHERE name='GProgressBar';
+DELETE FROM planned_elements WHERE name='GProgressBar';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,11,'' FROM planned_elements WHERE name='DriveBox';
+DELETE FROM planned_elements WHERE name='DriveBox';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,25,'' FROM planned_elements WHERE name='TabControl';
+DELETE FROM planned_elements WHERE name='TabControl';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,202,'' FROM planned_elements WHERE name='VisualShape';
+DELETE FROM planned_elements WHERE name='VisualShape';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,18,'' FROM planned_elements WHERE name='PaintBox';
+DELETE FROM planned_elements WHERE name='PaintBox';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,10,'' FROM planned_elements WHERE name='ColorBox';
+DELETE FROM planned_elements WHERE name='ColorBox';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,31,'' FROM planned_elements WHERE name='ChildScrollBox';
+DELETE FROM planned_elements WHERE name IN ('ChildScrollBox','ScrollBox');
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,207,'' FROM planned_elements WHERE name='LedNumber';
+DELETE FROM planned_elements WHERE name='LedNumber';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,206,'' FROM planned_elements WHERE name='LedLadder';
+DELETE FROM planned_elements WHERE name='LedLadder';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,19,'' FROM planned_elements WHERE name='AlphaImage';
+DELETE FROM planned_elements WHERE name='AlphaImage';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,204,'' FROM planned_elements WHERE name='ScrollBarEx';
+DELETE FROM planned_elements WHERE name='ScrollBarEx';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,201,'' FROM planned_elements WHERE name='ImgBtn';
+DELETE FROM planned_elements WHERE name='ImgBtn';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,208,'' FROM planned_elements WHERE name='Grapher';
+DELETE FROM planned_elements WHERE name='Grapher';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,508,'' FROM planned_elements WHERE name='RedrawManager';
+DELETE FROM planned_elements WHERE name='RedrawManager';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,16,'' FROM planned_elements WHERE name='RichEdit';
+DELETE FROM planned_elements WHERE name='RichEdit';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,32,'' FROM planned_elements WHERE name='Splitter';
+DELETE FROM planned_elements WHERE name='Splitter';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,CASE name WHEN 'DropFileManager' THEN 512 ELSE 513 END,''
+ FROM planned_elements WHERE name IN ('DropFileManager','DropTextManager');
+DELETE FROM planned_elements WHERE name IN ('DropFileManager','DropTextManager');
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,33,'' FROM planned_elements WHERE name='Menu';
+DELETE FROM planned_elements WHERE name='Menu';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,34,'' FROM planned_elements WHERE name='PopupMenu';
+DELETE FROM planned_elements WHERE name='PopupMenu';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,402,'' FROM planned_elements WHERE name='StatusBarEx';
+DELETE FROM planned_elements WHERE name='StatusBarEx';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,507,'' FROM planned_elements WHERE name='FontManager';
+DELETE FROM planned_elements WHERE name='FontManager';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,511,'' FROM planned_elements WHERE name='TransparentManager';
+DELETE FROM planned_elements WHERE name='TransparentManager';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,501,'' FROM planned_elements WHERE name='HintManager';
+DELETE FROM planned_elements WHERE name='HintManager';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,502,'' FROM planned_elements WHERE name='UserHintManager';
+DELETE FROM planned_elements WHERE name='UserHintManager';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,509,'' FROM planned_elements WHERE name='UseExtCursor';
+DELETE FROM planned_elements WHERE name='UseExtCursor';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,510,'' FROM planned_elements WHERE name='UseWinAnimation';
+DELETE FROM planned_elements WHERE name='UseWinAnimation';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,504,'' FROM planned_elements WHERE name='IndexManager';
+DELETE FROM planned_elements WHERE name='IndexManager';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,505,'' FROM planned_elements WHERE name='IconsManager';
+DELETE FROM planned_elements WHERE name='IconsManager';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,506,'' FROM planned_elements WHERE name='WorkIconsManager';
+DELETE FROM planned_elements WHERE name='WorkIconsManager';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,401,'' FROM planned_elements WHERE name='GLabel';
+DELETE FROM planned_elements WHERE name='GLabel';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,305,'' FROM planned_elements WHERE name='PageControl';
+DELETE FROM planned_elements WHERE name IN ('PageControl','PagePanel');
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,104,'' FROM planned_elements WHERE name='ProgressBarRush';
+DELETE FROM planned_elements WHERE name='ProgressBarRush';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,103,'' FROM planned_elements WHERE name='ButtonRush';
+DELETE FROM planned_elements WHERE name='ButtonRush';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,CASE name WHEN 'CheckBoxRush' THEN 101 ELSE 102 END,''
+ FROM planned_elements WHERE name IN ('CheckBoxRush','RadioButtonRush');
+DELETE FROM planned_elements WHERE name IN ('CheckBoxRush','RadioButtonRush');
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,105,'' FROM planned_elements WHERE name='TrackBarRush';
+DELETE FROM planned_elements WHERE name='TrackBarRush';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,106,'' FROM planned_elements WHERE name='ChildPanelRush';
+DELETE FROM planned_elements WHERE name IN ('ChildPanelRush','PanelRush');
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,CASE name WHEN 'HBoxLayout' THEN 601 WHEN 'VBoxLayout' THEN 602
+ WHEN 'ToolBarLayout' THEN 603 WHEN 'GridLayout' THEN 604 ELSE 605 END,''
+ FROM planned_elements WHERE name IN ('HBoxLayout','VBoxLayout','ToolBarLayout','GridLayout','LayoutSpacer');
+DELETE FROM planned_elements WHERE name IN ('HBoxLayout','VBoxLayout','ToolBarLayout','GridLayout','LayoutSpacer');
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,35,'' FROM planned_elements WHERE name='ToolBar';
+DELETE FROM planned_elements WHERE name='ToolBar';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,36,'' FROM planned_elements WHERE name='TreeView';
+DELETE FROM planned_elements WHERE name='TreeView';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,404,'' FROM planned_elements WHERE name='TreeViewEx';
+DELETE FROM planned_elements WHERE name='TreeViewEx';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,37,'' FROM planned_elements WHERE name='StringTable';
+DELETE FROM planned_elements WHERE name='StringTable';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,403,'' FROM planned_elements WHERE name='StringTableMT';
+DELETE FROM planned_elements WHERE name='StringTableMT';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,38,'' FROM planned_elements WHERE name='HilightMemo';
+DELETE FROM planned_elements WHERE name='HilightMemo';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,CASE name WHEN 'DS_StaticData' THEN 701 WHEN 'MReadWrite' THEN 703 ELSE 704 END,''
+ FROM planned_elements WHERE name IN ('DS_StaticData','MReadWrite','MEnumerator');
+DELETE FROM planned_elements WHERE name IN ('DS_StaticData','MReadWrite','MEnumerator');
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,705,'' FROM planned_elements WHERE name='MListBox';
+DELETE FROM planned_elements WHERE name='MListBox';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,702,'' FROM planned_elements WHERE name='DS_UserData';
+DELETE FROM planned_elements WHERE name='DS_UserData';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,39,'' FROM planned_elements WHERE name='CtrlPalette';
+DELETE FROM planned_elements WHERE name='CtrlPalette';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,503,'' FROM planned_elements WHERE name='BoxDrawManager';
+DELETE FROM planned_elements WHERE name='BoxDrawManager';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,406,'' FROM planned_elements WHERE name='PopupMenuEx';
+DELETE FROM planned_elements WHERE name='PopupMenuEx';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,405,'' FROM planned_elements WHERE name='MenuEx';
+DELETE FROM planned_elements WHERE name='MenuEx';
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,CASE name WHEN 'Plotter' THEN 1001 ELSE 1002 END,''
+ FROM planned_elements WHERE name IN ('Plotter','PlotLines');
+DELETE FROM planned_elements WHERE name IN ('Plotter','PlotLines');
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT name,info,1,1003,'' FROM planned_elements WHERE name='PlotPoints';
+DELETE FROM planned_elements WHERE name='PlotPoints';
+
+WITH ready(name, pos) AS (VALUES
+ ('TreeViewTrain',801),('TVT_AddNode',802),('TVT_ChangeNode',803),('TVT_DeleteNode',804),
+ ('TVT_FirstNode',805),('TVT_ItemPath',806),('TVT_SelectNode',807),('TVT_GetNode',808),
+ ('TVT_SaveTree',809),('TVT_LoadTree',810),('TVT_DataSource',811),('TVT_EnumNodes',812),
+ ('MTStrTbl',901),('MST_DrawManager',902),('MST_Clear',903),('MST_DB',904),('MST_RowAction',905),('MST_ColAction',906),
+ ('MST_Matrix',909),('MST_CheckBoxes',910),('MST_SortInCol',911),('MST_FindText',912),
+ ('MST_SelectRow',913),('MST_Selected',914),('MST_SetColors',915),('MST_HTML',916),('MST_Save',917),('MST_Load',918),
+ ('MST_UseEditCtrl',919),('MST_EditEnd',920),
+ ('PlotHistogram',1004),('PlotAxis',1005),('PlotMarker',1006),('PlotStream',1007),
+ ('PlotDiffSeries',1008),('PlotMouseValues',1009),('PlotSeriesMarker',1010),
+ ('ChildFormPoly',303),('ChildPanelPoly',304),
+ ('CommandCenter',1101),('CMD_PopupMenu',1102),('CMD_State',1103),('CMD_ToolBar',1104))
+INSERT INTO elements(name,info,tab,pos,hash)
+ SELECT planned.name,planned.info,1,ready.pos,'' FROM planned_elements planned JOIN ready USING(name);
+DELETE FROM planned_elements WHERE name IN (SELECT name FROM elements WHERE tab=1);
+
+UPDATE planned_elements SET group_name='Widgets/' || CASE
+ WHEN name IN ('CheckBoxRush','RadioButtonRush','ButtonRush','ProgressBarRush','TrackBarRush','ChildPanelRush') THEN 'Rush'
+ WHEN name IN ('ImgBtn','VisualShape','LED','ScrollBarEx','GProgressBar','LedLadder','LedNumber','Grapher') THEN 'Graphics'
+ WHEN name IN ('ChildFormPoly','ChildPanelPoly','PageControl') THEN 'Dynamic'
+ WHEN name IN ('GLabel','StatusBarEx','StringTableMT','TreeViewEx','MenuEx','PopupMenuEx') THEN 'Extended'
+ WHEN name IN ('HintManager','UserHintManager','BoxDrawManager','IndexManager','IconsManager','WorkIconsManager','FontManager','RedrawManager','UseExtCursor','UseWinAnimation','TransparentManager','DropFileManager','DropTextManager') THEN 'Managers'
+ WHEN name IN ('HBoxLayout','VBoxLayout','ToolBarLayout','GridLayout','LayoutSpacer') THEN 'Layouts'
+ WHEN name IN ('DS_StaticData','DS_UserData','MReadWrite','MEnumerator','MListBox') THEN 'Experiments'
+ WHEN name='TreeViewTrain' OR name GLOB 'TVT_*' THEN 'TupleTree'
+ WHEN name='MTStrTbl' OR name GLOB 'MST_*' THEN 'MTTable'
+ WHEN name GLOB 'Plot*' THEN 'Plotting'
+ WHEN name='CommandCenter' OR name GLOB 'CMD_*' THEN 'Commands'
+ ELSE 'Basic' END WHERE group_name IN ('WinControls','WinManControls');
 CREATE TABLE files_link(file_id int,el_id int);
 INSERT INTO "files_link" VALUES(21,404);
 INSERT INTO "files_link" VALUES(21,405);

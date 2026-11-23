@@ -1,0 +1,143 @@
+func IconsTarget()
+  return('dynamic_cast<HiasmIconsManager *>(form.findChild<QObject *>(qt_text(' && cstr(get('qtIconsManager')) && ')))')
+end
+
+func doClearIcons(_data)
+  println('if (auto *manager = ', IconsTarget(), ') {')
+  println('  manager->icons.clear();')
+  println('  manager->refresh();')
+  event(onChangeImgLst)
+  println('}')
+end
+
+func doDeleteIcon(_data)
+  fvar(index)
+  index = _data
+  if(len(index) == 0)
+    index = '0'
+  end
+  println('if (auto *manager = ', IconsTarget(), ') {')
+  println('  const int index = qt_text(', index, ').toInt();')
+  println('  if (index >= 0 && index < manager->icons.size()) {')
+  println('    manager->icons.removeAt(index);')
+  println('    manager->refresh();')
+  event(onChangeImgLst)
+  println('  }')
+  println('}')
+end
+
+func doGetIcon(_data)
+  fvar(index)
+  index = _data
+  if(len(index) == 0)
+    index = '0'
+  end
+  println('if (auto *manager = ', IconsTarget(), ') {')
+  println('  auto icon = manager->icons.value(qt_text(', index, ').toInt());')
+  println('  if (!icon.isNull()) {')
+  if(get('IconToBmp') == 'True')
+    println('    QImage opaque(icon.size(), QImage::Format_RGB32);')
+    println('    opaque.fill(qt_led_color(qt_text(', cstr(d('TranspColor')), '), form.palette().color(QPalette::Button)));')
+    println('    { QPainter painter(&opaque); painter.drawImage(QPoint(), icon); }')
+    println('    icon = opaque;')
+  end
+  event(onGetIcon, 'icon')
+  println('  }')
+  println('}')
+end
+
+func IconFile(value)
+  if(linked('IconFileName'))
+    return(d('IconFileName'))
+  end
+  if(len(value) > 0)
+    return(value)
+  end
+  return(cstr(get('IconFileName')))
+end
+
+func doLoadIcon(_data)
+  println('if (auto *manager = ', IconsTarget(), ') {')
+  println('  QImageReader reader(qt_text(', IconFile(_data), '));')
+  println('  if (auto image = reader.read(); !image.isNull()) {')
+  println('    manager->icons.append(std::move(image));')
+  println('    manager->refresh();')
+  event(onChangeImgLst)
+  println('  }')
+  println('}')
+end
+
+func doSaveIcon(_data)
+  println('if (auto *manager = ', IconsTarget(), '; manager && !manager->icons.isEmpty()) {')
+  println('  QSaveFile output(qt_text(', IconFile(_data), '));')
+  println('  if (output.open(QIODevice::WriteOnly) && manager->icons.first().save(&output, "ICO")) output.commit();')
+  println('}')
+end
+
+func ListFile(value)
+  if(linked('IListFileName'))
+    return(d('IListFileName'))
+  end
+  if(len(value) > 0)
+    return(value)
+  end
+  return(cstr(get('IListFileName')))
+end
+
+func doLoadIList(_data)
+  println('if (auto *manager = ', IconsTarget(), '; manager && qt_load_icon_list(*manager, qt_text(', ListFile(_data), '))) {')
+  event(onChangeImgLst)
+  println('}')
+end
+
+func doSaveIList(_data)
+  println('if (auto *manager = ', IconsTarget(), ') qt_save_icon_list(*manager, qt_text(', ListFile(_data), '));')
+end
+
+func ResourceFile(value)
+  if(linked('IconsFileName'))
+    return(d('IconsFileName'))
+  end
+  if(len(value) > 0)
+    return(value)
+  end
+  return(cstr(get('IconsFileName')))
+end
+
+func doCountPakIcons(_data)
+  println('{ const int count = qt_resource_icons(qt_text(', ResourceFile(_data), '));')
+  println('form.setProperty("WorkIconsCount', _id_, '", count);')
+  event(onCountPakIcons, 'count')
+  println('}')
+end
+
+func doLoadPakIcons(_data)
+  println('if (auto *manager = ', IconsTarget(), ') {')
+  println('  QList<QImage> images;')
+  println('  if (qt_resource_icons(qt_text(', ResourceFile(_data), '), &images) > 0) {')
+  println('    manager->icons = std::move(images);')
+  println('    manager->refresh();')
+  event(onChangeImgLst)
+  println('  }')
+  println('}')
+end
+
+func CountPakIcons()
+  return('form.property("WorkIconsCount' && _id_ && '").toInt()')
+end
+
+func IconArray()
+  return('([](HiasmIconsManager *manager) { return manager ? manager->icons : QList<QImage>(); }(' && IconsTarget() && '))')
+end
+
+func CountIcons()
+  return('([](HiasmIconsManager *manager) { return manager ? int(manager->icons.size()) : 0; }(' && IconsTarget() && '))')
+end
+
+func EndIdxIcons()
+  return('(' && CountIcons() && ' - 1)')
+end
+
+func ImgSize()
+  return('([](HiasmIconsManager *manager) { return manager ? manager->size : 0; }(' && IconsTarget() && '))')
+end

@@ -1,14 +1,18 @@
-func doEcho
-  println('echo ', Message, ';')
+func doEcho(_data)
+  if(linked(Message) or isndef(Message) or not isset(_data))
+    println('echo ', d('Message'), ';')
+  else
+    println('echo ', _data, ';')
+  end
   event(onEcho)
 end
 
-func doEcho:html
-  print(Message)
+func doEcho(_data):html
+  print(d('Message'))
   event(onEcho)
 end
 
-func doEcho:java
-  println('alert(', Message, ');')
+func doEcho(_data):java
+  println('alert(', d('Message'), ');')
   event(onEcho)
 end

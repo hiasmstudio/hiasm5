@@ -1,0 +1,33 @@
+include('qtMstClient')
+
+func doAddRow(_data)
+  fvar(i)
+  MstBegin()
+  println('QVariantList mstValues;')
+  for(i = 0; i < mt_count(); i++)
+    MstAppend(mt_arg(i))
+  end
+  println(MstLocal(), '->putRow(-1, mstValues, false);')
+  event(onChange)
+  println('}')
+end
+
+func doAddCols(_data)
+  fvar(i)
+  MstBegin()
+  println('QVariantList mstValues;')
+  for(i = 0; i < mt_count(); i++)
+    MstAppend(mt_arg(i))
+  end
+  println('for (const auto &definition : mstValues) ', MstLocal(), '->column(', MstLocal(), '->columnCount(), definition.toString(), true);')
+  event(onChangeColLst)
+  println('}')
+end
+
+func doClear(_data)
+  MstClear('false')
+end
+
+func doClearAll(_data)
+  MstClear('true')
+end

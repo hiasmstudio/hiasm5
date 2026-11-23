@@ -2,17 +2,11 @@
 [Desktop Entry]
 Name=HiAsm Studio
 Comment=Create and build applications
-Exec=hiasm
+Exec=hiasm %F
 Icon=hiasm
 StartupNotify=true
-Terminal=true
+Terminal=false
 Type=Application
-X-GNOME-DocPath=grecord/grecord.xml
-Categories=GNOME;GTK;Development;
-X-GNOME-Bugzilla-Bugzilla=GNOME
-X-GNOME-Bugzilla-Product=gnome-media
-X-GNOME-Bugzilla-Component=Gnome-Sound-Recorder
-X-GNOME-Bugzilla-Version=2.28.1
-X-Ubuntu-Gettext-Domain=gnome-media-2.0
+Categories=Qt;Development;IDE;
 Name[ru]=HiAsm Studio
 Name[en_GB]=HiAsm Studio

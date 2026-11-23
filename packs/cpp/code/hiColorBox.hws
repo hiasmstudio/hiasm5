@@ -1,0 +1,247 @@
+func ColorBoxTarget()
+  return('qt_widget<QComboBox>(form, "ColorBox' && _id_ && '")')
+end
+
+// A literal #RRGGBB becomes a Delphi $00BBGGRR value. Decimal and $HEX keep all 32 bits.
+func ParseColor()
+  println('const auto parseColor = [](QString text) -> int {')
+  println('  text = text.trimmed();')
+  println('  if (text.startsWith(QChar(35)) && text.size() == 7) {')
+  println('    const auto rgb = QColor::fromString(text);')
+  println('    if (rgb.isValid()) return rgb.red() | (rgb.green() << 8) | (rgb.blue() << 16);')
+  println('  }')
+  println('  if (text.startsWith(QChar(36))) return int(text.mid(1).toUInt(nullptr, 16));')
+  println('  return int(text.toLongLong());')
+  println('};')
+end
+
+func ResolveColor()
+  println('const auto resolveColor = [box](int value) {')
+  println('  if (value >= 0) return value;')
+  println('  using P = QPalette;')
+  println('  const auto palette = box->parentWidget()->palette();')
+  println('  // Approximate Delphi system colors using the corresponding Qt palette roles.')
+  println('  static constexpr P::ColorRole roles[] = {')
+  println('    P::Mid, P::Window, P::Highlight, P::Highlight, P::Window, P::Base,')
+  println('    P::Dark, P::WindowText, P::Text, P::HighlightedText, P::Mid, P::Mid,')
+  println('    P::Dark, P::Highlight, P::HighlightedText, P::Button, P::Dark, P::Text,')
+  println('    P::ButtonText, P::HighlightedText, P::Light, P::Shadow, P::Midlight,')
+  println('    P::ToolTipText, P::ToolTipBase};')
+  println('  const unsigned index = unsigned(value) & 255;')
+  println('  if (index >= sizeof(roles) / sizeof(roles[0])) return 0;')
+  println('  const auto group = index == 17 ? P::Disabled : (index == 3 || index == 11 || index == 19 ? P::Inactive : P::Active);')
+  println('  const auto rgb = palette.color(group, roles[index]);')
+  println('  return rgb.red() | (rgb.green() << 8) | (rgb.blue() << 16);')
+  println('};')
+end
+
+func AddSwatch()
+  println('const auto addSwatch = [box](const QString &name, int value) {')
+  println('  QPixmap swatch(box->iconSize());')
+  println('  swatch.fill(Qt::black);')
+  println('  QPainter painter(&swatch);')
+  println('  const auto rgb = QColor(value & 255, (value >> 8) & 255, (value >> 16) & 255);')
+  println('  painter.fillRect(swatch.rect().adjusted(1, 1, -1, -1), rgb);')
+  println('  painter.end();')
+  println('  box->addItem(QIcon(swatch), name, value);')
+  if(get('ItemHeight') > 0)
+    println('  box->setItemData(box->count() - 1, QSize(0, ', get('ItemHeight'), '), Qt::SizeHintRole);')
+  end
+  println('};')
+end
+
+func FillColors(text)
+  println('const QSignalBlocker blocker(box);')
+  ParseColor()
+  ResolveColor()
+  AddSwatch()
+  println('box->clear();')
+  if(get('TypeListColors') != 2)
+    println('static constexpr const char *names[] = {')
+    println('  "Black", "Maroon", "Green", "Olive", "Navy", "Purple", "Teal", "Gray",')
+    println('  "Silver", "Red", "Lime", "Yellow", "Blue", "Fuchsia", "Aqua", "White",')
+    println('  "MoneyGreen", "SkyBlue", "Cream", "MedGray", "ActiveBorder", "ActiveCaption",')
+    println('  "AppWorkSpace", "Background", "BtnFace", "BtnHighlight", "BtnShadow",')
+    println('  "BtnText", "CaptionText", "Default", "GrayText", "Highlight", "HighlightText",')
+    println('  "InactiveBorder", "InactiveCaption", "InactiveCaptionText", "InfoBk",')
+    println('  "InfoText", "Menu", "MenuText", "None", "ScrollBar", "3DDkShadow",')
+    println('  "3DLight", "Window", "WindowFrame", "WindowText"};')
+    println('static constexpr int values[] = {')
+    println('  0x000000, 0x000080, 0x008000, 0x008080, 0x800000, 0x800080, 0x808000, 0x808080,')
+    println('  0xC0C0C0, 0x0000FF, 0x00FF00, 0x00FFFF, 0xFF0000, 0xFF00FF, 0xFFFF00, 0xFFFFFF,')
+    println('  0xC0DCC0, 0xF0CAA6, 0xF0FBFF, 0xA4A0A0,')
+    println('  -16777216 + 10, -16777216 + 2, -16777216 + 12, -16777216 + 1,')
+    println('  -16777216 + 15, -16777216 + 20, -16777216 + 16, -16777216 + 18,')
+    println('  -16777216 + 9, 0x20000000, -16777216 + 17, -16777216 + 13, -16777216 + 14,')
+    println('  -16777216 + 11, -16777216 + 3, -16777216 + 19, -16777216 + 24,')
+    println('  -16777216 + 23, -16777216 + 4, -16777216 + 7, 0x1FFFFFFF, -16777216,')
+    println('  -16777216 + 21, -16777216 + 22, -16777216 + 5, -16777216 + 6, -16777216 + 8};')
+    if(get('TypeListColors') == 0)
+      println('static_assert(sizeof(names) / sizeof(names[0]) == sizeof(values) / sizeof(values[0]));')
+      println('for (unsigned i = 0; i < sizeof(names) / sizeof(names[0]); ++i)')
+    else
+      println('for (unsigned i = 0; i < 16; ++i)')
+    end
+    println('  addSwatch(qt_text(names[i]), resolveColor(values[i]));')
+  end
+  println('auto lines = ', text, ';')
+  println('lines.replace(QString(QChar(13)) + QChar(10), QString(QChar(10))).replace(QChar(13), QChar(10));')
+  println('for (const auto &line : lines.split(QChar(10), Qt::SkipEmptyParts)) {')
+  println('  const auto fields = line.split(QChar(61));')
+  println('  addSwatch(fields.value(0).trimmed(), parseColor(fields.value(1)));')
+  println('}')
+  println('const int selected = box->findData(resolveColor(parseColor(qt_text(', cstr(get('DefColor')), '))));')
+  println('box->setCurrentIndex(selected >= 0 ? selected : (box->count() ? 0 : -1));')
+end
+
+func HtmlColor(value)
+  return('QColor(' && value && ' & 255, (' && value && ' >> 8) & 255, (' && value && ' >> 16) & 255).name().mid(1).toUpper()')
+end
+
+func HexColor(value)
+  return('QStringLiteral("%1").arg(quint32(' && value && '), 8, 16, QChar(48)).toUpper()')
+end
+
+func ColorBoxClick()
+  println('QObject::connect(box, &QComboBox::currentIndexChanged, &form, [&form, box](int colorIndex) {')
+  block.inclvl()
+  println('if (colorIndex < 0) return;')
+  println('const int colorValue = box->itemData(colorIndex).toInt();')
+  // Delphi first forwards the inherited WinList payload, then emits the ColorBox payload.
+  if(get('DataType') == 0)
+    event('onClick', 'colorIndex', 'colorValue')
+    event('onClick', 'colorIndex')
+  else
+    println('const auto colorName = box->itemText(colorIndex);')
+    event('onClick', 'colorName', 'colorValue')
+    println('switch (box->property("hiasmColorFormat").toInt()) {')
+    println('case 0: {')
+    event('onClick', 'colorValue')
+    println('  break; }')
+    println('case 1: {')
+    println('  const auto colorHtml = ', HtmlColor('colorValue'), ';')
+    event('onClick', 'colorHtml')
+    println('  break; }')
+    println('case 2: {')
+    println('  const auto colorHex = ', HexColor('colorValue'), ';')
+    event('onClick', 'colorHex')
+    println('  break; }')
+    println('case 3: {')
+    event('onClick', '(colorValue & 255)', '((colorValue >> 8) & 255)', '((colorValue >> 16) & 255)')
+    println('  break; }')
+    println('}')
+  end
+  block.declvl()
+  println('});')
+end
+
+func doStart
+  if(is_qt_project())
+    println('{')
+    block.inclvl()
+    println('auto *box = new QComboBox(widgetParent);')
+    println('box->setObjectName(QStringLiteral("ColorBox', _id_, '"));')
+    println('box->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+    println('const int swatchHeight = qBound(1, int(', get('ColorSize'), '), 255);')
+    println('box->setIconSize(QSize(2 * swatchHeight, swatchHeight));')
+    println('box->setProperty("hiasmColorFormat", ', get('FormatColor'), ');')
+    if(isndef(Color))
+      println('const auto background = qt_led_color(qt_text(', cstr(get('Color')), '), box->palette().color(QPalette::Base));')
+      println('auto palette = box->palette();')
+      println('palette.setColor(QPalette::Base, background);')
+      println('palette.setColor(QPalette::Button, background);')
+      println('box->setPalette(palette);')
+    end
+    if(get('Visible') == 'False')
+      println('box->hide();')
+    end
+    if(get('Enabled') == 'False')
+      println('box->setEnabled(false);')
+    end
+    println('box->setToolTip(qt_text(', cstr(get('Hint')), '));')
+    println('{')
+    block.inclvl()
+    FillColors('qt_text(' && cstr(get('Colors')) && ')')
+    block.declvl()
+    println('}')
+    if(linked('onClick'))
+      ColorBoxClick()
+    end
+    block.declvl()
+    println('}')
+  end
+end
+
+func doInitList(_data)
+  if(is_qt_project())
+    println('{ auto *box = ', ColorBoxTarget(), ';')
+    FillColors('qt_text(' && cstr(_data) && ')')
+    println('}')
+  end
+end
+
+func doFormatColor(_data)
+  if(is_qt_project())
+    println(ColorBoxTarget(), '->setProperty("hiasmColorFormat", qt_text(', cstr(_data), ').toInt() & 255);')
+  end
+end
+
+func doSelectColor(_data)
+  if(is_qt_project())
+    println('{ auto *box = ', ColorBoxTarget(), ';')
+    ParseColor()
+    ResolveColor()
+    println('const int index = box->findData(resolveColor(parseColor(qt_text(', cstr(_data), '))));')
+    println('const QSignalBlocker blocker(box);')
+    println('if (index >= 0) box->setCurrentIndex(index);')
+    println('}')
+  end
+end
+
+func doSelectName(_data)
+  if(is_qt_project())
+    println('{ auto *box = ', ColorBoxTarget(), ';')
+    println('auto name = qt_text(', cstr(_data), ');')
+    println('name.remove(QStringLiteral("cl"));')
+    println('const int index = box->findText(name, Qt::MatchStartsWith);')
+    println('const QSignalBlocker blocker(box);')
+    println('if (index >= 0) box->setCurrentIndex(index);')
+    println('}')
+  end
+end
+
+func doAdd(_data)
+  if(is_qt_project())
+    fvar(name, value)
+    name = cstr(d('Str'))
+    value = cstr(d('Value'))
+    println('{ auto *box = ', ColorBoxTarget(), ';')
+    println('const QSignalBlocker blocker(box);')
+    ParseColor()
+    AddSwatch()
+    println('const int previous = box->currentIndex();')
+    println('addSwatch(qt_text(', name, '), parseColor(qt_text(', value, ')));')
+    println('box->setCurrentIndex(previous);')
+    println('}')
+  end
+end
+
+func Index()
+  return(ColorBoxTarget() && '->currentIndex()')
+end
+
+func CurrentColor()
+  // A variable expression has one C++ type even when doFormatColor changes its format.
+  fvar(expr)
+  expr = '([](QComboBox *box) -> QString { if (box->currentIndex() < 0) return {}; const int v = box->currentData().toInt();'
+  expr = expr && ' switch (box->property("hiasmColorFormat").toInt()) {'
+  expr = expr && ' case 0: return QString::number(v);'
+  expr = expr && ' case 1: return ' && HtmlColor('v') && ';'
+  expr = expr && ' case 2: return ' && HexColor('v') && ';'
+  expr = expr && ' case 3: return QStringLiteral("%1,%2,%3").arg(v & 255).arg((v >> 8) & 255).arg((v >> 16) & 255);'
+  return(expr && ' default: return {}; } }(' && ColorBoxTarget() && '))')
+end
+
+func ColorArray()
+  return('([](QComboBox *box) { QList<int> colors; colors.reserve(box->count()); for (int i = 0; i < box->count(); ++i) colors.append(box->itemData(i).toInt()); return colors; }(' && ColorBoxTarget() && '))')
+end

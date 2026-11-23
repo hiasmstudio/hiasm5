@@ -1,0 +1,39 @@
+include('rushChoice')
+
+func Target()
+  return('qt_widget<HiasmRushCheckBox>(form, "CheckBoxRush' && _id_ && '")')
+end
+
+func doStart
+  RushChoice('CheckBoxRush', 'HiasmRushCheckBox', get('Checked') == 0)
+  if(linked(onCheck) or linked(onClick))
+    println('QObject::connect(choice, &QCheckBox::clicked, &form, [&form](bool checked) {')
+    event(onCheck, 'int(checked)')
+    event(onClick, 'int(checked)')
+    println('});')
+  end
+  println('}')
+end
+
+func doCheck(_data)
+  println('{ auto *choice = ', Target(), ';')
+  println('choice->setChecked(', RushBool(_data), ');')
+  event(onCheck, 'int(choice->isChecked())')
+  println('}')
+end
+
+func Checked()
+  return('int(' && Target() && '->isChecked())')
+end
+
+func doCaption(_data)
+  if(len(_data) > 0)
+    println(Target(), '->setText(qt_text(', _data, '));')
+  else
+    println(Target(), '->setText(QString());')
+  end
+end
+
+func doUpdate(_data)
+  println(Target(), '->update();')
+end

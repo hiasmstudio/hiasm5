@@ -1,72 +1,30 @@
 [CmdletBinding()]
-param(
-    [ValidateSet('gtk3', 'gtk4')][string]$GtkVersion = 'gtk4',
-    [int]$WaitSeconds = 4,
-    [string]$InstallDir = '',
-    [switch]$CleanEnvironment
-)
-
+param([string]$InstallDir)
 $ErrorActionPreference = 'Stop'
-$root = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
-$build = if ($InstallDir) {
-    (Resolve-Path -LiteralPath $InstallDir).Path
-} elseif ($GtkVersion -eq 'gtk4') {
-    Join-Path $root 'build/Windows_MinGW-x64-GTK4-Debug'
-} else {
-    Join-Path $root 'build/Windows_MinGW-x64-Debug'
+if (!$InstallDir) {
+    & "$PSScriptRoot/build_qt_windows.ps1" -Configuration Debug -SkipBuild -SkipTests -RunIde -Check
+    return
 }
-$exe = Join-Path $build 'hiasm.exe'
-if (-not (Test-Path -LiteralPath $exe -PathType Leaf)) {
-    throw "Executable not found: $exe. Build it with tools\build_windows.bat $GtkVersion debug"
+$prefix = (Resolve-Path -LiteralPath $InstallDir).Path
+$previous = @{}
+foreach ($name in 'PATH','QT_PLUGIN_PATH','QT_QPA_PLATFORM_PLUGIN_PATH','QT_QPA_PLATFORM') {
+    $previous[$name] = [Environment]::GetEnvironmentVariable($name)
 }
-
-$msys = if ($env:MSYS2_ROOT) { $env:MSYS2_ROOT } else { 'C:\msys64' }
-$ucrt = Join-Path $msys 'ucrt64/bin'
-$usr = Join-Path $msys 'usr/bin'
-$oldPath = $env:PATH
-$savedEnvironment = @{}
-if($CleanEnvironment) {
-    # An installed build must resolve DLLs and GTK data from its own prefix.
-    $env:PATH = "$env:WINDIR/System32;$env:WINDIR"
-    foreach($key in @('GTK_PATH','GTK_THEME','GTK_DATA_PREFIX','GTK_EXE_PREFIX',
-        'GDK_PIXBUF_MODULE_FILE','GDK_PIXBUF_MODULEDIR','GSETTINGS_SCHEMA_DIR',
-        'XDG_DATA_DIRS','GI_TYPELIB_PATH','GTK_A11Y','GSK_RENDERER')) {
-        $savedEnvironment[$key] = [Environment]::GetEnvironmentVariable($key, 'Process')
-        [Environment]::SetEnvironmentVariable($key, $null, 'Process')
-    }
-} else { $env:PATH = "$ucrt;$usr;$oldPath" }
-$out = Join-Path $build 'smoke.out'
-$err = Join-Path $build 'smoke.err'
-$proc = $null
 try {
-    # Deliberately launch from outside the install prefix as Explorer can do.
-    $proc = Start-Process -FilePath $exe -WorkingDirectory $env:TEMP -RedirectStandardOutput $out -RedirectStandardError $err -PassThru
-    $processHandle = $proc.Handle
-    Start-Sleep -Seconds $WaitSeconds
-    if ($proc.HasExited) {
-        $proc.WaitForExit()
-        $code = $proc.ExitCode
-        $details = Get-Content $out,$err -ErrorAction SilentlyContinue | Out-String
-        if ([string]::IsNullOrWhiteSpace($details)) {
-            $details = "No stdout/stderr was produced; another HiAsm instance or a Windows termination may have closed the process."
-        }
-        throw "HiAsm exited during startup with code $code.`n$details"
+    $env:PATH = "$env:SystemRoot/System32;$env:SystemRoot"
+    $env:QT_PLUGIN_PATH = $null
+    $env:QT_QPA_PLATFORM_PLUGIN_PATH = $null
+    $env:QT_QPA_PLATFORM = 'offscreen'
+    foreach ($file in 'int/hiasm.db','qt/platforms/qwindows.dll','qt/hiasm-core-qt.dll',
+             'packs/cpp/elements.db','packs/cpp/compiler/CodeGen.dll','packs/web/compiler/CodeGen.dll',
+             'packs/modules/compiler/CodeGen.dll') {
+        if (!(Test-Path -LiteralPath (Join-Path $prefix $file) -PathType Leaf)) { throw "Missing: $file" }
     }
-    $log = Get-Content $out,$err -ErrorAction SilentlyContinue | Out-String
-    if ($log -match 'Unable to load pack|groups\.name contains NULL|missing required table|Gtk-ERROR|Gtk-CRITICAL') {
-        throw "HiAsm reported a startup data error:`n$log"
-    }
-    if($CleanEnvironment) {
-        $external = @($proc.Modules | Where-Object { $_.FileName.StartsWith($msys, [StringComparison]::OrdinalIgnoreCase) })
-        if($external.Count) { throw "Loaded DLLs from MSYS2: $($external.FileName -join ', ')" }
-        Write-Output 'OK isolated PATH: no modules loaded from MSYS2'
-    }
-    Write-Output "OK $GtkVersion startup: process $($proc.Id) remained alive for $WaitSeconds seconds"
-    if ($log.Trim()) { Write-Output $log.Trim() }
+    & "$prefix/qt/hiasm.exe" --check "$prefix/packs/cpp/new/QtForm.sha" | Out-Host
+    if ($LASTEXITCODE -ne 0) { throw "Installed IDE failed ($LASTEXITCODE)" }
 } finally {
-    if ($proc -and -not $proc.HasExited) { $proc.Kill(); $proc.WaitForExit() }
-    foreach($key in $savedEnvironment.Keys) {
-        [Environment]::SetEnvironmentVariable($key, $savedEnvironment[$key], 'Process')
+    foreach ($entry in $previous.GetEnumerator()) {
+        [Environment]::SetEnvironmentVariable($entry.Key, $entry.Value, 'Process')
     }
-    $env:PATH = $oldPath
 }
+Write-Output 'OK: installed Qt IDE with a system-only PATH'

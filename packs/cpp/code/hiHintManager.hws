@@ -1,0 +1,12 @@
+func doStart
+  println('QTimer::singleShot(0, &form, [&form] {')
+  println('  const auto targets = qt_text(', cstr(get('qtHintTargets')), ').split(QChar(44), Qt::SkipEmptyParts);')
+  println('  for (const auto &name : targets) {')
+  println('    if (auto *target = qt_widget<QWidget>(form, name.toLatin1().constData())) {')
+  println('      auto *hint = new HiasmHint(target);')
+  println('      hint->configure(qt_text(', cstr(get('Font')), '), qt_text(', cstr(d('HintBackColor')), '),')
+  println('        ', HintMargin, ', ', HintWidth, ', ', HintDelay, ', ', HintAutoPopUp, ', ', get('HintTrack') == 'True', ', ', get('HintStyle') == 0, ');')
+  println('    }')
+  println('  }')
+  println('});')
+end

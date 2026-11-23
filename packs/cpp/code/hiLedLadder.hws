@@ -1,0 +1,104 @@
+func Ladder()
+  return('qt_widget<HiasmLedLadder>(form, "LedLadder' && _id_ && '")')
+end
+
+func doStart
+  println('{')
+  println('auto *ladder = new HiasmLedLadder(widgetParent);')
+  println('ladder->setObjectName(QStringLiteral("LedLadder', _id_, '"));')
+  println('ladder->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+  println('ladder->vertical = ', get('Kind') == 1, ';')
+  println('ladder->gradient = ', get('Gradient') == 'True', ';')
+  println('ladder->count = ', get('Count'), ';')
+  println('ladder->spacing = ', Spacing, ';')
+  println('ladder->maximum = ', Max, ';')
+  println('ladder->minMid = ', MinMid, ';')
+  println('ladder->midMax = ', MidMax, ';')
+  println('ladder->background = qt_led_color(qt_text(', cstr(d('FonColor')), '), ladder->background);')
+  println('ladder->active[0] = qt_led_color(qt_text(', cstr(d('SegColorMin')), '), ladder->active[0]);')
+  println('ladder->inactive[0] = qt_led_color(qt_text(', cstr(d('NoSegColorMin')), '), ladder->inactive[0]);')
+  println('ladder->active[1] = qt_led_color(qt_text(', cstr(d('SegColorMid')), '), ladder->active[1]);')
+  println('ladder->inactive[1] = qt_led_color(qt_text(', cstr(d('NoSegColorMid')), '), ladder->inactive[1]);')
+  println('ladder->active[2] = qt_led_color(qt_text(', cstr(d('SegColorMax')), '), ladder->active[2]);')
+  println('ladder->inactive[2] = qt_led_color(qt_text(', cstr(d('NoSegColorMax')), '), ladder->inactive[2]);')
+  if(linked(onClick))
+    println('ladder->clicked = [&form] {')
+    event(onClick)
+    println('};')
+  end
+  println('}')
+end
+
+func SetNumber(field, value)
+  if(len(value) > 0)
+    println('{ auto *ladder = ', Ladder(), '; ladder->', field, ' = qt_text(', value, ').toInt(); ladder->update(); }')
+  end
+end
+
+func SetColor(field, value)
+  if(len(value) > 0)
+    println('{ auto *ladder = ', Ladder(), '; ladder->', field, ' = qt_led_color(qt_text(', value, '), ladder->', field, '); ladder->update(); }')
+  end
+end
+
+func doPosition(_data)
+  SetNumber('position', _data)
+end
+
+func doMax(_data)
+  SetNumber('maximum', _data)
+end
+
+func doMinMid(_data)
+  SetNumber('minMid', _data)
+end
+
+func doMidMax(_data)
+  SetNumber('midMax', _data)
+end
+
+func doCount(_data)
+  SetNumber('count', _data)
+end
+
+func doSpacing(_data)
+  SetNumber('spacing', _data)
+end
+
+func doGradient(_data)
+  if(len(_data) > 0)
+    println('{ auto *ladder = ', Ladder(), '; ladder->gradient = qt_flag(qt_text(', _data, ')); ladder->update(); }')
+  end
+end
+
+func doFonColor(_data)
+  SetColor('background', _data)
+end
+
+func doSegColorMin(_data)
+  SetColor('active[0]', _data)
+end
+
+func doNoSegColorMin(_data)
+  SetColor('inactive[0]', _data)
+end
+
+func doSegColorMid(_data)
+  SetColor('active[1]', _data)
+end
+
+func doNoSegColorMid(_data)
+  SetColor('inactive[1]', _data)
+end
+
+func doSegColorMax(_data)
+  SetColor('active[2]', _data)
+end
+
+func doNoSegColorMax(_data)
+  SetColor('inactive[2]', _data)
+end
+
+func Position()
+  return(Ladder() && '->position')
+end

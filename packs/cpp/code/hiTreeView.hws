@@ -1,0 +1,125 @@
+func Tree()
+  if(get('qtExtendedTree') == 1)
+    return('qt_widget<HiasmTree>(form, "TreeViewEx' && _id_ && '")')
+  end
+  return('qt_widget<HiasmTree>(form, "TreeView' && _id_ && '")')
+end
+
+func doStart
+  println('{')
+  println('auto *tree = new HiasmTree(widgetParent);')
+  if(get('qtExtendedTree') == 1)
+    println('tree->setObjectName(QStringLiteral("TreeViewEx', _id_, '"));')
+  else
+    println('tree->setObjectName(QStringLiteral("TreeView', _id_, '"));')
+  end
+  println('tree->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+  println('tree->setHeaderHidden(true);')
+  println('tree->setRootIsDecorated(', get('LinesRoot') == 'True', ');')
+  if(get('Lines') == 'False')
+    println('tree->setStyleSheet(QStringLiteral("QTreeView::branch { border-image: none; }"));')
+  end
+  println('tree->hints = ', get('Tooltips') == 'True', ';')
+  if(get('qtExtendedTree') == 1)
+    println('tree->checks = ', get('CheckBoxes') == 'True', ';')
+    println('tree->editable = ', get('EditLabels') == 'True', ';')
+    println('tree->iconPrefix = ', get('IconByIndex') == 'True', ';')
+    println('tree->setIconSize(QSize(qBound(1, int(', ImgSize, '), 256), qBound(1, int(', ImgSize, '), 256)));')
+  end
+  println('tree->setEnabled(', get('Enabled') == 'True', ');')
+  println('tree->setVisible(', get('Visible') == 'True', ');')
+  println('const auto source = qt_text(', cstr(get('Icons')), ');')
+  println('static const QRegularExpression image(QStringLiteral("[[]ZIP[0-9A-Fa-f]+[]]"));')
+  println('for (auto matches = image.globalMatch(source); matches.hasNext();)')
+  println('  tree->icons.append(QIcon(QPixmap::fromImage(qt_bitmap(matches.next().captured(), "ico"))));')
+  println('tree->load(qt_text(', cstr(get('Strings')), '));')
+  if(linked(onClick))
+    println('QObject::connect(tree, &QTreeWidget::itemClicked, &form, [&form](QTreeWidgetItem *item) {')
+    event(onClick, 'item->text(0)')
+    println('});')
+  end
+  if(get('qtExtendedTree') == 1)
+    if(linked(onExpand))
+      println('QObject::connect(tree, &QTreeWidget::itemExpanded, &form, [&form, tree](QTreeWidgetItem *item) {')
+      event(onExpand, 'int(tree->rows().indexOf(item))')
+      println('});')
+    end
+    if(linked(onCollapse))
+      println('QObject::connect(tree, &QTreeWidget::itemCollapsed, &form, [&form, tree](QTreeWidgetItem *item) {')
+      event(onCollapse, 'int(tree->rows().indexOf(item))')
+      println('});')
+    end
+  end
+  println('}')
+end
+
+func doAdd(_data)
+  println('{ auto *tree = ', Tree(), ';')
+  println('auto *parent = tree->currentItem();')
+  fvar(icon)
+  icon = '0'
+  if(linked('IconID'))
+    icon = d('IconID')
+  end
+  println('tree->append(parent ? parent : tree->invisibleRootItem(), qt_text(', cstr(d('Str')), '), qt_text(', icon, ').toInt());')
+  event(onChange)
+  println('}')
+end
+
+func doClear(_data)
+  println(Tree(), '->clear();')
+  event(onChange)
+end
+
+func doDelete(_data)
+  println('delete ', Tree(), '->rows().value(qt_text(', Arg(_data), ').toInt());')
+  event(onChange)
+end
+
+func doSelect(_data)
+  println('{ auto *tree = ', Tree(), '; tree->setCurrentItem(tree->rows().value(qt_text(', Arg(_data), ').toInt())); }')
+end
+
+func doRename(_data)
+  if(len(_data) > 0)
+    println('if (auto *item = ', Tree(), '->currentItem()) item->setText(0, qt_text(', _data, '));')
+  end
+end
+
+func doLoadFromText(_data)
+  println(Tree(), '->load(qt_text(', cstr(d('FileName')), '));')
+  event(onChange)
+end
+
+func doLoad(_data)
+  println('{ QFile file(qt_text(', cstr(d('FileName')), '));')
+  println('if (file.open(QIODevice::ReadOnly)) {')
+  println(Tree(), '->load(QString::fromUtf8(file.readAll()));')
+  event(onChange)
+  println('} }')
+end
+
+func doSave(_data)
+  println('{ QSaveFile file(qt_text(', cstr(d('FileName')), '));')
+  println('if (file.open(QIODevice::WriteOnly)) { const auto bytes = ', Tree(), '->serialize().toUtf8();')
+  println('  if (file.write(bytes) == bytes.size()) file.commit(); } }')
+end
+
+func Count()
+  return('int(' && Tree() && '->rows().size())')
+end
+
+func Index()
+  return('int(' && Tree() && '->rows().indexOf(' && Tree() && '->currentItem()))')
+end
+
+func Array()
+  return(Tree() && '->texts()')
+end
+
+func Arg(value)
+  if(len(value) > 0)
+    return(value)
+  end
+  return('0')
+end

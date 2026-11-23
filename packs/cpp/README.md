@@ -1,10 +1,24 @@
 # Приложение на C++
 
-Пакет C++17 использует RTCG и GCC/MinGW. Типы: console, GTK4 GUI, shared library и daemon. `BuildMode` стартового элемента выбирает Debug (`-O0 -g`) или Release (`-O2 -DNDEBUG`).
+## Сборка из текущей Qt IDE
+
+F7 сохраняет схему и вызывает `hiasm --build вход.sha результат`. F9 дополнительно запускает обычные приложения, Shift+F9 останавливает процесс. IDE сохраняет результат в `build/qt-native/` рядом со схемой. Для просмотра сгенерированного кода используйте `hiasm --generate вход.sha выход.cpp`.
+
+- Консольные примеры `hello.sha`, `control_flow.sha`, `core_state.sha` и `math_functions.sha` из `packs/cpp/example` показывают передачу данных, ветвление, цикл и обработку ошибок. Вложенные схемы поддерживают числовые точки `EditMulti` и именованные точки `EditMultiEx` в режиме Standard.
+- В `packs/cpp/new/QtForm.sha` редактируются форма, кнопка, поле ввода и подписи. Вкладка «Форма» также поддерживает `CheckBox`. Учебный пример `packs/cpp/example/Info.sha` показывает Qt-диалог `Message` по нажатию кнопки. Перемещение и изменение размера записывают свойства геометрии в схему и поддерживают отмену. Координаты на диаграмме хранятся отдельно.
+- Консоль, форма, библиотека, плагин, фоновый процесс и специализированные шаблоны Windows компилируются для текущей платформы. Службам и расширениям Windows для запуска нужен соответствующий системный хост.
+- Для `Make(_base)` доступны формы с виджетами Core и вложенными контейнерами `HCMultiElement`, командами, событиями, `hcDoData` и `hcConsole`. Для Web доступны HTML, CSS, JavaScript и PHP. Для Modules — HIS и исходный код C++.
+- Перенос всех виджетов и типов свойств старых пакетов ещё продолжается. В частности, дочерние окна `hcChildForm` и динамическое управление экземплярами `MultiElementEx` требуют дальнейшей реализации.
+
+## Справка по прежней реализации ProjectBuilder
+
+Следующие разделы описывают пакеты, параметры и тесты прежней IDE. Они служат для проверки совместимости при переносе.
+
+Пакет C++17 использует RTCG и LLVM-MinGW в Windows. `BuildMode` стартового элемента выбирает Debug (`-O0 -g`) или Release (`-O2 -DNDEBUG`).
 
 Выход: `build/windows-mingw_x64-debug|release` на Windows и `build/linux-x64-debug|release` на Linux. Библиотека экспортирует `hiasm_run`, её запуск из IDE отключён. GUI требует GTK4 и pkg-config. Windows daemon — скрытый процесс, не Windows-служба; Unix daemon использует fork/setsid.
 
-Windows installer поставляет GCC и GTK4 development files в `toolchains/mingw64`. `TargetPlatform` выбирает Native/Windows/Linux; доступны сборка и запуск через WSL либо MinGW/Wine. Подготовка окружения и ограничения GUI cross libraries описаны в `docs/cpp17.md`.
+Установщик Windows размещает LLVM-MinGW, Qt 6.9 и CMake/Ninja в `packs/cpp/compiler/`. Для сборки существующих GTK4-схем нужен отдельно установленный комплект разработчика GTK4 с `pkg-config`. `TargetPlatform` выбирает Native/Windows/Linux. Ограничения кросс-сборки описаны в `docs/cpp17.md`.
 
 ## Связь с пакетом Core
 
@@ -13,6 +27,14 @@ Windows installer поставляет GCC и GTK4 development files в `toolcha
 ## Приложение с формой (GTK4)
 
 Проект `MainForm` открывает окно GTK4 с поверхностью `GtkFixed`. Контролы схемы создаются при запуске по `Left/Top/Width/Height`, обработчики событий подключаются после того, как созданы все контролы. Встроенный редактор формы открывается командой «Редактор формы» (внешний `formedit` не нужен). Контролы с именами Delphi лежат в группе «Widgets» (Button, Label, Edit, Memo, CheckBox, RadioButton, ListBox, ComboBox, ProgressBar, TrackBar, GroupBox, Panel), Timer и Message — в «Controls». Одноимённые шаблоны `hcTpl*` перенесены в скрытую группу (пустое имя): палитра её не показывает, но схемы с ними открываются и собираются.
+
+## Приложение с формой (Qt Widgets)
+
+Новый проект `MainForm` создаётся с `Backend = Qt 6.9`. Сохранённые схемы без свойства `Backend` используют GTK4. Пример `packs/cpp/new/QtForm.sha` показывает передачу текста из `Edit` в `Label` через событие Enter и точку данных `Edit.Text`.
+
+Бэкенд поддерживает `Button`, `Label`, `Edit` и `CheckBox` в одной форме. Другие элементы и неподдерживаемые подключённые точки блокируют сборку с диагностикой. Поддерживается сборка для текущей платформы. Для нестандартной установки укажите `HIASM_QT_DIR`, `HIASM_QT_COMPILER_DIR` (каталог с `clang++` или совместимым `g++`) и `HIASM_NINJA` (путь к программе). Исходник и программа сохраняются рядом со схемой в `build/*-qt-debug` или `build/*-qt-release`.
+
+Проверка сборки и запуска включается переменной `HIASM_TEST_CPP_QT=1` в тесте `cpp_widgets`.
 
 ## База элементов
 
@@ -33,7 +55,7 @@ Windows installer поставляет GCC и GTK4 development files в `toolcha
   (`hiasm_plugin_info`, `hiasm_plugin_run`).
 - `WinDll`, `ComExt`, `WinService`, `CplApp` — Windows-only: по умолчанию
   собираются для Windows, а при явной Linux-цели исходник содержит `#error`.
-- `MainForm` и `Gui` создают GTK4-приложение, `Library` экспортирует
+- `MainForm` по умолчанию и `Gui` создают GTK4-приложение, `Library` экспортирует
   `hiasm_run`, консольные типы используют `main`, фоновые — `WinMain` на
   Windows и `fork/setsid` на Unix.
 

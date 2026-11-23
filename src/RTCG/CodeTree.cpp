@@ -229,6 +229,7 @@ TValue *TFuncNode::run(Context &context) {
 
 	result = NULL;
 	Context c(context.element, context.entry, args, this);
+	c.incomingArgs = context.args;
 	if(body)
 		body->run(c);
 	else
@@ -1123,4 +1124,3 @@ TValue *TNewNode::run(Context &context) {
 
 	CG_LOG_RETURN(new TValue(obj))
 }
-

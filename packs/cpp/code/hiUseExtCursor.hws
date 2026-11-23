@@ -1,0 +1,26 @@
+func CursorManager()
+  return('static_cast<HiasmExternalCursor *>(form.findChild<QObject *>(QStringLiteral("UseExtCursor' && _id_ && '")))')
+end
+
+func doStart
+  println('{')
+  println('auto *manager = new HiasmExternalCursor(&form);')
+  println('manager->setObjectName(QStringLiteral("UseExtCursor', _id_, '"));')
+  println('manager->resetOnDestroy = ', get('ResetOnDestroy') == 'True', ';')
+  println('}')
+end
+
+func doSetCursor(_data)
+  fvar(fileName)
+  fileName = _data
+  if(linked('FileCurName') or len(fileName) == 0)
+    fileName = cstr(d('FileCurName'))
+  end
+  println('if (', CursorManager(), '->load(qt_widget<QWidget>(form, ', cstr(get('qtControlTarget')), '), qt_text(', fileName, '))) {')
+  event(onSetCursor, _data)
+  println('}')
+end
+
+func doResetCursor(_data)
+  println(CursorManager(), '->reset();')
+end

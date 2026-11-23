@@ -731,7 +731,7 @@ static id_element innerParent(id_sdk sdk) {
 static void runScheme(id_sdk sdk, id_element skip, const char *entry) {
 	for(int i = 0; i < cgt->sdkGetCount(sdk); i++) {
 		id_element child = cgt->sdkGetElement(sdk, i);
-		if(child == skip) continue;
+		if(child == skip || (cgt->elGetFlag(child) & ELEMENT_FLG_IS_SYSTEM)) continue;
 		if(rtcgTransparent(child)) {
 			if(cgt->elGetClassIndex(child) != CI_MultiElement) continue;
 			id_sdk inner = cgt->elGetSDK(child);
@@ -918,7 +918,7 @@ TValue *TElementObject::execMethod(TTreeNode *node, long index, Context &context
 		CG_LOG_RETURN(new TValue())
 	}
 	ElementData *data = (ElementData *)cgt->elGetData(e);
-	if(!data) {
+	if(!data && index != 4) {
 		CG_LOG_INFO("internal error: element data is NULL")
 		CG_LOG_RETURN(new TValue())
 	}
@@ -1140,8 +1140,10 @@ TSDKObject::TSDKObject(id_sdk sdk) : TScriptObject("sdk") {
 }
 
 void TSDKObject::initMap() {
-	count = 8;
+	count = 10;
 	mtdNames = (TSORecord*) malloc(sizeof (TSORecord) * count);
+	mtdNames[9] = makeMethod("run_child", 2);
+	mtdNames[8] = makeMethod("run_all", 1);
 	mtdNames[7] = makeMethod("connectall", 0);
 	mtdNames[0] = makeMethod("initall", 0);
 	mtdNames[1] = makeMethod("child", 1);
@@ -1188,6 +1190,21 @@ TValue *TSDKObject::execMethod(TTreeNode *node, long index, Context &context) {
 		case 7:
 			connectAll();
 			break;
+		case 8: {
+			if(sdk && erun) {
+				const std::string entry = context.args->value(0)->toStr();
+				runScheme(sdk, nullptr, entry.c_str());
+			}
+			break;
+		}
+		case 9: {
+			const int child = context.args->value(0)->toInt();
+			if(sdk && erun && child >= 0 && child < cgt->sdkGetCount(sdk)) {
+				const std::string entry = context.args->value(1)->toStr();
+				runElement(cgt->sdkGetElement(sdk, child), entry.c_str());
+			}
+			break;
+		}
 		case 1:
 			CG_LOG_RETURN(new TValue(new TElementObject(cgt->sdkGetElement(sdk, context.args->at(0)->value->toInt()))))
 		case 2: {

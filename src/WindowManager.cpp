@@ -866,16 +866,18 @@ void WM_SDK_Editor::addSdkPathItem(const ustring &text, SDK *target) {
 	// A name above the shown scheme is a link: it is underlined while the pointer is over it.
 	auto underlined = std::make_shared<bool>(false);
 	const ustring markup = "<u>" + Glib::Markup::escape_text(text) + "</u>";
-	connect_motion_notify(*label, [label, underlined, markup](GdkEventMotion *) {
-		if(*underlined) return;
+	auto hover = [label, underlined, markup](GdkEventMotion *) {
+		if(*underlined) return false;
 		*underlined = true;
 		label->set_markup(markup);
-	});
-	connect_leave_notify(*label, [label, underlined, text](GdkEventCrossing *) {
+		return false;
+	};
+	auto leave = [label, underlined, text](GdkEventCrossing *) {
 		*underlined = false;
 		label->set_text(text);
-	});
-	connect_button_release(*label, [this, target](GdkEventButton *event) {
+		return false;
+	};
+	auto click = [this, target](GdkEventButton *event) {
 		if(event->button != BTN_LEFT) return false;
 		// The path line is rebuilt when the scheme changes, so the change waits until this click is handled.
 		pathIdle.disconnect();
@@ -884,7 +886,17 @@ void WM_SDK_Editor::addSdkPathItem(const ustring &text, SDK *target) {
 			return false;
 		});
 		return true;
-	});
+	};
+#ifdef HIASM_GTK4
+	connect_motion_notify(*label, hover);
+	connect_leave_notify(*label, leave);
+	connect_button_release(*label, click);
+#else
+	label->add_events(Gdk::POINTER_MOTION_MASK | Gdk::LEAVE_NOTIFY_MASK | Gdk::BUTTON_RELEASE_MASK);
+	connect_motion_notify(*label, hover);
+	label->signal_leave_notify_event().connect(leave);
+	label->signal_button_release_event().connect(click);
+#endif
 }
 
 ustring WM_SDK_Editor::sdkPathText() const {

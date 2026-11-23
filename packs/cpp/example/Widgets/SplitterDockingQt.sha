@@ -1,0 +1,40 @@
+Make(cpp)
+Add(MainForm,1,28,28)
+{
+ Backend=1
+ Caption="Splitter docking"
+ Width=520
+ Height=340
+}
+Add(Panel,2,112,28)
+{
+ Height=68
+ Align=2
+ Caption="Top pane"
+ Color=#e6edfa
+}
+Add(Splitter,3,168,28)
+{
+ Height=8
+ Align=2
+ Beveled=0
+ ResizeStyle=1
+}
+Add(Panel,4,112,84)
+{
+ Width=150
+ Align=3
+ Caption="Right pane"
+ Color=#e6faed
+}
+Add(Splitter,5,168,84)
+{
+ Width=8
+ Align=3
+ Color=#7898b8
+}
+Add(Panel,6,112,140)
+{
+ Align=5
+ Caption="Drag either divider. Press Esc during a drag to restore the size."
+}

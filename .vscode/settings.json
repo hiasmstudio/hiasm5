@@ -1,10 +1,8 @@
 {
     "cmake.useCMakePresets": "always",
     "cmake.configureOnOpen": false,
-    "C_Cpp.default.compileCommands": "${workspaceFolder}/build/Windows_MinGW-x64-GTK4-Debug/compile_commands.json",
-    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
-    "terminal.integrated.env.windows": {
-        "PATH": "C:/msys64/ucrt64/bin;C:/msys64/usr/bin;${env:PATH}",
-        "XDG_DATA_DIRS": "C:/msys64/ucrt64/share;C:/msys64/usr/share"
-    }
+    "C_Cpp.default.compileCommands": [
+        "${workspaceFolder}/build/qt69-native-debug/compile_commands.json"
+    ],
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools"
 }

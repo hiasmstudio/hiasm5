@@ -1,0 +1,36 @@
+include('qtMstFile')
+
+func SavedBytes()
+  return(MstLocal() && '->saveText(' && DelimiterValue() && ', ' && (get('SaveColumn') == 'True') && ', ' && (get('SaveColProp') == 'True') && ', ' && (get('SaveCheckBoxes') == 'True') && ')')
+end
+
+func doSave(_data)
+  fvar(path)
+  path = MstDefault(mt_arg(0), cstr(get('FileName')))
+  if(linked('FileName'))
+    path = d('FileName')
+  end
+  MstBegin()
+  println('QSaveFile output(', MstText(path), ');')
+  println('if (output.open(QIODevice::WriteOnly)) {')
+  println('  const auto bytes = ', SavedBytes(), ';')
+  println('  if (output.write(bytes) == bytes.size()) output.commit();')
+  println('}')
+  event(onSave)
+  println('}')
+end
+
+func doSaveToStream(_data)
+  fvar(stream)
+  stream = 'mstStream' && _id_
+  MstBegin()
+  println('auto *', stream, ' = ', FileState(), ';')
+  println(stream, '->close(); ', stream, '->setData(', SavedBytes(), ');')
+  println(stream, '->open(QIODevice::ReadOnly);')
+  event(onSaveToStream, stream)
+  println('}')
+end
+
+func Stream()
+  return(FileState())
+end

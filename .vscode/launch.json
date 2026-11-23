@@ -2,64 +2,22 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "HiAsm: Debug GTK4",
+            "name": "HiAsm: Debug Qt",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/Windows_MinGW-x64-GTK4-Debug/hiasm.exe",
+            "program": "${workspaceFolder}/build/qt69-native-debug/hiasm.exe",
             "args": [],
-            "stopAtEntry": false,
-            "cwd": "${workspaceFolder}/build/Windows_MinGW-x64-GTK4-Debug",
+            "cwd": "${workspaceFolder}/build/qt69-native-debug",
             "environment": [
                 {
                     "name": "PATH",
-                    "value": "C:/msys64/ucrt64/bin;C:/msys64/usr/bin;${env:PATH}"
-                },
-                {
-                    "name": "XDG_DATA_DIRS",
-                    "value": "C:/msys64/ucrt64/share;C:/msys64/usr/share;${env:XDG_DATA_DIRS}"
+                    "value": "C:/Qt/6.9.3/llvm-mingw_64/bin;C:/Qt/Tools/llvm-mingw1706_64/bin;${env:SystemRoot}/System32;${env:SystemRoot}"
                 }
             ],
             "externalConsole": false,
             "MIMode": "gdb",
-            "miDebuggerPath": "C:/msys64/ucrt64/bin/gdb.exe",
-            "preLaunchTask": "HiAsm: build GTK4 Debug",
-            "setupCommands": [
-                {
-                    "description": "Enable pretty-printing for gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ]
-        },
-        {
-            "name": "HiAsm: Debug GTK3",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "${workspaceFolder}/build/Windows_MinGW-x64-Debug/hiasm.exe",
-            "args": [],
-            "stopAtEntry": false,
-            "cwd": "${workspaceFolder}/build/Windows_MinGW-x64-Debug",
-            "environment": [
-                {
-                    "name": "PATH",
-                    "value": "C:/msys64/ucrt64/bin;C:/msys64/usr/bin;${env:PATH}"
-                },
-                {
-                    "name": "XDG_DATA_DIRS",
-                    "value": "C:/msys64/ucrt64/share;C:/msys64/usr/share;${env:XDG_DATA_DIRS}"
-                }
-            ],
-            "externalConsole": false,
-            "MIMode": "gdb",
-            "miDebuggerPath": "C:/msys64/ucrt64/bin/gdb.exe",
-            "preLaunchTask": "HiAsm: build GTK3 Debug",
-            "setupCommands": [
-                {
-                    "description": "Enable pretty-printing for gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ]
+            "miDebuggerPath": "C:/Qt/Tools/mingw1310_64/bin/gdb.exe",
+            "preLaunchTask": "HiAsm: build Qt Debug"
         }
     ]
 }

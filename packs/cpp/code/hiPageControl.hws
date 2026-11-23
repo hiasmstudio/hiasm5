@@ -1,0 +1,162 @@
+func PageWidget()
+  return('qt_widget<QTabWidget>(form, "PageControl' && _id_ && '")')
+end
+
+func doStart
+  fvar(i, pageSdk, panel, className, caption, icon)
+  println('{')
+  println('class HiasmPageControl', _id_, ' : public QTabWidget {')
+  println('public:')
+  println('  using QTabWidget::QTabWidget;')
+  println('  struct PageClass {')
+  println('    QString name, caption;')
+  println('    int icon;')
+  println('    std::function<HiasmForm *(QWidget *)> create;')
+  println('  };')
+  println('  QList<PageClass> classes;')
+  println('  QPointer<QWidget> selected;')
+  println('  QPointer<HiasmIconsManager> iconManager;')
+  println('  bool selectAdd = ', get('SelectAdd') == 'True', ';')
+  println('  QIcon pageIcon(int index) const {')
+  println('    const auto image = iconManager ? iconManager->icons.value(index) : QImage();')
+  println('    return image.isNull() ? QIcon() : QIcon(QPixmap::fromImage(image));')
+  println('  }')
+  println('  void refreshIcons() {')
+  println('    for (int i = 0; i < count(); ++i) setTabIcon(i, pageIcon(widget(i)->property("pageIconIndex").toInt()));')
+  println('  }')
+  println('  void setSelected(QWidget *page) {')
+  println('    selected = page;')
+  println('    setProperty("pageSelectedName", page ? page->objectName() : QString());')
+  println('  }')
+  println('  void addPage(const QString &name) {')
+  println('    for (const auto &entry : classes) {')
+  println('      if (entry.name.compare(name, Qt::CaseInsensitive) != 0) continue;')
+  println('      const QSignalBlocker blocker(this);')
+  println('      auto *page = entry.create(this);')
+  println('      page->setObjectName(entry.name);')
+  println('      page->setProperty("pageIconIndex", entry.icon);')
+  println('      const int index = addTab(page, pageIcon(entry.icon), entry.caption);')
+  println('      if (selectAdd) setCurrentIndex(index);')
+  println('      return;')
+  println('    }')
+  println('  }')
+  println('  void selectPage(int index) {')
+  println('    setSelected(widget(index));')
+  println('    if (!selected) return;')
+  println('    const QSignalBlocker blocker(this);')
+  println('    setCurrentIndex(index);')
+  println('  }')
+  println('  void selectName(const QString &name) {')
+  // Delphi selects the last matching instance without switching the visible tab.
+  println('    setSelected(nullptr);')
+  println('    for (int i = count() - 1; i >= 0; --i) {')
+  println('      if (widget(i)->objectName().compare(name, Qt::CaseInsensitive) != 0) continue;')
+  println('      setSelected(widget(i));')
+  println('      break;')
+  println('    }')
+  println('  }')
+  println('  void deletePage(int index) {')
+  println('    auto *page = widget(index);')
+  println('    if (!page) return;')
+  println('    if (selected == page) setSelected(nullptr);')
+  println('    const QSignalBlocker blocker(this);')
+  println('    const int previous = currentIndex();')
+  println('    removeTab(index);')
+  println('    page->deleteLater();')
+  println('    if (count()) setCurrentIndex(qMax(0, previous - 1));')
+  println('  }')
+  println('  void clearPages() { while (count()) deletePage(count() - 1); }')
+  println('};')
+  println('auto *pages = new HiasmPageControl', _id_, '(widgetParent);')
+  println('pages->setObjectName(QStringLiteral("PageControl', _id_, '"));')
+  println('pages->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+  println('pages->setDocumentMode(', get('Buttons') == 'True', ');')
+  println('pages->setEnabled(', get('Enabled') == 'True', ');')
+  println('pages->setVisible(', get('Visible') == 'True', ');')
+  println('pages->setToolTip(qt_text(', cstr(d('Hint')), '));')
+  // Other elements can generate work calls outside this local class's scope.
+  println('pages->setProperty("pageWork", QVariant::fromValue(std::function<void(int, QString)>([pages](int operation, const QString &value) {')
+  println('  switch (operation) {')
+  println('    case 0: pages->addPage(value); break;')
+  println('    case 1: pages->selectPage(value.toInt()); break;')
+  println('    case 2: pages->deletePage(value.toInt()); break;')
+  println('    case 3: pages->clearPages(); break;')
+  println('    case 4: pages->selectName(value); break;')
+  println('  }')
+  println('})));')
+  for(i = 1; i <= get('qtPageClassCount'); i++)
+    pageSdk = this.get_sdk(i)
+    panel = pageSdk.child(1)
+    className = panel.props('qtPageClassName').value
+    caption = panel.props('Caption').value
+    icon = number(panel.props('ImageIndex'))
+    if(len(caption) == 0)
+      caption = 'tab'
+    end
+    println('pages->classes.append({qt_text(', cstr(className), '), qt_text(', cstr(caption), '), static_cast<int>(', icon, '), [](QWidget *owner) {')
+    block.inclvl()
+    // Scope widget lookups in generated work handlers to this page instance.
+    println('auto *widgetParent = new HiasmForm(owner);')
+    println('auto &form = *widgetParent;')
+    pageSdk.run_all('dostart')
+    println('return widgetParent;')
+    block.declvl()
+    println('}});')
+  end
+  if(get('AutoCreate') == 'True')
+    println('for (const auto &entry : pages->classes) pages->addPage(entry.name);')
+  end
+  if(len(get('qtIconsManager')) > 0)
+    println('QTimer::singleShot(0, pages, [&form, pages] {')
+    println('  pages->iconManager = dynamic_cast<HiasmIconsManager *>(form.findChild<QObject *>(QStringLiteral("', get('qtIconsManager'), '")));')
+    println('  if (!pages->iconManager) return;')
+    println('  pages->refreshIcons();')
+    println('  pages->iconManager->listeners.append([guard = QPointer(pages)] { if (guard) guard->refreshIcons(); });')
+    println('});')
+  end
+  println('}')
+end
+
+func PageWork(operation, value)
+  fvar(argument)
+  argument = 'QString()'
+  if(len(value) > 0)
+    argument = 'qt_text(' && value && ')'
+  end
+  println('if (auto *pages = ', PageWidget(), ') {')
+  println('  auto work = pages->property("pageWork").value<std::function<void(int, QString)>>();')
+  println('  if (work) work(', operation, ', ', argument, ');')
+  println('}')
+end
+
+func pageAdd(pointIndex, payload)
+  PageWork(0, payload)
+end
+
+func pageSelect(pointIndex, payload)
+  PageWork(1, payload)
+end
+
+func pageDelete(pointIndex, payload)
+  PageWork(2, payload)
+end
+
+func pageClear(pointIndex, payload)
+  PageWork(3, '')
+end
+
+func pageSelectName(pointIndex, payload)
+  PageWork(4, payload)
+end
+
+func pageCount()
+  return(PageWidget() && '->count()')
+end
+
+func pageIndex()
+  return(PageWidget() && '->currentIndex()')
+end
+
+func pageName()
+  return(PageWidget() && '->property("pageSelectedName").toString()')
+end

@@ -1,0 +1,61 @@
+func Target()
+  return('qt_widget<HiasmRushProgress>(form, "ProgressBarRush' && _id_ && '")')
+end
+
+func doStart
+  println('{')
+  println('auto *bar = new HiasmRushProgress(widgetParent);')
+  println('bar->setObjectName(QStringLiteral("ProgressBarRush', _id_, '"));')
+  println('bar->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+  println('bar->maximum = qMax(0, int(', Max, '));')
+  println('bar->vertical = ', get('Kind') == 1, ';')
+  println('bar->frame = ', get('Frame') == 'True', ';')
+  println('bar->transparent = ', get('Transparent') == 'True', ';')
+  println('bar->drawProgress = ', get('DrawProgress') == 'True', ';')
+  println('bar->roundWidth = ', RoundWidth, ';')
+  println('bar->roundHeight = ', RoundHeight, ';')
+  println('bar->caption = qt_text(', cstr(get('Caption')), ');')
+  println('bar->background = qt_led_color(qt_text(', cstr(d('Color')), '), bar->palette().color(QPalette::Window));')
+  println('bar->setEnabled(', get('Enabled') == 'True', ');')
+  println('bar->setVisible(', get('Visible') == 'True', ');')
+  println('bar->normal = {')
+  println('  qt_led_color(qt_text(', cstr(d('ColorFrom')), '), Qt::white), qt_led_color(qt_text(', cstr(d('ColorTo')), '), Qt::blue),')
+  println('  qt_led_color(qt_text(', cstr(d('ColorText')), '), Qt::black), qt_led_color(qt_text(', cstr(d('BorderColor')), '), Qt::gray),')
+  println('  qt_led_color(qt_text(', cstr(d('ColorShadow')), '), Qt::white), ', get('GradientStyle'), ', ', BorderWidth, ', ', ShadowOffset, '};')
+  println('bar->disabled = {')
+  println('  qt_led_color(qt_text(', cstr(d('ColorFromDis')), '), Qt::white), qt_led_color(qt_text(', cstr(d('ColorToDis')), '), Qt::gray),')
+  println('  qt_led_color(qt_text(', cstr(d('ColorTextDis')), '), Qt::black), qt_led_color(qt_text(', cstr(d('BorderColorDis')), '), Qt::gray),')
+  println('  qt_led_color(qt_text(', cstr(d('ColorShadowDis')), '), Qt::gray), ', get('GradientStyleDis'), ', ', BorderWidthDis, ', ', ShadowOffsetDis, '};')
+  println('}')
+end
+
+func IntArg(value)
+  if(len(value) > 0)
+    return('qt_text(' && value && ').toInt()')
+  end
+  return('0')
+end
+
+func doPosition(_data)
+  println(Target(), '->setPosition(', IntArg(_data), ');')
+end
+
+func doMax(_data)
+  println('{ auto *bar = ', Target(), '; bar->maximum = qMax(0, ', IntArg(_data), '); bar->setPosition(bar->position); }')
+end
+
+func doRoundWidth(_data)
+  println('{ auto *bar = ', Target(), '; bar->roundWidth = ', IntArg(_data), '; bar->update(); }')
+end
+
+func doRoundHeight(_data)
+  println('{ auto *bar = ', Target(), '; bar->roundHeight = ', IntArg(_data), '; bar->update(); }')
+end
+
+func doUpdate(_data)
+  println(Target(), '->update();')
+end
+
+func Position()
+  return(Target() && '->position')
+end

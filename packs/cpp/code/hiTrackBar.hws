@@ -7,6 +7,68 @@ func Arg(value)
 end
 
 func doStart
+  if(is_qt_project())
+    qtStart()
+  else
+    gtkStart()
+  end
+end
+
+func qtStart
+  fvar(orientation, ticks, page)
+  orientation = 'Qt::Horizontal'
+  if(get('Kind') == 1)
+    orientation = 'Qt::Vertical'
+  end
+  ticks = 'QSlider::TicksBelow'
+  switch(get('TickMarks'))
+    case 1: ticks = 'QSlider::TicksAbove'
+    case 2: ticks = 'QSlider::TicksBothSides'
+  end
+  page = get('PageSize')
+  if(page < 0)
+    page = 10
+  end
+  println('{')
+  println('auto *track = new QSlider(', orientation, ', widgetParent);')
+  println('track->setObjectName(QStringLiteral("TrackBar', _id_, '"));')
+  println('track->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+  println('track->setRange(', get('Min'), ', ', get('Max'), ');')
+  println('track->setValue(', get('Position'), ');')
+  println('track->setTickPosition(', ticks, ');')
+  println('track->setTickInterval(qMax(0, ', get('TickCount'), '));')
+  println('track->setPageStep(', page, ');')
+  if(get('HintPosition') == 'True')
+    println('track->setToolTip(QString::number(track->value()));')
+    println('QObject::connect(track, &QSlider::valueChanged, track, [track](int value) {')
+    println('    track->setToolTip(QString::number(value));')
+    println('});')
+  end
+  if(linked(onPosition))
+    println('QObject::connect(track, &QSlider::valueChanged, &form, [&form](int sliderValue) {')
+    block.inclvl()
+    event(onPosition, 'sliderValue')
+    block.declvl()
+    println('});')
+  end
+  if(linked(onStart))
+    println('QObject::connect(track, &QSlider::sliderPressed, &form, [&form, track] {')
+    block.inclvl()
+    event(onStart, 'track->value()')
+    block.declvl()
+    println('});')
+  end
+  if(linked(onStop))
+    println('QObject::connect(track, &QSlider::sliderReleased, &form, [&form, track] {')
+    block.inclvl()
+    event(onStop, 'track->value()')
+    block.declvl()
+    println('});')
+  end
+  println('}')
+end
+
+func gtkStart
   println('{')
   fvar(orient, adjustment, ticks, step, i, mark, page, tickpos, both, other)
   orient = 'GTK_ORIENTATION_HORIZONTAL'
@@ -90,14 +152,75 @@ func doStart
 end
 
 func doPosition(_data)
-  println('gtk_range_set_value(GTK_RANGE(hiasm_widget("TrackBar', _id_, '").get()), static_cast<double>(', Arg(_data), '));')
+  if(is_qt_project())
+    qtSetValue(_data)
+    // Delphi emits the final value even if it did not change.
+    if(linked(onPosition))
+      println('if (auto *sliderTarget = qt_widget<QSlider>(form, "TrackBar', _id_, '")) sliderTarget->valueChanged(sliderTarget->value());')
+    end
+  else
+    println('gtk_range_set_value(GTK_RANGE(hiasm_widget("TrackBar', _id_, '").get()), static_cast<double>(', Arg(_data), '));')
+  end
 end
 
 func doPosition2(_data)
-  doPosition(_data)
+  if(is_qt_project())
+    qtSetValue(_data)
+  else
+    doPosition(_data)
+  end
 end
 
 func Position()
-  return('static_cast<int>(hiasm_range_value("TrackBar' && _id_ && '"))')
+  if(is_qt_project())
+    return('qt_widget<QSlider>(form, "TrackBar' && _id_ && '")->value()')
+  else
+    return('static_cast<int>(hiasm_range_value("TrackBar' && _id_ && '"))')
+  end
 end
 
+func doMin(_data)
+  if(is_qt_project())
+    println('{')
+    println('const int sliderInput = qt_text(', Arg(_data), ').toInt();')
+    println('auto *sliderTarget = qt_widget<QSlider>(form, "TrackBar', _id_, '");')
+    println('const QSignalBlocker blocker(sliderTarget);')
+    println('sliderTarget->setMinimum(sliderInput);')
+    qtSyncHint()
+    println('}')
+  end
+end
+
+func doMax(_data)
+  if(is_qt_project())
+    println('{')
+    println('const int sliderInput = qt_text(', Arg(_data), ').toInt();')
+    println('auto *sliderTarget = qt_widget<QSlider>(form, "TrackBar', _id_, '");')
+    println('const QSignalBlocker blocker(sliderTarget);')
+    println('sliderTarget->setMaximum(sliderInput);')
+    qtSyncHint()
+    println('}')
+  end
+end
+
+func doTickCount(_data)
+  if(is_qt_project())
+    println('qt_widget<QSlider>(form, "TrackBar', _id_, '")->setTickInterval(qMax(0, qt_text(', Arg(_data), ').toInt()));')
+  end
+end
+
+func qtSetValue(_data)
+  println('{')
+  println('const int sliderInput = qt_text(', Arg(_data), ').toInt();')
+  println('auto *sliderTarget = qt_widget<QSlider>(form, "TrackBar', _id_, '");')
+  println('const QSignalBlocker blocker(sliderTarget);')
+  println('sliderTarget->setValue(sliderInput);')
+  qtSyncHint()
+  println('}')
+end
+
+func qtSyncHint
+  if(get('HintPosition') == 'True')
+    println('sliderTarget->setToolTip(QString::number(sliderTarget->value()));')
+  end
+end

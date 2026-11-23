@@ -1,30 +1,37 @@
+func memoryName()
+  if(issec("php"))
+    return('$val' && _id_)
+  end
+  return('val' && _id_)
+end
+
 func Init:java
   fvar(old)
   if(issec("php") and isset(BLK_FUNC) and isdef(Extern))
     old = block.select(BLK_FUNC)    
-    println('global ', val, ';')
+    println('global ', memoryName(), ';')
     block.select(old)
   end
   if(isndef(Default) and (linked(doValue) or linked(doClear)))
     old = block.select((isset(BLK_FUNC) and isndef(Extern)) ? BLK_FUNC : BLK_HEAD)
-    println(issec("php") ? '' : 'var ', val, ' = ', Default, ';')
+    println(issec("php") ? '' : 'var ', memoryName(), ' = ', Default, ';')
     block.select(old)
   end 
 end
 
 func doValue(data):java
-  println(val, ' = ', data, ';') 
-  event(onData, val)
+  println(memoryName(), ' = ', data, ';') 
+  event(onData, memoryName())
 end
 
 func doClear:java
-  println(val, ' = ', Default, ';')
-  event(onData, val)
+  println(memoryName(), ' = ', Default, ';')
+  event(onData, memoryName())
 end
 
 func Value:java
   if(linked(doValue) or linked(doClear))
-    return(val)
+    return(memoryName())
   else
     return(Default)
   end

@@ -1,6 +1,14 @@
-func doSetOptions()
+func curlResultName()
+  return('$curlResult' && _id_)
+end
+
+func doSetOptions(_data)
     fvar(a,s)
-	s = 'curl_setopt_array('+cURLID+', array('
+	if(linked(cURLID))
+      s = 'curl_setopt_array(' && cURLID && ', array('
+    else
+      s = 'curl_setopt_array(' && _data && ', array('
+    end
 	a = ''
 	if (isndef(TransferMode))
 		a = 'CURLOPT_BINARYTRANSFER => TRUE, '
@@ -55,8 +63,8 @@ func doSetOptions()
 	end
 	
 	if (linked(onSetOptions))
-	  println (result, ' = ', s, a, '));')
-	  event(onSetOptions, result);
+	  println (curlResultName(), ' = ', s, a, '));')
+	  event(onSetOptions, curlResultName())
 	else
 	  println (s, a, '));')
 	  event(onSetOptions)

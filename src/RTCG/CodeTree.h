@@ -475,6 +475,7 @@ struct Context {
 	id_element element;
 	const char *entry;
 	TArgs *args;
+	TArgs *incomingArgs;
 	TFuncNode *func;
 	int breakLevel;
 	int dataArgsIndex;
@@ -482,6 +483,7 @@ struct Context {
 	Context(id_element element, const char *entry, TArgs *args, TFuncNode *func = NULL) {
 		this->element = element;
 		this->args = args;
+		this->incomingArgs = args;
 		this->entry = entry;
 		this->func = func;
 		breakLevel = 0;

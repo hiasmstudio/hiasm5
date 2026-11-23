@@ -1,0 +1,68 @@
+include('qtMstClient')
+
+func doStart()
+  println('{ auto *state = new QObject(&form);')
+  println('state->setObjectName(QStringLiteral("MST_ColAction', _id_, '"));')
+  println('state->setProperty("min", ', MinColWidth, '); state->setProperty("max", ', MaxColWidth, '); }')
+end
+
+func SizeState()
+  return('form.findChild<QObject *>(QStringLiteral("MST_ColAction' && _id_ && '"))')
+end
+
+func doMinColWidth(_data)
+  println(SizeState(), '->setProperty("min", ', MstInt(_data), ');')
+end
+
+func doMaxColWidth(_data)
+  println(SizeState(), '->setProperty("max", ', MstInt(_data), ');')
+end
+
+func doColAction(_data)
+  fvar(mode, table, col, result, i)
+  mode = get('Action')
+  table = MstLocal()
+  col = 'mstColumn' && _id_
+  result = 'mstFields' && _id_
+  MstBegin()
+  println('QVariantList mstValues;')
+  for(i = 0; i < mt_count(); i++)
+    MstAppend(mt_arg(i))
+  end
+  if(mode == 0)
+    println('for (const auto &definition : mstValues) ', table, '->column(', table, '->columnCount(), definition.toString(), true);')
+    event(onChangeColLst)
+  elseif(mode == 1 or mode == 2)
+    println('if (!mstValues.isEmpty()) ', table, '->column(mstValues.value(0).toInt(), mstValues.value(1).toString(), ', mode == 1, ');')
+    event(onChangeColLst)
+  elseif(mode == 3)
+    println('if (!mstValues.isEmpty()) ', table, '->removeMstColumn(mstValues.value(0).toInt());')
+    event(onChangeColLst)
+  elseif(mode >= 5 and mode <= 8)
+    println('if (!mstValues.isEmpty()) ', table, '->setColumnField(mstValues.value(0).toInt(), ', mode - 5, ', mstValues.value(1).toString());')
+    event(onChangeColLst)
+  else
+    if(linked('Index'))
+      println('const int ', col, ' = ', MstInt(d('Index')), ';')
+    else
+      println('const int ', col, ' = mstValues.value(0, QVariant(', get('Index'), ')).toInt();')
+    end
+    if(mode == 4)
+      println('if (', table, '->validColumn(', col, ')) {')
+      println(table, '->clearColumn(', col, ');')
+      event(onChange)
+      println('}')
+    elseif(mode == 10)
+      println('const auto ', result, ' = ', table, '->columnFields(', col, ');')
+      println('if (!', result, '.isEmpty()) {')
+      event(onResult, col, result && '.at(0)', result && '.at(1).toInt()', result && '.at(2).toInt()', result && '.at(3).toInt()')
+      println('}')
+    else
+      println('auto *state = ', SizeState(), ';')
+      println('if (', table, '->sizeColumns(', col, ', state->property("min").toInt(), state->property("max").toInt(), ', mode == 11, ')) {')
+      event(onChangeColLst)
+      println('}')
+    end
+  end
+  println('}')
+end

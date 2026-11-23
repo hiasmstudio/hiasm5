@@ -1,11 +1,63 @@
 {
     "version": "2.0.0",
     "tasks": [
-        {"label": "HiAsm: build GTK4 Debug", "type": "process", "command": "cmd.exe", "args": ["/d", "/c", "tools\\build_windows.bat", "gtk4", "debug"], "options": {"cwd": "${workspaceFolder}"}, "problemMatcher": "$gcc", "group": {"kind": "build", "isDefault": true}},
-        {"label": "HiAsm: build GTK4 Release", "type": "process", "command": "cmd.exe", "args": ["/d", "/c", "tools\\build_windows.bat", "gtk4", "release"], "options": {"cwd": "${workspaceFolder}"}, "problemMatcher": "$gcc"},
-        {"label": "HiAsm: build GTK3 Debug", "type": "process", "command": "cmd.exe", "args": ["/d", "/c", "tools\\build_windows.bat", "gtk3", "debug"], "options": {"cwd": "${workspaceFolder}"}, "problemMatcher": "$gcc"},
-        {"label": "HiAsm: build GTK3 Release", "type": "process", "command": "cmd.exe", "args": ["/d", "/c", "tools\\build_windows.bat", "gtk3", "release"], "options": {"cwd": "${workspaceFolder}"}, "problemMatcher": "$gcc"},
-        {"label": "HiAsm: run GTK4 Debug", "type": "process", "command": "cmd.exe", "args": ["/d", "/c", "tools\\run-debug.bat", "gtk4"], "options": {"cwd": "${workspaceFolder}"}, "problemMatcher": []},
-        {"label": "HiAsm: run GTK3 Debug", "type": "process", "command": "cmd.exe", "args": ["/d", "/c", "tools\\run-debug.bat", "gtk3"], "options": {"cwd": "${workspaceFolder}"}, "problemMatcher": []}
+        {
+            "label": "HiAsm: build Qt Debug",
+            "type": "process",
+            "command": "powershell.exe",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}/tools/build_qt_windows.ps1",
+                "-Configuration",
+                "Debug",
+                "-SkipTests"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": "$gcc",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "HiAsm: build Qt Release",
+            "type": "process",
+            "command": "powershell.exe",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}/tools/build_qt_windows.ps1",
+                "-Configuration",
+                "Release",
+                "-SkipTests"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": "$gcc",
+            "group": "build"
+        },
+        {
+            "label": "HiAsm: run Qt Debug",
+            "type": "process",
+            "command": "cmd.exe",
+            "args": [
+                "/d",
+                "/c",
+                "tools\\build_windows_run-debug.bat",
+                "qt"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        }
     ]
 }

@@ -1,0 +1,80 @@
+include('qtMstClient')
+
+func VirtualTarget()
+  return('dynamic_cast<HiasmMstVirtual *>(form.findChild<QObject *>(QStringLiteral("MST_Virtual' && _id_ && '")))')
+end
+
+func doStart
+  println('{ auto *page = new HiasmMstVirtual(&form);')
+  println('page->setObjectName(QStringLiteral("MST_Virtual', _id_, '"));')
+  println('page->initialPage = qMax(0, int(', DefaultPage, '));')
+  println('page->columnByName = ', get('SubItemName') == 0, ';')
+  if(linked('VirtualData'))
+    println('page->provider = [&form] { return qt_mst_tuple(', d('VirtualData'), '); };')
+  end
+  println('QTimer::singleShot(0, page, [&form, page] {')
+  println('  if (page->table) return;')
+  println('  page->table = ', MstTarget(), '; page->moveTo(qint64(page->initialPage) * page->perPage()); page->refresh();')
+  println('}); }')
+end
+
+func ChangePage(position)
+  fvar(page)
+  page = 'virtualPage' && _id_
+  println('if (auto *', page, ' = ', VirtualTarget(), ') {')
+  println('if (!', page, '->table) ', page, '->table = ', MstTarget(), ';')
+  println(page, '->moveTo(', position, ');')
+  println(page, '->refresh();')
+  event(onChangeVirtIdx, page && '->index')
+  println('}')
+end
+
+func doNextPage(_data)
+  fvar(page)
+  page = 'virtualPage' && _id_
+  ChangePage('qint64(' && page && '->index) + ' && page && '->perPage()')
+end
+
+func doPrevPage(_data)
+  fvar(page)
+  page = 'virtualPage' && _id_
+  ChangePage('qint64(' && page && '->index) - ' && page && '->perPage()')
+end
+
+func doSetPage(_data)
+  fvar(value)
+  value = mt_arg(0)
+  if(linked('Page'))
+    value = d('Page')
+  end
+  ChangePage('qint64(' && MstInt(MstDefault(value, get('DefaultPage'))) && ') * virtualPage' && _id_ && '->perPage()')
+end
+
+func doResetPage(_data)
+  ChangePage('qint64(virtualPage' && _id_ && '->initialPage) * virtualPage' && _id_ && '->perPage()')
+end
+
+func doInitPage(_data)
+  ChangePage('virtualPage' && _id_ && '->index')
+end
+
+func doSetVirtIdx(_data)
+  fvar(value)
+  value = mt_arg(0)
+  if(linked('VirtIdx'))
+    value = d('VirtIdx')
+  end
+  ChangePage(MstInt(value))
+end
+
+func CurVirtIdx()
+  return(VirtualTarget() && '->index')
+end
+
+func CurPage()
+  return('(' && CurVirtIdx() && ' / ' && PerPage() && ')')
+end
+
+func PerPage()
+  return(VirtualTarget() && '->perPage()')
+end

@@ -14,14 +14,11 @@ trap cleanup EXIT INT TERM
 
 cp -R "$SCRIPT_DIR/hiasm-common-control/." "$PNAME/"
 
-mkdir -p "$DEST/hiasm"
-cp -R "$RES/int" "$DEST/hiasm/int"
-cp "$RES/gtkrc" "$RES/splash.png" "$DEST/hiasm/"
-
-mkdir -p "$DEST/applications" "$DEST/gtksourceview-2.0/language-specs" "$DEST/pixmaps"
+mkdir -p "$DEST/hiasm/int" "$DEST/applications" "$DEST/pixmaps"
+python3 "$ROOT/tools/build_database.py" "$DEST/hiasm/int/hiasm.db" "$RES/hiasm.db" "$ROOT/packs/cpp/cpp_package.sql"
+cp "$RES/hiasm.sql" "$DEST/hiasm/int/"
 cp "$RES/linux/applications/hiasm.desktop" "$DEST/applications/"
-cp "$RES/linux/gtksourceview-2.0/language-specs/hws.lang" "$DEST/gtksourceview-2.0/language-specs/"
-cp "$RES/linux/pixmaps/hiasm.png" "$DEST/pixmaps/"
+cp "$RES/hiasm.png" "$DEST/pixmaps/"
 
 VERSION1=$(awk '$1 == "#define" && $2 == "HIASM_VERSION_MAJOR" {print $3}' "$ROOT/src/share.h")
 VERSION2=$(awk '$1 == "#define" && $2 == "HIASM_VERSION_MINOR" {print $3}' "$ROOT/src/share.h")

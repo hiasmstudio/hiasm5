@@ -1,0 +1,31 @@
+func doStart
+  fvar(x, y)
+  x = 'plotMouseX' && _id_
+  y = 'plotMouseY' && _id_
+  println('{ auto *listener = new HiasmPlotMouse(widgetParent);')
+  println('listener->setObjectName(QStringLiteral("PlotMouseValues', _id_, '"));')
+  println('listener->realCoordinates = ', get('CoordMode') == 1, ';')
+  if(linked(onMouseDown))
+    println('listener->pressed = [&form](double ', x, ', double ', y, ') {')
+    event(onMouseDown, x, y)
+    println('};')
+  end
+  if(linked(onMouseUp))
+    println('listener->released = [&form](double ', x, ', double ', y, ') {')
+    event(onMouseUp, x, y)
+    println('};')
+  end
+  if(linked(onMouseMove))
+    println('listener->moved = [&form](double ', x, ', double ', y, ') {')
+    event(onMouseMove, x, y)
+    println('};')
+  end
+  println('QTimer::singleShot(0, listener, [&form, listener] {')
+  println('  if (auto *plot = qt_widget<HiasmPlotter>(form, ', cstr(get('qtPlotterTarget')), ')) {')
+  println('    plot->setMouseTracking(true); plot->installEventFilter(listener);')
+  println('  } }); }')
+end
+
+func Button()
+  return('dynamic_cast<HiasmPlotMouse *>(form.findChild<QObject *>(QStringLiteral("PlotMouseValues' && _id_ && '")))->button')
+end

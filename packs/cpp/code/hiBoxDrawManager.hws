@@ -1,0 +1,56 @@
+func doStart
+  println('{ auto *draw = new HiasmBoxDraw(&form);')
+  println('draw->setObjectName(QStringLiteral("BoxDrawManager', _id_, '"));')
+  println('draw->gradient = ', get('Gradient') == 'True', ';')
+  println('draw->horizontal = ', get('Horizontal') == 'True', ';')
+  println('draw->reverse = ', get('InversGrad') == 'True', ';')
+  println('draw->frame = ', get('Frame') == 'True', ';')
+  println('draw->light = qt_led_color(qt_text(', cstr(get('LightColor')), '), QColor());')
+  println('draw->dark = qt_led_color(qt_text(', cstr(get('DarkColor')), '), QColor());')
+  println('draw->border = qt_led_color(qt_text(', cstr(get('ColorFrame')), '), QColor());')
+  println('}')
+end
+
+func DrawTarget()
+  return('dynamic_cast<HiasmBoxDraw *>(form.findChild<QObject *>(QStringLiteral("BoxDrawManager' && _id_ && '")))')
+end
+
+func DrawFlag(field, value)
+  if(len(value) > 0)
+    println('{ auto *draw = ', DrawTarget(), '; draw->', field, ' = qt_flag(qt_text(', value, ')); draw->refresh(); }')
+  end
+end
+
+func DrawColor(field, value)
+  if(len(value) > 0)
+    println('{ auto *draw = ', DrawTarget(), '; draw->', field, ' = qt_led_color(qt_text(', value, '), draw->', field, '); draw->refresh(); }')
+  end
+end
+
+func doGradient(_data)
+  DrawFlag('gradient', _data)
+end
+
+func doHorizontal(_data)
+  DrawFlag('horizontal', _data)
+end
+
+func doFrame(_data)
+  DrawFlag('frame', _data)
+end
+
+func doInversGrad(_data)
+  DrawFlag('reverse', _data)
+end
+
+func doLightColor(_data)
+  DrawColor('light', _data)
+end
+
+func doDarkColor(_data)
+  DrawColor('dark', _data)
+end
+
+func doColorFrame(_data)
+  DrawColor('border', _data)
+end

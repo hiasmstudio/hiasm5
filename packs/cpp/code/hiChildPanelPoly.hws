@@ -1,0 +1,5 @@
+include('qtChildPoly')
+
+func doStart
+  PolyStart('ChildPanelPoly', 0)
+end

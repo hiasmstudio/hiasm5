@@ -1,0 +1,125 @@
+Make(cpp)
+Add(MainForm,1,28,28)
+{
+ Backend=1
+ Caption="Qt basic widgets"
+ Width=480
+ Height=250
+}
+Add(RadioButton,2,168,28)
+{
+ Left=16
+ Top=12
+ Width=150
+ Caption="First option"
+ Selected=0
+ Point(doCaption)
+ link(onSelect,8:doText,[])
+}
+Add(RadioButton,3,168,84)
+{
+ Left=16
+ Top=40
+ Width=150
+ Caption="Second option"
+ link(onSelect,9:doText,[])
+}
+Add(TrackBar,4,168,140)
+{
+ Left=16
+ Top=74
+ Width=180
+ Min=-10
+ Max=80
+ Position=17
+ TickCount=5
+ TickMarks=2
+ PageSize=8
+ HintPosition=0
+ Point(onStart)
+ Point(onStop)
+ Point(doMin)
+ Point(doMax)
+ Point(doTickCount)
+ link(onPosition,5:doPosition,[])
+ link(onStart,10:doText,[])
+ link(onStop,11:doText,[])
+}
+Add(ProgressBar,5,308,140)
+{
+ Left=206
+ Top=74
+ Width=24
+ Height=120
+ Kind=1
+ Max=70
+ Point(doMax)
+}
+Add(Edit,6,28,140)
+{
+ Left=250
+ Top=74
+ Width=160
+ ClearAfterEnter=1
+ link(onEnter,4:doPosition,[])
+ link(onChange,4:doPosition2,[])
+}
+Add(Edit,7,28,84)
+{
+ Left=250
+ Top=40
+ Width=160
+ ClearAfterEnter=1
+ link(onEnter,3:doSelect,[])
+ link(onChange,2:doCaption,[])
+}
+Add(Label,8,308,28)
+{
+ Left=250
+ Top=110
+ Width=140
+ Caption="First selected?"
+ link(Text,2:Selected,[])
+}
+Add(Label,9,308,84)
+{
+ Left=250
+ Top=132
+ Width=140
+ Caption="Second selected?"
+ link(Text,3:Selected,[])
+}
+Add(Label,10,308,196)
+{
+ Left=250
+ Top=154
+ Width=160
+ Caption="Start position"
+ link(Text,4:Position,[])
+}
+Add(Label,11,308,252)
+{
+ Left=250
+ Top=176
+ Width=160
+ Caption="Stop position"
+ link(Text,5:Position,[])
+}
+Add(Edit,12,28,196)
+{
+ Left=250
+ Top=200
+ Width=160
+ ClearAfterEnter=1
+ link(onEnter,4:doMin,[])
+ link(onChange,4:doMax,[])
+}
+Add(Edit,13,28,252)
+{
+ Left=16
+ Top=200
+ Width=160
+ ClearAfterEnter=1
+ link(onEnter,4:doTickCount,[])
+ link(onChange,5:doMax,[])
+}

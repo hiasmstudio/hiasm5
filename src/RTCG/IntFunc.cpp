@@ -392,6 +392,16 @@ TValue *map_linked(void *node, TArgs *args, Context &context) {
 	return new TValue(false);
 }
 
+static TValue *map_mt_arg(void *, TArgs *args, Context &context) {
+	const int index = args->value(0)->toInt();
+	if(index < 0 || index >= context.incomingArgs->size()) return new TValue();
+	return context.incomingArgs->value(index)->duplicate();
+}
+
+static TValue *map_mt_count(void *, TArgs *, Context &context) {
+	return new TValue(static_cast<int>(context.incomingArgs->size()));
+}
+
 TValue *map_isdef(void *node, TArgs *args, Context &context) {
 	id_prop prop = cgt->getPropByName(context.element, args->value(0)->toStr());
 	if(prop)
@@ -672,6 +682,23 @@ TValue *map_gui_project(void *node, TArgs *args, Context &context) {
 	return new TValue(false);
 }
 
+TValue *map_qt_project(void *, TArgs *, Context &context) {
+	id_sdk sdk = cgt->elGetParent(context.element);
+	while(sdk) {
+		id_element parent = cgt->sdkGetParent(sdk);
+		if(!parent) break;
+		sdk = cgt->elGetParent(parent);
+	}
+	for(int i = 0; sdk && i < cgt->sdkGetCount(sdk); ++i) {
+		id_element element = cgt->sdkGetElement(sdk, i);
+		if((cgt->elGetFlag(element) & ELEMENT_FLG_IS_PARENT) && !strcmp(cgt->elGetClassName(element), "MainForm")) {
+			id_prop backend = cgt->getPropByName(element, "Backend");
+			return new TValue(backend && cgt->propToInteger(backend) == 1);
+		}
+	}
+	return new TValue(false);
+}
+
 TValue *map_cstr(void *node, TArgs *args, Context &context) {
 	if(args->size() == 0) return new TValue("\"\"", true);
 	TValue *value = args->value(0);
@@ -713,6 +740,8 @@ const TFuncMap func_map[] = {
 	{ "expof", 1, map_expof, "var"},
 	{ "isnull", 1, map_isnull, "var"},
 	{ "d", 1, map_d, "name"},
+	{ "mt_arg", 1, map_mt_arg, "index"},
+	{ "mt_count", 0, map_mt_count, ""},
 	{ "linked", 1, map_linked, "name"},
 	{ "isdef", 1, map_isdef, "name"},
 	{ "isndef", 1, map_isndef, "name"},
@@ -742,5 +771,8 @@ const TFuncMap func_map[] = {
 	{ "project_dir", 0, map_project_dir, ""},
 	{ "project_name", 0, map_project_name, ""},
 	{ "is_gui_project", 0, map_gui_project, ""},
+	{ "is_qt_project", 0, map_qt_project, ""},
 	{ "cstr", 1, map_cstr, "value"}
 };
+
+const int func_map_size = sizeof(func_map) / sizeof(func_map[0]);

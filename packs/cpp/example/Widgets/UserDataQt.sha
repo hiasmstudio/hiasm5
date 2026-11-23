@@ -1,0 +1,53 @@
+Make(cpp)
+Add(MainForm,1,28,28)
+{
+ Backend=1
+ Caption="User data source"
+ Width=390
+ Height=235
+ link(onCreate,3:doEnum,[])
+}
+Add(DS_UserData,2,112,28)
+{
+ Name="input"
+ link(Count,4:Text,[])
+ link(Columns,5:Text,[])
+ link(Row,6:Array,[])
+}
+Add(MEnumerator,3,224,28)
+{
+ DataSource="input"
+ Column="Role"
+ link(onEnum,7:doAdd,[])
+}
+Add(Edit,4,28,84)
+{
+ Left=12
+ Top=12
+ Width=365
+ Text="2"
+}
+Add(Memo,5,28,140)
+{
+ Left=12
+ Top=45
+ Width=175
+ Height=62
+ Strings=#4:Name|4:Role|
+}
+Add(Memo,6,28,196)
+{
+ Left=202
+ Top=45
+ Width=175
+ Height=62
+ Strings=#3:Ada|7:Analyst|
+}
+Add(Memo,7,305,28)
+{
+ Left=12
+ Top=111
+ Width=365
+ Height=110
+ ReadOnly=0
+}

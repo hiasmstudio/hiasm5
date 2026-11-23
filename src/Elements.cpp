@@ -224,10 +224,10 @@ Widget *ElementWinElement::createWidget(Element **parent) {
 	if(cls == "GroupBox" || cls == "Panel" || cls == "ScrollBox") return new Frame(caption);
 	if(cls == "Memo" || cls == "ListBox" || cls == "TreeView") {
 		ScrolledWindow *scroll = new ScrolledWindow();
-		scroll->set_policy(PolicyType::AUTOMATIC, PolicyType::AUTOMATIC);
-		if(cls == "Memo") scroll->set_child(*new TextView());
-		else if(cls == "ListBox") scroll->set_child(*new ListBox());
-		else scroll->set_child(*new TreeView());
+		scroll->set_policy(POLICY_AUTOMATIC, POLICY_AUTOMATIC);
+		if(cls == "Memo") scrolled_set_child(*scroll, *new TextView());
+		else if(cls == "ListBox") scrolled_set_child(*scroll, *new ListBox());
+		else scrolled_set_child(*scroll, *new TreeView());
 		return scroll;
 	}
 	// The other controls keep their place in the form with a frame named after their class.
@@ -1324,14 +1324,12 @@ ElementCoreMulti::ElementCoreMulti(PackElement *pe, SDK *sdk, gdouble x, gdouble
 
 void ElementCoreMulti::do_work(ElementPoint *point, TData *data) {
 	int i = points.indexOf(point);
-	if(ElementPoint *p = child->points[i]->point)
-		dynamic_cast<ElementCore*>(p->parent)->do_work(p, data);
+	child->points[i]->on_event(data);
 }
 
 void ElementCoreMulti::read_var(ElementPoint *point, TData *data) {
 	int i = points.indexOf(point);
-	if(ElementPoint *p = child->points[i]->point)
-		dynamic_cast<ElementCore*>(p->parent)->read_var(p, data);
+	child->points[i]->get_data(data);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1344,14 +1342,12 @@ ElementCoreEditMulti::ElementCoreEditMulti(PackElement *pe, SDK *sdk, gdouble x,
 
 void ElementCoreEditMulti::do_work(ElementPoint *point, TData *data) {
 	int i = points.indexOf(point);
-	if(ElementPoint *p = parent->parent->points[i]->point)
-		dynamic_cast<ElementCore*>(p->parent)->do_work(p, data);
+	parent->parent->points[i]->on_event(data);
 }
 
 void ElementCoreEditMulti::read_var(ElementPoint *point, TData *data) {
 	int i = points.indexOf(point);
-	if(ElementPoint *p = parent->parent->points[i]->point)
-		dynamic_cast<ElementCore*>(p->parent)->read_var(p, data);
+	parent->parent->points[i]->get_data(data);
 }
 
 

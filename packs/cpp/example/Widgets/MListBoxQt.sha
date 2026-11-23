@@ -1,0 +1,34 @@
+Make(cpp)
+Add(MainForm,1,28,28)
+{
+ Backend=1
+ Caption="Data source list"
+ Width=320
+ Height=200
+ link(onCreate,3:doRefresh,[])
+}
+Add(DS_StaticData,2,100,28)
+{
+ Name="people"
+ Columns=#4:Name|4:Role|
+ Data=#11:Ada|Analyst|12:Grace|Author|
+}
+Add(MListBox,3,170,84)
+{
+ Left=12
+ Top=12
+ Width=280
+ Height=120
+ DataSource="people"
+ CaptionField="Name"
+ DataType=2
+ DataField="Role"
+ link(onSelectChange,4:doText,[])
+}
+Add(Label,4,250,84)
+{
+ Left=12
+ Top=145
+ Width=280
+ Caption="Select a person"
+}

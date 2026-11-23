@@ -116,24 +116,37 @@ class CppToolchain {
     gchar **environment = nullptr;
 public:
     ustring root;
+    bool llvm = false;
     ~CppToolchain() { g_strfreev(environment); }
-    bool configure() {
+    bool configure(bool gtk = false) {
 #ifdef G_OS_WIN32
         const gchar *configured = g_getenv("HIASM_CPP_TOOLCHAIN");
-        root = configured && *configured ? configured : dataDir + "toolchains/mingw64";
-        if(!g_file_test((root + "/bin/g++.exe").c_str(), G_FILE_TEST_IS_REGULAR)) {
+        const auto bundled = dataDir + "packs/cpp/compiler/llvm-mingw";
+        root = configured && *configured ? configured : gtk ? dataDir + "toolchains/mingw64" : bundled;
+        if(!gtk && (!configured || !*configured) && !g_file_test((root + "/bin/clang++.exe").c_str(), G_FILE_TEST_IS_REGULAR)) {
+            const auto bin = g_getenv("HIASM_QT_COMPILER_DIR");
+            if(bin && *bin) {
+                auto *parent = g_path_get_dirname(bin);
+                root = parent;
+                g_free(parent);
+            } else root = "C:/Qt/Tools/llvm-mingw1706_64";
+        }
+        llvm = g_file_test((root + "/bin/clang++.exe").c_str(), G_FILE_TEST_IS_REGULAR);
+        if(!llvm && !g_file_test((root + "/bin/g++.exe").c_str(), G_FILE_TEST_IS_REGULAR)) {
             root.clear();
             if(configured && *configured) {
-                cgt_on_debug.run("!HIASM_CPP_TOOLCHAIN does not contain bin/g++.exe");
+                cgt_on_debug.run("!HIASM_CPP_TOOLCHAIN does not contain bin/clang++.exe or bin/g++.exe");
                 return false;
             }
-            return true;
+            if(gtk) return true;
+            cgt_on_debug.run("!LLVM-MinGW is missing. Install the C++ toolchain or set HIASM_CPP_TOOLCHAIN.");
+            return false;
         }
         gchar *absolute = g_canonicalize_filename(root.c_str(), nullptr);
         root = absolute; g_free(absolute);
         environment = g_get_environ();
         const gchar *path = g_environ_getenv(environment, "PATH");
-        const std::string childPath = dataDir.raw() + ";" + root.raw() + "/bin;" + (path ? path : "");
+        const std::string childPath = root.raw() + "/bin;" + dataDir.raw() + ";" + (path ? path : "");
         environment = g_environ_setenv(environment, "PATH", childPath.c_str(), TRUE);
         environment = g_environ_setenv(environment, "PKG_CONFIG_PATH", "", TRUE);
         environment = g_environ_setenv(environment, "PKG_CONFIG_LIBDIR",
@@ -143,7 +156,8 @@ public:
     }
     gchar **env() { return environment; }
     ustring compiler(const ustring &configured) const {
-        return !root.empty() && (configured == "g++" || configured == "g++.exe") ? root + "/bin/g++.exe" : configured;
+        return !root.empty() && (configured == "g++" || configured == "g++.exe")
+            ? root + (llvm ? "/bin/clang++.exe" : "/bin/g++.exe") : configured;
     }
     ustring pkgConfig() const { return root.empty() ? "pkg-config" : root + "/bin/pkg-config.exe"; }
 };
@@ -193,6 +207,121 @@ static bool cppTarget(MSDK *sdk, const char *entry) {
 // Projects that open a GTK4 window: the box-chain entry and the form-based one.
 static bool guiTarget(MSDK *sdk) {
     return cppTarget(sdk, "Gui") || cppTarget(sdk, "MainForm");
+}
+
+static ElementProperty *guiBackend(MSDK *sdk) {
+    if(cppTarget(sdk, "MainForm")) {
+        for(auto element : sdk->elements)
+            if(element->tpl->name == "MainForm" && (element->flag & ELEMENT_FLG_IS_PARENT))
+                return element->props.getByName("Backend");
+    }
+    return nullptr;
+}
+
+static bool releaseBuild(MSDK *sdk);
+
+static bool qtTarget(MSDK *sdk) {
+    const auto backend = guiBackend(sdk);
+    return backend && backend->readInt() == 1;
+}
+
+class QtToolchain {
+public:
+    std::string prefix, compilerBin, toolsBin, compiler;
+    gchar **environment = nullptr;
+
+    QtToolchain() {
+        if(const char *dir = g_getenv("HIASM_QT_DIR")) prefix = dir;
+        if(const char *dir = g_getenv("HIASM_QT_COMPILER_DIR")) compilerBin = dir;
+#ifdef G_OS_WIN32
+        const auto bundle = dataDir.raw() + "packs/cpp/compiler/";
+        if(g_file_test((bundle + "tools/bin/cmake.exe").c_str(), G_FILE_TEST_IS_REGULAR)) toolsBin = bundle + "tools/bin";
+        if(prefix.empty()) prefix = g_file_test((bundle + "qt6/lib/cmake/Qt6/Qt6Config.cmake").c_str(), G_FILE_TEST_IS_REGULAR)
+            ? bundle + "qt6" : "C:/Qt/6.9.3/llvm-mingw_64";
+        if(compilerBin.empty() && !prefix.empty()) {
+            if(prefix == bundle + "qt6") compilerBin = bundle + "llvm-mingw/bin";
+            else if(g_str_has_suffix(prefix.c_str(), "llvm-mingw_64")) compilerBin = prefix + "/../../Tools/llvm-mingw1706_64/bin";
+            else compilerBin = prefix + "/../../Tools/mingw1310_64/bin";
+        }
+        if(toolsBin.empty()) {
+            const auto installed = prefix + "/../../Tools/CMake_64/bin";
+            if(g_file_test((installed + "/cmake.exe").c_str(), G_FILE_TEST_IS_REGULAR)) toolsBin = installed;
+        }
+#endif
+        auto absolute = [](std::string &path) {
+            if(path.empty()) return;
+            gchar *value = g_canonicalize_filename(path.c_str(), nullptr);
+            path = value;
+            g_free(value);
+        };
+        absolute(prefix);
+        absolute(compilerBin);
+        absolute(toolsBin);
+        if(!compilerBin.empty()) compiler = compilerBin +
+            (g_file_test((compilerBin + "/clang++" HIASM_RUNNER_SUFFIX).c_str(), G_FILE_TEST_IS_REGULAR)
+             ? "/clang++" HIASM_RUNNER_SUFFIX : "/g++" HIASM_RUNNER_SUFFIX);
+        environment = g_get_environ();
+        std::string path;
+        if(!prefix.empty()) path += prefix + "/bin" G_SEARCHPATH_SEPARATOR_S;
+        if(!compilerBin.empty()) path += compilerBin + G_SEARCHPATH_SEPARATOR_S;
+        if(!toolsBin.empty()) path += toolsBin + G_SEARCHPATH_SEPARATOR_S;
+        if(const char *existing = g_environ_getenv(environment, "PATH")) path += existing;
+        environment = g_environ_setenv(environment, "PATH", path.c_str(), TRUE);
+#ifdef G_OS_WIN32
+        environment = g_environ_setenv(environment, "QT_PLUGIN_PATH", (prefix + "/plugins").c_str(), TRUE);
+#endif
+    }
+
+    ~QtToolchain() { g_strfreev(environment); }
+};
+
+static bool compileQt(MSDK *sdk, CompilerWorkspace &workspace, const ustring &target) {
+    QtToolchain qt;
+    const auto recipe = sdk->pack->path() + "qt";
+    gchar *absoluteRecipe = g_canonicalize_filename(recipe.c_str(), nullptr);
+    gchar *absoluteSource = g_canonicalize_filename(workspace.source.c_str(), nullptr);
+    const std::string cmake = qt.toolsBin.empty() ? "cmake" HIASM_RUNNER_SUFFIX : qt.toolsBin + "/cmake" HIASM_RUNNER_SUFFIX;
+    const std::string config = releaseBuild(sdk) ? "Release" : "Debug";
+    std::vector<std::string> configure{cmake, "-S", absoluteRecipe, "-B", "cmake-build", "-G", "Ninja",
+        "-DCMAKE_BUILD_TYPE=" + config, std::string("-DHIASM_SOURCE=") + absoluteSource};
+    g_free(absoluteRecipe);
+    g_free(absoluteSource);
+    if(!qt.prefix.empty()) configure.push_back("-DCMAKE_PREFIX_PATH=" + qt.prefix);
+    if(!qt.compiler.empty()) configure.push_back("-DCMAKE_CXX_COMPILER=" + qt.compiler);
+    if(const char *ninja = g_getenv("HIASM_NINJA")) {
+        if(*ninja) configure.push_back(std::string("-DCMAKE_MAKE_PROGRAM=") + ninja);
+    }
+#ifdef G_OS_WIN32
+    else if(g_file_test((qt.toolsBin + "/ninja.exe").c_str(), G_FILE_TEST_IS_REGULAR))
+        configure.push_back("-DCMAKE_MAKE_PROGRAM=" + qt.toolsBin + "/ninja.exe");
+    else if(!qt.prefix.empty()) {
+        const auto ninja = qt.prefix + "/../../Tools/Ninja/ninja.exe";
+        if(g_file_test(ninja.c_str(), G_FILE_TEST_IS_REGULAR)) configure.push_back("-DCMAKE_MAKE_PROGRAM=" + ninja);
+    }
+#endif
+    auto invoke = [&](const std::vector<std::string> &command) {
+        std::vector<gchar*> argv;
+        for(const auto &arg : command) argv.push_back(const_cast<gchar*>(arg.c_str()));
+        argv.push_back(nullptr);
+        gchar *out = nullptr, *err = nullptr;
+        gint status = -1;
+        GError *error = nullptr;
+        const bool ok = g_spawn_sync(workspace.dir.c_str(), argv.data(), qt.environment, G_SPAWN_SEARCH_PATH_FROM_ENVP,
+            nullptr, nullptr, &out, &err, &status, &error) && g_spawn_check_wait_status(status, &error);
+        if(out && *out) cgt_on_debug.run(out);
+        if(err && *err) cgt_on_debug.run(err);
+        if(error) { cgt_on_debug.run(error->message); g_error_free(error); }
+        g_free(out);
+        g_free(err);
+        return ok;
+    };
+    cgt_on_debug.run("@Building with Qt Widgets and CMake");
+    const auto buildDir = workspace.dir + "/cmake-build";
+    workspace.output = buildDir + "/program" HIASM_RUNNER_SUFFIX;
+    const bool ok = invoke(configure) && invoke({cmake, "--build", "cmake-build"}) && workspace.publish(target);
+    removeLegacyWorkDirectory(buildDir);
+    if(!ok) cgt_on_debug.run("!Qt build failed. Check CMake, Ninja, the Qt 6.9+ Widgets SDK (HIASM_QT_DIR), and its matching C++ compiler (HIASM_QT_COMPILER_DIR for MinGW).");
+    return ok;
 }
 
 // Projects built as a module that another program loads: a host (Library, Plugin),
@@ -388,6 +517,35 @@ static bool buildLegacyScheme(MSDK *sdk, const ustring &output) {
 
 bool ProjectBuilder::buildWithCodeGen(MSDK *sdk, const ustring &name) {
 	if(sdk->pack->isLegacy()) return buildLegacyScheme(sdk, name);
+	if(qtTarget(sdk)) {
+		std::set<std::string> unsupported;
+		for(auto *element : sdk->elements) {
+			const auto kind = element->tpl->name.raw();
+			if(kind == "MainForm" && !(element->flag & ELEMENT_FLG_IS_PARENT)) {
+				unsupported.insert("additional MainForm");
+            } else if(kind == "MainForm" || kind == "Button" || kind == "Label" || kind == "Edit" || kind == "CheckBox") {
+				for(auto *point : element->points) {
+					if(!point->point) continue;
+					const auto name = point->name.raw();
+					const bool supported = kind == "MainForm" ?
+						(name == "onCreate" || name == "onClose" || name == "doCaption" || name == "doClose" ||
+						 name == "doMinimize" || name == "doRestore" || name == "doVisible" ||
+						 name == "doEnabled" || name == "doHint") : kind == "Button" ? name == "onClick" :
+                        kind == "Label" ? (name == "Caption" || name == "doText" || name == "Text") :
+                        kind == "CheckBox" ? (name == "doCheck" || name == "onCheck" || name == "onClick" || name == "Checked") :
+						(name == "onChange" || name == "onEnter" || name == "Text" || name == "Str" ||
+						 name == "doText" || name == "doText2" || name == "doSelectAll" || name == "doPosition" || name == "Position");
+					if(!supported) unsupported.insert(kind + "." + name);
+				}
+			} else if(kind != "InfoTip") unsupported.insert(kind);
+		}
+		if(!unsupported.empty()) {
+			std::string list;
+			for(const auto &item : unsupported) list += (list.empty() ? "" : ", ") + item;
+			cgt_on_debug.run(("!Qt MainForm does not support: " + list).c_str());
+			return false;
+		}
+	}
 	if(sdk->pack->name == "cpp") {
 		// A program must never silently lose an element: say which ones cannot be compiled.
 		std::set<std::string> missing;
@@ -457,6 +615,14 @@ bool ProjectBuilder::buildWithCodeGen(MSDK *sdk, const ustring &name) {
                stem.substr(stem.size() - suffix.size()) == suffix)
                 stem.erase(stem.size() - suffix.size());
             if(sdk->packProject->make(stem, rec.result)) {
+                if(qtTarget(sdk)) {
+                    CompilerWorkspace workspace;
+                    if(!workspace.create(name, stem + ".cpp")) {
+                        cgt_on_debug.run("!Cannot create Qt compiler workspace");
+                        return false;
+                    }
+                    return compileQt(sdk, workspace, name);
+                }
                 Compiler *compiler = sdk->pack->getActiveCompiler();
                 if(compiler) {
                     CompilerWorkspace workspace;
@@ -472,7 +638,7 @@ bool ProjectBuilder::buildWithCodeGen(MSDK *sdk, const ustring &name) {
                     ustring program = compiler->path;
                     CppToolchain toolchain;
                     if(cpp) {
-                        if(!toolchain.configure()) return false;
+                        if(!toolchain.configure(guiTarget(sdk))) return false;
                         program = toolchain.compiler(program);
                     }
 #ifndef G_OS_WIN32
@@ -489,11 +655,12 @@ bool ProjectBuilder::buildWithCodeGen(MSDK *sdk, const ustring &name) {
                     const ustring source = cpp ? "source.cpp" : stem + "." + sdk->packProject->ext;
                     ustring arguments = compiler->cmd;
                     if(cpp) {
-                        if(!toolchain.root.empty()) {
+                        if(!toolchain.root.empty() && !toolchain.llvm) {
                             gchar *sysroot = g_shell_quote(("--sysroot=" + toolchain.root).c_str());
                             arguments += " " + ustring(sysroot); g_free(sysroot);
                         }
                         arguments += releaseBuild(sdk) ? " -O2 -DNDEBUG" : " -O0 -g";
+                        if(toolchain.llvm && !guiTarget(sdk)) arguments += " -static";
                         if(sharedTarget(sdk)) {
                             arguments += " -shared";
 #ifndef G_OS_WIN32
@@ -596,6 +763,7 @@ ustring ProjectBuilder::getOutputProjectName(MSDK *sdk) {
 #else
 		output_dir += windowsTarget(sdk) ? "windows-mingw_x64-" : "linux-x64-";
 #endif
+		if(qtTarget(sdk)) output_dir += "qt-";
 		output_dir += releaseBuild(sdk) ? "release" PATH_SLASH : "debug" PATH_SLASH;
 	}
 	g_mkdir_with_parents(output_dir.c_str(), 0777);
@@ -613,6 +781,14 @@ bool ProjectBuilder::build(MSDK *sdk) {
     }
 	if(targetPlatform(sdk) < 0 || targetPlatform(sdk) > 2) {
 		cgt_on_debug.run("!Unknown C++ TargetPlatform; select Native, Windows or Linux");
+		return false;
+	}
+	if(const auto backend = guiBackend(sdk); backend && backend->readInt() != 0 && backend->readInt() != 1) {
+		cgt_on_debug.run("!Unknown MainForm Backend; select GTK4 or Qt 6.9");
+		return false;
+	}
+	if(qtTarget(sdk) && crossTarget(sdk)) {
+		cgt_on_debug.run("!Qt MainForm supports native builds only; set TargetPlatform to Native");
 		return false;
 	}
 	cgt_on_debug.run(NULL);
@@ -713,12 +889,14 @@ void ProjectBuilder::run(MSDK *sdk) {
         args.push_back(nullptr);
         GError *error = NULL;
         CppToolchain toolchain;
-        if(!crossTarget(sdk) && sdk->pack->name == "cpp" && !toolchain.configure()) return;
+        std::unique_ptr<QtToolchain> qt;
+        if(qtTarget(sdk)) qt = std::make_unique<QtToolchain>();
+        else if(!crossTarget(sdk) && sdk->pack->name == "cpp" && !toolchain.configure(guiTarget(sdk))) return;
         GSpawnChildSetupFunc setup = nullptr;
 #ifndef G_OS_WIN32
         setup = [](gpointer) { setpgid(0, 0); };
 #endif
-        if(!g_spawn_async(directory.c_str(), args.data(), environment ? environment : toolchain.env(),
+        if(!g_spawn_async(directory.c_str(), args.data(), qt ? qt->environment : (environment ? environment : toolchain.env()),
             GSpawnFlags(G_SPAWN_DO_NOT_REAP_CHILD | G_SPAWN_SEARCH_PATH), setup, NULL, &process, &error)) {
             cgt_on_debug.run((ustring("!Launch failed: ") + error->message).c_str());
             g_error_free(error);

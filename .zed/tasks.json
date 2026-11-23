@@ -1,8 +1,49 @@
 [
-    {"label": "HiAsm: build GTK4 Debug", "command": "cmd.exe", "args": ["/d", "/c", "tools\\build_windows.bat", "gtk4", "debug"], "cwd": "$ZED_WORKTREE_ROOT", "tags": ["build"]},
-    {"label": "HiAsm: build GTK4 Release", "command": "cmd.exe", "args": ["/d", "/c", "tools\\build_windows.bat", "gtk4", "release"], "cwd": "$ZED_WORKTREE_ROOT", "tags": ["build"]},
-    {"label": "HiAsm: build GTK3 Debug", "command": "cmd.exe", "args": ["/d", "/c", "tools\\build_windows.bat", "gtk3", "debug"], "cwd": "$ZED_WORKTREE_ROOT", "tags": ["build"]},
-    {"label": "HiAsm: build GTK3 Release", "command": "cmd.exe", "args": ["/d", "/c", "tools\\build_windows.bat", "gtk3", "release"], "cwd": "$ZED_WORKTREE_ROOT", "tags": ["build"]},
-    {"label": "HiAsm: run GTK4 Debug", "command": "cmd.exe", "args": ["/d", "/c", "tools\\run-debug.bat", "gtk4"], "cwd": "$ZED_WORKTREE_ROOT"},
-    {"label": "HiAsm: run GTK3 Debug", "command": "cmd.exe", "args": ["/d", "/c", "tools\\run-debug.bat", "gtk3"], "cwd": "$ZED_WORKTREE_ROOT"}
+    {
+        "label": "HiAsm: build Qt Debug",
+        "command": "powershell.exe",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "tools/build_qt_windows.ps1",
+            "-Configuration",
+            "Debug",
+            "-SkipTests"
+        ],
+        "cwd": "$ZED_WORKTREE_ROOT",
+        "tags": [
+            "build"
+        ]
+    },
+    {
+        "label": "HiAsm: build Qt Release",
+        "command": "powershell.exe",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "tools/build_qt_windows.ps1",
+            "-Configuration",
+            "Release",
+            "-SkipTests"
+        ],
+        "cwd": "$ZED_WORKTREE_ROOT",
+        "tags": [
+            "build"
+        ]
+    },
+    {
+        "label": "HiAsm: run Qt Debug",
+        "command": "cmd.exe",
+        "args": [
+            "/d",
+            "/c",
+            "tools\\build_windows_run-debug.bat",
+            "qt"
+        ],
+        "cwd": "$ZED_WORKTREE_ROOT"
+    }
 ]

@@ -3,11 +3,22 @@
 #include "MainDataBase.h"
 #include "SettingsManager.h"
 #include "RunnerPayload.h"
+#include "CoreQtRuntime.h"
 #include <vector>
 #include <memory>
+#include <unordered_set>
 #ifdef G_OS_WIN32
 #include <glib/gwin32.h>
 #endif
+
+static bool supportsQt(SDK &sdk, std::unordered_set<const SDK *> &visited) {
+    if (!visited.insert(&sdk).second) return true;
+    for (auto *element : sdk.elements) {
+        if (!CoreQtRuntime::supports(element) || (element->sdk && !supportsQt(*element->sdk, visited)))
+            return false;
+    }
+    return true;
+}
 
 int main(int argc, char **argv) {
 #ifdef G_OS_WIN32
@@ -18,9 +29,10 @@ int main(int argc, char **argv) {
     argc = g_strv_length(argv);
 #endif
     std::string scheme, runtime, schemeFile;
-    bool validate = false;
+    bool validate = false, requireQt = false;
     for(int i = 1; i < argc; ++i) {
         if(!strcmp(argv[i], "--validate")) validate = true;
+        else if(!strcmp(argv[i], "--require-qt")) requireQt = true;
         else if(!strcmp(argv[i], "--scheme") && i + 1 < argc) schemeFile = argv[++i];
         else if(!strcmp(argv[i], "--data-dir") && i + 1 < argc) runtime = argv[++i];
         else { std::cerr << "Unknown or incomplete runner option: " << argv[i] << std::endl; return 2; }
@@ -68,14 +80,23 @@ int main(int argc, char **argv) {
         std::cerr << "Unable to load an internal (_base) scheme" << std::endl; return 4;
     }
     if(validate) { std::cout << "OK runner scheme: " << sdk.elements.size() << " elements" << std::endl; return 0; }
+    std::unordered_set<const SDK *> visited;
+    const bool usingQt = supportsQt(sdk, visited) && CoreQtRuntime::start(dataDir.c_str());
+    if (requireQt && !usingQt) {
+        std::cerr << "Qt Core backend is unavailable for this scheme" << std::endl;
+        return 5;
+    }
     auto loop = Glib::MainLoop::create();
     sdk.run();
     auto stopped = Glib::signal_timeout().connect([&sdk, loop]() {
+        CoreQtRuntime::pump();
+        if(CoreQtRuntime::closeRequested() && sdk.isRun()) sdk.stop();
         if(!sdk.isRun()) { loop->quit(); return false; }
         return true;
-    }, 50);
+    }, usingQt ? 10 : 50);
     loop->run();
     stopped.disconnect();
     if(sdk.isRun()) sdk.stop();
+    if(usingQt) CoreQtRuntime::stop();
     return 0;
 }

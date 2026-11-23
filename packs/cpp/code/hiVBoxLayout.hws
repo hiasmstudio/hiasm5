@@ -1,0 +1,19 @@
+func doStart
+  println('{')
+  println('auto *layout = new HiasmBoxLayout(widgetParent, form);')
+  println('layout->setObjectName(QStringLiteral("VBoxLayout', _id_, '"));')
+  println('layout->byPosition = ', get('AddMode') == 'adPosition', ';')
+  println('layout->nested = ', get('qtNestedLayout'), ';')
+  println('layout->padding = qBound(0, int(', Padding, '), 16384);')
+  println('layout->spacing = qBound(0, int(', Space, '), 16384);')
+  println('layout->load(', cstr(get('qtLayoutItems')), ');')
+  println('}')
+end
+
+func doResize(_data)
+  println('if (auto *layout = dynamic_cast<HiasmBoxLayout *>(form.findChild<QObject *>(QStringLiteral("VBoxLayout', _id_, '")))) layout->resize();')
+end
+
+func doSort(_data)
+  println('if (auto *layout = dynamic_cast<HiasmBoxLayout *>(form.findChild<QObject *>(QStringLiteral("VBoxLayout', _id_, '")))) layout->sort();')
+end

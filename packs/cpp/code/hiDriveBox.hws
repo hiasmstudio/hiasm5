@@ -1,0 +1,58 @@
+func Box()
+  return('qt_widget<HiasmDriveBox>(form, "DriveBox' && _id_ && '")')
+end
+
+func doStart
+  println('{')
+  println('auto *drives = new HiasmDriveBox(widgetParent);')
+  println('drives->setObjectName(QStringLiteral("DriveBox', _id_, '"));')
+  println('drives->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+  println('drives->setStyleSheet(QStringLiteral("QComboBox QAbstractItemView::item { min-height: ', ItemHeight, 'px; }"));')
+  println('drives->trailingSlash = ', get('BackSlash') == 'True', ';')
+  println('drives->upperCase = ', get('UpperCharInBox') == 'True', ';')
+  println('drives->refreshDrives();')
+  if(get('AutoSetDisk') == 'True')
+    println('drives->selectDisk(qt_text(', cstr(d('Disk')), '));')
+  end
+  println('auto *refresh = new QTimer(drives);')
+  println('QObject::connect(refresh, &QTimer::timeout, drives, &HiasmDriveBox::refreshDrives);')
+  println('refresh->start(2000);')
+  if(linked(onSelect) or linked(onUnreadable))
+    println('QObject::connect(drives, &QComboBox::activated, &form, [&form, drives](int index) {')
+    println('if (index < 0) return;')
+    println('const auto disk = drives->disk();')
+    println('const QStorageInfo volume(drives->rootPath());')
+    println('if (volume.isValid() && volume.isReady()) {')
+    event(onSelect, 'disk')
+    println('} else {')
+    event(onUnreadable, 'disk')
+    println('}')
+    println('});')
+  end
+  println('}')
+end
+
+func doDisk(_data)
+  fvar(value)
+  value = _data
+  if(linked('DefaultDisk'))
+    value = d('DefaultDisk')
+  elseif(len(value) == 0)
+    value = cstr(d('Disk'))
+  end
+  println(Box(), '->selectDisk(qt_text(', value, '));')
+end
+
+func doLabel(_data)
+  if(len(_data) > 0)
+    println(Box(), '->renameVolume(qt_text(', _data, '));')
+  end
+end
+
+func Disk()
+  return(Box() && '->disk()')
+end
+
+func Label()
+  return(Box() && '->volumeLabel()')
+end

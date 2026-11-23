@@ -1,0 +1,29 @@
+func MenuBar()
+  return('qt_widget<HiasmMenuBar>(form, "Menu' && _id_ && '")')
+end
+
+func doStart
+  println('{')
+  println('auto *menu = new HiasmMenuBar(widgetParent);')
+  println('menu->setObjectName(QStringLiteral("Menu', _id_, '"));')
+  println('menu->rebuild(qt_text(', cstr(d('Menu')), ').split(QChar(10)));')
+  if(linked(onSelectNum) or linked(onSelectStr))
+    println('menu->selected = [&form](int index, const QString &caption) {')
+    event(onSelectNum, 'index')
+    event(onSelectStr, 'caption')
+    println('};')
+  end
+  println('}')
+end
+
+func doInit(_data)
+  if(linked('Array'))
+    println(MenuBar(), '->fromArray(', d('Array'), ');')
+  else
+    println(MenuBar(), '->rebuild(qt_text(', cstr(d('Menu')), ').split(QChar(10)));')
+  end
+end
+
+func Handle()
+  return(MenuBar() && '->winId()')
+end

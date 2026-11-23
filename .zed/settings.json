@@ -1,0 +1,12 @@
+{
+    "lsp": {
+        "clangd": {
+            "binary": {
+                "arguments": [
+                    "--compile-commands-dir=build/qt69-native-debug",
+                    "--query-driver=C:/Qt/Tools/llvm-mingw1706_64/bin/clang++.exe"
+                ]
+            }
+        }
+    }
+}

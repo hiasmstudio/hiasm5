@@ -91,7 +91,7 @@ void ProjectManager::init() {
 	info->set_size_request(380, 44);
 	// Without wrapping, a long pack description sets the natural width of the dialog and it grows to
 	// the whole description line.
-	info->set_wrap_mode(Gtk::WrapMode::WORD);
+	gtk_text_view_set_wrap_mode(info->gobj(), GTK_WRAP_WORD);
 	info->set_left_margin(4);
 	info->set_right_margin(4);
 	vb->pack_end(*info, false, false);

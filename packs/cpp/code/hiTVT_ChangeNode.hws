@@ -1,0 +1,16 @@
+include('qtTVT')
+
+func doChangeNode(_data)
+  fvar(row, i, cell)
+  if(linked('Data') or mt_count() <= 1)
+    row = 'qt_tvt_row(' && TVArg('Data', _data) && ')'
+  else
+    row = 'QVariantList{'
+    for(i = 0; i < mt_count(); i++)
+      cell = mt_arg(i)
+      row = row && 'qt_tvt_value(' && (isnull(cell) ? 'QVariant()' : cell) && '), '
+    end
+    row = row && '}'
+  end
+  TVMutate('change', row, 'onChangeNode', 'onChangeFailed')
+end

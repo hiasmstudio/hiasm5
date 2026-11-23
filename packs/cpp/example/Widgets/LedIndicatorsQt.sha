@@ -1,0 +1,35 @@
+Make(cpp)
+Add(MainForm,1,28,28)
+{
+ Backend=1
+ Caption="LED indicators"
+ Width=360
+ Height=150
+}
+Add(ScrollBarEx,2,28,84)
+{
+ Left=16
+ Top=20
+ Width=320
+ Height=24
+ link(onPosition,3:doPosition,[])
+}
+Add(LedLadder,3,168,84)
+{
+ Left=16
+ Top=60
+ Width=320
+ Height=24
+ Point(Position)
+ link(onClick,4:doText,[])
+}
+Add(LedNumber,4,280,84)
+{
+ Left=16
+ Top=102
+ Width=90
+ Height=28
+ Text="0"
+ Point(Text)
+ link(Text,3:Position,[])
+}

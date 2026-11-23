@@ -1,0 +1,64 @@
+func ScrollArea()
+  return('qt_widget<QScrollArea>(form, "ScrollBox' && _id_ && '")')
+end
+
+func doStart
+  println('{')
+  println('auto *area = new QScrollArea(widgetParent);')
+  println('area->setObjectName(QStringLiteral("ScrollBox', _id_, '"));')
+  println('area->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+  switch(get('BorderStyle'))
+    case 'esLowered': println('area->setFrameStyle(QFrame::Panel | QFrame::Sunken);')
+    case 'esRaised': println('area->setFrameStyle(QFrame::Panel | QFrame::Raised);')
+    default: println('area->setFrameShape(QFrame::NoFrame);')
+  end
+  println('QWidget *widgetParent = new QWidget;')
+  println('widgetParent->setAutoFillBackground(true);')
+  println('auto palette = widgetParent->palette();')
+  println('palette.setColor(QPalette::Window, qt_led_color(qt_text(', cstr(d('Color')), '), palette.color(QPalette::Window)));')
+  println('widgetParent->setPalette(palette);')
+  if(sys.inner_parent())
+    sys.run_all('dostart')
+  end
+  println('const auto bounds = widgetParent->childrenRect();')
+  println('widgetParent->setMinimumSize(qMax(0, bounds.right() + 1), qMax(0, bounds.bottom() + 1));')
+  println('area->setWidget(widgetParent);')
+  println('area->setWidgetResizable(true);')
+  if(linked(onHScroll))
+    println('QObject::connect(area->horizontalScrollBar(), &QScrollBar::valueChanged, &form, [&form] {')
+    event(onHScroll)
+    println('});')
+  end
+  if(linked(onVScroll))
+    println('QObject::connect(area->verticalScrollBar(), &QScrollBar::valueChanged, &form, [&form] {')
+    event(onVScroll)
+    println('});')
+  end
+  println('}')
+end
+
+func ScrollValue(point, value)
+  if(linked(point))
+    return('qt_text(' && d(point) && ').toInt()')
+  end
+  if(len(value) > 0)
+    return('qt_text(' && value && ').toInt()')
+  end
+  return('0')
+end
+
+func doHScroll(_data)
+  println(ScrollArea(), '->horizontalScrollBar()->setValue(', ScrollValue('HScroll', _data), ');')
+end
+
+func doVScroll(_data)
+  println(ScrollArea(), '->verticalScrollBar()->setValue(', ScrollValue('VScroll', _data), ');')
+end
+
+func HPos()
+  return(ScrollArea() && '->horizontalScrollBar()->value()')
+end
+
+func VPos()
+  return(ScrollArea() && '->verticalScrollBar()->value()')
+end

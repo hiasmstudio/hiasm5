@@ -1,0 +1,26 @@
+func doStart
+  println('{')
+  println('auto *button = new QPushButton(qt_text(', cstr(d('Caption')), '), widgetParent);')
+  println('button->setObjectName(QStringLiteral("BitBtn', _id_, '"));')
+  println('button->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+  println('button->setIcon(qt_bitmap_icon(qt_text(', cstr(d('Bitmap')), ')));')
+  if(get('Flat') == 'True')
+    println('button->setFlat(true);')
+    if(get('Frame') == 0)
+      println('if (const auto frame = QColor::fromString(qt_text(', cstr(d('FrameColor')), ')); frame.isValid())')
+      println('  button->setStyleSheet(QStringLiteral("QPushButton { border: 1px solid %1; }").arg(frame.name()));')
+    end
+  end
+  if(linked(onClick))
+    println('QObject::connect(button, &QPushButton::clicked, &form, [&form] {')
+    event(onClick, Data)
+    println('});')
+  end
+  println('}')
+end
+
+func doCaption(_data)
+  if(len(_data) > 0)
+    println('qt_widget<QPushButton>(form, "BitBtn', _id_, '")->setText(qt_text(', _data, '));')
+  end
+end

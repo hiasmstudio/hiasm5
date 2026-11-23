@@ -1,0 +1,5 @@
+include('qtMstClient')
+
+func doClear(_data)
+  MstClear(get('ClearAll') == 'True')
+end

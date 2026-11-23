@@ -1,0 +1,23 @@
+Make(cpp)
+Add(MainForm,1,28,28)
+{
+ Backend=1
+ Caption="Tree view"
+ Width=320
+ Height=220
+}
+Add(TreeView,2,140,84)
+{
+ Left=12
+ Top=12
+ Width=150
+ Height=180
+ Strings=#6:Folder|1:(|5:First|6:Second|1:)|4:Root|
+ link(onClick,3:doText,[])
+}
+Add(Label,3,252,84)
+{
+ Left=175
+ Top=12
+ Caption="Select a node"
+}

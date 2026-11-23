@@ -1,17 +1,21 @@
+func outputName()
+  return('$escaped' && _id_)
+end
+
 func doHtmlSpecialChars(_data)
   if(linked(Result))
-    println(s, ' = htmlspecialchars(', Text, ');')
-    event(onHtmlSpecialChars,s)
+    println(outputName(), ' = htmlspecialchars(', d('Text'), ');')
+    event(onHtmlSpecialChars,outputName())
   else
-    event(onHtmlSpecialChars,'htmlspecialchars(' && Text && ')')
+    event(onHtmlSpecialChars,'htmlspecialchars(' && d('Text') && ')')
   end
 end
 
 func Result()
   if(linked(doHtmlSpecialChars))
-    return(s)
+    return(outputName())
   else
-    return('htmlspecialchars(' && Text && ')')
+    return('htmlspecialchars(' && d('Text') && ')')
   end
 end
 

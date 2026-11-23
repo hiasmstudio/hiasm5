@@ -1,4 +1,30 @@
 func doStart
+  if(is_qt_project())
+    qtStart()
+  else
+    gtkStart()
+  end
+end
+
+func qtStart
+  println('{')
+  println('auto *radio = new QRadioButton(qt_text(', cstr(d('Caption')), '), widgetParent);')
+  println('radio->setObjectName(QStringLiteral("RadioButton', _id_, '"));')
+  println('radio->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+  if(get('Selected') == 0 or get('Checked') == 0)
+    println('radio->setChecked(true);')
+  end
+  if(linked(onSelect))
+    println('QObject::connect(radio, &QRadioButton::clicked, &form, [&form] {')
+    block.inclvl()
+    event(onSelect)
+    block.declvl()
+    println('});')
+  end
+  println('}')
+end
+
+func gtkStart
   println('{')
   fvar(active)
   active = 0
@@ -26,9 +52,49 @@ func doStart
 end
 
 func Selected()
-  return('gtk_check_button_get_active(GTK_CHECK_BUTTON(hiasm_widget("RadioButton' && _id_ && '").get())) ? 1 : 0')
+  if(is_qt_project())
+    return('(qt_widget<QRadioButton>(form, "RadioButton' && _id_ && '")->isChecked() ? 1 : 0)')
+  else
+    return('gtk_check_button_get_active(GTK_CHECK_BUTTON(hiasm_widget("RadioButton' && _id_ && '").get())) ? 1 : 0')
+  end
 end
 
 func doSelect(_data)
-  println('gtk_check_button_set_active(GTK_CHECK_BUTTON(hiasm_widget("RadioButton', _id_, '").get()), TRUE);')
+  if(is_qt_project())
+    fvar(value)
+    value = 'true'
+    if(len(_data) > 0)
+      // Delphi ReadBool treats only integer zero as false.
+      value = '[](auto input) { if constexpr (std::is_integral_v<decltype(input)>) return input != 0; else return true; }(' && _data && ')'
+    end
+    println('{')
+    println('auto *radio = qt_widget<QRadioButton>(form, "RadioButton', _id_, '");')
+    println('if (', value, ') {')
+    println('    radio->click();')
+    println('} else {')
+    println('    const bool exclusive = radio->autoExclusive();')
+    println('    radio->setAutoExclusive(false);')
+    println('    radio->setChecked(false);')
+    println('    radio->setAutoExclusive(exclusive);')
+    println('}')
+    println('}')
+  else
+    println('gtk_check_button_set_active(GTK_CHECK_BUTTON(hiasm_widget("RadioButton', _id_, '").get()), TRUE);')
+  end
+end
+
+func doCaption(_data)
+  if(is_qt_project())
+    if(len(_data) > 0)
+      println('qt_widget<QRadioButton>(form, "RadioButton', _id_, '")->setText(qt_text(', _data, '));')
+    else
+      println('qt_widget<QRadioButton>(form, "RadioButton', _id_, '")->setText(QString());')
+    end
+  else
+    if(len(_data) > 0)
+      println('gtk_check_button_set_label(GTK_CHECK_BUTTON(hiasm_widget("RadioButton', _id_, '").get()), ', _data, ');')
+    else
+      println('gtk_check_button_set_label(GTK_CHECK_BUTTON(hiasm_widget("RadioButton', _id_, '").get()), "");')
+    end
+  end
 end

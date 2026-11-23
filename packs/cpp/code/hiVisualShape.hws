@@ -1,0 +1,118 @@
+func doStart
+  if(is_qt_project())
+    println('{')
+    block.inclvl()
+    ShapeClass()
+    println('auto *shape = new VisualShape(widgetParent);')
+    println('shape->setObjectName(QStringLiteral("VisualShape', _id_, '"));')
+    println('shape->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+    println('shape->setToolTip(qt_text(', cstr(get('Hint')), '));')
+    println('shape->setEnabled(', get('Enabled') == 'True', ');')
+    println('shape->setVisible(', get('Visible') == 'True', ');')
+    println('shape->transparent = ', get('Transparent') == 'True', ';')
+    if(isndef(Color))
+      println('shape->background = qt_led_color(qt_text(', cstr(get('Color')), '), shape->background);')
+    end
+    if(isndef(Color2))
+      println('shape->setProperty("shapeFill", qt_led_color(qt_text(', cstr(get('Color2')), '), Qt::white));')
+    else
+      println('shape->setProperty("shapeFill", QColor(Qt::white));')
+    end
+    println('shape->setProperty("shapePen", qt_led_color(qt_text(', cstr(get('PColor')), '), Qt::black));')
+    println('shape->setProperty("shapeType", ', get('ShapeType'), ');')
+    println('shape->setProperty("shapePenWidth", ', get('PWidth'), ');')
+    println('shape->setProperty("shapePenStyle", ', get('PStyle'), ');')
+    block.declvl()
+    println('}')
+  end
+end
+
+// Use QObject properties so callback scopes can update a widget whose class is local to doStart.
+func ShapeClass
+  println('class VisualShape final : public QWidget {')
+  println('public:')
+  println('  explicit VisualShape(QWidget *parent) : QWidget(parent), background(palette().color(QPalette::Button)) {}')
+  println('  QColor background;')
+  println('  bool transparent = false;')
+  println('protected:')
+  println('  void paintEvent(QPaintEvent *) override {')
+  println('    QPainter painter(this);')
+  println('    if (!transparent) painter.fillRect(rect(), background);')
+  println('    painter.setRenderHint(QPainter::Antialiasing);')
+  println('    constexpr Qt::PenStyle styles[] = {Qt::SolidLine, Qt::DashLine, Qt::DotLine, Qt::DashDotLine, Qt::DashDotDotLine};')
+  println('    const int style = property("shapePenStyle").toInt();')
+  println('    const int penWidth = qMax(0, property("shapePenWidth").toInt());')
+  println('    QPen pen(property("shapePen").value<QColor>(), penWidth,')
+  println('             style >= 0 && style < 5 ? styles[style] : Qt::SolidLine, Qt::FlatCap);')
+  println('    painter.setPen(pen);')
+  println('    painter.setBrush(property("shapeFill").value<QColor>());')
+  println('    const int w = width(), h = height(), x = w / 2, y = h / 2;')
+  println('    const int pt = penWidth / 2;')
+  println('    const qreal inset = qMax(1, penWidth) / 2.0;')
+  println('    const QRectF bounds = QRectF(rect()).adjusted(inset, inset, -inset, -inset);')
+  println('    const auto triangle = [&](QPoint a, QPoint b, QPoint c) {')
+  println('      const QPoint points[] = {a, b, c};')
+  println('      painter.drawPolygon(points, 3);')
+  println('    };')
+  println('    const auto arrow = [&](QPoint tail, QPoint tip, QPoint wing1, QPoint wing2) {')
+  println('      const QPoint head[] = {wing1, tip, wing2};')
+  println('      painter.drawLine(tail, tip);')
+  println('      painter.drawPolyline(head, 3);')
+  println('    };')
+  println('    switch (property("shapeType").toInt()) {')
+  println('      case 0: arrow({0, y}, {w - qMax(1, pt), y}, {w - 1 - y, h - 1}, {w - 1 - y, 0}); break;')
+  println('      case 1: arrow({w - 1, y}, {pt, y}, {y, h - 1}, {y, 0}); break;')
+  println('      case 2: arrow({x, h - 1}, {x, pt}, {0, x}, {w - 1, x}); break;')
+  println('      case 3: arrow({x, 0}, {x, h - qMax(1, pt)}, {0, h - 1 - x}, {w - 1, h - 1 - x}); break;')
+  println('      case 4: if (!bounds.isEmpty()) painter.drawEllipse(bounds); break;')
+  println('      case 5: painter.drawLine(0, y, w - 1, y); break;')
+  println('      case 6: painter.drawLine(x, 0, x, h - 1); break;')
+  println('      case 7: if (!bounds.isEmpty()) painter.drawRect(bounds); break;')
+  println('      case 8: if (!bounds.isEmpty()) painter.drawRoundedRect(bounds, (w / 4) / 2.0, (h / 4) / 2.0); break;')
+  println('      case 9: triangle({x, 0}, {w - 1, h - 1}, {0, h - 1}); break;')
+  println('      case 10: triangle({0, 0}, {w - 1, 0}, {x, h - 1}); break;')
+  println('      case 11: triangle({0, y}, {w - 1, 0}, {w - 1, h - 1}); break;')
+  println('      case 12: triangle({0, 0}, {w - 1, y}, {0, h - 1}); break;')
+  println('    }')
+  println('  }')
+  println('};')
+end
+
+func SetShapeProperty(name, value)
+  if(is_qt_project())
+    println('{')
+    block.inclvl()
+    println('auto *shape = qt_widget<QWidget>(form, "VisualShape', _id_, '");')
+    println('shape->setProperty("', name, '", ', value, ');')
+    println('shape->update();')
+    block.declvl()
+    println('}')
+  end
+end
+
+func Input(value)
+  if(len(value) > 0)
+    return('qt_text(' && cstr(value) && ')')
+  end
+  return('QStringLiteral("0")')
+end
+
+func doColor2(_data)
+  SetShapeProperty('shapeFill', 'qt_led_color(' && Input(_data) && ', Qt::black)')
+end
+
+func doPColor(_data)
+  SetShapeProperty('shapePen', 'qt_led_color(' && Input(_data) && ', Qt::black)')
+end
+
+func doShapeType(_data)
+  SetShapeProperty('shapeType', Input(_data) && '.toInt()')
+end
+
+func doPWidth(_data)
+  SetShapeProperty('shapePenWidth', Input(_data) && '.toInt()')
+end
+
+func doPStyle(_data)
+  SetShapeProperty('shapePenStyle', Input(_data) && '.toInt()')
+end

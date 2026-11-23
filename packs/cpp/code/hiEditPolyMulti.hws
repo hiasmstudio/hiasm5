@@ -1,0 +1,38 @@
+func polyBind
+  fvar(i, port)
+  for(i = 0; i < this.numevents; i++)
+    port = this.pt_event(i).name
+    if(linked(port))
+      println('root->setProperty("polyIn:" ', cstr(lower(port)), ', QVariant::fromValue(std::function<void(QString)>([&form](const QString &payload) {')
+      event(port, code('payload'))
+      println('})));')
+    end
+  end
+  for(i = 0; i < this.numdatas; i++)
+    port = this.pt_data(i).name
+    if(linked(port))
+      println('root->setProperty("polyIn:" ', cstr(lower(port)), ', QVariant::fromValue(std::function<QString()>([&form] { return qt_text(', d(port), '); })));')
+    end
+  end
+end
+
+func polyEmit(pointIndex, payload)
+  fvar(port, value)
+  port = lower(this.pt_work(pointIndex).name)
+  value = 'QString()'
+  if(len(payload) > 0)
+    value = 'qt_text(' && payload && ')'
+  end
+  println('if (auto *bridge = form.property("polyBridge").value<QObject *>()) {')
+  println('  const auto callback = bridge->property("polyEvent:" ', cstr(port), ').value<std::function<void(QWidget *, QString)>>();')
+  println('  if (callback) callback(&form, ', value, ');')
+  println('}')
+end
+
+func polyData(pointIndex)
+  fvar(port)
+  port = lower(this.pt_var(pointIndex).name)
+  return('([&] { auto *bridge = form.property("polyBridge").value<QObject *>(); ' &&
+    'if (!bridge) return QString(); const auto callback = bridge->property("polyData:" ' && cstr(port) &&
+    ').value<std::function<QString(QWidget *)>>(); return callback ? callback(&form) : QString(); }())')
+end

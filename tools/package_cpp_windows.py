@@ -1,4 +1,4 @@
-"""Package a Windows C++17 executable with its GTK4 DLL/data closure."""
+"""Package a Windows C++17 executable for the selected HiAsm compiler kit."""
 import argparse
 import hashlib
 import json
@@ -6,6 +6,7 @@ import os
 import re
 import shutil
 import subprocess
+import tempfile
 from collections import deque
 from pathlib import Path
 
@@ -34,6 +35,33 @@ def imports(path, objdump):
     result = subprocess.run([objdump, "-p", str(path)], check=True, capture_output=True,
                             text=True, encoding="utf-8", errors="replace", env={**os.environ, "LC_ALL": "C"})
     return re.findall(r"DLL Name:\s*(\S+)", result.stdout)
+
+
+def package_qt(executable, runtime, output):
+    executable = executable.resolve(strict=True)
+    runtime = runtime.resolve(strict=True)
+    output = output.resolve()
+    if output.exists() or output.is_relative_to(runtime):
+        raise ValueError("Choose a new output directory outside the compiler kit")
+    output.parent.mkdir(parents=True, exist_ok=True)
+    qt_bin = runtime / "qt6/bin"
+    compiler_bin = runtime / "llvm-mingw/bin"
+    with tempfile.TemporaryDirectory(dir=output.parent) as temp:
+        stage = Path(temp) / "app"
+        stage.mkdir()
+        entry = stage / executable.name
+        shutil.copy2(executable, entry)
+        dependencies = imports(entry, compiler_bin / "llvm-objdump.exe")
+        if not dependencies:
+            raise ValueError("Expected a Windows executable with PE imports")
+        if any(dll.casefold().startswith("qt6") for dll in dependencies):
+            env = dict(os.environ, PATH=os.pathsep.join(map(str, [qt_bin, compiler_bin, os.environ["PATH"]])))
+            subprocess.run([qt_bin / "windeployqt.exe", "--no-translations", "--include-plugins",
+                            "qoffscreen", entry], env=env, check=True)
+        for dll in ("libc++.dll", "libunwind.dll"):
+            shutil.copy2(compiler_bin / dll, stage / dll)
+        write_manifest(stage, executable.name)
+        stage.rename(output)
 
 
 def package(executable, runtime, output, objdump, wine, prefix):
@@ -118,13 +146,20 @@ def package(executable, runtime, output, objdump, wine, prefix):
     cache = output / "lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"
     cache.write_text(result.stdout, encoding="utf-8")
     (output / query_name).unlink()
+    write_manifest(output, executable.name, len(copied))
+    print(f"Packaged {executable.name}: {len(copied)} runtime DLLs -> {output}")
+
+
+def write_manifest(output, entry, dll_count=None):
     files = []
     for path in sorted(output.rglob("*")):
         if path.is_file():
             files.append({"path": path.relative_to(output).as_posix(), "sha256": hashlib.sha256(path.read_bytes()).hexdigest()})
-    (output / "distribution.json").write_text(json.dumps({"format": 1, "entry": executable.name,
-        "architecture": "windows-x86_64", "dlls": len(copied), "files": files}, indent=2) + "\n", encoding="utf-8")
-    print(f"Packaged {executable.name}: {len(copied)} runtime DLLs, {len(files)} files -> {output}")
+    if dll_count is None:
+        dll_count = sum(f["path"].lower().endswith(".dll") for f in files)
+    (output / "distribution.json").write_text(json.dumps({"format": 1, "entry": entry,
+        "architecture": "windows-x86_64", "dlls": dll_count,
+        "files": files}, indent=2) + "\n", encoding="utf-8")
 
 
 def main():
@@ -137,7 +172,10 @@ def main():
     parser.add_argument("--wine-prefix", type=Path)
     args = parser.parse_args()
     try:
-        package(args.executable, args.runtime, args.output, args.objdump, args.wine, args.wine_prefix)
+        if (args.runtime / "qt6/bin/windeployqt.exe").is_file():
+            package_qt(args.executable, args.runtime, args.output)
+        else:
+            package(args.executable, args.runtime, args.output, args.objdump, args.wine, args.wine_prefix)
     except (OSError, ValueError, subprocess.SubprocessError) as error:
         parser.exit(1, f"Packaging failed: {error}\n")
 

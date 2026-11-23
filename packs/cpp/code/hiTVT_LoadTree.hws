@@ -1,0 +1,13 @@
+include('qtTVT')
+
+func doLoadTree(_data)
+  println('if (auto *tree = ', TVTree(), ') {')
+  println('  QFile file(qt_text(', TVFileName(_data), '));')
+  println('  if (file.open(QIODevice::ReadOnly)) tree->loadText(QString::fromUtf8(file.readAll()), qt_tvt_delimiter(qt_text(', cstr(get('Delimiter')), ')));')
+  println('}')
+  if(not isnull(_data) and len(_data) > 0)
+    event(onLoadTree, _data)
+  else
+    event(onLoadTree)
+  end
+end

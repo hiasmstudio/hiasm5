@@ -1,0 +1,40 @@
+func IconTarget()
+  return('static_cast<HiasmIconsManager *>(form.findChild<QObject *>(QStringLiteral("IconsManager' && _id_ && '")))')
+end
+
+func doStart
+  println('{')
+  println('auto *manager = new HiasmIconsManager(&form);')
+  println('manager->setObjectName(QStringLiteral("IconsManager', _id_, '"));')
+  println('manager->size = ', get('ImgSize'), ';')
+  println('if (manager->size <= 0) manager->size = form.style()->pixelMetric(QStyle::PM_LargeIconSize);')
+  println('manager->background = qt_led_color(qt_text(', cstr(d('ImgBkColor')), '), form.palette().color(QPalette::Window));')
+  println('manager->load(qt_text(', cstr(get('Icons')), '));')
+  println('}')
+end
+
+func doClearIcons(_data)
+  println('{ auto *manager = ', IconTarget(), '; manager->icons.clear(); manager->refresh(); }')
+end
+
+func doImgBkColor(_data)
+  if(len(_data) > 0)
+    println('{ auto *manager = ', IconTarget(), '; manager->background = qt_led_color(qt_text(', _data, '), manager->background); manager->refresh(); }')
+  end
+end
+
+func IconArray()
+  return(IconTarget() && '->icons')
+end
+
+func CountIcons()
+  return('int(' && IconTarget() && '->icons.size())')
+end
+
+func EndIdxIcons()
+  return('(' && CountIcons() && ' - 1)')
+end
+
+func ImgSize()
+  return(IconTarget() && '->size')
+end

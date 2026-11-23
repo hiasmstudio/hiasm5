@@ -1,0 +1,28 @@
+func Transparency()
+  return('static_cast<HiasmTransparency *>(form.findChild<QObject *>(QStringLiteral("TransparentManager' && _id_ && '")))')
+end
+
+func doStart
+  println('{')
+  println('auto *manager = new HiasmTransparency(&form);')
+  println('manager->setObjectName(QStringLiteral("TransparentManager', _id_, '"));')
+  println('manager->target = qt_widget<HiasmForm>(form, ', cstr(get('qtTransparentTarget')), ');')
+  println('manager->opacity = ', AlphaBlendValue, ';')
+  println('manager->key = qt_led_color(qt_text(', cstr(d('TransparentColor')), '), Qt::white).rgb();')
+  println('manager->pixelAlpha = ', get('TransparentType') == 1, ';')
+  println('manager->picture = qt_bitmap(qt_text(', cstr(d('Picture')), '));')
+  println('manager->apply();')
+  println('}')
+end
+
+func doAlphaBlendValue(_data)
+  if(len(_data) > 0)
+    println('{ auto *manager = ', Transparency(), '; manager->opacity = qt_text(', _data, ').toInt(); manager->apply(); }')
+  end
+end
+
+func doPicture(_data)
+  if(len(_data) > 0)
+    println('{ auto *manager = ', Transparency(), '; manager->picture = ', _data, '; manager->apply(); }')
+  end
+end

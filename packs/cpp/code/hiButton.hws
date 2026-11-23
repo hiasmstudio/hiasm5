@@ -1,4 +1,31 @@
 func doStart
+  if(is_qt_project())
+    qtStart()
+  else
+    gtkStart()
+  end
+end
+
+func qtStart
+  println('{')
+  println('auto *button = new QPushButton(qt_text(', cstr(d('Caption')), '), widgetParent);')
+  println('button->setObjectName(QStringLiteral("Button', _id_, '"));')
+  println('button->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+  println('button->setToolTip(qt_text(', cstr(get('Hint')), '));')
+  if(get('Flat') == 'True')
+    println('button->setFlat(true);')
+  end
+  if(linked(onClick))
+    println('QObject::connect(button, &QPushButton::clicked, &form, [&form] {')
+    block.inclvl()
+    event(onClick, Data)
+    block.declvl()
+    println('});')
+  end
+  println('}')
+end
+
+func gtkStart
   println('{')
   fvar(stock, size, pos, orient, order, i)
   stock = d('StockID')

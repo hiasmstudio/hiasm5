@@ -13,8 +13,8 @@ typedef struct {
 	const char *ainfo;
 } TFuncMap;
 
-#define func_map_size 45
-extern const TFuncMap func_map[func_map_size];
+extern const TFuncMap func_map[];
+extern const int func_map_size;
 
 typedef struct {
 	std::string name;
