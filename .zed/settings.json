@@ -3,7 +3,7 @@
         "clangd": {
             "binary": {
                 "arguments": [
-                    "--compile-commands-dir=build/qt69-native-debug",
+                    "--compile-commands-dir=build/Windows_LLVM-MinGW-x64-Debug",
                     "--query-driver=C:/Qt/Tools/llvm-mingw1706_64/bin/clang++.exe"
                 ]
             }

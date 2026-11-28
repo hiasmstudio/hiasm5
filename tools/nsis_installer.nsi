@@ -28,8 +28,8 @@ Unicode true
 !if ! /FileExists "${BUILD_DIR}\qt\platforms\qwindows.dll"
   !error "Qt Windows platform plugin is missing."
 !endif
-!if ! /FileExists "resources\hiasm.ico"
-  !error "resources/hiasm.ico is missing. Run tools\build_windows_installer.bat."
+!if ! /FileExists "resources\icons\hiasm.ico"
+  !error "resources/icons/hiasm.ico is missing."
 !endif
 !ifndef OUTPUT_FILE
   !define OUTPUT_FILE "${BUILD_DIR}\..\HiAsm_Setup.exe"
@@ -55,8 +55,8 @@ OutFile "${OUTPUT_FILE}"
 InstallDir "$PROGRAMFILES64\HiAsm Studio Qt"
 RequestExecutionLevel admin
 SetCompressor /SOLID lzma
-!define MUI_ICON "resources\hiasm.ico"
-!define MUI_UNICON "resources\hiasm.ico"
+!define MUI_ICON "resources\icons\hiasm.ico"
+!define MUI_UNICON "resources\icons\hiasm.ico"
 !define MUI_ABORTWARNING
 !define MUI_LANGDLL_REGISTRY_ROOT HKLM
 !define MUI_LANGDLL_REGISTRY_KEY "${APP_KEY}"

@@ -44,6 +44,10 @@
     - [x] «Редактор строк» доступен для обычных текстовых свойств, включая `Hint`, и системного описания `@Hint`. `qt_scheme_editor` проверяет сохранение и повторное открытие многострочной подсказки, `qt_native_projects` проверяет её генерацию для Qt-кнопки.
     - [x] Окна «Иконка» и «Редактор картинок» открываются из свойств. `qt_scheme_editor` проверяет вставку, поворот, повторное открытие, отмену и Undo.
     - [x] `PlotPoints` перенесён в «Графопостроитель». `qt_native_projects` собирает `PlotPointsQt` и проверяет экспорт точечного графика в BMP.
+    - [x] `WebBrowser` использует Chromium через WebView2 в Windows и через Qt WebEngine в Linux и macOS. `Flash` использует тот же браузер с Ruffle Self-Hosted. Навигация и воспроизведение `Racing.swf` проверены на Windows LLVM-MinGW и Ubuntu 24.04 в WSL.
+    - [x] В активном каталоге `Widgets` зарегистрированы `ChildFormPoly`, `ChildPanelPoly`, дерево кортежей, строковая таблица MT, графопостроитель и центр команд. По сверке с `WinControls` и `WinManControls` на 2026-11-28 в палитре есть 131 из 131 элемента Delphi.
+    - [x] `MST_ArrayRows`, `MST_ArrayCols` и `MST_Virtual` появились в подразделе «Строковая таблица MT». `qt_native_projects` проверяет перенос строки и описаний столбцов, работу с ненулевой начальной страницей, отклонение отрицательного номера страницы и сохранение виртуальной таблицы.
+    - [x] В палитру добавлены `CheckBoxRush`, `RadioButtonRush`, `ButtonRush`, `ProgressBarRush`, `TrackBarRush` и `ChildPanelRush`. `qt_native_projects` собирает `RushProgressQt` и запускает схему с передачей события через вложенную `PanelRush`.
     - [ ] Для `ToolBar` перенести составные данные точек `doCheck` и `onTBDropDown`.
     - [ ] Довести `TreeViewEx`: массивы значков и флажков, матрица, события редактирования и адаптация `TreeViewEx_As_DirView`.
     - [ ] Для `StringTable` перенести внешний компаратор, событие начала редактирования, живую матрицу и массив строк. Адаптировать оригинальный `UseStrTable`.
@@ -53,18 +57,12 @@
     - [ ] Для `DS_UserData` проверить обращения к поставщикам строк, которым нужен индекс текущей строки Delphi, и совместимость типизированных MT-значений.
     - [ ] Довести `HilightMemo`: автодополнение, закладки, поиск, замена и остальные точки редактора. Адаптировать исходный пример `HilightMemo`.
     - [ ] Довести `StringTableMT`: файлы и потоки Delphi, значки и цвета строк, матричные операции, поиск и остальные MT-точки.
-    - [x] В палитру добавлены `CheckBoxRush`, `RadioButtonRush`, `ButtonRush`, `ProgressBarRush`, `TrackBarRush` и `ChildPanelRush`. `qt_native_projects` собирает `RushProgressQt` и запускает схему с передачей события через вложенную `PanelRush`.
     - [ ] Проверить визуальное соответствие Rush, перенести MT-точки `doSetTheme` и адаптировать оригинальный пример `RushControls`.
     - [ ] Довести `PageControl`: произвольные связи через `EditPolyMulti`, точки с дескрипторами и динамические точки `PagePanel`.
     - [ ] Перенести составные операции `WorkIconsManager` (`doMT_*`) и обработчики проверки файлов. Сверить поведение загрузки и сохранения отдельного значка при передаче индекса.
     - [ ] Довести совместимость перенесённых элементов. `ColorBox` возвращает снимок массива цветов, а `DriveBox` пока не поддерживает `BoxDrawManager`. Для исходных примеров `StatusBar` и `TreeViewEx_As_DirView` требуется перенос их зависимостей.
-    - [ ] Добавить в активный каталог `Widgets` оставшиеся 48 из 131 элемента Delphi (сверка с `WinControls` и `WinManControls` на 2026-11-23). Остальные 83 уже есть в каталоге, а пробелы их совместимости отмечены выше.
-      - [ ] Основные элементы (2) — `WebBrowser`, `Flash`.
-      - [ ] Динамические элементы (2) — `ChildFormPoly`, `ChildPanelPoly`.
-      - [ ] Дерево кортежей (12) — `TreeViewTrain`, `TVT_AddNode`, `TVT_ChangeNode`, `TVT_DeleteNode`, `TVT_FirstNode`, `TVT_ItemPath`, `TVT_SelectNode`, `TVT_GetNode`, `TVT_SaveTree`, `TVT_LoadTree`, `TVT_DataSource`, `TVT_EnumNodes`.
-      - [ ] Строковая таблица MT (21) — `MTStrTbl`, `MST_DrawManager`, `MST_Clear`, `MST_DB`, `MST_RowAction`, `MST_ColAction`, `MST_ArrayRows`, `MST_ArrayCols`, `MST_Matrix`, `MST_CheckBoxes`, `MST_SortInCol`, `MST_FindText`, `MST_SelectRow`, `MST_Selected`, `MST_SetColors`, `MST_HTML`, `MST_Save`, `MST_Load`, `MST_UseEditCtrl`, `MST_EditEnd`, `MST_Virtual`.
-      - [ ] Графопостроитель (7) — `PlotHistogram`, `PlotAxis`, `PlotMarker`, `PlotStream`, `PlotDiffSeries`, `PlotMouseValues`, `PlotSeriesMarker`.
-      - [ ] Центр команд (4) — `CommandCenter`, `CMD_PopupMenu`, `CMD_State`, `CMD_ToolBar`.
+    - [ ] Для `MST_ArrayRows` и `MST_ArrayCols` реализовать изменение таблицы через массивы. Сейчас Qt возвращает снимки для чтения. Для `MST_Virtual` перенести вывод значков, возвращаемых `VirtualData`.
+    - [ ] Поддержать покадровое управление `Flash` через Ruffle. Веб-API не предоставляет текущий кадр и переход по его номеру.
     - [ ] Адаптировать связанные примеры и проверить сборку и запуск на Qt. Сверить визуальные свойства и сложные точки уже зарегистрированных виджетов с Delphi.
   - [ ] Типы проектов при создании схемы: «Приложение на Qt6.9» (MainForm), консольное (Console), фоновый процесс (Service или Daemon), динамическая библиотека .so/.dll (Library), Windows DLL, плагин HiAsm, COM-объект для расширения Проводника (ShellExtension), сервис Windows, приложение для Панели управления (`.cpl`), простая форма  (из Core). Новые входы — `conf/<Имя>.ini`, `code/hi<Имя>.hws`, строки группы RTCG в `elements.sql`, шаблоны `new/<Имя>.sha` и регистрация в `packs/cpp/cpp_package.sql`. Проверка `tests/cpp_entries_test.cpp` собирает все пять g++ и сверяет точки входа экспорта. Ограничения: Windows-only типы по умолчанию собираются для Windows, на Linux-цели компилятор останавливается `#error`; «плагин HiAsm» — библиотека с контрактом ABI 1 (`hiasm_plugin_info`/`hiasm_plugin_run`), загрузчика плагинов в IDE пока нет; список диалога «Новый проект» фильтрует её в `src/ProjectManager.cpp`, а новый проект по умолчанию должен открывается как `MainForm` (`src/WindowManager.cpp`).
 - [ ] Native web пакет (`packs/web`, RTCG) должен давать тот же вывод, что оригинальный web-кодогенератор HiAsm 4.

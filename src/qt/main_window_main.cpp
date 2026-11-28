@@ -1,6 +1,7 @@
 #include <QApplication>
 #include <QCommandLineParser>
 #include <QDockWidget>
+#include <QIcon>
 #include <QMessageBox>
 #include <QTabWidget>
 #include <QTranslator>
@@ -15,6 +16,7 @@ int main(int argc, char **argv) {
         return buildSchemeCommand(args.mid(2), args.at(1) == "--generate");
     }
     QApplication app(argc, argv);
+    app.setWindowIcon(QIcon(QStringLiteral(":/hiasm/logo.png")));
     QTranslator translator;
     if (translator.load(QStringLiteral(":/i18n/hiasm_ru.qm"))) app.installTranslator(&translator);
 

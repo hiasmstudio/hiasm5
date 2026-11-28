@@ -1335,7 +1335,14 @@ void HiasmQtMainWindow::startBuild(bool run) {
     }
     const QFileInfo scheme(input);
     QDir directory = scheme.absoluteDir();
-    const QString buildDir = legacyBuild ? "build" : "build/qt-native";
+    const bool webWidgets = pack == "cpp" && schemeWebWidgets(diagram).needsWebEngine();
+#ifdef Q_OS_WIN
+    const QString webBuildDir = QStringLiteral("build/qt-webview2");
+#else
+    const QString webBuildDir = QStringLiteral("build/qt-webengine");
+#endif
+    const QString buildDir = legacyBuild ? QStringLiteral("build")
+        : webWidgets ? webBuildDir : QStringLiteral("build/qt-native");
     if (isInLegacyInstallation(directory.filePath(buildDir)) || !directory.mkpath(buildDir) || !directory.cd(buildDir)) {
         showBuildError(fileName, trMain("Could not create the build directory."));
         return;
@@ -1373,7 +1380,9 @@ void HiasmQtMainWindow::startProcess(const QString &program, const QStringList &
     auto env = QProcessEnvironment::systemEnvironment();
     const QString appDir = QCoreApplication::applicationDirPath();
     env.insert("PATH", appDir + QDir::listSeparator() + env.value("PATH"));
-    if (QDir(appDir + "/platforms").exists()) env.insert("QT_PLUGIN_PATH", appDir);
+    const auto programDir = QFileInfo(program).absolutePath();
+    if (!building && QDir(programDir + "/platforms").exists()) env.insert("QT_PLUGIN_PATH", programDir);
+    else if (QDir(appDir + "/platforms").exists()) env.insert("QT_PLUGIN_PATH", appDir);
     const auto compiler = findChild<QLineEdit *>("buildCompiler")->text().trimmed();
     if (building && !compiler.isEmpty()) env.insert("CXX", compiler);
     p->setProcessEnvironment(env);

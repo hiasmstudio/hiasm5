@@ -9,4 +9,6 @@ HEADERS += $$files($$PWD/*.h)
 appOutput = $$clean_path($$OUT_PWD/../qt)
 win32:CONFIG(debug, debug|release): appOutput = $$appOutput/debug
 win32:CONFIG(release, debug|release): appOutput = $$appOutput/release
+include(../qt/qmake_layout.pri)
+!isEmpty(hiasmOutput): appOutput = $$hiasmOutput
 DESTDIR = $$appOutput/packs/cpp/compiler

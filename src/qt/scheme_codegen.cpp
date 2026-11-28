@@ -256,6 +256,9 @@ bool supportedQtPort(const Node &n, const QByteArray &name) {
         {"ComboBox", {"doAdd","doClear","doDelete","doText","doLoad","doSave","doSelect","doEditText","doEditTextNoEvents","doSelectString","doAddDir","doReplace","onChange","onClick","onChangeText","onSelect","String","Text","Count","EndIdx","EditText","Index","Str","FileName"}},
         {"ListBox", {"doAdd","doClear","doDelete","doText","doLoad","doSave","doSelect","doSelectAll","doSelectString","doAddDir","doReplace","doInsert","doAppend","doEnsureVisible","doUp","doDown","onChange","onClick","onSelect","Text","Count","EndIdx","String","Index","Str","Value","FileName"}},
         {"Memo", {"doAdd","doClear","doDelete","doText","doLoad","doSave","doSetSelect","doSetSelStart","doSetSelLength","doEnsureVisible","onChange","Text","Array","Count","EndIdx","SelText","Position","Str","FileName"}},
+        {"WebBrowser", {"doNavigate","doRefresh","doBack","doForward","doFromText","doPrint","doPreview","doSavePage","doStop",
+                        "onNavigate","onTitle","onStatus","onProgress","onQuit","CurrentURL","Page","URL","Navigate","NewWindow"}},
+        {"Flash", {"doPlay","doPause","doStop","doGoToFrame","doBgColor","onPlay","onPause","onStop","CurrentFrame","FileName"}},
         {"HilightMemo", {"doAdd","doClear","doDelete","doText","doLoad","doSave","doHilight","doHilightCaseSens","doAddHilightStrings",
                          "doReadOnly","doOverwrite","doCut","doCopy","doPaste","doUndo","doRedo","doEnsureVisible","onChange",
                          "Text","Count","EndIdx","SelText","Str","FileName"}},
@@ -677,6 +680,9 @@ GeneratedScheme generateCppScheme(const QString &source, const QString &packs,
     GeneratedScheme result;
     result.type = projectType(QString::fromUtf8(entry->name),pack);
     result.gui = result.type == ProjectType::Form;
+    result.webWidgets = pack == "cpp" ? schemeWebWidgets(diagram) : SchemeWebWidgets{};
+    if (result.webWidgets.needsWebEngine() && !result.gui)
+        fail(QStringLiteral("WebBrowser and Flash require a C++ form project."));
     if (auto *mode = named(entry->props, "BuildMode")) result.release = mode->number == 1;
     const auto *target = named(entry->props, "TargetPlatform");
 #ifdef Q_OS_WIN
@@ -730,7 +736,7 @@ GeneratedScheme generateCppScheme(const QString &source, const QString &packs,
         if (result.gui && (n.name == "ChildPanel" || n.name == "ChildForm" || n.name == "ChildGroupBox" || n.name == "ChildScrollBox" ||
                           n.name == "ChildPanelEx" || n.name == "ChildFormEx" || n.name == "ChildPanelRush") && (!n.child || !n.child->host))
             fail(QStringLiteral("%1 is missing its inner control").arg(QString::fromUtf8(n.name)));
-        static const QList<QByteArray> gui{"Message", "DoData", "Hub", "BoxDrawManager", "DS_StaticData", "DS_UserData", "MReadWrite", "MEnumerator", "MListBox", "CtrlPalette", "MenuEx", "PopupMenuEx", "MainForm", "Button", "BitBtn", "Edit", "Label", "CheckBox", "Panel", "ChildPanel", "GroupBox", "ChildForm",
+        static const QList<QByteArray> gui{"Message", "DoData", "Hub", "BoxDrawManager", "DS_StaticData", "DS_UserData", "MReadWrite", "MEnumerator", "MListBox", "CtrlPalette", "MenuEx", "PopupMenuEx", "MainForm", "Button", "BitBtn", "Edit", "Label", "CheckBox", "Panel", "ChildPanel", "GroupBox", "ChildForm", "WebBrowser", "Flash",
                                              "ChildGroupBox", "ChildPanelEx", "ChildFormEx", "RadioButton", "TrackBar", "ProgressBar", "ProgressBarRush", "ScrollBar", "UpDown", "ComboBox", "ListBox", "Memo", "HilightMemo", "LED", "FontBox", "ToolBar", "TreeView", "TreeViewEx", "StringTable", "StringTableMT",
                                              "LedNumber", "LedLadder", "StatusBar", "DatePicker", "Image", "AlphaImage", "ImgBtn", "GProgressBar", "Grapher", "Plotter", "PlotLines", "PlotPoints", "PlotHistogram", "VisualShape", "PaintBox", "DriveBox", "ColorBox", "Timer", "TabControl", "ChildScrollBox", "ScrollBox", "ScrollBarEx", "MultiElement", "MultiElementEx", "EditMulti", "EditMultiEx"};
         static const QList<QByteArray> console{"Entry", "DoData", "hcConsole", "MultiElement", "EditMulti", "MultiElementEx", "EditMultiEx", "Hub", "Data", "Write", "Print", "Math", "Memory", "If", "For", "Counter", "StrCat", "HubEx", "GetDataEx"};

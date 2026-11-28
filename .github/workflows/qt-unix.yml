@@ -1,0 +1,110 @@
+name: Unix Qt build
+
+on:
+  workflow_call:
+    inputs:
+      runner:
+        required: true
+        type: string
+      qt-host:
+        required: true
+        type: string
+      qt-arch:
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ${{ inputs.runner }}
+    timeout-minutes: 45
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c # v6.0.0
+        with:
+          python-version: '3.13'
+
+      - name: Install Linux display and Chromium dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ninja-build xvfb xauth fonts-dejavu-core libasound2t64 libdbus-1-3 \
+            libfontconfig1 libgbm1 libglib2.0-0t64 libgl-dev libegl-dev libnss3 libx11-xcb1 \
+            libxcb-cursor0 libxcb-icccm4 libxcb-keysyms1 libxcb-render-util0 libxcb-shape0 libxcb-xinerama0 \
+            libxcomposite1 libxdamage1 libxfixes3 libxi6 libxkbcommon-dev libxkbcommon-x11-0 libxtst6
+
+      - name: Check Ninja on macOS
+        if: runner.os == 'macOS'
+        run: command -v ninja || brew install ninja
+
+      - name: Select the Qt SDK mirror
+        run: |
+          printf '[requests]\nhash_algorithm: sha1\n[mirrors]\ntrusted_mirrors:\n    https://ftp.fau.de/qtproject\n    https://download.qt.io\n' > "$RUNNER_TEMP/aqt.ini"
+          echo "AQT_CONFIG=$RUNNER_TEMP/aqt.ini" >> "$GITHUB_ENV"
+
+      - name: Install Qt 6.9.3
+        uses: jurplel/install-qt-action@d325aaf2a8baeeda41ad0b5d39f84a6af9bcf005 # v4.3.0
+        with:
+          version: '6.9.3'
+          host: ${{ inputs.qt-host }}
+          target: desktop
+          arch: ${{ inputs.qt-arch }}
+          modules: qtwebchannel qtpositioning
+          extra: --base https://ftp.fau.de/qtproject
+          aqtversion: '==3.3.0'
+          setup-python: false
+          cache: true
+
+      - name: Install the Qt WebEngine extension
+        run: |
+          python -m pip install py7zr==1.0.0
+          python tools/fetch_qt_webengine.py "$QT_ROOT_DIR"
+
+      - name: Configure and build
+        run: |
+          cmake -S . -B build/ci -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$QT_ROOT_DIR"
+          cmake --build build/ci --parallel 4
+
+      - name: Run CTest
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: ctest --test-dir build/ci --output-on-failure --no-tests=error
+
+      - name: Prepare the Ruffle smoke test
+        run: |
+          python -m pip install websocket-client==1.8.0
+          python tools/fetch_ruffle_web.py "$RUNNER_TEMP/ruffle"
+          echo "HIASM_RUFFLE_DIR=$RUNNER_TEMP/ruffle" >> "$GITHUB_ENV"
+
+      - name: Verify WebBrowser and Flash
+        run: |
+          if [[ "$RUNNER_OS" == Linux ]]; then
+            # Hosted Ubuntu can restrict user namespaces. This test serves only its generated fixtures.
+            if ! unshare --user --map-root-user --net true; then
+              export QTWEBENGINE_DISABLE_SANDBOX=1
+            fi
+            xvfb-run -a python tests/qt_web_widgets_test.py build/ci/hiasm --artifacts build/ci/web-screenshots
+          else
+            python tests/qt_web_widgets_test.py build/ci/hiasm --artifacts build/ci/web-screenshots
+          fi
+
+      - name: Upload screenshots and failure logs
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: web-widgets-${{ runner.os }}
+          path: |
+            build/ci/web-screenshots/*.png
+            build/ci/Testing/Temporary/*.log
+            build/ci/CMakeFiles/CMakeConfigureLog.yaml
+          if-no-files-found: ignore
+          retention-days: 7

@@ -78,6 +78,16 @@ jobs:
           HIASM_CONFIGURATION: ${{ matrix.configuration }}
         run: ./tools/build_qt_windows.ps1 -Configuration $env:HIASM_CONFIGURATION -BuildDir build/ci
 
+      - name: Verify WebBrowser and Flash with LLVM-MinGW
+        if: matrix.configuration == 'Release'
+        run: |
+          python -m pip install websocket-client==1.8.0
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          $env:HIASM_RUFFLE_DIR = Join-Path $env:RUNNER_TEMP 'ruffle'
+          python tools/fetch_ruffle_web.py $env:HIASM_RUFFLE_DIR
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          python tests/qt_web_widgets_test.py build/ci/hiasm.exe --artifacts build/ci/web-screenshots
+
       - name: Verify portable Release install
         if: matrix.configuration == 'Release'
         run: ./tools/test_portable_windows.ps1 -BuildDir build/ci -InstallDir build/ci-portable -StartupRuns 1
@@ -90,6 +100,15 @@ jobs:
           path: build/ci-portable/
           if-no-files-found: error
           retention-days: 14
+
+      - name: Upload WebBrowser and Flash screenshots
+        if: matrix.configuration == 'Release' && always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: web-widgets-Windows
+          path: build/ci/web-screenshots/*.png
+          if-no-files-found: ignore
+          retention-days: 7
 
       - name: Upload CMake and CTest logs
         if: failure()

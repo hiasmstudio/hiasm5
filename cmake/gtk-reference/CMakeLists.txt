@@ -71,9 +71,13 @@ add_executable(hiasm_runner "${HIASM_ROOT}/src/runner.cpp")
 set_target_properties(hiasm_runner PROPERTIES OUTPUT_NAME runner)
 target_link_libraries(hiasm_runner PRIVATE hiasm_core)
 
-if(WIN32 AND EXISTS "${HIASM_ROOT}/resources/hiasm.ico")
+if(WIN32 AND EXISTS "${HIASM_ROOT}/resources/icons/hiasm.ico")
     enable_language(RC)
-    target_sources(hiasm PRIVATE "${HIASM_ROOT}/resources/hiasm.rc")
+    set(hiasm_rc "${HIASM_ROOT}/resources/hiasm.rc")
+    set_source_files_properties("${hiasm_rc}" PROPERTIES
+        INCLUDE_DIRECTORIES "${HIASM_ROOT}/resources"
+        OBJECT_DEPENDS "${HIASM_ROOT}/resources/icons/hiasm.ico")
+    target_sources(hiasm PRIVATE "${hiasm_rc}")
 endif()
 
 target_include_directories(hiasm_core PUBLIC "${HIASM_ROOT}/src")

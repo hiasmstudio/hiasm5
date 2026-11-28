@@ -47,6 +47,13 @@ def main():
         "Rush", "Graphics", "Dynamic", "Extended", "Managers", "Layouts", "Experiments",
         "TupleTree", "MTTable", "Plotting", "Commands")]
     assert catalog.execute("SELECT tab, pos FROM elements WHERE name='MTStrTbl'").fetchone() == (1, 901)
+    remaining_mst = ("MST_ArrayRows", "MST_ArrayCols", "MST_Virtual")
+    assert catalog.execute("SELECT name, pos FROM elements WHERE tab=1 AND name IN (?,?,?) ORDER BY pos",
+                           remaining_mst).fetchall() == list(zip(remaining_mst, (907, 908, 921)))
+    assert not catalog.execute("SELECT name FROM planned_elements WHERE name IN (?,?,?)", remaining_mst).fetchall()
+    assert catalog.execute("SELECT name FROM elements WHERE tab=1 AND name IN ('WebBrowser','Flash') ORDER BY pos").fetchall() == [
+        ("WebBrowser",), ("Flash",)]
+    assert not catalog.execute("SELECT name FROM planned_elements WHERE name IN ('WebBrowser','Flash')").fetchall()
     assert catalog.execute("SELECT tab FROM elements WHERE name='StringTable'").fetchall() == [(1,)]
     assert catalog.execute("SELECT tab, pos FROM elements WHERE name='StringTableMT'").fetchall() == [(1, 403)]
     assert catalog.execute("SELECT tab, pos FROM elements WHERE name='HilightMemo'").fetchall() == [(1, 38)]
@@ -73,6 +80,32 @@ def main():
         scheme.write_bytes(NESTED.replace("\n", "\r\n").encode())
         run(app, "--build", scheme, output)
         assert run(output) == ["nested-ok"]
+        web_scheme = work / "WebWidgets.sha"
+        web_source = work / "WebWidgets.cpp"
+        web_scheme.write_text("""Make(cpp)
+Add(MainForm,1,0,0)
+{
+ link(onCreate,3:doPlay,[])
+}
+Add(WebBrowser,2,40,40)
+{
+ URL=about:blank
+ link(onNavigate,5:doText,[])
+}
+Add(Flash,3,80,80)
+{
+ FileName=sample.swf
+}
+Add(Edit,5,160,40)
+{
+ link(Str,2:Page,[])
+}
+""", encoding="utf-8")
+        run(app, "--generate", web_scheme, web_source)
+        web_code = web_source.read_text(encoding="utf-8")
+        assert 'new HiasmWebBrowser(widgetParent)' in web_code
+        assert 'new HiasmFlash(widgetParent)' in web_code
+        assert '->currentHtml()' in web_code and '->playMovie(' in web_code
         run(app, "--build", root / "packs/cpp/example/math_functions.sha", output)
         assert run(output) == ["1", "3", "domain error", "7"]
 
@@ -160,6 +193,7 @@ def main():
         html_output = work / "table.html"
         array_output = work / "table-columns.txt"
         copied_output = work / "table-copy.txt"
+        virtual_output = work / "table-virtual.txt"
         scheme.write_text(f'''Make(cpp)
 Add(MainForm,1,0,0)
 {{
@@ -168,7 +202,7 @@ Add(MainForm,1,0,0)
 }}
 Add(Hub,2,40,0)
 {{
- OutCount=15
+ OutCount=19
  link(onEvent1,4:doData,[])
  link(onEvent2,12:doSelect,[])
  link(onEvent3,13:doData,[])
@@ -182,8 +216,12 @@ Add(Hub,2,40,0)
  link(onEvent11,20:doSave,[])
  link(onEvent12,22:doSave,[])
  link(onEvent13,23:doNextPage,[])
- link(onEvent14,26:doSave,[])
- link(onEvent15,1:doClose,[])
+ link(onEvent14,27:doData,[])
+ link(onEvent15,23:doPrevPage,[])
+ link(onEvent16,23:doResetPage,[])
+ link(onEvent17,26:doSave,[])
+ link(onEvent18,28:doSave,[])
+ link(onEvent19,1:doClose,[])
 }}
 Add(MTStrTbl,3,80,0)
 {{
@@ -271,7 +309,7 @@ Add(Memo,20,680,40)
 Add(MTStrTbl,21,720,40)
 {{
  Name="Copy"
- Columns=#11:Copied=1350|
+ Columns=#11:Copied=1350|4:Code|
 }}
 Add(MST_Save,22,760,40)
 {{
@@ -281,8 +319,9 @@ Add(MST_Save,22,760,40)
 Add(MST_Virtual,23,800,40)
 {{
  MSTControl="Virtual"
+ DefaultPage=2
  link(VirtualData,25:Text,[])
- link(onChangeVirtIdx,26:doText,[])
+ link(onChangeVirtIdx,26:doAdd,[])
 }}
 Add(MTStrTbl,24,840,40)
 {{
@@ -298,15 +337,29 @@ Add(Memo,26,920,40)
 {{
  FileName="{(work / 'page.txt').as_posix()}"
 }}
+Add(DoData,27,960,40)
+{{
+ Data=Integer(-1)
+ link(onEventData,23:doSetPage,[])
+}}
+Add(MST_Save,28,1000,40)
+{{
+ MSTControl="Virtual"
+ FileName="{virtual_output.as_posix()}"
+}}
 ''', encoding="utf-8")
         run(app, "--build", scheme, output)
         run(output)
         html = html_output.read_text(encoding="utf-8")
         assert "<h2>Inventory</h2>" in html and "<th>Name</th>" in html
         assert "<td>Edited &amp; &lt;value&gt;</td>" in html, html
-        assert array_output.read_text(encoding="utf-8").splitlines()[0].startswith("Copied=1350="), array_output
-        assert "Edited & <value>" in copied_output.read_text(encoding="utf-8").splitlines()
-        assert int((work / "page.txt").read_text(encoding="utf-8")) > 0
+        columns = array_output.read_text(encoding="utf-8").splitlines()
+        assert len(columns) == 2 and columns[0].startswith("Copied=1350=") and columns[1].startswith("Code="), columns
+        assert any(line.startswith("Edited & <value>") for line in copied_output.read_text(encoding="utf-8").splitlines())
+        positions = [int(line) for line in (work / "page.txt").read_text(encoding="utf-8").splitlines() if line]
+        assert len(positions) == 3 and positions[1] >= 2 and positions[0] * 2 == positions[1] * 3, positions
+        assert positions[2] == positions[1], positions
+        assert "Virtual row" in virtual_output.read_text(encoding="utf-8").splitlines()
         plot_example = root / "packs/cpp/example/Draw/gui/Plotter/PlotterQt.sha"
         run(app, "--build", plot_example, output)
         plot_output = work / "plot.bmp"

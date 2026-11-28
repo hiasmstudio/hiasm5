@@ -1,0 +1,46 @@
+func flashTarget()
+  return('qt_widget<HiasmFlash>(form, "Flash' && _id_ && '")')
+end
+
+func doStart
+  println('{ auto *flash = new HiasmFlash(widgetParent);')
+  println('flash->setObjectName(QStringLiteral("Flash', _id_, '"));')
+  println('flash->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+  println('flash->setEnabled(', get('Enabled') == 'True', ');')
+  println('flash->setToolTip(qt_text(', cstr(get('Hint')), '));')
+  if(get('Visible') == 'False')
+    println('flash->hide();')
+  end
+  println('flash->setMovieColor(qt_led_color(qt_text(', cstr(d('BgColor')), '), Qt::white)); }')
+end
+
+func doPlay(_data)
+  println(flashTarget(), '->playMovie(qt_text(', cstr(d('FileName')), '));')
+  event(onPlay, _data)
+end
+
+func doPause(_data)
+  println(flashTarget(), '->togglePlayback();')
+  event(onPause, _data)
+end
+
+func doStop(_data)
+  println(flashTarget(), '->stopMovie();')
+  event(onStop, _data)
+end
+
+func doGoToFrame(_data)
+  if(len(_data) > 0)
+    println(flashTarget(), '->goToFrame(qt_text(', _data, ').toInt());')
+  end
+end
+
+func CurrentFrame()
+  return(flashTarget() && '->currentFrame()')
+end
+
+func doBgColor(_data)
+  if(len(_data) > 0)
+    println(flashTarget(), '->setMovieColor(qt_led_color(qt_text(', _data, '), Qt::white));')
+  end
+end

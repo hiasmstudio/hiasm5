@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+<meta charset="utf-8">
+<style>
+    html, body { margin: 0; width: 100%; height: 100%; }
+    ruffle-player { display: block; width: 100%; height: 100%; }
+    #error { position: absolute; inset: 0; margin: 0; padding: 1em; }
+</style>
+<body>
+<p id="error" hidden></p>
+<script src="ruffle.js"></script>
+<script>
+    let player;
+    let ready = false;
+    let playing = false;
+    let backgroundColor = "#ffffff";
+    const error = document.getElementById("error");
+
+    function setMovieColor(color) {
+        backgroundColor = color;
+        document.body.style.backgroundColor = color;
+        if (player) player.style.backgroundColor = color;
+    }
+
+    function setPlayback(play) {
+        playing = play;
+        if (!ready) return;
+        if (playing) player.ruffle(1).resume();
+        else player.ruffle(1).suspend();
+    }
+
+    function togglePlayback() {
+        setPlayback(ready ? player.ruffle(1).suspended : !playing);
+    }
+
+    async function loadMovie(url, color, play) {
+        player?.remove();
+        error.hidden = true;
+        ready = false;
+        playing = play;
+        setMovieColor(color);
+        const next = window.RufflePlayer?.newest()?.createPlayer();
+        if (!next) {
+            error.textContent = "Could not start Ruffle.";
+            error.hidden = false;
+            return;
+        }
+        player = next;
+        player.style.backgroundColor = backgroundColor;
+        document.body.append(player);
+        try {
+            await next.ruffle(1).load({
+                url, backgroundColor, autoplay: play ? "on" : "off",
+                allowScriptAccess: false, openUrlMode: "deny", unmuteOverlay: "hidden"
+            });
+            if (player === next) {
+                ready = true;
+                setPlayback(playing);
+            }
+        } catch (failure) {
+            if (player === next) {
+                error.textContent = String(failure);
+                error.hidden = false;
+            }
+        }
+    }
+</script>
+</body>
+</html>

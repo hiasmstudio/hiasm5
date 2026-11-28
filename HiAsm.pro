@@ -2,6 +2,8 @@ TEMPLATE = subdirs
 
 !versionAtLeast(QT_VERSION, 6.9.0): error("HiAsm requires Qt 6.9 or later")
 
+include(src/qt/qmake_layout.pri)
+
 SUBDIRS += main_window rtcg core_qt
 rtcg.file = src/RTCG/rtcg.pro
 main_window.depends = rtcg

@@ -6,6 +6,12 @@ CONFIG += c++17 console embed_translations qtc_runnable
 VERSION = 6.0.0.0
 DEFINES += HIASM_QT_VERSION=\\\"$$VERSION\\\"
 
+include(qmake_layout.pri)
+!isEmpty(hiasmOutput) {
+    DESTDIR = $$hiasmOutput
+    include(qmake_catalogs.pri)
+}
+
 CONFIG(debug, debug|release): buildVariant = debug
 else: buildVariant = release
 OBJECTS_DIR = .obj/hiasm/$$buildVariant
@@ -36,6 +42,7 @@ load(lrelease)
 rcc.depends += $$QM_FILES
 
 win32 {
+    RC_ICONS = $$PWD/../../resources/icons/hiasm.ico
     qtBin = $$[QT_INSTALL_BINS]
     QMAKE_POST_LINK += $$shell_quote($$shell_path($$qtBin/windeployqt.exe)) --no-translations --include-plugins qoffscreen,qsqlite "$(DESTDIR_TARGET)"
     for(runtime, $$list(libc++.dll libunwind.dll)) {

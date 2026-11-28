@@ -24,7 +24,7 @@ if (!$RuntimeOnly) {
     if ($env:HIASM_NINJA) { $paths.Ninja = $env:HIASM_NINJA }
     & "$PSScriptRoot/stage_cpp_toolchain.ps1" -Destination "$stage/packs/cpp/compiler" -OffscreenOnly @paths
 }
-$cache = Get-Content -LiteralPath "$root/build/qt69-native-release/CMakeCache.txt"
+$cache = Get-Content -LiteralPath "$root/build/Windows_LLVM-MinGW-x64-Release/CMakeCache.txt"
 $version = ($cache | Select-String '^CMAKE_PROJECT_VERSION:STATIC=(.+)$').Matches.Groups[1].Value
 $outputName = if ($RuntimeOnly) { 'HiAsm_Setup_Qt_Runtime.exe' } else { 'HiAsm_Setup_Qt.exe' }
 $output = Join-Path "$root/build" $outputName

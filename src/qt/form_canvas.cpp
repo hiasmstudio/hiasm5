@@ -56,7 +56,7 @@ Values formProperties(const SchemeElement &element, const ElementConfig &config)
 
 QString previewKind(const QString &name, const ElementConfig &config) {
     if (name == "StringTable" || name == "StringTableMT") return name;
-    if (name == "AlphaImage" || name == "ImgBtn") return name;
+    if (name == "AlphaImage" || name == "ImgBtn" || name == "Flash") return name;
     if (name == "LED" || name == "FontBox" || name == "BitBtn" || name == "DatePicker" || name == "Image") return name;
     if (!config.editClass.isEmpty()) return QString::fromUtf8(config.editClass);
     return config.className.startsWith("HCWE_") ? QString::fromUtf8(config.className.mid(5)) : name;

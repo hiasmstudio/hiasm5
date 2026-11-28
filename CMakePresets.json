@@ -10,7 +10,7 @@
             "name": "qt69-native-debug",
             "displayName": "HiAsm Qt 6.9 Debug (LLVM-MinGW)",
             "generator": "Ninja",
-            "binaryDir": "${sourceDir}/build/${presetName}",
+            "binaryDir": "${sourceDir}/build/Windows_LLVM-MinGW-x64-Debug",
             "cacheVariables": {
                 "HIASM_BUILD_RTCG_ONLY": "OFF",
                 "BUILD_TESTING": "ON",
@@ -33,6 +33,7 @@
             "name": "qt69-native-release",
             "displayName": "HiAsm Qt 6.9 Release (LLVM-MinGW)",
             "inherits": "qt69-native-debug",
+            "binaryDir": "${sourceDir}/build/Windows_LLVM-MinGW-x64-Release",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release"
             }

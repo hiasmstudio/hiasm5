@@ -1,0 +1,21 @@
+name: macOS Qt CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  macos:
+    uses: ./.github/workflows/qt-unix.yml
+    with:
+      runner: macos-15
+      qt-host: mac
+      qt-arch: clang_64

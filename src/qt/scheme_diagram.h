@@ -47,3 +47,11 @@ struct SchemeDiagram {
 };
 
 SchemeDiagram readSchemeDiagram(const QString &source);
+
+struct SchemeWebWidgets {
+    bool browser = false;
+    bool flash = false;
+    bool needsWebEngine() const { return browser || flash; }
+};
+
+SchemeWebWidgets schemeWebWidgets(const SchemeDiagram &diagram);

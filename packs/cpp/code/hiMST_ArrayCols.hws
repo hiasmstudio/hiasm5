@@ -1,7 +1,7 @@
 include('qtMstClient')
 
 func ColumnArray()
-  return('([](HiasmMstTable *table) { QVariantList columns; if (table) for (int col = 0; col < table->columnCount(); ++col) columns.append(table->columnFields(col).join(table->separator)); return columns; }(' && MstTarget() && '))')
+  return('([](HiasmMstTable *table) { return table ? table->columnSnapshot() : QVariantList(); }(' && MstTarget() && '))')
 end
 
 func MTCols()

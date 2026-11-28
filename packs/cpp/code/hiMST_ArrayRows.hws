@@ -1,5 +1,5 @@
 include('qtMstClient')
 
 func Strings()
-  return('([](HiasmMstTable *table) { QVariantList rows; if (table) for (int row = 0; row < table->rowCount(); ++row) rows.append(QVariant(table->rowTuple(row))); return rows; }(' && MstTarget() && '))')
+  return('([](HiasmMstTable *table) { return table ? table->rowSnapshot() : QVariantList(); }(' && MstTarget() && '))')
 end

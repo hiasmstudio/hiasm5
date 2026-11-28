@@ -3,8 +3,8 @@
         "label": "HiAsm Qt (Debug)",
         "adapter": "CodeLLDB",
         "request": "launch",
-        "program": "$ZED_WORKTREE_ROOT/build/qt69-native-debug/hiasm.exe",
-        "cwd": "$ZED_WORKTREE_ROOT/build/qt69-native-debug",
+        "program": "$ZED_WORKTREE_ROOT/build/Windows_LLVM-MinGW-x64-Debug/hiasm.exe",
+        "cwd": "$ZED_WORKTREE_ROOT/build/Windows_LLVM-MinGW-x64-Debug",
         "args": [],
         "env": {
             "PATH": "C:/Qt/6.9.3/llvm-mingw_64/bin;C:/Qt/Tools/llvm-mingw1706_64/bin"

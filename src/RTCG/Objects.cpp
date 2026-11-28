@@ -386,9 +386,10 @@ TBlockObject::~TBlockObject() {
 
 TBlockItemObject *TBlockObject::regBlock(const char *name) {
 	TBlockItemObject *blk = searchBlock(name);
-	if(!blk)
+	if(!blk) {
 		blk = new TBlockItemObject(name, this);
-	items.push_back((TBlockItemObject *)copyObject(blk));
+		items.push_back((TBlockItemObject *)copyObject(blk));
+	}
 	if(!current) current = blk;
 	return blk;
 }
@@ -402,12 +403,11 @@ TBlockItemObject *TBlockObject::searchBlock(const char *name) {
 
 bool TBlockObject::removeBlock(const char *name) {
 	TBlockItemObject *blk = searchBlock(name);
-	if(blk) {
-		deleteObject(blk);
-		items.remove(blk);
-		return true;
-	}
-	return false;
+	if(!blk) return false;
+	if(current == blk) current = NULL;
+	items.remove(blk);
+	deleteObject(blk);
+	return true;
 }
 
 TValue *TBlockObject::execMethod(TTreeNode *node, long index, Context &context) {

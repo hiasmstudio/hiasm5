@@ -18,7 +18,7 @@ mkdir -p "$DEST/hiasm/int" "$DEST/applications" "$DEST/pixmaps"
 python3 "$ROOT/tools/build_database.py" "$DEST/hiasm/int/hiasm.db" "$RES/hiasm.db" "$ROOT/packs/cpp/cpp_package.sql"
 cp "$RES/hiasm.sql" "$DEST/hiasm/int/"
 cp "$RES/linux/applications/hiasm.desktop" "$DEST/applications/"
-cp "$RES/hiasm.png" "$DEST/pixmaps/"
+cp "$RES/icons/hiasm.png" "$DEST/pixmaps/"
 
 VERSION1=$(awk '$1 == "#define" && $2 == "HIASM_VERSION_MAJOR" {print $3}' "$ROOT/src/share.h")
 VERSION2=$(awk '$1 == "#define" && $2 == "HIASM_VERSION_MINOR" {print $3}' "$ROOT/src/share.h")

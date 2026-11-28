@@ -23,6 +23,14 @@ target_compile_definitions(hiasm-qt-window PRIVATE HIASM_SOURCE_PACKS="${PROJECT
 target_compile_definitions(hiasm-qt-window PRIVATE HIASM_QT_VERSION="${PROJECT_VERSION}")
 
 qt_add_executable(hiasm main_window_main.cpp scheme_build.cpp scheme_codegen.cpp)
+if(WIN32)
+    enable_language(RC)
+    set(hiasm_rc "${PROJECT_SOURCE_DIR}/resources/hiasm.rc")
+    set_source_files_properties("${hiasm_rc}" PROPERTIES
+        INCLUDE_DIRECTORIES "${PROJECT_SOURCE_DIR}/resources"
+        OBJECT_DEPENDS "${PROJECT_SOURCE_DIR}/resources/icons/hiasm.ico")
+    target_sources(hiasm PRIVATE "${hiasm_rc}")
+endif()
 set_target_properties(hiasm PROPERTIES MACOSX_BUNDLE FALSE)
 target_link_libraries(hiasm PRIVATE hiasm-qt-window)
 if(TARGET hiasm4_cgbridge)

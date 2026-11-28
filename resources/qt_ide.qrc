@@ -1,6 +1,6 @@
 <RCC>
  <qresource prefix="/hiasm">
-  <file alias="logo.png">hiasm.png</file>
+  <file alias="logo.png">icons/hiasm.png</file>
   <file alias="actions/formedit.png">../packs/_base/icon/formedit.png</file>
   <file alias="actions/property.png">../packs/_base/icon/property.png</file>
   <file alias="actions/points.png">../packs/_base/icon/points.png</file>

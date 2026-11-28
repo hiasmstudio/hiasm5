@@ -1,4 +1,4 @@
-Internet browser based on IExplorer=Интернет браузер на основе IExplorer
+Web browser based on Chromium (Qt WebEngine)=Браузер на базе Chromium (Qt WebEngine)
 Defines the URL of the page to load into the browser when the program starts=Определяет URL страницы для загрузки в браузер при старте программы
 Enables or disables the display of JavaScript error messages=Разрешает или запрещает выдачу окна с сообщениями об ошибках JavaScript
 Loads the URL into the browser=Загружает URL в браузер

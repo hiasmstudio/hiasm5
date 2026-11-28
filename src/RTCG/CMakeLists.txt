@@ -17,7 +17,7 @@ if(WIN32 OR MINGW)
     set(RTCG_SUFFIX ".dll")
 else()
     set(RTCG_PREFIX "lib")
-    set(RTCG_SUFFIX ".so")
+    set(RTCG_SUFFIX "${CMAKE_SHARED_LIBRARY_SUFFIX}")
 endif()
 set(RTCG_FILE "${RTCG_PREFIX}CodeGen${RTCG_SUFFIX}")
 

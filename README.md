@@ -9,7 +9,9 @@
 </p>
 -->
 
-[![CI](https://github.com/ili4yov-ika/hiasm/actions/workflows/ci.yml/badge.svg)](https://github.com/ili4yov-ika/hiasm/actions/workflows/ci.yml)
+[![Windows CI](https://github.com/ili4yov-ika/hiasm/actions/workflows/ci.yml/badge.svg)](https://github.com/ili4yov-ika/hiasm/actions/workflows/ci.yml)
+[![Linux CI](https://github.com/ili4yov-ika/hiasm/actions/workflows/ci-linux.yml/badge.svg)](https://github.com/ili4yov-ika/hiasm/actions/workflows/ci-linux.yml)
+[![macOS CI](https://github.com/ili4yov-ika/hiasm/actions/workflows/ci-macos.yml/badge.svg)](https://github.com/ili4yov-ika/hiasm/actions/workflows/ci-macos.yml)
 
 ![Main window](docs/main_ui.png)
 # 
@@ -24,7 +26,7 @@ HiAsm — среда визуального программирования н�
 tools\build_windows.bat release
 ```
 
-После сборки скрипт запускает `build\qt69-native-release\hiasm.exe`. Запустить его можно и напрямую. Для сборки без открытия окна используйте `tools\build_windows.bat release build-only`. Менеджер проектов открывается в IDE по Ctrl+N. Компиляция схем встроена в `hiasm.exe`. В комплект входят RTCG и библиотека виджетов Core. Для сборки, отладки и запуска этих программ MSYS2, GTK3 и GTK4 не требуются.
+После сборки скрипт запускает `build\Windows_LLVM-MinGW-x64-Release\hiasm.exe`. Запустить его можно и напрямую. Для сборки без открытия окна используйте `tools\build_windows.bat release build-only`. Менеджер проектов открывается в IDE по Ctrl+N. Компиляция схем встроена в `hiasm.exe`. В комплект входят RTCG и библиотека виджетов Core. Для сборки, отладки и запуска этих программ MSYS2, GTK3 и GTK4 не требуются.
 
 В окне «Создание проекта» сверху выбирают пакет, снизу — его шаблон. Для пакетов HiAsm 4 IDE читает список установок из `packs/_hiasm4/paths.ini`. Чтобы указать другой список, задайте `HIASM4_ROOTS` с путями через точку с запятой. Например, при выборе «HiAsm 4: cnet → Console» откроется новая схема с палитрой CNET. Шаблон в установке HiAsm 4 сохраняется в исходном виде. Для компиляции внешних пакетов нужен 32-битный мост к генераторам HiAsm 4. В Qt-версии подключены открытие и редактирование таких схем.
 
@@ -35,6 +37,8 @@ tools\build_windows.bat release
 В конструктор элемент также можно перетащить из палитры. Щелчок по размещённому элементу открывает его свойства. Двойной щелчок по значению позволяет его изменить. Перетаскивание перемещает элемент, а маркеры выделения меняют размер с учётом выравнивания. Delete удаляет выбранный элемент, Ctrl+Z отменяет правку.
 
 В панели «Элементы» группы и подгруппы раскрываются щелчком по заголовку. Выберите элемент одним щелчком и перенесите указатель на схему или форму. Полуперекрестье со значком показывает место вставки. Щёлкните для размещения или нажмите Esc, чтобы отменить его. Двойной щелчок по значку добавляет элемент сразу.
+
+Элементы `WebBrowser` и `Flash` пакета C++ используют Chromium. В Windows схемы собираются обычным комплектом Qt для LLVM-MinGW и используют Microsoft Edge WebView2 Runtime. В Linux и macOS нужен Qt WebEngine. `Flash` запускает Ruffle из ресурсов собранной программы и воспроизводит локальные SWF без подключения к интернету. [Настройка комплекта и Ruffle](MARKDOWN/BUILD_WINDOWS.md#схемы-с-webbrowser-и-flash)
 
 Чтобы создать связь, протяните её мышью между двумя совместимыми зелёными точками. Чтобы отсоединить конец связи, перетащите занятую точку на свободное место или выберите «Удалить связь» в меню этой точки. Перетащите на свободную совместимую точку, чтобы переподключить конец. Ctrl+Z восстанавливает прежнюю связь вместе с её маршрутом.
 
@@ -53,8 +57,8 @@ tools\build_windows.bat release
 Из командной строки тот же исполняемый файл собирает схему без открытия окна:
 
 ```bat
-build\qt69-native-release\hiasm.exe --build packs\cpp\example\hello.sha hello.exe
-build\qt69-native-release\hiasm.exe --generate packs\cpp\new\QtForm.sha form.cpp
+build\Windows_LLVM-MinGW-x64-Release\hiasm.exe --build packs\cpp\example\hello.sha hello.exe
+build\Windows_LLVM-MinGW-x64-Release\hiasm.exe --generate packs\cpp\new\QtForm.sha form.cpp
 ```
 
 ## Редакторы и установка
@@ -76,3 +80,12 @@ cmake --build build/qt
 ctest --test-dir build/qt --output-on-failure
 ./build/qt/hiasm
 ```
+
+Для схем с `WebBrowser` и `Flash` добавьте Qt WebEngine к тому же комплекту Qt. Для `Flash` подготовьте локальный Ruffle Self-Hosted.
+
+```sh
+python3 tools/fetch_ruffle_web.py build/deps/ruffle
+export HIASM_RUFFLE_DIR="$PWD/build/deps/ruffle"
+```
+
+В GitHub Actions Linux и macOS собирают IDE, запускают CTest и проверяют навигацию Chromium и воспроизведение тестового SWF. Проверка запускает собранную схему с Xvfb на Linux и с Cocoa на macOS.

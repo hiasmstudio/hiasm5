@@ -26,7 +26,7 @@ if (!$CMake) {
         if (!$CMake) { throw 'CMake not found. Install CMake from the Qt SDK or set HIASM_CMAKE.' }
     }
 }
-if (!$BuildDir) { $BuildDir = Join-Path $root "build/qt69-native-$($Configuration.ToLowerInvariant())" }
+if (!$BuildDir) { $BuildDir = Join-Path $root "build/Windows_LLVM-MinGW-x64-$Configuration" }
 if ($RtcgOnly -and $InstallDir) { throw 'InstallDir requires a complete Qt build' }
 if ($RtcgOnly -and $RunIde) { throw 'Launching an application requires the Qt build' }
 if ($Check -and !$RunIde) { throw 'Check requires RunIde' }

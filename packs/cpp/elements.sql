@@ -1057,13 +1057,15 @@ INSERT INTO elements(name,info,tab,pos,hash)
 DELETE FROM planned_elements WHERE name='PlotPoints';
 
 WITH ready(name, pos) AS (VALUES
+ ('WebBrowser',40),('Flash',41),
  ('TreeViewTrain',801),('TVT_AddNode',802),('TVT_ChangeNode',803),('TVT_DeleteNode',804),
  ('TVT_FirstNode',805),('TVT_ItemPath',806),('TVT_SelectNode',807),('TVT_GetNode',808),
  ('TVT_SaveTree',809),('TVT_LoadTree',810),('TVT_DataSource',811),('TVT_EnumNodes',812),
  ('MTStrTbl',901),('MST_DrawManager',902),('MST_Clear',903),('MST_DB',904),('MST_RowAction',905),('MST_ColAction',906),
+ ('MST_ArrayRows',907),('MST_ArrayCols',908),
  ('MST_Matrix',909),('MST_CheckBoxes',910),('MST_SortInCol',911),('MST_FindText',912),
  ('MST_SelectRow',913),('MST_Selected',914),('MST_SetColors',915),('MST_HTML',916),('MST_Save',917),('MST_Load',918),
- ('MST_UseEditCtrl',919),('MST_EditEnd',920),
+ ('MST_UseEditCtrl',919),('MST_EditEnd',920),('MST_Virtual',921),
  ('PlotHistogram',1004),('PlotAxis',1005),('PlotMarker',1006),('PlotStream',1007),
  ('PlotDiffSeries',1008),('PlotMouseValues',1009),('PlotSeriesMarker',1010),
  ('ChildFormPoly',303),('ChildPanelPoly',304),

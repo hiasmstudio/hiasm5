@@ -41,6 +41,36 @@ void writeFile(const QString &path, const QByteArray &bytes) {
         fail(path + ": " + file.errorString());
 }
 
+#ifdef Q_OS_WIN
+void deployFile(const QString &source, const QString &destination) {
+    QFile input(source);
+    if (!input.open(QIODevice::ReadOnly)) fail(source + ": " + input.errorString());
+    const auto bytes = input.readAll();
+    QFile existing(destination);
+    if (existing.open(QIODevice::ReadOnly) && existing.readAll() == bytes) return;
+    existing.close();
+    writeFile(destination, bytes);
+}
+#endif
+
+QString ruffleBundle(const QString &packs) {
+    const QString configured = qEnvironmentVariable("HIASM_RUFFLE_DIR");
+    const QDir cpp(packs + "/cpp");
+    const QStringList candidates = configured.isEmpty()
+        ? QStringList{cpp.absoluteFilePath("qt/ruffle"),
+                      cpp.absoluteFilePath("../../thirdparty/ruffle/web/packages/selfhosted/dist")}
+        : QStringList{QDir(configured).absolutePath()};
+    for (const auto &candidate : candidates) {
+        const QDir bundle(candidate);
+        if (QFileInfo::exists(bundle.filePath("ruffle.js")) &&
+            !bundle.entryList({"*.wasm"}, QDir::Files).isEmpty())
+            return bundle.absolutePath();
+    }
+    fail(QStringLiteral("Flash requires Ruffle Self-Hosted. Build thirdparty/ruffle/web or set "
+                        "HIASM_RUFFLE_DIR to the directory with ruffle.js and its .wasm files."));
+    return {};
+}
+
 QString packPath() {
     const QDir app(QCoreApplication::applicationDirPath());
     const QString configured = qEnvironmentVariable("HIASM_PACKS_DIR");
@@ -96,9 +126,14 @@ int compile(const QString &scheme, const QString &output, bool generateOnly) {
     const QString source = temp.filePath("scheme.cpp");
     writeFile(source, generated.source);
     const QString bundledQt = compilerDir + "/qt6";
-    const QString prefix = qEnvironmentVariable("HIASM_QT_DIR",
+    QString prefix = qEnvironmentVariable("HIASM_QT_DIR",
         QFileInfo::exists(bundledQt + "/lib/cmake/Qt6/Qt6Config.cmake") ? bundledQt :
         QStringLiteral(HIASM_BUILD_QT_PREFIX));
+    const bool web = generated.webWidgets.needsWebEngine();
+#ifndef Q_OS_WIN
+    if (web) prefix = qEnvironmentVariable("HIASM_WEB_QT_DIR", prefix);
+#endif
+    const QString ruffle = generated.webWidgets.flash ? ruffleBundle(packs) : QString();
     const QString bundledBin = compilerDir + "/llvm-mingw/bin";
     const QString compilerBin = qEnvironmentVariable("HIASM_QT_COMPILER_DIR",
         QDir(bundledBin).exists() ? bundledBin : QFileInfo(QStringLiteral(HIASM_BUILD_COMPILER)).absolutePath());
@@ -108,20 +143,41 @@ int compile(const QString &scheme, const QString &output, bool generateOnly) {
                                   "c++");
     const QString cmake = tool("HIASM_CMAKE", {compilerDir + "/tools/bin/cmake" + suffix, QStringLiteral(HIASM_BUILD_CMAKE)}, "cmake");
     const QString ninja = tool("HIASM_NINJA", {compilerDir + "/tools/bin/ninja" + suffix, QStringLiteral(HIASM_BUILD_NINJA)}, "ninja");
-    if (cmake.isEmpty() || compiler.isEmpty() || ninja.isEmpty()) fail(QStringLiteral("CMake, Ninja and a C++17 compiler are required"));
+    if (cmake.isEmpty() || compiler.isEmpty() || ninja.isEmpty())
+        fail(QStringLiteral("CMake, Ninja and a compatible C++ compiler are required."));
     const QString build = temp.filePath("build");
-    execute(cmake, {"-S", packs + "/cpp/qt", "-B", build, "-G", "Ninja",
-                    "-DCMAKE_BUILD_TYPE=" + QString(generated.release ? "Release" : "Debug"),
-                    "-DCMAKE_PREFIX_PATH=" + prefix, "-DCMAKE_CXX_COMPILER=" + compiler,
-                    "-DCMAKE_MAKE_PROGRAM=" + ninja, "-DHIASM_SOURCE=" + source,
+    const QString config = generated.release ? "Release" : "Debug";
+    QStringList configure{"-S", packs + "/cpp/qt", "-B", build, "-G", "Ninja",
+                    "-DCMAKE_PREFIX_PATH=" + prefix, "-DCMAKE_BUILD_TYPE=" + config,
+                    "-DCMAKE_CXX_COMPILER=" + compiler, "-DCMAKE_MAKE_PROGRAM=" + ninja,
+                    "-DHIASM_SOURCE=" + source,
                     QString("-DHIASM_LIBRARY=") + (sharedArtifact(generated.type) ? "ON" : "OFF"),
                     QString("-DHIASM_WORKER=") + (generated.type == ProjectType::Worker || generated.type == ProjectType::WindowsService ? "ON" : "OFF"),
                     QString("-DHIASM_COM=") + (generated.type == ProjectType::ComExtension ? "ON" : "OFF"),
                     "-DHIASM_SUFFIX=" + artifactSuffix(generated.type),
                     QString("-DHIASM_CORE=") + (generated.core ? "ON" : "OFF"),
-                    QString("-DHIASM_CONSOLE=") + (generated.gui ? "OFF" : "ON")}, env);
-    execute(cmake, {"--build", build}, env);
-    QFile binary(build + "/program" + artifactSuffix(generated.type));
+                    QString("-DHIASM_CONSOLE=") + (generated.gui ? "OFF" : "ON")};
+    if (web)
+        configure << "-DHIASM_WEBENGINE=ON" << "-DHIASM_RUFFLE_DIR=" + ruffle;
+#ifdef Q_OS_WIN
+    if (web) configure << "-DHIASM_WEBVIEW2_CACHE=" + QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
+#endif
+    execute(cmake, configure, env);
+    execute(cmake, {"--build", build, "--config", config}, env);
+    const auto executable = build + "/program" + artifactSuffix(generated.type);
+#ifdef Q_OS_WIN
+    if (web) {
+        const auto deploy = QDir(prefix).absoluteFilePath("bin/windeployqt.exe");
+        const auto destination = QFileInfo(output).absoluteDir();
+        execute(deploy, {"--no-translations", "--dir", destination.absolutePath(), executable}, env);
+        deployFile(build + "/WebView2Loader.dll", destination.filePath("WebView2Loader.dll"));
+        for (const auto &runtime : {"libc++.dll", "libunwind.dll"}) {
+            const auto path = QDir(compilerBin).filePath(runtime);
+            if (QFileInfo(path).isFile()) deployFile(path, destination.filePath(runtime));
+        }
+    }
+#endif
+    QFile binary(executable);
     if (!binary.open(QIODevice::ReadOnly)) fail(binary.errorString());
     QSaveFile result(output);
     if (!result.open(QIODevice::WriteOnly)) fail(result.errorString());

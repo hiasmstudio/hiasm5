@@ -89,3 +89,13 @@ SchemeDiagram readSchemeDiagram(const QString &source) {
     }
     return diagram;
 }
+
+SchemeWebWidgets schemeWebWidgets(const SchemeDiagram &diagram) {
+    SchemeWebWidgets result;
+    for (const auto &layer : diagram.layers)
+        for (const auto &element : layer.elements) {
+            result.browser |= element.name == "WebBrowser";
+            result.flash |= element.name == "Flash";
+        }
+    return result;
+}

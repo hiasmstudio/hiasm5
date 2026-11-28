@@ -10,19 +10,21 @@ func doStart
   println('page->initialPage = qMax(0, int(', DefaultPage, '));')
   println('page->columnByName = ', get('SubItemName') == 0, ';')
   if(linked('VirtualData'))
-    println('page->provider = [&form] { return qt_mst_tuple(', d('VirtualData'), '); };')
+    // Forward the cell request to the linked variable through its MT arguments.
+    println('page->provider = [&form](qint64 virtualIndex, int rowIndex, const QVariant &subitem) {')
+    println('  Q_UNUSED(virtualIndex); Q_UNUSED(rowIndex); Q_UNUSED(subitem);')
+    println('  return qt_mst_tuple(', event('VirtualData', 'virtualIndex', 'rowIndex', 'subitem'), ');')
+    println('};')
   end
   println('QTimer::singleShot(0, page, [&form, page] {')
-  println('  if (page->table) return;')
-  println('  page->table = ', MstTarget(), '; page->moveTo(qint64(page->initialPage) * page->perPage()); page->refresh();')
+  println('  if (page->attach(', MstTarget(), ') && !page->rendered) page->refresh();')
   println('}); }')
 end
 
 func ChangePage(position)
   fvar(page)
   page = 'virtualPage' && _id_
-  println('if (auto *', page, ' = ', VirtualTarget(), ') {')
-  println('if (!', page, '->table) ', page, '->table = ', MstTarget(), ';')
+  println('if (auto *', page, ' = ', VirtualTarget(), '; ', page, ' && ', page, '->attach(', MstTarget(), ')) {')
   println(page, '->moveTo(', position, ');')
   println(page, '->refresh();')
   event(onChangeVirtIdx, page && '->index')
@@ -42,12 +44,16 @@ func doPrevPage(_data)
 end
 
 func doSetPage(_data)
-  fvar(value)
+  fvar(value, requested)
   value = mt_arg(0)
   if(linked('Page'))
     value = d('Page')
   end
-  ChangePage('qint64(' && MstInt(MstDefault(value, get('DefaultPage'))) && ') * virtualPage' && _id_ && '->perPage()')
+  requested = 'mstRequestedPage' && _id_
+  println('{ const int ', requested, ' = ', MstInt(MstDefault(value, get('DefaultPage'))), ';')
+  println('if (', requested, ' >= 0) {')
+  ChangePage('qint64(' && requested && ') * virtualPage' && _id_ && '->perPage()')
+  println('} }')
 end
 
 func doResetPage(_data)
@@ -67,14 +73,18 @@ func doSetVirtIdx(_data)
   ChangePage(MstInt(value))
 end
 
+func VirtualValue(expression)
+  return('([](HiasmMstVirtual *page, HiasmMstTable *table) { return page && page->attach(table) ? page->' && expression && ' : 0; }(' && VirtualTarget() && ', ' && MstTarget() && '))')
+end
+
 func CurVirtIdx()
-  return(VirtualTarget() && '->index')
+  return(VirtualValue('index'))
 end
 
 func CurPage()
-  return('(' && CurVirtIdx() && ' / ' && PerPage() && ')')
+  return(VirtualValue('pageNumber()'))
 end
 
 func PerPage()
-  return(VirtualTarget() && '->perPage()')
+  return(VirtualValue('perPage()'))
 end

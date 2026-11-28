@@ -1,0 +1,96 @@
+func browserTarget()
+  return('qt_widget<HiasmWebBrowser>(form, "WebBrowser' && _id_ && '")')
+end
+
+func doStart
+  println('{ auto *browser = new HiasmWebBrowser(widgetParent);')
+  println('browser->setObjectName(QStringLiteral("WebBrowser', _id_, '"));')
+  println('browser->setGeometry(', Left, ', ', Top, ', ', Width, ', ', Height, ');')
+  println('browser->setEnabled(', get('Enabled') == 'True', ');')
+  println('browser->setToolTip(qt_text(', cstr(get('Hint')), '));')
+  if(get('Visible') == 'False')
+    println('browser->hide();')
+  end
+  println('browser->silent = ', get('Silent') == 'True', ';')
+  if(linked('Navigate'))
+    println('browser->blockNavigation = [&form](const QString &address) {')
+    println('return qt_text(', event('Navigate', 'address'), ').toInt() == 1; };')
+  end
+  if(linked('NewWindow'))
+    println('browser->blockPopup = [&form](const QString &address) {')
+    println('return qt_text(', event('NewWindow', 'address'), ').toInt() == 1; };')
+  end
+  if(linked('onNavigate'))
+    println('browser->navigated = [&form](const QString &address) {')
+    event(onNavigate, 'address')
+    println('};')
+  end
+  if(linked('onStatus'))
+    println('browser->status = [&form](const QString &text) {')
+    event(onStatus, 'text')
+    println('};')
+  end
+  if(linked('onTitle'))
+    println('browser->title = [&form](const QString &title) {')
+    event(onTitle, 'title')
+    println('};')
+  end
+  if(linked('onProgress'))
+    println('browser->progress = [&form](int percent) {')
+    event(onProgress, '(percent * 65535 / 100)')
+    println('};')
+  end
+  if(linked('onQuit'))
+    println('browser->quitRequested = [&form] {')
+    event(onQuit)
+    println('};')
+  end
+  println('const auto startUrl = qt_text(', cstr(get('URL')), ');')
+  println('QTimer::singleShot(0, browser, [browser, startUrl] { browser->navigateInitially(startUrl); }); }')
+end
+
+func doNavigate(_data)
+  println(browserTarget(), '->navigate(qt_text(', cstr(d('URL')), '));')
+end
+
+func doRefresh(_data)
+  println(browserTarget(), '->reload();')
+end
+
+func doBack(_data)
+  println(browserTarget(), '->back();')
+end
+
+func doForward(_data)
+  println(browserTarget(), '->forward();')
+end
+
+func doFromText(_data)
+  if(len(_data) > 0)
+    println(browserTarget(), '->loadText(qt_text(', _data, '));')
+  end
+end
+
+func doStop(_data)
+  println(browserTarget(), '->stop();')
+end
+
+func doPrint(_data)
+  println(browserTarget(), '->printPage();')
+end
+
+func doPreview(_data)
+  println(browserTarget(), '->previewPage();')
+end
+
+func doSavePage(_data)
+  println(browserTarget(), '->savePage();')
+end
+
+func CurrentURL()
+  return(browserTarget() && '->url().toString()')
+end
+
+func Page()
+  return(browserTarget() && '->currentHtml()')
+end

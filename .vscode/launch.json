@@ -5,9 +5,9 @@
             "name": "HiAsm: Debug Qt",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/qt69-native-debug/hiasm.exe",
+            "program": "${workspaceFolder}/build/Windows_LLVM-MinGW-x64-Debug/hiasm.exe",
             "args": [],
-            "cwd": "${workspaceFolder}/build/qt69-native-debug",
+            "cwd": "${workspaceFolder}/build/Windows_LLVM-MinGW-x64-Debug",
             "environment": [
                 {
                     "name": "PATH",
